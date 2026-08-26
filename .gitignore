@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.venv/
+venv/
+results/
+data/dataset_csv/
+*.pt
+*.pth
+*.ckpt
+*.pkl
+*.parquet
+*.log
+tmp/

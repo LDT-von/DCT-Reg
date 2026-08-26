@@ -1,0 +1,889 @@
+"""Censor-aware, risk-anchored counterfactual transport for survival."""
+
+from __future__ import annotations
+
+import math
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+from survot_rank.research.methods.faithful_evidence_transport.model import (
+    FaithfulEvidenceTransport,
+)
+from survot_rank.research.methods.ot_event_hazard_v2.model_v2 import (
+    cosine_cost,
+    euclidean_cost,
+)
+
+
+class DistributionalCounterfactualTransport(FaithfulEvidenceTransport):
+    """Risk-set anchored interventions on re-optimised multimodal transport.
+
+    Patient tokens are pooled by global WSI/pathway prototype dictionaries, so a
+    slot index has a shared coordinate system across patients.  Train-fold event
+    times define survival stages and a censoring Kaplan--Meier estimate supplies
+    IPCW weights.  Each stage therefore has empirical high-event and low-risk-set
+    cost anchors.  Interventions happen in cost space and always re-solve OT.
+
+    This is model-based counterfactual sensitivity analysis, not a causal
+    treatment recommendation.  No loss imposes an ordering on CF risk outputs.
+    """
+
+    _LOW_RISK = 0
+    _HIGH_RISK = 1
+
+    def __init__(self, args, omic_input_dim=None, omic_names=None, pathway_names=None):
+        args.fet_num_stages = int(getattr(args, "dct_num_stages", 4))
+        super().__init__(args, omic_input_dim, omic_names, pathway_names)
+
+        # Score-first default: NLL is supplied by the trainer and DCT adds one
+        # censoring-aware objective that is aligned with the reported C-index.
+        # The obsolete five-objective ablation path was removed after v3.3 was
+        # frozen; keeping it here made the paper method look more complicated
+        # than the objective that actually produced the reported results.
+        self.dct_lambda_ipcw_rank = float(getattr(args, "dct_lambda_ipcw_rank", 0.10))
+        self.dct_ipcw_rank_margin = float(getattr(args, "dct_ipcw_rank_margin", 0.02))
+        self.dct_ipcw_rank_temperature = float(
+            getattr(args, "dct_ipcw_rank_temperature", 0.50)
+        )
+        self.dct_ipcw_max_weight = float(getattr(args, "dct_ipcw_max_weight", 10.0))
+        self.dct_ipcw_rank_memory_size = int(
+            getattr(args, "dct_ipcw_rank_memory_size", 0)
+        )
+        # ETAR is opt-in.  With weight zero the v3.3 objective is unchanged.
+        self.dct_lambda_etar = float(getattr(args, "dct_lambda_etar", 0.0))
+        self.dct_etar_margin = float(getattr(args, "dct_etar_margin", 0.02))
+        self.dct_etar_uncertainty_weight = float(
+            getattr(args, "dct_etar_uncertainty_weight", 0.05)
+        )
+        self.dct_etar_temperature = float(
+            getattr(args, "dct_etar_temperature", 0.50)
+        )
+        self.dct_etar_evidence_floor = float(
+            getattr(args, "dct_etar_evidence_floor", 0.10)
+        )
+        if self.dct_ipcw_rank_memory_size < 0:
+            raise ValueError("dct_ipcw_rank_memory_size must be non-negative")
+        if self.dct_ipcw_rank_temperature <= 0.0:
+            raise ValueError("dct_ipcw_rank_temperature must be positive")
+        if self.dct_ipcw_max_weight <= 0.0:
+            raise ValueError("dct_ipcw_max_weight must be positive")
+        if self.dct_lambda_etar < 0.0:
+            raise ValueError("dct_lambda_etar must be non-negative")
+        if self.dct_etar_temperature <= 0.0:
+            raise ValueError("dct_etar_temperature must be positive")
+        if not 0.0 <= self.dct_etar_evidence_floor <= 1.0:
+            raise ValueError("dct_etar_evidence_floor must be in [0, 1]")
+        self.dct_anchor_momentum = float(getattr(args, "dct_anchor_momentum", 0.90))
+        self.dct_evidence_cost_weight = float(
+            getattr(args, "dct_evidence_cost_weight", 0.0)
+        )
+        self.dct_evidence_mass_floor = float(
+            getattr(args, "dct_evidence_mass_floor", 0.05)
+        )
+        self.dct_evidence_marginal_strength = float(
+            getattr(args, "dct_evidence_marginal_strength", 1.0)
+        )
+        if not 0.0 <= self.dct_evidence_marginal_strength <= 1.0:
+            raise ValueError("dct_evidence_marginal_strength must be in [0, 1]")
+        self.dct_geometry_reliability_strength = float(
+            getattr(args, "dct_geometry_reliability_strength", 0.0)
+        )
+        self.dct_geometry_reliability_temperature = float(
+            getattr(args, "dct_geometry_reliability_temperature", 0.25)
+        )
+        if not 0.0 <= self.dct_geometry_reliability_strength <= 1.0:
+            raise ValueError("dct_geometry_reliability_strength must be in [0, 1]")
+        if self.dct_geometry_reliability_temperature <= 0.0:
+            raise ValueError("dct_geometry_reliability_temperature must be positive")
+        self.dct_coupling_projection_iters = int(
+            getattr(args, "dct_coupling_projection_iters", 1000)
+        )
+        self.dct_coupling_projection_tol = float(
+            getattr(args, "dct_coupling_projection_tol", 1e-4)
+        )
+        # A fixed query-time fraction; it is not a learned risk-ordering head.
+        self.dct_mix_ratio = float(getattr(args, "dct_mix_ratio", 0.50))
+        self.dct_coordinate_temperature = float(
+            getattr(args, "dct_coordinate_temperature", 0.20)
+        )
+
+        sw = int(getattr(args, "slot_num_wsi"))
+        so = int(getattr(args, "slot_num_omics"))
+        dim = self.wsi_projection_dim
+        # These dictionaries provide global, index-stable coordinates.  Unlike
+        # independent Slot Attention slots, prototype j has one identity for all
+        # patients before any population cost anchor is averaged.
+        self.shared_wsi_prototypes = nn.Parameter(torch.empty(sw, dim))
+        self.shared_omic_prototypes = nn.Parameter(torch.empty(so, dim))
+        nn.init.normal_(self.shared_wsi_prototypes, std=0.02)
+        nn.init.normal_(self.shared_omic_prototypes, std=0.02)
+
+        self.register_buffer(
+            "risk_anchor_costs",
+            torch.zeros(self.spt_num_stages, 2, 3, sw, so),
+        )
+        self.register_buffer(
+            "risk_anchor_seen", torch.zeros(self.spt_num_stages, 2, dtype=torch.bool)
+        )
+        # Set only by configure_train_reference(), which receives this fold's
+        # training labels.  Validation labels never enter these buffers.
+        self.register_buffer("dct_stage_edges", torch.empty(0))
+        self.register_buffer("dct_censor_times", torch.empty(0))
+        self.register_buffer("dct_censor_survival", torch.empty(0))
+        self._rank_memory_epoch = None
+        self._rank_memory_risk = None
+        self._rank_memory_times = None
+        self._rank_memory_censorship = None
+        self._last_transport_reliability = None
+        # --- Ablation switches (all default off; v3.8.2 frozen recipe unchanged) ---
+        # Paper evidence ablations set these via --set on the CLI. They never
+        # fire unless the corresponding ablation launcher is invoked.
+        self.dct_fixed_coupling = bool(getattr(args, "dct_fixed_coupling", False))
+        self.dct_random_anchors = bool(getattr(args, "dct_random_anchors", False))
+        self.dct_perm_labels_seed = int(getattr(args, "dct_perm_labels_seed", 0))
+        self.dct_stage_jitter_fraction = float(
+            getattr(args, "dct_stage_jitter_fraction", 0.0)
+        )
+        self._factual_plan_cache = None
+        # Cross-cancer transfer: if a path is supplied, freeze the prototypes
+        # and load them from the source-cancer checkpoint. Skipped silently
+        # otherwise so the default v3.8.2 frozen recipe is byte-identical.
+        self.dct_freeze_source_prototype = str(
+            getattr(args, "dct_freeze_source_prototype", "") or ""
+        )
+        if self.dct_freeze_source_prototype:
+            self._load_and_freeze_source_prototype(self.dct_freeze_source_prototype)
+
+    def _load_and_freeze_source_prototype(self, path: str) -> None:
+        """Replace the two shared prototype tensors with the source-cancer values."""
+        import torch as _torch
+        state = _torch.load(path, map_location="cpu")
+        key_wsi = "shared_wsi_prototypes"
+        key_omic = "shared_omic_prototypes"
+        if key_wsi not in state or key_omic not in state:
+            raise KeyError(
+                f"Source checkpoint {path} does not expose shared prototypes. "
+                "Re-train the source cancer with v3.8.2 frozen recipe first."
+            )
+        with _torch.no_grad():
+            self.shared_wsi_prototypes.copy_(state[key_wsi].to(self.shared_wsi_prototypes.device))
+            self.shared_omic_prototypes.copy_(state[key_omic].to(self.shared_omic_prototypes.device))
+        self.shared_wsi_prototypes.requires_grad_(False)
+        self.shared_omic_prototypes.requires_grad_(False)
+
+    @staticmethod
+    def _risk(logits):
+        hazards = torch.sigmoid(logits)
+        return -torch.cumprod(1.0 - hazards, dim=1).sum(dim=1)
+
+    @property
+    def has_train_reference(self):
+        return self.dct_stage_edges.numel() == self.spt_num_stages + 1
+
+    @torch.no_grad()
+    def configure_train_reference(self, event_times, censorship):
+        """Fit time stages and IPCW censoring survival from one fold's train set.
+
+        ``c == 0`` denotes an observed event and ``c == 1`` denotes censoring.
+        Stage upper edges are event-time quantiles.  The final edge is finite so
+        patients followed beyond it can contribute to the final low-risk anchor.
+
+        Ablation ``dct_stage_jitter_fraction`` permutes the upper edges within a
+        bounded range while preserving monotonicity, proving that the actual
+        edge placement—not the existence of stages—carries the IPCW signal.
+        Ablation ``dct_perm_labels_seed`` permutes ``event_times`` before edge
+        fitting so that the null-calibration model never sees consistent
+        censoring.
+        """
+        device = self.risk_anchor_costs.device
+        times = torch.as_tensor(event_times, dtype=torch.float32, device=device).flatten()
+        cens = torch.as_tensor(censorship, dtype=torch.float32, device=device).flatten()
+        if self.dct_perm_labels_seed > 0:
+            generator = torch.Generator(device=device)
+            generator.manual_seed(self.dct_perm_labels_seed)
+            times = times[torch.randperm(times.numel(), generator=generator, device=device)]
+        observed = times[cens < 0.5]
+        if observed.numel() < self.spt_num_stages:
+            raise ValueError(
+                "DCT needs at least dct_num_stages observed training events to fit stage anchors."
+            )
+        quantiles = torch.linspace(
+            1.0 / self.spt_num_stages, 1.0, self.spt_num_stages, device=device
+        )
+        upper = torch.quantile(observed, quantiles)
+        if self.dct_stage_jitter_fraction > 0.0:
+            spread = (upper[-1] - upper[0]).clamp_min(1e-3)
+            jitter = torch.empty_like(upper).uniform_(
+                -self.dct_stage_jitter_fraction,
+                self.dct_stage_jitter_fraction,
+                device=device,
+            )
+            upper = upper + jitter * spread
+        # Strictly increasing edges make stage membership deterministic even with ties.
+        upper = torch.maximum(upper, torch.cummax(upper, dim=0).values)
+        eps = torch.finfo(upper.dtype).eps
+        for idx in range(1, upper.numel()):
+            upper[idx] = torch.maximum(upper[idx], upper[idx - 1] + eps)
+        self.dct_stage_edges = torch.cat([upper.new_tensor([-float("inf")]), upper])
+
+        unique_times = torch.unique(times, sorted=True)
+        censor_survival = torch.ones_like(unique_times)
+        value = torch.ones((), dtype=times.dtype, device=device)
+        for idx, time in enumerate(unique_times):
+            at_risk = (times >= time).sum().to(times.dtype).clamp_min(1.0)
+            censor_events = ((times == time) & (cens >= 0.5)).sum().to(times.dtype)
+            value = value * (1.0 - censor_events / at_risk)
+            censor_survival[idx] = value
+        self.dct_censor_times = unique_times
+        self.dct_censor_survival = censor_survival.clamp_min(0.05)
+        self.risk_anchor_costs.zero_()
+        self.risk_anchor_seen.zero_()
+
+    def _ipcw(self, query_times):
+        if self.dct_censor_times.numel() == 0:
+            return torch.ones_like(query_times)
+        indices = torch.searchsorted(self.dct_censor_times, query_times, right=True) - 1
+        # G(t)=1 before the first observed follow-up time. Clamping -1 to zero
+        # would incorrectly reuse the first post-time KM value.
+        values = torch.ones_like(query_times)
+        valid = indices >= 0
+        values[valid] = self.dct_censor_survival[indices[valid]]
+        return values.clamp_min(0.05).reciprocal()
+
+    def _semantic_slots(self, tokens, prototypes):
+        """Pool tokens into global coordinates with competition across prototypes."""
+        keys = F.normalize(prototypes, dim=-1)
+        normalized_tokens = F.normalize(tokens, dim=-1)
+        scores = torch.einsum("bnd,kd->bkn", normalized_tokens, keys)
+        # Each token first chooses among shared prototype coordinates. The old
+        # token-only softmax let every prototype attend to the same salient
+        # patches; competition restores specialization without losing a global
+        # coordinate system.
+        assignment = torch.softmax(scores / self.dct_coordinate_temperature, dim=1)
+        weights = assignment / assignment.sum(dim=-1, keepdim=True).clamp_min(1e-8)
+        slots = torch.einsum("bkn,bnd->bkd", weights, tokens)
+        return slots, weights
+
+    def _encode_transport_slots(self, x_wsi_proj, x_omics, kwargs):
+        """Encode the two modalities into the coordinates consumed by DCT.
+
+        Subclasses may replace the complete slot mechanism through this hook
+        without copying the censoring, transport, anchor, and survival forward
+        path.  The base implementation is the frozen v3.3 local-slot followed
+        by shared-prototype coordinate alignment.
+        """
+        local_slots_wsi = self.slot_attention_wsi(x_wsi_proj)
+        local_slots_omic = self.slot_attention_omic(x_omics)
+        slots_wsi, wsi_coordinate_assignment = self._semantic_slots(
+            local_slots_wsi, self.shared_wsi_prototypes
+        )
+        slots_omic, omic_coordinate_assignment = self._semantic_slots(
+            local_slots_omic, self.shared_omic_prototypes
+        )
+        return (
+            slots_wsi,
+            slots_omic,
+            wsi_coordinate_assignment,
+            omic_coordinate_assignment,
+        )
+
+    def _sinkhorn_eps(self, epoch):
+        end = float(getattr(self.args, "otehv2_eps", 0.05))
+        start = float(getattr(self.args, "rg_eps_start", end * 2.0))
+        anneal = max(1, int(getattr(self.args, "rg_eps_anneal", 12)))
+        return start + min(1.0, epoch / anneal) * (end - start)
+
+    def _geometry_reliability(self, stage_costs):
+        """Return agreement of the OT geometries for each patient and stage.
+
+        ``stage_costs`` has shape ``[B, G, K_w, K_o]``.  Each geometry is
+        converted to an edge distribution and their normalized
+        Jensen--Shannon divergence is mapped to reliability in ``[0, 1]``.
+        This adds no trainable parameters and is only active when the RTEM
+        screening switch is enabled.
+        """
+        geometry_count = stage_costs.size(1)
+        if geometry_count < 2:
+            return stage_costs.new_ones(stage_costs.size(0))
+        edge_prob = torch.softmax(
+            -stage_costs.flatten(2) / self.dct_geometry_reliability_temperature,
+            dim=-1,
+        )
+        mean_prob = edge_prob.mean(dim=1, keepdim=True).clamp_min(1e-8)
+        divergence = (
+            edge_prob.clamp_min(1e-8)
+            * (edge_prob.clamp_min(1e-8).log() - mean_prob.log())
+        ).sum(dim=-1).mean(dim=1)
+        normalized = divergence / max(math.log(float(geometry_count)), 1e-8)
+        return (1.0 - normalized).clamp(0.0, 1.0)
+
+    def _cost_tensor(self, slots_wsi, slots_omic):
+        """Return stage costs and evidence-conditioned OT marginals."""
+        pair_tokens = self._pair_tokens(slots_wsi, slots_omic)
+        bsz, sw, so, dim4 = pair_tokens.shape
+        dim = dim4 // 4
+        stage_cost = F.softplus(self.stage_pair_cost(pair_tokens)).permute(0, 3, 1, 2)
+        base_costs = (
+            self._normalize_cost(cosine_cost(slots_wsi, slots_omic)),
+            self._normalize_cost(euclidean_cost(slots_wsi, slots_omic)),
+            self._normalize_cost(self._positive_dot_cost(slots_wsi, slots_omic)),
+        )
+
+        all_stage_costs, row_marginals, col_marginals, gates = [], [], [], []
+        reliabilities = []
+        for stage_idx in range(self.spt_num_stages):
+            stage_code = self.stage_embedding[stage_idx].view(1, 1, 1, dim)
+            stage_code = stage_code.expand(bsz, sw, so, dim)
+            gate = torch.sigmoid(
+                self.evidence_gate(torch.cat([pair_tokens, stage_code], dim=-1)).squeeze(-1)
+            )
+            evidence_cost = self._normalize_stage_cost(-torch.log(gate.clamp_min(1e-6)))
+            prognostic_cost = self._normalize_stage_cost(stage_cost[:, stage_idx])
+            current_stage_costs = torch.stack([
+                base_cost
+                + self.spt_prog_cost_weight * prognostic_cost
+                + self.dct_evidence_cost_weight * evidence_cost
+                for base_cost in base_costs
+            ], dim=1)
+            all_stage_costs.append(current_stage_costs)
+            if self.dct_geometry_reliability_strength > 0.0:
+                reliabilities.append(self._geometry_reliability(current_stage_costs))
+            # Gate affects both the energy and how much each semantic slot is
+            # allowed to transport.  This avoids forcing weak evidence to carry
+            # uniform mass merely because standard balanced OT requires it.
+            row_marginals.append(gate.mean(dim=-1).clamp_min(self.dct_evidence_mass_floor))
+            col_marginals.append(gate.mean(dim=-2).clamp_min(self.dct_evidence_mass_floor))
+            gates.append(gate)
+        rows = torch.stack(row_marginals, dim=1)
+        cols = torch.stack(col_marginals, dim=1)
+        rows = rows / rows.sum(dim=-1, keepdim=True)
+        cols = cols / cols.sum(dim=-1, keepdim=True)
+        strength = self.dct_evidence_marginal_strength
+        reliability_strength = self.dct_geometry_reliability_strength
+        if reliability_strength > 0.0:
+            reliability = torch.stack(reliabilities, dim=1)
+            effective_strength = strength * (
+                (1.0 - reliability_strength) + reliability_strength * reliability
+            )
+            uniform_rows = torch.full_like(rows, 1.0 / rows.size(-1))
+            uniform_cols = torch.full_like(cols, 1.0 / cols.size(-1))
+            rows = uniform_rows + effective_strength.unsqueeze(-1) * (rows - uniform_rows)
+            cols = uniform_cols + effective_strength.unsqueeze(-1) * (cols - uniform_cols)
+            self._last_transport_reliability = reliability.detach()
+        else:
+            if strength < 1.0:
+                uniform_rows = torch.full_like(rows, 1.0 / rows.size(-1))
+                uniform_cols = torch.full_like(cols, 1.0 / cols.size(-1))
+                rows = (1.0 - strength) * uniform_rows + strength * rows
+                cols = (1.0 - strength) * uniform_cols + strength * cols
+            self._last_transport_reliability = None
+        return torch.stack(all_stage_costs, dim=1), rows, cols, torch.stack(gates, dim=1)
+
+    @staticmethod
+    def _log_sinkhorn(cost, rows, cols, eps, max_iter):
+        # Sharp learned costs can otherwise contaminate every logsumexp with
+        # NaN/Inf and make the whole fold look invalid.
+        finite_cost = torch.nan_to_num(cost, nan=0.0, posinf=1e4, neginf=-1e4)
+        finite_cost = finite_cost.clamp(min=-1e4, max=1e4)
+        eps = max(float(eps), float(torch.finfo(cost.dtype).eps))
+        kernel = (-finite_cost / eps).clamp(min=-60.0, max=60.0)
+        log_rows = rows.clamp_min(1e-8).log()
+        log_cols = cols.clamp_min(1e-8).log()
+        log_u = torch.zeros_like(log_rows)
+        log_v = torch.zeros_like(log_cols)
+        for _ in range(max_iter):
+            log_u = log_rows - torch.logsumexp(kernel + log_v.unsqueeze(1), dim=2)
+            log_v = log_cols - torch.logsumexp(kernel + log_u.unsqueeze(2), dim=1)
+            log_u = torch.nan_to_num(log_u, nan=0.0, posinf=60.0, neginf=-60.0)
+            log_v = torch.nan_to_num(log_v, nan=0.0, posinf=60.0, neginf=-60.0)
+        plan = (kernel + log_u.unsqueeze(2) + log_v.unsqueeze(1)).exp()
+        return torch.nan_to_num(plan, nan=0.0, posinf=1.0, neginf=0.0)
+
+    def _project_coupling(self, plan, rows, cols):
+        """Numerically project a positive plan to its evidence-conditioned marginals."""
+        for _ in range(self.dct_coupling_projection_iters):
+            plan = plan * (rows.unsqueeze(-1) / plan.sum(dim=-1, keepdim=True).clamp_min(1e-8))
+            plan = plan * (cols.unsqueeze(1) / plan.sum(dim=-2, keepdim=True).clamp_min(1e-8))
+            row_error = (plan.sum(dim=-1) - rows).abs().amax()
+            col_error = (plan.sum(dim=-2) - cols).abs().amax()
+            if bool(torch.maximum(row_error, col_error).detach() <= self.dct_coupling_projection_tol):
+                break
+        return plan
+
+    def _plans_from_cost_tensor(self, costs, rows, cols, epoch, *, replay_fixed=False):
+        eps = self._sinkhorn_eps(epoch)
+        plans, distances = [], []
+        for stage_idx in range(self.spt_num_stages):
+            stage_plans, stage_distances = [], []
+            for cost_idx in range(costs.size(2)):
+                if replay_fixed and bool(getattr(self, "dct_fixed_coupling", False)):
+                    plan = self._replay_cached_plan(stage_idx, cost_idx, costs, rows, cols)
+                else:
+                    plan = self._log_sinkhorn(
+                        costs[:, stage_idx, cost_idx], rows[:, stage_idx], cols[:, stage_idx],
+                        eps=eps, max_iter=self.ot_iter,
+                    )
+                    plan = self._project_coupling(plan, rows[:, stage_idx], cols[:, stage_idx])
+                stage_plans.append(plan)
+                stage_distances.append((plan * costs[:, stage_idx, cost_idx]).sum(dim=(1, 2)))
+            plans.append(tuple(stage_plans))
+            distances.append(torch.stack(stage_distances).mean())
+        return plans, torch.stack(distances).mean()
+
+    @torch.no_grad()
+    def _replay_cached_plan(self, stage_idx, cost_idx, costs, rows, cols):
+        """Project a stale factual plan to a new intervention's marginals.
+
+        Ablation ``fixed_coupling`` proves that re-solving Sinkhorn under each
+        intervention actually changes the plan; without re-solving, the audit
+        chain reduces to a fixed-coupling marginal projection.
+        """
+        cached = self._factual_plan_cache
+        if cached is None:
+            return self._log_sinkhorn(
+                costs[:, stage_idx, cost_idx],
+                rows[:, stage_idx], cols[:, stage_idx],
+                eps=float(getattr(self.args, "otehv2_eps", 0.05)),
+                max_iter=self.ot_iter,
+            )
+        return self._project_coupling(cached[stage_idx][cost_idx], rows[:, stage_idx], cols[:, stage_idx])
+
+    def _stage_membership_weights(self, event_time, censorship):
+        """IPCW weights for event-in-stage (high) and survived-past-stage (low)."""
+        bsz = event_time.size(0)
+        high = event_time.new_zeros(bsz, self.spt_num_stages)
+        low = event_time.new_zeros(bsz, self.spt_num_stages)
+        if not self.has_train_reference:
+            return low, high
+        observed = censorship < 0.5
+        for stage_idx in range(self.spt_num_stages):
+            lower = self.dct_stage_edges[stage_idx]
+            upper = self.dct_stage_edges[stage_idx + 1]
+            in_stage = observed & (event_time > lower) & (event_time <= upper)
+            # Event after the upper boundary or censoring after it proves survival
+            # through this stage.  Censoring before the boundary contributes zero.
+            survived_stage = (event_time > upper) | ((censorship >= 0.5) & (event_time >= upper))
+            high[:, stage_idx] = in_stage.to(event_time.dtype) * self._ipcw(event_time)
+            low[:, stage_idx] = survived_stage.to(event_time.dtype) * self._ipcw(
+                torch.full_like(event_time, upper)
+            )
+        return low, high
+
+    def _ipcw_pairwise_ranking_loss(self, factual_logits, event_time, censorship):
+        """Smooth Uno-style ranking over the exact validation risk score.
+
+        A pair ``(i, j)`` is comparable when patient ``i`` has an observed
+        event before patient ``j``.  The event case receives inverse squared
+        censoring-survival weight, matching IPCW concordance weighting.  The
+        softplus temperature gives a smooth approximation to a margin hinge
+        while retaining gradients for near-correct pairs.
+        """
+        risk = self._risk(factual_logits)
+        times = event_time.float().view(-1)
+        censoring = censorship.float().view(-1)
+        observed = censoring < 0.5
+
+        # Sparse-event survival cohorts often provide too few comparable pairs
+        # in a small batch.  The optional within-epoch memory supplies detached
+        # reference risks from previous batches; current risks remain attached,
+        # so gradients still update only the current batch.  It stays opt-in so
+        # historical score-first runs remain exactly reproducible.
+        memory_count = 0
+        if self.dct_ipcw_rank_memory_size > 0 and self._rank_memory_risk is not None:
+            memory_count = int(self._rank_memory_risk.numel())
+            risk = torch.cat([risk, self._rank_memory_risk.to(risk.device)], dim=0)
+            times = torch.cat([times, self._rank_memory_times.to(times.device)], dim=0)
+            censoring = torch.cat(
+                [censoring, self._rank_memory_censorship.to(censoring.device)], dim=0
+            )
+            observed = censoring < 0.5
+
+        current_mask = torch.ones(risk.shape[0], dtype=torch.bool, device=risk.device)
+        if memory_count:
+            current_mask[-memory_count:] = False
+        comparable = observed[:, None] & (times[:, None] < times[None, :])
+        comparable &= current_mask[:, None] | current_mask[None, :]
+        self.last_ipcw_pair_count = comparable.sum().detach()
+        if not bool(comparable.any()):
+            return risk.sum() * 0.0
+
+        differences = risk[:, None] - risk[None, :]
+        temperature = self.dct_ipcw_rank_temperature
+        pair_losses = temperature * F.softplus(
+            (self.dct_ipcw_rank_margin - differences) / temperature
+        )
+
+        # Uno's concordance uses delta_i / G(T_i)^2. Stabilised clipping avoids
+        # one late, heavily censored event dominating a small batch.
+        event_weights = self._ipcw(times).square().clamp_max(self.dct_ipcw_max_weight)
+        pair_weights = event_weights[:, None].expand_as(pair_losses)[comparable]
+        return (
+            pair_losses[comparable] * pair_weights
+        ).sum() / pair_weights.sum().clamp_min(1e-6)
+
+    @staticmethod
+    def _transport_uncertainty(plans):
+        """Normalized entropy of the already-computed coupling plans."""
+        entropies = []
+        for stage_plans in plans:
+            for plan in stage_plans:
+                flat = plan.flatten(1).clamp_min(1e-8)
+                prob = flat / flat.sum(dim=1, keepdim=True).clamp_min(1e-8)
+                entropy = -(prob * prob.log()).sum(dim=1)
+                entropies.append(entropy / math.log(max(2, flat.size(1))))
+        return torch.stack(entropies, dim=1).mean(dim=1).clamp(0.0, 1.0)
+
+    def _etar_loss(self, factual_logits, event_time, censorship, evidence_gate, plans):
+        """Evidence-Transport Adaptive Ranking (ETAR).
+
+        IPCW corrects censoring, while DCT evidence mass downweights weak pairs
+        and coupling entropy expands the margin for ambiguous cross-modal
+        transport.  The censoring reference is always fit on the train fold.
+        """
+        risk = self._risk(factual_logits)
+        times = event_time.float().view(-1)
+        censorship = censorship.float().view(-1)
+        observed = censorship < 0.5
+        comparable = observed[:, None] & (times[:, None] < times[None, :])
+        self.last_etar_pair_count = comparable.sum().detach()
+        if not bool(comparable.any()):
+            return risk.sum() * 0.0
+
+        evidence = evidence_gate.mean(dim=(1, 2, 3)).clamp(0.0, 1.0)
+        evidence = evidence.clamp_min(self.dct_etar_evidence_floor)
+        uncertainty = self._transport_uncertainty(plans)
+        pair_uncertainty = 0.5 * (uncertainty[:, None] + uncertainty[None, :])
+        adaptive_margin = self.dct_etar_margin + (
+            self.dct_etar_uncertainty_weight * pair_uncertainty
+        )
+        differences = risk[:, None] - risk[None, :]
+        pair_losses = self.dct_etar_temperature * F.softplus(
+            (adaptive_margin - differences) / self.dct_etar_temperature
+        )
+        event_weights = self._ipcw(times).square().clamp_max(self.dct_ipcw_max_weight)
+        pair_weights = (
+            event_weights[:, None] * evidence[:, None] * evidence[None, :]
+        )[comparable]
+        self.last_etar_evidence = evidence.detach().mean()
+        self.last_etar_uncertainty = uncertainty.detach().mean()
+        return (pair_losses[comparable] * pair_weights).sum() / pair_weights.sum().clamp_min(1e-6)
+
+    def _remember_ipcw_batch(self, risk, times, censorship):
+        if self.dct_ipcw_rank_memory_size <= 0:
+            return
+        risks = [risk.detach()]
+        all_times = [times.detach()]
+        all_censorship = [censorship.detach()]
+        if self._rank_memory_risk is not None:
+            risks.insert(0, self._rank_memory_risk.to(risk.device))
+            all_times.insert(0, self._rank_memory_times.to(times.device))
+            all_censorship.insert(0, self._rank_memory_censorship.to(censorship.device))
+        keep = self.dct_ipcw_rank_memory_size
+        self._rank_memory_risk = torch.cat(risks, dim=0)[-keep:].clone()
+        self._rank_memory_times = torch.cat(all_times, dim=0)[-keep:].clone()
+        self._rank_memory_censorship = torch.cat(all_censorship, dim=0)[-keep:].clone()
+
+    def _reset_ipcw_memory_for_epoch(self, epoch):
+        if self._rank_memory_epoch != int(epoch):
+            self._rank_memory_epoch = int(epoch)
+            self._rank_memory_risk = None
+            self._rank_memory_times = None
+            self._rank_memory_censorship = None
+
+    @torch.no_grad()
+    def _update_risk_anchors(self, costs, low_weights, high_weights):
+        if self.dct_random_anchors:
+            # Ablation: keep anchor buffer populated with non-zero random tensors
+            # so downstream code sees a valid (but meaningless) anchor. This
+            # isolates whether the IPCW anchor itself carries the prognostic
+            # signal or whether it is leaked by some other module.
+            for stage_idx in range(self.spt_num_stages):
+                for risk_idx in (self._LOW_RISK, self._HIGH_RISK):
+                    if bool(self.risk_anchor_seen[stage_idx, risk_idx]):
+                        continue
+                    sampled = costs[:, stage_idx].mean(dim=0)
+                    self.risk_anchor_costs[stage_idx, risk_idx].copy_(
+                        sampled + 0.05 * torch.randn_like(sampled)
+                    )
+                    self.risk_anchor_seen[stage_idx, risk_idx] = True
+            return
+        for stage_idx in range(self.spt_num_stages):
+            for risk_idx, weights in (
+                (self._LOW_RISK, low_weights[:, stage_idx]),
+                (self._HIGH_RISK, high_weights[:, stage_idx]),
+            ):
+                if not bool((weights > 0).any()):
+                    continue
+                weighted = costs[:, stage_idx] * weights.view(-1, 1, 1, 1)
+                current = weighted.sum(dim=0) / weights.sum().clamp_min(1e-6)
+                if bool(self.risk_anchor_seen[stage_idx, risk_idx]):
+                    self.risk_anchor_costs[stage_idx, risk_idx].lerp_(
+                        current.to(dtype=self.risk_anchor_costs.dtype),
+                        1.0 - self.dct_anchor_momentum,
+                    )
+                else:
+                    self.risk_anchor_costs[stage_idx, risk_idx].copy_(
+                        current.to(dtype=self.risk_anchor_costs.dtype)
+                    )
+                    self.risk_anchor_seen[stage_idx, risk_idx] = True
+
+    def _counterfactual_costs(self, factual_costs):
+        alpha = min(1.0, max(0.0, self.dct_mix_ratio))
+        bsz = factual_costs.size(0)
+        anchors = self.risk_anchor_costs.to(device=factual_costs.device, dtype=factual_costs.dtype)
+        low_anchor = anchors[:, self._LOW_RISK].unsqueeze(0).expand(bsz, -1, -1, -1, -1)
+        high_anchor = anchors[:, self._HIGH_RISK].unsqueeze(0).expand(bsz, -1, -1, -1, -1)
+        low_seen = self.risk_anchor_seen[:, self._LOW_RISK].view(1, -1, 1, 1, 1)
+        high_seen = self.risk_anchor_seen[:, self._HIGH_RISK].view(1, -1, 1, 1, 1)
+        low_anchor = torch.where(low_seen, low_anchor, factual_costs)
+        high_anchor = torch.where(high_seen, high_anchor, factual_costs)
+        return (
+            (1.0 - alpha) * factual_costs + alpha * low_anchor,
+            (1.0 - alpha) * factual_costs + alpha * high_anchor,
+        )
+
+    @staticmethod
+    def _marginal_error(plans, rows, cols):
+        errors = []
+        for stage_idx, stage_plans in enumerate(plans):
+            for plan in stage_plans:
+                row_error = (plan.sum(dim=-1) - rows[:, stage_idx]).abs().amax(dim=-1)
+                col_error = (plan.sum(dim=-2) - cols[:, stage_idx]).abs().amax(dim=-1)
+                errors.append(torch.maximum(row_error, col_error))
+        return torch.stack(errors, dim=1).amax(dim=1)
+
+    def _encode_logits_from_plans(self, slots_wsi, slots_omic, plans):
+        tokens = self._selected_stage_events(slots_wsi, slots_omic, plans)
+        tokens = tokens + self.stage_embedding.unsqueeze(0)
+        tokens = self.event_norm(self.event_encoder(tokens))
+        event_logits = self.event_hazard(tokens)
+        gate = torch.softmax(self.event_gate(tokens).squeeze(-1), dim=1)
+        logits = torch.einsum("be,bec->bc", gate, event_logits)
+        return logits, gate
+
+    def _training_transport_objective(
+        self,
+        *,
+        factual_costs,
+        factual_plans,
+        factual_logits,
+        slots_wsi,
+        slots_omic,
+        rows,
+        cols,
+        epoch,
+    ):
+        """Extension hook for objectives that explicitly re-solve transport.
+
+        The score-first DCT v3.3 path intentionally returns an exact zero here.
+        Later registered methods can supervise the transport-intervention chain
+        without changing the original method's numerical objective.
+        """
+
+        return factual_costs.new_zeros(()), {}
+
+    def _combine_auxiliary_objectives(
+        self,
+        *,
+        ipcw_rank_loss,
+        etar_loss,
+        transport_objective,
+        transport_metrics,
+        epoch,
+    ):
+        """Combine differentiable auxiliary objectives.
+
+        The base implementation preserves the frozen v3.3 recipe exactly.
+        Registered descendants may override this hook to balance the raw
+        objectives while leaving the primary survival NLL in the trainer as a
+        fixed anchor.
+        """
+
+        del transport_metrics, epoch
+        total = self.dct_lambda_ipcw_rank * ipcw_rank_loss
+        total = total + self.dct_lambda_etar * etar_loss
+        return total + transport_objective
+
+    def forward(self, **kwargs):
+        x_wsi_proj = self.wsi_mlp(kwargs["x_wsi"])
+        x_omics = self._encode_omics(kwargs)
+
+        (
+            slots_wsi,
+            slots_omic,
+            wsi_coordinate_assignment,
+            omic_coordinate_assignment,
+        ) = self._encode_transport_slots(
+            x_wsi_proj,
+            x_omics,
+            kwargs,
+        )
+        epoch = int(getattr(self.args, "cur_epoch", kwargs.get("cur_epoch", 0)))
+        if self.training:
+            self._reset_ipcw_memory_for_epoch(epoch)
+
+        factual_costs, rows, cols, evidence_gate = self._cost_tensor(slots_wsi, slots_omic)
+        # The factual path must always be a fresh Sinkhorn solve.  The
+        # fixed-coupling control only replays this current batch's factual plan
+        # on the intervention paths below.
+        factual_plans, ot_distance = self._plans_from_cost_tensor(
+            factual_costs, rows, cols, epoch, replay_fixed=False
+        )
+        if self.dct_fixed_coupling:
+            # Cache the factual plans (detached) so the intervention path can
+            # replay them rather than re-solving Sinkhorn.
+            self._factual_plan_cache = [
+                [plan.detach() for plan in stage_plans] for stage_plans in factual_plans
+            ]
+        # Audit-only cache. These tensors are required by the post-hoc audit
+        # loader to replay the alpha sweep; ablations that disable audit
+        # leave them as no-ops because the cache is the only consumer.
+        self._last_factual_costs = factual_costs.detach()
+        self._last_factual_rows = rows.detach()
+        self._last_factual_cols = cols.detach()
+        self._last_slots_wsi = slots_wsi.detach()
+        self._last_slots_omic = slots_omic.detach()
+        factual_logits, factual_gate = self._encode_logits_from_plans(slots_wsi, slots_omic, factual_plans)
+        factual_risk = self._risk(factual_logits)
+
+        low_weights = factual_costs.new_zeros(factual_costs.size(0), self.spt_num_stages)
+        high_weights = torch.zeros_like(low_weights)
+        ipcw_rank_loss = factual_costs.new_zeros(())
+        etar_loss = factual_costs.new_zeros(())
+        ipcw_pair_count = factual_costs.new_zeros(())
+        if kwargs.get("event_time") is not None and kwargs.get("c") is not None:
+            low_weights, high_weights = self._stage_membership_weights(kwargs["event_time"], kwargs["c"])
+            if self.training:
+                if self.dct_lambda_ipcw_rank != 0.0:
+                    ipcw_rank_loss = self._ipcw_pairwise_ranking_loss(
+                        factual_logits, kwargs["event_time"], kwargs["c"]
+                    )
+                    ipcw_pair_count = self.last_ipcw_pair_count.to(
+                        device=factual_costs.device, dtype=factual_costs.dtype
+                    )
+                    self._remember_ipcw_batch(
+                        self._risk(factual_logits),
+                        kwargs["event_time"].float().view(-1),
+                        kwargs["c"].float().view(-1),
+                    )
+                if self.dct_lambda_etar != 0.0:
+                    etar_loss = self._etar_loss(
+                        factual_logits,
+                        kwargs["event_time"],
+                        kwargs["c"],
+                        evidence_gate,
+                        factual_plans,
+                    )
+                self._update_risk_anchors(factual_costs.detach(), low_weights, high_weights)
+
+        if self.training:
+            transport_objective, transport_metrics = self._training_transport_objective(
+                factual_costs=factual_costs,
+                factual_plans=factual_plans,
+                factual_logits=factual_logits,
+                slots_wsi=slots_wsi,
+                slots_omic=slots_omic,
+                rows=rows,
+                cols=cols,
+                epoch=epoch,
+            )
+            aux_loss = self._combine_auxiliary_objectives(
+                ipcw_rank_loss=ipcw_rank_loss,
+                etar_loss=etar_loss,
+                transport_objective=transport_objective,
+                transport_metrics=transport_metrics,
+                epoch=epoch,
+            )
+            # The base v3.3 hook is an exact zero, so its counterfactual branches
+            # remain post-hoc queries. Registered extensions such as v3.8 can
+            # explicitly opt into a re-solved transport objective through the
+            # hook above without changing the original score-first recipe.
+            self.last_explanations = None
+
+            active_stage_fraction = (
+                ((low_weights > 0).any(dim=0) & (high_weights > 0).any(dim=0))
+                .to(factual_costs.dtype)
+                .mean()
+            )
+            row_entropy = -(
+                rows.clamp_min(1e-8) * rows.clamp_min(1e-8).log()
+            ).sum(dim=-1) / math.log(max(2, rows.size(-1)))
+            col_entropy = -(
+                cols.clamp_min(1e-8) * cols.clamp_min(1e-8).log()
+            ).sum(dim=-1) / math.log(max(2, cols.size(-1)))
+            self.last_training_losses = {
+                "ot": ot_distance.detach(),
+                "ipcw_rank": ipcw_rank_loss.detach(),
+                "etar": etar_loss.detach(),
+                "etar_pairs": getattr(
+                    self, "last_etar_pair_count", factual_costs.new_zeros(())
+                ).detach(),
+                "etar_evidence": getattr(
+                    self, "last_etar_evidence", factual_costs.new_zeros(())
+                ).detach(),
+                "etar_uncertainty": getattr(
+                    self, "last_etar_uncertainty", factual_costs.new_zeros(())
+                ).detach(),
+                "ipcw_pairs": ipcw_pair_count.detach(),
+                "active_stage_fraction": active_stage_fraction.detach(),
+                "anchor_coverage": self.risk_anchor_seen.to(factual_costs.dtype).mean().detach(),
+                "evidence_marginal_entropy": torch.cat(
+                    [row_entropy.flatten(), col_entropy.flatten()]
+                ).mean().detach(),
+            }
+            self.last_training_losses.update(
+                {
+                    name: (
+                        value.detach()
+                        if torch.is_tensor(value)
+                        else factual_costs.new_tensor(float(value))
+                    )
+                    for name, value in transport_metrics.items()
+                }
+            )
+
+            return factual_logits, aux_loss
+
+        low_costs, high_costs = self._counterfactual_costs(factual_costs)
+        low_plans, _ = self._plans_from_cost_tensor(
+            low_costs, rows, cols, epoch, replay_fixed=True
+        )
+        high_plans, _ = self._plans_from_cost_tensor(
+            high_costs, rows, cols, epoch, replay_fixed=True
+        )
+        low_logits, _ = self._encode_logits_from_plans(slots_wsi, slots_omic, low_plans)
+        high_logits, _ = self._encode_logits_from_plans(slots_wsi, slots_omic, high_plans)
+        low_risk, high_risk = self._risk(low_logits), self._risk(high_logits)
+
+        low_distance = (factual_costs - low_costs).abs().mean(dim=(1, 2, 3, 4))
+        high_distance = (factual_costs - high_costs).abs().mean(dim=(1, 2, 3, 4))
+        self.last_explanations = {
+            "stage_slot_pair_evidence": torch.stack([item[0] for item in factual_plans], dim=1).detach(),
+            "evidence_gate": evidence_gate.detach(),
+            "wsi_coordinate_assignment": wsi_coordinate_assignment.detach(),
+            "omic_coordinate_assignment": omic_coordinate_assignment.detach(),
+            "factual_risk": factual_risk.detach(),
+            "low_risk_counterfactual": low_risk.detach(),
+            "high_risk_counterfactual": high_risk.detach(),
+            "counterfactual_risk_delta_low": (low_risk - factual_risk).detach(),
+            "counterfactual_risk_delta_high": (high_risk - factual_risk).detach(),
+            "counterfactual_transport_distance_low": low_distance.detach(),
+            "counterfactual_transport_distance_high": high_distance.detach(),
+            "risk_anchor_costs": self.risk_anchor_costs.detach(),
+            "risk_anchor_seen": self.risk_anchor_seen.detach(),
+            "stage_edges": self.dct_stage_edges.detach(),
+            "low_risk_set_ipcw": low_weights.detach(),
+            "high_event_ipcw": high_weights.detach(),
+            "factual_coupling_marginal_error": self._marginal_error(factual_plans, rows, cols).detach(),
+            "low_coupling_marginal_error": self._marginal_error(low_plans, rows, cols).detach(),
+            "high_coupling_marginal_error": self._marginal_error(high_plans, rows, cols).detach(),
+            "event_gate": factual_gate.detach(),
+        }
+        if self._last_transport_reliability is not None:
+            self.last_explanations["transport_geometry_reliability"] = (
+                self._last_transport_reliability
+            )
+
+        return factual_logits, 0.0

@@ -1,0 +1,7 @@
+* text=auto
+*.py text eol=lf whitespace=-blank-at-eof
+*.md text eol=lf whitespace=-blank-at-eof
+*.yaml text eol=lf whitespace=-blank-at-eof
+*.csv text eol=lf whitespace=-blank-at-eof
+*.toml text eol=lf whitespace=-blank-at-eof
+*.docx binary
