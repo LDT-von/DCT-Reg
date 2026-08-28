@@ -5,7 +5,7 @@ __pycache__/
 .venv/
 venv/
 results
-data/dataset_csv/
+data/dataset_csv
 *.pt
 *.pth
 *.ckpt
