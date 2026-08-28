@@ -119,7 +119,11 @@ def doctor(args: argparse.Namespace) -> int:
     csv_root = Path(args.data_csv_root)
     for cancer in args.cancers:
         feature_dir = data_root / cancer / "uni2-h" / "pt_files"
-        feature_ok = feature_dir.is_dir() and any(feature_dir.glob("*.pt"))
+        feature_ok = feature_dir.is_dir() and (
+            any(feature_dir.glob("*.pt"))
+            or any(feature_dir.glob("*.h5"))
+            or any(feature_dir.glob("*.hdf5"))
+        )
         split_dir = csv_root / "splits" / WHICH_SPLITS / cancer
         split_ok = all((split_dir / f"fold_{fold}.csv").is_file() for fold in range(5))
         clinical_path = csv_root / "clinical" / "all" / f"{cancer}.csv"
