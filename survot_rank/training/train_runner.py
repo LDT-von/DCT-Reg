@@ -902,9 +902,9 @@ def run(args):
 
     run_status = {
         "status": "failed" if failed_folds else "complete",
-        "requested_folds": list(folds),
-        "completed_folds": completed_folds,
-        "failed_folds": failed_folds,
+        "requested_folds": [int(f) for f in folds],
+        "completed_folds": [int(f) for f in completed_folds],
+        "failed_folds": [int(f) for f in failed_folds],
     }
     with open(os.path.join(args.results_dir, "run_status.json"), "w", encoding="utf-8") as handle:
         json.dump(run_status, handle, ensure_ascii=False, indent=2)
