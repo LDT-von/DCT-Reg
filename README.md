@@ -29,6 +29,8 @@ L = L_{NLL} + 0.10 L_{IPCW-rank} + 0.05 L_{direction}.
 python -m survot_rank.cli doctor
 python scripts/run_dct_v310_final_cross_cancer.py plan
 python scripts/run_dct_v310_experiments.py plan
+python experiments/transport_dependency_proof/plan.py status
+python experiments/transport_dependency_proof/plan.py plan
 python -m pytest -q
 ```
 
@@ -48,6 +50,7 @@ python scripts/run_dct_v310_final_cross_cancer.py doctor
 - `configs/`：冻结 v3.10 配置。
 - `scripts/`：最终 30-fold 队列、消融/对照队列、持出集机制审计。
 - `experiments/PROTOCOL.md`：什么实验才能证明核心主张。
+- `experiments/transport_dependency_proof/`：运输计划功能必要性的预注册协议、矩阵、状态和统一计划入口。
 - `experiments/REGISTRY.csv`：每个证据包的完成状态。
 - `docs/CLAIMS_AND_EVIDENCE.md`：主张、判据和结论边界。
 - `docs/MIGRATION_MANIFEST.md`：从原库迁移了什么、刻意没迁移什么。

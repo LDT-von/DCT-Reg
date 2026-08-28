@@ -36,6 +36,7 @@ from survot_rank.config import (  # noqa: E402
 )
 from survot_rank.training.extended_args import process_args_extended  # noqa: E402
 from survot_rank.training.model_factory import get_model  # noqa: E402
+from survot_rank.training.evidence import finalize_fold_evidence  # noqa: E402
 
 try:
     from survot_rank.research.legacy.slotspe_runtime.dataset.dataset_survival import (  # noqa: E402
@@ -70,6 +71,23 @@ def _to_numpy(value):
     return np.asarray(value)
 
 
+@torch.no_grad()
+def apply_anchor_mode(model, mode: str) -> None:
+    """Apply an audit-only anchor identity control after checkpoint loading."""
+
+    if mode == "normal":
+        return
+    if mode != "swapped":
+        raise ValueError("anchor mode must be 'normal' or 'swapped'")
+    order = torch.tensor(
+        [model._HIGH_RISK, model._LOW_RISK],
+        device=model.risk_anchor_costs.device,
+        dtype=torch.long,
+    )
+    model.risk_anchor_costs.copy_(model.risk_anchor_costs.index_select(1, order))
+    model.risk_anchor_seen.copy_(model.risk_anchor_seen.index_select(1, order))
+
+
 def direction_consistency(
     factual_risk: np.ndarray,
     low_risk: np.ndarray,
@@ -87,8 +105,8 @@ def direction_consistency(
     ``high_risk - factual_risk > 0``; for low-labelled cases we expect
     ``low_risk - factual_risk < 0``.
 
-    Returns counts and rates; the headline number is ``correct_rate`` minus
-    the chance-rate 0.5, scaled to [0, 1].
+    Returns counts and rates; ``chance_gap`` is ``correct_rate - 0.5`` and is
+    therefore in [-0.5, 0.5].
     """
     observed = censorship < 0.5
     observed_times = event_time[observed]
@@ -122,9 +140,39 @@ def direction_consistency(
     }
 
 
+def bidirectional_direction_consistency(
+    factual_risk: np.ndarray,
+    low_risk: np.ndarray,
+    high_risk: np.ndarray,
+) -> dict[str, float]:
+    """Direction response over every held-out case, matching the train objective."""
+
+    if factual_risk.size == 0:
+        return {
+            "n_cases": 0,
+            "high_correct_rate": float("nan"),
+            "low_correct_rate": float("nan"),
+            "both_correct_rate": float("nan"),
+            "side_correct_rate": float("nan"),
+        }
+    high_correct = high_risk > factual_risk
+    low_correct = low_risk < factual_risk
+    return {
+        "n_cases": int(factual_risk.size),
+        "high_correct_rate": float(high_correct.mean()),
+        "low_correct_rate": float(low_correct.mean()),
+        "both_correct_rate": float((high_correct & low_correct).mean()),
+        "side_correct_rate": float(
+            (high_correct.sum() + low_correct.sum()) / (2 * factual_risk.size)
+        ),
+    }
+
+
 def dose_monotonicity(
     sweep_alphas: np.ndarray,
     sweep_risks: np.ndarray,
+    *,
+    increasing: bool = True,
 ) -> dict[str, float]:
     """Rate at which increasing ``alpha`` monotonically raises risk toward high anchor.
 
@@ -137,6 +185,8 @@ def dose_monotonicity(
         return {"monotone_rate": float("nan"), "n_pairs": 0}
     deltas = np.diff(sweep_risks, axis=1)
     expected_sign = np.sign(np.diff(sweep_alphas)).mean()
+    if not increasing:
+        expected_sign *= -1.0
     if expected_sign > 0:
         correct = (deltas > 0).all(axis=1)
     elif expected_sign < 0:
@@ -173,6 +223,38 @@ def reconfiguration_magnitude(
         "mean_tv": mean_tv,
         "above_margin_rate": float((stacked > margin).mean()),
         "per_stage_mean_tv": stacked.mean(axis=1).tolist(),
+    }
+
+
+def plan_total_variation(
+    factual_plans: np.ndarray,
+    low_plans: np.ndarray,
+    high_plans: np.ndarray,
+) -> dict[str, object]:
+    """Compute true coupling TV for [case, stage, geometry, row, col] plans."""
+
+    if factual_plans.size == 0:
+        return {
+            "mean_tv_low": float("nan"),
+            "mean_tv_high": float("nan"),
+            "mean_tv": float("nan"),
+            "per_case_tv_low": [],
+            "per_case_tv_high": [],
+        }
+    if factual_plans.shape != low_plans.shape or factual_plans.shape != high_plans.shape:
+        raise ValueError("factual/low/high plan tensors must have identical shapes")
+    low_tv = 0.5 * np.abs(low_plans - factual_plans).sum(axis=(-1, -2))
+    high_tv = 0.5 * np.abs(high_plans - factual_plans).sum(axis=(-1, -2))
+    per_case_low = low_tv.mean(axis=(1, 2))
+    per_case_high = high_tv.mean(axis=(1, 2))
+    return {
+        "mean_tv_low": float(low_tv.mean()),
+        "mean_tv_high": float(high_tv.mean()),
+        "mean_tv": float(0.5 * (low_tv.mean() + high_tv.mean())),
+        "per_stage_geometry_tv_low": low_tv.mean(axis=0).tolist(),
+        "per_stage_geometry_tv_high": high_tv.mean(axis=0).tolist(),
+        "per_case_tv_low": per_case_low.tolist(),
+        "per_case_tv_high": per_case_high.tolist(),
     }
 
 
@@ -229,6 +311,7 @@ def _load_model_and_loader(args, parsed, fold: int):
     )
     state_dict = torch.load(args.checkpoint, map_location="cpu")
     model.load_state_dict(state_dict)
+    apply_anchor_mode(model, getattr(args, "anchor_mode", "normal"))
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
     model.eval()
@@ -250,7 +333,8 @@ def _run_alpha_sweep(
     """
     alpha_list = list(alphas)
     device = next(model.parameters()).device
-    sweep_risks_per_case: list[list[float]] = []
+    high_risks_per_case: list[list[float]] = []
+    low_risks_per_case: list[list[float]] = []
     sweep_alphas = np.array(alpha_list, dtype=np.float64)
     case_offset = 0
     for batch_idx, data in enumerate(val_loader):
@@ -270,34 +354,50 @@ def _run_alpha_sweep(
         slots_omic = model._last_slots_omic
         epoch = int(getattr(parsed, "cur_epoch", 0))
         for case_idx in range(factual_costs.size(0)):
-            risks_for_case: list[float] = []
+            high_for_case: list[float] = []
+            low_for_case: list[float] = []
             for alpha in alpha_list:
-                high_costs = _interpolate_cost(
-                    factual_costs[case_idx:case_idx + 1],
-                    model.risk_anchor_costs[:, model._HIGH_RISK],
-                    alpha,
-                    model.risk_anchor_seen[:, model._HIGH_RISK],
-                )
-                plan, _ = model._plans_from_cost_tensor(
-                    high_costs,
-                    rows[case_idx:case_idx + 1],
-                    cols[case_idx:case_idx + 1],
-                    epoch,
-                )
-                logits, _ = model._encode_logits_from_plans(
-                    slots_wsi[case_idx:case_idx + 1],
-                    slots_omic[case_idx:case_idx + 1],
-                    plan,
-                )
-                risk_val = model._risk(logits)
-                risks_for_case.append(float(risk_val.detach().cpu().numpy()[0]))
-            sweep_risks_per_case.append(risks_for_case)
+                side_risks = []
+                for risk_index in (model._HIGH_RISK, model._LOW_RISK):
+                    intervened_costs = _interpolate_cost(
+                        factual_costs[case_idx:case_idx + 1],
+                        model.risk_anchor_costs[:, risk_index],
+                        alpha,
+                        model.risk_anchor_seen[:, risk_index],
+                    )
+                    plan, _ = model._plans_from_cost_tensor(
+                        intervened_costs,
+                        rows[case_idx:case_idx + 1],
+                        cols[case_idx:case_idx + 1],
+                        epoch,
+                    )
+                    logits, _ = model._encode_logits_from_plans(
+                        slots_wsi[case_idx:case_idx + 1],
+                        slots_omic[case_idx:case_idx + 1],
+                        plan,
+                    )
+                    side_risks.append(float(model._risk(logits).detach().cpu().numpy()[0]))
+                high_for_case.append(side_risks[0])
+                low_for_case.append(side_risks[1])
+            high_risks_per_case.append(high_for_case)
+            low_risks_per_case.append(low_for_case)
         case_offset += factual_costs.size(0)
-    if not sweep_risks_per_case:
-        return {"sweep_alphas": sweep_alphas, "sweep_risks": np.empty((0, len(alpha_list)))}
+    if not high_risks_per_case:
+        empty = np.empty((0, len(alpha_list)))
+        return {
+            "sweep_alphas": sweep_alphas,
+            "sweep_risks": empty,
+            "high_sweep_risks": empty,
+            "low_sweep_risks": empty.copy(),
+        }
+    high = np.asarray(high_risks_per_case, dtype=np.float64)
+    low = np.asarray(low_risks_per_case, dtype=np.float64)
     return {
         "sweep_alphas": sweep_alphas,
-        "sweep_risks": np.asarray(sweep_risks_per_case, dtype=np.float64),
+        # Backward-compatible alias for the historical high-risk-only sweep.
+        "sweep_risks": high,
+        "high_sweep_risks": high,
+        "low_sweep_risks": low,
     }
 
 
@@ -312,6 +412,61 @@ def _interpolate_cost(
     seen = seen_mask.view(1, -1, 1, 1, 1)
     expanded = torch.where(seen, expanded, factual_costs)
     return (1.0 - alpha) * factual_costs + alpha * expanded
+
+
+def _stacked_to_nested(plans: torch.Tensor):
+    return [
+        tuple(plans[:, stage_idx, geometry_idx] for geometry_idx in range(plans.size(2)))
+        for stage_idx in range(plans.size(1))
+    ]
+
+
+@torch.no_grad()
+def controlled_plan_risk(model, control: str, seed: int = 1):
+    """Decode a feasible uniform or shuffled factual-plan control."""
+
+    if control not in {"uniform", "shuffled"}:
+        raise ValueError("control must be 'uniform' or 'shuffled'")
+    factual = model.last_explanations["factual_transport_plans"]
+    rows = model._last_factual_rows
+    cols = model._last_factual_cols
+    if control == "uniform":
+        independent = rows.unsqueeze(2).unsqueeze(-1) * cols.unsqueeze(2).unsqueeze(-2)
+        controlled = independent.expand(-1, -1, factual.size(2), -1, -1).clone()
+    else:
+        generator = torch.Generator(device=factual.device)
+        generator.manual_seed(int(seed))
+        row_order = torch.randperm(factual.size(-2), generator=generator, device=factual.device)
+        col_order = torch.randperm(factual.size(-1), generator=generator, device=factual.device)
+        controlled = factual.index_select(-2, row_order).index_select(-1, col_order)
+        projected = []
+        for stage_idx in range(controlled.size(1)):
+            stage = []
+            for geometry_idx in range(controlled.size(2)):
+                stage.append(
+                    model._project_coupling(
+                        controlled[:, stage_idx, geometry_idx],
+                        rows[:, stage_idx],
+                        cols[:, stage_idx],
+                    )
+                )
+            projected.append(torch.stack(stage, dim=1))
+        controlled = torch.stack(projected, dim=1)
+    logits, _ = model._encode_logits_from_plans(
+        model._last_slots_wsi,
+        model._last_slots_omic,
+        _stacked_to_nested(controlled),
+    )
+    return model._risk(logits).detach(), controlled.detach()
+
+
+def _formal_evidence_root(output_dir: Path) -> Path | None:
+    """Return the nearest evidence root so nested proof artifacts are re-hashed."""
+
+    for candidate in (output_dir, *output_dir.parents):
+        if (candidate / "run_manifest.json").is_file():
+            return candidate
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -340,21 +495,28 @@ def cmd_audit(args: argparse.Namespace) -> int:
     event_times: list[float] = []
     censorships: list[float] = []
     factual_marginal_errors: list[float] = []
-    intervened_marginal_errors: list[float] = []
+    low_marginal_errors: list[float] = []
+    high_marginal_errors: list[float] = []
     factual_distance_to_low: list[float] = []
     factual_distance_to_high: list[float] = []
+    factual_plan_batches: list[np.ndarray] = []
+    low_plan_batches: list[np.ndarray] = []
+    high_plan_batches: list[np.ndarray] = []
+    controlled_risks: list[float] = []
+    controlled_plan_batches: list[np.ndarray] = []
 
     device = next(model.parameters()).device
     label_df_indexed = val_data.label_df.reset_index(drop=True)
+    case_offset = 0
     for batch_idx, data in enumerate(val_loader):
-        out, _, _, event_time, c = _process_data_and_forward(
+        out, _, event_time, c = _process_data_and_forward(
             parsed, model, data, device, test=False
         )
         logits, _ = out
         explanations = model.last_explanations
         if explanations is None:
             continue
-        start = batch_idx * len(event_time)
+        start = case_offset
         stop = start + len(event_time)
         case_ids.extend(
             label_df_indexed.iloc[start:stop]["case id"].astype(str).tolist()
@@ -367,8 +529,11 @@ def cmd_audit(args: argparse.Namespace) -> int:
         factual_marginal_errors.extend(
             _to_numpy(explanations["factual_coupling_marginal_error"]).tolist()
         )
-        intervened_marginal_errors.extend(
+        low_marginal_errors.extend(
             _to_numpy(explanations["low_coupling_marginal_error"]).tolist()
+        )
+        high_marginal_errors.extend(
+            _to_numpy(explanations["high_coupling_marginal_error"]).tolist()
         )
         factual_distance_to_low.extend(
             _to_numpy(explanations["counterfactual_transport_distance_low"]).tolist()
@@ -376,6 +541,16 @@ def cmd_audit(args: argparse.Namespace) -> int:
         factual_distance_to_high.extend(
             _to_numpy(explanations["counterfactual_transport_distance_high"]).tolist()
         )
+        factual_plan_batches.append(_to_numpy(explanations["factual_transport_plans"]))
+        low_plan_batches.append(_to_numpy(explanations["low_transport_plans"]))
+        high_plan_batches.append(_to_numpy(explanations["high_transport_plans"]))
+        if args.plan_control != "none":
+            controlled_risk, controlled_plans = controlled_plan_risk(
+                model, args.plan_control, seed=args.control_seed + batch_idx
+            )
+            controlled_risks.extend(_to_numpy(controlled_risk).tolist())
+            controlled_plan_batches.append(_to_numpy(controlled_plans))
+        case_offset = stop
 
     factual_risks_arr = np.asarray(factual_risks, dtype=np.float64)
     low_risks_arr = np.asarray(low_risks, dtype=np.float64)
@@ -390,11 +565,38 @@ def cmd_audit(args: argparse.Namespace) -> int:
         event_times_arr,
         censorships_arr,
     )
-    reconfiguration = _reconfiguration_from_distances(
-        factual_distance_to_low,
-        factual_distance_to_high,
-        margin=float(getattr(parsed, "dct_v38_reconfiguration_margin", 0.02)),
+    empty_plan_shape = (0, 0, 0, 0, 0)
+    factual_plans_arr = (
+        np.concatenate(factual_plan_batches, axis=0)
+        if factual_plan_batches else np.empty(empty_plan_shape, dtype=np.float32)
     )
+    low_plans_arr = (
+        np.concatenate(low_plan_batches, axis=0)
+        if low_plan_batches else np.empty(empty_plan_shape, dtype=np.float32)
+    )
+    high_plans_arr = (
+        np.concatenate(high_plan_batches, axis=0)
+        if high_plan_batches else np.empty(empty_plan_shape, dtype=np.float32)
+    )
+    reconfiguration = plan_total_variation(
+        factual_plans_arr, low_plans_arr, high_plans_arr
+    )
+    controlled_plans_arr = (
+        np.concatenate(controlled_plan_batches, axis=0)
+        if controlled_plan_batches else np.empty(empty_plan_shape, dtype=np.float32)
+    )
+    control_summary = None
+    if args.plan_control != "none":
+        controlled_risks_arr = np.asarray(controlled_risks, dtype=np.float64)
+        control_tv = 0.5 * np.abs(controlled_plans_arr - factual_plans_arr).sum(axis=(-1, -2))
+        control_summary = {
+            "kind": args.plan_control,
+            "mean_plan_tv": float(control_tv.mean()),
+            "mean_absolute_risk_change": float(
+                np.abs(controlled_risks_arr - factual_risks_arr).mean()
+            ),
+            "per_case_risk_change": (controlled_risks_arr - factual_risks_arr).tolist(),
+        }
 
     record = {
         "fold": int(args.fold),
@@ -408,22 +610,32 @@ def cmd_audit(args: argparse.Namespace) -> int:
         "event_time": event_times_arr,
         "censorship": censorships_arr,
         "factual_marginal_error": np.asarray(factual_marginal_errors, dtype=np.float64),
-        "intervened_marginal_error": np.asarray(intervened_marginal_errors, dtype=np.float64),
+        "low_marginal_error": np.asarray(low_marginal_errors, dtype=np.float64),
+        "high_marginal_error": np.asarray(high_marginal_errors, dtype=np.float64),
+        "factual_transport_plans": factual_plans_arr,
+        "low_transport_plans": low_plans_arr,
+        "high_transport_plans": high_plans_arr,
+        "plan_control": args.plan_control,
+        "controlled_risk": np.asarray(controlled_risks, dtype=np.float64),
+        "controlled_transport_plans": controlled_plans_arr,
         "factual_distance_to_low_anchor": np.asarray(factual_distance_to_low, dtype=np.float64),
         "factual_distance_to_high_anchor": np.asarray(factual_distance_to_high, dtype=np.float64),
         "direction": direction,
         "reconfiguration": reconfiguration,
+        "factual_plan_control": control_summary,
     }
     import pickle
-    with open(output_dir / f"audit_fold{args.fold}.pkl", "wb") as handle:
+    with open(output_dir / "audit_cases.pkl", "wb") as handle:
         pickle.dump(record, handle)
 
     metrics = {
         "fold": int(args.fold),
         "checkpoint": str(args.checkpoint),
         "survot_method": parsed.survot_method,
+        "anchor_mode": args.anchor_mode,
         "direction_consistency": direction,
         "reconfiguration": reconfiguration,
+        "factual_plan_control": control_summary,
         "n_cases": len(case_ids),
         "mean_factual_risk": float(factual_risks_arr.mean()) if factual_risks_arr.size else None,
         "mean_low_risk": float(low_risks_arr.mean()) if low_risks_arr.size else None,
@@ -434,9 +646,19 @@ def cmd_audit(args: argparse.Namespace) -> int:
         "mean_factual_distance_to_high_anchor": float(np.mean(factual_distance_to_high))
         if factual_distance_to_high
         else None,
+        "max_factual_marginal_error": float(np.max(factual_marginal_errors))
+        if factual_marginal_errors else None,
+        "max_low_marginal_error": float(np.max(low_marginal_errors))
+        if low_marginal_errors else None,
+        "max_high_marginal_error": float(np.max(high_marginal_errors))
+        if high_marginal_errors else None,
     }
-    with open(output_dir / f"audit_metrics_fold{args.fold}.json", "w") as handle:
+    with open(output_dir / "audit_metrics.json", "w") as handle:
         json.dump(metrics, handle, indent=2, default=float)
+    evidence_root = _formal_evidence_root(output_dir)
+    if evidence_root is not None:
+        audit_key = f"mechanism_audit/{output_dir.name}"
+        finalize_fold_evidence(evidence_root, metrics={audit_key: metrics})
     print(json.dumps(metrics, indent=2, default=float))
     return 0
 
@@ -458,19 +680,40 @@ def cmd_sweep(args: argparse.Namespace) -> int:
 
     alphas = tuple(float(value) for value in args.alphas.split(","))
     sweep = _run_alpha_sweep(model, parsed, val_loader, alphas=alphas)
-    dose = dose_monotonicity(sweep["sweep_alphas"], sweep["sweep_risks"])
+    high_dose = dose_monotonicity(
+        sweep["sweep_alphas"], sweep["high_sweep_risks"], increasing=True
+    )
+    low_dose = dose_monotonicity(
+        sweep["sweep_alphas"], sweep["low_sweep_risks"], increasing=False
+    )
 
     import pickle
-    with open(output_dir / f"sweep_fold{args.fold}.pkl", "wb") as handle:
-        pickle.dump({"alphas": sweep["sweep_alphas"], "risks": sweep["sweep_risks"],
-                     "dose": dose, "fold": int(args.fold)}, handle)
+    with open(output_dir / "dose_sweep.pkl", "wb") as handle:
+        pickle.dump(
+            {
+                "alphas": sweep["sweep_alphas"],
+                "high_risks": sweep["high_sweep_risks"],
+                "low_risks": sweep["low_sweep_risks"],
+                "high_dose": high_dose,
+                "low_dose": low_dose,
+                "fold": int(args.fold),
+                "anchor_mode": args.anchor_mode,
+            },
+            handle,
+        )
     metrics = {
         "fold": int(args.fold),
         "checkpoint": str(args.checkpoint),
-        "dose_monotonicity": dose,
+        "anchor_mode": args.anchor_mode,
+        "high_dose_monotonicity": high_dose,
+        "low_dose_monotonicity": low_dose,
     }
-    with open(output_dir / f"sweep_metrics_fold{args.fold}.json", "w") as handle:
+    with open(output_dir / "dose_metrics.json", "w") as handle:
         json.dump(metrics, handle, indent=2, default=float)
+    evidence_root = _formal_evidence_root(output_dir)
+    if evidence_root is not None:
+        dose_key = f"dose_audit/{output_dir.name}"
+        finalize_fold_evidence(evidence_root, metrics={dose_key: metrics})
     print(json.dumps(metrics, indent=2, default=float))
     return 0
 
@@ -516,8 +759,24 @@ def build_parser() -> argparse.ArgumentParser:
     audit.add_argument("--checkpoint", required=True)
     audit.add_argument("--fold", type=int, required=True)
     audit.add_argument("--epoch", type=int, default=0)
-    audit.add_argument("--output-dir", required=True)
+    audit.add_argument(
+        "--output-dir", required=True,
+        help="Per-fold evidence directory; standard audit artifact names are written here.",
+    )
     audit.add_argument("--gpu", type=int, default=None)
+    audit.add_argument(
+        "--plan-control",
+        choices=("none", "uniform", "shuffled"),
+        default="none",
+        help="Replace the factual plan with a feasible control before risk decoding.",
+    )
+    audit.add_argument("--control-seed", type=int, default=1)
+    audit.add_argument(
+        "--anchor-mode",
+        choices=("normal", "swapped"),
+        default="normal",
+        help="Audit-only high/low anchor identity control.",
+    )
     audit.add_argument("--set", action="append", default=[])
     audit.set_defaults(func=cmd_audit)
     sweep = sub.add_parser("sweep", help="Run alpha sweep for dose monotonicity")
@@ -528,6 +787,12 @@ def build_parser() -> argparse.ArgumentParser:
     sweep.add_argument("--alphas", default="0.0,0.25,0.5,0.75,1.0")
     sweep.add_argument("--output-dir", required=True)
     sweep.add_argument("--gpu", type=int, default=None)
+    sweep.add_argument(
+        "--anchor-mode",
+        choices=("normal", "swapped"),
+        default="normal",
+        help="Audit-only high/low anchor identity control.",
+    )
     sweep.add_argument("--set", action="append", default=[])
     sweep.set_defaults(func=cmd_sweep)
     return parser

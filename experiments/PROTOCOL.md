@@ -1,64 +1,48 @@
-# DCT-Reg 正式证明协议
+# DCT-Reg 正式证明总协议
 
-## P0：冻结与数据门
+本文件只定义全局证据门。运输计划是否真正承担事实预测与干预响应的详细预注册协议，统一维护在：
 
-在任何正式测试前冻结：Git commit、配置、患者级 splits、终点定义、风险分数、checkpoint 选择规则、统计方法和本文件中的通过线。所有锚点、删失参考和时间分箱只能由训练折估计。
+- `experiments/transport_dependency_proof/PROTOCOL.md`
+- `experiments/transport_dependency_proof/MATRIX.csv`
+- `experiments/transport_dependency_proof/STATUS.md`
 
-采用嵌套评估：内层验证用于 checkpoint 选择，外层 fold 只评估一次。不得把“用来选最佳 epoch 的验证集”改名为独立测试集。
-
-## E1：匹配的 2×2 目标消融
-
-BLCA 五个相同 folds：`nll_only`、`ipcw_only`、`direction_only`、`full`。除两项权重外，数据、初始化、训练预算和模型选择完全一致。报告每折数值、配对差、均值、标准差和配对置信区间。
+统一入口：
 
 ```powershell
-python scripts/run_dct_v310_experiments.py plan
+python experiments/transport_dependency_proof/plan.py status
+python experiments/transport_dependency_proof/plan.py plan
 ```
 
-## E2：最终预测与跨癌泛化
+## 全局冻结门
 
-冻结 full 方法，在 BLCA、UCEC、KIRC、HNSC、SKCM、LUSC 上各五折。报告 Harrell C-index、IPCW C-index、IBS、time-dependent AUC 和校准；同时至少在 UCEC、LUSC 运行匹配的 IPCW-only 比较。
+正式运行前冻结 clean Git commit、解析后配置、患者级 splits 及哈希、终点、风险定义、固定 50 epoch 预算、统计方法和通过线。锚点、删失参考和时间分箱只能由当前训练折估计。
 
-```powershell
-python scripts/run_dct_v310_final_cross_cancer.py plan
-```
+当前协议采用固定预算锁定交叉验证：训练期间不查看 held-out fold，epoch 50 结束后只评估一次。它不能被称为独立机构测试；外部临床泛化只能由独立队列支持。
 
-## E3：机制必要性与零假设
+## 证据层级
 
-至少在 BLCA、UCEC、LUSC 的 folds 1、2、4 运行：
+1. P0 单元测试和结构检查只证明代码链存在、可微、有限和确定。
+2. P1-P5 的持出实验用于证明目标贡献、事实 plan 必要性、re-Sinkhorn 必要性、锚点特异性和双向剂量结构。
+3. P6 六癌种锁定运行用于内部跨队列复现。
+4. P7 独立机构数据完成前，不得宣称外部临床泛化。
 
-- `fixed_coupling`：不重新 Sinkhorn；
-- `noisy_batch_mean_anchors`：非预后噪声锚点；
-- `permuted_reference`：训练参考时间置乱；
-- `stage_jitter`：阶段边界扰动；
-- 持出 checkpoint 上的 shuffled/uniform feasible plans，保持边际后再解码。
-
-```powershell
-python scripts/run_dct_v310_experiments.py plan --cancers blca,ucec,lusc --folds 1,2,4 --variants fixed_coupling,noisy_batch_mean_anchors,permuted_reference,stage_jitter
-```
-
-## E4：连续干预与患者级审计
-
-冻结 checkpoint，在外层持出患者上对 `alpha={0,.25,.5,.75,1}` 的低/高风险方向分别重求解 OT。导出 factual/low/high 风险、患者级 delta、计划 TV、边际误差、DCR、DMR 和置信区间。按癌种、fold、事件/删失状态分层展示，不只汇报宏平均。
-
-## E5：强基线、统计与外部性
-
-在相同特征和 splits 下比较非 OT 融合及代表性生存/OT 基线；报告参数量、推理时间和显存。多癌种比较进行多重校正。若无独立机构数据，只能宣称内部跨队列泛化，不能宣称临床外部泛化。
-
-## 结果包
-
-每折目录必须包含：
+## 每折最低工件
 
 ```text
 predictions.csv
-audit_cases.parquet (or pkl)
-audit_metrics.json
 training_curve.csv
 checkpoint.pt
 resolved_config.yaml
 split_manifest.json
 environment.json
 run_manifest.json
+proof_transport_dependency/factual/audit_cases.pkl
+proof_transport_dependency/factual/audit_metrics.json
+proof_transport_dependency/uniform_plan/audit_metrics.json
+proof_transport_dependency/shuffled_plan/audit_metrics.json
+proof_transport_dependency/anchor_swap/audit_metrics.json
+proof_transport_dependency/dose_both_directions/dose_metrics.json
 ```
 
-`run_manifest.json` 至少记录 Git commit、命令、开始/结束时间、随机种子、数据版本和各文件 SHA-256。
+`run_manifest.json` 必须递归记录所有工件 SHA-256。任一 fold 失败时训练进程必须返回非零，并在 `run_status.json` 中列出失败折。
 

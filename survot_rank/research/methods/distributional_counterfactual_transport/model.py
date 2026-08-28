@@ -645,6 +645,15 @@ class DistributionalCounterfactualTransport(FaithfulEvidenceTransport):
         )
 
     @staticmethod
+    def _stack_plans(plans):
+        """Return plans as [batch, stage, geometry, WSI slot, omics slot]."""
+
+        return torch.stack(
+            [torch.stack(tuple(stage_plans), dim=1) for stage_plans in plans],
+            dim=1,
+        )
+
+    @staticmethod
     def _marginal_error(plans, rows, cols):
         errors = []
         for stage_idx, stage_plans in enumerate(plans):
@@ -879,6 +888,12 @@ class DistributionalCounterfactualTransport(FaithfulEvidenceTransport):
             "factual_coupling_marginal_error": self._marginal_error(factual_plans, rows, cols).detach(),
             "low_coupling_marginal_error": self._marginal_error(low_plans, rows, cols).detach(),
             "high_coupling_marginal_error": self._marginal_error(high_plans, rows, cols).detach(),
+            # Audit-grade plan tensors. Shape: [batch, stage, geometry, WSI slot,
+            # omics slot].  These are detached and only populated in eval mode,
+            # so training memory and gradients are unaffected.
+            "factual_transport_plans": self._stack_plans(factual_plans).detach(),
+            "low_transport_plans": self._stack_plans(low_plans).detach(),
+            "high_transport_plans": self._stack_plans(high_plans).detach(),
             "event_gate": factual_gate.detach(),
         }
         if self._last_transport_reliability is not None:

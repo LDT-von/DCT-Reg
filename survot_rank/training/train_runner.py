@@ -6,6 +6,7 @@ import os
 import sys
 import gc
 import time
+import json
 import pickle
 import traceback
 import shutil
@@ -61,6 +62,11 @@ from survot_rank.training.sparse_event import (
     EarlyStoppingController,
     make_event_aware_sampler,
     make_stratified_event_batch_sampler,
+)
+from survot_rank.training.evidence import (
+    finalize_fold_evidence,
+    prepare_fold_evidence,
+    write_predictions_csv,
 )
 
 
@@ -574,6 +580,18 @@ def train_one_fold(args, dataset_factory, fold, log_file):
     args.cur_fold = fold
 
     train_data, val_data, train_loader, val_loader = get_split(args, dataset_factory, fold)
+    outer_eval_only = bool(getattr(args, "outer_eval_only", False))
+    formal_evidence = bool(getattr(args, "formal_evidence_package", False))
+    if outer_eval_only and int(getattr(args, "early_stop_patience", 0)) > 0:
+        raise ValueError("outer_eval_only requires early_stop_patience=0")
+    evidence_dir = None
+    if formal_evidence:
+        split_path = os.path.join(
+            dataset_factory.data_path,
+            "splits", dataset_factory.which_splits, dataset_factory.study,
+            f"fold_{fold}.csv",
+        )
+        evidence_dir = prepare_fold_evidence(args, fold, split_path)
     train_events = int((train_data.label_df[dataset_factory.censorship_var] < 0.5).sum())
     val_events = int((val_data.label_df[dataset_factory.censorship_var] < 0.5).sum())
     train_bins = train_data.label_df["label"].value_counts().sort_index().to_dict()
@@ -613,6 +631,11 @@ def train_one_fold(args, dataset_factory, fold, log_file):
     # 瀹炴椂鍐?epoch 鏇茬嚎 (閬垮厤宕╂簝涓㈠け)
     epoch_csv = os.path.join(args.results_dir, f"epoch_curve_fold{fold}.csv")
 
+    def _write_epoch_records():
+        safe_to_csv(epoch_records, epoch_csv)
+        if evidence_dir is not None:
+            safe_to_csv(epoch_records, evidence_dir / "training_curve.csv")
+
     # 鐏垫椿鍋滄锛氭棭鍋?patience + 鎵嬪姩涓柇 (Ctrl-C) 瀹夊叏钀界洏
     es_patience = int(getattr(args, "early_stop_patience", 0))
     es_min_delta = float(getattr(args, "early_stop_min_delta", 0.0))
@@ -632,12 +655,24 @@ def train_one_fold(args, dataset_factory, fold, log_file):
         )
         safe_pickle_dump(results, os.path.join(args.results_dir, f"split_{fold}_results.pkl"))
 
+    interrupted = False
     try:
         for epoch in range(args.max_epochs):
             train_diagnostics = train_one_epoch(
                 args, epoch, model, train_loader, optimizer, scheduler, loss_fn, log_file
             )
             safe_flush(log_file)
+            if outer_eval_only:
+                epoch_records.append({
+                    "epoch": epoch,
+                    **{f"train_{name}": value for name, value in train_diagnostics.items()},
+                })
+                ensure_min_free_space(
+                    args.results_dir, args.min_free_space_gb,
+                    f"Fold {fold} epoch {epoch} before write",
+                )
+                _write_epoch_records()
+                continue
             results, val_c, val_c_ipcw, val_BS, val_IBS, val_iauc, val_loss = evaluate(
                 args, dataset_factory, model, val_loader, loss_fn, survival_train
             )
@@ -657,7 +692,7 @@ def train_one_fold(args, dataset_factory, fold, log_file):
             })
             ensure_min_free_space(args.results_dir, args.min_free_space_gb, f"Fold {fold} epoch {epoch} before write")
             # 姣忎釜 epoch 閮借鐩栧啓涓€娆?csv (閬垮厤宕╂簝涓㈠け鏇茬嚎)
-            safe_to_csv(epoch_records, epoch_csv)
+            _write_epoch_records()
 
             # Keep the earliest checkpoint when a discretised C-index ties.
             # Replacing it with a later equal score previously selected a more
@@ -683,6 +718,7 @@ def train_one_fold(args, dataset_factory, fold, log_file):
                     safe_write_line(log_file, msg)
                     break
     except KeyboardInterrupt:
+        interrupted = True
         stopped_epoch = len(epoch_records) - 1
         msg = (
             f"[Fold {fold}] interrupted @epoch {stopped_epoch}; "
@@ -691,10 +727,53 @@ def train_one_fold(args, dataset_factory, fold, log_file):
         print(msg)
         safe_write_line(log_file, msg)
         safe_flush(log_file)
-        safe_to_csv(epoch_records, epoch_csv)
+        _write_epoch_records()
 
-    msg = (f"[Fold {fold}] best cindex={args.max_cindex:.4f} "
-           f"@epoch {args.max_cindex_epoch} (stopped @epoch {stopped_epoch})")
+    if outer_eval_only and not interrupted:
+        # The held-out fold has not been touched above.  The final fixed-budget
+        # model is now frozen and the outer fold is evaluated exactly once.
+        results, val_c, val_c_ipcw, val_BS, val_IBS, val_iauc, val_loss = evaluate(
+            args, dataset_factory, model, val_loader, loss_fn, survival_train
+        )
+        args.max_cindex = val_c
+        args.max_cindex_epoch = args.max_epochs - 1
+        best_results = results
+        final_metrics = (val_c, val_c_ipcw, val_BS, val_IBS, val_iauc, val_loss)
+        msg = (
+            f"[Fold {fold}] outer-once @fixed epoch {args.max_epochs - 1}: "
+            f"cindex={val_c:.4f} ipcw={val_c_ipcw:.4f} "
+            f"IBS={val_IBS:.4f} iauc={val_iauc:.4f}"
+        )
+        print(msg)
+        safe_write_line(log_file, msg)
+        if evidence_dir is not None:
+            safe_torch_save(model.state_dict(), evidence_dir / "checkpoint.pt")
+            safe_pickle_dump(results, evidence_dir / "predictions.pkl")
+            write_predictions_csv(results, evidence_dir / "predictions.csv")
+            metrics_payload = {
+                "outer_cindex": val_c,
+                "outer_cindex_ipcw": val_c_ipcw,
+                "outer_BS": val_BS,
+                "outer_IBS": val_IBS,
+                "outer_iauc": val_iauc,
+                "outer_loss": val_loss,
+                "evaluations_on_outer_fold": 1,
+                "fixed_epoch": args.max_epochs - 1,
+            }
+            finalize_fold_evidence(
+                evidence_dir, metrics=metrics_payload, status="complete"
+            )
+    elif outer_eval_only and evidence_dir is not None:
+        finalize_fold_evidence(evidence_dir, metrics=None, status="interrupted")
+
+    if outer_eval_only:
+        msg = (
+            f"[Fold {fold}] fixed-budget outer evaluation status="
+            f"{'interrupted' if interrupted else 'complete'}"
+        )
+    else:
+        msg = (f"[Fold {fold}] best cindex={args.max_cindex:.4f} "
+               f"@epoch {args.max_cindex_epoch} (stopped @epoch {stopped_epoch})")
     print(msg)
     safe_write_line(log_file, msg)
     safe_flush(log_file)
@@ -771,6 +850,8 @@ def run(args):
                             f"log_start_{args.k_start}_end_{args.k_end}.txt")
     log_file = open(log_path, "w", buffering=1)  # 琛岀紦鍐?
     all_metrics = []
+    completed_folds = []
+    failed_folds = []
     for fold in folds:
         try:
             results, metrics = train_one_fold(args, dataset_factory, fold, log_file)
@@ -780,10 +861,15 @@ def run(args):
             safe_write_line(log_file, f"[ERROR] fold {fold} 澶辫触: {e}")
             safe_write_line(log_file, traceback.format_exc())
             safe_flush(log_file)
+            failed_folds.append(fold)
             continue
 
         if metrics is not None:
             all_metrics.append((fold, *metrics))
+            completed_folds.append(fold)
+        else:
+            failed_folds.append(fold)
+            safe_write_line(log_file, f"[ERROR] fold {fold} produced no final metrics")
         # 淇濆瓨 final 缁撴灉
         if results is not None:
             safe_pickle_dump(results, os.path.join(args.results_dir, f"split_{fold}_results_final.pkl"))
@@ -814,15 +900,29 @@ def run(args):
         print(f"\n[Summary]")
         print(df)
 
+    run_status = {
+        "status": "failed" if failed_folds else "complete",
+        "requested_folds": list(folds),
+        "completed_folds": completed_folds,
+        "failed_folds": failed_folds,
+    }
+    with open(os.path.join(args.results_dir, "run_status.json"), "w", encoding="utf-8") as handle:
+        json.dump(run_status, handle, ensure_ascii=False, indent=2)
+    if failed_folds:
+        print(f"[run] failed folds: {failed_folds}")
+        return 1
+    return 0
+
 
 def main():
     start = time.time()
     args = process_args_extended()
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
-    run(args)
+    exit_code = run(args)
     end = time.time()
     print(f"\nDone. Time: {end - start:.1f}s")
+    return exit_code
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

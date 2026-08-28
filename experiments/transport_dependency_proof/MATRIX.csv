@@ -1,0 +1,10 @@
+experiment_id,question,cohort_folds,implementation_status,execution_status,required_artifacts,claim_gate
+P0_code_path,"Does the plan enter the factual reader with finite gradients and deterministic evaluation?",unit tests,implemented,completed,"test log","structural wiring only"
+P1_objective_2x2,"What do IPCW and direction each contribute?",BLCA folds 0-4,implemented,pending,"predictions; checkpoints; curves; manifests; paired CI","objective contribution"
+P2_resinkhorn,"Does re-solving Sinkhorn carry the intervention response?","BLCA/UCEC/LUSC folds 1,2,4",implemented,pending,"full and fixed-coupling audits; Plan TV; DCR","transport re-solve necessity"
+P3_factual_plan,"Does factual prediction change under feasible uniform or shuffled plans?","all held-out cases from full checkpoints",implemented,pending,"factual/uniform/shuffled risks and plans; paired metrics","factual plan necessity"
+P4_anchor_specificity,"Is the response specific to prognostic anchor identity?","BLCA/UCEC/LUSC folds 1,2,4",implemented_partial,pending,"random/permuted/jitter/swap audits","anchor specificity"
+P5_dose,"Is the response monotone in both high- and low-risk directions?","all held-out cases from full checkpoints",implemented,pending,"low/high alpha sweeps; patient-level DMR","dose structure"
+P6_cross_cancer,"Does the locked method retain prediction and mechanism behavior across cohorts?","6 cancers x 5 folds",implemented,pending,"30 formal evidence packages; heterogeneity and CI","internal cross-cohort generalization"
+P7_external,"Does the locked method generalize to an independent institution?",independent cohort,not_implemented,pending,"external predictions and audit package","external generalization"
+

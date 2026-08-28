@@ -460,4 +460,4 @@ DCR 的随机符号参照为 $0.5$，不是 $0.25$ 或 $0.30$；DMR 仅检查高
 
 ---
 
-*文档版本：v4（2026-08-17 图文整合、机制核对与证据门同步；唯一稿）。证据台账：`paper_drafts/DCT/DCT_主张与证据台账.md`。*
+*文档版本：v4（2026-08-17 图文整合、机制核对与证据门同步；唯一稿）。证据台账：`docs/CLAIMS_AND_EVIDENCE.md`、`experiments/REGISTRY.csv` 与 `experiments/transport_dependency_proof/`。*

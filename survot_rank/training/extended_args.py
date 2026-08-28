@@ -79,6 +79,27 @@ def build_base_parser() -> argparse.ArgumentParser:
     parser.add_argument("--max_smoke_batches", type=int, default=0)
     parser.add_argument("--min_free_space_gb", type=float, default=2.0)
     parser.add_argument(
+        "--outer_eval_only",
+        action="store_true",
+        default=False,
+        help=(
+            "Do not inspect the held-out fold during training. Train the fixed "
+            "epoch budget and evaluate that fold exactly once at the end."
+        ),
+    )
+    parser.add_argument(
+        "--formal_evidence_package",
+        action="store_true",
+        default=False,
+        help="Write a self-contained per-fold evidence package with hashes and manifests.",
+    )
+    parser.add_argument(
+        "--formal_require_clean_git",
+        action="store_true",
+        default=False,
+        help="Refuse to create a formal evidence package from an uncommitted worktree.",
+    )
+    parser.add_argument(
         "--fit_bins_on_train",
         action="store_true",
         default=False,

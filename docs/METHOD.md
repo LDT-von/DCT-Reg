@@ -106,6 +106,11 @@ reported because DCT-Reg performs extra Sinkhorn solves during training.
 
 ## Historical evidence boundary
 
+The canonical implementation/run status for factual-plan necessity and the
+re-Sinkhorn proof chain is tracked in
+`experiments/transport_dependency_proof/`.  Code readiness must not be reported
+as completed experimental evidence.
+
 - DCT v3.3 is NLL + IPCW only. Its scores are historical motivation and a
   no-direction precursor, not DCT v3.10 results.
 - The v3.8 BLCA `direction` fold-0 score is preliminary single-fold evidence.
