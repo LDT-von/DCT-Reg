@@ -4,7 +4,7 @@ __pycache__/
 .coverage
 .venv/
 venv/
-results/
+results
 data/dataset_csv/
 *.pt
 *.pth
