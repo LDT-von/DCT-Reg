@@ -460,6 +460,14 @@ def build_base_parser() -> argparse.ArgumentParser:
         "--dct_stage_jitter_fraction", type=float, default=0.0,
         help="Jitter stage edges by this fraction of the total span (ablation).",
     )
+    parser.add_argument(
+        "--dct_frozen_anchor_path", type=str, default="",
+        help=(
+            "Path to a checkpoint.pt whose risk_anchor_costs/risk_anchor_seen "
+            "buffers are frozen into this run (cross-fold anchor control). "
+            "When set, risk anchors are loaded once and never updated."
+        ),
+    )
 
     # DCT v4.1 Survival-Evidence Ledger (SELC). This method replaces the
     # inherited slot mechanism while retaining the verified v3.3 DCT path.

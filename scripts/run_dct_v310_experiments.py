@@ -61,6 +61,9 @@ VARIANTS: dict[str, dict[str, object]] = {
         "survot_method": PARENT_METHOD,
         "dct_stage_jitter_fraction": 0.30,
     },
+    "cross_fold_frozen_anchors": {
+        "survot_method": PARENT_METHOD,
+    },
 }
 
 DESCRIPTIONS = {
@@ -74,6 +77,9 @@ DESCRIPTIONS = {
     ),
     "permuted_reference": "Permutes train-reference times for null calibration.",
     "stage_jitter": "Jitters train-fold stage edges by 30 percent.",
+    "cross_fold_frozen_anchors": (
+        "Freezes the next fold's risk anchors into this fold's training."
+    ),
 }
 
 DEFAULT_VARIANTS = ("nll_only", "ipcw_only", "direction_only", "full")
@@ -129,6 +135,22 @@ def build_job(
     command = list(frozen.command)
     for key, value in VARIANTS[variant].items():
         _replace_override(command, key, value)
+    if variant == "cross_fold_frozen_anchors":
+        # Freeze the risk anchors learned by the *next* fold of the same cancer
+        # so the directional response cannot rely on this fold's own anchors.
+        other = (fold + 1) % 5
+        full_dir = RESULT_ROOT / "full" / cancer
+        candidates = sorted(
+            full_dir.rglob(f"evidence/fold_{other}/checkpoint.pt")
+        ) if full_dir.exists() else []
+        if not candidates:
+            raise RuntimeError(
+                f"[cross_fold_frozen_anchors] no full checkpoint for "
+                f"{cancer} fold {other}; train the full variant first"
+            )
+        _replace_override(
+            command, "dct_frozen_anchor_path", candidates[0].as_posix()
+        )
     _replace_override(command, "results_dir", result_dir.as_posix())
     _replace_override(
         command,

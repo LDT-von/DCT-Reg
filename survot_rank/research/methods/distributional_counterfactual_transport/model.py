@@ -155,6 +155,39 @@ class DistributionalCounterfactualTransport(FaithfulEvidenceTransport):
         )
         if self.dct_freeze_source_prototype:
             self._load_and_freeze_source_prototype(self.dct_freeze_source_prototype)
+        # Cross-fold anchor control: freeze another fold's risk anchors.
+        self.dct_frozen_anchor_path = str(
+            getattr(args, "dct_frozen_anchor_path", "") or ""
+        )
+        self._frozen_anchors = False
+        if self.dct_frozen_anchor_path:
+            self._load_and_freeze_risk_anchors(self.dct_frozen_anchor_path)
+
+    def _load_and_freeze_risk_anchors(self, path: str) -> None:
+        """Replace risk anchors with another fold's values and freeze them.
+
+        Cross-fold anchor control: the directional response should be anchored
+        to the training fold's own risk anchors. Loading another fold's anchors
+        (computed on that fold's patients) tests whether the response survives
+        when the anchor source is different.
+        """
+        import torch as _torch
+        state = _torch.load(path, map_location="cpu", weights_only=True)
+        key_costs = "risk_anchor_costs"
+        key_seen = "risk_anchor_seen"
+        if key_costs not in state or key_seen not in state:
+            raise KeyError(
+                f"Checkpoint {path} does not expose risk_anchor_costs / "
+                "risk_anchor_seen; re-train the source fold first."
+            )
+        with _torch.no_grad():
+            self.risk_anchor_costs.copy_(
+                state[key_costs].to(self.risk_anchor_costs.device)
+            )
+            self.risk_anchor_seen.copy_(
+                state[key_seen].to(self.risk_anchor_seen.device)
+            )
+        self._frozen_anchors = True
 
     def _load_and_freeze_source_prototype(self, path: str) -> None:
         """Replace the two shared prototype tensors with the source-cancer values."""
@@ -238,8 +271,9 @@ class DistributionalCounterfactualTransport(FaithfulEvidenceTransport):
             censor_survival[idx] = value
         self.dct_censor_times = unique_times
         self.dct_censor_survival = censor_survival.clamp_min(0.05)
-        self.risk_anchor_costs.zero_()
-        self.risk_anchor_seen.zero_()
+        if not self._frozen_anchors:
+            self.risk_anchor_costs.zero_()
+            self.risk_anchor_seen.zero_()
 
     def _ipcw(self, query_times):
         if self.dct_censor_times.numel() == 0:
@@ -594,6 +628,10 @@ class DistributionalCounterfactualTransport(FaithfulEvidenceTransport):
 
     @torch.no_grad()
     def _update_risk_anchors(self, costs, low_weights, high_weights):
+        if self._frozen_anchors:
+            # Cross-fold control: anchors come from another fold's checkpoint
+            # and are never updated by this fold's data.
+            return
         if self.dct_random_anchors:
             # Ablation: keep anchor buffer populated with non-zero random tensors
             # so downstream code sees a valid (but meaningless) anchor. This
