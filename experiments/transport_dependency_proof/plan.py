@@ -65,10 +65,6 @@ def proof_training_commands(python_bin: str = sys.executable) -> list[tuple[str,
                 "full,fixed_coupling,noisy_batch_mean_anchors,permuted_reference,stage_jitter",
             ),
         ),
-        (
-            "P6_cross_cancer_prediction",
-            (python_bin, "scripts/run_dct_v310_final_cross_cancer.py", "plan"),
-        ),
     ]
 
 
