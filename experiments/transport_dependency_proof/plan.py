@@ -120,7 +120,7 @@ def _audit_base(checkpoint: Checkpoint, python_bin: str) -> list[str]:
         "--fold",
         str(checkpoint.fold),
         "--epoch",
-        "49",
+        "29",
         "--set",
         f"study={checkpoint.cancer}",
     ]
@@ -164,7 +164,7 @@ def checkpoint_audit_commands(
         "--fold",
         str(checkpoint.fold),
         "--epoch",
-        "49",
+        "29",
         "--alphas",
         "0.0,0.25,0.5,0.75,1.0",
         "--output-dir",
