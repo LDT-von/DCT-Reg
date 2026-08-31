@@ -1,6 +1,12 @@
-# 当前状态（2026-08-28）
+# 当前状态（2026-08-29）
 
-## 已完成
+## 首轮正式运行已完成
+
+P1（BLCA 五折 2×2 消融）、P2（folds 1,2,4 机制对照）、P3（plan necessity 审计）、P4（锚点特异性）、P5（双向剂量）的 30-epoch 固定预算正式运行全部完成，证据包落盘于 `results/dct_v3.10_experiments/robust/`。逐折表格与审计指标见 `RESULTS_20260829.md`。
+
+关键结果速览：训练 C-index 正常（blca full 0.638）；但审计侧 P3 计划替换后风险变化趋近 0、P4 方向一致率低于机会、P5 剂量单调率远低于通过线。**在排查审计解码路径是否真实消费被替换计划之前，不得将审计结果写为正式结论。**
+
+## 已完成（实现层面）
 
 - DCT-Reg 冻结目标、事实 Sinkhorn、低/高风险 cost intervention、re-Sinkhorn 和共享风险读取已实现。
 - 评估模式可导出 factual/low/high 真实计划、三侧边际误差和真实 Plan TV。
@@ -11,21 +17,16 @@
 
 ## 已实现但尚未正式运行
 
-- P1：BLCA 五折 2×2 目标消融。
-- P2：BLCA/UCEC/LUSC 预注册 folds 的 full 与 fixed-coupling 对照。
-- P3：持出 checkpoint 的 factual/uniform/shuffled plan necessity 审计。
-- P4：noisy/permuted/stage-jitter 训练控制和 anchor-swap 持出审计。
-- P5：high/low 两侧 alpha sweep 与患者级 DMR。
-- P6：六癌种 × 五折锁定 full 运行。
+- P6：六癌种 × 五折锁定 full 运行（用户已确认不重跑，旧 50ep 队列作为对照基准保留）。
+- P7：独立机构/外部队列。
 
 ## 尚未实现或仍缺失
 
-- P4 的跨 fold frozen-anchor 敏感性分析。
 - full、pair-only、plan-only 三读取器结构消融。
 - 正式结果聚合中的患者级 bootstrap CI、多重比较校正和跨癌异质性表。
 - 独立机构/外部队列 P7。
 
 ## 当前结论
 
-截至本记录，正式结果仍为零。代码就绪不得写成 P1-P7 已完成；只有 `MATRIX.csv` 的 `execution_status` 在完整工件审核后才能从 `pending` 更新。
+截至本记录，训练侧已产出首轮正式 C-index（见 `RESULTS_20260829.md`）。审计侧 P3/P4/P5 结果异常，在核实审计解码路径正确性前，审计结论保持未定。`MATRIX.csv` 的 `execution_status` 仅在完整工件审核后更新。
 
