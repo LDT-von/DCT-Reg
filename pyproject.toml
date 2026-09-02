@@ -1,0 +1,25 @@
+[project]
+name = "dct-reg"
+version = "3.10.0"
+description = "Standalone DCT v3.10 directionally regularized transport research package"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.21.0",
+  "pandas>=1.3.0",
+  "scikit-learn>=1.0.0",
+  "scikit-survival>=0.21.0",
+  "einops>=0.6.0",
+  "matplotlib>=3.5.0",
+  "tqdm>=4.62.0",
+  "PyYAML>=6.0",
+]
+
+[project.scripts]
+dct-reg = "survot_rank.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["survot_rank*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
