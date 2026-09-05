@@ -1,6 +1,23 @@
 # DCT-Reg v3.10
 
-这是 DCT v3.10 的独立、瘦身、论文导向仓库。它只保留冻结方法、必要运行时、正式实验协议、证据登记和唯一论文草稿。
+这是 DCT v3.10 的独立研究仓库，保留冻结方法、必要运行时、实验协议、证据登记和唯一论文草稿；新候选版本单独注册，不覆盖冻结主方法。
+
+## 新候选：模型 v3.2 TGSR
+
+v3.2 实现“OT 匹配 → 反馈槽查询 → 重新聚合原始病理/组学 token”，主目标为生存预测。
+提供 `baseline / self_update / attention_feedback / ot_feedback` 四个 NLL-only 结构对照。
+**代码与合成张量测试不等于真实数据性能；已有 0.7175 等结果仍属于旧 v3.10。**
+
+- [v3.2 方法、版本边界与运行说明](docs/DCT_V32_TGSR.md)
+- [b5a731a 统计/KM 报告复核及限制](docs/REVIEW_REMOTE_RESULTS_2026_09_05.md)
+
+```bash
+python scripts/run_dct_v32_experiments.py plan
+python scripts/run_dct_v32_experiments.py doctor --cancers blca
+python scripts/run_dct_v32_experiments.py smoke --cancers blca --folds 0
+```
+
+下面各节描述的是原冻结 **v3.10**，不代表 v3.2 的研究主张。
 
 ## 它解决什么问题
 

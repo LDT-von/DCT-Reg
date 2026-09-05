@@ -1,4 +1,4 @@
-"""DCT-Reg-only executable method catalog."""
+"""Frozen DCT-Reg and separately registered research candidates."""
 
 from __future__ import annotations
 
@@ -8,12 +8,13 @@ from pathlib import Path
 from typing import Iterable
 
 
-CATALOG_UPDATED = "2026-08-26"
+CATALOG_UPDATED = "2026-09-05"
 PRIMARY_METHOD = "dct_v310_directional_regularized_transport"
-METHOD_STATUSES = ("primary", "ablation")
+METHOD_STATUSES = ("primary", "ablation", "candidate")
 STATUS_LABELS = {
     "primary": "frozen paper method",
     "ablation": "mechanism ablation parent",
+    "candidate": "experimental method; performance not yet established",
 }
 
 
@@ -55,6 +56,13 @@ METHOD_SPECS = (
         "dct_transport_intervention_consistency",
         "DCTTransportInterventionConsistency",
         aliases=("dct_ablation_parent",),
+    ),
+    MethodSpec(
+        "dct_v32_transport_guided_slot_reaggregation",
+        "DCT v3.2 Transport-Guided Slot Reaggregation (TGSR)",
+        "dct", "candidate", "dct_v32_transport_guided_slot_reaggregation",
+        "DCTV32TransportGuidedSlotReaggregation",
+        aliases=("dct_v32", "dct_v3_2", "tgsr"),
     ),
 )
 

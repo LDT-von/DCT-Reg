@@ -270,7 +270,7 @@ def test_v310_default_experiment_queue_is_matched_two_by_two_ablation():
                 "dct_v310_directional_regularized_transport"
             )
         else:
-            assert override(job, "survot_method") == experiments.PARENT_METHOD
+            assert override(job, "survot_method") == experiments.ABLATION_PARENT
 
 
 def test_v310_mechanism_control_queue_matches_documented_subset():

@@ -210,6 +210,12 @@ def build_base_parser() -> argparse.ArgumentParser:
 
     # Distributional counterfactual transport method.
     parser.add_argument("--dct_num_stages", type=int, default=4)
+    # Candidate v3.2. These do not change the frozen v3.10 method.
+    parser.add_argument("--dct_v32_feedback", choices=("none", "self", "attention", "ot"), default="ot")
+    parser.add_argument("--dct_v32_rounds", type=int, default=1)
+    parser.add_argument("--dct_v32_feedback_strength", type=float, default=0.25)
+    parser.add_argument("--dct_v32_feedback_eps", type=float, default=0.10)
+    parser.add_argument("--dct_v32_feedback_iters", type=int, default=50)
     parser.add_argument("--dct_lambda_ipcw_rank", type=float, default=0.10)
     parser.add_argument("--dct_ipcw_rank_margin", type=float, default=0.02)
     parser.add_argument("--dct_ipcw_rank_temperature", type=float, default=0.50)
