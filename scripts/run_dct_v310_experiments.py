@@ -28,23 +28,24 @@ except (ModuleNotFoundError, ImportError):
 
 
 PARENT_METHOD = "dct_v310_directional_regularized_transport"
+ABLATION_PARENT = "dct_transport_intervention_consistency"  # Non-frozen parent for ablations
 VARIANTS: dict[str, dict[str, object]] = {
     "nll_only": {
-        "survot_method": PARENT_METHOD,
+        "survot_method": ABLATION_PARENT,  # Use non-frozen parent
         "dct_lambda_ipcw_rank": 0.0,
         "dct_v38_lambda_direction": 0.0,
     },
     "ipcw_only": {
-        "survot_method": PARENT_METHOD,
+        "survot_method": ABLATION_PARENT,  # Use non-frozen parent
         "dct_lambda_ipcw_rank": 0.10,
         "dct_v38_lambda_direction": 0.0,
     },
     "direction_only": {
-        "survot_method": PARENT_METHOD,
+        "survot_method": ABLATION_PARENT,  # Use non-frozen parent
         "dct_lambda_ipcw_rank": 0.0,
         "dct_v38_lambda_direction": 0.05,
     },
-    "full": {},
+    "full": {},  # Keep frozen version for full model
     "fixed_coupling": {
         "survot_method": PARENT_METHOD,
         "dct_fixed_coupling": True,
