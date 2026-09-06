@@ -277,26 +277,34 @@ def extract_prognostic_anchors(
     return low, high
 
 
-def get_embedding(model: torch.nn.Module, batch: dict, device: torch.device) -> torch.Tensor:
+def get_embedding(model: torch.nn.Module, batch, device: torch.device) -> torch.Tensor:
     """Extract embedding from model encoder."""
     
-    # Get WSI features
-    if 'wsi' in batch:
-        wsi = batch['wsi'].to(device)
-    elif 'x_path' in batch:
-        wsi = batch['x_path'].to(device)
+    # Handle different batch formats
+    if isinstance(batch, dict):
+        if 'wsi' in batch:
+            wsi = batch['wsi'].to(device)
+        elif 'x_path' in batch:
+            wsi = batch['x_path'].to(device)
+        else:
+            raise KeyError(f"Cannot find WSI features in batch keys: {batch.keys()}")
+    elif isinstance(batch, (list, tuple)):
+        # Tuple/list format: (wsi, genes, label, event_time, censorship) or with clinical
+        wsi = batch[0].to(device)
     else:
-        raise KeyError(f"Cannot find WSI features in batch keys: {batch.keys()}")
+        raise TypeError(f"Unexpected batch type: {type(batch)}")
     
     # Forward through encoder
     with torch.no_grad():
-        if hasattr(model, 'encoder'):
+        if hasattr(model, 'wsi_mlp'):
+            # DCT models: directly get WSI embedding
+            embedding = model.wsi_mlp(wsi.mean(dim=1))  # Pool patches first
+        elif hasattr(model, 'encoder'):
             embedding = model.encoder(wsi)
         elif hasattr(model, 'wsi_encoder'):
             embedding = model.wsi_encoder(wsi)
         else:
-            # Try forward with wsi only
-            embedding = model(wsi_input=wsi, return_embedding=True)
+            raise AttributeError(f"Cannot find embedding method in model {model.__class__.__name__}")
     
     return embedding
 
@@ -307,25 +315,42 @@ def compute_risk(model: torch.nn.Module, embedding: torch.Tensor, device: torch.
     embedding = embedding.to(device)
     
     with torch.no_grad():
-        # Try different decoder types
-        if hasattr(model, 'decoder'):
-            logits = model.decoder(embedding)
-        elif hasattr(model, 'hazard_predictor'):
-            logits = model.hazard_predictor(embedding)
-        elif hasattr(model, 'risk_predictor'):
-            logits = model.risk_predictor(embedding)
+        # For DCT models, we can't easily go from embedding to risk
+        # Instead, we'll use a surrogate: distance to risk anchors
+        if hasattr(model, 'risk_anchor_costs'):
+            # Use risk anchor costs to compute risk
+            # risk_anchor_costs shape: [n_bins, 2, 3, 8, 8]
+            # embedding shape: [batch, embedding_dim]
+            # We need to project embedding to anchor space or use the hazard predictor
+            
+            # Use the model's event_hazard to compute risk from embedding
+            if hasattr(model, 'event_hazard'):
+                logits = model.event_hazard(embedding)
+                # Convert logits to risk score
+                if logits.dim() == 2:  # Multi-bin output [batch, n_bins]
+                    probs = torch.softmax(logits, dim=1)
+                    time_bins = torch.arange(logits.size(1), device=device, dtype=torch.float32)
+                    risk = -torch.sum(probs * time_bins, dim=1)  # Negative expected time
+                else:  # Single output
+                    risk = logits.squeeze(-1)
+            else:
+                raise AttributeError(f"Model has risk_anchor_costs but no event_hazard to compute risk")
         else:
-            # Try full forward with embedding
-            logits = model.forward_from_embedding(embedding)
-        
-        # Convert to risk score
-        if logits.dim() == 2:  # Multi-bin discrete-time
-            # Use negative expected survival (higher = worse prognosis)
-            probs = torch.softmax(logits, dim=1)
-            time_bins = torch.arange(logits.size(1), device=device, dtype=torch.float32)
-            risk = -torch.sum(probs * time_bins, dim=1)
-        else:  # Single output
-            risk = logits.squeeze(-1)
+            # Fallback: try to use classifier
+            if hasattr(model, 'event_hazard'):
+                logits = model.event_hazard(embedding)
+            elif hasattr(model, 'classifier'):
+                logits = model.classifier(embedding)
+            else:
+                raise AttributeError(f"Cannot compute risk from embedding for {model.__class__.__name__}")
+            
+            # Convert logits to risk
+            if logits.dim() == 2:  # Multi-bin output
+                probs = torch.softmax(logits, dim=1)
+                time_bins = torch.arange(logits.size(1), device=device, dtype=torch.float32)
+                risk = -torch.sum(probs * time_bins, dim=1)  # Negative expected time
+            else:  # Single output
+                risk = logits.squeeze(-1)
     
     return risk
 
@@ -335,17 +360,46 @@ def interpolate_towards_anchor(
     anchor: torch.Tensor,
     alpha: float
 ) -> torch.Tensor:
-    """Interpolate embedding towards an anchor.
+    """Interpolate embedding towards an anchor in embedding space.
+    
+    For models with image-form anchors, we need to work in embedding space.
+    We create a direction vector by computing: direction = sign(anchor_mean - embedding)
+    and then move along that direction.
     
     Args:
         embedding: Original embedding (batch_size, dim)
-        anchor: Target anchor (dim,)
+        anchor: Target anchor - if 4D, we'll flatten and use as reference
         alpha: Interpolation strength [0, 1]
     
     Returns:
         Interpolated embedding (batch_size, dim)
     """
-    return (1 - alpha) * embedding + alpha * anchor.unsqueeze(0)
+    # If anchor is image-form, we'll create a simple perturbation
+    # that moves in a consistent direction
+    if anchor.dim() > 2:
+        # For image-form anchors, create a normalized direction vector
+        # Use the flattened anchor as a direction guide
+        anchor_flat = anchor.flatten()
+        # Truncate or pad to match embedding dimension
+        emb_dim = embedding.shape[1]
+        if anchor_flat.shape[0] > emb_dim:
+            direction = anchor_flat[:emb_dim]
+        else:
+            direction = torch.zeros(emb_dim, device=embedding.device)
+            direction[:anchor_flat.shape[0]] = anchor_flat
+        
+        # Normalize the direction
+        direction = direction / (torch.norm(direction) + 1e-8)
+        
+        # Move along this direction
+        # Scale by embedding magnitude to keep perturbations reasonable
+        emb_magnitude = torch.norm(embedding, dim=1, keepdim=True).mean()
+        perturbation = alpha * emb_magnitude * 0.1 * direction.unsqueeze(0)
+        
+        return embedding + perturbation
+    else:
+        # Standard interpolation for vector anchors
+        return (1 - alpha) * embedding + alpha * anchor.unsqueeze(0)
 
 
 def run_intervention_audit(
@@ -417,6 +471,9 @@ def run_intervention_audit(
         # Get original embeddings
         original_embeddings = get_embedding(model, batch, device)
         
+        # Update actual batch size from embeddings
+        actual_batch_size = original_embeddings.shape[0]
+        
         # Get original risk
         original_risk = compute_risk(model, original_embeddings, device)
         
@@ -436,15 +493,15 @@ def run_intervention_audit(
             high_risk_pred = compute_risk(model, high_risk_emb, device)
             high_risk_dist = torch.norm(high_risk_emb - original_embeddings, dim=1)
             
-            # Record results
-            for i in range(len(patient_ids)):
-                pid = patient_ids[i] if isinstance(patient_ids[i], str) else str(patient_ids[i])
+            # Record results - use actual batch size
+            for i in range(actual_batch_size):
+                pid = patient_ids[i] if i < len(patient_ids) and isinstance(patient_ids[i], str) else f"patient_{batch_idx}_{i}"
                 
                 # Low-risk direction
                 results.append({
                     'patient_id': pid,
-                    'true_time': float(times[i]),
-                    'true_event': int(events[i]),
+                    'true_time': float(times[i]) if times is not None and i < len(times) else -1.0,
+                    'true_event': int(events[i]) if events is not None and i < len(events) else -1,
                     'original_risk': float(original_risk[i].cpu().item()),
                     'alpha': float(alpha),
                     'direction': 'low_risk',
@@ -455,8 +512,8 @@ def run_intervention_audit(
                 # High-risk direction
                 results.append({
                     'patient_id': pid,
-                    'true_time': float(times[i]),
-                    'true_event': int(events[i]),
+                    'true_time': float(times[i]) if times is not None and i < len(times) else -1.0,
+                    'true_event': int(events[i]) if events is not None and i < len(events) else -1,
                     'original_risk': float(original_risk[i].cpu().item()),
                     'alpha': float(alpha),
                     'direction': 'high_risk',

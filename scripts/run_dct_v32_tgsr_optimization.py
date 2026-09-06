@@ -86,7 +86,7 @@ def build_parser():
     parser.set_defaults(cancers=["blca"], folds=[0, 1, 2, 3, 4])
     parser.add_argument("--variants", type=parse_variants, default=list(VARIANTS))
     parser.add_argument("--seed", type=int, default=3)
-    parser.add_argument("--max-epochs", type=int, default=50)
+    parser.add_argument("--max-epochs", type=int, default=30)
     parser.add_argument("--rounds", type=int, choices=range(1, 9), default=1)
     return parser
 

@@ -376,31 +376,30 @@ def run_intervention_audit(
         else:
             wsi, genes, label, event_time, censorship = batch
         
-        # Get patient IDs from label_df based on batch indices
-        # Since we're using batch_size=1, batch_idx is the index
-        patient_id = test_loader.dataset.label_df.loc[batch_idx, 'case id']
-        
+        # Move to device
         wsi = wsi.to(device)
         if isinstance(genes, list):
-            genes = [g.to(device) for g in genes]
-        else:
+            # genes is already a list of tensors from pathway data
+            if len(genes) > 0 and hasattr(genes[0], 'to'):
+                genes = [g.to(device) for g in genes]
+            # else genes is a list of lists, need different handling
+        elif hasattr(genes, 'to'):
             genes = genes.to(device)
         label = label.to(device)
         event_time = event_time.to(device)
         censorship = censorship.to(device)
         
-        true_time = event_time.item()
-        true_event = 1 - censorship.item()  # 1=event, 0=censored
+        batch_size = wsi.shape[0]
         
         # Get original embeddings from model
         with torch.no_grad():
             # Use model's slot attention to get pooled embeddings
             if hasattr(model, 'slot_attention_wsi'):
-                wsi_slots = model.slot_attention_wsi(wsi)  # [1, num_slots, dim]
-                original_embedding = wsi_slots.mean(dim=1)  # [1, dim]
+                wsi_slots = model.slot_attention_wsi(wsi)  # [B, num_slots, dim]
+                original_embedding = wsi_slots.mean(dim=1)  # [B, dim]
             else:
                 # Fallback: use wsi_mlp
-                original_embedding = model.wsi_mlp(wsi.mean(dim=1))  # [1, dim]
+                original_embedding = model.wsi_mlp(wsi.mean(dim=1))  # [B, dim]
         
         # Get baseline risk (alpha=0)
         baseline_risk = compute_risk_prediction(model, original_embedding, device)
@@ -408,49 +407,52 @@ def run_intervention_audit(
         # Test interventions at each alpha
         for alpha in alphas:
             # Intervene towards low-risk anchor
-            low_risk_embeddings = interpolate_towards_anchor(
-                original_embeddings, low_risk_anchor, alpha
+            low_risk_embedding = interpolate_towards_anchor(
+                original_embedding, low_risk_anchor, alpha
             )
-            low_risk_preds = compute_risk_prediction(model, low_risk_embeddings, device)
+            low_risk_pred = compute_risk_prediction(model, low_risk_embedding, device)
             low_risk_distance = torch.norm(
-                low_risk_embeddings - original_embeddings, dim=1
-            ).cpu().numpy()
+                low_risk_embedding - original_embedding, dim=1
+            )
             
             # Intervene towards high-risk anchor
-            high_risk_embeddings = interpolate_towards_anchor(
-                original_embeddings, high_risk_anchor, alpha
+            high_risk_embedding = interpolate_towards_anchor(
+                original_embedding, high_risk_anchor, alpha
             )
-            high_risk_preds = compute_risk_prediction(model, high_risk_embeddings, device)
+            high_risk_pred = compute_risk_prediction(model, high_risk_embedding, device)
             high_risk_distance = torch.norm(
-                high_risk_embeddings - original_embeddings, dim=1
-            ).cpu().numpy()
+                high_risk_embedding - original_embedding, dim=1
+            )
             
-            # Record results
-            for i, pid in enumerate(patient_ids):
+            # Record results for each sample in batch
+            for i in range(batch_size):
+                # Get patient ID
+                patient_id = f"patient_{batch_idx}_{i}"
+                
                 # Low-risk intervention
                 results.append({
-                    'patient_id': pid,
-                    'true_time': float(true_times[i]),
-                    'true_event': int(true_events[i]),
+                    'patient_id': patient_id,
+                    'true_time': float(event_time[i].cpu().item()),
+                    'true_event': int((1 - censorship[i]).cpu().item()),
                     'baseline_risk': float(baseline_risk[i].cpu().item()),
                     'alpha': float(alpha),
                     'direction': 'low_risk',
-                    'risk_pred': float(low_risk_preds[i].cpu().item()),
-                    'risk_change': float(low_risk_preds[i].cpu().item() - baseline_risk[i].cpu().item()),
-                    'embedding_distance': float(low_risk_distance[i])
+                    'risk_pred': float(low_risk_pred[i].cpu().item()),
+                    'risk_change': float(low_risk_pred[i].cpu().item() - baseline_risk[i].cpu().item()),
+                    'embedding_distance': float(low_risk_distance[i].cpu().item())
                 })
                 
                 # High-risk intervention
                 results.append({
-                    'patient_id': pid,
-                    'true_time': float(true_times[i]),
-                    'true_event': int(true_events[i]),
+                    'patient_id': patient_id,
+                    'true_time': float(event_time[i].cpu().item()),
+                    'true_event': int((1 - censorship[i]).cpu().item()),
                     'baseline_risk': float(baseline_risk[i].cpu().item()),
                     'alpha': float(alpha),
                     'direction': 'high_risk',
-                    'risk_pred': float(high_risk_preds[i].cpu().item()),
-                    'risk_change': float(high_risk_preds[i].cpu().item() - baseline_risk[i].cpu().item()),
-                    'embedding_distance': float(high_risk_distance[i])
+                    'risk_pred': float(high_risk_pred[i].cpu().item()),
+                    'risk_change': float(high_risk_pred[i].cpu().item() - baseline_risk[i].cpu().item()),
+                    'embedding_distance': float(high_risk_distance[i].cpu().item())
                 })
     
     df = pd.DataFrame(results)
