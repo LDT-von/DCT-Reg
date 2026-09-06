@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Iterable
 
 
-CATALOG_UPDATED = "2026-09-05"
+CATALOG_UPDATED = "2026-09-06"
 PRIMARY_METHOD = "dct_v310_directional_regularized_transport"
 METHOD_STATUSES = ("primary", "ablation", "candidate")
 STATUS_LABELS = {
@@ -63,6 +63,13 @@ METHOD_SPECS = (
         "dct", "candidate", "dct_v32_transport_guided_slot_reaggregation",
         "DCTV32TransportGuidedSlotReaggregation",
         aliases=("dct_v32", "dct_v3_2", "tgsr"),
+    ),
+    MethodSpec(
+        "dct_v32_tgsr_objective_study",
+        "DCT v3.2 TGSR Objective Optimization Study",
+        "dct", "candidate", "dct_v32_tgsr_objective_study",
+        "DCTV32TGSRObjectiveStudy",
+        aliases=("tgsr_objective_study", "tgsr_optimized"),
     ),
 )
 

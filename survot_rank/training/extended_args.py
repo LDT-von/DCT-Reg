@@ -216,6 +216,16 @@ def build_base_parser() -> argparse.ArgumentParser:
     parser.add_argument("--dct_v32_feedback_strength", type=float, default=0.25)
     parser.add_argument("--dct_v32_feedback_eps", type=float, default=0.10)
     parser.add_argument("--dct_v32_feedback_iters", type=int, default=50)
+    parser.add_argument(
+        "--dct_v32_objective",
+        choices=("nll", "ipcw", "direction", "full"),
+        default="nll",
+    )
+    parser.add_argument(
+        "--dct_v32_learnable_feedback_strength",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+    )
     parser.add_argument("--dct_lambda_ipcw_rank", type=float, default=0.10)
     parser.add_argument("--dct_ipcw_rank_margin", type=float, default=0.02)
     parser.add_argument("--dct_ipcw_rank_temperature", type=float, default=0.50)

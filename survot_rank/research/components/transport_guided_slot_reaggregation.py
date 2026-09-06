@@ -51,7 +51,7 @@ class TransportGuidedSlotReaggregation(nn.Module):
     MODES = ("none", "self", "attention", "ot")
 
     def __init__(self, dim, *, mode="ot", rounds=1, strength=0.25,
-                 epsilon=0.10, sinkhorn_iters=50):
+                 epsilon=0.10, sinkhorn_iters=50, learnable_strength=False):
         super().__init__()
         if not isinstance(dim, int) or isinstance(dim, bool) or dim < 2:
             raise ValueError("dim must be an integer >= 2")
@@ -65,14 +65,33 @@ class TransportGuidedSlotReaggregation(nn.Module):
             raise ValueError("strength must be finite and in [0, 1]")
         if isinstance(epsilon, bool) or not math.isfinite(epsilon) or epsilon <= 0:
             raise ValueError("epsilon must be finite and positive")
+        if not isinstance(learnable_strength, bool):
+            raise ValueError("learnable_strength must be boolean")
+        if learnable_strength and not 0.0 < strength < 1.0:
+            raise ValueError("learnable strength must start strictly between 0 and 1")
         self.dim, self.mode, self.rounds = dim, mode, rounds
         self.strength, self.epsilon, self.sinkhorn_iters = strength, epsilon, sinkhorn_iters
+        self.learnable_strength = learnable_strength
+        if learnable_strength:
+            initial_logit = math.log(strength / (1.0 - strength))
+            self.feedback_strength_logit = nn.Parameter(torch.tensor(initial_logit))
+        else:
+            self.register_parameter("feedback_strength_logit", None)
         self.wsi_reader = SlotRereader(dim)
         self.omic_reader = SlotRereader(dim)
         self.capture_attention = False
         self.last_attention = None
         self.last_plan = None
         self.last_diagnostics = {}
+
+    def effective_strength(self, reference):
+        """Return a bounded shared cross-modal feedback coefficient."""
+
+        if self.feedback_strength_logit is None:
+            return reference.new_tensor(self.strength)
+        return self.feedback_strength_logit.sigmoid().to(
+            device=reference.device, dtype=reference.dtype
+        )
 
     def _validate(self, slots, tokens, mask, name):
         if slots.ndim != 3 or tokens.ndim != 3:
@@ -129,16 +148,22 @@ class TransportGuidedSlotReaggregation(nn.Module):
         if self.mode == "none":
             return wsi_slots, omic_slots
         wsi, omic = wsi_slots, omic_slots
+        feedback_strength = self.effective_strength(wsi)
         for _ in range(self.rounds):
             contexts = (None, None) if self.mode == "self" else self._contexts(wsi, omic)
             # Both directions consume the SAME pre-update state, not an
             # accidental sequential update of the second modality.
-            new_wsi, aw, pw = self.wsi_reader(wsi, wsi_tokens, contexts[0], self.strength, wsi_mask)
-            new_omic, ao, po = self.omic_reader(omic, omic_tokens, contexts[1], self.strength, omic_mask)
+            new_wsi, aw, pw = self.wsi_reader(
+                wsi, wsi_tokens, contexts[0], feedback_strength, wsi_mask
+            )
+            new_omic, ao, po = self.omic_reader(
+                omic, omic_tokens, contexts[1], feedback_strength, omic_mask
+            )
             wsi, omic = new_wsi, new_omic
         self.last_diagnostics.update({
             "wsi_slot_delta": (wsi - wsi_slots).abs().mean().detach(),
             "omic_slot_delta": (omic - omic_slots).abs().mean().detach(),
+            "feedback_strength": feedback_strength.detach(),
         })
         if self.capture_attention:
             self.last_attention = {"wsi_assignment": aw.detach(), "omic_assignment": ao.detach(),
