@@ -226,6 +226,35 @@ def build_base_parser() -> argparse.ArgumentParser:
         action=argparse.BooleanOptionalAction,
         default=False,
     )
+    # Candidate v3.30 closed-loop prognostic transport.  These options are
+    # isolated from the frozen v3.10 method and the original v3.2 study.
+    parser.add_argument(
+        "--dct_v330_variant",
+        choices=(
+            "baseline",
+            "self_update",
+            "ot_feedback",
+            "confidence_gate",
+            "prognostic_rank",
+        ),
+        default="prognostic_rank",
+    )
+    parser.add_argument("--dct_v330_rounds", type=int, default=1)
+    parser.add_argument("--dct_v330_feedback_strength", type=float, default=0.25)
+    parser.add_argument("--dct_v330_feedback_eps", type=float, default=0.10)
+    parser.add_argument("--dct_v330_feedback_iters", type=int, default=50)
+    parser.add_argument("--dct_v330_adaptive_eps_start", type=float, default=0.50)
+    parser.add_argument("--dct_v330_adaptive_eps_end", type=float, default=0.10)
+    parser.add_argument("--dct_v330_adaptive_eps_anneal_epochs", type=int, default=12)
+    parser.add_argument("--dct_v330_marginal_strength", type=float, default=0.50)
+    parser.add_argument("--dct_v330_gate_hidden_dim", type=int, default=16)
+    parser.add_argument("--dct_v330_repr_rank_weight", type=float, default=0.10)
+    parser.add_argument("--dct_v330_repr_temperature", type=float, default=0.10)
+    parser.add_argument("--dct_v330_high_quantile", type=float, default=0.40)
+    parser.add_argument("--dct_v330_low_quantile", type=float, default=0.60)
+    parser.add_argument("--dct_v330_final_eps_start", type=float, default=0.50)
+    parser.add_argument("--dct_v330_final_eps_end", type=float, default=0.10)
+    parser.add_argument("--dct_v330_final_eps_anneal_epochs", type=int, default=12)
     parser.add_argument("--dct_lambda_ipcw_rank", type=float, default=0.10)
     parser.add_argument("--dct_ipcw_rank_margin", type=float, default=0.02)
     parser.add_argument("--dct_ipcw_rank_temperature", type=float, default=0.50)

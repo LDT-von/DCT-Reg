@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Matched BLCA experiments for optimizing TGSR without changing v3.10."""
+"""Matched five-arm experiments for DCT v3.30 closed-loop transport."""
 
 from __future__ import annotations
 
@@ -19,41 +19,15 @@ except (ModuleNotFoundError, ImportError):
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-CONFIG = Path("configs/dct_v32_tgsr_objective_study.yaml")
-STUDY_METHOD = "dct_v32_tgsr_objective_study"
-V310_METHOD = "dct_v310_directional_regularized_transport"
-VARIANTS: dict[str, dict[str, object]] = {
-    "tgsr_nll": {
-        "survot_method": STUDY_METHOD,
-        "dct_v32_objective": "nll",
-        "dct_v32_learnable_feedback_strength": False,
-    },
-    "tgsr_ipcw": {
-        "survot_method": STUDY_METHOD,
-        "dct_v32_objective": "ipcw",
-        "dct_v32_learnable_feedback_strength": False,
-    },
-    "tgsr_direction": {
-        "survot_method": STUDY_METHOD,
-        "dct_v32_objective": "direction",
-        "dct_v32_learnable_feedback_strength": False,
-    },
-    "tgsr_full": {
-        "survot_method": STUDY_METHOD,
-        "dct_v32_objective": "full",
-        "dct_v32_learnable_feedback_strength": False,
-    },
-    "tgsr_full_learned": {
-        "survot_method": STUDY_METHOD,
-        "dct_v32_objective": "full",
-        "dct_v32_learnable_feedback_strength": True,
-    },
-    "v310_full_reference": {
-        "survot_method": V310_METHOD,
-        "dct_v32_objective": "full",
-        "dct_v32_learnable_feedback_strength": False,
-    },
-}
+CONFIG = Path("configs/dct_v330_closed_loop_prognostic_transport.yaml")
+METHOD = "dct_v330_closed_loop_prognostic_transport"
+VARIANTS = (
+    "baseline",
+    "self_update",
+    "ot_feedback",
+    "confidence_gate",
+    "prognostic_rank",
+)
 
 
 @dataclass(frozen=True)
@@ -115,7 +89,6 @@ def build_jobs(args, *, smoke=False):
         for cancer in args.cancers:
             for fold in (args.folds[:1] if smoke else args.folds):
                 values = dict(
-                    VARIANTS[variant],
                     study=cancer,
                     data_root_dir=args.data_root,
                     data_path=args.data_csv_root,
@@ -125,8 +98,9 @@ def build_jobs(args, *, smoke=False):
                     num_workers=args.num_workers,
                     seed=args.seed,
                     max_epochs=2 if smoke else args.max_epochs,
-                    dct_v32_feedback="ot",
-                    dct_v32_rounds=args.rounds,
+                    survot_method=METHOD,
+                    dct_v330_variant=variant,
+                    dct_v330_rounds=args.rounds,
                     bag_loss="nll_surv",
                 )
                 if smoke:
@@ -141,13 +115,13 @@ def build_jobs(args, *, smoke=False):
                     + json.dumps(identity, sort_keys=True).encode()
                 ).hexdigest()[:12]
                 root = (
-                    Path("results/dct_v3.2_tgsr_optimization_smoke")
-                    if smoke else Path("results/dct_v3.2_tgsr_optimization")
+                    Path("results/dct_v3.30_smoke")
+                    if smoke else Path("results/dct_v3.30")
                 )
                 result_dir = root / variant / cancer / f"seed{args.seed}_{fingerprint}"
                 values.update(
                     results_dir=result_dir.as_posix(),
-                    specific_simple=f"v32opt_{variant}_{cancer}_seed{args.seed}_{fingerprint}",
+                    specific_simple=f"v330_{variant}_{cancer}_seed{args.seed}_{fingerprint}",
                 )
                 command = (
                     args.python_bin, "-m", "survot_rank.cli", "train", "--config",
@@ -172,7 +146,7 @@ def run_queue(args, jobs, *, smoke=False):
     try:
         scheduler_lock = runtime.acquire_run_lock(
             runtime.scheduler_lock_path(args.gpu, smoke),
-            label="DCT v3.2 TGSR optimization queue",
+            label="DCT v3.30 closed-loop transport queue",
         )
         for job in jobs:
             completed = list(job.result_dir.rglob(f"split_{job.fold}_results_final.pkl"))
@@ -183,7 +157,7 @@ def run_queue(args, jobs, *, smoke=False):
             try:
                 task_lock = runtime.acquire_run_lock(
                     runtime.task_lock_path(job),
-                    label=f"TGSR optimization {job.variant} {job.cancer} fold{job.fold}",
+                    label=f"DCT v3.30 {job.variant} {job.cancer} fold{job.fold}",
                 )
                 process = subprocess.run(
                     job.command, cwd=REPO_ROOT, env=environment, check=False
@@ -208,7 +182,7 @@ def main():
     smoke = args.mode == "smoke"
     jobs = build_jobs(args, smoke=smoke)
     print(
-        f"TGSR OPTIMIZATION STUDY | {len(jobs)} jobs | "
+        f"DCT v3.30 CLOSED-LOOP STUDY | {len(jobs)} jobs | "
         "matched protocol; candidate evidence only"
     )
     for job in jobs:
