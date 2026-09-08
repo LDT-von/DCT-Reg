@@ -1,0 +1,99 @@
+# DCT v4.0 Causal Survival Slots (CSS) — BLCA 5-fold experiment
+# Replaces OT/Sinkhorn coupling with explicit causal hazard decomposition
+# and counterfactual slot-swap training.
+
+name: dct_v4_causal_survival_slots_blca
+description: |
+  DCT v4.0 Causal Survival Slots: each slot independently contributes to hazard;
+  counterfactual training enforces monotonic risk response to WSI/Omics slot swaps.
+
+data:
+  study: blca
+  data_root_dir: /data1/TCGA-UNI2-h-features
+  data_path: /data1/dataset_csv
+  rna_format: Pathways
+  label_col: survival_months_dss
+  signature: combine
+  n_classes: 4
+  num_patches: 2048
+  encoding_dim: 1536
+
+split:
+  k_start: 0
+  k_end: 4   # Full 5-fold
+
+train:
+  survot_method: dct_v4_causal_survival_slots
+  specific_simple: dct_v4_css_blca
+  results_dir: results_dct_v4_css
+  max_epochs: 30
+  batch_size: 8
+  grad_accum_steps: 1
+  warmup_epochs: 3
+  grad_clip_norm: 1.0
+  seed: 3
+  lr: 0.0005
+  opt: adamW
+  reg: 0.0005
+  scheduler: cosine
+  gpu: 0
+  num_workers: 4
+  bag_loss: nll_surv
+  alpha_surv: 0.15
+  min_free_space_gb: 2.0
+  fit_bins_on_train: true
+  binning_mode: global_qcut
+  dct_slot_init_mode: deterministic
+  event_stratified_batches: true
+  event_sampling_fraction: 0.0
+
+slot:
+  slot_num_wsi: 8
+  slot_num_omics: 8
+  slot_iters: 3
+
+model:
+  wsi_encoder: uni2-h
+  otehv2_eps: 0.05
+  otehv2_iter: 50
+  otehv2_heads: 4
+  otehv2_layers: 2
+  otehv2_dropout: 0.15
+  dct_num_stages: 4
+
+  # ── CSS causal hazard decomposition ──────────────────────────────────
+  # Hazard = baseline + Σ WSI slots + Σ Omics slots + Σ cross-modal pairs
+  # Initial values tuned so total hazard ≈ 0.3-0.5 per bin (not 0.99 which collapses to risk=4)
+  # (8 slots × 0.03 + 8 slots × 0.03 + 64 pairs × 0.003) ≈ 0.5 logit → hazard ≈ 0.38
+  css_wsi_weight: 0.0
+  css_omic_weight: 0.0
+  css_cross_weight: -3.0
+  css_temperature: 8.0
+
+  # ── CSS loss weights ─────────────────────────────────────────────────
+  css_lambda_causal: 0.0       # Disabled initially
+  css_lambda_ipcw_rank: 0.50   # Pairwise ranking — higher weight to push C-index up
+  css_lambda_sparsity: 0.0    # Disabled initially
+  css_lambda_cross_consistency: 0.0  # Disabled initially
+  css_margin: 0.03             # Hinge margin for causal direction
+
+  # ── IPCW ranking (shared with DCT v3.10) ────────────────────────────
+  dct_ipcw_rank_margin: 0.02
+  dct_ipcw_rank_temperature: 0.50
+  dct_ipcw_max_weight: 10.0
+  dct_anchor_momentum: 0.90
+
+  # ── Disable all DCT v3.x OT paths (not used by CSS) ──────────────────
+  dct_lambda_etar: 0.0
+  dct_lambda_listwise: 0.0
+  dct_v38_lambda_direction: 0.0
+  dct_v38_lambda_dose: 0.0
+  dct_v38_lambda_reconfiguration: 0.0
+  dct_v382_lambda_mgptr: 0.0
+  fet_lambda_sparse: 0.0
+  fet_lambda_faith: 0.0
+  dct_evidence_cost_weight: 0.0
+
+split_setup:
+  which_splits: 5fold
+  on_missing_wsi: error

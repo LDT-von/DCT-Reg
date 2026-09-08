@@ -26,9 +26,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-# Add slotspe runtime to path for dataset imports
-from survot_rank.training.paths import ensure_slotspe_in_path
-ensure_slotspe_in_path()
+# Add the DCT compatibility runtime to import dataset helpers.
+from survot_rank.training.paths import ensure_compat_runtime_in_path
+ensure_compat_runtime_in_path()
 
 from dataset.dataset_survival import SurvivalDatasetFactory
 from survot_rank.training.model_factory import get_model

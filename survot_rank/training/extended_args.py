@@ -444,6 +444,12 @@ def build_base_parser() -> argparse.ArgumentParser:
         default=1,
         help="Evaluate the extra midpoint Sinkhorn branches every N post-warmup epochs.",
     )
+    # Risk Ordering Transport candidate. These weights are copied into the
+    # existing differentiable intervention-consistency path by that candidate.
+    parser.add_argument("--dct_rot_lambda_direction", type=float, default=0.10)
+    parser.add_argument("--dct_rot_lambda_dose", type=float, default=0.05)
+    parser.add_argument("--dct_rot_direction_margin", type=float, default=0.02)
+    parser.add_argument("--dct_rot_dose_margin", type=float, default=0.005)
     # DCT v3.8.2 Multi-Geometry Prognostic Transport Reconstruction. The loss
     # reuses factual couplings and the shared decoder, so it adds no parameters
     # and no additional Sinkhorn solves.
@@ -484,6 +490,32 @@ def build_base_parser() -> argparse.ArgumentParser:
         "--dct_stage_jitter_fraction", type=float, default=0.0,
         help="Jitter stage edges by this fraction of the total span (ablation).",
     )
+
+    # DCT v4.0 Causal Survival Slots (CSS).  Replaces OT/Sinkhorn coupling with
+    # explicit causal hazard decomposition: each slot independently contributes to
+    # hazard; counterfactual slot-swap training enforces monotonic risk response.
+    # Shared args with DCT v3.10 for compatibility: dct_num_stages, dct_anchor_momentum,
+    # dct_ipcw_rank_margin, dct_ipcw_rank_temperature, dct_ipcw_max_weight.
+    parser.add_argument("--css_wsi_weight", type=float, default=0.5,
+                        help="Modulation weight for WSI slot hazard contributions.")
+    parser.add_argument("--css_omic_weight", type=float, default=0.5,
+                        help="Modulation weight for omics slot hazard contributions.")
+    parser.add_argument("--css_cross_weight", type=float, default=0.1,
+                        help="Modulation weight for cross-modal (WSI×Omics) hazard contributions.")
+    parser.add_argument("--css_lambda_causal", type=float, default=0.20,
+                        help="Weight for counterfactual slot-swap causal loss.")
+    parser.add_argument("--css_lambda_sparsity", type=float, default=0.01,
+                        help="Weight for hazard contribution sparsity regularisation.")
+    parser.add_argument("--css_lambda_cross_consistency", type=float, default=0.05,
+                        help="Weight for WSI↔Omics hazard correlation regularisation.")
+    parser.add_argument("--css_margin", type=float, default=0.05,
+                        help="Hinge margin for causal swap direction enforcement.")
+    parser.add_argument("--css_temperature", type=float, default=8.0,
+                        help="Divides total hazard logit before sigmoid. "
+                             "With ~8 total contribution per bin, /8 → logit≈1 → hazard≈0.73. "
+                             "Prevents collapsed hazard = 0.999 from random init.")
+    parser.add_argument("--css_lambda_ipcw_rank", type=float, default=0.10,
+                        help="Weight for IPCW ranking loss (shared with DCT v3.10).")
 
     # DCT v4.1 Survival-Evidence Ledger (SELC). This method replaces the
     # inherited slot mechanism while retaining the verified v3.3 DCT path.

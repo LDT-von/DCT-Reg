@@ -1,14 +1,21 @@
-"""DCT v3.8: losses tied to re-optimised transport interventions.
+"""DCT v3.8: Structural losses for interpretable transport-augmented risk responses.
 
-This method keeps the v3.3 factual path and its discrete-time survival NLL plus
-IPCW ranking objective.  Its only addition is a coherent structural objective:
+This module implements the intervention-consistency losses that serve model
+interpretability. The key idea is to make the transport mechanism produce
+*explainable* risk responses:
 
-1. high/low transport interventions must move risk in opposite directions;
-2. a stronger cost intervention must produce a monotone risk response;
-3. re-solving Sinkhorn must materially reconfigure the coupling.
+1. **Direction consistency**: High/low transport interventions must move risk
+   in opposite directions relative to the factual prediction.
 
-The anchors are train-fold statistics and are detached when updated.  These are
-model-based structural interventions, not identified causal treatment effects.
+2. **Dose monotonicity**: Stronger interventions must produce proportionally
+   stronger risk responses.
+
+3. **Plan reconfiguration**: Re-solving Sinkhorn must materially change the
+   transport plan, proving that the response comes from transport restructuring.
+
+These losses serve the interpretability narrative: DCT not only predicts survival
+outcomes accurately, but also provides audit trails showing *why* predictions
+follow training-fold survival patterns. They are NOT causal treatment effects.
 """
 
 from __future__ import annotations
@@ -22,7 +29,24 @@ from survot_rank.research.methods.distributional_counterfactual_transport.model 
 
 
 class DCTTransportInterventionConsistency(DistributionalCounterfactualTransport):
-    """Train DCT's cost-intervention -> Sinkhorn -> risk-response chain."""
+    """Train DCT's cost-intervention -> Sinkhorn -> risk-response chain.
+
+    This class adds structural losses that enforce direction consistency
+    in the transport-augmented risk response:
+
+    1. **Direction loss**: High/low transport interventions must move risk
+       in opposite directions (low anchor → lower risk, high anchor → higher risk).
+
+    2. **Dose loss** (optional): Stronger cost interventions must produce
+       monotone risk responses along the dose path.
+
+    3. **Reconfiguration loss** (optional): Re-solving Sinkhorn must materially
+       reconfigure the coupling, not just project a fixed plan.
+
+    These losses serve interpretability: they encourage the transport mechanism
+    to produce explainable risk responses that align with training-fold survival
+    patterns. They are NOT causal treatment effects.
+    """
 
     def __init__(self, args, omic_input_dim=None, omic_names=None, pathway_names=None):
         super().__init__(args, omic_input_dim, omic_names, pathway_names)

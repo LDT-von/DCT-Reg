@@ -39,8 +39,8 @@ from tqdm import tqdm
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # Import SurvOT-Rank components
-from survot_rank.training.paths import ensure_slotspe_in_path
-ensure_slotspe_in_path()
+from survot_rank.training.paths import ensure_compat_runtime_in_path
+ensure_compat_runtime_in_path()
 
 from dataset.dataset_survival import SurvivalDatasetFactory, _collate_pathways
 from survot_rank.training.model_factory import get_model

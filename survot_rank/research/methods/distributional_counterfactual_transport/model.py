@@ -18,7 +18,7 @@ from survot_rank.research.methods.ot_event_hazard_v2.model_v2 import (
 
 
 class DistributionalCounterfactualTransport(FaithfulEvidenceTransport):
-    """Risk-set anchored interventions on re-optimised multimodal transport.
+    """Risk-set anchored interventions for model interpretability.
 
     Patient tokens are pooled by global WSI/pathway prototype dictionaries, so a
     slot index has a shared coordinate system across patients.  Train-fold event
@@ -26,8 +26,13 @@ class DistributionalCounterfactualTransport(FaithfulEvidenceTransport):
     IPCW weights.  Each stage therefore has empirical high-event and low-risk-set
     cost anchors.  Interventions happen in cost space and always re-solve OT.
 
-    This is model-based counterfactual sensitivity analysis, not a causal
-    treatment recommendation.  No loss imposes an ordering on CF risk outputs.
+    **Interpretability perspective**: The transport structure enables the model
+    to answer "why did it predict high risk for this patient?" by simulating
+    cost perturbations toward low/high risk anchors and checking whether the
+    risk output responds in the expected direction.
+
+    This is model-based interpretability via counterfactual queries, NOT a
+    causal treatment recommendation.  No loss imposes an ordering on CF risk outputs.
     """
 
     _LOW_RISK = 0

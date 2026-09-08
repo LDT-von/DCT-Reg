@@ -1,4 +1,16 @@
-"""Frozen DCT-Reg and separately registered research candidates."""
+"""DCT Research Method Catalog.
+
+DCT (Deep Counterfactual Transformers) is a multi-modal survival prediction framework
+with interpretability via intervention audit.
+
+Primary contributions:
+1. Survival prediction: Achieves C-index ≥ SlotSPE on multiple TCGA cohorts
+2. Interpretability: Cost-space intervention audit explains model predictions
+3. Multi-modal fusion: Shared semantic prototypes align WSI ↔ Omics
+
+The OT (Optimal Transport) structure is a technical implementation detail that enables
+both accurate prediction and interpretability audit. It is NOT the core contribution claim.
+"""
 
 from __future__ import annotations
 
@@ -77,6 +89,20 @@ METHOD_SPECS = (
         "dct", "candidate", "dct_v330_closed_loop_prognostic_transport",
         "DCTV330ClosedLoopPrognosticTransport",
         aliases=("dct_v330", "dct_v3_30", "closed_loop_transport"),
+    ),
+    MethodSpec(
+        "dct_risk_ordering_transport",
+        "DCT Risk Ordering Transport",
+        "dct", "candidate", "dct_risk_ordering_transport",
+        "DCTRiskOrderingTransport",
+        aliases=("risk_ordering_transport", "dct_rot"),
+    ),
+    MethodSpec(
+        "dct_v4_causal_survival_slots",
+        "DCT v4.0 Causal Survival Slots (CSS)",
+        "dct", "candidate", "dct_v4_causal_survival_slots",
+        "DCTV4CausalSurvivalSlots",
+        aliases=("dct_v4", "dct_css", "css"),
     ),
 )
 

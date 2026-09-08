@@ -1,14 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""OT event hazard v2 — multi-scale OT fusion with cross-modal Transformer.
+"""Multi-scale OT fusion for multi-modal survival prediction.
 
-Improvements over v1 (29):
-- Three OT cost matrices (cosine / euclidean / dot) concatenated for richer transport.
-- Cross-attention fusion replacing naive concat.
-- Deeper 3-layer Transformer encoder.
-- Reconstruction loss for OT plan and slots.
-- Warmup ramp + clamp on OT distance (stable training).
-- Auxiliary event-hazard loss (supervision on mean event logits).
+This module implements the base architecture for DCT's multi-modal survival
+prediction. Key design choices:
+
+1. **Multi-geometry OT**: Cosine + Euclidean + dot-product costs for robust
+   cross-modal alignment between WSI patches and omics pathways.
+
+2. **Slot Attention**: Learnable slots that compete to represent patient tokens,
+   enabling flexible many-to-one matching.
+
+3. **Event encoding with gating**: Multiple transport events are encoded into
+   latent tokens, then gated and pooled into discrete-time hazard predictions.
+
+4. **IPCW-aware training**: Supports censoring-aware pairwise ranking losses
+   for reliable survival curves.
+
+This is primarily a prediction model; the transport structure enables the
+interpretability audit capabilities in DCT subclasses.
 """
 
 import numpy as np
@@ -16,9 +26,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from survot_rank.training.paths import ensure_slotspe_in_path  # noqa
+from survot_rank.training.paths import ensure_compat_runtime_in_path  # noqa
 
-ensure_slotspe_in_path()
+ensure_compat_runtime_in_path()
 
 from survot_rank.research.components.slot_attention import MultiHeadSlotAttention  # noqa
 from survot_rank.research.components.omics_encoder import SNN_Block, WSI_Mlp  # noqa

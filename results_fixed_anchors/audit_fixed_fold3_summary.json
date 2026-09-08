@@ -1,0 +1,30 @@
+{
+  "study": "blca",
+  "fold": 3,
+  "checkpoint": "/data1/DCT-Reg/results_fixed_anchors/blca/SurvOTRank_dct_v310_fixed_anchors/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_fixed_anchors_blca_proof/model_best_s3.pth",
+  "alphas": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0
+  ],
+  "metrics": {
+    "n_patients": 76,
+    "response_tolerance": 1e-08,
+    "responsive_rate_low": 0.0,
+    "responsive_rate_high": 0.0,
+    "monotonic_decrease_rate": 0.0,
+    "monotonic_increase_rate": 0.0,
+    "mean_risk_change_low": 0.0,
+    "std_risk_change_low": 0.0,
+    "mean_risk_change_high": 0.0,
+    "std_risk_change_high": 0.0
+  }
+}

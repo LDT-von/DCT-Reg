@@ -1,0 +1,6 @@
+dataset_csv/raw_rna_data_inter/
+__pycache__/
+*.pyc
+.idea/
+feature_extract/tools/CLAM/.gitignore
+gene_preprocess/dataset_csv_example/

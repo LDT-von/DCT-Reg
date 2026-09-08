@@ -1,0 +1,49 @@
+{
+  "cancer": "blca",
+  "base_dir": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full",
+  "experiment_dir": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep",
+  "folds": {
+    "0": {
+      "best_epoch": 5,
+      "best_cindex": 0.6949872557349193,
+      "checkpoint": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/evidence/fold_0/checkpoint.pt",
+      "epoch_curve": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/epoch_curve_fold0.csv",
+      "evidence_dir": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/evidence/fold_0"
+    },
+    "1": {
+      "best_epoch": 13,
+      "best_cindex": 0.6300429184549357,
+      "checkpoint": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/evidence/fold_1/checkpoint.pt",
+      "epoch_curve": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/epoch_curve_fold1.csv",
+      "evidence_dir": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/evidence/fold_1"
+    },
+    "2": {
+      "best_epoch": 13,
+      "best_cindex": 0.7165575304022451,
+      "checkpoint": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/evidence/fold_2/checkpoint.pt",
+      "epoch_curve": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/epoch_curve_fold2.csv",
+      "evidence_dir": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/evidence/fold_2"
+    },
+    "3": {
+      "best_epoch": 14,
+      "best_cindex": 0.7884108867427568,
+      "checkpoint": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/evidence/fold_3/checkpoint.pt",
+      "epoch_curve": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/epoch_curve_fold3.csv",
+      "evidence_dir": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/evidence/fold_3"
+    },
+    "4": {
+      "best_epoch": 18,
+      "best_cindex": 0.7572649572649572,
+      "checkpoint": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/evidence/fold_4/checkpoint.pt",
+      "epoch_curve": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/epoch_curve_fold4.csv",
+      "evidence_dir": "/data1/DCT-Reg/results/dct_v3.10_experiments/robust/full/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_full_blca_50ep/evidence/fold_4"
+    }
+  },
+  "summary": {
+    "avg_cindex": 0.7174527097199628,
+    "std_cindex": 0.05434344030100171,
+    "num_folds": 5,
+    "min_cindex": 0.6300429184549357,
+    "max_cindex": 0.7884108867427568
+  }
+}

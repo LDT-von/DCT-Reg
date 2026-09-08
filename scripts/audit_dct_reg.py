@@ -228,7 +228,37 @@ def _load_model_and_loader(args, parsed, fold: int):
         train_data.label_df[factory.censorship_var].to_numpy(),
     )
     state_dict = torch.load(args.checkpoint, map_location="cpu")
-    model.load_state_dict(state_dict)
+    
+    # Filter out size-mismatched buffers (dct_censor_times, dct_censor_survival)
+    # These are train-fold statistics and will be recomputed
+    model_state_keys = set(model.state_dict().keys())
+    filtered_state_dict = {}
+    skipped = []
+    
+    for key, value in state_dict.items():
+        if key in model_state_keys:
+            model_shape = model.state_dict()[key].shape
+            checkpoint_shape = value.shape
+            if model_shape == checkpoint_shape:
+                filtered_state_dict[key] = value
+            else:
+                skipped.append(f"{key}: {checkpoint_shape} -> {model_shape}")
+        else:
+            filtered_state_dict[key] = value
+    
+    if skipped:
+        print(f"⚠️  Skipped {len(skipped)} size-mismatched parameters:")
+        for s in skipped[:3]:
+            print(f"    {s}")
+        if len(skipped) > 3:
+            print(f"    ... and {len(skipped) - 3} more")
+    
+    missing, unexpected = model.load_state_dict(filtered_state_dict, strict=False)
+    if missing:
+        print(f"⚠️  Missing keys: {len(missing)} (train-fold buffers will be recomputed)")
+    if unexpected:
+        print(f"⚠️  Unexpected keys: {len(unexpected)}")
+    
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
     model.eval()
@@ -347,7 +377,7 @@ def cmd_audit(args: argparse.Namespace) -> int:
     device = next(model.parameters()).device
     label_df_indexed = val_data.label_df.reset_index(drop=True)
     for batch_idx, data in enumerate(val_loader):
-        out, _, _, event_time, c = _process_data_and_forward(
+        out, y_disc, event_time, c = _process_data_and_forward(
             parsed, model, data, device, test=False
         )
         logits, _ = out

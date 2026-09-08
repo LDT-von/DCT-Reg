@@ -50,10 +50,10 @@ def cmd_doctor(args: argparse.Namespace) -> None:
         "parent_model": (
             PROJECT_ROOT / "survot_rank" / "research" / "methods" / "ot_event_hazard_v2" / "model_v2.py"
         ).exists(),
-        "legacy_dataset": (
+        "compat_dataset": (
             PROJECT_ROOT / "survot_rank" / "research" / "legacy" / "slotspe_runtime" / "dataset" / "dataset_survival.py"
         ).exists(),
-        "legacy_utils": (
+        "compat_utils": (
             PROJECT_ROOT / "survot_rank" / "research" / "legacy" / "slotspe_runtime" / "utils" / "loss_func.py"
         ).exists(),
         "method_catalog": not method_errors,

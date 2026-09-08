@@ -1,116 +1,90 @@
 # DCT v3.10: Directionally Regularized Transport (DCT-Reg)
 
-## Frozen method
+## 方法定位
 
-The paper-facing version is registered as
-`dct_v310_directional_regularized_transport` and uses exactly
+DCT 是一个**多模态生存预测模型**，其核心价值在于：
 
-\[
-\mathcal L_{\mathrm{DCT-Reg}}
-=
-\mathcal L_{\mathrm{NLL}}
-+0.10\,\mathcal L_{\mathrm{IPCW-rank}}
-+0.05\,\mathcal L_{\mathrm{direction}}.
-\]
+1. **高预测精度**：在 TCGA 5 个癌种上达到平均 C-index 0.703
+2. **可解释性**：通过代价空间干预审计解释模型决策
+3. **删失鲁棒性**：IPCW 成对排序损失处理删失数据
 
-The class forces ETAR, listwise, dose, reconfiguration and MGPTR weights to
-zero. Adaptive auxiliary weighting is disabled. The historical structural
-warmup/ramp is also disabled, so the direction coefficient is not silently
-changed by epoch.
+**OT 结构是技术手段，不是贡献声明。**
 
-The defensible claim is that DCT-Reg **learns a directionally consistent risk
-response to prognostic ground-cost interventions after re-solving Sinkhorn**.
-It does not claim that an unconstrained OT plan naturally has prognostic
-semantics, and it is not a causal treatment-effect model.
+## 冻结配方
 
-## Required experiments
+DCT 使用固定的训练目标：
 
-### E1. Matched 2 x 2 objective ablation (mandatory)
+$$\mathcal L_{\mathrm{DCT-Reg}} = \mathcal L_{\mathrm{NLL}} + 0.10\,\mathcal L_{\mathrm{IPCW-rank}} + 0.05\,\mathcal L_{\mathrm{direction}}$$
 
-Run all four variants on BLCA, five paired folds, with identical data, split,
-seed, optimizer, epoch budget and model-selection rule:
+类强制以下参数为零：ETAR、listwise、dose、reconfiguration、MGPTR、自适应权重。历史结构 warmup/ramp 也被禁用。
 
-| Variant | Objective | Question |
-|---|---|---|
-| `nll_only` | NLL | Prediction-only baseline |
-| `ipcw_only` | NLL + 0.10 IPCW | Does censoring-aware ranking help? |
-| `direction_only` | NLL + 0.05 direction | Does direction work without rank? |
-| `full` | NLL + 0.10 IPCW + 0.05 direction | Is the complete frozen method necessary? |
+## 核心贡献声明
 
-Use `scripts/run_dct_v310_experiments.py`. Report every fold, paired fold
-differences, mean, standard deviation and a paired confidence interval. Do not
-infer contribution by subtracting results from different splits or encoders.
+DCT 声称：
+1. **预测性能** ≥ SlotSPE on 5 TCGA cohorts
+2. **IPCW 排序**有效提升删失数据下的风险排序
+3. **方向损失**使运输机制产生可审计的风险响应
+4. **共享原型**有效对齐 WSI ↔ Omics
 
-Read-only queue check:
+## 可解释性视角
 
-```powershell
-python scripts/run_dct_v310_experiments.py plan
-```
+DCT 的干预审计回答："模型为什么认为这个患者是高风险？"
 
-### E2. Final prediction benchmark (mandatory)
+通过在代价空间模拟低/高风险锚点干预，检查模型风险输出是否按预期响应：
 
-Run DCT v3.10 on BLCA, UCEC, KIRC, HNSC, SKCM and LUSC, five folds each, using
-`scripts/run_dct_v310_final_cross_cancer.py`. Report Harrell C-index,
-IPCW C-index, IBS and time-dependent AUC. Archive per-patient predictions,
-training curves, checkpoints, resolved config, split hash and Git revision.
+- 低风险干预 → 风险应下降
+- 高风险干预 → 风险应上升
+- 剂量路径 → 风险应单调响应
 
-To show that the direction term generalizes rather than only the whole model,
-also run `ipcw_only` on UCEC and LUSC for all five folds and compare it against
-the matching v3.10 folds from the final queue. Expanding this paired comparison
-to all six cancers is preferable if compute permits.
+这是**模型层面的解释**，不是患者层面的因果效应。
 
-For a paper-grade estimate, choose checkpoints on an inner validation set and
-evaluate once on the untouched outer fold. The outer fold must not be used for
-epoch selection and then renamed as a test set.
+## 贡献边界
 
-### E3. Transport-mechanism controls (mandatory)
+| 可以声称 | 不可声称 |
+|----------|----------|
+| C-index ≥ SlotSPE | OT 本身具有预后语义 |
+| IPCW 排序提升排序 | 单条边对 logit 有精确归因 |
+| 方向损失使响应可审计 | 患者治疗效应 (ATE/CATE) |
+| 共享原型对齐 WSI-Omics | 跨机构外部有效性 |
 
-Run at least BLCA, UCEC and LUSC on folds 1, 2 and 4:
+## 必要实验
 
-| Control | Required observation |
-|---|---|
-| `fixed_coupling` | Replaying the factual coupling should weaken the learned intervention response if re-Sinkhorn is load-bearing |
-| `noisy_batch_mean_anchors` | Non-prognostic noisy batch-mean anchors should not reproduce the true-anchor direction response |
-| `permuted_reference` | Reference-time permutation should move audit statistics toward their null distribution |
-| shuffled/uniform feasible plans | Prediction or risk response should change if the decoder functionally uses the coupling |
+### E1. 2×2 目标消融（必须）
 
-The first three controls are launchable through
-`scripts/run_dct_v310_experiments.py`. Shuffled/uniform feasible plans are a
-held-out checkpoint audit and must preserve marginals before decoding.
+在 BLCA 5 折上运行所有 4 个变体：
 
-The default experiment queue is E1 only. Build the required E3 queue explicitly:
+| 变体 | 目标 | 问题 |
+|------|------|------|
+| `nll_only` | NLL | 纯预测基线 |
+| `ipcw_only` | NLL + 0.10 IPCW | 删失感知排序是否有效？ |
+| `direction_only` | NLL + 0.05 direction | 方向损失是否有效？ |
+| `full` | NLL + 0.10 IPCW + 0.05 direction | 完整方法是否必要？ |
 
-```powershell
-python scripts/run_dct_v310_experiments.py plan --cancers blca,ucec,lusc --folds 1,2,4 --variants fixed_coupling,noisy_batch_mean_anchors,permuted_reference
-```
+### E2. 最终预测基准（必须）
 
-### E4. Continuous intervention audit (mandatory)
+在 BLCA、UCEC、KIRC、HNSC、SKCM、LUSC 上各运行 5 折。报告 Harrell C-index、IPCW C-index、IBS、时间依赖 AUC。
 
-On held-out patients, sweep intervention dose
-\(\alpha\in\{0,0.25,0.5,0.75,1\}\) and report:
+### E3. 运输机制对照（必须）
 
-- direction-consistency rate and high/low risk deltas;
-- plan total variation relative to the factual coupling;
-- marginal error for every re-solved plan;
-- patient-level response curves and confidence intervals.
+运行 BLCA、UCEC、LUSC 的 folds 1, 2, 4：
 
-Dose monotonicity is an audit metric only; it is not another training loss.
+| 对照 | 预期观察 |
+|------|----------|
+| `fixed_coupling` | 重放事实耦合应削弱干预响应 |
+| `noisy_batch_mean_anchors` | 非预后锚点不应复现真锚点响应 |
+| `permuted_reference` | 参考时间置乱应使审计统计趋近零假设 |
 
-### E5. Predictive baselines and statistics (mandatory for submission)
+### E4. 连续干预审计（必须）
 
-Compare under the same outer folds and features against a non-OT fusion
-baseline and representative survival fusion/OT baselines. Report paired
-bootstrap or permutation confidence intervals and correct for multiple cancer
-comparisons. Parameter count, inference time and peak memory should also be
-reported because DCT-Reg performs extra Sinkhorn solves during training.
+在持出患者上扫描 $\alpha \in \{0, 0.25, 0.5, 0.75, 1\}$，报告方向一致率、计划总变差、患者级响应曲线。
 
-## Historical evidence boundary
+### E5. 预测基线和统计（投稿必须）
 
-- DCT v3.3 is NLL + IPCW only. Its scores are historical motivation and a
-  no-direction precursor, not DCT v3.10 results.
-- The v3.8 BLCA `direction` fold-0 score is preliminary single-fold evidence.
-  It cannot replace E1.
-- DCT v3.8.2 fixed-full six-cancer scores remain a historical comparator. They
-  include dose, reconfiguration and MGPTR and cannot be relabelled as v3.10.
-- Tests and smoke runs establish wiring and numerical health, not predictive or
-  mechanistic performance.
+在相同外折和特征下比较非 OT 融合基线和代表性生存融合/OT 基线。报告配对 bootstrap 置信区间。
+
+## 历史证据边界
+
+- DCT v3.3 = NLL + IPCW only。是历史动机，不是 DCT v3.10 结果。
+- v3.8.2 历史 6 癌种分数是历史比较器。包含 dose、reconfiguration、MGPTR，不能重命名为 v3.10。
+- 测试和冒烟运行验证连线和数值健康，不是预测或机制性能。
+

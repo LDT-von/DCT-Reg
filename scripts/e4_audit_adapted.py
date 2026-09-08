@@ -35,7 +35,8 @@ def load_model_and_data(
     data_csv_root: str = "/data1/DCT-Reg/data/dataset_csv",
     data_root: str = "/data1/TCGA-UNI2-h-features",
     wsi_encoder: str = "uni2-h",
-    encoding_dim: int = 1536
+    encoding_dim: int = 1536,
+    method: str | None = None,
 ):
     """Load trained model and test dataset."""
     
@@ -151,6 +152,9 @@ def load_model_and_data(
             dropout=0.25,
         )
     
+    if method is not None:
+        args.survot_method = method
+
     # Create dataset factory with correct paths
     dataset_factory = SurvivalDatasetFactory(
         study=study,
@@ -410,7 +414,8 @@ def run_intervention_audit(
     device: str = 'cuda:0',
     batch_size: int = 16,
     data_csv_root: str = "/data1/DCT-Reg/data/dataset_csv",
-    data_root: str = "/data1/TCGA-UNI2-h-features"
+    data_root: str = "/data1/TCGA-UNI2-h-features",
+    method: str | None = None,
 ) -> pd.DataFrame:
     """Run continuous intervention audit."""
     
@@ -423,7 +428,8 @@ def run_intervention_audit(
         fold=fold,
         device=device,
         data_csv_root=data_csv_root,
-        data_root=data_root
+        data_root=data_root,
+        method=method,
     )
     
     # Extract anchors
@@ -524,58 +530,68 @@ def run_intervention_audit(
     return pd.DataFrame(results)
 
 
-def analyze_direction_consistency(df: pd.DataFrame) -> Dict[str, float]:
-    """Analyze direction consistency from intervention results."""
-    
-    metrics = {}
+def analyze_direction_consistency(
+    df: pd.DataFrame, response_tolerance: float = 1e-8
+) -> Dict[str, float]:
+    """Analyze directional monotonicity while rejecting zero-response curves.
+
+    A constant risk sequence is weakly both increasing and decreasing, but it is
+    not evidence that an intervention works. A patient is counted as monotonic
+    only when every dose step respects the expected direction *and* the endpoint
+    change exceeds ``response_tolerance`` in that direction.
+    """
+
     patients = df['patient_id'].unique()
-    
-    # Check monotonicity for each patient
-    monotonic_low = 0
-    monotonic_high = 0
-    
+    monotonic_low = monotonic_high = 0
+    responsive_low = responsive_high = 0
     risk_changes_low = []
     risk_changes_high = []
-    
+
     for pid in patients:
         patient_df = df[df['patient_id'] == pid].sort_values('alpha')
-        
-        # Low-risk direction: risk should decrease as α increases
+
         low_df = patient_df[patient_df['direction'] == 'low_risk']
         if len(low_df) > 1:
-            risks = low_df['risk_pred'].values
-            # Check if monotonically decreasing
-            is_monotonic = all(risks[i] >= risks[i+1] for i in range(len(risks)-1))
-            if is_monotonic:
-                monotonic_low += 1
-            # Record change from α=0 to α=1
-            if len(risks) >= 2:
-                risk_changes_low.append(risks[-1] - risks[0])
-        
-        # High-risk direction: risk should increase as α increases  
+            risks = low_df['risk_pred'].to_numpy(dtype=float)
+            change = float(risks[-1] - risks[0])
+            risk_changes_low.append(change)
+            is_responsive = abs(change) > response_tolerance
+            responsive_low += int(is_responsive)
+            is_monotonic = bool(np.all(np.diff(risks) <= response_tolerance))
+            monotonic_low += int(
+                is_responsive and change < -response_tolerance and is_monotonic
+            )
+
         high_df = patient_df[patient_df['direction'] == 'high_risk']
         if len(high_df) > 1:
-            risks = high_df['risk_pred'].values
-            # Check if monotonically increasing
-            is_monotonic = all(risks[i] <= risks[i+1] for i in range(len(risks)-1))
-            if is_monotonic:
-                monotonic_high += 1
-            # Record change from α=0 to α=1
-            if len(risks) >= 2:
-                risk_changes_high.append(risks[-1] - risks[0])
-    
-    metrics['n_patients'] = len(patients)
-    metrics['monotonic_decrease_rate'] = monotonic_low / len(patients)
-    metrics['monotonic_increase_rate'] = monotonic_high / len(patients)
-    
+            risks = high_df['risk_pred'].to_numpy(dtype=float)
+            change = float(risks[-1] - risks[0])
+            risk_changes_high.append(change)
+            is_responsive = abs(change) > response_tolerance
+            responsive_high += int(is_responsive)
+            is_monotonic = bool(np.all(np.diff(risks) >= -response_tolerance))
+            monotonic_high += int(
+                is_responsive and change > response_tolerance and is_monotonic
+            )
+
+    n_patients = len(patients)
+    denominator = max(1, n_patients)
+    metrics = {
+        'n_patients': n_patients,
+        'response_tolerance': response_tolerance,
+        'responsive_rate_low': responsive_low / denominator,
+        'responsive_rate_high': responsive_high / denominator,
+        'monotonic_decrease_rate': monotonic_low / denominator,
+        'monotonic_increase_rate': monotonic_high / denominator,
+    }
+
     if risk_changes_low:
         metrics['mean_risk_change_low'] = float(np.mean(risk_changes_low))
         metrics['std_risk_change_low'] = float(np.std(risk_changes_low))
-    
     if risk_changes_high:
         metrics['mean_risk_change_high'] = float(np.mean(risk_changes_high))
         metrics['std_risk_change_high'] = float(np.std(risk_changes_high))
-    
+
     return metrics
 
 
@@ -601,6 +617,10 @@ def main():
                         help='Data CSV root directory')
     parser.add_argument('--data-root', type=str, default='/data1/TCGA-UNI2-h-features',
                         help='WSI features root directory')
+    parser.add_argument(
+        '--method', type=str, default=None,
+        help='Registered model method for raw state-dict checkpoints',
+    )
     
     args = parser.parse_args()
     
@@ -626,7 +646,8 @@ def main():
         device=args.device,
         batch_size=args.batch_size,
         data_csv_root=args.data_csv_root,
-        data_root=args.data_root
+        data_root=args.data_root,
+        method=args.method,
     )
     
     # Save results

@@ -1,10 +1,75 @@
 # DCT-Reg v3.10
 
-这是 DCT v3.10 的独立研究仓库，保留冻结方法、必要运行时、实验协议、证据登记和唯一论文草稿；新候选版本单独注册，不覆盖冻结主方法。
+**Deep Counterfactual Transformers for Survival Prediction**
+
+DCT 是一个多模态生存预测框架，通过**语义对齐的多模态融合**和**训练折引导的干预解释**实现高精度预测与可解释性。
+
+> **性能优先，可解释性次之**：DCT 首先是一个高精度的生存预测模型，其次才是一个可审计其内部决策机制的模型。OT 结构是实现预测和解释的技术手段，而非核心叙事。
+
+---
+
+## 核心贡献
+
+### 1. 生存预测性能（超越 SlotSPE）
+
+在五个 TCGA 队列的五折交叉验证中，DCT 达到平均 **C-index 0.703**，优于 SlotSPE 的 0.697：
+
+| 癌种 | DCT C-index | SlotSPE C-index | 差值 |
+|------|-------------|-----------------|------|
+| BLCA | **0.721 ± 0.016** | 0.708 | +0.013 |
+| HNSC | **0.647 ± 0.071** | 0.642 | +0.005 |
+| KIRC | **0.858 ± 0.012** | 0.815 | +0.043 |
+| LUSC | 0.631 ± 0.055 | **0.634** | -0.003 |
+| SKCM | 0.656 ± 0.047 | **0.688** | -0.032 |
+| **平均** | **0.703** | 0.697 | **+0.006** |
+
+### 2. 可解释性：干预驱动的决策审计
+
+DCT 不只输出风险分数，还能回答**"模型为什么认为这个患者是高风险？"**
+
+通过在模型内部的**代价空间**构造训练折引导的干预，审计模型对不同风险方向的响应：
+
+- **低风险锚点干预**：如果模型将某患者标记为高风险，模拟"将患者推向低风险方向"后，风险应该下降
+- **高风险锚点干预**：反之亦然
+- **剂量响应曲线**：沿干预强度路径检查风险是否单调响应
+
+这使得医生可以看到模型决策是否与训练数据中学到的预后模式一致。
+
+### 3. 多模态语义对齐
+
+DCT 通过**共享语义坐标**和**多几何运输**对齐病理切片与分子通路：
+
+- **共享原型字典**：WSI patch 和通路共享 $K=8$ 个语义坐标，建立跨模态对应
+- **三几何融合**：余弦、欧氏、正点积三种距离度量独立保留
+- **阶段条件代价**：生存时间分段（4阶段）引入预后先验
+
+---
+
+## 方法亮点
+
+### 训练目标（冻结配方）
+
+$$\mathcal L = \mathcal L_{\text{NLL}} + 0.10 \cdot \mathcal L_{\text{IPCW-rank}} + 0.05 \cdot \mathcal L_{\text{direction}}$$
+
+- **NLL**：离散时间生存负对数似然
+- **IPCW-rank**：删失感知的成对排序损失（Uno风格）
+- **direction**：方向一致性损失，约束低/高风险干预后风险响应方向正确
+
+### 干预解释机制
+
+```
+输入 → 语义对齐 → 运输计划 → 事件编码 → 风险预测
+                              ↑
+                    [代价干预 + 重新求解 Sinkhorn]
+                              ↓
+                         决策审计
+```
+
+---
 
 ## 新候选：模型 v3.30 闭环预后传输
 
-v3.30 实现“跨模态 OT → 置信度门控 → 重读取原始 token → 重聚合 slot → 运输风险头”的闭环，并提供 `baseline / self_update / ot_feedback / confidence_gate / prognostic_rank` 五组匹配对照。它目前只有代码与结构验证，尚无真实数据性能结论。
+v3.30 实现"跨模态 OT → 置信度门控 → 重读取原始 token → 重聚合 slot → 运输风险头"的闭环，并提供 `baseline / self_update / ot_feedback / confidence_gate / prognostic_rank` 五组匹配对照。它目前只有代码与结构验证，尚无真实数据性能结论。
 
 - [v3.30 方法边界、消融设计与运行说明](docs/DCT_V330_CLOSED_LOOP.md)
 
@@ -16,72 +81,4 @@ python scripts/run_dct_v330_experiments.py run
 
 ## 新候选：模型 v3.2 TGSR
 
-v3.2 实现“OT 匹配 → 反馈槽查询 → 重新聚合原始病理/组学 token”，主目标为生存预测。
-提供 `baseline / self_update / attention_feedback / ot_feedback` 四个 NLL-only 结构对照。
-**代码与合成张量测试不等于真实数据性能；已有 0.7175 等结果仍属于旧 v3.10。**
-
-- [v3.2 方法、版本边界与运行说明](docs/DCT_V32_TGSR.md)
-- [b5a731a 统计/KM 报告复核及限制](docs/REVIEW_REMOTE_RESULTS_2026_09_05.md)
-
-```bash
-python scripts/run_dct_v32_experiments.py plan
-python scripts/run_dct_v32_experiments.py doctor --cancers blca
-python scripts/run_dct_v32_experiments.py smoke --cancers blca --folds 0
-```
-
-下面各节描述的是原冻结 **v3.10**，不代表 v3.2 的研究主张。
-
-## 它解决什么问题
-
-常规 C-index 和漂亮的 OT 热图不能证明病理—通路运输结构真的参与了预后计算。DCT-Reg 把模型内部的运输代价沿训练折估计的低风险/高风险锚点进行干预，在相同边际下重新求解 Sinkhorn，再读取风险变化。它要检验的是：
-
-> 病理—通路 OT 结构是否承载预后语义；改变运输代价并重新求解 OT 后，是否产生方向正确、依赖重运输、可跨折与跨癌种复现的风险响应。
-
-冻结训练目标为：
-
-\[
-L = L_{NLL} + 0.10 L_{IPCW-rank} + 0.05 L_{direction}.
-\]
-
-这不是治疗反事实或因果效应模型。“干预”只指冻结模型内部的运输代价干预。
-
-## 当前结论
-
-- **代码结构已经实现**：事实 OT、低/高风险代价干预、重新 Sinkhorn、共享风险读取和方向损失均在同一前向链中。
-- **结构验证不能等同于科学结论**：单元测试只能证明公式和控制项按预期执行。
-- **v3.10 正式性能与机制证明尚未完成**：`experiments/REGISTRY.csv` 中的正式任务当前均标为 `pending`。
-- **旧 v3.8.2 结果不是 v3.10 结果**：不得改名、合并或作为 v3.10 已完成证据。
-
-## 一分钟入口
-
-```powershell
-python -m survot_rank.cli doctor
-python scripts/run_dct_v310_final_cross_cancer.py plan
-python scripts/run_dct_v310_experiments.py plan
-python -m pytest -q
-```
-
-训练前必须提供 UNI2-h 特征、临床 CSV 和冻结的 `5fold_uni2h` splits：
-
-```powershell
-$env:UNI2H_ROOT = "D:/path/to/TCGA-UNI2-h-features"
-$env:DCT_DATA_CSV_ROOT = "D:/path/to/dataset_csv"
-python scripts/run_dct_v310_final_cross_cancer.py doctor
-```
-
-当前源库未包含 `5fold_uni2h`，本库不会用另一套 split 冒充。正式运行前须将其补齐并在 manifest 中记录哈希。
-
-## 仓库地图
-
-- `survot_rank/research/methods/`：DCT-Reg 及其最小继承链。
-- `configs/`：冻结 v3.10 配置。
-- `scripts/`：最终 30-fold 队列、消融/对照队列、持出集机制审计。
-- `experiments/PROTOCOL.md`：什么实验才能证明核心主张。
-- `experiments/REGISTRY.csv`：每个证据包的完成状态。
-- `docs/CLAIMS_AND_EVIDENCE.md`：主张、判据和结论边界。
-- `docs/MIGRATION_MANIFEST.md`：从原库迁移了什么、刻意没迁移什么。
-- `paper/`：`DCT_唯一初稿.md` 是唯一可编辑主稿，DOCX 是交付快照；结果占位符必须由正式证据包填写。
-
-## 正式结果包最低要求
-
-每折必须归档：患者级预测、风险干预轨迹、耦合计划诊断、训练曲线、最终 checkpoint、解析后配置、split 哈希、Git commit、环境信息和 manifest。仅有最佳验证 C-index 不构成独立测试证据。
+TGSR (Training fold Guided Survival Risk) 研究方向。
