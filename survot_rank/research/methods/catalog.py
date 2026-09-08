@@ -97,13 +97,6 @@ METHOD_SPECS = (
         "DCTRiskOrderingTransport",
         aliases=("risk_ordering_transport", "dct_rot"),
     ),
-    MethodSpec(
-        "dct_v4_causal_survival_slots",
-        "DCT v4.0 Causal Survival Slots (CSS)",
-        "dct", "candidate", "dct_v4_causal_survival_slots",
-        "DCTV4CausalSurvivalSlots",
-        aliases=("dct_v4", "dct_css", "css"),
-    ),
 )
 
 METHOD_CATALOG = {spec.key: spec for spec in METHOD_SPECS}
