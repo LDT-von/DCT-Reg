@@ -6,7 +6,7 @@ Objective:
     NLL + 0.10 * IPCW-rank + 0.05 * direction
 
 The queue uses one cancer-agnostic recipe: UNI2-h, clean train-fold binning,
-deterministic slots, event-spread batches, 30 epochs, and 5fold_uni2h splits.
+deterministic slots, event-spread batches, 50 epochs, and 5fold_uni2h splits.
 """
 
 from __future__ import annotations
@@ -36,7 +36,7 @@ SMOKE_ROOT = Path("results/dct_v3.10_smoke/final")
 FROZEN_FINAL_OVERRIDES: dict[str, object] = {
     "survot_method": "dct_v310_directional_regularized_transport",
     "bag_loss": "nll_surv",
-    "max_epochs": 30,
+    "max_epochs": 50,
     "dct_lambda_ipcw_rank": 0.10,
     "dct_v38_lambda_direction": 0.05,
     "dct_v38_lambda_dose": 0.0,

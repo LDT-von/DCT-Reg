@@ -23,7 +23,7 @@ train:
   survot_method: dct_v310_directional_regularized_transport
   specific_simple: dct_v310_dct_reg
   results_dir: results/dct_v3.10/robust/final/blca
-  max_epochs: 30
+  max_epochs: 50
   batch_size: 8
   grad_accum_steps: 1
   warmup_epochs: 5

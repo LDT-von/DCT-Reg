@@ -322,6 +322,25 @@ def build_base_parser() -> argparse.ArgumentParser:
     parser.add_argument("--dct_rot_direction_margin", type=float, default=0.02)
     parser.add_argument("--dct_rot_dose_margin", type=float, default=0.005)
 
+    # DCT v3.8.2 MGPTR compatibility flags.  The loss itself was superseded by
+    # the risk-ordering-transport path above, but the v3.10 frozen recipe, the
+    # cross-cancer launcher, and the shipped YAML configs still pass these two
+    # keys, so the argparse contract is retained.  DCT v3.10 pins both to the
+    # disabled values through FROZEN_ARGUMENTS.
+    parser.add_argument("--dct_v382_lambda_mgptr", type=float, default=0.05)
+    parser.add_argument(
+        "--dct_v382_adaptive_aux_weights", action="store_true", default=False
+    )
+    parser.add_argument(
+        "--fixed_anchors_path",
+        type=str,
+        default="",
+        help=(
+            "Pickle file holding pre-computed risk anchors for the fixed-anchor "
+            "ablation (dct_v310_fixed_anchors); configs/fixed_5fold/*.yaml set it."
+        ),
+    )
+
     # Ablation switches shared across DCT variants.
     parser.add_argument(
         "--dct_perm_labels_seed", type=int, default=0,
