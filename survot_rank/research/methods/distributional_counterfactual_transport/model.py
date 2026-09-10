@@ -1,4 +1,42 @@
-"""Censor-aware, risk-anchored counterfactual transport for survival."""
+"""Censor-aware, risk-anchored counterfactual transport for survival.
+
+DEPRECATED for paper use: The paper-facing method (DCTV310DirectionalRegularizedTransport)
+freezes ETAR and all v3.8 structural losses to zero.
+
+This module provides the base transport mechanism with:
+  - IPCW ranking loss (ACTIVE in paper method, λ = 0.10)
+  - ETAR loss (DISABLED in paper method, λ = 0.0, kept for ablation)
+  - Evidence-conditioned transport (DISABLED in paper method)
+  - RTEM geometry screening (DISABLED in paper method)
+
+Patient tokens are pooled by global WSI/pathway prototype dictionaries, so a
+slot index has a shared coordinate system across patients.  Train-fold event
+times define survival stages and a censoring Kaplan--Meier estimate supplies
+IPCW weights.  Each stage therefore has empirical high-event and low-risk-set
+cost anchors.  Interventions happen in cost space and always re-solve OT.
+
+**Interpretability perspective**: The transport structure enables the model
+to answer "why did it predict high risk for this patient?" by simulating
+cost perturbations toward low/high risk anchors and checking whether the
+risk output responds in the expected direction.
+
+This is model-based interpretability via counterfactual queries, NOT a
+causal treatment recommendation.  No loss imposes an ordering on CF risk outputs.
+
+---
+ARCHITECTURAL NOTE (2026-09-09):
+================================
+The following losses are DISABLED in the paper method (v3.10):
+  - dct_lambda_etar: 0.0 (Evidence-Transport Adaptive Ranking)
+  - dct_evidence_cost_weight: 0.0 (evidence-conditioned cost)
+  - dct_geometry_reliability_strength: 0.0 (RTEM geometry screening)
+
+These are PRESERVED for ablation studies and NOT deleted.
+The paper method uses ONLY:
+  - NLL (from trainer)
+  - dct_lambda_ipcw_rank = 0.10
+  - dct_v38_lambda_direction = 0.05 (from v3.8 parent, but frozen to 0.05 in v3.10)
+"""
 
 from __future__ import annotations
 
@@ -540,6 +578,13 @@ class DistributionalCounterfactualTransport(FaithfulEvidenceTransport):
                 entropies.append(entropy / math.log(max(2, flat.size(1))))
         return torch.stack(entropies, dim=1).mean(dim=1).clamp(0.0, 1.0)
 
+    # ============================================================================
+    # DISABLED LOSS: ETAR (Evidence-Transport Adaptive Ranking)
+    # ============================================================================
+    # dct_lambda_etar is hard-coded to 0.0 in DCTV310DirectionalRegularizedTransport.
+    # This method is RETAINED for ablation studies only.
+    # To enable: use a parent class directly (not recommended for paper).
+    # ============================================================================
     def _etar_loss(self, factual_logits, event_time, censorship, evidence_gate, plans):
         """Evidence-Transport Adaptive Ranking (ETAR).
 

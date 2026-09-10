@@ -1,0 +1,4 @@
+Risk Group,N,Events,Event Rate,Median Survival
+Low Risk,127,36,28.3%,inf
+Medium Risk,126,32,25.4%,86.83
+High Risk,127,60,47.2%,26.14

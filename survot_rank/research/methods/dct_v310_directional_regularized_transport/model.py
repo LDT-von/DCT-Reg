@@ -8,6 +8,23 @@ two differentiable auxiliary terms:
 All historical DCT auxiliary objectives remain available through their original
 registered versions, but cannot be re-enabled in this final class by a config or
 CLI override.
+
+---
+ARCHITECTURAL NOTE (2026-09-09):
+================================
+The inheritance chain (DCTTransportInterventionConsistency → DistributionalCounterfactualTransport → ...)
+contains code for disabled/ablation losses (ETAR, dose, reconfiguration, listwise, MGPTR).
+These are PRESERVED for消融实验 (ablation studies) and are NOT deleted.
+The v3.10 class freezes all disabled losses to zero via FROZEN_ARGUMENTS, ensuring the paper
+method's objective is numerically immutable.
+
+To understand which losses are ACTIVE in v3.10:
+  → See DCTV310DirectionalRegularizedTransport.objective_weights()
+  → Current active: nll (1.0), ipcw_rank (0.10), direction (0.05)
+
+To run ablation variants:
+  → Use the parent class directly (not recommended for paper)
+  → Or modify the corresponding *_WEIGHT class variables
 """
 
 from __future__ import annotations
@@ -42,6 +59,25 @@ class DCTV310DirectionalRegularizedTransport(
     NLL_WEIGHT = 1.0
     IPCW_RANK_WEIGHT = 0.10
     DIRECTION_WEIGHT = 0.05
+    # ============================================================================
+    # FROZEN PAPER OBJECTIVE
+    # ============================================================================
+    # These arguments are hard-coded to ensure the paper method's objective is
+    # IMMUTABLE. No YAML config or CLI override can change these values.
+    #
+    # ACTIVE losses (λ > 0):
+    #   - dct_lambda_ipcw_rank: 0.10  (censoring-adaptive pairwise ranking)
+    #   - dct_v38_lambda_direction: 0.05  (transport intervention consistency)
+    #
+    # DISABLED losses (λ = 0, kept for ablation studies only):
+    #   - dct_lambda_etar: 0.0  (Evidence-Transport Adaptive Ranking)
+    #   - dct_lambda_listwise: 0.0  (listwise ranking loss)
+    #   - dct_v38_lambda_dose: 0.0  (dose monotonicity)
+    #   - dct_v38_lambda_reconfiguration: 0.0  (plan reconfiguration)
+    #   - dct_v382_lambda_mgptr: 0.0  (Multi-geometry PTR)
+    #   - dct_evidence_cost_weight: 0.0  (evidence-conditioned cost)
+    #   - dct_geometry_reliability_strength: 0.0  (RTEM screening)
+    # ============================================================================
     FROZEN_ARGUMENTS = {
         "dct_lambda_ipcw_rank": IPCW_RANK_WEIGHT,
         "dct_ipcw_rank_margin": 0.02,
@@ -134,6 +170,10 @@ class DCTV310DirectionalRegularizedTransport(
         etar_loss,
         transport_objective,
         transport_metrics,
+        slots_wsi,
+        slots_omic,
+        low_weights,
+        high_weights,
         epoch,
     ):
         """Combine only the two frozen auxiliary terms.
@@ -144,5 +184,5 @@ class DCTV310DirectionalRegularizedTransport(
         the DCT v3.10 objective.
         """
 
-        del etar_loss, transport_metrics, epoch
+        del etar_loss, transport_metrics, slots_wsi, slots_omic, low_weights, high_weights, epoch
         return self.IPCW_RANK_WEIGHT * ipcw_rank_loss + transport_objective

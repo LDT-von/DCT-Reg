@@ -210,51 +210,6 @@ def build_base_parser() -> argparse.ArgumentParser:
 
     # Distributional counterfactual transport method.
     parser.add_argument("--dct_num_stages", type=int, default=4)
-    # Candidate v3.2. These do not change the frozen v3.10 method.
-    parser.add_argument("--dct_v32_feedback", choices=("none", "self", "attention", "ot"), default="ot")
-    parser.add_argument("--dct_v32_rounds", type=int, default=1)
-    parser.add_argument("--dct_v32_feedback_strength", type=float, default=0.25)
-    parser.add_argument("--dct_v32_feedback_eps", type=float, default=0.10)
-    parser.add_argument("--dct_v32_feedback_iters", type=int, default=50)
-    parser.add_argument(
-        "--dct_v32_objective",
-        choices=("nll", "ipcw", "direction", "full"),
-        default="nll",
-    )
-    parser.add_argument(
-        "--dct_v32_learnable_feedback_strength",
-        action=argparse.BooleanOptionalAction,
-        default=False,
-    )
-    # Candidate v3.30 closed-loop prognostic transport.  These options are
-    # isolated from the frozen v3.10 method and the original v3.2 study.
-    parser.add_argument(
-        "--dct_v330_variant",
-        choices=(
-            "baseline",
-            "self_update",
-            "ot_feedback",
-            "confidence_gate",
-            "prognostic_rank",
-        ),
-        default="prognostic_rank",
-    )
-    parser.add_argument("--dct_v330_rounds", type=int, default=1)
-    parser.add_argument("--dct_v330_feedback_strength", type=float, default=0.25)
-    parser.add_argument("--dct_v330_feedback_eps", type=float, default=0.10)
-    parser.add_argument("--dct_v330_feedback_iters", type=int, default=50)
-    parser.add_argument("--dct_v330_adaptive_eps_start", type=float, default=0.50)
-    parser.add_argument("--dct_v330_adaptive_eps_end", type=float, default=0.10)
-    parser.add_argument("--dct_v330_adaptive_eps_anneal_epochs", type=int, default=12)
-    parser.add_argument("--dct_v330_marginal_strength", type=float, default=0.50)
-    parser.add_argument("--dct_v330_gate_hidden_dim", type=int, default=16)
-    parser.add_argument("--dct_v330_repr_rank_weight", type=float, default=0.10)
-    parser.add_argument("--dct_v330_repr_temperature", type=float, default=0.10)
-    parser.add_argument("--dct_v330_high_quantile", type=float, default=0.40)
-    parser.add_argument("--dct_v330_low_quantile", type=float, default=0.60)
-    parser.add_argument("--dct_v330_final_eps_start", type=float, default=0.50)
-    parser.add_argument("--dct_v330_final_eps_end", type=float, default=0.10)
-    parser.add_argument("--dct_v330_final_eps_anneal_epochs", type=int, default=12)
     parser.add_argument("--dct_lambda_ipcw_rank", type=float, default=0.10)
     parser.add_argument("--dct_ipcw_rank_margin", type=float, default=0.02)
     parser.add_argument("--dct_ipcw_rank_temperature", type=float, default=0.50)
@@ -328,90 +283,6 @@ def build_base_parser() -> argparse.ArgumentParser:
         default="breslow",
         choices=["breslow"],
     )
-    # DCT v3.8.3: v3.8 干预一致性损失 + 去塌缩的中心化运输几何。与 v3.8 的
-    # 唯一区别是 slot 编码方式，三个损失与超参全部继承 v3.8。
-    parser.add_argument(
-        "--dct_v383_center_slots",
-        type=lambda value: str(value).lower() not in {"0", "false", "no"},
-        default=True,
-        help=(
-            "跨 slot 中心化，移除共模分量。关闭它即退回 v3.8 的塌缩行为，"
-            "作为单变量对照。"
-        ),
-    )
-    parser.add_argument(
-        "--dct_v383_keep_legacy_slot_init",
-        action="store_true",
-        help="保留 v3.8 的高斯 slot 初始化，仅用于消融对照。",
-    )
-
-    # DCT v3.9 risk-simplex transport. 预测被定义为低危/高危锚定运输几何之间
-    # 的坐标，方向一致性与剂量单调性由参数化保证，因此不需要 v3.8 的 margin 项。
-    parser.add_argument(
-        "--dct_v39_center_slots",
-        type=lambda value: str(value).lower() not in {"0", "false", "no"},
-        default=True,
-        help=(
-            "跨 slot 中心化，移除共模分量。关闭它可复现 v3.3 的塌缩行为，"
-            "作为消融对照使用。"
-        ),
-    )
-    parser.add_argument(
-        "--dct_v39_residual_scale",
-        type=float,
-        default=0.0,
-        help=(
-            "可选残差旁路权重。0 表示预测严格落在锚定 hazard 的凸包内；"
-            "调大用于'结构约束 vs 模型容量'的消融。"
-        ),
-    )
-    parser.add_argument(
-        "--dct_v39_tau_init",
-        type=float,
-        default=0.02,
-        help=(
-            "锚点代价差的初始温度（可学习）。实测该代价差尺度约 0.01，温度取 "
-            "0.25 会让 lambda 挤在 0.5 附近导致学不动。"
-        ),
-    )
-    parser.add_argument(
-        "--dct_v39_tau_autoscale",
-        type=lambda value: str(value).lower() not in {"0", "false", "no"},
-        default=True,
-        help=(
-            "用首个可用 batch 的代价差标准差自动标定温度，消除尺度错配这一类"
-            "失效模式；关闭后使用 dct_v39_tau_init。"
-        ),
-    )
-    parser.add_argument(
-        "--dct_v39_anchor_freeze_epoch",
-        type=int,
-        default=0,
-        help=(
-            "到该 epoch 后冻结队列锚点，避免坐标追逐移动目标；0 表示始终用 EMA 更新。"
-        ),
-    )
-    parser.add_argument(
-        "--dct_v39_lambda_spread_target",
-        type=float,
-        default=0.0,
-        help=(
-            "坐标铺开项的目标方差，只惩罚所有患者挤在同一 lambda 的退化解，"
-            "不规定任何方向或次序。0 表示目标严格等于 v3.3 的两项。"
-        ),
-    )
-    parser.add_argument(
-        "--dct_v39_projection_iters",
-        type=int,
-        default=3,
-        help="边缘投影迭代次数；log-domain Sinkhorn 已收敛，这里只做数值兜底。",
-    )
-    parser.add_argument(
-        "--dct_v39_keep_legacy_slot_init",
-        action="store_true",
-        help="保留 v3.3 的高斯 slot 初始化，仅用于消融对照。",
-    )
-
     # DCT v3.8 transport-intervention consistency. Each term is independently
     # switchable so direction, dose response, and coupling reconfiguration can
     # be ablated without changing the v3.3 factual path.
@@ -450,25 +321,6 @@ def build_base_parser() -> argparse.ArgumentParser:
     parser.add_argument("--dct_rot_lambda_dose", type=float, default=0.05)
     parser.add_argument("--dct_rot_direction_margin", type=float, default=0.02)
     parser.add_argument("--dct_rot_dose_margin", type=float, default=0.005)
-    # DCT v3.8.2 Multi-Geometry Prognostic Transport Reconstruction. The loss
-    # reuses factual couplings and the shared decoder, so it adds no parameters
-    # and no additional Sinkhorn solves.
-    parser.add_argument("--dct_v382_lambda_mgptr", type=float, default=0.05)
-    parser.add_argument("--dct_v382_distill_weight", type=float, default=0.50)
-    parser.add_argument("--dct_v382_warmup_epochs", type=int, default=1)
-    parser.add_argument("--dct_v382_ramp_epochs", type=int, default=4)
-    parser.add_argument(
-        "--dct_v382_adaptive_aux_weights", action="store_true", default=False
-    )
-    parser.add_argument(
-        "--dct_v382_adaptive_prior_fraction", type=float, default=0.25
-    )
-    parser.add_argument(
-        "--dct_v382_adaptive_temperature", type=float, default=1.0
-    )
-    parser.add_argument(
-        "--dct_v382_adaptive_kl_strength", type=float, default=0.01
-    )
 
     # Ablation switches shared across DCT variants.
     parser.add_argument(

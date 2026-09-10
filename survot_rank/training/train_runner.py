@@ -384,6 +384,10 @@ def train_one_epoch(args, epoch, model, loader, optimizer, scheduler, loss_fn, l
                 desc=f"  [Fold {args.cur_fold}] Epoch {epoch+1}/{args.max_epochs}",
                 ncols=120, leave=False, dynamic_ncols=True)
     for batch_idx, data in pbar:
+        if data is None:
+            # Collate function dropped every sample (all corrupt/missing).
+            # Skip and continue to the next batch.
+            continue
         out, y_disc, event_time, c = _process_data_and_forward(args, model, data, device)
         logits, slot_loss = out
 
@@ -510,6 +514,8 @@ def evaluate(args, dataset_factory, model, loader, loss_fn, survival_train=None)
 
     with torch.no_grad():
         for batch_idx, data in enumerate(loader):
+            if data is None:
+                continue
             out, y_disc, event_time, c = _process_data_and_forward(args, model, data, device, test=True)
             logits, _ = out
 

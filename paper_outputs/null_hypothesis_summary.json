@@ -1,0 +1,176 @@
+{
+  "per_fold": {
+    "fold_0": {
+      "factual": {
+        "dcr": 0.39215686274509803,
+        "tv": 0.08178357034921646,
+        "n": 76,
+        "high_correct": 3,
+        "low_correct": 17
+      },
+      "uniform_plan": {
+        "dcr": 0.39215686274509803,
+        "tv": 0.08178357034921646,
+        "n": 76,
+        "high_correct": 3,
+        "low_correct": 17
+      },
+      "shuffled_plan": {
+        "dcr": 0.39215686274509803,
+        "tv": 0.08178357034921646,
+        "n": 76,
+        "high_correct": 3,
+        "low_correct": 17
+      },
+      "anchor_swap": {
+        "dcr": 0.4117647058823529,
+        "tv": 0.08178357034921646,
+        "n": 76,
+        "high_correct": 3,
+        "low_correct": 18
+      }
+    },
+    "fold_1": {
+      "factual": {
+        "dcr": 0.3695652173913043,
+        "tv": 0.09321877360343933,
+        "n": 76,
+        "high_correct": 5,
+        "low_correct": 12
+      },
+      "uniform_plan": {
+        "dcr": 0.3695652173913043,
+        "tv": 0.09321877360343933,
+        "n": 76,
+        "high_correct": 5,
+        "low_correct": 12
+      },
+      "shuffled_plan": {
+        "dcr": 0.3695652173913043,
+        "tv": 0.09321877360343933,
+        "n": 76,
+        "high_correct": 5,
+        "low_correct": 12
+      },
+      "anchor_swap": {
+        "dcr": 0.41304347826086957,
+        "tv": 0.09321877360343933,
+        "n": 76,
+        "high_correct": 6,
+        "low_correct": 13
+      }
+    },
+    "fold_2": {
+      "factual": {
+        "dcr": 0.375,
+        "tv": 0.14181146025657654,
+        "n": 76,
+        "high_correct": 6,
+        "low_correct": 12
+      },
+      "uniform_plan": {
+        "dcr": 0.375,
+        "tv": 0.14181146025657654,
+        "n": 76,
+        "high_correct": 6,
+        "low_correct": 12
+      },
+      "shuffled_plan": {
+        "dcr": 0.375,
+        "tv": 0.14181146025657654,
+        "n": 76,
+        "high_correct": 6,
+        "low_correct": 12
+      },
+      "anchor_swap": {
+        "dcr": 0.4166666666666667,
+        "tv": 0.14181146025657654,
+        "n": 76,
+        "high_correct": 6,
+        "low_correct": 14
+      }
+    },
+    "fold_3": {
+      "factual": {
+        "dcr": 0.5208333333333334,
+        "tv": 0.1499207764863968,
+        "n": 76,
+        "high_correct": 2,
+        "low_correct": 23
+      },
+      "uniform_plan": {
+        "dcr": 0.5208333333333334,
+        "tv": 0.1499207764863968,
+        "n": 76,
+        "high_correct": 2,
+        "low_correct": 23
+      },
+      "shuffled_plan": {
+        "dcr": 0.5208333333333334,
+        "tv": 0.1499207764863968,
+        "n": 76,
+        "high_correct": 2,
+        "low_correct": 23
+      },
+      "anchor_swap": {
+        "dcr": 0.625,
+        "tv": 0.1499207764863968,
+        "n": 76,
+        "high_correct": 3,
+        "low_correct": 27
+      }
+    },
+    "fold_4": {
+      "factual": {
+        "dcr": 0.6274509803921569,
+        "tv": 0.08039988577365875,
+        "n": 76,
+        "high_correct": 4,
+        "low_correct": 28
+      },
+      "uniform_plan": {
+        "dcr": 0.6274509803921569,
+        "tv": 0.08039988577365875,
+        "n": 76,
+        "high_correct": 4,
+        "low_correct": 28
+      },
+      "shuffled_plan": {
+        "dcr": 0.6274509803921569,
+        "tv": 0.08039988577365875,
+        "n": 76,
+        "high_correct": 4,
+        "low_correct": 28
+      },
+      "anchor_swap": {
+        "dcr": 0.47058823529411764,
+        "tv": 0.08039988577365875,
+        "n": 76,
+        "high_correct": 3,
+        "low_correct": 21
+      }
+    }
+  },
+  "summary_5fold": {
+    "factual": {
+      "mean": 0.4570012787723785,
+      "std": 0.10168746708597233,
+      "n_folds": 5
+    },
+    "uniform_plan": {
+      "mean": 0.4570012787723785,
+      "std": 0.10168746708597233,
+      "n_folds": 5
+    },
+    "shuffled_plan": {
+      "mean": 0.4570012787723785,
+      "std": 0.10168746708597233,
+      "n_folds": 5
+    },
+    "anchor_swap": {
+      "mean": 0.46741261722080135,
+      "std": 0.08181896182006237,
+      "n_folds": 5
+    }
+  }
+}

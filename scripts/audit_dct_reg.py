@@ -271,18 +271,18 @@ def _run_alpha_sweep(
     val_loader,
     alphas: Iterable[float],
 ) -> dict[str, np.ndarray]:
-    """Run one extra sweep per alpha value to capture dose_monotonicity data.
+    """Run extra sweeps at each alpha for both LOW and HIGH anchors.
 
-    The base DCT ``last_explanations`` only stores alpha=1 (low/high). For
-    the monotonicity test we replay the full intervention chain at each
-    requested alpha using the cached factual plans and risk anchors. The
-    cached anchor buffers live on the model and are train-fold statistics.
+    Returns per-case risk trajectories as alpha moves from 0 (factual) to 1
+    (full anchor). The base ``last_explanations`` only stores alpha=1, so we
+    replay the intervention chain at every requested alpha using cached
+    factual plans and risk anchors.
     """
     alpha_list = list(alphas)
     device = next(model.parameters()).device
-    sweep_risks_per_case: list[list[float]] = []
+    sweep_low_per_case: list[list[float]] = []
+    sweep_high_per_case: list[list[float]] = []
     sweep_alphas = np.array(alpha_list, dtype=np.float64)
-    case_offset = 0
     for batch_idx, data in enumerate(val_loader):
         out, _, _, _ = _process_data_and_forward(
             parsed, model, data, device, test=True
@@ -300,34 +300,56 @@ def _run_alpha_sweep(
         slots_omic = model._last_slots_omic
         epoch = int(getattr(parsed, "cur_epoch", 0))
         for case_idx in range(factual_costs.size(0)):
-            risks_for_case: list[float] = []
+            low_risks: list[float] = []
+            high_risks: list[float] = []
             for alpha in alpha_list:
+                low_costs = _interpolate_cost(
+                    factual_costs[case_idx:case_idx + 1],
+                    model.risk_anchor_costs[:, model._LOW_RISK],
+                    alpha,
+                    model.risk_anchor_seen[:, model._LOW_RISK],
+                )
                 high_costs = _interpolate_cost(
                     factual_costs[case_idx:case_idx + 1],
                     model.risk_anchor_costs[:, model._HIGH_RISK],
                     alpha,
                     model.risk_anchor_seen[:, model._HIGH_RISK],
                 )
-                plan, _ = model._plans_from_cost_tensor(
+                plan_low, _ = model._plans_from_cost_tensor(
+                    low_costs,
+                    rows[case_idx:case_idx + 1],
+                    cols[case_idx:case_idx + 1],
+                    epoch,
+                )
+                plan_high, _ = model._plans_from_cost_tensor(
                     high_costs,
                     rows[case_idx:case_idx + 1],
                     cols[case_idx:case_idx + 1],
                     epoch,
                 )
-                logits, _ = model._encode_logits_from_plans(
+                logits_low, _ = model._encode_logits_from_plans(
                     slots_wsi[case_idx:case_idx + 1],
                     slots_omic[case_idx:case_idx + 1],
-                    plan,
+                    plan_low,
                 )
-                risk_val = model._risk(logits)
-                risks_for_case.append(float(risk_val.detach().cpu().numpy()[0]))
-            sweep_risks_per_case.append(risks_for_case)
-        case_offset += factual_costs.size(0)
-    if not sweep_risks_per_case:
-        return {"sweep_alphas": sweep_alphas, "sweep_risks": np.empty((0, len(alpha_list)))}
+                logits_high, _ = model._encode_logits_from_plans(
+                    slots_wsi[case_idx:case_idx + 1],
+                    slots_omic[case_idx:case_idx + 1],
+                    plan_high,
+                )
+                risk_low = float(model._risk(logits_low).detach().cpu().numpy()[0])
+                risk_high = float(model._risk(logits_high).detach().cpu().numpy()[0])
+                low_risks.append(risk_low)
+                high_risks.append(risk_high)
+            sweep_low_per_case.append(low_risks)
+            sweep_high_per_case.append(high_risks)
+    if not sweep_low_per_case:
+        empty = np.empty((0, len(alpha_list)))
+        return {"sweep_alphas": sweep_alphas, "sweep_risks_low": empty, "sweep_risks_high": empty}
     return {
         "sweep_alphas": sweep_alphas,
-        "sweep_risks": np.asarray(sweep_risks_per_case, dtype=np.float64),
+        "sweep_risks_low": np.asarray(sweep_low_per_case, dtype=np.float64),
+        "sweep_risks_high": np.asarray(sweep_high_per_case, dtype=np.float64),
     }
 
 
@@ -478,7 +500,9 @@ def cmd_sweep(args: argparse.Namespace) -> int:
     parsed.k_end = args.fold + 1
     parsed.cur_fold = args.fold
     parsed.cur_epoch = int(getattr(args, "epoch", 0))
-    parsed.num_workers = 0
+    # Use multiple workers to parallelize h5 loading. Val sets are large
+    # (~400 cases × 2048 patches), and single-worker loading can take 5-10 min.
+    parsed.num_workers = 4
     if getattr(args, "gpu", None) is not None:
         os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu)
 
@@ -488,11 +512,15 @@ def cmd_sweep(args: argparse.Namespace) -> int:
 
     alphas = tuple(float(value) for value in args.alphas.split(","))
     sweep = _run_alpha_sweep(model, parsed, val_loader, alphas=alphas)
-    dose = dose_monotonicity(sweep["sweep_alphas"], sweep["sweep_risks"])
+    # dose_monotonicity operates on a single risk matrix; compute it on the
+    # HIGH sweep (positive direction) for parity with the original audit.
+    dose = dose_monotonicity(sweep["sweep_alphas"], sweep["sweep_risks_high"])
 
     import pickle
     with open(output_dir / f"sweep_fold{args.fold}.pkl", "wb") as handle:
-        pickle.dump({"alphas": sweep["sweep_alphas"], "risks": sweep["sweep_risks"],
+        pickle.dump({"alphas": sweep["sweep_alphas"],
+                     "risks_low": sweep["sweep_risks_low"],
+                     "risks_high": sweep["sweep_risks_high"],
                      "dose": dose, "fold": int(args.fold)}, handle)
     metrics = {
         "fold": int(args.fold),

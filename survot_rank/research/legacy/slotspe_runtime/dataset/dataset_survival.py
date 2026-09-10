@@ -407,7 +407,13 @@ class SurvivalDataset(Dataset):
     def _load_wsi_feature(self, feature_path):
         feature_path = Path(feature_path)
         if feature_path.suffix == ".pt":
-            features = torch.load(feature_path, map_location="cpu")
+            try:
+                features = torch.load(feature_path, map_location="cpu")
+            except (EOFError, RuntimeError):
+                try:
+                    features = torch.load(feature_path, map_location="cpu", weights_only=False)
+                except (EOFError, RuntimeError, Exception) as error:
+                    raise ValueError(f"corrupted WSI feature: {feature_path}") from error
         elif feature_path.suffix in {".h5", ".hdf5"}:
             try:
                 import h5py
@@ -539,11 +545,19 @@ class SurvivalDataset(Dataset):
         return len(self.label_df)
 
     def __getitem__(self, batch_idx):
+        if batch_idx >= len(self.label_df):
+            return None
         case_id = self.label_df.loc[batch_idx, 'case id']
         slides = self.label_df.loc[batch_idx, 'wsi']
-        label, event_time, censorship = self.get_label(case_id)
-        wsi = self.load_wsi(slides)
-        genes = self.load_genes(case_id)
+        try:
+            label, event_time, censorship = self.get_label(case_id)
+            wsi = self.load_wsi(slides)
+            genes = self.load_genes(case_id)
+        except (ValueError, EOFError, RuntimeError, KeyError, IndexError):
+            # Corrupted or missing inputs: return a sentinel so callers can
+            # skip.  The trainer checks for ``data is None`` and continues
+            # past the batch.
+            return None
 
         # Keep train and evaluation inputs at the same token count. Training uses
         # random patches; evaluation uses deterministic evenly spaced patches.
@@ -575,6 +589,12 @@ class SurvivalDataset(Dataset):
 
 
 def _collate_pathways(batch):
+    # SurvivalDataset.__getitem__ returns None when a sample fails to load
+    # (corrupt WSI feature, missing RNA file, etc.).  Filter these out so
+    # downstream code can always index item[0..] without guarding for None.
+    batch = [item for item in batch if item is not None]
+    if not batch:
+        return None
 
     img = torch.stack([item[0] for item in batch])
 
