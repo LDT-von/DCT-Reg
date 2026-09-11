@@ -1,0 +1,76 @@
+{
+  "constraint": {
+    "v_min": 0.005,
+    "v_max": 0.05
+  },
+  "n_folds": 5,
+  "n_folds_in_band": 5,
+  "mean_corr_var_valc": 0.348,
+  "folds": [
+    {
+      "fold": 0,
+      "var_final": 0.02517,
+      "var_min": 0.00085,
+      "var_max": 0.03378,
+      "var_std": 0.00864,
+      "in_band": true,
+      "var_valc_corr": 0.223,
+      "psnll_final": 0.7947,
+      "div_final": 0.003823,
+      "val_c_final": 0.6204,
+      "val_c_best": 0.7013
+    },
+    {
+      "fold": 1,
+      "var_final": 0.02627,
+      "var_min": 0.00098,
+      "var_max": 0.02727,
+      "var_std": 0.00808,
+      "in_band": true,
+      "var_valc_corr": -0.644,
+      "psnll_final": 0.6038,
+      "div_final": 0.002354,
+      "val_c_final": 0.6421,
+      "val_c_best": 0.7403
+    },
+    {
+      "fold": 2,
+      "var_final": 0.03256,
+      "var_min": 0.00084,
+      "var_max": 0.03403,
+      "var_std": 0.00983,
+      "in_band": true,
+      "var_valc_corr": 0.543,
+      "psnll_final": 0.7055,
+      "div_final": 0.004609,
+      "val_c_final": 0.6445,
+      "val_c_best": 0.6837
+    },
+    {
+      "fold": 3,
+      "var_final": 0.03594,
+      "var_min": 0.00192,
+      "var_max": 0.03669,
+      "var_std": 0.01037,
+      "in_band": true,
+      "var_valc_corr": 0.766,
+      "psnll_final": 0.5706,
+      "div_final": 0.007055,
+      "val_c_final": 0.6623,
+      "val_c_best": 0.7027
+    },
+    {
+      "fold": 4,
+      "var_final": 0.02826,
+      "var_min": 0.00092,
+      "var_max": 0.03162,
+      "var_std": 0.00898,
+      "in_band": true,
+      "var_valc_corr": 0.85,
+      "psnll_final": 0.4338,
+      "div_final": 0.005414,
+      "val_c_final": 0.6895,
+      "val_c_best": 0.7589
+    }
+  ]
+}
