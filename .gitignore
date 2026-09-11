@@ -47,6 +47,9 @@ checkpoints/
 !results/proof_experiment_A.json
 !results/proof_experiment_B.json
 !results/proof_experiment_C.json
+!results/e4_v311_fixed_audit/
+!results/e4_v311_fixed_audit/**
+!results/audit_comparison/
 
 # Logs
 *.log
