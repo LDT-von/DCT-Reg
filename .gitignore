@@ -38,6 +38,11 @@ checkpoints/
 *.h5
 *.hdf5
 
+# Exception: proof figures (small, useful) are tracked
+!results/.gitkeep
+!results/proof_D_visualization/
+!results/proof_D_visualization/**
+
 # Logs
 *.log
 logs/
