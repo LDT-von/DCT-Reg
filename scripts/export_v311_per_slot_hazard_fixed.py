@@ -125,24 +125,40 @@ def get_model_for_fold(args, dataset_factory, ckpt_path: Path, fold: int):
     ):
         state_dict = state_dict.get("state_dict", state_dict.get("model_state_dict"))
     
-    # Filter out keys with size mismatches (dct_stage_edges, dct_censor_times, dct_censor_survival)
-    # These are initialized by configure_train_reference() at runtime
+    # Strict loading: ensure all keys match exactly.
     model_state = model.state_dict()
     filtered_state = {}
-    skipped_keys = []
-    for k, v in state_dict.items():
+    missing_keys = []
+    unexpected_keys = []
+    
+    # Check for missing keys
+    for k in model_state:
+        if k not in state_dict:
+            missing_keys.append(k)
+    
+    # Check for unexpected keys
+    for k in state_dict:
+        if k not in model_state:
+            unexpected_keys.append(k)
+    
+    # Only load keys that exist in both
+    for k in state_dict:
         if k in model_state:
-            if model_state[k].shape == v.shape:
-                filtered_state[k] = v
+            if model_state[k].shape == state_dict[k].shape:
+                filtered_state[k] = state_dict[k]
             else:
-                skipped_keys.append(k)
-        else:
-            skipped_keys.append(k)
+                raise RuntimeError(
+                    f"[f{fold}] Shape mismatch for key '{k}': "
+                    f"checkpoint {state_dict[k].shape} vs model {model_state[k].shape}"
+                )
     
-    if skipped_keys:
-        print(f"[f{fold}] Skipping {len(skipped_keys)} keys with shape mismatches: {skipped_keys[:5]}...")
+    if missing_keys:
+        print(f"[f{fold}] WARNING: {len(missing_keys)} keys missing from checkpoint: {missing_keys[:5]}...")
+    if unexpected_keys:
+        print(f"[f{fold}] WARNING: {len(unexpected_keys)} unexpected keys in checkpoint (skipped): {unexpected_keys[:5]}...")
     
-    model.load_state_dict(filtered_state, strict=False)
+    # Use strict=True to ensure no silent failures
+    model.load_state_dict(filtered_state, strict=True)
 
     if torch.cuda.is_available():
         model = model.to(torch.device("cuda"))
@@ -281,7 +297,17 @@ def predict_fold(fold: int, ckpt_root: Path, out_dir: Path) -> Dict:
             hom = explanations["per_slot_hazard_omic"].cpu().numpy()[0]
             hazard_wsi_list.append(hwsi)
             hazard_omic_list.append(hom)
-            risk_list.append(float(logits.detach().cpu().numpy().ravel()[0]))
+            # Final risk: -sum over all time bins of S(t) = -sum(log S_padded[1:C+1])
+            # Use the model's _risk logic but on the full hazard trajectory
+            # Equivalent: risk = -sum_t S(t) = -sum_t (1 - cumsum_h(0..t-1))
+            # We compute this as the negative survival probability across all bins
+            with torch.no_grad():
+                hazard_full = torch.from_numpy(np.concatenate([hwsi, hom], axis=0)).to(device)  # [K_total, C]
+                # S_padded[t] = 1, S_padded[t+1] = S(t) = product of (1 - h(i)) for i in 0..t
+                surv = torch.cumprod(1.0 - hazard_full, dim=-1)  # [K_total, C]
+                # Final risk = -sum of S(t) across all time bins, averaged across slots
+                final_risk = -surv.sum(dim=-1).mean().item()
+            risk_list.append(final_risk)
 
     elapsed = time.time() - t0
     print(f"[f{fold}] elapsed={elapsed:.1f}s ({len(val_ids)} patients)")

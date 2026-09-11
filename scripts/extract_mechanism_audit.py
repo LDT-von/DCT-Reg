@@ -46,7 +46,17 @@ def extract_mechanism_audit(manifest_path: Path) -> dict:
                 'high_total': dcr_factual['high_labelled_count'],
                 'low_correct': dcr_factual['low_correct'],
                 'low_total': dcr_factual['low_labelled_count'],
+                # Censorship-aware subgroup breakdown (新增).
+                'high_rate': dcr_factual.get('high_rate'),
+                'low_observed_count': dcr_factual.get('low_observed_count'),
+                'low_censored_count': dcr_factual.get('low_censored_count'),
+                'low_correct_observed': dcr_factual.get('low_correct_observed'),
+                'low_correct_censored': dcr_factual.get('low_correct_censored'),
+                'low_rate_observed': dcr_factual.get('low_rate_observed'),
+                'low_rate_censored': dcr_factual.get('low_rate_censored'),
                 'correct_rate': dcr_factual['correct_rate'],
+                # Aggregate that excludes the censored subgroup.
+                'correct_rate_no_censored': dcr_factual.get('correct_rate_no_censored'),
                 'chance_gap': dcr_factual['chance_gap']
             },
             'anchor_swap': {
@@ -103,11 +113,13 @@ def main():
     # 方向一致性
     print("\n### Direction Consistency Rate (DCR)")
     dc = audit['direction_consistency']['factual']
-    print(f"High-risk labeled: {dc['high_correct']}/{dc['high_total']} correct")
-    print(f"Low-risk labeled:  {dc['low_correct']}/{dc['low_total']} correct")
-    print(f"Overall DCR:       {dc['correct_rate']:.3f}")
-    print(f"Chance baseline:   0.500")
-    print(f"Gap from chance:   {dc['chance_gap']:+.3f}")
+    print(f"HIGH group (observed, short event time): {dc['high_correct']}/{dc['high_total']} = {dc['high_rate']:.1%}")
+    print(f"LOW group (observed, long event time):   {dc['low_correct_observed']}/{dc['low_observed_count']} = {dc['low_rate_observed']:.1%}")
+    print(f"LOW group (censored):                   {dc['low_correct_censored']}/{dc['low_censored_count']} = {dc['low_rate_censored']:.1%}")
+    print(f"Overall DCR (mixed):                    {dc['correct_rate']:.3f}")
+    print(f"DCR excluding censored:                {dc['correct_rate_no_censored']:.3f}")
+    print(f"Chance baseline:                       0.500")
+    print(f"Gap from chance:                       {dc['chance_gap']:+.3f}")
     
     dc_swap = audit['direction_consistency']['anchor_swap']
     print(f"\nAnchor Swap DCR:   {dc_swap['correct_rate']:.3f} (gap: {dc_swap['chance_gap']:+.3f})")

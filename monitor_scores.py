@@ -15,8 +15,12 @@ import argparse
 import csv
 import glob
 import os
+import re
 import sys
 import time
+
+JUNK_TOKENS = ("_bak", ".trash", "contaminated", "__pycache__")
+STALL_SECONDS = 600  # 超过这么久没写入且未跑完, 判定为停滞(可能被杀)
 
 
 def find_experiments(root):
@@ -25,6 +29,8 @@ def find_experiments(root):
     pattern = os.path.join(root, "**", "epoch_curve_fold*.csv")
     for path in glob.glob(pattern, recursive=True):
         if not os.path.isfile(path):
+            continue
+        if any(tok in os.path.relpath(path, root) for tok in JUNK_TOKENS):
             continue
         name = os.path.basename(path)
         try:
@@ -46,6 +52,38 @@ def fmt(x, nd=4):
         return f"{float(x):.{nd}f}"
     except (TypeError, ValueError):
         return "  -  "
+
+
+def _proc_cmdline(pid):
+    try:
+        with open(f"/proc/{pid}/cmdline", "rb") as f:
+            return f.read().replace(b"\0", b" ").decode("utf-8", "ignore").strip()
+    except OSError:
+        return ""
+
+
+def _ppid(pid):
+    try:
+        with open(f"/proc/{pid}/stat") as f:
+            return int(f.read().split(") ", 1)[1].split()[1])
+    except (OSError, IndexError, ValueError):
+        return 0
+
+
+def active_runs():
+    """返回 {results_dir: 独立进程数}（排除 DataLoader worker，只看真正的训练进程）"""
+    dirs = {}
+    for name in os.listdir("/proc"):
+        if not name.isdigit():
+            continue
+        cmd = _proc_cmdline(name)
+        if "survot_rank.training.train_runner" not in cmd or "--results_dir" not in cmd:
+            continue
+        if "survot_rank.training.train_runner" in _proc_cmdline(_ppid(name)):
+            continue  # fork 出来的 worker, 不算独立进程
+        rd = os.path.normpath(cmd.split("--results_dir", 1)[1].split()[0])
+        dirs[rd] = dirs.get(rd, 0) + 1
+    return dirs
 
 
 def print_fold_table(rows, metric, metric2, best_ep):
@@ -74,7 +112,14 @@ def analyze_fold(path, metric, metric2):
     return {"rows": rows, "best": best, "best_ep": best_ep}
 
 
+def infer_epochs(exp_dir, default):
+    """从实验目录名里的 _e_<N>_ 推断总 epoch 数, 否则用 default。"""
+    m = re.search(r"_e_(\d+)_", os.path.basename(exp_dir))
+    return int(m.group(1)) if m else default
+
+
 def report_one(exp_dir, metric, metric2, expected_epochs, show_detail):
+    expected_epochs = infer_epochs(exp_dir, expected_epochs)
     folds = {}
     for p in glob.glob(os.path.join(exp_dir, "epoch_curve_fold*.csv")):
         try:
@@ -91,7 +136,8 @@ def report_one(exp_dir, metric, metric2, expected_epochs, show_detail):
     age = time.time() - newest_mtime
 
     print(f"\n实验目录: {exp_dir}")
-    print(f"  监控指标: {metric}   (最新写入 {int(age)}s 前)")
+    stall = "  [!] 已停滞(可能被杀)" if age > STALL_SECONDS else ""
+    print(f"  监控指标: {metric}   (最新写入 {int(age)}s 前){stall}")
 
     per_fold_best = []
     for f in sorted(folds):
@@ -101,7 +147,13 @@ def report_one(exp_dir, metric, metric2, expected_epochs, show_detail):
             continue
         rows = info["rows"]
         done = len(rows) >= expected_epochs
-        status = "完成" if done else "进行中"
+        row_age = time.time() - os.path.getmtime(path)
+        if done:
+            status = "完成"
+        elif row_age > STALL_SECONDS:
+            status = "停滞?"
+        else:
+            status = "进行中"
         per_fold_best.append((f, info["best"], info["best_ep"], status))
 
         if show_detail:
@@ -115,10 +167,13 @@ def report_one(exp_dir, metric, metric2, expected_epochs, show_detail):
         last = float(rows[-1].get(metric))
         print(f"  Fold {f}   ep {best_ep:<6}  {fmt(best):<16}  {fmt(last):<12}  {status}")
     if per_fold_best:
-        avg = sum(b for _, b, _, _ in per_fold_best) / len(per_fold_best)
         best_all = max(per_fold_best, key=lambda x: x[1])
-        print(f"\n  已完成折平均 best_{metric}: {avg:.4f}  |  当前最优: "
-              f"Fold {best_all[0]} ep {best_all[2]} = {best_all[1]:.4f}")
+        print(f"\n  当前最优: Fold {best_all[0]} ep {best_all[2]} = {best_all[1]:.4f}")
+        done_bests = [b for _, b, _, st in per_fold_best if st == "完成"]
+        if done_bests:
+            avg = sum(done_bests) / len(done_bests)
+            print(f"  已完成折平均 best_{metric}: {avg:.4f}  "
+                  f"({len(done_bests)}/{len(per_fold_best)} 折完成)")
 
 
 def main():
@@ -131,7 +186,8 @@ def main():
     ap.add_argument("-w", "--watch", type=float, default=0.0)
     ap.add_argument("-m", "--metric", default="val_cindex")
     ap.add_argument("-m2", "--metric2", default="val_iauc")
-    ap.add_argument("--epochs", type=int, default=30)
+    ap.add_argument("--epochs", type=int, default=30,
+                    help="总 epoch 数(兜底); 优先从实验目录名 _e_<N>_ 自动推断")
     ap.add_argument("--no-detail", action="store_true")
     args = ap.parse_args()
 
@@ -166,6 +222,17 @@ def main():
         while True:
             if args.watch > 0:
                 os.system("clear")
+            try:
+                dirs = active_runs()
+            except OSError:
+                dirs = {}
+            if dirs:
+                print(f"[进程] 独立 train_runner: {len(dirs)} 个")
+                for d, n in dirs.items():
+                    mark = "  <-- 重复写入!" if n > 1 else ""
+                    print(f"        ×{n}  {d}{mark}")
+            else:
+                print("[进程] 当前没有 train_runner 在跑")
             for t in targets:
                 report_one(t, args.metric, args.metric2, args.epochs,
                            not args.no_detail)

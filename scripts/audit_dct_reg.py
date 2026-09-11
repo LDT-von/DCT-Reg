@@ -87,8 +87,23 @@ def direction_consistency(
     ``high_risk - factual_risk > 0``; for low-labelled cases we expect
     ``low_risk - factual_risk < 0``.
 
-    Returns counts and rates; the headline number is ``correct_rate`` minus
-    the chance-rate 0.5, scaled to [0, 1].
+    Returns counts and rates. To avoid confounding the censored-patient
+    subset (which is hypothesis-driven, not directly observed), the LOW
+    group is split into observed and censored subgroups so that downstream
+    reports can present direction-consistency per subgroup instead of an
+    aggregate that mixes them. The backward-compatible aggregate
+    (``correct_rate``) and ``chance_gap`` are preserved verbatim.
+
+    The headline per-subgroup rates are::
+
+        high_rate         = high_correct / high_total
+        low_rate_observed = low_correct_observed / low_total_observed
+        low_rate_censored = low_correct_censored / low_total_censored
+        correct_rate      = (high_correct + low_correct_observed + low_correct_censored)
+                            / (high_total + low_total_observed + low_total_censored)
+        correct_rate_no_censored
+                           = (high_correct + low_correct_observed)
+                            / (high_total + low_total_observed)
     """
     observed = censorship < 0.5
     observed_times = event_time[observed]
@@ -96,28 +111,73 @@ def direction_consistency(
         return {
             "high_labelled_count": 0,
             "low_labelled_count": 0,
+            "low_observed_count": 0,
+            "low_censored_count": 0,
             "correct_rate": float("nan"),
             "chance_gap": float("nan"),
+            "correct_rate_no_censored": float("nan"),
+            "high_rate": float("nan"),
+            "low_rate_observed": float("nan"),
+            "low_rate_censored": float("nan"),
         }
     upper = float(np.quantile(observed_times, 1.0 - observed_quantile))
     lower = float(np.quantile(observed_times, observed_quantile))
     high_mask = observed & (event_time <= lower)
     low_mask = (event_time > upper) | ((censorship >= 0.5) & (event_time >= upper))
+    # Censorship-aware split of the LOW mask. LOW mask includes both observed
+    # patients who survived past upper and censored patients who were
+    # followed past upper. The censored subgroup is hypothesis-driven (we
+    # assume they would have survived longer) and reports as its own line.
+    low_observed_mask = observed & (event_time > upper)
+    low_censored_mask = ~observed & (event_time >= upper)
     high_delta = high_risk - factual_risk
     low_delta = low_risk - factual_risk
     high_correct = int((high_delta[high_mask] > 0).sum()) if high_mask.any() else 0
     low_correct = int((low_delta[low_mask] < 0).sum()) if low_mask.any() else 0
+    low_correct_observed = int((low_delta[low_observed_mask] < 0).sum()) if low_observed_mask.any() else 0
+    low_correct_censored = int((low_delta[low_censored_mask] < 0).sum()) if low_censored_mask.any() else 0
     high_total = int(high_mask.sum())
     low_total = int(low_mask.sum())
+    low_total_observed = int(low_observed_mask.sum())
+    low_total_censored = int(low_censored_mask.sum())
     labelled = high_total + low_total
     correct = high_correct + low_correct
     correct_rate = (correct / labelled) if labelled else float("nan")
+    # Aggregate that excludes the censored subgroup, to expose the
+    # observed-only direction-consistency rate next to the aggregate.
+    labelled_observed = high_total + low_total_observed
+    correct_observed = high_correct + low_correct_observed
+    correct_rate_no_censored = (
+        correct_observed / labelled_observed if labelled_observed else float("nan")
+    )
+    high_rate = (high_correct / high_total) if high_total else float("nan")
+    low_rate_observed = (
+        low_correct_observed / low_total_observed if low_total_observed else float("nan")
+    )
+    low_rate_censored = (
+        low_correct_censored / low_total_censored if low_total_censored else float("nan")
+    )
     return {
         "high_labelled_count": high_total,
         "low_labelled_count": low_total,
+        # New censorship-aware subgroup counts so downstream consumers can
+        # render HIGH / LOW_Obs / LOW_Cen separately.
+        "low_observed_count": low_total_observed,
+        "low_censored_count": low_total_censored,
         "high_correct": high_correct,
         "low_correct": low_correct,
+        # Per-subgroup rates — paper-facing headline numbers.
+        "high_rate": float(high_rate),
+        "low_rate_observed": float(low_rate_observed),
+        "low_rate_censored": float(low_rate_censored),
+        "low_correct_observed": low_correct_observed,
+        "low_correct_censored": low_correct_censored,
+        # Backward-compatible aggregate (includes censored LOW).
         "correct_rate": float(correct_rate),
+        # New aggregate that excludes censored LOW — closer to a true
+        # "factual-vs-counterfactual" rate because the censored subgroup is
+        # hypothesis-driven rather than observed.
+        "correct_rate_no_censored": float(correct_rate_no_censored),
         "chance_gap": float(correct_rate - 0.5),
     }
 

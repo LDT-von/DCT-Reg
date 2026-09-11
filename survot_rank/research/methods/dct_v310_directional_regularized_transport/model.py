@@ -170,10 +170,6 @@ class DCTV310DirectionalRegularizedTransport(
         etar_loss,
         transport_objective,
         transport_metrics,
-        slots_wsi,
-        slots_omic,
-        low_weights,
-        high_weights,
         epoch,
     ):
         """Combine only the two frozen auxiliary terms.
@@ -184,5 +180,5 @@ class DCTV310DirectionalRegularizedTransport(
         the DCT v3.10 objective.
         """
 
-        del etar_loss, transport_metrics, slots_wsi, slots_omic, low_weights, high_weights, epoch
+        del etar_loss, transport_metrics, epoch
         return self.IPCW_RANK_WEIGHT * ipcw_rank_loss + transport_objective

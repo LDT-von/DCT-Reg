@@ -80,17 +80,19 @@ def compute_slot_cindex(
     for k in range(K):
         # Sum hazard across time bins to get "risk score"
         slot_risk = hazard_per_slot[:, k, :].sum(axis=1)
-        
+
         # Compute C-index (sksurv convention: y[0]=censored, y[1]=event)
         # Our censors: 0=event, 1=censored
         # sksurv expects: (censored, event_time, risk_score)
+        # Higher risk score should correspond to shorter event time (higher hazard).
+        # Since slot_risk = sum of hazards (higher = worse prognosis), we pass it directly.
         event_observed = censors == 0  # True=event (observed death)
-        
+
         try:
             cindex, _, _, _, _ = concordance_index_censored(
                 event_observed,  # sksurv: True if event was observed
                 times,
-                -slot_risk  # Higher hazard = higher risk = lower survival = shorter time
+                slot_risk  # Higher hazard sum = higher risk = shorter survival time
             )
             cindex_per_slot[k] = cindex
         except Exception as e:

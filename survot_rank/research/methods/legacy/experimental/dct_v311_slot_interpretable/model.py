@@ -137,32 +137,50 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
     def _nll_surv_per_slot(self, hazard, y_onehot, event_mask, censor_mask, ipcw):
         """Compute IPCW-weighted discrete-time NLL for a [B, K, C] hazard tensor.
 
-        Discrete-time NLL:
-            L = -Σ_t [ I(T=t, E=1) * log H(t) + I(T>=t) * log(1-H(t)) ]
-              = event_NLL + survival_NLL
+        Discrete-time NLL (standard formula from loss_func.py):
+            Event patient (c=0):  L = -(log S(t-1) + log h(t))
+            Censored patient (c=1): L = -log S(T_c)
 
         Args:
             hazard: [B, K, C] sigmoid hazard per slot
             y_onehot: [B, C] one-hot time bin
-            event_mask: [B, 1] True where event is observed
-            censor_mask: [B, 1] True where patient is censored
+            event_mask: [B, 1] True where event is observed (c=0)
+            censor_mask: [B, 1] True where patient is censored (c=1)
             ipcw: [B, 1] IPCW weight per patient
 
         Returns:
             [B, K] NLL loss per slot, already IPCW-weighted.
         """
         eps = 1e-7
-        log_h = (hazard + eps).clamp_max(1.0 - eps).log()
-        log_s = (1.0 - hazard + eps).clamp_max(1.0 - eps).log()
+        log_h = (hazard + eps).clamp_max(1.0 - eps).log()    # [B, K, C]
+        log_s = (1.0 - hazard + eps).clamp_max(1.0 - eps).log()  # [B, K, C]
 
-        # Event NLL: -log H(t*) per slot.
-        event_nll = -(y_onehot.unsqueeze(1) * log_h).sum(dim=-1)            # [B, K]
+        # S_padded[t] = S(t), where S(0) = 1, S(1) = 1 - h(0), etc.
+        # S_padded shape: [B, K, C+1] with S_padded[..., 0] = 1
+        ones = torch.ones_like(log_s[..., :1])  # [B, K, 1]
+        s_padded = torch.cat([ones, log_s], dim=-1)  # [B, K, C+1]
 
-        # Survival NLL: -Σ_{t'} log(1-H(t')) up to event time, per slot.
-        survival_nll = -(y_onehot.unsqueeze(1) * torch.cumsum(log_s, dim=-1)).sum(dim=-1)  # [B, K]
+        # y index per patient: [B, 1]
+        y_idx = y_onehot.argmax(dim=-1, keepdim=True)  # [B, 1]
+        y_idx_exp = y_idx.unsqueeze(1).expand(-1, hazard.size(1), -1)  # [B, K, 1]
 
-        nll = event_nll * event_mask + survival_nll * censor_mask         # [B, K]
-        return nll * ipcw                                                    # [B, K]
+        # For event patients: -log S(t-1) - log h(t)
+        s_prev = torch.gather(s_padded, dim=-1, index=y_idx_exp).squeeze(-1)  # [B, K]
+        h_this = torch.gather(log_h, dim=-1, index=y_idx_exp).squeeze(-1)     # [B, K]
+        uncensored_loss = -(s_prev + h_this)  # [B, K]
+
+        # For censored patients: -log S(T_c) = -S_padded[..., y+1]
+        s_at_censor = torch.gather(
+            s_padded, dim=-1, index=(y_idx_exp + 1).clamp(max=s_padded.size(-1) - 1)
+        ).squeeze(-1)  # [B, K]
+        censored_loss = -s_at_censor  # [B, K]
+
+        # Apply masks (broadcast across slot dimension)
+        event_nll = uncensored_loss * event_mask  # [B, K]
+        surv_nll = censored_loss * censor_mask    # [B, K]
+        nll_per_slot = event_nll + surv_nll       # [B, K]
+
+        return nll_per_slot * ipcw  # [B, K]
 
     def per_slot_nll_loss(self, slots_wsi, slots_omic, y, event_time, c):
         """IPCW-weighted NLL per slot, averaged across all slots.
@@ -257,17 +275,17 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
         # Per-sample variance across slots, averaged over hazard bins.
         variance = ((all_preds - mean_pred) ** 2).mean(dim=(1, 2))   # [B]
 
-        # Batch mean variance.
-        batch_variance = variance.mean()
-        self._last_slot_variance = batch_variance.item()
-
-        # Two-sided hinge.
+        # Per-sample diversity loss: two-sided hinge on variance.
+        # Each sample's slots must have variance in [min, max].
         margin_min = float(getattr(self.args, "dct_v311_variance_min", self.VARIANCE_MIN))
         margin_max = float(getattr(self.args, "dct_v311_variance_max", self.VARIANCE_MAX))
 
-        loss = F.relu(margin_min - batch_variance) + F.relu(batch_variance - margin_max)
-        self._last_slot_diversity = loss.item()
-        return loss
+        per_sample_loss = F.relu(margin_min - variance) + F.relu(variance - margin_max)  # [B]
+        # Return mean over batch to get scalar loss.
+        batch_loss = per_sample_loss.mean()
+        self._last_slot_variance = variance.mean().item()
+        self._last_slot_diversity = batch_loss.item()
+        return batch_loss
 
     # ============================================================
     #  Full Forward Pass

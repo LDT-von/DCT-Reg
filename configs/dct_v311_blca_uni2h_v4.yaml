@@ -1,0 +1,104 @@
+# DCT v3.11 Per-Slot Interpretable - BLCA UNI2-h v4 Config
+#
+# v4 changes vs v3 (configs/dct_v311_blca_uni2h_v3.yaml):
+#   - lr: 1e-4 → 3e-4   (v3 was too slow; find sweet spot between v2's 5e-4)
+#   - num_patches: 2048 → 1024  (2x speed; acceptable quality trade-off)
+#   - max_epochs: 30  (same)
+# Recipe: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*diversity (UNCHANGED)
+#   - results_dir  : dct_v311_blca_uni2h_v4  (separate from v2/v3)
+#
+
+name: dct_v311_blca_uni2h_v4
+description: |
+  DCT v3.11 v4 - lr raised to 3e-4 (v3's 1e-4 was too slow),
+  patches reduced to 1024 for 2x speed.
+
+data:
+  study: blca
+  data_root_dir: /data1/TCGA-UNI2-h-features
+  data_path: /data1/dataset_csv
+  rna_format: Pathways
+  label_col: survival_months_dss
+  signature: combine
+  n_classes: 4
+  num_patches: 1024
+  encoding_dim: 1536
+
+split:
+  k_start: 0
+  k_end: 5
+
+train:
+  survot_method: dct_v311_slot_interpretable
+  specific_simple: dct_v311_blca_uni2h_v4
+  results_dir: /data1/DCT-Reg/results/dct_v311_blca_uni2h_v4/blca
+  max_epochs: 30
+  batch_size: 8
+  warmup_epochs: 3
+  grad_clip_norm: 1.0
+  seed: 3
+  lr: 0.0003              # was 0.0001 — v3 too slow; 5e-4 was v2 (overfitting)
+  opt: adamW
+  reg: 0.005              # 10x stronger than v2
+  scheduler: cosine
+  gpu: 1
+  num_workers: 4
+  bag_loss: nll_surv
+  min_free_space_gb: 2.0
+  fit_bins_on_train: true
+  binning_mode: global_qcut
+  dct_slot_init_mode: deterministic
+  event_stratified_batches: true
+  event_sampling_fraction: 0.0
+
+slot:
+  slot_num_wsi: 8
+  slot_num_omics: 8
+  slot_iters: 3
+  temperature: 0.01
+  topk_ratio: 0.25
+  top_k_method: parallel_topk_st
+
+model:
+  wsi_encoder: uni2-h
+  otehv2_eps: 0.05
+  otehv2_iter: 50
+  otehv2_heads: 4
+  otehv2_layers: 2
+  otehv2_dropout: 0.30        # was 0.15 — anti-overfit
+  dct_num_stages: 4
+  dct_lambda_ipcw_rank: 0.10
+  dct_ipcw_rank_margin: 0.02
+  dct_ipcw_rank_temperature: 0.50
+  dct_ipcw_max_weight: 10.0
+  dct_ipcw_rank_memory_size: 64
+  dct_v38_lambda_direction: 0.0
+  dct_v38_lambda_dose: 0.0
+  dct_v38_lambda_reconfiguration: 0.0
+  dct_anchor_momentum: 0.90
+  dct_evidence_cost_weight: 0.0
+  dct_evidence_mass_floor: 0.05
+  dct_evidence_marginal_strength: 1.0
+  dct_geometry_reliability_strength: 0.0
+  dct_coupling_projection_iters: 1000
+  dct_coupling_projection_tol: 0.0001
+  dct_coordinate_temperature: 0.30
+  dct_mix_ratio: 1.0
+  dct_v38_direction_margin: 0.02
+  dct_v38_dose_margin: 0.005
+  dct_v38_reconfiguration_margin: 0.02
+  dct_v38_temperature: 0.05
+  dct_v38_alpha_mid: 0.50
+  dct_v38_alpha_full: 1.00
+  dct_v38_warmup_epochs: 0
+  dct_v38_ramp_epochs: 0
+  dct_v38_dose_every: 1
+  dct_lambda_etar: 0.0
+  dct_lambda_listwise: 0.0
+  spt_prog_cost: 0.20
+  rg_eps_start: 0.10
+  rg_eps_anneal: 12
+
+split_setup:
+  which_splits: 5fold_uni2h
+  on_missing_wsi: error

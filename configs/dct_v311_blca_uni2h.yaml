@@ -1,0 +1,106 @@
+# DCT v3.11 Per-Slot Interpretable - BLCA UNI2-h Config
+# Training: python -m survot_rank.cli train --config configs/dct_v311_blca_uni2h.yaml --set=k_start=0 --set=k_end=5
+#
+# Recipe: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*diversity
+# (dct_v311_* params are forced by DCTV311SlotInterpretable.FROZEN_ARGUMENTS)
+#
+# Diff vs dct_v311_blca_uni.yaml:
+#   - data_root_dir: /data1/TCGA-UNI2-h-features  (was /data/CPathPatchFeature)
+#   - encoding_dim : 1536                        (was 1024)
+#   - results_dir  : dct_v311_blca_uni2h_v2      (separate from old uni2h run)
+#
+name: dct_v311_blca_uni2h
+description: |
+  DCT v3.11 per-slot interpretable training on BLCA with UNI2-h (1536d) features.
+  Same recipe as dct_v311_blca_uni.yaml, only the feature backend is uni2-h.
+
+data:
+  study: blca
+  data_root_dir: /data1/TCGA-UNI2-h-features
+  data_path: /data1/dataset_csv
+  rna_format: Pathways
+  label_col: survival_months_dss
+  signature: combine
+  n_classes: 4
+  num_patches: 4096
+  encoding_dim: 1536
+
+split:
+  k_start: 0
+  k_end: 5
+
+train:
+  survot_method: dct_v311_slot_interpretable
+  specific_simple: dct_v311_blca_uni2h
+  results_dir: /data1/DCT-Reg/results/dct_v311_blca_uni2h_v2/blca
+  max_epochs: 30
+  batch_size: 8
+  warmup_epochs: 0
+  grad_clip_norm: 1.0
+  seed: 3
+  lr: 0.0005
+  opt: adamW
+  reg: 0.0005
+  scheduler: cosine
+  gpu: 1
+  num_workers: 4
+  bag_loss: nll_surv
+  min_free_space_gb: 2.0
+  fit_bins_on_train: true
+  binning_mode: global_qcut
+  dct_slot_init_mode: deterministic
+  event_stratified_batches: true
+  event_sampling_fraction: 0.0
+
+slot:
+  slot_num_wsi: 8
+  slot_num_omics: 8
+  slot_iters: 3
+  temperature: 0.01
+  topk_ratio: 0.25
+  top_k_method: parallel_topk_st
+
+model:
+  wsi_encoder: uni2-h
+  otehv2_eps: 0.05
+  otehv2_iter: 50
+  otehv2_heads: 4
+  otehv2_layers: 2
+  otehv2_dropout: 0.15
+  dct_num_stages: 4
+  dct_lambda_ipcw_rank: 0.10
+  dct_ipcw_rank_margin: 0.02
+  dct_ipcw_rank_temperature: 0.50
+  dct_ipcw_max_weight: 10.0
+  dct_ipcw_rank_memory_size: 64
+  # Direction loss DISABLED in v3.11 (DCR ≈ random)
+  dct_v38_lambda_direction: 0.0
+  dct_v38_lambda_dose: 0.0
+  dct_v38_lambda_reconfiguration: 0.0
+  dct_anchor_momentum: 0.90
+  dct_evidence_cost_weight: 0.0
+  dct_evidence_mass_floor: 0.05
+  dct_evidence_marginal_strength: 1.0
+  dct_geometry_reliability_strength: 0.0
+  dct_coupling_projection_iters: 1000
+  dct_coupling_projection_tol: 0.0001
+  dct_coordinate_temperature: 0.30
+  dct_mix_ratio: 1.0
+  dct_v38_direction_margin: 0.02
+  dct_v38_dose_margin: 0.005
+  dct_v38_reconfiguration_margin: 0.02
+  dct_v38_temperature: 0.05
+  dct_v38_alpha_mid: 0.50
+  dct_v38_alpha_full: 1.00
+  dct_v38_warmup_epochs: 0
+  dct_v38_ramp_epochs: 0
+  dct_v38_dose_every: 1
+  dct_lambda_etar: 0.0
+  dct_lambda_listwise: 0.0
+  spt_prog_cost: 0.20
+  rg_eps_start: 0.10
+  rg_eps_anneal: 12
+
+split_setup:
+  which_splits: 5fold_uni2h
+  on_missing_wsi: error
