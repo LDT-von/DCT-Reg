@@ -56,15 +56,15 @@ if str(_REPO_ROOT) not in sys.path:
 # Anything that needs to vary per-run should come from CLI flags.
 # ────────────────────────────────────────────────────────────────────
 DEFAULTS = {
-    "ckpt_root": "/data1/DCT-Reg/results/dct_v311_blca_uni2h/blca/SurvOTRank_dct_v311/0.0005_b32_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_",
+    "ckpt_root": "/data1/DCT-Reg/results/dct_v311_blca_uni_fixed/blca/blca/SurvOTRank_dct_v311_slot_interpretable/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v311_blca_uni_fold{}/",
     "data_path": "/data1/dataset_csv",
-    "split_dir": "/data1/dataset_csv/splits/5fold_uni2h/blca",
+    "split_dir": "/data1/dataset_csv/splits/5fold/blca",
     "study": "blca",
     "rna_format": "Pathways",
     "signature": "combine",
     "label_col": "survival_months_dss",
     "n_classes": 4,
-    "encoding_dim": 1536,   # uni2-h = 1536 (was 1024: wrong default)
+    "encoding_dim": 1024,
     "wsi_projection_dim": 256,
     "num_patches": 4096,
     "slot_num_wsi": 8,
@@ -73,8 +73,8 @@ DEFAULTS = {
     "topk_ratio": 0.25,
     "top_k_method": "parallel_topk_st",
     "alpha_surv": 0.5,
-    "wsi_encoder": "uni2-h",   # actual directory name (was "uni2h": missing dash)
-    "data_root_dir": "/data1/TCGA-UNI2-h-features",   # where .h5 actually live (was splits dir)
+    "wsi_encoder": "uni",
+    "data_root_dir": "/data/CPathPatchFeature",
     "n_bins": 4,
     "method": "SurvOTRank_dct_v311",
     "survot_method": "dct_v311_slot_interpretable",
@@ -119,7 +119,7 @@ def build_args(fold: int) -> argparse.Namespace:
     args.batch_size = 1
     args.fit_bins_on_train = False
     args.binning_mode = "global_qcut"
-    args.which_splits = "5fold_uni2h"
+    args.which_splits = "5fold"
     args.num_workers = 0
     args.fold = fold
     return args
@@ -259,7 +259,13 @@ def predict_fold(fold: int, ckpt_root: Path, out_dir: Path, cli=None) -> Dict:
     censors = val_data.label_df[censor_col].to_numpy(dtype=np.float32)
     print(f"[f{fold}] val cases: {len(val_ids)}")
 
-    ckpt_path = ckpt_root / f"model_best_s{fold}.pth"
+    # Resolve ckpt_root: if it contains {}, format with fold number
+    raw_ckpt = str(ckpt_root)
+    if "{" in raw_ckpt:
+        ckpt_dir = Path(raw_ckpt.format(fold))
+    else:
+        ckpt_dir = ckpt_root
+    ckpt_path = ckpt_dir / f"model_best_s{fold}.pth"
     if not ckpt_path.exists():
         raise FileNotFoundError(f"Missing checkpoint: {ckpt_path}")
     print(f"[f{fold}] ── loading {ckpt_path.name} ──")
@@ -422,7 +428,7 @@ def main():
     parser = argparse.ArgumentParser(description="Export v3.11 per-slot hazard + coordinate assignments.")
     parser.add_argument("--ckpt_root", type=str, default=DEFAULTS["ckpt_root"])
     parser.add_argument("--out_root", type=str,
-                        default="/data1/DCT-Reg/results/dct_v311_blca_uni2h/per_slot_export")
+                        default="/data1/DCT-Reg/results/dct_v311_blca_uni_fixed/per_slot_export")
     parser.add_argument("--folds", type=int, nargs="+", default=[0, 1, 2, 3, 4])
     # Override the most failure-prone defaults so callers don't need to edit this file.
     parser.add_argument("--data_root_dir", type=str, default=DEFAULTS["data_root_dir"],
