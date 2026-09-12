@@ -1,22 +1,25 @@
 #!/usr/bin/env python3
-"""Exp D: v3.10 per-slot hazard analysis (BLCA, 5-fold).
+"""Exp D: v3.11 per-slot hazard analysis (BLCA, 5-fold).
 
-Extract per_slot_hazard_wsi / per_slot_hazard_omic from each v3.10 BLCA
-checkpoint, then analyze:
+NOTE: v3.10 does NOT expose per-slot hazard (it was added in v3.11),
+so we run this analysis on v3.11 BLCA checkpoints to characterize the
+slot-level signal in the model that the redesigned audit is supposed
+to capture.
 
+Goals:
 1. **Per-slot hazard signature**: For each slot, average hazard across
    time bins and patients.  Are slots distinguishable (i.e. does each
    slot encode a distinct survival pattern) or are they collapsed?
 
 2. **Slot ranking on high vs low risk patients**: Does per-slot hazard
    order slots differently in high- vs low-event-time patients?
+   This mirrors the redesigned audit's question (high anchor should
+   push risk up, low anchor should push risk down).
 
-3. **Stage ordering**: Within the v3.10 stage structure, do slot hazards
-   follow a monotonically increasing pattern across stages?
-
-Compare against v3.11 (which has monotone_rate = 0.61 on the same audit).
-
-Output: results/v310_proof_d_per_slot_hazard/{per_fold.pkl, summary.json, REPORT.md}
+Output:
+- results/v310_proof_d_per_slot_hazard/per_fold.pkl
+- results/v310_proof_d_per_slot_hazard/summary.json
+- results/v310_proof_d_per_slot_hazard/REPORT.md
 """
 
 from __future__ import annotations
@@ -41,34 +44,34 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-# Defaults for v3.10 BLCA
+# Defaults for v3.11 BLCA (uni2-h)
 DEFAULTS = {
     "ckpt_root": (
-        "/data1/DCT-Reg/results/dct_v3.10/robust/final_50ep_old/blca/blca/"
-        "SurvOTRank_dct_v310_directional_regularized_transport/"
-        "0.0005_b8_survival_months_dss_Dim_256_e_50_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_dct_reg_blca_50ep/"
+        "/data1/DCT-Reg/results/dct_v311_blca_uni_fixed/blca/blca/"
+        "SurvOTRank_dct_v311_slot_interpretable/"
+        "0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v311_blca_uni_fold{fold}/"
     ),
     "data_path": "/data1/dataset_csv",
-    "split_dir": "/data1/dataset_csv/splits/5fold_uni2h/blca",
+    "split_dir": "/data1/dataset_csv/splits/5fold/blca",
     "study": "blca",
     "rna_format": "Pathways",
     "signature": "combine",
     "label_col": "survival_months_dss",
     "n_classes": 4,
-    "encoding_dim": 256,
+    "encoding_dim": 1024,
     "wsi_projection_dim": 256,
-    "num_patches": 2048,
+    "num_patches": 4096,
     "slot_num_wsi": 8,
     "slot_num_omics": 8,
-    "slot_iters": 3,
+    "slot_iters": 10,
     "topk_ratio": 0.25,
     "top_k_method": "parallel_topk_st",
-    "alpha_surv": 0.15,
-    "wsi_encoder": "uni2-h",
+    "alpha_surv": 0.5,
+    "wsi_encoder": "uni",
     "data_root_dir": "/data/CPathPatchFeature",
     "n_bins": 4,
-    "method": "SurvOTRank_dct_v310_directional_regularized_transport",
-    "survot_method": "dct_v310_directional_regularized_transport",
+    "method": "SurvOTRank_dct_v311",
+    "survot_method": "dct_v311_slot_interpretable",
     "bag_loss": "nll_surv",
     "rg_num_events": 4,
     "spt_num_stages": 4,
@@ -99,7 +102,7 @@ DEFAULTS = {
 }
 
 
-def build_args(fold: int, ckpt_root: str) -> argparse.Namespace:
+def build_args(fold: int, ckpt_root_template: str) -> argparse.Namespace:
     args = argparse.Namespace()
     for k, v in DEFAULTS.items():
         setattr(args, k, v)
@@ -107,14 +110,14 @@ def build_args(fold: int, ckpt_root: str) -> argparse.Namespace:
     args.batch_size = 1
     args.fit_bins_on_train = False
     args.binning_mode = "global_qcut"
-    args.which_splits = "5fold_uni2h"
+    args.which_splits = "5fold"
     args.num_workers = 0
     args.fold = fold
-    args.ckpt_root = ckpt_root
+    args.ckpt_root = ckpt_root_template.format(fold=fold)
     return args
 
 
-def predict_fold(fold: int, ckpt_root: Path, out_dir: Path) -> Dict:
+def predict_fold(fold: int, ckpt_root_template: str, out_dir: Path) -> Dict:
     from survot_rank.research.legacy.slotspe_runtime.dataset.dataset_survival import (
         SurvivalDataset,
         SurvivalDatasetFactory,
@@ -125,8 +128,8 @@ def predict_fold(fold: int, ckpt_root: Path, out_dir: Path) -> Dict:
         _process_data_and_forward,
     )
 
-    args = build_args(fold, str(ckpt_root))
-    ckpt_path = Path(ckpt_root) / f"model_best_s{fold}.pth"
+    args = build_args(fold, ckpt_root_template)
+    ckpt_path = Path(args.ckpt_root) / f"model_best_s{fold}.pth"
     if not ckpt_path.exists():
         raise FileNotFoundError(f"Missing checkpoint: {ckpt_path}")
 
@@ -142,14 +145,15 @@ def predict_fold(fold: int, ckpt_root: Path, out_dir: Path) -> Dict:
         which_splits=args.which_splits,
     )
 
-    # Filter to RNA cases (like _load_model_and_loader does)
     if args.rna_format in ("Pathways", "RNASeq", "GeneEmbedding"):
         rna_cases = set(factory.gene_data_df.columns)
         factory.clinical_df = factory.clinical_df[
             factory.clinical_df["case id"].isin(rna_cases)
         ].reset_index(drop=True)
 
-    wsi_path = os.path.join(args.data_root_dir, factory.study, args.wsi_encoder, "pt_files")
+    wsi_path = os.path.join(
+        args.data_root_dir, factory.study, args.wsi_encoder, "pt_files"
+    )
     test_data = SurvivalDataset(
         factory, wsi_path, "val", fold, args.encoding_dim, on_missing_wsi="error"
     )
@@ -168,7 +172,6 @@ def predict_fold(fold: int, ckpt_root: Path, out_dir: Path) -> Dict:
         pathway_names=args.pathway_names,
     )
 
-    # Load ckpt (with shape filter)
     state_dict = torch.load(str(ckpt_path), map_location="cpu", weights_only=False)
     if isinstance(state_dict, dict) and (
         "state_dict" in state_dict or "model_state_dict" in state_dict
@@ -189,7 +192,6 @@ def predict_fold(fold: int, ckpt_root: Path, out_dir: Path) -> Dict:
     model = model.to(device)
     model.eval()
 
-    # IPCW reference from train fold
     case_id_col = "case id" if "case id" in factory.clinical_df.columns else "case_id"
     train_fold_csv = Path(args.split_dir) / f"fold_{fold}.csv"
     fold_df = pd.read_csv(train_fold_csv)
@@ -207,8 +209,8 @@ def predict_fold(fold: int, ckpt_root: Path, out_dir: Path) -> Dict:
     risk_list = []
     case_ids = []
     with torch.no_grad():
-        for batch in test_loader:
-            case_ids.append(batch.get("case_id", batch.get("case_ids", ["?"]))[0])
+        for idx, batch in enumerate(test_loader):
+            case_ids.append(f"f{fold}_idx{idx}")
             out, _, _, _ = _process_data_and_forward(args, model, batch, device, test=True)
             logits = out[0] if isinstance(out, tuple) else out
             explanations = model.last_explanations
@@ -245,15 +247,13 @@ def analyze_one_fold(data: Dict) -> Dict:
     times = data["times"]
     censors = data["censors"]
 
-    # 1. Slot distinguishability: variance across slots (mean across N)
     slot_mean_wsi = hwsi.mean(axis=0)   # [K_w, C]
     slot_mean_om = hom.mean(axis=0)
     slot_std_wsi = slot_mean_wsi.std(axis=0)  # std across K_w
     slot_std_om = slot_mean_om.std(axis=0)
-    distinguishability_wsi = float(slot_std_wsi.mean())  # higher = more distinct
+    distinguishability_wsi = float(slot_std_wsi.mean())
     distinguishability_om = float(slot_std_om.mean())
 
-    # 2. Hazard monotonicity: split by observed event time quartile
     observed = censors < 0.5
     obs_times = times[observed]
     if len(obs_times) >= 4:
@@ -267,9 +267,6 @@ def analyze_one_fold(data: Dict) -> Dict:
     if low_mask.sum() == 0 or high_mask.sum() == 0:
         monotone_rate = float("nan")
     else:
-        # Per-slot hazard in low vs high group: should differ
-        # Convention: low-risk (long survival) → lower hazard
-        # Count slots where hazard(high_q) > hazard(low_q) per time bin
         rate_per_bin = []
         for c in range(hwsi.shape[-1]):
             mean_high = hwsi[high_mask, :, c].mean()
@@ -299,20 +296,28 @@ def main() -> int:
     parser.add_argument(
         "--output-dir", default="results/v310_proof_d_per_slot_hazard"
     )
+    parser.add_argument(
+        "--ckpt-template",
+        default=(
+            "/data1/DCT-Reg/results/dct_v311_blca_uni_fixed/blca/blca/"
+            "SurvOTRank_dct_v311_slot_interpretable/"
+            "0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v311_blca_uni_fold{fold}/"
+        ),
+        help="Template path with {fold} placeholder",
+    )
     args = parser.parse_args()
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu)
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    ckpt_root = Path(DEFAULTS["ckpt_root"])
     folds = [int(x) for x in args.folds.split(",")]
     per_fold_data = {}
     analyses = {}
 
     for fold in folds:
         try:
-            d = predict_fold(fold, ckpt_root, output_dir)
+            d = predict_fold(fold, args.ckpt_template, output_dir)
             per_fold_data[fold] = d
             analyses[fold] = analyze_one_fold(d)
         except Exception as e:
@@ -320,22 +325,22 @@ def main() -> int:
             traceback.print_exc()
             analyses[fold] = {"error": str(e)}
 
-    # Save per-fold pkl
     pkl_path = output_dir / "per_fold.pkl"
     with open(pkl_path, "wb") as f:
         pickle.dump(per_fold_data, f)
     print(f"saved {pkl_path}")
 
-    # Save analyses
     json_path = output_dir / "summary.json"
     with open(json_path, "w") as f:
         json.dump(analyses, f, indent=2)
     print(f"saved {json_path}")
 
-    # Aggregate
-    valid = [a for a in analyses.values() if "monotone_rate" in a and not (
-        isinstance(a.get("monotone_rate"), float) and np.isnan(a["monotone_rate"])
-    )]
+    valid = [
+        a for a in analyses.values()
+        if "monotone_rate" in a and not (
+            isinstance(a.get("monotone_rate"), float) and np.isnan(a["monotone_rate"])
+        )
+    ]
     if valid:
         agg = {
             "monotone_rate_mean": float(np.mean([a["monotone_rate"] for a in valid])),
@@ -351,11 +356,10 @@ def main() -> int:
     with open(output_dir / "aggregate_5fold.json", "w") as f:
         json.dump(agg, f, indent=2)
 
-    # Markdown
     lines = [
-        "# v3.10 Proof D: Per-Slot Hazard Analysis (BLCA, 5-fold)\n",
-        "**核心问题**:v3.10 8 个 slot 是否各自编码了不同的 hazard 模式?\n",
-        "是\"slot collapsed\"(全一样)还是\"slot distinguishable\"?\n",
+        "# v3.11 Proof D: Per-Slot Hazard Analysis (BLCA, 5-fold)\n",
+        "**核心问题**:v3.11 slot-level hazard 在 high vs low event-time 患者上**是否区分**?\n",
+        "(v3.10 doesn't expose per-slot hazard; this is v3.11-only.)\n",
         "\n",
         "**指标**:\n",
         "1. `distinguishability_wsi/omic` = 跨 slot 平均 hazard 的 std (越高 = slots 越 distinguishable)\n",
@@ -386,8 +390,9 @@ def main() -> int:
             "\n",
             "## 解读\n",
             "\n",
-            "- v3.11 同样分析得到 `monotone_rate ≈ 0.61` (slot hazards 在 high/low risk patient 上有区分)。",
-            "- v3.10 这个数字越接近 0.5 = 没区分,越接近 1.0 = 完全单调。",
+            "- v3.11 mt = `monotone_rate > 0.5` = slot hazard 在 high-risk patient 上**显著高于** low-risk patient。",
+            "- 这个数字是 v3.10 audit (info_gap_high ≈ 0) 的对应 v3.11 视角。",
+            "- 若 v3.11 的 monotone_rate 显著高于 0.5 而 v3.10 audit 接近 random → 进一步说明 v3.10 的 'direction loss 失活' 是版本特异的架构问题。",
         ])
     md_path = output_dir / "REPORT.md"
     with open(md_path, "w") as f:
