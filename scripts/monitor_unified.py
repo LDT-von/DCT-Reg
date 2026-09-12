@@ -101,7 +101,9 @@ def scan_task_locks(cancer_dirs: list[Path]) -> list[dict]:
     for d in cancer_dirs:
         if not d.is_dir():
             continue
-        for lock in sorted(d.glob(".split_*.dct_reg.lock")):
+        # Use rglob so we find locks either directly under <dir>/ or under <dir>/<cancer>/
+        # (the queue places them at results/dct_v3.10/robust/final/<cancer>/.split_*.lock)
+        for lock in sorted(d.rglob(".split_*.dct_reg.lock")):
             owner = lock_owner(lock)
             alive = bool(owner and "pid" in owner and _pid_alive(owner["pid"]))
             rows.append({

@@ -280,8 +280,10 @@ def _train_loop_survival(args, epoch, model,loader, optimizer, scheduler, loss_f
     all_event_times = np.concatenate(all_event_times, axis=0)
     c_index = concordance_index_censored((1-all_censorships).astype(bool), all_event_times, all_risk_scores,tied_tol=1e-08)[0]
 
-    print('Epoch: {}, train_loss: {:.4f}, train_c_index: {:.4f}'.format(epoch, total_loss, c_index))
+    print(
+        'Epoch: {}, train_loss: {:.4f}, train_c_index: {:.4f}'.format(epoch, total_loss, c_index), flush=True)
     log_file.write('Epoch: {}, train_loss: {:.4f}, train_c_index: {:.4f}\n'.format(epoch, total_loss, c_index))
+    log_file.flush()
 
     return
 
@@ -428,7 +430,7 @@ def _step(args, cur, loss_fn, model, dataset_factory, optimizer, scheduler, trai
                 val_cindex_ipcw,
                 val_IBS,
                 val_iauc
-            ))
+            ), flush=True)
         log_file.write(
             'Epoch:{} Val c-index: {:.4f} | Final Val c-index2: {:.4f} | Final Val IBS: {:.4f} | Final Val iauc: {:.4f}\n'.format(
                 epoch,
@@ -437,6 +439,7 @@ def _step(args, cur, loss_fn, model, dataset_factory, optimizer, scheduler, trai
                 val_IBS,
                 val_iauc
             ))
+        log_file.flush()
 
         if val_cindex >= args.max_cindex:
             args.max_cindex = val_cindex

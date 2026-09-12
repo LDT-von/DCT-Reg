@@ -77,3 +77,12 @@ temp/
 
 # Transport diagnosis
 transport_diagnosis/
+
+# Experiment backups and stale snapshots (kept locally only)
+.trash_*/
+.trash_*/
+*_trash_*/
+.trash/
+
+# Top-level SlotSPE working copy (third_party/SlotSPE is the tracked one)
+/SlotSPE/
