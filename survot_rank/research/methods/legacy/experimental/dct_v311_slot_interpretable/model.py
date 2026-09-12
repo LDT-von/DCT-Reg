@@ -55,10 +55,15 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
 
     # New v3.11 objective weights (frozen, paper-facing).
     PER_SLOT_NLL_WEIGHT = 0.05
-    SLOT_DIVERSITY_WEIGHT = 0.02
+    # Per-modality diversity needs higher weight than merged (5x larger) because
+    # the hinge only fires per-modality (8 slots vs 16), and the per-slot NLL
+    # gradient dominates otherwise (see smoke training analysis 2026-09-12).
+    SLOT_DIVERSITY_WEIGHT = 0.10  # was 0.02 for merged; raised to 0.10 for per-modality
 
     # Diversity target range (σ² per sample, per batch).
-    VARIANCE_MIN = 0.005
+    # For per-modality diversity (only 8 slots), variance naturally lower than merged.
+    # Lower bound 0.001 prevents full collapse while allowing meaningful diversity.
+    VARIANCE_MIN = 0.001
     VARIANCE_MAX = 0.050
 
     FROZEN_ARGUMENTS = dict(DCTV310DirectionalRegularizedTransport.FROZEN_ARGUMENTS)
@@ -266,24 +271,32 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
         hazard_wsi = torch.sigmoid(self.per_slot_hazard_wsi(slots_wsi))   # [B, K_w, C]
         hazard_omic = torch.sigmoid(self.per_slot_hazard_omic(slots_omic))  # [B, K_o, C]
 
-        # Concatenate all slot predictions per sample.
-        all_preds = torch.cat([hazard_wsi, hazard_omic], dim=1)   # [B, K_w+K_o, C]
-
-        # Mean hazard across slots per sample.
-        mean_pred = all_preds.mean(dim=1, keepdim=True)             # [B, 1, C]
-
-        # Per-sample variance across slots, averaged over hazard bins.
-        variance = ((all_preds - mean_pred) ** 2).mean(dim=(1, 2))   # [B]
-
-        # Per-sample diversity loss: two-sided hinge on variance.
-        # Each sample's slots must have variance in [min, max].
         margin_min = float(getattr(self.args, "dct_v311_variance_min", self.VARIANCE_MIN))
         margin_max = float(getattr(self.args, "dct_v311_variance_max", self.VARIANCE_MAX))
 
-        per_sample_loss = F.relu(margin_min - variance) + F.relu(variance - margin_max)  # [B]
-        # Return mean over batch to get scalar loss.
-        batch_loss = per_sample_loss.mean()
-        self._last_slot_variance = variance.mean().item()
+        # PER-MODALITY diversity: each modality must independently satisfy the variance band.
+        # This prevents "the healthy modality carries the unhealthy one" (bug in merged version).
+        def _per_sample_variance(hazard):
+            mean = hazard.mean(dim=1, keepdim=True)
+            return ((hazard - mean) ** 2).mean(dim=(1, 2))  # [B]
+
+        def _hinge(var):
+            return F.relu(margin_min - var) + F.relu(var - margin_max)
+
+        var_wsi = _per_sample_variance(hazard_wsi)
+        var_omic = _per_sample_variance(hazard_omic)
+
+        # Track metrics for monitoring
+        self._last_slot_variance_wsi = var_wsi.mean().item()
+        self._last_slot_variance_omic = var_omic.mean().item()
+        # Backward-compat (combined metric for monitoring only)
+        self._last_slot_variance = 0.5 * (var_wsi.mean().item() + var_omic.mean().item())
+
+        # Each modality contributes equally to the diversity loss.
+        loss_wsi = _hinge(var_wsi).mean()
+        loss_omic = _hinge(var_omic).mean()
+        batch_loss = 0.5 * (loss_wsi + loss_omic)
+
         self._last_slot_diversity = batch_loss.item()
         return batch_loss
 
@@ -418,6 +431,12 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
                     else factual_costs.new_tensor(float(slot_diversity))
                 ),
                 "v311_slot_variance": factual_costs.new_tensor(self._last_slot_variance),
+                "v311_slot_variance_wsi": factual_costs.new_tensor(
+                    getattr(self, "_last_slot_variance_wsi", self._last_slot_variance)
+                ),
+                "v311_slot_variance_omic": factual_costs.new_tensor(
+                    getattr(self, "_last_slot_variance_omic", self._last_slot_variance)
+                ),
                 "v311_per_slot_nll_lambda": factual_costs.new_tensor(lambda_slot_nll),
                 "v311_slot_diversity_lambda": factual_costs.new_tensor(lambda_diversity),
                 "active_stage_fraction": active_stage_fraction.detach(),

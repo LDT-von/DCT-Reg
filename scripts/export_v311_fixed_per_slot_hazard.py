@@ -236,27 +236,65 @@ def predict_fold(fold: int, args, out_dir: Path) -> Dict:
     print(f"[f{fold}] ── inference ──")
     with torch.no_grad():
         for batch_idx, batch in enumerate(val_loader):
-            data, _, _, coords, _, omics = batch
-            data = data.to(model.device if hasattr(model, 'device') else 'cpu')
-            coords = coords.to(data.device)
-            omics = omics.to(data.device)
-            out = model(data, omics)
+            # v3.11 / per-slot interpretable returns 5-tuples:
+            # (data, omics, label, event_time, c)
+            # omics is a LIST (one entry per sample) of LIST-OF-TENSORS (per pathway).
+            if len(batch) == 6:
+                data, omics, _, _, _ = batch  # 6-tuple (data, omics_list, label, et, c, clinical)
+            else:
+                data, omics, _, _, _ = batch  # 5-tuple (data, omics_list, label, et, c)
+            device = next(model.parameters()).device
+            data = data.to(device)
+            # Pathways format → list[B][P] (each entry: 1 tensor per pathway)
+            # The pathway entry has shape [dim_i] (varying dims per pathway).
+            # omics[batch_idx][pathway_idx] → 1D tensor of dim_i for that pathway+sample
+            # We need to pass x_omic1, x_omic2, ... x_omicN, where each is the
+            # pathway tensor for all samples in the batch.
+            if isinstance(omics, list):
+                # omics is list[B][P]; transpose to list[P][B]
+                B = len(omics)
+                P = len(omics[0])
+                omics_by_pathway = []
+                for pathway_index in range(P):
+                    # Stack this pathway across all samples in the batch.
+                    per_pathway = [omics[batch_index][pathway_index] for batch_index in range(B)]
+                    omics_by_pathway.append(torch.stack(per_pathway).to(device))
+            else:
+                omics_by_pathway = [omics.to(device)]
+
+            input_kwargs = {
+                "x_wsi": data,
+                "cur_epoch": 0,
+                "wsi_missing": False,
+                "omic_missing": False,
+                "event_time": None,
+                "c": None,
+            }
+            for pathway_index, pathway_tensor in enumerate(omics_by_pathway, start=1):
+                input_kwargs[f"x_omic{pathway_index}"] = pathway_tensor
+
+            out = model(**input_kwargs)
             # Per-slot hazards are computed inside forward in v3.11
             if hasattr(model, "per_slot_hazard_wsi_output"):
                 psh_w = model.per_slot_hazard_wsi_output.detach().cpu().numpy()
                 psh_o = model.per_slot_hazard_omic_output.detach().cpu().numpy()
                 per_slot_hazard_wsi.append(psh_w)
                 per_slot_hazard_omic.append(psh_o)
+            elif hasattr(model, "_last_slots_wsi") and hasattr(model, "_last_slots_omic"):
+                # v3.11 stores slot representations; compute hazard from them directly
+                with torch.no_grad():
+                    slots_wsi_t = model._last_slots_wsi
+                    slots_omic_t = model._last_slots_omic
+                    hazard_w = model.per_slot_hazard_wsi(slots_wsi_t).detach().cpu().numpy()
+                    hazard_o = model.per_slot_hazard_omic(slots_omic_t).detach().cpu().numpy()
+                # Apply sigmoid to get probabilities (consistent with v3.11 monitoring)
+                hazard_w = 1.0 / (1.0 + np.exp(-hazard_w))
+                hazard_o = 1.0 / (1.0 + np.exp(-hazard_o))
+                per_slot_hazard_wsi.append(hazard_w)
+                per_slot_hazard_omic.append(hazard_o)
             else:
-                # Fallback: compute per-slot hazard on the fly from slot embeddings
-                slot_w = model.last_wsi_slots if hasattr(model, "last_wsi_slots") else None
-                slot_o = model.last_omic_slots if hasattr(model, "last_omic_slots") else None
-                if slot_w is not None:
-                    psh_w = model.per_slot_hazard_wsi(slot_w).detach().cpu().numpy()
-                    per_slot_hazard_wsi.append(psh_w)
-                if slot_o is not None:
-                    psh_o = model.per_slot_hazard_omic(slot_o).detach().cpu().numpy()
-                    per_slot_hazard_omic.append(psh_o)
+                print(f"  [warn] batch {batch_idx}: cannot extract per-slot hazard; skipping")
+                continue
 
             if "risk" in out:
                 if isinstance(out["risk"], torch.Tensor):

@@ -26,6 +26,11 @@ Caveat: v3.10 used UNI2-h 1536d features while v3.11 fixed used UNI 1024d. The +
 
 ## Proof B — Slot variance constraint actually bites
 
+**⚠️ 重要修正**：本节最初报告基于**合并的 WSI+Omics 槽 variance**（掩盖了 per-modality 坍缩）。
+修正版本见 `scripts/proof_experiments/proof_B_variance_constraint_FIXED.py`（已运行）。
+
+### 旧版（合并 variance，掩盖问题）
+
 FROZEN constraint: `dct_v311_variance_min=0.005, max=0.050`
 
 | Fold | var_final | in [0.005, 0.05]? | range seen | std |
@@ -36,7 +41,38 @@ FROZEN constraint: `dct_v311_variance_min=0.005, max=0.050`
 | 3 | 0.03594 | ✅ | [0.0019, 0.0367] | 0.0104 |
 | 4 | 0.02826 | ✅ | [0.0009, 0.0316] | 0.0090 |
 
-**5/5 folds have final variance inside the target band.** Variance is NOT collapsing (std stays 0.008–0.010), meaning slots genuinely differentiate rather than becoming identical.
+**5/5 folds 通过**（合并值），但**未检查单模态坍缩**。
+
+### 新版（按 WSI / Omics 分别检查）⚠️ 核心 bug 暴露
+
+数据来源：`results/dct_v311_blca_uni_fixed/per_slot_export/per_slot_hazard.pkl`（修复后版本）
+
+| Fold | WSI mean_var | WSI collapsed% | WSI pass | Omics mean_var | Omics collapsed% | Omics pass | Both |
+|---:|---:|:---:|:---:|---:|:---:|:---:|:---:|
+| 0 | 0.00031 | 88.3% | ❌ | 0.01214 | 16.9% | ✅ | ❌ |
+| 1 | 0.00004 | 100.0% | ❌ | 0.00098 | 72.0% | ❌ | ❌ |
+| 2 | 0.00249 | 26.3% | ❌ | 0.00008 | 98.7% | ❌ | ❌ |
+| 3 | 0.00132 | 50.0% | ❌ | 0.00029 | 92.1% | ❌ | ❌ |
+| 4 | 0.00001 | 100.0% | ❌ | 0.00697 | 38.2% | ✅ | ❌ |
+
+**汇总**：
+- WSI slots: **0/5 folds** 通过（平均 72.9% 样本完全坍缩 var<0.001）
+- Omics slots: **2/5 folds** 通过（平均 63.6% 样本坍缩）
+- **Both: 0/5 ❌ FAIL**
+
+**根因**：`slot_diversity_loss` 在 `model.py:269` 是**合并**计算的：
+```python
+all_preds = torch.cat([hazard_wsi, hazard_omic], dim=1)  # 合并！
+variance = ((all_preds - mean_pred) ** 2).mean(dim=(1, 2))
+```
+合并时 omics（hazard 范围 [0,1]）"撑"起了 variance，**掩盖了 WSI 槽的完全坍缩**。
+
+**修复方向**：将 `slot_diversity_loss` 改为 per-modality：
+```python
+var_wsi = ((hazard_wsi - hazard_wsi.mean(dim=1, keepdim=True))**2).mean(dim=(1,2))
+var_omic = ((hazard_omic - hazard_omic.mean(dim=1, keepdim=True))**2).mean(dim=(1,2))
+loss = hinge(var_wsi, [v_min, v_max]) + hinge(var_omic, [v_min, v_max])
+```
 
 Cross-fold correlation between per-epoch variance and val_cindex: **+0.348** (mean of 5 folds). Higher per-sample variance during training weakly predicts better val performance — consistent with the design intent that slot diversity is a useful signal.
 
@@ -65,21 +101,38 @@ Train `ipcw_rank` trajectories (mean of first-5 vs last-5 epochs):
 
 ## Aggregate verdict
 
-Three independent CPU-only checks confirm the v3.11 idea works:
+修正版（按 WSI / Omics 分别检查）后：
 
 1. **A — recipe comparison**: v3.11 full recipe gives +9.9pp lift over v3.10 base.
-2. **B — variance constraint**: 5/5 folds land inside the target band and variance is non-degenerate.
+2. **B — variance constraint (修正版)**: ❌ FAIL — 0/5 folds 双模态同时通过
+   - WSI 槽 72.9% 样本坍缩（per-sample variance < 0.001）
+   - Omics 槽 63.6% 样本坍缩
+   - **根因**：`slot_diversity_loss` 合并计算，掩盖坍缩
+   - **结论**：v3.11 "per-slot interpretability" claim **未被证明**
 3. **C — IPCW rank behaviour**: rank loss drops by 70%+ in v3.11 (vs 0–5% in v3.10) and correlates positively with val_c (r=+0.52).
 
-These are *necessary* but not *sufficient* conditions for the design. The sufficient condition (Ablation C+D planned for when GPU is free) is a full re-train with per_slot_nll=0 or diversity=0 to confirm each loss component contributes independently.
+**原 verdict**：「Three independent CPU-only checks confirm the v3.11 idea works」 — **这是错的**。
+Proof B 通过了**有 bug 的检查**（合并计算）。
+
+**新 verdict**：
+- ✅ Proof A 通过：v3.11 配方确实比 v3.10 强
+- ✅ Proof C 通过：IPCW rank loss 有效优化
+- ❌ Proof B **未通过（修正版）**：WSI 槽严重坍缩，"per-slot interpretability" 需要修复 `slot_diversity_loss` 后重新训练验证
+
+下一步：
+1. 修改 `slot_diversity_loss` 为 per-modality
+2. 重新训练 5 folds
+3. 重新跑 Proof B 验证
 
 ---
 
-### Artifacts
+## Artifacts
 
 - `scripts/proof_experiments/proof_A_recipe_compare.py`
-- `scripts/proof_experiments/proof_B_variance_constraint.py`
+- `scripts/proof_experiments/proof_B_variance_constraint.py`（旧版，合并）
+- `scripts/proof_experiments/proof_B_variance_constraint_FIXED.py`（新版，分开）
 - `scripts/proof_experiments/proof_C_ipcw_rank.py`
 - `results/proof_experiment_A.json`
-- `results/proof_experiment_B.json`
+- `results/proof_experiment_B.json`（已被新版覆盖）
+- `results/proof_experiment_B.json.pre_fix_bak`（旧版备份）
 - `results/proof_experiment_C.json`

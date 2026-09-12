@@ -107,6 +107,8 @@ def parse_fold_scores(log_path: Path) -> list[dict]:
             for key in ("train_loss", "train_cindex", "ot", "ipcw_rank",
                         "v311_per_slot_nll", "v311_slot_diversity",
                         "v311_slot_variance",
+                        "v311_slot_variance_wsi",
+                        "v311_slot_variance_omic",
                         "v311_per_slot_nll_lambda",
                         "v311_slot_diversity_lambda"):
                 m2 = re.search(rf"{key}=([\d.e+-]+)", line)
@@ -199,7 +201,8 @@ def render_fold_table(fold_scores: list[dict], fold: int,
     header = (
         f"Fold {fold}  ({len(fold_scores)} epochs, active epoch {active_epoch})\n"
         f"  {'ep':>3} | {'train_loss':>10} | {'train_c':>8} | "
-        f"{'v311_psnll':>10} | {'v311_div':>9} | {'v311_var':>9} | "
+        f"{'v311_psnll':>10} | {'v311_div':>9} | "
+        f"{'v311_varW':>9} | {'v311_varO':>9} | "
         f"{'val_c':>7} | {'val_ipcw':>9} | {'val_IBS':>8} | {'val_iauc':>8} | "
         f"{'★best_c':>8}"
     )
@@ -220,7 +223,8 @@ def render_fold_table(fold_scores: list[dict], fold: int,
             f"{fmt(s.get('train_cindex'), 4)} | "
             f"{fmt(s.get('v311_per_slot_nll'), 4)} | "
             f"{fmt(s.get('v311_slot_diversity'), 4)} | "
-            f"{fmt(s.get('v311_slot_variance'), 4)} | "
+            f"{fmt(s.get('v311_slot_variance_wsi') or s.get('v311_slot_variance'), 4)} | "
+            f"{fmt(s.get('v311_slot_variance_omic') or s.get('v311_slot_variance'), 4)} | "
             f"{fmt(s.get('val_cindex'), 4)} | "
             f"{fmt(s.get('val_ipcw'), 4)} | "
             f"{fmt(s.get('val_IBS'), 4)} | "

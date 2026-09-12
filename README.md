@@ -82,3 +82,26 @@ python scripts/run_dct_v330_experiments.py run
 ## 新候选：模型 v3.2 TGSR
 
 TGSR (Training fold Guided Survival Risk) 研究方向。
+
+---
+
+## 版本清单（8 个 DCT 变体 + 5 个父基类）
+
+`survot_rank/research/methods/catalog.py` 注册的"DCT 模型类"共 **8 个**，外加 `methods/` 下 5 个被它们继承、但**不能单独当版本用**的父基类（详见 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)）。
+
+### 8 个 catalog 版本
+
+| Key | 真实名称 | 状态 | 目录 | 角色 |
+|---|---|---|---|---|
+| `dct_v310_directional_regularized_transport` | **DCT v3.10** | **primary（冻结论文方法）** | `methods/` | C-index 0.703 就是它；公式 NLL + 0.10·IPCW + 0.05·direction |
+| `dct_transport_intervention_consistency` | DCT v3.8 | legacy | `methods/legacy/ablation/` | v3.10 的父类（direction / dose / reconfiguration 损失的原出处） |
+| `dct_risk_ordering_transport` | DCT Risk Ordering Transport | legacy | `methods/legacy/ablation/` | 早期 risk-ordering 实验 |
+| `dct_v310_fixed_anchors` | DCT v3.10 Fixed Anchors | legacy | `methods/legacy/ablation/` | v3.10 的固定锚点对照（验证锚点质量影响） |
+| `dct_v32_tgsr_objective_study` | DCT v3.2 TGSR 目标研究 | legacy | `methods/legacy/ablation/` | TGSR 的 NLL/IPCW/direction/full 四目标对照 |
+| `dct_v32_transport_guided_slot_reaggregation` | DCT v3.2 运输引导槽重聚合 | legacy | `methods/legacy/ablation/` | TGSR 的 4 臂结构对照（baseline/self_update/attention_feedback/ot_feedback） |
+| `dct_v330_closed_loop_prognostic_transport` | DCT v3.30 闭环预后传输 | legacy | `methods/legacy/ablation/` | 5 臂闭环（baseline/self_update/ot_feedback/confidence_gate/prognostic_rank） |
+| `dct_v311_slot_interpretable` | DCT v3.11 槽级可解释 | experimental | `methods/legacy/experimental/` | per-slot NLL + 多样性约束；关掉 direction 损失 |
+
+### 5 个父基类（实现依赖，不算独立版本）
+
+`OTEventHazardV2` → `RankGuidedEventTransport` → `StagewisePrognosticTransport` → `FaithfulEvidenceTransport` → `DistributionalCounterfactualTransport` → `DCTTransportInterventionConsistency` → `DCTV310DirectionalRegularizedTransport`（这条继承链上的前 5 个仅供 v3.10 / v3.11 / v3.30 等继承复用，不能单独当论文方法）。

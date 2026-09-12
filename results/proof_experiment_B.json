@@ -4,73 +4,131 @@
     "v_max": 0.05
   },
   "n_folds": 5,
-  "n_folds_in_band": 5,
-  "mean_corr_var_valc": 0.348,
+  "n_folds_wsi_in_band": 0,
+  "n_folds_omic_in_band": 2,
+  "n_folds_both_in_band": 0,
+  "verdict": "\u274c FAIL",
   "folds": [
     {
       "fold": 0,
-      "var_final": 0.02517,
-      "var_min": 0.00085,
-      "var_max": 0.03378,
-      "var_std": 0.00864,
-      "in_band": true,
-      "var_valc_corr": 0.223,
-      "psnll_final": 0.7947,
-      "div_final": 0.003823,
-      "val_c_final": 0.6204,
-      "val_c_best": 0.7013
+      "wsi": {
+        "mean_var": 0.00031,
+        "in_band_pct": 0.0,
+        "collapsed_pct": 88.3,
+        "min_var": 0.0,
+        "max_var": 0.00351,
+        "std_var": 0.00083,
+        "n_samples": 77,
+        "in_band_pass": false
+      },
+      "omic": {
+        "mean_var": 0.01214,
+        "in_band_pct": 62.3,
+        "collapsed_pct": 16.9,
+        "min_var": 0.0,
+        "max_var": 0.02408,
+        "std_var": 0.00905,
+        "n_samples": 77,
+        "in_band_pass": true
+      },
+      "both_pass": false
     },
     {
       "fold": 1,
-      "var_final": 0.02627,
-      "var_min": 0.00098,
-      "var_max": 0.02727,
-      "var_std": 0.00808,
-      "in_band": true,
-      "var_valc_corr": -0.644,
-      "psnll_final": 0.6038,
-      "div_final": 0.002354,
-      "val_c_final": 0.6421,
-      "val_c_best": 0.7403
+      "wsi": {
+        "mean_var": 4e-05,
+        "in_band_pct": 0.0,
+        "collapsed_pct": 100.0,
+        "min_var": 0.0,
+        "max_var": 0.00024,
+        "std_var": 6e-05,
+        "n_samples": 75,
+        "in_band_pass": false
+      },
+      "omic": {
+        "mean_var": 0.00098,
+        "in_band_pct": 6.7,
+        "collapsed_pct": 72.0,
+        "min_var": 0.0,
+        "max_var": 0.0087,
+        "std_var": 0.00167,
+        "n_samples": 75,
+        "in_band_pass": false
+      },
+      "both_pass": false
     },
     {
       "fold": 2,
-      "var_final": 0.03256,
-      "var_min": 0.00084,
-      "var_max": 0.03403,
-      "var_std": 0.00983,
-      "in_band": true,
-      "var_valc_corr": 0.543,
-      "psnll_final": 0.7055,
-      "div_final": 0.004609,
-      "val_c_final": 0.6445,
-      "val_c_best": 0.6837
+      "wsi": {
+        "mean_var": 0.00249,
+        "in_band_pct": 11.8,
+        "collapsed_pct": 26.3,
+        "min_var": 1e-05,
+        "max_var": 0.00791,
+        "std_var": 0.00195,
+        "n_samples": 76,
+        "in_band_pass": false
+      },
+      "omic": {
+        "mean_var": 8e-05,
+        "in_band_pct": 0.0,
+        "collapsed_pct": 98.7,
+        "min_var": 0.0,
+        "max_var": 0.00293,
+        "std_var": 0.00034,
+        "n_samples": 76,
+        "in_band_pass": false
+      },
+      "both_pass": false
     },
     {
       "fold": 3,
-      "var_final": 0.03594,
-      "var_min": 0.00192,
-      "var_max": 0.03669,
-      "var_std": 0.01037,
-      "in_band": true,
-      "var_valc_corr": 0.766,
-      "psnll_final": 0.5706,
-      "div_final": 0.007055,
-      "val_c_final": 0.6623,
-      "val_c_best": 0.7027
+      "wsi": {
+        "mean_var": 0.00132,
+        "in_band_pct": 1.3,
+        "collapsed_pct": 50.0,
+        "min_var": 0.0,
+        "max_var": 0.00729,
+        "std_var": 0.00139,
+        "n_samples": 76,
+        "in_band_pass": false
+      },
+      "omic": {
+        "mean_var": 0.00029,
+        "in_band_pct": 0.0,
+        "collapsed_pct": 92.1,
+        "min_var": 0.0,
+        "max_var": 0.00188,
+        "std_var": 0.00038,
+        "n_samples": 76,
+        "in_band_pass": false
+      },
+      "both_pass": false
     },
     {
       "fold": 4,
-      "var_final": 0.02826,
-      "var_min": 0.00092,
-      "var_max": 0.03162,
-      "var_std": 0.00898,
-      "in_band": true,
-      "var_valc_corr": 0.85,
-      "psnll_final": 0.4338,
-      "div_final": 0.005414,
-      "val_c_final": 0.6895,
-      "val_c_best": 0.7589
+      "wsi": {
+        "mean_var": 1e-05,
+        "in_band_pct": 0.0,
+        "collapsed_pct": 100.0,
+        "min_var": 0.0,
+        "max_var": 0.00014,
+        "std_var": 2e-05,
+        "n_samples": 76,
+        "in_band_pass": false
+      },
+      "omic": {
+        "mean_var": 0.00697,
+        "in_band_pct": 48.7,
+        "collapsed_pct": 38.2,
+        "min_var": 0.0,
+        "max_var": 0.03357,
+        "std_var": 0.00783,
+        "n_samples": 76,
+        "in_band_pass": true
+      },
+      "both_pass": false
     }
-  ]
+  ],
+  "note": "Separated WSI vs Omics slot variance (\u4fee\u590d\u540e\u7248\u672c\uff0c\u539f\u7248\u5408\u5e76\u63a9\u76d6\u95ee\u9898)"
 }
