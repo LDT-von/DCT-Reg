@@ -52,6 +52,8 @@ def main() -> int:
     parser.add_argument("--folds", default="0,1,2,3,4")
     parser.add_argument("--gpu", type=int, default=0)
     parser.add_argument("--output-dir", default="results/v310_proof_f_v311_audit")
+    parser.add_argument("--report-only", action="store_true",
+                        help="Reuse existing fold_*.json and only regenerate the report.")
     args = parser.parse_args()
 
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu)
@@ -63,6 +65,13 @@ def main() -> int:
     summaries = {}
 
     for fold in folds:
+        if args.report_only:
+            fp = output_dir / f"fold_{fold}.json"
+            if fp.exists():
+                summaries[fold] = json.load(open(fp))
+            else:
+                print(f"[f{fold}] report-only: missing {fp}")
+            continue
         ckpt_path = V311_CKPT_TEMPLATE.format(fold=fold)
         if not Path(ckpt_path).exists():
             print(f"[f{fold}] missing ckpt: {ckpt_path}")
@@ -195,15 +204,29 @@ def main() -> int:
         "| setup | info_gap_high | info_gap_low |",
         "|---|---|---|",
     ])
-    v310_gap_h = blca_v310.get("info_gap_high_mean", {}).get("mean") if isinstance(blca_v310.get("info_gap_high_mean"), dict) else None
-    v310_gap_l = blca_v310.get("info_gap_low_mean", {}).get("mean") if isinstance(blca_v310.get("info_gap_low_mean"), dict) else None
+    v310_gap_h = None
+    v310_gap_l = None
+    blca_igh = blca_v310.get("info_gap_high_mean")
+    if isinstance(blca_igh, dict):
+        v310_gap_h = blca_igh.get("mean")
+    elif isinstance(blca_igh, (int, float)):
+        v310_gap_h = float(blca_igh)
+    blca_igl = blca_v310.get("info_gap_low_mean")
+    if isinstance(blca_igl, dict):
+        v310_gap_l = blca_igl.get("mean")
+    elif isinstance(blca_igl, (int, float)):
+        v310_gap_l = float(blca_igl)
     v311_gap_h = agg.get("info_gap_high", {}).get("mean")
     v311_gap_l = agg.get("info_gap_low", {}).get("mean")
-    lines.append(f"| v3.10 BLCA 5-fold | {v310_gap_h:+.4f} | {v310_gap_l:+.4f} |")
-    lines.append(f"| v3.10 HNSC 5-fold (prior) | {hnsc_v310.get('hnsc', {}).get('info_gap_high', {}).get('mean', 'NA'):+.4f} | {hnsc_v310.get('hnsc', {}).get('info_gap_low', {}).get('mean', 'NA'):+.4f} |")
-    lines.append(f"| v3.10 LUSC 5-fold (prior) | {hnsc_v310.get('lusc', {}).get('info_gap_high', {}).get('mean', 'NA'):+.4f} | {hnsc_v310.get('lusc', {}).get('info_gap_low', {}).get('mean', 'NA'):+.4f} |")
-    lines.append(f"| v3.10 SKCM 5-fold (prior) | {hnsc_v310.get('skcm', {}).get('info_gap_high', {}).get('mean', 'NA'):+.4f} | {hnsc_v310.get('skcm', {}).get('info_gap_low', {}).get('mean', 'NA'):+.4f} |")
-    lines.append(f"| **v3.11 BLCA (this)** | **{v311_gap_h:+.4f}** | **{v311_gap_l:+.4f}** |")
+
+    def _fmt(v):
+        return f"{v:+.4f}" if isinstance(v, (int, float)) else "NA"
+
+    lines.append(f"| v3.10 BLCA 5-fold | {_fmt(v310_gap_h)} | {_fmt(v310_gap_l)} |")
+    lines.append(f"| v3.10 HNSC 5-fold (prior) | {_fmt(hnsc_v310.get('hnsc', {}).get('info_gap_high', {}).get('mean'))} | {_fmt(hnsc_v310.get('hnsc', {}).get('info_gap_low', {}).get('mean'))} |")
+    lines.append(f"| v3.10 LUSC 5-fold (prior) | {_fmt(hnsc_v310.get('lusc', {}).get('info_gap_high', {}).get('mean'))} | {_fmt(hnsc_v310.get('lusc', {}).get('info_gap_low', {}).get('mean'))} |")
+    lines.append(f"| v3.10 SKCM 5-fold (prior) | {_fmt(hnsc_v310.get('skcm', {}).get('info_gap_high', {}).get('mean'))} | {_fmt(hnsc_v310.get('skcm', {}).get('info_gap_low', {}).get('mean'))} |")
+    lines.append(f"| **v3.11 BLCA (this)** | **{_fmt(v311_gap_h)}** | **{_fmt(v311_gap_l)}** |")
 
     lines.extend([
         "\n## 解读\n",
