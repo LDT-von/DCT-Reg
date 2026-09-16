@@ -145,6 +145,15 @@ METHOD_SPECS = (
         "DCTV311SlotInterpretable",
         aliases=("dct_v311",),
     ),
+    MethodSpec(
+        "dct_v312_slot_interpretable_impute",
+        "DCT v3.12 Per-Slot Interpretable + SlotSPE-style Omics Imputation [EXPERIMENTAL]",
+        "dct",
+        "legacy",
+        "legacy/experimental/dct_v312_slot_interpretable_impute",
+        "DCTV312SlotInterpretableImpute",
+        aliases=("dct_v312",),
+    ),
 )
 
 METHOD_CATALOG = {spec.key: spec for spec in METHOD_SPECS}

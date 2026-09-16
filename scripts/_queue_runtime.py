@@ -117,13 +117,15 @@ def doctor(args: argparse.Namespace) -> int:
     failed = False
     data_root = Path(args.data_root)
     csv_root = Path(args.data_csv_root)
+    encoder_subdir = getattr(args, "wsi_encoder", "uni2-h")
+    which_splits = getattr(args, "which_splits", WHICH_SPLITS)
     for cancer in args.cancers:
-        feature_dir = data_root / cancer / "uni2-h" / "pt_files"
-        # UNI2-h features on this machine ship as HDF5 (*.h5), not torch (*.pt).
+        feature_dir = data_root / cancer / encoder_subdir / "pt_files"
+        # Features on this machine ship as HDF5 (*.h5), not torch (*.pt).
         feature_ok = feature_dir.is_dir() and (
             any(feature_dir.glob("*.pt")) or any(feature_dir.glob("*.h5"))
         )
-        split_dir = csv_root / "splits" / WHICH_SPLITS / cancer
+        split_dir = csv_root / "splits" / which_splits / cancer
         split_ok = all((split_dir / f"fold_{fold}.csv").is_file() for fold in range(5))
         clinical_path = csv_root / "clinical" / "all" / f"{cancer}.csv"
         clinical_ok = clinical_path.is_file()
@@ -135,7 +137,7 @@ def doctor(args: argparse.Namespace) -> int:
             print(f"{'OK' if ok else 'MISSING':8s} {cancer.upper()} {label}: {path}")
             failed = failed or not ok
     if failed:
-        print("[BLOCKED] Provide UNI2-h features, clinical CSVs, and frozen 5fold_uni2h splits.")
+        print(f"[BLOCKED] Provide {encoder_subdir} features, clinical CSVs, and {which_splits} splits.")
     return int(failed)
 
 
