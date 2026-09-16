@@ -4,7 +4,8 @@ DCT (Deep Counterfactual Transformers) is a multi-modal survival prediction fram
 with interpretability via intervention audit.
 
 Primary contributions:
-1. Survival prediction: Achieves C-index ≥ SlotSPE on multiple TCGA cohorts
+1. Survival prediction: evaluated against SlotSPE under matched protocols;
+   performance superiority is not established by the current results
 2. Interpretability: Cost-space intervention audit explains model predictions
 3. Multi-modal fusion: Shared semantic prototypes align WSI ↔ Omics
 
@@ -39,7 +40,7 @@ from pathlib import Path
 from typing import Iterable
 
 
-CATALOG_UPDATED = "2026-09-09"
+CATALOG_UPDATED = "2026-09-16"
 PRIMARY_METHOD = "dct_v310_directional_regularized_transport"
 METHOD_STATUSES = ("primary", "candidate", "legacy")
 STATUS_LABELS = {
@@ -145,14 +146,18 @@ METHOD_SPECS = (
         "DCTV311SlotInterpretable",
         aliases=("dct_v311",),
     ),
+    # v3.12 shipped config/launcher infrastructure without an executable model
+    # file.  Keep those files as experiment history, but do not advertise a
+    # method that a clean clone cannot import.  v3.13 is the implemented,
+    # transport-aware reconstruction successor.
     MethodSpec(
-        "dct_v312_slot_interpretable_impute",
-        "DCT v3.12 Per-Slot Interpretable + SlotSPE-style Omics Imputation [EXPERIMENTAL]",
+        "dct_v313_transport_reconstruction",
+        "DCT v3.13 Transport-Aware Omics Reconstruction [EXPERIMENTAL]",
         "dct",
-        "legacy",
-        "legacy/experimental/dct_v312_slot_interpretable_impute",
-        "DCTV312SlotInterpretableImpute",
-        aliases=("dct_v312",),
+        "candidate",
+        "legacy/experimental/dct_v313_transport_reconstruction",
+        "DCTV313TransportReconstruction",
+        aliases=("dct_v313",),
     ),
 )
 

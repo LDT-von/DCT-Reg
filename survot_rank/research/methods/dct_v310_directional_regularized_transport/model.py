@@ -42,8 +42,9 @@ class DCTV310DirectionalRegularizedTransport(
     DCT v3.10 is a multi-modal survival prediction model with two complementary
     strengths:
 
-    1. **Prediction accuracy**: Achieves C-index ≥ SlotSPE on 5 TCGA cohorts
-       through censoring-adaptive ranking and shared semantic prototypes.
+    1. **Prediction objective**: Uses censoring-adaptive ranking and shared
+       semantic prototypes. Current results do not establish superiority over
+       the selected comparison model.
 
     2. **Interpretability via intervention audit**: The transport structure
        enables counterfactual risk queries in cost space. By perturbing the
@@ -157,7 +158,7 @@ class DCTV310DirectionalRegularizedTransport(
     def key_contributions(cls) -> list[str]:
         """Return DCT's paper-facing contribution claims in priority order."""
         return [
-            "Multi-cancer survival prediction with IPCW-aware ranking (C-index ≥ SlotSPE)",
+            "Multi-cancer survival prediction with IPCW-aware ranking",
             "Censoring-adaptive pairwise ranking for reliable survival curves",
             "Interpretable intervention audit: risk response to cost-space perturbations",
             "Shared semantic prototypes for cross-modal alignment (WSI ↔ Omics)",

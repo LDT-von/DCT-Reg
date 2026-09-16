@@ -59,6 +59,7 @@ wandb/
 # IDE
 .vscode/
 .idea/
+.codegraph/
 *.swp
 *.swo
 
