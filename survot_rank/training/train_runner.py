@@ -490,8 +490,13 @@ def train_one_epoch(args, epoch, model, loader, optimizer, scheduler, loss_fn, l
         name: value / max(method_diagnostic_batches, 1)
         for name, value in method_diagnostic_sums.items()
     }
+    def _fmt(value):
+        # Use higher precision for tiny metrics (variances can be ~1e-4)
+        if abs(value) < 0.001:
+            return f"{value:.2e}"
+        return f"{value:.4f}"
     diagnostic_text = "".join(
-        f"  {name}={value:.4f}" for name, value in diagnostics.items()
+        f"  {name}={_fmt(value)}" for name, value in diagnostics.items()
     )
     msg = (
         f"[Epoch {epoch}] train_loss={total_loss:.4f}  "

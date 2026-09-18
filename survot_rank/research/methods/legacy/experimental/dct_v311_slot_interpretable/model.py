@@ -59,6 +59,9 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
     # the hinge only fires per-modality (8 slots vs 16), and the per-slot NLL
     # gradient dominates otherwise (see smoke training analysis 2026-09-12).
     SLOT_DIVERSITY_WEIGHT = 0.10  # was 0.02 for merged; raised to 0.10 for per-modality
+    # Anti-correlation weight was removed; replaced by pairwise-distance hinge
+    # on raw slot representations.  See PAIR_DIST_WEIGHT below.
+    PAIR_DIST_WEIGHT = 0.5  # weight applied to pair-distance hinge on raw slots
 
     # Diversity target range (σ² per sample, per batch).
     # For per-modality diversity (only 8 slots), variance naturally lower than merged.
@@ -114,6 +117,12 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
         self._last_per_slot_nll = 0.0
         self._last_slot_diversity = 0.0
         self._last_slot_variance = 0.0
+        # Per-modality diagnostics (used by per-modality diversity loss)
+        self._last_slot_variance_wsi = 0.0
+        self._last_slot_variance_omic = 0.0
+        # Pairwise-distance diagnostics (anti-collapse signal on raw slots)
+        self._last_slot_pair_dist_wsi = 0.0
+        self._last_slot_pair_dist_omic = 0.0
 
     @classmethod
     def objective_weights(cls) -> dict[str, float]:
@@ -123,6 +132,7 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
             "ipcw_rank": cls.IPCW_RANK_WEIGHT,
             "per_slot_nll": cls.PER_SLOT_NLL_WEIGHT,
             "slot_diversity": cls.SLOT_DIVERSITY_WEIGHT,
+            "slot_pair_dist": cls.PAIR_DIST_WEIGHT,
         }
 
     @classmethod
@@ -252,30 +262,44 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
     # ============================================================
 
     def slot_diversity_loss(self, slots_wsi, slots_omic):
-        """Two-sided hinge on variance of per-slot hazard predictions.
+        """Per-modality DECOUPLED diversity, applied to slot REPRESENTATIONS.
 
-        Prevents:
-          (a) Collapse: all slots → same hazard → no interpretability
-          (b) Noise: all slots → independent random hazard → no structure
+        Operates on raw slots (post-encoder) so the gradient flows back to
+        slot attention directly — not through the OT plan, not through the
+        per-slot hazard head, and not through the main survival head.
 
-        The loss lives entirely in representation space with NO gradient
-        path through the OT plan, event encoder, or Sinkhorn.
+        Two complementary mechanisms per modality, applied INDEPENDENTLY to
+        WSI slots and Omics slots (no cross-modality compensation, since a
+        high-variance modality can otherwise hide a collapsed one):
+
+          1. Variance band hinge (forces σ² ∈ [margin_min, margin_max])
+             on per-slot hazard predictions.  Soft constraint.
+          2. Pairwise-distance hinge on slot representations.  HARD
+             constraint that pushes every pair of slots to be at least
+             `target_dist` apart in L2 — even when one modality has very
+             few effective slots, this prevents silent collapse.
+
+        Why both?  In v3.11 per-modality (8 slots per modality), variance
+        alone is dominated by per_slot_nll which rewards all slots
+        predicting the correct hazard (a collapse-inducing gradient).  The
+        pairwise-distance hinge on raw slots provides a non-collapse signal
+        that is INDEPENDENT of the hazard head, so it cannot be co-opted
+        by per_slot_nll.
 
         Args:
             slots_wsi: [B, K_w, D] WSI slot representations
             slots_omic: [B, K_o, D] Omics slot representations
-
         Returns:
-            Scalar diversity loss.
+            Scalar diversity loss = mean(W_diversity + O_diversity).
         """
         hazard_wsi = torch.sigmoid(self.per_slot_hazard_wsi(slots_wsi))   # [B, K_w, C]
         hazard_omic = torch.sigmoid(self.per_slot_hazard_omic(slots_omic))  # [B, K_o, C]
 
         margin_min = float(getattr(self.args, "dct_v311_variance_min", self.VARIANCE_MIN))
         margin_max = float(getattr(self.args, "dct_v311_variance_max", self.VARIANCE_MAX))
+        target_pair_dist = float(getattr(self.args, "dct_v311_target_pair_dist", 1.0))
 
-        # PER-MODALITY diversity: each modality must independently satisfy the variance band.
-        # This prevents "the healthy modality carries the unhealthy one" (bug in merged version).
+        # ---- Mechanism 1: Variance band hinge (per-sample) ----
         def _per_sample_variance(hazard):
             mean = hazard.mean(dim=1, keepdim=True)
             return ((hazard - mean) ** 2).mean(dim=(1, 2))  # [B]
@@ -286,15 +310,44 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
         var_wsi = _per_sample_variance(hazard_wsi)
         var_omic = _per_sample_variance(hazard_omic)
 
-        # Track metrics for monitoring
+        # ---- Mechanism 2: Pairwise L2 distance hinge (on raw slots) ----
+        # This is the critical anti-collapse signal.  In a perfectly symmetric
+        # collapse state all slot representations are identical, so the
+        # squared-distance pair term is exactly zero; combined with the
+        # target_dist² bound, the loss has a CONSTANT positive value when
+        # slots collapse.  As soon as slots differ by even ε (which always
+        # happens in practice due to slot-attention noise), the gradient is
+        # 2·(slots_k − slots_l)/K² and pushes them apart.
+        def _pair_dist_sq(slots):
+            # slots: [B, K, D]
+            diff_sq = (slots.unsqueeze(2) - slots.unsqueeze(1)) ** 2  # [B, K, K, D]
+            pair_sq = diff_sq.sum(dim=-1)  # [B, K, K]
+            identity = torch.eye(slots.size(1), device=slots.device).unsqueeze(0)
+            mask = 1.0 - identity
+            n_off = mask.sum().item() / slots.size(0)
+            return (pair_sq * mask).sum(dim=(1, 2)) / max(n_off, 1.0)
+
+        target_sq = target_pair_dist ** 2
+        pair_wsi_sq = _pair_dist_sq(slots_wsi)
+        pair_omic_sq = _pair_dist_sq(slots_omic)
+
+        # Track diagnostics for monitoring
         self._last_slot_variance_wsi = var_wsi.mean().item()
         self._last_slot_variance_omic = var_omic.mean().item()
+        self._last_slot_pair_dist_wsi = pair_wsi_sq.mean().item() ** 0.5
+        self._last_slot_pair_dist_omic = pair_omic_sq.mean().item() ** 0.5
         # Backward-compat (combined metric for monitoring only)
         self._last_slot_variance = 0.5 * (var_wsi.mean().item() + var_omic.mean().item())
 
-        # Each modality contributes equally to the diversity loss.
-        loss_wsi = _hinge(var_wsi).mean()
-        loss_omic = _hinge(var_omic).mean()
+        # Each modality contributes independently to the diversity loss.
+        # Per-modality weights prevent one modality from compensating for a
+        # collapsed one.  Variance hinge keeps σ² in band; pairwise-distance
+        # hinge on RAW SLOTS provides the strong anti-collapse signal that
+        # variance alone cannot — variance is dominated by per_slot_nll which
+        # rewards identical-correct predictions (a collapse attractor).
+        pair_weight = float(getattr(self.args, "dct_v311_lambda_pair_dist", 0.5))
+        loss_wsi = _hinge(var_wsi).mean() + pair_weight * F.relu(target_sq - pair_wsi_sq).mean()
+        loss_omic = _hinge(var_omic).mean() + pair_weight * F.relu(target_sq - pair_omic_sq).mean()
         batch_loss = 0.5 * (loss_wsi + loss_omic)
 
         self._last_slot_diversity = batch_loss.item()
@@ -436,6 +489,12 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
                 ),
                 "v311_slot_variance_omic": factual_costs.new_tensor(
                     getattr(self, "_last_slot_variance_omic", self._last_slot_variance)
+                ),
+                "v311_slot_pair_dist_wsi": factual_costs.new_tensor(
+                    getattr(self, "_last_slot_pair_dist_wsi", 0.0)
+                ),
+                "v311_slot_pair_dist_omic": factual_costs.new_tensor(
+                    getattr(self, "_last_slot_pair_dist_omic", 0.0)
                 ),
                 "v311_per_slot_nll_lambda": factual_costs.new_tensor(lambda_slot_nll),
                 "v311_slot_diversity_lambda": factual_costs.new_tensor(lambda_diversity),

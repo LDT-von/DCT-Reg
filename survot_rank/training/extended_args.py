@@ -362,6 +362,19 @@ def build_base_parser() -> argparse.ArgumentParser:
         help="Jitter stage edges by this fraction of the total span (ablation).",
     )
 
+    # DCT v3.11 anti-collapse: pair-distance hinge on raw slot representations.
+    # These are optional overrides of the FROZEN_ARGUMENTS defaults set in
+    # DCTV311SlotInterpretable.__init__ — exposed here only so config YAML
+    # can override them via the flat argv without argparse rejecting them.
+    parser.add_argument("--dct_v311_variance_min", type=float, default=None,
+                        help="Lower bound of per-slot hazard variance band.")
+    parser.add_argument("--dct_v311_variance_max", type=float, default=None,
+                        help="Upper bound of per-slot hazard variance band.")
+    parser.add_argument("--dct_v311_target_pair_dist", type=float, default=None,
+                        help="Target L2 distance between slot pairs (raw slots).")
+    parser.add_argument("--dct_v311_lambda_pair_dist", type=float, default=None,
+                        help="Weight applied to pair-distance hinge.")
+
     # DCT v4.0 Causal Survival Slots (CSS).  Replaces OT/Sinkhorn coupling with
     # explicit causal hazard decomposition: each slot independently contributes to
     # hazard; counterfactual slot-swap training enforces monotonic risk response.
@@ -714,6 +727,29 @@ def build_base_parser() -> argparse.ArgumentParser:
     parser.add_argument("--act5_rank_margin", type=float, default=0.02)
     parser.add_argument("--act5_rank_temperature", type=float, default=0.50)
     parser.add_argument("--act5_rank_max_pairs", type=int, default=4096)
+
+    # DCT v3.13 ablation hooks (see DCTV313TransportReconstruction.__init__).
+    # Use --set key=true|false form so values flow through apply_overrides().
+    parser.add_argument(
+        "--dct_v313_disable_self_reconstruction",
+        type=str,
+        default="false",
+        choices=["true", "false"],
+        help="Ablation: drop omics self-reconstruction; only cross-recon survives.",
+    )
+    parser.add_argument(
+        "--dct_v313_disable_cross_reconstruction",
+        type=str,
+        default="false",
+        choices=["true", "false"],
+        help="Ablation: drop transport-aware cross-reconstruction; only self-recon survives.",
+    )
+    parser.add_argument(
+        "--dct_v313_lambda_reconstruction_scale",
+        type=float,
+        default=1.0,
+        help="Ablation: scale v3.13 reconstruction weight (default 1.0; e.g. 2.0 doubles it).",
+    )
 
     return parser
 

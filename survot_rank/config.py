@@ -17,6 +17,10 @@ BOOLEAN_VALUE_KEYS = {
     "dct_v383_center_slots",
     "dct_v39_center_slots",
     "dct_v39_tau_autoscale",
+    # DCT v3.13 ablation flags; emitted as explicit "true"/"false" tokens
+    # so argparse (type=str) can consume them via --set key=true.
+    "dct_v313_disable_self_reconstruction",
+    "dct_v313_disable_cross_reconstruction",
 }
 
 

@@ -88,15 +88,43 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             )
         for name, value in self.FROZEN_ARGUMENTS.items():
             setattr(args, name, value)
+        # Ablation hooks: allow callers to override reconstruction knobs
+        # via args (FROZEN_ARGUMENTS already populated, but ablation flags
+        # like --dct_v313_disable_self_reconstruction=true force zero weights).
+        def _as_bool(v):
+            if isinstance(v, bool):
+                return v
+            return str(v).lower() in ("1", "true", "yes", "y", "on")
+
+        self._ablation_disable_self = _as_bool(
+            getattr(args, "dct_v313_disable_self_reconstruction", False)
+        )
+        self._ablation_disable_cross = _as_bool(
+            getattr(args, "dct_v313_disable_cross_reconstruction", False)
+        )
+        self._ablation_lambda_scale = float(
+            getattr(args, "dct_v313_lambda_reconstruction_scale", 1.0)
+        )
         super().__init__(args, omic_input_dim, omic_names, pathway_names)
 
         dim = int(self.wsi_projection_dim)
-        self.dct_v313_lambda_reconstruction = self.RECONSTRUCTION_WEIGHT
+        # Effective weights honour ablation flags before being read by forward().
+        if self._ablation_disable_self and self._ablation_disable_cross:
+            effective_weight = 0.0
+        elif self._ablation_disable_self:
+            effective_weight = self.RECONSTRUCTION_WEIGHT * self._ablation_lambda_scale
+        elif self._ablation_disable_cross:
+            effective_weight = self.RECONSTRUCTION_WEIGHT * self._ablation_lambda_scale
+        else:
+            effective_weight = (
+                self.RECONSTRUCTION_WEIGHT * self._ablation_lambda_scale
+            )
+        self.dct_v313_lambda_reconstruction_effective = effective_weight
         self.dct_v313_reconstruction_self_fraction = (
-            self.RECONSTRUCTION_SELF_FRACTION
+            0.0 if self._ablation_disable_self else self.RECONSTRUCTION_SELF_FRACTION
         )
         self.dct_v313_reconstruction_cross_fraction = (
-            self.RECONSTRUCTION_CROSS_FRACTION
+            0.0 if self._ablation_disable_cross else self.RECONSTRUCTION_CROSS_FRACTION
         )
         self.dct_v313_reconstruction_ramp_start = self.RECONSTRUCTION_RAMP_START
         self.dct_v313_reconstruction_ramp_epochs = self.RECONSTRUCTION_RAMP_EPOCHS
@@ -257,18 +285,26 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
         available: torch.Tensor,
     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
         target = x_omics.detach()
-        self_prediction = self.pathway_reconstruction_decoder(slots_omic)
-        transported_wsi, _ = self._transport_wsi_to_omic(
-            slots_wsi, factual_plans, factual_gate
-        )
-        cross_prediction = self.pathway_reconstruction_decoder(transported_wsi)
-
-        self_loss = self._reconstruction_distance(
-            self_prediction, target, available
-        )
-        cross_loss = self._reconstruction_distance(
-            cross_prediction, target, available
-        )
+        if self._ablation_disable_self:
+            self_loss = slots_omic.new_zeros(())
+        else:
+            self_prediction = self.pathway_reconstruction_decoder(slots_omic)
+            self_loss = self._reconstruction_distance(
+                self_prediction, target, available
+            )
+        if self._ablation_disable_cross:
+            cross_loss = slots_omic.new_zeros(())
+            transported_wsi = slots_omic.new_zeros(
+                slots_omic.size(0), self.spt_num_stages, *slots_omic.shape[1:]
+            )
+        else:
+            transported_wsi, _ = self._transport_wsi_to_omic(
+                slots_wsi, factual_plans, factual_gate
+            )
+            cross_prediction = self.pathway_reconstruction_decoder(transported_wsi)
+            cross_loss = self._reconstruction_distance(
+                cross_prediction, target, available
+            )
         total = (
             self.dct_v313_reconstruction_self_fraction * self_loss
             + self.dct_v313_reconstruction_cross_fraction * cross_loss
@@ -353,7 +389,9 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             )
         )
         ramp = self._reconstruction_ramp(epoch)
-        effective_reconstruction_weight = self.RECONSTRUCTION_WEIGHT * ramp
+        effective_reconstruction_weight = (
+            self.dct_v313_lambda_reconstruction_effective * ramp
+        )
 
         aux_loss = (
             self.IPCW_RANK_WEIGHT * ipcw_rank_loss

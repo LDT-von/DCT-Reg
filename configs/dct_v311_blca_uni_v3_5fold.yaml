@@ -1,14 +1,22 @@
-# DCT v3.11 Per-Slot Interpretable - BLCA UNI Config (原始版 - merged diversity)
+# DCT v3.11 Per-Slot Interpretable - BLCA UNI Config (v3 - anti-collapse fix)
 #
-# Recipe: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*diversity (merged)
+# 关键修复: 在 diversity loss 中加入 PAIRWISE-DISTANCE HINGE on raw slot representations
+#   原因: 之前 diversity loss 只在 hazard variance 上做 hinge, 被 per_slot_nll 的
+#         "all slots predict same hazard" 反向梯度压制 → 99% epoch 坍缩
+#   修复: 在 raw slots (D=256) 上计算 pair-wise L2 距离, 强制每个 slot pair 至少 target_dist 远
+#         → 即使 slot 完全相同, loss 也有非零梯度 (通过 squared-distance hinge)
+#         → 即使 hazard head 已经饱和, 梯度仍能流回 slot attention
+#
+# Recipe: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + (hinge(variance) + pair_dist)
 # (dct_v311_* params are forced by DCTV311SlotInterpretable.FROZEN_ARGUMENTS)
 #
-name: dct_v311_blca_uni
+name: dct_v311_blca_uni_v3
 description: |
-  DCT v3.11 per-slot interpretable training on BLCA with UNI features.
-  原始版 diversity (merged): 所有 slot 的 variance 一起算
-  - Objective: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*diversity
-  - Direction loss disabled
+  DCT v3.11 v3 - anti-collapse fix via pair-distance hinge on raw slots.
+  Replaces v2's variance-only diversity (which collapsed 99% of the time) with:
+    - Variance band hinge: keeps σ² ∈ [0.001, 0.050]
+    - Pair-distance hinge: forces slot pair-wise L2 distance ≥ 1.0
+  Per-modality: WSI and Omics slots are decoupled, no cross-modality compensation.
 
 data:
   study: blca
@@ -23,12 +31,12 @@ data:
 
 split:
   k_start: 0
-  k_end: 2
+  k_end: 5
 
 train:
   survot_method: dct_v311_slot_interpretable
-  specific_simple: dct_v311_blca_uni
-  results_dir: /data1/DCT-Reg/results/dct_v311_blca_uni/blca
+  specific_simple: dct_v311_blca_uni_v3
+  results_dir: /data1/DCT-Reg/results/dct_v311_blca_uni_v3/blca
   max_epochs: 30
   batch_size: 8
   warmup_epochs: 0
@@ -39,9 +47,9 @@ train:
   reg: 0.0005
   scheduler: cosine
   gpu: 1
-  num_workers: 4
+  num_workers: 2
   bag_loss: nll_surv
-  min_free_space_gb: 2.0
+  min_free_space_gb: 10.0
   fit_bins_on_train: true
   binning_mode: global_qcut
   dct_slot_init_mode: deterministic
@@ -95,6 +103,11 @@ model:
   spt_prog_cost: 0.20
   rg_eps_start: 0.10
   rg_eps_anneal: 12
+  # NEW v3 diversity params
+  dct_v311_variance_min: 0.001
+  dct_v311_variance_max: 0.050
+  dct_v311_target_pair_dist: 1.0
+  dct_v311_lambda_pair_dist: 0.5
 
 split_setup:
   which_splits: 5fold

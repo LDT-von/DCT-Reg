@@ -1,13 +1,17 @@
-# DCT v3.11 Per-Slot Interpretable - BLCA UNI Config (原始版 - merged diversity)
+# DCT v3.11 Per-Slot Interpretable - BLCA UNI Config (修复版 - per-modality diversity)
 #
-# Recipe: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*diversity (merged)
+# 修复内容: slot_diversity_loss 分别约束 WSI 和 Omics 槽的 variance
+#   原版: variance = merged(WSI + Omics)
+#   修复: loss = hinge(variance_wsi) + hinge(variance_omic)
+#
+# Recipe: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*diversity (per-modality)
 # (dct_v311_* params are forced by DCTV311SlotInterpretable.FROZEN_ARGUMENTS)
 #
-name: dct_v311_blca_uni
+name: dct_v311_blca_uni_v2
 description: |
   DCT v3.11 per-slot interpretable training on BLCA with UNI features.
-  原始版 diversity (merged): 所有 slot 的 variance 一起算
-  - Objective: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*diversity
+  修复版 diversity (per-modality): WSI 和 Omics slot variance 分开约束
+  - Objective: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*(diversity_wsi + diversity_omic)
   - Direction loss disabled
 
 data:
@@ -23,12 +27,12 @@ data:
 
 split:
   k_start: 0
-  k_end: 2
+  k_end: 5
 
 train:
   survot_method: dct_v311_slot_interpretable
-  specific_simple: dct_v311_blca_uni
-  results_dir: /data1/DCT-Reg/results/dct_v311_blca_uni/blca
+  specific_simple: dct_v311_blca_uni_v2
+  results_dir: /data1/DCT-Reg/results/dct_v311_blca_uni_v2/blca
   max_epochs: 30
   batch_size: 8
   warmup_epochs: 0
