@@ -1,0 +1,134 @@
+# DCT v3.13 Transport-Aware Omics Reconstruction - BRCA UNI Config
+#
+# 关键差异 vs dct_v311_brca_uni_v2.yaml (v3.11 fix-v2):
+#   - survot_method: dct_v313_transport_reconstruction (NEW)
+#   - Omics semantic slots reconstruct encoded pathway tokens
+#   - Factual stage-wise multi-geometry plans transport WSI slots into Omics coordinates
+#   - Reconstruction weight ramps from 0 to 0.10 over epochs 2-7
+#   - 其他 v3.11 参数 (per-modality diversity, per-slot NLL) 保持不变
+#
+# 训练命令:
+#   PYTHONPATH=/data1/DCT-Reg CUDA_VISIBLE_DEVICES=0 \
+#     /home/ubuntu/.conda/envs/trisurv/bin/python -m survot_rank.cli train \
+#     --config configs/dct_v313_brca_uni.yaml
+#
+# Recipe: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.10*per-modality-diversity
+#         + ramp(epoch)*0.10*(0.5*omics-self-recon + 0.5*transport-aware-cross-recon)
+#
+# Recipe source: DCTV313TransportReconstruction.FROZEN_ARGUMENTS
+# Cross-reconstruction uses paired modalities to supervise the factual transport path.
+# It is a training regularizer, not a WSI-only missing-omics inference claim.
+
+name: dct_v313_brca_uni
+description: |
+  DCT v3.13 transport-aware pathway reconstruction on BRCA UNI.
+  This config extends v3.11 fix-v2 with:
+    1. Omics semantic-slot self-reconstruction
+    2. Stage-gated, multi-geometry Sinkhorn WSI -> Omics reconstruction
+  Frozen v3.11 invariants (per-slot NLL, per-modality diversity, IPCW rank)
+  are preserved unchanged.
+
+data:
+  study: brca
+  data_root_dir: /data/CPathPatchFeature
+  data_path: /data1/dataset_csv
+  rna_format: Pathways
+  label_col: survival_months_dss
+  signature: combine
+  n_classes: 4
+  num_patches: 4096
+  encoding_dim: 1024
+
+split:
+  k_start: 0
+  k_end: 5
+
+train:
+  survot_method: dct_v313_transport_reconstruction
+  specific_simple: dct_v313_brca_uni
+  results_dir: /data1/DCT-Reg/results/dct_v313_brca_uni/blca
+  max_epochs: 30
+  batch_size: 32
+  warmup_epochs: 0
+  grad_clip_norm: 1.0
+  seed: 3
+  lr: 0.0005
+  opt: adamW
+  reg: 0.0005
+  scheduler: cosine
+  gpu: 0
+  num_workers: 4
+  bag_loss: nll_surv
+  min_free_space_gb: 2.0
+  fit_bins_on_train: true
+  binning_mode: global_qcut
+  dct_slot_init_mode: deterministic
+  event_stratified_batches: true
+  event_sampling_fraction: 0.0
+
+slot:
+  slot_num_wsi: 16
+  slot_num_omics: 16
+  slot_iters: 10
+  temperature: 0.01
+  topk_ratio: 0.25
+  top_k_method: parallel_topk_st
+
+model:
+  wsi_encoder: uni
+  otehv2_eps: 0.05
+  otehv2_iter: 50
+  otehv2_heads: 4
+  otehv2_layers: 2
+  otehv2_dropout: 0.15
+  dct_num_stages: 4
+  dct_lambda_ipcw_rank: 0.10
+  dct_ipcw_rank_margin: 0.02
+  dct_ipcw_rank_temperature: 0.50
+  dct_ipcw_max_weight: 10.0
+  dct_ipcw_rank_memory_size: 64
+  # Direction loss DISABLED in v3.11 / v3.13 (DCR ~ 0.526 ~ random)
+  dct_v38_lambda_direction: 0.0
+  dct_v38_lambda_dose: 0.0
+  dct_v38_lambda_reconfiguration: 0.0
+  dct_anchor_momentum: 0.90
+  dct_evidence_cost_weight: 0.0
+  dct_evidence_mass_floor: 0.05
+  dct_evidence_marginal_strength: 1.0
+  dct_geometry_reliability_strength: 0.0
+  dct_coupling_projection_iters: 1000
+  dct_coupling_projection_tol: 0.0001
+  dct_coordinate_temperature: 0.30
+  dct_mix_ratio: 1.0
+  dct_v38_direction_margin: 0.02
+  dct_v38_dose_margin: 0.005
+  dct_v38_reconfiguration_margin: 0.02
+  dct_v38_temperature: 0.05
+  dct_v38_alpha_mid: 0.50
+  dct_v38_alpha_full: 1.00
+  dct_v38_warmup_epochs: 0
+  dct_v38_ramp_epochs: 0
+  dct_v38_dose_every: 1
+  dct_lambda_etar: 0.0
+  dct_lambda_listwise: 0.0
+  spt_prog_cost: 0.20
+  rg_eps_start: 0.10
+  rg_eps_anneal: 12
+
+  # ---- v3.11 / v3.13 model parameters are FROZEN in
+  #      DCTV313TransportReconstruction.FROZEN_ARGUMENTS and cannot be
+  #      overridden from the YAML (the v3.10 argparse parser does not
+  #      accept these keys).  Defaults are:
+  #        dct_v311_lambda_slot_nll     = 0.05
+  #        dct_v311_lambda_slot_diversity = 0.10
+  #        dct_v311_variance_min        = 0.001
+  #        dct_v311_variance_max        = 0.050
+  #        dct_v313_lambda_reconstruction       = 0.10
+  #        dct_v313_reconstruction_self_fraction = 0.50
+  #        dct_v313_reconstruction_cross_fraction = 0.50
+  #        dct_v313_reconstruction_ramp_start   = 2
+  #        dct_v313_reconstruction_ramp_epochs  = 5
+
+split_setup:
+  which_splits: 5fold
+  on_missing_wsi: error

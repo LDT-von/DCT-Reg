@@ -72,9 +72,11 @@ run_variant() {
         echo ">>> [${TAG}] FOLD $fold / 4  [$(date '+%H:%M:%S')]"
         echo "    Log: ${LOG_FILE}"
 
+        # GPU assignment: even folds (0,2,4) → GPU 0; odd folds (1,3) → GPU 1
+        local GPU_ID=$(( fold % 2 ))
         export PYTHONPATH=/data1/DCT-Reg
         export DCT_REG_CACHE=/data1/DCT-Reg/.cache
-        export CUDA_VISIBLE_DEVICES=0
+        export CUDA_VISIBLE_DEVICES=${GPU_ID}
         export CUDA_DEVICE_ORDER=PCI_BUS_ID
 
         "${PYTHON}" -m survot_rank.cli train \
@@ -89,7 +91,7 @@ run_variant() {
             > "${LOG_FILE}" 2>&1 &
 
         local TRAIN_PID=$!
-        echo "    Training PID: ${TRAIN_PID}  (GPU 0)"
+        echo "    Training PID: ${TRAIN_PID}  (GPU ${GPU_ID})"
 
         while kill -0 ${TRAIN_PID} 2>/dev/null; do
             sleep 60

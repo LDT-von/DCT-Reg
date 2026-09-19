@@ -79,17 +79,31 @@ python scripts/run_dct_v330_experiments.py smoke
 python scripts/run_dct_v330_experiments.py run
 ```
 
+## 新候选：模型 v3.13 运输感知 Omics 重建
+
+v3.13 在 v3.11 fix-v2 基础上，新增"运输感知 omics 重建"正则（self + cross 两路，λ=0.10）。已跑 3 变体 × 5 fold 消融，结果显示**重建项对 BLCA 性能贡献有限**（关 self/cross 反而 +0.002~0.004）。
+
+- [v3.13 方法边界、消融结果与运行说明](docs/DCT_V313_TRANSPORT_RECONSTRUCTION.md)
+- 调度脚本：`scripts/run_dct_v313_ablations_5fold.sh`
+- 配置：`configs/dct_v313_blca_uni.yaml`
+- 补跑：`scripts/rerun_dct_v313_double_w_failed.sh`
+
+```bash
+bash scripts/run_dct_v313_ablations_5fold.sh          # 全量消融 5 fold
+bash scripts/rerun_dct_v313_double_w_failed.sh        # 仅补 double_w 的 fold2/3/4
+```
+
 ## 新候选：模型 v3.2 TGSR
 
 TGSR (Training fold Guided Survival Risk) 研究方向。
 
 ---
 
-## 版本清单（8 个 DCT 变体 + 5 个父基类）
+## 版本清单（9 个 DCT 变体 + 5 个父基类）
 
-`survot_rank/research/methods/catalog.py` 注册的"DCT 模型类"共 **8 个**，外加 `methods/` 下 5 个被它们继承、但**不能单独当版本用**的父基类（详见 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)）。
+`survot_rank/research/methods/catalog.py` 注册的"DCT 模型类"共 **9 个**，外加 `methods/` 下 5 个被它们继承、但**不能单独当版本用**的父基类（详见 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)）。
 
-### 8 个 catalog 版本
+### 9 个 catalog 版本
 
 | Key | 真实名称 | 状态 | 目录 | 角色 |
 |---|---|---|---|---|
@@ -101,6 +115,7 @@ TGSR (Training fold Guided Survival Risk) 研究方向。
 | `dct_v32_transport_guided_slot_reaggregation` | DCT v3.2 运输引导槽重聚合 | legacy | `methods/legacy/ablation/` | TGSR 的 4 臂结构对照（baseline/self_update/attention_feedback/ot_feedback） |
 | `dct_v330_closed_loop_prognostic_transport` | DCT v3.30 闭环预后传输 | legacy | `methods/legacy/ablation/` | 5 臂闭环（baseline/self_update/ot_feedback/confidence_gate/prognostic_rank） |
 | `dct_v311_slot_interpretable` | DCT v3.11 槽级可解释 | experimental | `methods/legacy/experimental/` | per-slot NLL + 多样性约束；关掉 direction 损失 |
+| `dct_v313_transport_reconstruction` | DCT v3.13 运输感知 Omics 重建 | candidate | `methods/legacy/experimental/` | 在 v3.11 基础上新增 0.5·self + 0.5·cross 重建正则（λ=0.10, ramp 2→7）；BLCA 5-fold 见 [docs](docs/DCT_V313_TRANSPORT_RECONSTRUCTION.md) |
 
 ### 5 个父基类（实现依赖，不算独立版本）
 
