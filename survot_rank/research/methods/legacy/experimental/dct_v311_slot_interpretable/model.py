@@ -78,8 +78,8 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
         "dct_v38_lambda_reconfiguration": 0.0,
         # Per-slot NLL weight.
         "dct_v311_lambda_slot_nll": PER_SLOT_NLL_WEIGHT,
-        # Slot diversity weight.
-        "dct_v311_lambda_slot_diversity": SLOT_DIVERSITY_WEIGHT,
+        # Slot diversity weight (BLCA 0.7174 winner used 0.02 = merged diversity).
+        "dct_v311_lambda_slot_diversity": 0.02,
         # Diversity variance bounds.
         "dct_v311_variance_min": VARIANCE_MIN,
         "dct_v311_variance_max": VARIANCE_MAX,
@@ -295,9 +295,9 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
         hazard_wsi = torch.sigmoid(self.per_slot_hazard_wsi(slots_wsi))   # [B, K_w, C]
         hazard_omic = torch.sigmoid(self.per_slot_hazard_omic(slots_omic))  # [B, K_o, C]
 
-        margin_min = float(getattr(self.args, "dct_v311_variance_min", self.VARIANCE_MIN))
-        margin_max = float(getattr(self.args, "dct_v311_variance_max", self.VARIANCE_MAX))
-        target_pair_dist = float(getattr(self.args, "dct_v311_target_pair_dist", 1.0))
+        margin_min = float(getattr(self.args, "dct_v311_variance_min", self.VARIANCE_MIN) or self.VARIANCE_MIN)
+        margin_max = float(getattr(self.args, "dct_v311_variance_max", self.VARIANCE_MAX) or self.VARIANCE_MAX)
+        target_pair_dist = float(getattr(self.args, "dct_v311_target_pair_dist", 1.0) or 1.0)
 
         # ---- Mechanism 1: Variance band hinge (per-sample) ----
         def _per_sample_variance(hazard):
@@ -345,7 +345,7 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
         # hinge on RAW SLOTS provides the strong anti-collapse signal that
         # variance alone cannot — variance is dominated by per_slot_nll which
         # rewards identical-correct predictions (a collapse attractor).
-        pair_weight = float(getattr(self.args, "dct_v311_lambda_pair_dist", 0.5))
+        pair_weight = float(getattr(self.args, "dct_v311_lambda_pair_dist", 0.5) or 0.5)
         loss_wsi = _hinge(var_wsi).mean() + pair_weight * F.relu(target_sq - pair_wsi_sq).mean()
         loss_omic = _hinge(var_omic).mean() + pair_weight * F.relu(target_sq - pair_omic_sq).mean()
         batch_loss = 0.5 * (loss_wsi + loss_omic)
