@@ -1,0 +1,324 @@
+{
+  "kind": "synthetic structural audit, not clinical performance",
+  "device": "cpu",
+  "seeds": {
+    "3": {
+      "initial": {
+        "wsi": {
+          "off_diagonal_cosine": 0.9794539213180542,
+          "slot_std": 0.025414833799004555,
+          "effective_rank": 9.09177017211914,
+          "hazard_variance": 1.2002280527667608e-05
+        },
+        "omic": {
+          "off_diagonal_cosine": 0.5883457064628601,
+          "slot_std": 0.07026367634534836,
+          "effective_rank": 8.161561965942383,
+          "hazard_variance": 8.448666631011292e-05
+        },
+        "nll": 1.3128234148025513
+      },
+      "gradient_audit": {
+        "nll": {
+          "weighted_loss": 1.3218283653259277,
+          "gradient_norm": {
+            "wsi_mlp": 0.26145195960998535,
+            "sig_networks": 0.07249216735363007,
+            "slot_attention_wsi": 0.00383076467551291,
+            "slot_attention_omic": 0.01685013435781002,
+            "shared_wsi_prototypes": 0.018354063853621483,
+            "shared_omic_prototypes": 0.06994735449552536,
+            "stage_pair_cost": 0.00016784886247478426,
+            "pathway_reconstruction_decoder": 0.0,
+            "event_gate": 0.0017494919011369348
+          }
+        },
+        "ipcw": {
+          "weighted_loss": 0.03585949167609215,
+          "gradient_norm": {
+            "wsi_mlp": 0.017348885536193848,
+            "sig_networks": 0.0030714762397110462,
+            "slot_attention_wsi": 0.00029436752083711326,
+            "slot_attention_omic": 0.0006788092432543635,
+            "shared_wsi_prototypes": 0.0015157104935497046,
+            "shared_omic_prototypes": 0.00272503774613142,
+            "stage_pair_cost": 6.894907983223675e-06,
+            "pathway_reconstruction_decoder": 0.0,
+            "event_gate": 6.569529068656266e-05
+          }
+        },
+        "slot_nll": {
+          "weighted_loss": 0.07645940035581589,
+          "gradient_norm": {
+            "wsi_mlp": 0.010696789249777794,
+            "sig_networks": 0.0025913517456501722,
+            "slot_attention_wsi": 0.00014448240108322352,
+            "slot_attention_omic": 0.0006492832908406854,
+            "shared_wsi_prototypes": 0.000784842181019485,
+            "shared_omic_prototypes": 0.002518991008400917,
+            "stage_pair_cost": 0.0,
+            "pathway_reconstruction_decoder": 0.0,
+            "event_gate": 0.0
+          }
+        },
+        "diversity": {
+          "weighted_loss": 0.006471117027103901,
+          "gradient_norm": {
+            "wsi_mlp": 0.01597658172249794,
+            "sig_networks": 0.00011085330334026366,
+            "slot_attention_wsi": 0.006035730708390474,
+            "slot_attention_omic": 0.0002809994912240654,
+            "shared_wsi_prototypes": 0.02194414846599102,
+            "shared_omic_prototypes": 0.00150441809091717,
+            "stage_pair_cost": 0.0,
+            "pathway_reconstruction_decoder": 0.0,
+            "event_gate": 0.0
+          }
+        },
+        "mtr": {
+          "weighted_loss": 0.08509674668312073,
+          "gradient_norm": {
+            "wsi_mlp": 0.014390182681381702,
+            "sig_networks": 0.006405164487659931,
+            "slot_attention_wsi": 0.00029937023646198213,
+            "slot_attention_omic": 0.0026664582546800375,
+            "shared_wsi_prototypes": 0.0015042420709505677,
+            "shared_omic_prototypes": 0.011009637266397476,
+            "stage_pair_cost": 2.1130497316335095e-06,
+            "pathway_reconstruction_decoder": 0.029350295662879944,
+            "event_gate": 0.0
+          }
+        }
+      },
+      "finite_steps": 30,
+      "final": {
+        "wsi": {
+          "off_diagonal_cosine": 0.9406805038452148,
+          "slot_std": 0.04783197119832039,
+          "effective_rank": 7.822850227355957,
+          "hazard_variance": 4.829096724279225e-05
+        },
+        "omic": {
+          "off_diagonal_cosine": 0.6674902439117432,
+          "slot_std": 0.06974763423204422,
+          "effective_rank": 8.098711967468262,
+          "hazard_variance": 8.506461745128036e-05
+        },
+        "nll": 0.750268280506134
+      },
+      "final_losses": {}
+    },
+    "17": {
+      "initial": {
+        "wsi": {
+          "off_diagonal_cosine": 0.9859293699264526,
+          "slot_std": 0.02665881998836994,
+          "effective_rank": 8.5378999710083,
+          "hazard_variance": 1.438132949260762e-05
+        },
+        "omic": {
+          "off_diagonal_cosine": 0.5625087022781372,
+          "slot_std": 0.08649392426013947,
+          "effective_rank": 8.111093521118164,
+          "hazard_variance": 0.00022736043320037425
+        },
+        "nll": 1.8424978256225586
+      },
+      "gradient_audit": {
+        "nll": {
+          "weighted_loss": 1.7945728302001953,
+          "gradient_norm": {
+            "wsi_mlp": 1.5395597219467163,
+            "sig_networks": 0.28648486733436584,
+            "slot_attention_wsi": 0.04443970322608948,
+            "slot_attention_omic": 0.0456148236989975,
+            "shared_wsi_prototypes": 0.21313470602035522,
+            "shared_omic_prototypes": 0.17898808419704437,
+            "stage_pair_cost": 0.0004996642819605768,
+            "pathway_reconstruction_decoder": 0.0,
+            "event_gate": 0.008527462370693684
+          }
+        },
+        "ipcw": {
+          "weighted_loss": 0.03682538494467735,
+          "gradient_norm": {
+            "wsi_mlp": 0.04089407995343208,
+            "sig_networks": 0.011682345531880856,
+            "slot_attention_wsi": 0.0009496963466517627,
+            "slot_attention_omic": 0.0020676690619438887,
+            "shared_wsi_prototypes": 0.004292305558919907,
+            "shared_omic_prototypes": 0.008211106061935425,
+            "stage_pair_cost": 1.9842758774757385e-05,
+            "pathway_reconstruction_decoder": 0.0,
+            "event_gate": 3.432712037465535e-05
+          }
+        },
+        "slot_nll": {
+          "weighted_loss": 0.09386678785085678,
+          "gradient_norm": {
+            "wsi_mlp": 0.020279068499803543,
+            "sig_networks": 0.004430883564054966,
+            "slot_attention_wsi": 0.00025509539409540594,
+            "slot_attention_omic": 0.0008788204286247492,
+            "shared_wsi_prototypes": 0.0012645794777199626,
+            "shared_omic_prototypes": 0.0032862673979252577,
+            "stage_pair_cost": 0.0,
+            "pathway_reconstruction_decoder": 0.0,
+            "event_gate": 0.0
+          }
+        },
+        "diversity": {
+          "weighted_loss": 0.007584623526781797,
+          "gradient_norm": {
+            "wsi_mlp": 0.011227723211050034,
+            "sig_networks": 0.00016109699208755046,
+            "slot_attention_wsi": 0.005254882387816906,
+            "slot_attention_omic": 0.0003583789221011102,
+            "shared_wsi_prototypes": 0.016831379383802414,
+            "shared_omic_prototypes": 0.0017831568839028478,
+            "stage_pair_cost": 0.0,
+            "pathway_reconstruction_decoder": 0.0,
+            "event_gate": 0.0
+          }
+        },
+        "mtr": {
+          "weighted_loss": 0.0867617055773735,
+          "gradient_norm": {
+            "wsi_mlp": 0.01148409303277731,
+            "sig_networks": 0.006464006379246712,
+            "slot_attention_wsi": 0.0002558139094617218,
+            "slot_attention_omic": 0.0026134452782571316,
+            "shared_wsi_prototypes": 0.0012029382633045316,
+            "shared_omic_prototypes": 0.011038495227694511,
+            "stage_pair_cost": 2.288317091370118e-06,
+            "pathway_reconstruction_decoder": 0.031201187521219254,
+            "event_gate": 0.0
+          }
+        }
+      },
+      "finite_steps": 30,
+      "final": {
+        "wsi": {
+          "off_diagonal_cosine": 0.9544627070426941,
+          "slot_std": 0.05382140725851059,
+          "effective_rank": 7.29103422164917,
+          "hazard_variance": 6.178196053951979e-05
+        },
+        "omic": {
+          "off_diagonal_cosine": 0.7024639248847961,
+          "slot_std": 0.08495724946260452,
+          "effective_rank": 8.064983367919922,
+          "hazard_variance": 0.00021211862622294575
+        },
+        "nll": 0.46765923500061035
+      },
+      "final_losses": {}
+    },
+    "29": {
+      "initial": {
+        "wsi": {
+          "off_diagonal_cosine": 0.9631401300430298,
+          "slot_std": 0.036226533353328705,
+          "effective_rank": 8.440906524658203,
+          "hazard_variance": 1.8277327399118803e-05
+        },
+        "omic": {
+          "off_diagonal_cosine": 0.5511937737464905,
+          "slot_std": 0.08295872062444687,
+          "effective_rank": 7.995605945587158,
+          "hazard_variance": 0.0001733681419864297
+        },
+        "nll": 1.6753146648406982
+      },
+      "gradient_audit": {
+        "nll": {
+          "weighted_loss": 1.6161309480667114,
+          "gradient_norm": {
+            "wsi_mlp": 0.6004390120506287,
+            "sig_networks": 0.12291023880243301,
+            "slot_attention_wsi": 0.007790859322994947,
+            "slot_attention_omic": 0.025395561009645462,
+            "shared_wsi_prototypes": 0.03215739503502846,
+            "shared_omic_prototypes": 0.09644799679517746,
+            "stage_pair_cost": 0.0004597847000695765,
+            "pathway_reconstruction_decoder": 0.0,
+            "event_gate": 0.005705878604203463
+          }
+        },
+        "ipcw": {
+          "weighted_loss": 0.03441205993294716,
+          "gradient_norm": {
+            "wsi_mlp": 0.03285759314894676,
+            "sig_networks": 0.005089879035949707,
+            "slot_attention_wsi": 0.00042904974543489516,
+            "slot_attention_omic": 0.0008944054716266692,
+            "shared_wsi_prototypes": 0.0023450867738574743,
+            "shared_omic_prototypes": 0.003354644402861595,
+            "stage_pair_cost": 1.9783909010584466e-05,
+            "pathway_reconstruction_decoder": 0.0,
+            "event_gate": 8.354120654985309e-05
+          }
+        },
+        "slot_nll": {
+          "weighted_loss": 0.07820397615432739,
+          "gradient_norm": {
+            "wsi_mlp": 0.014879392459988594,
+            "sig_networks": 0.00334280077368021,
+            "slot_attention_wsi": 0.00022542133228853345,
+            "slot_attention_omic": 0.0007343714241869748,
+            "shared_wsi_prototypes": 0.0010998767102137208,
+            "shared_omic_prototypes": 0.002747944323346019,
+            "stage_pair_cost": 0.0,
+            "pathway_reconstruction_decoder": 0.0,
+            "event_gate": 0.0
+          }
+        },
+        "diversity": {
+          "weighted_loss": 0.0052637518383562565,
+          "gradient_norm": {
+            "wsi_mlp": 0.01423544343560934,
+            "sig_networks": 0.00012183665967313573,
+            "slot_attention_wsi": 0.004965861793607473,
+            "slot_attention_omic": 0.00026775486185215414,
+            "shared_wsi_prototypes": 0.019310610368847847,
+            "shared_omic_prototypes": 0.0014552432112395763,
+            "stage_pair_cost": 0.0,
+            "pathway_reconstruction_decoder": 0.0,
+            "event_gate": 0.0
+          }
+        },
+        "mtr": {
+          "weighted_loss": 0.08587397634983063,
+          "gradient_norm": {
+            "wsi_mlp": 0.0224443506449461,
+            "sig_networks": 0.005514952354133129,
+            "slot_attention_wsi": 0.0004412566777318716,
+            "slot_attention_omic": 0.0022261375561356544,
+            "shared_wsi_prototypes": 0.001968252705410123,
+            "shared_omic_prototypes": 0.00854374747723341,
+            "stage_pair_cost": 8.975535820354708e-06,
+            "pathway_reconstruction_decoder": 0.03345894068479538,
+            "event_gate": 0.0
+          }
+        }
+      },
+      "finite_steps": 30,
+      "final": {
+        "wsi": {
+          "off_diagonal_cosine": 0.935117781162262,
+          "slot_std": 0.056106485426425934,
+          "effective_rank": 7.451938152313232,
+          "hazard_variance": 3.3273794542765245e-05
+        },
+        "omic": {
+          "off_diagonal_cosine": 0.6516331434249878,
+          "slot_std": 0.08548899739980698,
+          "effective_rank": 7.966150760650635,
+          "hazard_variance": 0.00018046001787297428
+        },
+        "nll": 0.5321761965751648
+      },
+      "final_losses": {}
+    }
+  }
+}

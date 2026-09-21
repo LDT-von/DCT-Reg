@@ -60,6 +60,17 @@ def build_base_parser() -> argparse.ArgumentParser:
     parser.add_argument("--batch_size", type=int, default=32)
     parser.add_argument("--bag_loss", type=str, default="nll_surv", choices=["nll_surv", "rank_surv", "cox_surv", "sinkhorn_surv"])
     parser.add_argument("--alpha_surv", type=float, default=0.5)
+    # v3.14 candidate recipe: explicit, checkpointed switches for matched ablations.
+    parser.add_argument("--dct_v314_lambda_slot_nll", type=float, default=0.05)
+    parser.add_argument("--dct_v314_lambda_slot_diversity", type=float, default=0.02)
+    parser.add_argument("--dct_v314_lambda_mtr", type=float, default=0.10)
+    parser.add_argument("--dct_v314_mask_ratio", type=float, default=0.20)
+    parser.add_argument("--dct_v314_reconstruction_mode", choices=["masked", "full", "hybrid", "off"], default="masked")
+    # v3.15 has one survival objective; these control its only interaction block.
+    parser.add_argument("--dct_v315_ot_epsilon", type=float, default=0.2)
+    parser.add_argument("--dct_v315_ot_iters", type=int, default=40)
+    parser.add_argument("--dct_v315_dropout", type=float, default=0.1)
+    parser.add_argument("--dct_v315_transport_mode", choices=["ot", "independent"], default="ot")
     parser.add_argument("--reg", type=float, default=1e-3)
     parser.add_argument("--max_cindex", type=float, default=0.0)
     parser.add_argument("--scheduler", type=str, default="cosine", choices=["cosine", "step"])

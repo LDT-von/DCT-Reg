@@ -40,7 +40,7 @@ from pathlib import Path
 from typing import Iterable
 
 
-CATALOG_UPDATED = "2026-09-16"
+CATALOG_UPDATED = "2026-09-20"
 PRIMARY_METHOD = "dct_v310_directional_regularized_transport"
 METHOD_STATUSES = ("primary", "candidate", "legacy")
 STATUS_LABELS = {
@@ -158,6 +158,24 @@ METHOD_SPECS = (
         "legacy/experimental/dct_v313_transport_reconstruction",
         "DCTV313TransportReconstruction",
         aliases=("dct_v313",),
+    ),
+    MethodSpec(
+        "dct_v314_masked_transport_reconstruction",
+        "DCT v3.14 Masked Transport Reconstruction [EXPERIMENTAL]",
+        "dct",
+        "candidate",
+        "legacy/experimental/dct_v314_masked_transport_reconstruction",
+        "DCTV314MaskedTransportReconstruction",
+        aliases=("dct_v314",),
+    ),
+    MethodSpec(
+        "dct_v315_residual_transport",
+        "DCT v3.15 Residual Transport Interaction [BASELINE]",
+        "dct",
+        "candidate",
+        "legacy/experimental/dct_v315_residual_transport",
+        "DCTV315ResidualTransport",
+        aliases=("dct_v315",),
     ),
 )
 

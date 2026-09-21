@@ -170,6 +170,13 @@ def init_model_for_method(args, dataset_factory):
 
 def init_loss_function(args):
     if args.bag_loss == 'nll_surv':
+        method = getattr(args, "survot_method", None) or getattr(args, "newslot_method", None)
+        if method in {"dct_v315", "dct_v315_residual_transport"}:
+            from survot_rank.research.methods.legacy.experimental.dct_v315_residual_transport.losses import StableNLLSurvLoss
+            return StableNLLSurvLoss(alpha=args.alpha_surv)
+        if method in {"dct_v314", "dct_v314_masked_transport_reconstruction"}:
+            from survot_rank.research.methods.legacy.experimental.dct_v314_masked_transport_reconstruction.losses import StableNLLSurvLoss
+            return StableNLLSurvLoss(alpha=args.alpha_surv)
         return NLLSurvLoss(alpha=args.alpha_surv)
     elif args.bag_loss == 'cox_surv':
         return SurvPLE()
