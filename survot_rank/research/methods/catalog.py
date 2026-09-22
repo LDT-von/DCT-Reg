@@ -177,6 +177,16 @@ METHOD_SPECS = (
         "DCTV315ResidualTransport",
         aliases=("dct_v315",),
     ),
+    MethodSpec(
+        "dct_v316_slot_mi_decomposition",
+        "DCT v3.16 Slot Interaction Decomposition [CANDIDATE]",
+        "dct",
+        "candidate",
+        "dct_v316_slot_mi_interaction",
+        "DCTV316SlotMIDecomposition",
+        model_file="dct_v316_model.py",
+        aliases=("dct_v316", "dct_v316_slot_mi"),
+    ),
 )
 
 METHOD_CATALOG = {spec.key: spec for spec in METHOD_SPECS}

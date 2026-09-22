@@ -1,0 +1,73 @@
+name: dct_v316_slot_mi_decomposition
+description: |
+  DCT v3.16 patient-specific slot interaction candidate.
+  Four learned channels are labelled R/Up/Ug/S as hypotheses; their semantic
+  interpretation requires matched ablations and is not a formal PID claim.
+  Objective: survival NLL + 0.10 IPCW rank + 0.01 channel contrastive loss.
+
+data:
+  study: blca
+  data_root_dir: /data1/TCGA-UNI2-h-features
+  data_path: /data1/dataset_csv
+  rna_format: Pathways
+  label_col: survival_months_dss
+  signature: combine
+  n_classes: 4
+  num_patches: 2048
+  encoding_dim: 1536
+
+split:
+  k_start: 0
+  k_end: 5
+
+train:
+  survot_method: dct_v316_slot_mi_decomposition
+  specific_simple: dct_v316_slot_mi_decomposition
+  results_dir: results/dct_v3.16/slot_mi/blca
+  max_epochs: 50
+  batch_size: 8
+  grad_accum_steps: 1
+  warmup_epochs: 5
+  grad_clip_norm: 1.0
+  seed: 3
+  lr: 0.0005
+  opt: adamW
+  reg: 0.0005
+  scheduler: cosine
+  gpu: 0
+  num_workers: 4
+  bag_loss: nll_surv
+  alpha_surv: 0.15
+  min_free_space_gb: 2.0
+  fit_bins_on_train: true
+  binning_mode: global_qcut
+  event_stratified_batches: true
+  event_sampling_fraction: 0.0
+
+slot:
+  slot_num_wsi: 8
+  slot_num_omics: 8
+  slot_iters: 3
+
+model:
+  wsi_encoder: uni2-h
+  otehv2_heads: 4
+  dct_num_stages: 4
+
+  # Frozen objective weights
+  dct_lambda_ipcw_rank: 0.10
+
+  # v3.16 Slot MI parameters
+  v316_lambda_mi: 0.01
+  v316_hidden_dim: 256
+  v316_profile_temp: 1.0
+
+  # Disabled (no OT)
+  dct_v38_lambda_direction: 0.0
+  dct_evidence_cost_weight: 0.0
+  dct_geometry_reliability_strength: 0.0
+  dct_mix_ratio: 0.0
+
+split_setup:
+  which_splits: 5fold_uni2h
+  on_missing_wsi: error
