@@ -162,7 +162,14 @@ GPU 本地诊断记录的峰值 allocated memory 约 568 MiB，单步中位时�
 2. Independent：把 T 设成 abᵀ，交互严格归零；这就是同参数结构的全局-only 控制。
 
 然后检查保留训练模型、只在评估时切换耦合是否改变预测。这能验证依赖性，但不能代替重新训练的消融。
-仅在真实验证集稳定显示 NLL-only 排序不足时，再比较一个 NLL+rank 版本；现在不把 rank、diversity、reconstruction 默认加回。
+原始五折已经显示 NLL-only 平均 C-index 为 0.6763，低于同协议 v3.13/v3.14，
+因此新增一个独立的 NLL+RTI-directed IPCW-rank 配方。它不改写本页记录的
+NLL-only 基线，也不加入 diversity 或 reconstruction。
+
+新增排序项只选择训练折内可比较且全局支路未达到 margin 的 patient pairs。
+全局 logits 在该项中 detach，梯度沿 `global.detach() + RTI delta` 只监督残差
+交互修正；IPCW 使用训练折 censoring KM 的左极限 `G(T_i-)`。权重默认 0.10，
+并保留原始 NLL-only YAML 作为严格对照。
 要证明 RTI 而不是轻量 encoder 有效，除同骨干 independent 控制外，还应报告容量/优化预算匹配的旧方法对照。
 保存每折预测与曲线，内部验证调参，独立外层测试只做最后评估，不用训练 NLL 或最佳验证分数冒充外测性能。
 
@@ -172,9 +179,11 @@ GPU 本地诊断记录的峰值 allocated memory 约 568 MiB，单步中位时�
 
 ```powershell
 python -m survot_rank.cli train --config configs/dct_v315_blca_uni.yaml
+python -m survot_rank.cli train --config configs/dct_v315_rti_rank_blca_uni2h.yaml
 python -m survot_rank.cli train --config configs/dct_v315_blca_uni.yaml --set dct_v315_transport_mode=independent --set specific_simple=dct_v315_independent --set results_dir=/data1/DCT-Reg/results/dct_v315_independent/blca
 python -m pytest tests/test_dct_v315_residual_transport.py -q
 python -m scripts.audit_v315 --output audit_results/v315_cpu.json --steps 30
+python -m scripts.audit_v315 --output audit_results/v315_rti_rank_cpu.json --steps 30 --lambda-rti-rank 0.10
 python -m scripts.audit_v315 --output audit_results/v315_gpu.json --steps 30 --device cuda --encoding-dim 1024 --dim 256 --patches 4096 --batch-size 8
 ```
 

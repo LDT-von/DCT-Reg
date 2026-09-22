@@ -53,6 +53,23 @@ def test_catalog_config_factory_and_nll_integration():
     alternate = build_base_parser().parse_args(config_to_argv(apply_overrides(config, ['dct_v315_transport_mode=independent'])))
     assert alternate.dct_v315_transport_mode == 'independent'
 
+    ranked = load_config('configs/dct_v315_rti_rank_blca_uni2h.yaml')
+    ranked_args = build_base_parser().parse_args(config_to_argv(ranked))
+    control_args = build_base_parser().parse_args(config_to_argv(
+        load_config('configs/dct_v315_blca_uni2h.yaml')
+    ))
+    assert ranked_args.dct_v315_lambda_rti_rank == pytest.approx(0.10)
+    assert ranked_args.dct_v315_rti_rank_margin == pytest.approx(0.02)
+    assert ranked_args.dct_v315_rti_rank_temperature == pytest.approx(0.50)
+    assert ranked_args.dct_v315_ipcw_max_weight == pytest.approx(10.0)
+    differences = {
+        key for key, value in vars(control_args).items()
+        if value != vars(ranked_args)[key]
+    }
+    assert differences == {
+        'results_dir', 'specific_simple', 'dct_v315_lambda_rti_rank'
+    }
+
 
 def test_no_old_version_runtime_dependency():
     program = '''
@@ -206,7 +223,80 @@ def test_one_nll_reaches_every_intended_parameter():
     for name, parameter in model.named_parameters():
         assert parameter.grad is not None and torch.isfinite(parameter.grad).all(), name
         assert parameter.grad.abs().sum() > 0, name
-    assert model.objective_weights() == dict(nll=1., ipcw_rank=0., per_slot_nll=0., slot_diversity=0., reconstruction=0.)
+    assert model.objective_weights() == dict(nll=1., rti_ipcw_rank=0., per_slot_nll=0., slot_diversity=0., reconstruction=0.)
+
+
+def test_rti_directed_ipcw_rank_uses_hard_pairs_and_only_updates_correction():
+    model = DCTV315ResidualTransport(arguments(
+        dct_v315_lambda_rti_rank=.1,
+        dct_v315_rti_rank_margin=.02,
+        dct_v315_rti_rank_temperature=.5,
+        dct_v315_ipcw_max_weight=10.,
+    ))
+    model.configure_train_reference(
+        torch.tensor([1., 2., 2., 3., 4.]),
+        torch.tensor([0., 1., 0., 0., 1.]),
+    )
+    # G(2-) excludes censoring tied at time 2; G(3-) includes it.
+    torch.testing.assert_close(
+        model._ipcw(torch.tensor([2., 3.])), torch.tensor([1., 4. / 3.])
+    )
+
+    base = torch.zeros(3, 4, requires_grad=True)
+    delta = torch.zeros(3, 4, requires_grad=True)
+    loss, pairs, hard_pairs = model._rti_directed_ipcw_rank(
+        base, delta, torch.tensor([1., 2., 3.]), torch.zeros(3), torch.ones(3, dtype=torch.bool)
+    )
+    assert pairs.item() == 3
+    assert hard_pairs.item() == 3
+    assert loss > 0
+    loss.backward()
+    assert base.grad is None
+    assert delta.grad[0].sum() < 0
+    assert delta.grad[-1].sum() > 0
+
+    correct_base = torch.tensor([[5., 5., 5., 5.], [-5., -5., -5., -5.]])
+    zero_delta = torch.zeros_like(correct_base, requires_grad=True)
+    zero_loss, pairs, hard_pairs = model._rti_directed_ipcw_rank(
+        correct_base, zero_delta, torch.tensor([1., 2.]), torch.zeros(2),
+        torch.ones(2, dtype=torch.bool),
+    )
+    assert pairs.item() == 1
+    assert hard_pairs.item() == 0
+    assert zero_loss.item() == 0
+
+
+def test_ranked_recipe_requires_fold_reference_and_composes_auxiliary():
+    args = arguments(dct_v315_lambda_rti_rank=.1)
+    model = DCTV315ResidualTransport(args).train()
+    data = batch()
+    missing_time = dict(data)
+    missing_time.pop('event_time')
+    with pytest.raises(ValueError, match='event_time and censorship'):
+        model(**missing_time)
+    with pytest.raises(RuntimeError, match='configure_train_reference'):
+        model(**data)
+
+    model.configure_train_reference(
+        torch.tensor([1., 2., 3., 4., 5., 6., 7., 8.]),
+        torch.tensor([0., 0., 0., 0., 1., 1., 1., 1.]),
+    )
+    # Equal detached base risk makes all comparable pairs hard, so the RTI
+    # branch receives an explicit correction signal.
+    with torch.no_grad():
+        model.global_head[-1].weight.zero_()
+        model.global_head[-1].bias.zero_()
+    logits, auxiliary = model(**data)
+    assert auxiliary > 0
+    torch.testing.assert_close(
+        auxiliary, .1 * model.last_training_losses['v315_rti_ipcw_rank']
+    )
+    assert model.last_training_losses['v315_hard_rank_pairs'] > 0
+    loss = StableNLLSurvLoss()(logits, data['y'], c=data['c']) / len(logits) + auxiliary
+    loss.backward()
+    assert model.transport.readout.weight.grad is not None
+    assert torch.isfinite(model.transport.readout.weight.grad).all()
+    assert model.objective_weights()['rti_ipcw_rank'] == pytest.approx(.1)
 
 
 @pytest.mark.parametrize('missing', ['wsi', 'omic'])
@@ -228,7 +318,9 @@ def test_missing_modality_ignores_nan_and_zeroes_cross_term(missing):
 def test_invalid_hyperparameters_inputs_and_both_missing():
     for params in ({'dct_v315_ot_epsilon': float('nan')}, {'slot_num_wsi': 33},
                    {'omic_sizes': []}, {'dct_v315_dropout': 1.}, {'bag_loss': 'cox_surv'},
-                   {'dct_v315_ot_iters': 0}, {'dct_v315_transport_mode': 'bad'}):
+                   {'dct_v315_ot_iters': 0}, {'dct_v315_transport_mode': 'bad'},
+                   {'dct_v315_lambda_rti_rank': -1.},
+                   {'dct_v315_rti_rank_temperature': 0.}):
         with pytest.raises(ValueError):
             DCTV315ResidualTransport(arguments(**params))
     model = DCTV315ResidualTransport(arguments())
@@ -257,19 +349,28 @@ def test_batch_one_single_pathway_single_slot_and_constant_values():
     assert torch.count_nonzero(model.last_explanations['interaction_logits']) == 0
 
 
-def test_checkpoint_roundtrip_recipe_and_predictions():
-    model = DCTV315ResidualTransport(arguments()).eval()
+@pytest.mark.parametrize('rank_weight', [0., .1])
+def test_checkpoint_roundtrip_recipe_and_predictions(rank_weight):
+    recipe = arguments(dct_v315_lambda_rti_rank=rank_weight)
+    model = DCTV315ResidualTransport(recipe).eval()
     before = model(**batch())[0]
     buffer = io.BytesIO()
     torch.save(model.state_dict(), buffer)
     buffer.seek(0)
     state = torch.load(buffer, weights_only=True)
-    other = DCTV315ResidualTransport(arguments(cur_epoch=0)).eval()
+    other = DCTV315ResidualTransport(arguments(
+        cur_epoch=0, dct_v315_lambda_rti_rank=rank_weight,
+    )).eval()
     other.load_state_dict(state)
     torch.testing.assert_close(before, other(**batch())[0], rtol=0, atol=0)
     wrong = DCTV315ResidualTransport(arguments(dct_v315_ot_epsilon=.1))
     with pytest.raises(RuntimeError, match='recipe'):
         wrong.load_state_dict(state)
+    wrong_rank = DCTV315ResidualTransport(arguments(
+        dct_v315_lambda_rti_rank=.2 if rank_weight else .1,
+    ))
+    with pytest.raises(RuntimeError, match='recipe'):
+        wrong_rank.load_state_dict(state)
 
 
 @pytest.mark.skipif(not torch.cuda.is_available(), reason='CUDA unavailable')
@@ -287,6 +388,39 @@ def test_config_sized_gpu_forward_backward(amp):
     assert all(torch.isfinite(p.grad).all() for p in model.parameters() if p.grad is not None)
     opt.step()
     assert all(torch.isfinite(p).all() for p in model.parameters())
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason='CUDA unavailable')
+@pytest.mark.parametrize('amp', [False, True])
+def test_uni2h_sized_ranked_gpu_forward_backward(amp):
+    args = arguments(
+        encoding_dim=1536,
+        wsi_projection_dim=256,
+        slot_num_wsi=8,
+        slot_num_omics=8,
+        dct_v315_lambda_rti_rank=.1,
+    )
+    model = DCTV315ResidualTransport(args).cuda().train()
+    model.configure_train_reference(
+        torch.tensor([1., 2., 3., 4., 5., 6., 7., 8.]),
+        torch.tensor([0., 0., 0., 0., 1., 1., 1., 1.]),
+    )
+    with torch.no_grad():
+        model.global_head[-1].weight.zero_()
+        model.global_head[-1].bias.zero_()
+    data = {
+        key: value.cuda()
+        for key, value in batch(
+            batch_size=4, patches=2048, encoding_dim=1536
+        ).items()
+    }
+    with torch.autocast('cuda', enabled=amp, dtype=torch.float16):
+        logits, auxiliary = model(**data)
+        loss = StableNLLSurvLoss()(logits, data['y'], c=data['c']) / len(logits) + auxiliary
+    assert auxiliary > 0
+    loss.backward()
+    assert torch.isfinite(loss)
+    assert all(torch.isfinite(p.grad).all() for p in model.parameters() if p.grad is not None)
 
 
 def test_shared_train_epoch_and_batch_adapter():

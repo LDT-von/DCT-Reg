@@ -1,8 +1,9 @@
-"""DCT v3.15: one-shot slots, one residual OT interaction, one NLL.
+"""DCT v3.15: one-shot slots with a residual OT interaction.
 
 No imports or inheritance from prior model versions. Attention pooling, cosine
 OT, and centered bilinear moments are established building blocks; this is a
-project-specific baseline, not a claim of first invention or clinical efficacy.
+project-specific candidate, not a claim of first invention or clinical efficacy.
+The historical NLL-only recipe remains available with a zero rank weight.
 """
 from __future__ import annotations
 
@@ -111,10 +112,19 @@ class DCTV315ResidualTransport(nn.Module):
         kw, ko = int(args.slot_num_wsi), int(args.slot_num_omics)
         dropout = float(getattr(args, "dct_v315_dropout", .1))
         self.alpha_surv = float(getattr(args, "alpha_surv", 0.))
+        self.rti_rank_weight = float(getattr(args, "dct_v315_lambda_rti_rank", 0.))
+        self.rti_rank_margin = float(getattr(args, "dct_v315_rti_rank_margin", .02))
+        self.rti_rank_temperature = float(getattr(args, "dct_v315_rti_rank_temperature", .5))
+        self.ipcw_max_weight = float(getattr(args, "dct_v315_ipcw_max_weight", 10.))
         if min(self.encoding_dim, dim, classes) < 1 or not self.omic_sizes or min(self.omic_sizes) < 1:
             raise ValueError("positive dimensions and nonempty omic_sizes required")
         if not 0 <= dropout < 1 or not 0 <= self.alpha_surv <= 1:
             raise ValueError("invalid dropout or alpha_surv")
+        if (not math.isfinite(self.rti_rank_weight) or self.rti_rank_weight < 0 or
+                not math.isfinite(self.rti_rank_margin) or self.rti_rank_margin < 0 or
+                not math.isfinite(self.rti_rank_temperature) or self.rti_rank_temperature <= 0 or
+                not math.isfinite(self.ipcw_max_weight) or self.ipcw_max_weight <= 0):
+            raise ValueError("invalid v3.15 RTI rank settings")
         # One projection per modality token; no million-parameter WSI pre-MLP.
         def encoder(width):
             return nn.Sequential(nn.Linear(width, dim), nn.LayerNorm(dim), nn.GELU())
@@ -127,22 +137,107 @@ class DCTV315ResidualTransport(nn.Module):
             dim, classes, float(getattr(args, "dct_v315_ot_epsilon", .2)),
             int(getattr(args, "dct_v315_ot_iters", 40)),
             str(getattr(args, "dct_v315_transport_mode", "ot")))
+        self.register_buffer("v315_censor_times", torch.empty(0), persistent=False)
+        self.register_buffer("v315_censor_survival", torch.empty(0), persistent=False)
         self.last_training_losses, self.last_explanations = {}, None
 
-    @staticmethod
-    def objective_weights():
-        return {"nll": 1., "ipcw_rank": 0., "per_slot_nll": 0.,
+    def objective_weights(self):
+        rank_weight = self.rti_rank_weight if self.transport.mode == "ot" else 0.
+        return {"nll": 1., "rti_ipcw_rank": rank_weight, "per_slot_nll": 0.,
                 "slot_diversity": 0., "reconstruction": 0.}
 
     def get_extra_state(self):
-        return {"schema": 1, "architecture": "one_shot_rti", "alpha_surv": self.alpha_surv,
+        state = {"schema": 1, "architecture": "one_shot_rti", "alpha_surv": self.alpha_surv,
                 "mode": self.transport.mode, "epsilon": self.transport.epsilon,
                 "iterations": self.transport.iterations, "dropout": self.global_head[3].p,
                 "omic_sizes": self.omic_sizes}
+        if self.rti_rank_weight > 0:
+            state.update(schema=2, lambda_rti_rank=self.rti_rank_weight,
+                         rti_rank_margin=self.rti_rank_margin,
+                         rti_rank_temperature=self.rti_rank_temperature,
+                         ipcw_max_weight=self.ipcw_max_weight)
+        return state
 
     def set_extra_state(self, state):
         if state != self.get_extra_state():
             raise RuntimeError("v3.15 checkpoint recipe differs from constructed model")
+
+    @property
+    def has_train_reference(self):
+        return self.v315_censor_times.numel() > 0
+
+    @torch.no_grad()
+    def configure_train_reference(self, event_times, censorship):
+        """Fit fold-local censoring KM for left-limit IPCW weights."""
+        device = self.transport.readout.weight.device
+        times = torch.as_tensor(event_times, dtype=torch.float32, device=device).flatten()
+        cens = torch.as_tensor(censorship, dtype=torch.float32, device=device).flatten()
+        if times.numel() < 1 or times.numel() != cens.numel() or not torch.isfinite(times).all():
+            raise ValueError("finite nonempty train times and matching censorship required")
+        if not torch.all((cens == 0) | (cens == 1)):
+            raise ValueError("train censorship must be binary")
+        unique_times = torch.unique(times, sorted=True)
+        survival = torch.ones_like(unique_times)
+        value = times.new_ones(())
+        for index, time in enumerate(unique_times):
+            at_risk = (times >= time).sum().to(times.dtype).clamp_min(1.)
+            censor_events = ((times == time) & (cens >= .5)).sum().to(times.dtype)
+            value = value * (1. - censor_events / at_risk)
+            survival[index] = value
+        self.v315_censor_times = unique_times
+        self.v315_censor_survival = survival.clamp_min(.05)
+
+    def _ipcw(self, query_times):
+        if not self.has_train_reference:
+            raise RuntimeError("configure_train_reference must run before RTI-IPCW ranking")
+        # Uno-style comparable pairs use G(T_i-), excluding censoring events
+        # tied at the event time itself.
+        indices = torch.searchsorted(self.v315_censor_times, query_times, right=False) - 1
+        values = torch.ones_like(query_times)
+        valid = indices >= 0
+        values[valid] = self.v315_censor_survival[indices[valid]]
+        return values.clamp_min(.05).reciprocal()
+
+    @staticmethod
+    def _risk(logits):
+        hazards = torch.sigmoid(logits)
+        return -torch.cumprod(1. - hazards, dim=1).sum(dim=1)
+
+    def _rti_directed_ipcw_rank(self, base, delta, event_time, censorship, paired):
+        """Train RTI only on comparable pairs the detached base does not rank."""
+        times = torch.as_tensor(event_time, dtype=torch.float32, device=delta.device).flatten()
+        cens = torch.as_tensor(censorship, dtype=torch.float32, device=delta.device).flatten()
+        if times.numel() != len(delta) or cens.numel() != len(delta) or not torch.isfinite(times).all():
+            raise ValueError("event_time and censorship must match the batch")
+        if not torch.all((cens == 0) | (cens == 1)):
+            raise ValueError("censorship must be binary")
+        if self.transport.mode != "ot":
+            zero = delta.sum() * 0.
+            return zero, delta.new_zeros(()), delta.new_zeros(())
+        if not self.has_train_reference:
+            raise RuntimeError("configure_train_reference must run before RTI-IPCW ranking")
+
+        paired = paired.bool().flatten()
+        if paired.numel() != len(delta):
+            raise ValueError("paired availability must match the batch")
+        comparable = ((cens < .5)[:, None] & (times[:, None] < times[None, :]) &
+                      paired[:, None] & paired[None, :])
+        base_logits = base.detach().float()
+        base_risk = self._risk(base_logits)
+        base_gap = base_risk[:, None] - base_risk[None, :]
+        hard = comparable & (base_gap < self.rti_rank_margin)
+        pair_count, hard_count = comparable.sum().detach(), hard.sum().detach()
+        if not bool(hard.any()):
+            return delta.sum() * 0., pair_count, hard_count
+
+        corrected_risk = self._risk(base_logits + delta.float())
+        corrected_gap = corrected_risk[:, None] - corrected_risk[None, :]
+        pair_losses = self.rti_rank_temperature * F.softplus(
+            (self.rti_rank_margin - corrected_gap) / self.rti_rank_temperature)
+        event_weights = self._ipcw(times).square().clamp_max(self.ipcw_max_weight)
+        weights = event_weights[:, None].expand_as(pair_losses)[hard]
+        loss = (pair_losses[hard] * weights).sum() / weights.sum().clamp_min(1e-6)
+        return loss, pair_count, hard_count
 
     @staticmethod
     def _mask(value, batch, device, default):
@@ -192,9 +287,20 @@ class DCTV315ResidualTransport(nn.Module):
         base = self.global_head(global_input)
         delta, moment, plan, rw, ro = self.transport(sw, so, wa & oa)
         logits = base.float() + delta
+        rank_loss = logits.new_zeros(())
+        pair_count = logits.new_zeros(())
+        hard_pair_count = logits.new_zeros(())
+        if self.training and self.rti_rank_weight > 0:
+            if kwargs.get("event_time") is None or kwargs.get("c") is None:
+                raise ValueError("event_time and censorship are required for RTI-IPCW ranking")
+            rank_loss, pair_count, hard_pair_count = self._rti_directed_ipcw_rank(
+                base, delta, kwargs["event_time"], kwargs["c"], wa & oa)
+        auxiliary = self.rti_rank_weight * rank_loss
         error = torch.maximum((plan.sum(-1)-1./sw.size(1)).abs().amax(),
                               (plan.sum(-2)-1./so.size(1)).abs().amax())
-        self.last_training_losses = {"v315_auxiliary": logits.new_zeros(()),
+        self.last_training_losses = {"v315_auxiliary": auxiliary.detach(),
+            "v315_rti_ipcw_rank": rank_loss.detach(), "v315_rank_pairs": pair_count,
+            "v315_hard_rank_pairs": hard_pair_count,
             "v315_marginal_error": error.detach(), "v315_interaction_rms": moment.detach().square().mean().sqrt(),
             "v315_delta_logit_rms": delta.detach().square().mean().sqrt()}
         for name, s, a, available in (("wsi", sw, aw, wa), ("omic", so, ao, oa)):
@@ -208,7 +314,7 @@ class DCTV315ResidualTransport(nn.Module):
             "wsi_residuals": rw.detach(), "omic_residuals": ro.detach(), "paired": (wa & oa).detach(),
             "interaction_weight": self.transport.readout.weight.detach().float().clone(),
             "factual_risk": (-torch.cumprod(torch.sigmoid(-logits), -1).sum(-1)).detach()}
-        return logits, logits.new_zeros(())
+        return logits, auxiliary
 
     @torch.no_grad()
     def explain_last_batch(self):

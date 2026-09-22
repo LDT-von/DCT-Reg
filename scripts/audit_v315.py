@@ -20,7 +20,10 @@ def settings(options):
         n_classes=4, omic_sizes=[16]*12, slot_num_wsi=options.slots, slot_num_omics=options.slots,
         rna_format='Pathways', bag_loss='nll_surv', alpha_surv=options.alpha_surv,
         dct_v315_dropout=0., dct_v315_ot_epsilon=.2, dct_v315_ot_iters=40,
-        dct_v315_transport_mode=options.mode, survot_method='dct_v315')
+        dct_v315_transport_mode=options.mode,
+        dct_v315_lambda_rti_rank=options.lambda_rti_rank,
+        dct_v315_rti_rank_margin=.02, dct_v315_rti_rank_temperature=.5,
+        dct_v315_ipcw_max_weight=10., survot_method='dct_v315')
 
 
 def payload(options, device):
@@ -31,6 +34,7 @@ def payload(options, device):
         data[f'x_omic{i}'] = torch.randn(b, 16, device=device)+latent[:, 0]
     data['y'] = torch.bucketize(latent.flatten(), latent.new_tensor([-.6, 0., .6])).long()
     data['c'] = (torch.arange(b, device=device) % 4 == 0).float()
+    data['event_time'] = torch.arange(1, b+1, dtype=torch.float32, device=device)
     return data
 
 
@@ -83,6 +87,7 @@ def main():
     parser.add_argument('--slots', type=int, default=8)
     parser.add_argument('--mode', choices=['ot', 'independent'], default='ot')
     parser.add_argument('--alpha-surv', type=float, default=0.)
+    parser.add_argument('--lambda-rti-rank', type=float, default=0.)
     options = parser.parse_args()
     if min(options.steps, options.batch_size, options.patches) < 1:
         parser.error('steps, batch size and patch count must be positive')
@@ -96,11 +101,14 @@ def main():
         model = DCTV315ResidualTransport(settings(options)).to(device)
         torch.manual_seed(seed+1000)
         data = payload(options, device)
+        if options.lambda_rti_rank > 0:
+            model.configure_train_reference(data['event_time'], data['c'])
         criterion = StableNLLSurvLoss(options.alpha_surv)
         record = {'parameters':sum(p.numel() for p in model.parameters()),
                   'initial':snapshot(model, data, criterion), 'nll_gradient_norms':gradient_audit(model, data, criterion)}
         optimizer = torch.optim.AdamW(model.parameters(), lr=.0005, weight_decay=.0005)
-        elapsed, max_gradient = [], 0.
+        elapsed, max_gradient, max_auxiliary = [], 0., 0.
+        max_rank_pairs, max_hard_rank_pairs = 0., 0.
         if device.type == 'cuda':
             torch.cuda.reset_peak_memory_stats(device)
         for step in range(options.steps):
@@ -110,6 +118,12 @@ def main():
                 torch.cuda.synchronize(device)
             started = time.perf_counter()
             logits, auxiliary = model(**data)
+            max_auxiliary = max(max_auxiliary, float(auxiliary.detach()))
+            max_rank_pairs = max(max_rank_pairs, float(model.last_training_losses['v315_rank_pairs']))
+            max_hard_rank_pairs = max(
+                max_hard_rank_pairs,
+                float(model.last_training_losses['v315_hard_rank_pairs']),
+            )
             loss = criterion(logits, data['y'], c=data['c'])/len(logits)+auxiliary
             loss.backward()
             if not torch.isfinite(loss) or any(not torch.isfinite(p.grad).all() for p in model.parameters() if p.grad is not None):
@@ -121,6 +135,8 @@ def main():
                 torch.cuda.synchronize(device)
             elapsed.append(time.perf_counter()-started)
         record.update(finite_steps=options.steps, max_preclip_gradient_norm=max_gradient,
+                      max_auxiliary=max_auxiliary, max_rank_pairs=max_rank_pairs,
+                      max_hard_rank_pairs=max_hard_rank_pairs,
                       median_step_seconds=statistics.median(elapsed), final=snapshot(model, data, criterion))
         if device.type == 'cuda':
             record['peak_allocated_mib'] = torch.cuda.max_memory_allocated(device)/1024**2

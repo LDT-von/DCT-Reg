@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run BLCA 5-fold with v3.13 / v3.14 / v3.15 using the v3.10 robust settings
+"""Run BLCA 5-fold candidates using the v3.10 robust settings
 (uni2h encoder, 5fold_uni2h splits, 2048 patches, 50 epochs, 8+8 slots, batch=8).
 
 This is the FAIR comparison suite: every version gets identical data/split/encoder
@@ -14,6 +14,7 @@ Versions:
     v3.13: dct_v313_transport_reconstruction  (transport-aware cross-recon)
     v3.14: dct_v314_masked_transport_reconstruction  (masked MTR)
     v3.15: dct_v315_residual_transport  (NLL-only + RTI)
+    v3.15r: dct_v315_residual_transport  (RTI-directed IPCW rank)
 
 Reference benchmark:
     v3.10 robust 50ep: 0.7208 ± 0.0145 (BLCA, uni2h, 5fold_uni2h)
@@ -50,6 +51,12 @@ VERSIONS = {
         "results": "/data1/DCT-Reg/results/dct_v315_blca_uni2h/blca",
         "log_base": "/data1/DCT-Reg/logs/v315_blca_uni2h_5fold",
         "method": "DCT v3.15 NLL-only RTI baseline",
+    },
+    "v315r": {
+        "config": "configs/dct_v315_rti_rank_blca_uni2h.yaml",
+        "results": "/data1/DCT-Reg/results/dct_v315_rti_rank_blca_uni2h/blca",
+        "log_base": "/data1/DCT-Reg/logs/v315_rti_rank_blca_uni2h_5fold",
+        "method": "DCT v3.15 RTI-directed IPCW rank",
     },
 }
 
@@ -186,7 +193,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--versions", nargs="+", default=list(VERSIONS.keys()),
         choices=list(VERSIONS.keys()),
-        help="Which versions to run. Default: all three."
+        help="Which versions to run. Default: all registered recipes."
     )
     p.add_argument(
         "--gpus", nargs="+", type=int, default=[0],

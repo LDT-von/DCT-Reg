@@ -1,0 +1,66 @@
+name: dct_v315_rti_rank_blca_uni2h
+description: |
+  DCT v3.15 residual transport interaction with RTI-directed IPCW ranking.
+  The auxiliary loss only updates the RTI path on fold-local comparable pairs
+  that the detached global prediction does not already rank by the margin.
+  The original dct_v315_blca_uni2h.yaml remains the matched NLL-only control.
+
+data:
+  study: blca
+  data_root_dir: /data1/TCGA-UNI2-h-features
+  data_path: /data1/dataset_csv
+  rna_format: Pathways
+  label_col: survival_months_dss
+  signature: combine
+  n_classes: 4
+  num_patches: 2048
+  encoding_dim: 1536
+
+split:
+  k_start: 0
+  k_end: 5
+
+train:
+  survot_method: dct_v315_residual_transport
+  specific_simple: dct_v315_rti_rank_blca_uni2h
+  results_dir: /data1/DCT-Reg/results/dct_v315_rti_rank_blca_uni2h/blca
+  max_epochs: 30
+  batch_size: 8
+  warmup_epochs: 0
+  grad_clip_norm: 1.0
+  seed: 3
+  lr: 0.0005
+  opt: adamW
+  reg: 0.0005
+  scheduler: cosine
+  gpu: 0
+  num_workers: 4
+  bag_loss: nll_surv
+  alpha_surv: 0.15
+  min_free_space_gb: 2.0
+  fit_bins_on_train: true
+  binning_mode: global_qcut
+  event_stratified_batches: true
+  event_sampling_fraction: 0.0
+
+slot:
+  slot_num_wsi: 8
+  slot_num_omics: 8
+
+model:
+  wsi_encoder: uni2-h
+  wsi_projection_dim: 256
+  dct_v315_ot_epsilon: 0.20
+  dct_v315_ot_iters: 40
+  dct_v315_dropout: 0.10
+  dct_v315_transport_mode: ot
+
+  # RTI-directed, fold-local censor-aware correction ranking.
+  dct_v315_lambda_rti_rank: 0.10
+  dct_v315_rti_rank_margin: 0.02
+  dct_v315_rti_rank_temperature: 0.50
+  dct_v315_ipcw_max_weight: 10.0
+
+split_setup:
+  which_splits: 5fold_uni2h
+  on_missing_wsi: error
