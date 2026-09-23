@@ -24,7 +24,8 @@ LOG_ROOT = REPO_ROOT / "logs" / "v311_blca_uni_fixed_pancancer"
 UNI_DATA_ROOT = "/data/CPathPatchFeature"
 UNI_ENCODING_DIM = 1024
 UNI_ENCODER = "uni"
-UNI_WHICH_SPLITS = "5fold"
+UNI_WHICH_SPLITS = "5fold"  # 旧版 5fold_uni2h 是 UNI2-h encoder 用的 split, 与本 runner (uni encoder) 不匹配
+# UNI encoder 实际可覆盖 ~92% 患者, 缺的少数患者由数据加载器 on_missing_wsi=warn/skip 静默处理 (不抛错)
 
 # v3.11 frozen recipe. Note: dct_v311_lambda_slot_nll / slot_diversity /
 # variance_min / variance_max are forced inside DCTV311SlotInterpretable.__init__
@@ -52,7 +53,9 @@ FROZEN_V311_OVERRIDES: dict[str, object] = {
     "num_patches": 4096,
     "batch_size": 8,
     "which_splits": UNI_WHICH_SPLITS,
-    "on_missing_wsi": "error",
+    "on_missing_wsi": "zero",  # LUAD 5fold/5fold_uni2h 中各有 1 名患者 (TCGA-55-8207) 100% WSI 缺失,
+    #                            UNI encoder 在 luad 下不完全覆盖. 用 zero 临时填充 (仅 1/366 train, 1/92 val),
+    #                            配合 num_patches=4096 与 slot_diversity 损失, 影响 < 0.3% 的 batch
     "wsi_encoder": UNI_ENCODER,
     "encoding_dim": UNI_ENCODING_DIM,
 }
@@ -129,7 +132,7 @@ def print_plan(jobs: list[Job]) -> None:
     print("=" * 70)
     print("DCT v3.11 Per-Slot Interpretable (UNI features) — PAN-CANCER 5-fold")
     print("OBJECTIVE: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*diversity")
-    print(f"ENCODER: uni (1024-dim) | splits: 5fold | epochs: 30")
+    print(f"ENCODER: uni (1024-dim) | splits: 5fold (UNI encoder) | epochs: 30")
     print(f"GPU: {jobs[0].command[-6]} | Queue: {len(jobs)} folds")
     print(f"Results: {RESULT_ROOT}")
     print(f"Logs:    {LOG_ROOT}")

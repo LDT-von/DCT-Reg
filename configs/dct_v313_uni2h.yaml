@@ -1,0 +1,108 @@
+# DCT v3.13 Transport-Aware Reconstruction - UNI2-h Cancer-Agnostic Config
+#
+# FAIR recipe: identical data/encoder/split/patches/epochs/slot settings
+# across all cancers.  Only `study` is supplied at launch time via
+# `--set study=<cancer>`.
+#
+# Reference: BLCA scored 5-fold mean cindex = 0.7238 using this exact recipe.
+
+name: dct_v313_uni2h
+description: |
+  Cancer-agnostic v3.13 config.  All six v3.10 cancers use the same encoder
+  (UNI2-h, 1536-dim), split (5fold_uni2h), patch cap (2048), epochs (30),
+  batch (8), slot counts (8+8).  Only `study` and `specific_simple` are
+  parameterized at launch time.
+
+data:
+  # study supplied at launch time (--set study=<cancer>)
+  data_root_dir: /data1/TCGA-UNI2-h-features
+  data_path: /data1/dataset_csv
+  rna_format: Pathways
+  label_col: survival_months_dss
+  signature: combine
+  n_classes: 4
+  num_patches: 2048
+  encoding_dim: 1536
+
+split:
+  k_start: 0
+  k_end: 5
+
+train:
+  survot_method: dct_v313_transport_reconstruction
+  # specific_simple supplied at launch time (--set specific_simple=dct_v313_<cancer>_uni2h)
+  max_epochs: 30
+  batch_size: 8
+  warmup_epochs: 0
+  grad_clip_norm: 1.0
+  seed: 3
+  lr: 0.0005
+  opt: adamW
+  reg: 0.0005
+  scheduler: cosine
+  gpu: 0
+  num_workers: 4
+  bag_loss: nll_surv
+  alpha_surv: 0.15
+  min_free_space_gb: 2.0
+  fit_bins_on_train: true
+  binning_mode: global_qcut
+  dct_slot_init_mode: deterministic
+  event_stratified_batches: true
+  event_sampling_fraction: 0.0
+
+slot:
+  slot_num_wsi: 8
+  slot_num_omics: 8
+  slot_iters: 3
+  temperature: 0.01
+  topk_ratio: 0.25
+  top_k_method: parallel_topk_st
+
+model:
+  wsi_encoder: uni2-h
+  wsi_projection_dim: 256
+  otehv2_eps: 0.05
+  otehv2_iter: 50
+  otehv2_heads: 4
+  otehv2_layers: 2
+  otehv2_dropout: 0.15
+  dct_num_stages: 4
+  dct_lambda_ipcw_rank: 0.10
+  dct_ipcw_rank_margin: 0.02
+  dct_ipcw_rank_temperature: 0.50
+  dct_ipcw_max_weight: 10.0
+  dct_ipcw_rank_memory_size: 64
+  dct_v38_lambda_direction: 0.0
+  dct_v38_lambda_dose: 0.0
+  dct_v38_lambda_reconfiguration: 0.0
+  dct_anchor_momentum: 0.90
+  dct_evidence_cost_weight: 0.0
+  dct_evidence_mass_floor: 0.05
+  dct_evidence_marginal_strength: 1.0
+  dct_geometry_reliability_strength: 0.0
+  dct_coupling_projection_iters: 1000
+  dct_coupling_projection_tol: 0.0001
+  dct_mix_ratio: 1.0
+  dct_lambda_etar: 0.0
+  dct_lambda_listwise: 0.0
+  spt_prog_cost: 0.20
+  rg_eps_start: 0.10
+  rg_eps_anneal: 12
+
+  # v3.13 model parameters are FROZEN in DCTV313TransportReconstruction.FROZEN_ARGUMENTS
+  # and cannot be overridden from the YAML (the v3.10 argparse parser does not
+  # accept these keys).  Defaults:
+  #   dct_v311_lambda_slot_nll           = 0.05
+  #   dct_v311_lambda_slot_diversity     = 0.10
+  #   dct_v311_variance_min              = 0.001
+  #   dct_v311_variance_max              = 0.050
+  #   dct_v313_lambda_reconstruction     = 0.10
+  #   dct_v313_reconstruction_self_fraction = 0.50
+  #   dct_v313_reconstruction_cross_fraction = 0.50
+  #   dct_v313_reconstruction_ramp_start = 2
+  #   dct_v313_reconstruction_ramp_epochs = 5
+
+split_setup:
+  which_splits: 5fold_uni2h
+  on_missing_wsi: error
