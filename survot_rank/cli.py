@@ -22,6 +22,7 @@ def cmd_train(args: argparse.Namespace) -> None:
     add_project_paths()
     config = load_config(args.config)
     config = apply_overrides(config, args.set or [])
+    user_keys = list(config.get("_dct_user_overrides", []))
     extra_args = args.extra_args or []
     if extra_args[:1] == ["--"]:
         extra_args = extra_args[1:]
@@ -31,6 +32,9 @@ def cmd_train(args: argparse.Namespace) -> None:
     # torch.cuda.is_available() and device count reflect the correct GPU.
     from survot_rank.training.extended_args import process_args_extended
     parsed = process_args_extended(argv)
+    # Forward the explicit `--set` overrides so model constructors can
+    # distinguish "user-supplied" FROZEN_ARGUMENT keys (ablation studies).
+    parsed._dct_user_overrides = set(user_keys)
     os.environ["CUDA_VISIBLE_DEVICES"] = parsed.gpu
 
     from survot_rank.training.train_runner import run

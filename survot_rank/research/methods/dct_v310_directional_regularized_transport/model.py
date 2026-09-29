@@ -120,14 +120,25 @@ class DCTV310DirectionalRegularizedTransport(
                 f"received {bag_loss!r}"
             )
 
+        # Respect CLI `--set` overrides: skip stamping FROZEN_ARGUMENT keys that
+        # the user supplied explicitly (ablation studies rely on this).
+        user_keys = getattr(args, "_dct_user_overrides", set()) or set()
         for name, value in self.FROZEN_ARGUMENTS.items():
+            if name in user_keys:
+                continue
             setattr(args, name, value)
         super().__init__(args, omic_input_dim, omic_names, pathway_names)
 
         # Paper-facing objective invariants.  These assignments happen after
         # parent construction so no YAML/CLI value can silently change the
-        # submitted method.
-        self.dct_lambda_ipcw_rank = self.IPCW_RANK_WEIGHT
+        # submitted method.  However, for ablation studies we MUST honour the
+        # user-supplied value if `dct_lambda_ipcw_rank` was in `--set`.
+        if "dct_lambda_ipcw_rank" in user_keys:
+            self.dct_lambda_ipcw_rank = float(
+                getattr(args, "dct_lambda_ipcw_rank", self.IPCW_RANK_WEIGHT)
+            )
+        else:
+            self.dct_lambda_ipcw_rank = self.IPCW_RANK_WEIGHT
         self.dct_lambda_etar = 0.0
         self.dct_lambda_listwise = 0.0
         self.dct_v38_lambda_direction = self.DIRECTION_WEIGHT

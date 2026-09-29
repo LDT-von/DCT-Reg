@@ -24,6 +24,8 @@ This class keeps all v3.10 frozen invariants except:
 
 from __future__ import annotations
 
+from typing import Any
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -88,9 +90,24 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
         "dct_v38_ramp_epochs": 0,
     })
 
+    # Ablation override: when `dct_v313_disable_self_reconstruction` or
+    # `dct_v313_disable_cross_reconstruction` (or the v3.11 ablation flags
+    # exposed via CLI `--set`) is non-zero, the corresponding FROZEN_ARGUMENT
+    # is INTENTIONALLY allowed to win.  To make per-experiment ablation real,
+    # we only stamp FROZEN_ARGUMENTS onto `args` if the caller did not already
+    # supply that attribute on the command line.  We detect "user-supplied"
+    # by tracking which keys were emitted by `--set` (populated below).
+    @classmethod
+    def _filter_frozen_arguments(cls, args, frozen: dict[str, Any]) -> dict[str, Any]:
+        user_keys = getattr(args, "_dct_user_overrides", None)
+        if not user_keys:
+            return frozen
+        return {k: v for k, v in frozen.items() if k not in user_keys}
+
     def __init__(self, args, omic_input_dim=None, omic_names=None, pathway_names=None):
-        # Enforce frozen recipe before any parent construction.
-        for name, value in self.FROZEN_ARGUMENTS.items():
+        # Enforce frozen recipe before any parent construction — but respect
+        # user overrides supplied via CLI `--set` (ablation studies).
+        for name, value in self._filter_frozen_arguments(args, self.FROZEN_ARGUMENTS).items():
             setattr(args, name, value)
         super().__init__(args, omic_input_dim, omic_names, pathway_names)
 
@@ -108,7 +125,11 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
         self.num_omic_slots = num_omic_slots
 
         # ---- Model attribute sync (for diagnostics) ----
-        self.dct_lambda_ipcw_rank = self.IPCW_RANK_WEIGHT
+        # Prefer CLI `--set dct_lambda_ipcw_rank=...` over the class default
+        # so that ablation studies can zero out the IPCW rank term.
+        self.dct_lambda_ipcw_rank = float(
+            getattr(args, "dct_lambda_ipcw_rank", self.IPCW_RANK_WEIGHT)
+        )
         self.dct_v38_lambda_direction = 0.0
         self.dct_v38_lambda_dose = 0.0
         self.dct_v38_lambda_reconfiguration = 0.0
@@ -450,7 +471,7 @@ class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
         )
 
         aux_loss = (
-            self.IPCW_RANK_WEIGHT * ipcw_rank_loss
+            self.dct_lambda_ipcw_rank * ipcw_rank_loss
             + lambda_slot_nll * per_slot_nll
             + lambda_diversity * slot_diversity
         )

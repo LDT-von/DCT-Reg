@@ -80,14 +80,23 @@ def collect_v311(cancer):
 
 
 def collect_v313(cancer):
+    def _has_epoch_curves(p):
+        return any(os.path.isfile(os.path.join(p, f"epoch_curve_fold{i}.csv")) for i in range(5))
+
     if cancer == "blca":
         d = (f"{ROOT}/dct_v313_blca_uni/blca/blca/"
              f"SurvOTRank_dct_v313_transport_reconstruction/"
              f"0.0005_b32_survival_months_dss_Dim_256_e_1_g_Pathways_sig_combine_seed3_rW_16_rG_16_sp_dct_v313_blca_uni")
     else:
+        # Primary: dct_v313_<cancer>_uni/blca/<cancer>/...
         d = (f"{ROOT}/dct_v313_{cancer}_uni/blca/{cancer}/"
              f"SurvOTRank_dct_v313_transport_reconstruction/"
              f"0.0005_b32_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_16_rG_16_sp_dct_v313_brca_uni")
+        # If primary dir has no epoch_curve files, fall back to uni2h
+        if not _has_epoch_curves(d):
+            d = (f"{ROOT}/dct_v313_uni2h/{cancer}/{cancer}/"
+                 f"SurvOTRank_dct_v313_transport_reconstruction/"
+                 f"0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_{cancer}_uni2h")
     return collect_folds_5(d)
 
 

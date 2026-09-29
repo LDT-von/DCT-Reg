@@ -51,7 +51,7 @@ def flatten_config(config: dict[str, Any]) -> dict[str, Any]:
     """
     flat: dict[str, Any] = {}
     for key, value in config.items():
-        if key in {"name", "description", "notes"}:
+        if key in {"name", "description", "notes", "_dct_user_overrides"}:
             continue
         if isinstance(value, dict):
             flat.update(value)
@@ -62,12 +62,19 @@ def flatten_config(config: dict[str, Any]) -> dict[str, Any]:
 
 def apply_overrides(config: dict[str, Any], overrides: list[str]) -> dict[str, Any]:
     merged = deepcopy(config)
+    user_keys = []
     for item in overrides:
         if "=" not in item:
             raise ValueError(f"Override must use key=value format: {item}")
         key, raw_value = item.split("=", 1)
         value = yaml.safe_load(raw_value)
         merged[key] = value
+        user_keys.append(key)
+    # Track which keys the caller explicitly supplied via --set, so that
+    # model constructors can detect "user-supplied" attributes and avoid
+    # silently overwriting them with their FROZEN_ARGUMENTS.  Stored under
+    # a reserved key that is stripped by flatten_config().
+    merged["_dct_user_overrides"] = user_keys
     return merged
 
 

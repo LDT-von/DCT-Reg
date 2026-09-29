@@ -60,6 +60,9 @@ def build_base_parser() -> argparse.ArgumentParser:
     parser.add_argument("--batch_size", type=int, default=32)
     parser.add_argument("--bag_loss", type=str, default="nll_surv", choices=["nll_surv", "rank_surv", "cox_surv", "sinkhorn_surv"])
     parser.add_argument("--alpha_surv", type=float, default=0.5)
+    # v3.11 / v3.13 ablation knobs (read by dct_v311_slot_interpretable model via getattr).
+    parser.add_argument("--dct_v311_lambda_slot_nll", type=float, default=0.05)
+    parser.add_argument("--dct_v311_lambda_slot_diversity", type=float, default=0.10)
     # v3.14 candidate recipe: explicit, checkpointed switches for matched ablations.
     parser.add_argument("--dct_v314_lambda_slot_nll", type=float, default=0.05)
     parser.add_argument("--dct_v314_lambda_slot_diversity", type=float, default=0.02)

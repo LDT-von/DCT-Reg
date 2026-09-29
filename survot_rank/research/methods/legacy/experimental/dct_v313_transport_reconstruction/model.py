@@ -15,7 +15,12 @@ semantic slots, and both modality encoders.
 
 from __future__ import annotations
 
+import json
 import math
+import os
+import sys
+import time
+from pathlib import Path
 
 import torch
 import torch.nn as nn
@@ -24,6 +29,34 @@ import torch.nn.functional as F
 from survot_rank.research.methods.legacy.experimental.dct_v311_slot_interpretable.model import (
     DCTV311SlotInterpretable,
 )
+
+
+_DEBUG_LOG_PATH = Path(os.environ.get(
+    "DCT_DEBUG_LOG",
+    "/data1/DCT-Reg/.cursor/debug-486347.log",
+))
+
+
+def _debug_log(hypothesis_id: str, location: str, message: str, data: dict) -> None:
+    """Append a single NDJSON line to the debug log (session 486347)."""
+    try:
+        payload = {
+            "id": f"log_{int(time.time()*1000)}_{os.getpid()}",
+            "timestamp": int(time.time() * 1000),
+            "location": location,
+            "message": message,
+            "data": data,
+            "runId": os.environ.get("DCT_DEBUG_RUN_ID", "ablation"),
+            "hypothesisId": hypothesis_id,
+        }
+        _DEBUG_LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with _DEBUG_LOG_PATH.open("a") as f:
+            f.write(json.dumps(payload) + "\n")
+    except Exception as e:  # pragma: no cover — never break training
+        try:
+            sys.stderr.write(f"[debug-log] {e}\n")
+        except Exception:
+            pass
 
 
 class OmicsTokenReconstructionDecoder(nn.Module):
@@ -86,7 +119,14 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             raise ValueError(
                 "DCT v3.13 reconstructs pathway tokens and requires rna_format='Pathways'"
             )
-        for name, value in self.FROZEN_ARGUMENTS.items():
+        # Respect CLI `--set` overrides: FROZEN_ARGUMENTS only stamp keys the
+        # caller did not already supply (ablation studies).
+        v313_frozen = {
+            name: value
+            for name, value in self.FROZEN_ARGUMENTS.items()
+            if name not in getattr(args, "_dct_user_overrides", set())
+        }
+        for name, value in v313_frozen.items():
             setattr(args, name, value)
         # Ablation hooks: allow callers to override reconstruction knobs
         # via args (FROZEN_ARGUMENTS already populated, but ablation flags
@@ -109,12 +149,26 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
 
         dim = int(self.wsi_projection_dim)
         # Effective weights honour ablation flags before being read by forward().
+        # Each ablation flag independently removes the corresponding fraction:
+        #   - disable_self  → self fraction forced to 0, only cross remains
+        #   - disable_cross → cross fraction forced to 0, only self remains
+        # Both flags → weight=0.
         if self._ablation_disable_self and self._ablation_disable_cross:
             effective_weight = 0.0
         elif self._ablation_disable_self:
-            effective_weight = self.RECONSTRUCTION_WEIGHT * self._ablation_lambda_scale
+            effective_weight = (
+                self.RECONSTRUCTION_WEIGHT
+                * self._ablation_lambda_scale
+                * self.RECONSTRUCTION_CROSS_FRACTION
+                / max(self.RECONSTRUCTION_SELF_FRACTION + self.RECONSTRUCTION_CROSS_FRACTION, 1e-8)
+            )
         elif self._ablation_disable_cross:
-            effective_weight = self.RECONSTRUCTION_WEIGHT * self._ablation_lambda_scale
+            effective_weight = (
+                self.RECONSTRUCTION_WEIGHT
+                * self._ablation_lambda_scale
+                * self.RECONSTRUCTION_SELF_FRACTION
+                / max(self.RECONSTRUCTION_SELF_FRACTION + self.RECONSTRUCTION_CROSS_FRACTION, 1e-8)
+            )
         else:
             effective_weight = (
                 self.RECONSTRUCTION_WEIGHT * self._ablation_lambda_scale
@@ -138,6 +192,35 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
         self._last_reconstruction_cross = 0.0
         self._last_reconstruction_total = 0.0
         self._last_reconstruction_ramp = 0.0
+        # Honour ablation flags for per-slot NLL and diversity too (added Sep 29 2026
+        # after discovering v3.13 hard-coded PER_SLOT_NLL_WEIGHT in aux_loss, which
+        # made --set dct_v311_lambda_slot_nll=0 silently ignored).
+        self.dct_v313_lambda_slot_nll_effective = float(
+            getattr(args, "dct_v311_lambda_slot_nll", self.PER_SLOT_NLL_WEIGHT)
+        )
+        self.dct_v313_lambda_slot_diversity_effective = float(
+            getattr(args, "dct_v311_lambda_slot_diversity", self.SLOT_DIVERSITY_WEIGHT)
+        )
+        # #region agent log — H1: verify effective weights match args
+        _debug_log(
+            hypothesis_id="H1",
+            location="dct_v313/model.py:init",
+            message="effective weights at init",
+            data={
+                "args_dct_v311_lambda_slot_nll": float(getattr(args, "dct_v311_lambda_slot_nll", -1.0)),
+                "args_dct_v311_lambda_slot_diversity": float(getattr(args, "dct_v311_lambda_slot_diversity", -1.0)),
+                "args_dct_lambda_ipcw_rank": float(getattr(args, "dct_lambda_ipcw_rank", -1.0)),
+                "args_dct_v313_disable_self_reconstruction": getattr(args, "dct_v313_disable_self_reconstruction", None),
+                "args_dct_v313_disable_cross_reconstruction": getattr(args, "dct_v313_disable_cross_reconstruction", None),
+                "self_dct_v313_lambda_slot_nll_effective": self.dct_v313_lambda_slot_nll_effective,
+                "self_dct_v313_lambda_slot_diversity_effective": self.dct_v313_lambda_slot_diversity_effective,
+                "self_dct_v313_lambda_reconstruction_effective": self.dct_v313_lambda_reconstruction_effective,
+                "PER_SLOT_NLL_WEIGHT_class_const": self.PER_SLOT_NLL_WEIGHT,
+                "SLOT_DIVERSITY_WEIGHT_class_const": self.SLOT_DIVERSITY_WEIGHT,
+                "class_id": id(self.__class__),
+            },
+        )
+        # #endregion agent log
 
     @staticmethod
     def _compatible_num_heads(dim: int, preferred: int) -> int:
@@ -394,9 +477,9 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
         )
 
         aux_loss = (
-            self.IPCW_RANK_WEIGHT * ipcw_rank_loss
-            + self.PER_SLOT_NLL_WEIGHT * per_slot_nll
-            + self.SLOT_DIVERSITY_WEIGHT * slot_diversity
+            self.dct_lambda_ipcw_rank * ipcw_rank_loss
+            + self.dct_v313_lambda_slot_nll_effective * per_slot_nll
+            + self.dct_v313_lambda_slot_diversity_effective * slot_diversity
             + effective_reconstruction_weight * reconstruction
         )
 
