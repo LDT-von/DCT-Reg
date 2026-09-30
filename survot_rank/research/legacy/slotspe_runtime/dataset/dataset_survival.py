@@ -318,6 +318,15 @@ class SurvivalDataset(Dataset):
 
         if split_key in ['train', 'val']:
             self.label_df = self._load_split()
+        elif split_key in ('inner_train', 'inner_val', 'outer_test'):
+            # §3.1 #5: outer_test protocol.  Each split name corresponds to a
+            # column in the outer-test split CSV (see
+            # survot_rank.training.outer_test_split).  The dataset constructor
+            # is otherwise identical — patients are looked up against the
+            # clinical frame, and patch selection mirrors the train/val
+            # branches (random for inner_train, deterministic for
+            # inner_val/outer_test).
+            self.label_df = self._load_split(column=split_key)
         else:
             raise ValueError(f"Invalid split key: {split_key}")
 
@@ -363,11 +372,17 @@ class SurvivalDataset(Dataset):
                 f"  如确需临时零填充（会污染结果，不推荐），设 on_missing_wsi=zero。"
             )
 
-    def _load_split(self):
+    def _load_split(self, column: str | None = None):
         split_path = os.path.join(self.dataset_factory.data_path, "splits", self.dataset_factory.which_splits, f"{self.dataset_factory.study}",
                                   f"fold_{self.fold}.csv")
         all_splits = pd.read_csv(split_path)
-        split = self._get_split_from_df(all_splits, self.split_key)
+        split_column = column if column is not None else self.split_key
+        if split_column not in all_splits.columns:
+            raise KeyError(
+                f"split column {split_column!r} not found in {split_path}; "
+                f"available columns: {list(all_splits.columns)}"
+            )
+        split = self._get_split_from_df(all_splits, split_column)
         return split
 
     def _get_split_from_df(self, all_splits, split_key: str = 'train'):
@@ -563,7 +578,7 @@ class SurvivalDataset(Dataset):
         # random patches; evaluation uses deterministic evenly spaced patches.
         if self.dataset_factory.num_patches is not None:
             n_samples = min(self.dataset_factory.num_patches, wsi.size(0))
-            if self.split_key == 'train':
+            if self.split_key in ('train', 'inner_train'):
                 patch_idx = np.sort(np.random.choice(wsi.size(0), n_samples, replace=False))
             else:
                 patch_idx = np.floor(
@@ -573,7 +588,7 @@ class SurvivalDataset(Dataset):
 
             if n_samples < self.dataset_factory.num_patches:
                 wsi = torch.cat([wsi, torch.zeros(self.dataset_factory.num_patches - n_samples, wsi.size(1))], dim=0)
-        if self.dataset_factory.num_genes is not None and self.split_key == 'train':
+        if self.dataset_factory.num_genes is not None and self.split_key in ('train', 'inner_train'):
             if self.dataset_factory.rna_format != "Pathways":
                 n_genes = min(self.dataset_factory.num_genes, genes.size(0))
                 gene_idx = np.sort(np.random.choice(genes.size(0), n_genes, replace=False))

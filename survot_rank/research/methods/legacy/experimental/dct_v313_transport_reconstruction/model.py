@@ -145,35 +145,128 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
         self._ablation_lambda_scale = float(
             getattr(args, "dct_v313_lambda_reconstruction_scale", 1.0)
         )
+        # §3.1 #3: cross-reconstruction mode.
+        #
+        # ``transport`` (default): pass OT-transported WSI slots to the
+        # cross decoder.  ``direct``: pass the un-transported WSI slots
+        # directly, isolating the OT contribution to cross reconstruction.
+        cross_mode = str(getattr(args, "dct_v313_cross_mode", "transport")).lower()
+        if cross_mode not in ("transport", "direct"):
+            raise ValueError(
+                "dct_v313_cross_mode must be 'transport' or 'direct', got "
+                f"{cross_mode!r}"
+            )
+        self._cross_mode = cross_mode
+        # §3.1 #4: OT plan mode.
+        #
+        # ``learned`` (default): use the Sinkhorn-projected OT plans from
+        # the evidence-cost geometry.  ``independent``: replace the plan
+        # with T = a bᵀ (outer product of marginals) in every consumer.
+        plan_mode = str(getattr(args, "dct_v313_plan_mode", "learned")).lower()
+        if plan_mode not in ("learned", "independent"):
+            raise ValueError(
+                "dct_v313_plan_mode must be 'learned' or 'independent', got "
+                f"{plan_mode!r}"
+            )
+        self._plan_mode = plan_mode
+        weighting_mode = str(getattr(args, "dct_v313_recon_weighting", "legacy")).lower()
+        if weighting_mode not in ("legacy", "per_branch"):
+            raise ValueError(
+                "dct_v313_recon_weighting must be 'legacy' or 'per_branch', got "
+                f"{weighting_mode!r}"
+            )
+        self._recon_weighting_mode = weighting_mode
         super().__init__(args, omic_input_dim, omic_names, pathway_names)
 
         dim = int(self.wsi_projection_dim)
-        # Effective weights honour ablation flags before being read by forward().
-        # Each ablation flag independently removes the corresponding fraction:
-        #   - disable_self  → self fraction forced to 0, only cross remains
-        #   - disable_cross → cross fraction forced to 0, only self remains
-        # Both flags → weight=0.
-        if self._ablation_disable_self and self._ablation_disable_cross:
-            effective_weight = 0.0
-        elif self._ablation_disable_self:
-            effective_weight = (
-                self.RECONSTRUCTION_WEIGHT
-                * self._ablation_lambda_scale
-                * self.RECONSTRUCTION_CROSS_FRACTION
-                / max(self.RECONSTRUCTION_SELF_FRACTION + self.RECONSTRUCTION_CROSS_FRACTION, 1e-8)
+        # ------------------------------------------------------------------
+        # Effective per-branch reconstruction coefficients.
+        #
+        # We always work with TWO independent coefficients (self/cross).
+        # The same pair is consumed by `reconstruction_losses` and
+        # `forward`, so the value the combiner multiplies with is exactly
+        # what the audit log reports.  ``dct_v313_lambda_reconstruction_effective``
+        # holds the SUM of the two — i.e. the constant that the legacy code
+        # used to renormalise to (no double-down).
+        #
+        #   - legacy     (commit 93d8314): ``coef_i = effective_weight × fraction_i``.
+        #     When one branch is disabled the legacy renormalisation keeps
+        #     the SUM constant (== RECONSTRUCTION_WEIGHT), so the surviving
+        #     per-branch coefficient is the half-constant 0.025 (the historic
+        #     "double-down" weakness — compensated in some ablation runs by
+        #     scale=2).
+        #   - per_branch (new v3.13 paper recipe): ``coef_i = WEIGHT × fraction_i``
+        #     independently of the disable flags.  Disabling self zeros only
+        #     the self term; cross keeps its full constant 0.05.  Disable
+        #     cross → only self survives at 0.05.
+        #   - scale=1 is mandatory in per_branch mode; the historic scale=2
+        #     compensation from the legacy recipe MUST NOT be carried over.
+        # ------------------------------------------------------------------
+        frac_sum = max(
+            self.RECONSTRUCTION_SELF_FRACTION + self.RECONSTRUCTION_CROSS_FRACTION, 1e-8
+        )
+        if self._recon_weighting_mode == "legacy":
+            if self._ablation_disable_self and self._ablation_disable_cross:
+                legacy_renormalised_weight = 0.0
+            elif self._ablation_disable_self:
+                legacy_renormalised_weight = (
+                    self.RECONSTRUCTION_WEIGHT
+                    * self._ablation_lambda_scale
+                    * self.RECONSTRUCTION_CROSS_FRACTION
+                    / frac_sum
+                )
+            elif self._ablation_disable_cross:
+                legacy_renormalised_weight = (
+                    self.RECONSTRUCTION_WEIGHT
+                    * self._ablation_lambda_scale
+                    * self.RECONSTRUCTION_SELF_FRACTION
+                    / frac_sum
+                )
+            else:
+                legacy_renormalised_weight = (
+                    self.RECONSTRUCTION_WEIGHT * self._ablation_lambda_scale
+                )
+            self_branch_coef = (
+                0.0
+                if self._ablation_disable_self
+                else legacy_renormalised_weight * self.RECONSTRUCTION_SELF_FRACTION
             )
-        elif self._ablation_disable_cross:
-            effective_weight = (
-                self.RECONSTRUCTION_WEIGHT
-                * self._ablation_lambda_scale
-                * self.RECONSTRUCTION_SELF_FRACTION
-                / max(self.RECONSTRUCTION_SELF_FRACTION + self.RECONSTRUCTION_CROSS_FRACTION, 1e-8)
+            cross_branch_coef = (
+                0.0
+                if self._ablation_disable_cross
+                else legacy_renormalised_weight * self.RECONSTRUCTION_CROSS_FRACTION
             )
-        else:
-            effective_weight = (
-                self.RECONSTRUCTION_WEIGHT * self._ablation_lambda_scale
+        else:  # per_branch
+            if self._ablation_lambda_scale != 1.0:
+                raise ValueError(
+                    "dct_v313_recon_weighting='per_branch' forbids "
+                    "dct_v313_lambda_reconstruction_scale != 1.0 "
+                    "(got {scale}).  The legacy scale=2 compensation must NOT be "
+                    "carried into the new recipe.".format(
+                        scale=self._ablation_lambda_scale
+                    )
+                )
+            self_branch_coef = (
+                0.0
+                if self._ablation_disable_self
+                else self.RECONSTRUCTION_WEIGHT * self.RECONSTRUCTION_SELF_FRACTION
             )
-        self.dct_v313_lambda_reconstruction_effective = effective_weight
+            cross_branch_coef = (
+                0.0
+                if self._ablation_disable_cross
+                else self.RECONSTRUCTION_WEIGHT * self.RECONSTRUCTION_CROSS_FRACTION
+            )
+
+        self.dct_v313_reconstruction_self_coef = self_branch_coef
+        self.dct_v313_reconstruction_cross_coef = cross_branch_coef
+        # ``dct_v313_lambda_reconstruction_effective`` reports the SUM of
+        # per-branch coefficients — i.e. the maximum coefficient that the
+        # combiner can apply to the loss before the ramp multiplier.  This
+        # replaces the legacy "renormalised weight" semantics and makes the
+        # audit field directly comparable to ``effective_recon_coefficients()``.
+        self.dct_v313_lambda_reconstruction_effective = (
+            self_branch_coef + cross_branch_coef
+        )
         self.dct_v313_reconstruction_self_fraction = (
             0.0 if self._ablation_disable_self else self.RECONSTRUCTION_SELF_FRACTION
         )
@@ -212,9 +305,13 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
                 "args_dct_lambda_ipcw_rank": float(getattr(args, "dct_lambda_ipcw_rank", -1.0)),
                 "args_dct_v313_disable_self_reconstruction": getattr(args, "dct_v313_disable_self_reconstruction", None),
                 "args_dct_v313_disable_cross_reconstruction": getattr(args, "dct_v313_disable_cross_reconstruction", None),
+                "args_dct_v313_recon_weighting": getattr(args, "dct_v313_recon_weighting", None),
                 "self_dct_v313_lambda_slot_nll_effective": self.dct_v313_lambda_slot_nll_effective,
                 "self_dct_v313_lambda_slot_diversity_effective": self.dct_v313_lambda_slot_diversity_effective,
                 "self_dct_v313_lambda_reconstruction_effective": self.dct_v313_lambda_reconstruction_effective,
+                "self_dct_v313_reconstruction_self_coef": float(self.dct_v313_reconstruction_self_coef),
+                "self_dct_v313_reconstruction_cross_coef": float(self.dct_v313_reconstruction_cross_coef),
+                "self_dct_v313_recon_weighting_mode": self._recon_weighting_mode,
                 "PER_SLOT_NLL_WEIGHT_class_const": self.PER_SLOT_NLL_WEIGHT,
                 "SLOT_DIVERSITY_WEIGHT_class_const": self.SLOT_DIVERSITY_WEIGHT,
                 "class_id": id(self.__class__),
@@ -231,12 +328,85 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
 
     @classmethod
     def objective_weights(cls) -> dict[str, float]:
-        return {
+        """Return the abstract recipe weight dict (class-constant only).
+
+        §3.1 #1: in ``per_branch`` mode the reconstruction loss is decomposed
+        into per-branch keys (``self``, ``cross``) and the aggregated
+        ``reconstruction`` key is *omitted*.  In ``legacy`` mode the original
+        aggregated key is returned for backward compatibility.  Use the
+        instance-level ``objective_weights()`` for effective post-init values
+        (FROZEN override accounting).
+        """
+        weights = {
             "nll": cls.NLL_WEIGHT,
             "ipcw_rank": cls.IPCW_RANK_WEIGHT,
             "per_slot_nll": cls.PER_SLOT_NLL_WEIGHT,
             "slot_diversity": cls.SLOT_DIVERSITY_WEIGHT,
-            "reconstruction": cls.RECONSTRUCTION_WEIGHT,
+            "weighting_mode": "per_branch",
+        }
+        weights["reconstruction_self"] = (
+            cls.RECONSTRUCTION_WEIGHT * cls.RECONSTRUCTION_SELF_FRACTION
+        )
+        weights["reconstruction_cross"] = (
+            cls.RECONSTRUCTION_WEIGHT * cls.RECONSTRUCTION_CROSS_FRACTION
+        )
+        return weights
+
+    def objective_weights_effective(self) -> dict[str, float]:
+        """Return the *effective* objective weights actually applied at
+        forward time (after FROZEN overrides and ablation flags).
+
+        Companion to :meth:`objective_weights`.  Use this when you need the
+        exact coefficients that multiplied each loss term — for audit logs,
+        weight summaries, and downstream consumers that care about the
+        post-construction effective weights rather than the abstract
+        recipe.
+        """
+        weights = {
+            "nll": self.NLL_WEIGHT,
+            "ipcw_rank": self.dct_lambda_ipcw_rank,
+            "per_slot_nll": self.dct_v313_lambda_slot_nll_effective,
+            "slot_diversity": self.dct_v313_lambda_slot_diversity_effective,
+            "weighting_mode": self._recon_weighting_mode,
+        }
+        if self._recon_weighting_mode == "per_branch":
+            weights["reconstruction_self"] = float(self.dct_v313_reconstruction_self_coef)
+            weights["reconstruction_cross"] = float(self.dct_v313_reconstruction_cross_coef)
+        else:
+            weights["reconstruction"] = self.RECONSTRUCTION_WEIGHT
+            weights["reconstruction_self"] = (
+                self.RECONSTRUCTION_WEIGHT * self.RECONSTRUCTION_SELF_FRACTION
+            )
+            weights["reconstruction_cross"] = (
+                self.RECONSTRUCTION_WEIGHT * self.RECONSTRUCTION_CROSS_FRACTION
+            )
+        return weights
+
+    # The v3.14 schema emitter historically invoked
+    # ``self.objective_weights()`` on a live instance.  With the dual-API
+    # change, ``objective_weights`` is the abstract recipe (classmethod);
+    # ``objective_weights_effective`` is the post-FROZEN actual values.
+    # Callers that need the abstract recipe on an instance should use
+    # ``type(self).objective_weights()`` (or equivalently, call the
+    # classmethod directly).
+
+    def effective_recon_coefficients(self) -> dict[str, float]:
+        """Return the *effective* per-branch coefficients actually used by
+        `reconstruction_losses` after weighting mode and ablation flags are
+        applied.  Always reflects what the forward pass multiplies the loss
+        terms by, so it can be cross-referenced with the audit log without
+        guessing the mode.
+        """
+        return {
+            "weighting_mode": self._recon_weighting_mode,
+            "self": float(self.dct_v313_reconstruction_self_coef),
+            "cross": float(self.dct_v313_reconstruction_cross_coef),
+            "total": float(self.dct_v313_lambda_reconstruction_effective),
+            "disable_self": bool(self._ablation_disable_self),
+            "disable_cross": bool(self._ablation_disable_cross),
+            "lambda_scale": float(self._ablation_lambda_scale),
+            "cross_mode": self._cross_mode,
+            "plan_mode": self._plan_mode,
         }
 
     @classmethod
@@ -310,6 +480,70 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
         return available & ~missing
 
     @staticmethod
+    def _independent_outer_plan(
+        rows: torch.Tensor,
+        cols: torch.Tensor,
+        num_geometries: int,
+    ) -> list[tuple[torch.Tensor, ...]]:
+        """§3.1 #4: build the marginal-outer-product plan T = a bᵀ.
+
+        Args:
+            rows: ``[B, S, K_w]`` row marginals (per-stage WSI mass).
+            cols: ``[B, S, K_o]`` column marginals (per-stage omic mass).
+            num_geometries: number of cost geometries per stage (kept to
+                preserve the ``plans[stage_idx] = tuple[plan]`` contract).
+
+        Returns:
+            ``list[S]`` of ``num_geometries``-tuple of plans, each ``[B, K_w, K_o]``.
+        """
+        plans: list[tuple[torch.Tensor, ...]] = []
+        for stage_idx in range(rows.size(1)):
+            stage_plans = []
+            for _ in range(num_geometries):
+                plan = torch.einsum(
+                    "bw,bo->bwo", rows[:, stage_idx], cols[:, stage_idx]
+                )
+                stage_plans.append(plan)
+            plans.append(tuple(stage_plans))
+        return plans
+
+    def _plans_from_cost_tensor(self, costs, rows, cols, epoch, *, replay_fixed=False):
+        """§3.1 #4: when ``_plan_mode == 'independent'``, replace the
+        Sinkhorn-projected plans with the marginal outer product ``T = a bᵀ``.
+
+        The outer product carries no transport information — both modalities
+        are projected independently — but still respects the per-stage
+        marginals, the multi-stage shape, and the (geometry, plan) tuple
+        contract that downstream consumers expect.  Distances are computed
+        honestly: the per-stage mean cost mass of the independent plan on
+        each cost geometry, averaged across stages.  This makes the audit
+        log transparent (you can see the cost mass that *would* be
+        transported under the marginals without Sinkhorn alignment).
+        """
+        if self._plan_mode != "independent":
+            return super()._plans_from_cost_tensor(
+                costs, rows, cols, epoch, replay_fixed=replay_fixed
+            )
+        num_geometries = costs.size(2)
+        independent_plans = self._independent_outer_plan(
+            rows, cols, num_geometries
+        )
+        # Honest distance reporting: the cost mass the independent plan
+        # would transport.  This is purely diagnostic; it never feeds the
+        # gradient because the plan is consumed downstream by frozen OT
+        # mass terms.
+        stage_distances = []
+        for stage_idx, stage_plans in enumerate(independent_plans):
+            geo_distances = []
+            for geo_idx, plan in enumerate(stage_plans):
+                geo_distances.append(
+                    (plan * costs[:, stage_idx, geo_idx]).sum(dim=(1, 2))
+                )
+            stage_distances.append(torch.stack(geo_distances).mean())
+        distance = torch.stack(stage_distances).mean()
+        return independent_plans, distance
+
+    @staticmethod
     def _transport_wsi_to_omic(
         slots_wsi: torch.Tensor,
         factual_plans,
@@ -381,16 +615,31 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
                 slots_omic.size(0), self.spt_num_stages, *slots_omic.shape[1:]
             )
         else:
-            transported_wsi, _ = self._transport_wsi_to_omic(
-                slots_wsi, factual_plans, factual_gate
-            )
+            if self._cross_mode == "direct":
+                # §3.1 #3: bypass OT entirely; feed raw WSI slots directly
+                # into the same decoder used by the transport branch.  Both
+                # the OT output and the raw slots are [B, K, D] tensors —
+                # only the semantic content differs (raw slots live in WSI
+                # coordinate space; OT output is the WSI→omic barycentric
+                # projection).  No reshape required.
+                transported_wsi = slots_wsi
+            else:
+                transported_wsi, _ = self._transport_wsi_to_omic(
+                    slots_wsi, factual_plans, factual_gate
+                )
             cross_prediction = self.pathway_reconstruction_decoder(transported_wsi)
             cross_loss = self._reconstruction_distance(
                 cross_prediction, target, available
             )
+        # Use the explicit per-branch coefficients rather than the
+        # `effective_weight × fraction` decomposition: this guarantees that
+        # what the combiner multiplies the loss by is exactly what the audit
+        # log stored at construction time (no silent normalisation).  When
+        # the branch is disabled both its coefficient and its loss value are
+        # zero, so the gradient contribution is also zero.
         total = (
-            self.dct_v313_reconstruction_self_fraction * self_loss
-            + self.dct_v313_reconstruction_cross_fraction * cross_loss
+            self.dct_v313_reconstruction_self_coef * self_loss
+            + self.dct_v313_reconstruction_cross_coef * cross_loss
         )
         return self_loss, cross_loss, total, transported_wsi
 
@@ -472,9 +721,12 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             )
         )
         ramp = self._reconstruction_ramp(epoch)
-        effective_reconstruction_weight = (
-            self.dct_v313_lambda_reconstruction_effective * ramp
-        )
+        # The combiner uses the per-branch coefficients directly so the
+        # value multiplied into the loss matches the audit log exactly.
+        # No additional scaling by ``effective_weight_total`` happens here
+        # (that would be a double-down bug).  The ramp still scales both
+        # branches uniformly.
+        effective_reconstruction_weight = ramp
 
         aux_loss = (
             self.dct_lambda_ipcw_rank * ipcw_rank_loss

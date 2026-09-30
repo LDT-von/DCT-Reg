@@ -229,6 +229,23 @@ def init_scheduler(args, optimizer):
 # ============================================================
 
 def get_split(args, dataset_factory, fold):
+    """Return the four datasets/loaders a fold needs.
+
+    §3.1 #5: under ``evaluation_protocol=outer_test`` the original
+    five-fold ``val`` is fixed as the outer test, and the original
+    ``train`` is split 80/20 (stratified by event, ``split_seed=3``)
+    into ``inner_train`` and ``inner_val``.  All binning, censoring
+    reference, and OT edge fitting use ``inner_train`` ONLY — the
+    outer test never touches the model state during training.
+
+    Returns:
+        (train_data, val_data, train_loader, val_loader) for legacy_val.
+        (inner_train_data, inner_val_data, inner_train_loader, inner_val_loader)
+            for outer_test — ``val_data`` here is the inner_val (used for
+            checkpoint selection); the outer test set is *not* returned
+            because it must be evaluated exactly once after training
+            (see ``evaluate_outer_test`` below).
+    """
     split_path = os.path.join(
         dataset_factory.data_path,
         "splits", dataset_factory.which_splits, dataset_factory.study,
@@ -240,11 +257,36 @@ def get_split(args, dataset_factory, fold):
     # incompatible target bins; keep the factory-level global bins by default.
     # dataset_factory.fit_label_bins(split_df["train"].dropna().tolist())
 
+    evaluation_protocol = getattr(args, "evaluation_protocol", "legacy_val")
+    if evaluation_protocol not in ("legacy_val", "outer_test"):
+        raise ValueError(
+            f"evaluation_protocol must be 'legacy_val' or 'outer_test', got "
+            f"{evaluation_protocol!r}"
+        )
+    # Which split column drives the bin-fitting?  In legacy_val it is the
+    # parent train; in outer_test it is inner_train only — the outer test
+    # must never leak into the bin edges.
+    if evaluation_protocol == "outer_test":
+        required_columns = {"inner_train", "inner_val", "outer_test"}
+        missing_columns = required_columns - set(split_df.columns)
+        if missing_columns:
+            raise KeyError(
+                f"evaluation_protocol=outer_test requires split CSV columns "
+                f"{sorted(required_columns)}; missing {sorted(missing_columns)} "
+                f"in {split_path}.  Generate them with "
+                f"`python -m survot_rank.training.outer_test_split --which_splits "
+                f"{dataset_factory.which_splits} --outer_which_splits "
+                f"{dataset_factory.which_splits}_outer_test_seed<seed>`."
+            )
+        fit_column = "inner_train"
+    else:
+        fit_column = "train"
+
     if getattr(args, "fit_bins_on_train", False):
         # Discrete-time labels are part of the supervised target.  Fit their
         # quantile edges before constructing either dataset so validation times
         # cannot influence the fold's label representation.
-        dataset_factory.fit_label_bins(split_df["train"].dropna().tolist())
+        dataset_factory.fit_label_bins(split_df[fit_column].dropna().tolist())
 
     wsi_path = os.path.join(
         args.data_root_dir,
@@ -253,14 +295,24 @@ def get_split(args, dataset_factory, fold):
         "pt_files",
     )
     on_missing_wsi = getattr(args, "on_missing_wsi", "error")
-    train_data = SurvivalDataset(
-        dataset_factory, wsi_path, 'train', fold, args.encoding_dim,
-        on_missing_wsi=on_missing_wsi,
-    )
-    test_data = SurvivalDataset(
-        dataset_factory, wsi_path, 'val', fold, args.encoding_dim,
-        on_missing_wsi=on_missing_wsi,
-    )
+    if evaluation_protocol == "outer_test":
+        train_data = SurvivalDataset(
+            dataset_factory, wsi_path, 'inner_train', fold, args.encoding_dim,
+            on_missing_wsi=on_missing_wsi,
+        )
+        test_data = SurvivalDataset(
+            dataset_factory, wsi_path, 'inner_val', fold, args.encoding_dim,
+            on_missing_wsi=on_missing_wsi,
+        )
+    else:
+        train_data = SurvivalDataset(
+            dataset_factory, wsi_path, 'train', fold, args.encoding_dim,
+            on_missing_wsi=on_missing_wsi,
+        )
+        test_data = SurvivalDataset(
+            dataset_factory, wsi_path, 'val', fold, args.encoding_dim,
+            on_missing_wsi=on_missing_wsi,
+        )
 
     # 鍚敤澶氳繘绋嬫暟鎹姞杞藉拰椤甸攣瀹氬唴瀛樹互鍔犻€?GPU 璁粌
     num_workers = getattr(args, 'num_workers', 4)
@@ -514,6 +566,110 @@ def train_one_epoch(args, epoch, model, loader, optimizer, scheduler, loss_fn, l
     return diagnostics
 
 
+def evaluate_outer_test(args, dataset_factory, fold, model_state_path, log_file):
+    """§3.1 #5: evaluate the best inner-train checkpoint on the outer test.
+
+    Loads ``model_state_path`` (the inner-train best checkpoint), constructs
+    the outer-test loader from the same split CSV used during training,
+    and runs ``evaluate`` exactly once.  The test cohort is NEVER seen
+    during training and NEVER participates in checkpoint selection.
+
+    Returns:
+        Tuple ``(test_results, test_c, test_c_ipcw, test_BS, test_IBS,
+        test_iauc, test_loss)`` mirroring the ``evaluate`` contract so
+        downstream bookkeeping can treat outer-test metrics identically
+        to legacy val metrics.
+    """
+    if getattr(args, "evaluation_protocol", "legacy_val") != "outer_test":
+        raise ValueError(
+            "evaluate_outer_test called with evaluation_protocol="
+            f"{getattr(args, 'evaluation_protocol', 'legacy_val')!r}; "
+            "this function is only valid under outer_test"
+        )
+    wsi_path = os.path.join(
+        args.data_root_dir,
+        dataset_factory.study,
+        getattr(args, "wsi_encoder", "uni"),
+        "pt_files",
+    )
+    on_missing_wsi = getattr(args, "on_missing_wsi", "error")
+    outer_test_data = SurvivalDataset(
+        dataset_factory, wsi_path, 'outer_test', fold, args.encoding_dim,
+        on_missing_wsi=on_missing_wsi,
+    )
+    if args.rna_format == "Pathways" or args.rna_format == "RankedGenes":
+        outer_test_loader = torch.utils.data.DataLoader(
+            outer_test_data, batch_size=1, shuffle=False,
+            num_workers=getattr(args, 'num_workers', 4), pin_memory=True,
+            collate_fn=_collate_pathways,
+        )
+    else:
+        outer_test_loader = torch.utils.data.DataLoader(
+            outer_test_data, batch_size=1, shuffle=False,
+            num_workers=getattr(args, 'num_workers', 4), pin_memory=True,
+        )
+
+    # Outer test patients are unrelated to inner_train / inner_val; the
+    # survival reference is therefore the inner-train-derived one, not
+    # anything computed from the outer test set.
+    train_labels = _load_inner_train_labels(args, dataset_factory, fold)
+    survival_train = _extract_survival_metadata(dataset_factory, train_labels)
+
+    # Build the model on the same constructor used for training, then load
+    # the inner-train best checkpoint.
+    model = init_model_for_method(args, dataset_factory)
+    state_dict = torch.load(model_state_path, map_location="cpu")
+    model.load_state_dict(state_dict)
+
+    loss_fn = init_loss_function(args)
+    test_events = int(
+        (outer_test_data.label_df[dataset_factory.censorship_var] < 0.5).sum()
+    )
+    safe_write_line(
+        log_file,
+        f"[outer-test] fold={fold} n={len(outer_test_data)} events={test_events}",
+    )
+
+    results, test_c, test_c_ipcw, test_BS, test_IBS, test_iauc, test_loss = evaluate(
+        args, dataset_factory, model, outer_test_loader, loss_fn, survival_train,
+    )
+    msg = (
+        f"[outer-test] fold={fold} cindex={test_c:.4f} ipcw={test_c_ipcw:.4f} "
+        f"IBS={test_IBS:.4f} iauc={test_iauc:.4f}"
+    )
+    print(msg)
+    safe_write_line(log_file, msg)
+    safe_flush(log_file)
+    return results, test_c, test_c_ipcw, test_BS, test_IBS, test_iauc, test_loss
+
+
+def _load_inner_train_labels(args, dataset_factory, fold):
+    """§3.1 #5: read the inner_train patient IDs from the outer-test split
+    CSV and return their clinical rows.  Used by ``evaluate_outer_test``
+    to derive the survival reference without loading the WSI features.
+    """
+    split_path = os.path.join(
+        dataset_factory.data_path,
+        "splits", dataset_factory.which_splits, dataset_factory.study,
+        f"fold_{fold}.csv",
+    )
+    split_df = pd.read_csv(split_path)
+    if "inner_train" not in split_df.columns:
+        raise KeyError(
+            f"inner_train column not found in {split_path}; cannot derive "
+            f"survival reference for outer-test evaluation"
+        )
+    inner_train_ids = split_df["inner_train"].dropna().astype(str).tolist()
+    clinical = dataset_factory.clinical_df
+    inner_train_labels = clinical[clinical["case id"].isin(inner_train_ids)].reset_index(drop=True)
+    if len(inner_train_labels) == 0:
+        raise ValueError(
+            f"inner_train split resolved to 0 patients from {split_path}; "
+            "check the split generation parameters"
+        )
+    return inner_train_labels
+
+
 def evaluate(args, dataset_factory, model, loader, loss_fn, survival_train=None):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.eval()
@@ -717,13 +873,43 @@ def train_one_fold(args, dataset_factory, fold, log_file):
 
     print(f"[Fold {fold}] epoch curve 宸蹭繚瀛? {epoch_csv}")
 
+    # §3.1 #5: under outer_test, evaluate the inner-train best checkpoint
+    # on the outer test cohort EXACTLY once.  The outer test never sees
+    # training data and never participates in checkpoint selection.
+    outer_test_metrics = None
+    if getattr(args, "evaluation_protocol", "legacy_val") == "outer_test":
+        best_ckpt_path = os.path.join(
+            args.results_dir, f"model_best_s{fold}.pth"
+        )
+        if os.path.exists(best_ckpt_path):
+            try:
+                outer_test_metrics = evaluate_outer_test(
+                    args=args,
+                    dataset_factory=dataset_factory,
+                    fold=fold,
+                    model_state_path=best_ckpt_path,
+                    log_file=log_file,
+                )
+            except Exception as exc:
+                safe_write_line(
+                    log_file,
+                    f"[outer-test] fold={fold} evaluation FAILED: {exc!r}",
+                )
+                safe_flush(log_file)
+        else:
+            safe_write_line(
+                log_file,
+                f"[outer-test] fold={fold} skipped: best checkpoint not found "
+                f"at {best_ckpt_path}",
+            )
+
     # 娓呯悊
     del model, optimizer, scheduler, train_loader, val_loader
     gc.collect()
     if torch.cuda.is_available():
         torch.cuda.empty_cache()
 
-    return best_results, final_metrics
+    return best_results, final_metrics, outer_test_metrics
 
 
 # ============================================================
@@ -787,9 +973,12 @@ def run(args):
                             f"log_start_{args.k_start}_end_{args.k_end}.txt")
     log_file = open(log_path, "w", buffering=1)  # 琛岀紦鍐?
     all_metrics = []
+    all_outer_test_metrics = []
     for fold in folds:
         try:
-            results, metrics = train_one_fold(args, dataset_factory, fold, log_file)
+            results, metrics, outer_test_metrics = train_one_fold(
+                args, dataset_factory, fold, log_file
+            )
             safe_flush(log_file)
         except Exception as e:
             print(f"[ERROR] fold {fold} 澶辫触: {e}")
@@ -800,6 +989,8 @@ def run(args):
 
         if metrics is not None:
             all_metrics.append((fold, *metrics))
+        if outer_test_metrics is not None:
+            all_outer_test_metrics.append((fold, *outer_test_metrics))
         # 淇濆瓨 final 缁撴灉
         if results is not None:
             safe_pickle_dump(results, os.path.join(args.results_dir, f"split_{fold}_results_final.pkl"))
@@ -829,6 +1020,28 @@ def run(args):
         safe_to_csv(df.reset_index(), os.path.join(args.results_dir, save_name))
         print(f"\n[Summary]")
         print(df)
+
+    # §3.1 #5: outer-test summary (only when evaluation_protocol=outer_test).
+    # Written to a SEPARATE file so it is impossible to confuse with the
+    # legacy_val summary above.  The two protocols MUST NOT be mixed.
+    if all_outer_test_metrics and getattr(args, "evaluation_protocol", "legacy_val") == "outer_test":
+        outer_df = pd.DataFrame(all_outer_test_metrics, columns=[
+            "fold", "outer_test_cindex", "outer_test_cindex_ipcw", "outer_test_BS",
+            "outer_test_IBS", "outer_test_iauc", "outer_test_loss"
+        ])
+        if 'outer_test_BS' in outer_df.columns:
+            outer_df = outer_df.drop(columns=['outer_test_BS'])
+        outer_df.set_index("fold", inplace=True)
+        try:
+            outer_df.loc["mean"] = outer_df.mean(numeric_only=True)
+            outer_df.loc["std"] = outer_df.std(numeric_only=True)
+        except Exception as e:
+            print(f"[outer-test summary] mean/std 澶辫触: {e}")
+        save_name = "summary_outer_test.csv" if len(folds) == args.k \
+            else f"summary_outer_test_partial_{args.k_start}_{args.k_end}.csv"
+        safe_to_csv(outer_df.reset_index(), os.path.join(args.results_dir, save_name))
+        print(f"\n[Outer-Test Summary]")
+        print(outer_df)
 
 
 def main():

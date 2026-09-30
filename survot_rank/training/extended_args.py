@@ -771,6 +771,133 @@ def build_base_parser() -> argparse.ArgumentParser:
         default=1.0,
         help="Ablation: scale v3.13 reconstruction weight (default 1.0; e.g. 2.0 doubles it).",
     )
+    parser.add_argument(
+        "--dct_v313_recon_weighting",
+        type=str,
+        default="legacy",
+        choices=["legacy", "per_branch"],
+        help=(
+            "Reconstruction weighting policy. legacy preserves the 93d8314 behaviour "
+            "where disabling one branch renormalises the survivor so the total "
+            "stays at the historical constant (0.05). per_branch keeps each branch "
+            "coefficient independent (0.05 each); disabling one branch zeroes it and "
+            "leaves the other at 0.05. New v3.13 recipes select 'per_branch'."
+        ),
+    )
+    parser.add_argument(
+        "--slotspe_recipe",
+        type=str,
+        default="native",
+        choices=["native", "matched"],
+        help=(
+            "SlotSPE reference recipe. native re-runs the original SlotSPE under "
+            "the unified DCT data protocol (batch=32, Adam, alpha_surv=0.5). "
+            "matched forces batch=8 + alpha_surv=0.15 to compare with DCT under "
+            "identical hyperparameters. Pre-specified in v3.13 plan §2.2; do not "
+            "tune per fold."
+        ),
+    )
+    parser.add_argument(
+        "--slotspe_force_recipe_iters",
+        type=str,
+        default="false",
+        choices=["true", "false"],
+        help=(
+            "SlotSPE reference adapter rejects args.slot_iters that differ from "
+            "the recipe default unless this flag is true.  SlotSPE was authored "
+            "with slot_iters=10; deviating silently would invalidate the comparison."
+        ),
+    )
+    # ------------------------------------------------------------------
+    # §3.1 #3: DCT v3.13 cross-reconstruction mode control.
+    #
+    # ``transport`` (default) runs the OT pipeline first and feeds the
+    # transported WSI slots into the cross decoder.  ``direct`` bypasses
+    # the OT transport and feeds the raw WSI slots into the same decoder,
+    # isolating the contribution of the transport step while keeping
+    # every other loss term (prediction OT, self recon, IPCW rank, slot
+    # NLL, diversity) unchanged.
+    # ------------------------------------------------------------------
+    parser.add_argument(
+        "--dct_v313_cross_mode",
+        type=str,
+        default="transport",
+        choices=["transport", "direct"],
+        help=(
+            "§3.1 #3 cross-reconstruction mode.  ``transport`` (default) "
+            "uses the OT-transported WSI slots as the cross decoder input. "
+            "``direct`` feeds the un-transported WSI slots into the same "
+            "decoder, isolating the OT contribution to the cross-reconstruction "
+            "loss while keeping every other term unchanged."
+        ),
+    )
+    # ------------------------------------------------------------------
+    # §3.1 #4: DCT v3.13 OT plan mode control.
+    #
+    # ``learned`` (default) uses the per-patient Sinkhorn-projected OT
+    # plans produced by the evidence-cost geometry.  ``independent`` replaces
+    # the learned plan with the outer-product of the marginals (T = a bᵀ)
+    # in *every* code path that consumes the plan — both training (factual
+    # + counterfactual) and eval (audit outputs).  Marginal generation,
+    # slot encoding, and risk reading are unchanged.
+    # ------------------------------------------------------------------
+    parser.add_argument(
+        "--dct_v313_plan_mode",
+        type=str,
+        default="learned",
+        choices=["learned", "independent"],
+        help=(
+            "§3.1 #4 plan mode for the cross-reconstruction OT.  ``learned`` "
+            "(default) uses the per-patient Sinkhorn-projected plans. "
+            "``independent`` replaces the plan with T = a bᵀ (the outer "
+            "product of the row/column marginals) in every code path that "
+            "consumes the plan — training and eval alike."
+        ),
+    )
+    # ------------------------------------------------------------------
+    # §3.1 #5: evaluation protocol control.
+    #
+    # ``legacy_val`` (default): the original five-fold train/val is used
+    # as-is, with the val split driving checkpoint selection.
+    # ``outer_test``: the original val becomes an OUTER test set; the
+    # original train is split 80/20 (stratified by event, fixed seed) into
+    # ``inner_train`` and ``inner_val``.  Inner val drives checkpoint
+    # selection; the outer test is evaluated once at the end with the
+    # best inner-train checkpoint.
+    # ------------------------------------------------------------------
+    parser.add_argument(
+        "--evaluation_protocol",
+        type=str,
+        default="legacy_val",
+        choices=["legacy_val", "outer_test"],
+        help=(
+            "§3.1 #5 evaluation protocol.  ``legacy_val`` (default) uses "
+            "the original five-fold train/val with val-driven selection. "
+            "``outer_test`` fixes the original val as outer test, splits "
+            "the original train 80/20 into inner_train + inner_val "
+            "(stratified, split_seed=3), and reports test metrics on the "
+            "best inner-train checkpoint without re-fitting."
+        ),
+    )
+    parser.add_argument(
+        "--inner_val_fraction",
+        type=float,
+        default=0.20,
+        help=(
+            "§3.1 #5 fraction of the parent train routed to inner_val under "
+            "the ``outer_test`` protocol.  Default 0.20 per plan §3.3."
+        ),
+    )
+    parser.add_argument(
+        "--split_seed",
+        type=int,
+        default=3,
+        help=(
+            "§3.1 #5 split seed for the inner_train / inner_val partitioning. "
+            "Fixed at 3 per plan §3.3 so different model seeds reuse the "
+            "same outer-test split."
+        ),
+    )
 
     return parser
 

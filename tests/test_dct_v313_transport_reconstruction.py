@@ -85,6 +85,7 @@ def make_args(**overrides):
         dct_v311_lambda_slot_nll=0.99,
         dct_v311_lambda_slot_diversity=0.99,
         dct_v313_lambda_reconstruction=0.99,
+        dct_v313_recon_weighting="per_branch",
     )
     values.update(overrides)
     return SimpleNamespace(**values)
@@ -125,16 +126,37 @@ def test_v313_catalog_alias_factory_and_config():
 
 
 def test_v313_frozen_objective_and_reconstruction_schedule():
+    # §3.1 #1: per-branch reconstruction weighting is the new default.
+    # Objective weights decompose reconstruction into self/cross branches,
+    # each with its own constant (0.05).  Class-level recipe returns the
+    # abstract recipe; instance-level ``objective_weights_effective``
+    # returns the post-FROZEN values actually applied at forward time.
     model = DCTV313TransportReconstruction(make_args())
-    assert model.objective_weights() == {
+    # Classmethod: abstract recipe (what the paper declares).
+    assert DCTV313TransportReconstruction.objective_weights() == {
         "nll": 1.0,
         "ipcw_rank": 0.10,
         "per_slot_nll": 0.05,
         "slot_diversity": 0.10,
-        "reconstruction": 0.10,
+        "reconstruction_self": 0.05,
+        "reconstruction_cross": 0.05,
+        "weighting_mode": "per_branch",
+    }
+    # Instance method: post-FROZEN effective values.  Slot diversity is
+    # stamped by v3.11 FROZEN to 0.02 (the BLCA 0.7174 winner value).
+    assert model.objective_weights_effective() == {
+        "nll": 1.0,
+        "ipcw_rank": 0.10,
+        "per_slot_nll": 0.05,
+        "slot_diversity": 0.02,
+        "reconstruction_self": 0.05,
+        "reconstruction_cross": 0.05,
+        "weighting_mode": "per_branch",
     }
     assert model.dct_v38_lambda_direction == 0.0
-    assert model.dct_v313_lambda_reconstruction == 0.10
+    # ``dct_v313_lambda_reconstruction`` is stamped on args (not self) by
+    # FROZEN_ARGUMENTS; the class constant is the source of truth.
+    assert model.RECONSTRUCTION_WEIGHT == 0.10
     assert model.dct_v313_reconstruction_self_fraction == 0.50
     assert model.dct_v313_reconstruction_cross_fraction == 0.50
     assert model._reconstruction_ramp(0) == 0.0
@@ -142,6 +164,14 @@ def test_v313_frozen_objective_and_reconstruction_schedule():
     assert model._reconstruction_ramp(4) == pytest.approx(0.4)
     assert model._reconstruction_ramp(7) == 1.0
     assert model._reconstruction_ramp(30) == 1.0
+    # Per-branch decomposition reports the two independent coefficients
+    # alongside diagnostic metadata (weighting mode, ablation flags, scale,
+    # total aggregate).  Tests in ``test_recon_weighting_per_branch.py``
+    # exercise the full dict; here we assert the two per-branch keys.
+    effective = model.effective_recon_coefficients()
+    assert effective["self"] == pytest.approx(0.05)
+    assert effective["cross"] == pytest.approx(0.05)
+    assert effective["total"] == pytest.approx(0.10)
 
 
 @pytest.mark.parametrize("event", [True, False], ids=["event", "censored"])
@@ -204,11 +234,18 @@ def test_v313_training_forward_is_exact_declared_auxiliary_sum():
 
     logits, auxiliary = model(**batch())
     diagnostics = model.last_training_losses
+    # §3.1 #1: per-branch decomposition reports each branch contribution at
+    # its own coefficient (0.05 self + 0.05 cross = 0.10 total aggregate),
+    # matching the legacy aggregated reconstruction weight by construction.
+    # The other auxiliary terms use the FROZEN class constants:
+    #   dct_lambda_ipcw_rank=0.10, dct_v311_lambda_slot_nll=0.05,
+    #   dct_v311_lambda_slot_diversity=0.02.
     expected = (
         0.10 * diagnostics["ipcw_rank"]
         + 0.05 * diagnostics["v311_per_slot_nll"]
-        + 0.10 * diagnostics["v311_slot_diversity"]
-        + 0.10 * diagnostics["v313_reconstruction_total"]
+        + 0.02 * diagnostics["v311_slot_diversity"]
+        + 0.05 * diagnostics["v313_reconstruction_self"]
+        + 0.05 * diagnostics["v313_reconstruction_cross"]
     )
 
     assert logits.shape == (8, 4)
@@ -218,7 +255,10 @@ def test_v313_training_forward_is_exact_declared_auxiliary_sum():
     assert diagnostics["v313_reconstruction_self"] > 0
     assert diagnostics["v313_reconstruction_cross"] > 0
     assert diagnostics["v313_reconstruction_ramp"] == 1.0
-    assert diagnostics["v313_reconstruction_weight"] == pytest.approx(0.10)
+    # ``v313_reconstruction_weight`` reports the ramp multiplier (0..1)
+    # that scales both branches uniformly.  At epoch 7 with the default
+    # ramp schedule (start=2, length=5) the ramp has saturated to 1.0.
+    assert float(diagnostics["v313_reconstruction_weight"]) == pytest.approx(1.0)
 
     auxiliary.backward()
     decoder_grad = model.pathway_reconstruction_decoder.pathway_queries.grad

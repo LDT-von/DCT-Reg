@@ -124,7 +124,86 @@ def build_parser() -> argparse.ArgumentParser:
     methods.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
     methods.set_defaults(func=cmd_methods)
 
+    # ------------------------------------------------------------------
+    # §3.2: unified experiment scheduler.
+    #
+    # ``dct-reg schedule`` is the dry-run-by-default launcher for the
+    # v3.13 experiment matrix.  Filters: protocol / arm / cancer /
+    # fold / seed.  GPUs: --gpu 0,1 and --jobs-per-gpu N control
+    # per-GPU subprocess fan-out.  --execute flips from dry-run
+    # (default) to actually launching the subprocesses.
+    # ------------------------------------------------------------------
+    schedule = subparsers.add_parser(
+        "schedule",
+        help="§3.2 unified experiment scheduler (dry-run by default).",
+    )
+    schedule.add_argument(
+        "--protocol",
+        choices=["legacy_val", "outer_test"],
+        default="legacy_val",
+        help="Evaluation protocol (default legacy_val).",
+    )
+    schedule.add_argument(
+        "--arm",
+        action="append",
+        default=None,
+        help=(
+            "Experiment arm(s) to schedule (default: all 11 v3.13 arms). "
+            "Repeatable.  Examples: --arm exp6 --arm slotspe_native."
+        ),
+    )
+    schedule.add_argument(
+        "--cancer",
+        action="append",
+        default=None,
+        help="Cancer / study cohort(s) (default: blca,kirc).  Repeatable.",
+    )
+    schedule.add_argument(
+        "--fold",
+        action="append",
+        type=int,
+        default=None,
+        help="Fold index / indices to schedule (default: 0..4).  Repeatable.",
+    )
+    schedule.add_argument(
+        "--seed",
+        action="append",
+        type=int,
+        default=None,
+        help="Model seed(s) to schedule (default: 3).  Repeatable.",
+    )
+    schedule.add_argument(
+        "--gpu",
+        default="0",
+        help=(
+            "Comma-separated physical GPU indices to assign to running "
+            "subprocesses.  Default: '0'.  Example: --gpu 0,1."
+        ),
+    )
+    schedule.add_argument(
+        "--jobs-per-gpu",
+        type=int,
+        default=1,
+        help="Concurrent training subprocesses per GPU.  Default 1.",
+    )
+    schedule.add_argument(
+        "--execute",
+        action="store_true",
+        help=(
+            "Actually launch the subprocesses.  Without this flag the "
+            "scheduler prints the task list and exits (dry-run)."
+        ),
+    )
+    schedule.set_defaults(func=cmd_schedule)
+
     return parser
+
+
+def cmd_schedule(args: argparse.Namespace) -> None:
+    """Delegate to ``survot_rank.training.scheduler.cmd_schedule``."""
+    from survot_rank.training.scheduler import cmd_schedule as _impl
+
+    _impl(args)
 
 
 def main() -> None:

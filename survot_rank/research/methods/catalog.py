@@ -187,6 +187,21 @@ METHOD_SPECS = (
         model_file="dct_v316_model.py",
         aliases=("dct_v316", "dct_v316_slot_mi"),
     ),
+    # === SlotSPE baseline adapter (third_party/SlotSPE; read-only) ===
+    # Two recipes: "native" (original SlotSPE defaults: Adam / batch=32 /
+    # alpha_surv=0.5 / slot_iters=10) and "matched" (DCT-equivalent:
+    # AdamW / batch=8 / alpha_surv=0.15 / slot_iters=10).  The recipe is
+    # selected via --set slotspe_recipe=native|matched; see
+    # survot_rank/research/methods/slotspe_reference/model.py for details.
+    MethodSpec(
+        "slotspe_reference",
+        "SlotSPE Reference (third_party/SlotSPE) [BASELINE]",
+        "slotspe",
+        "candidate",
+        "slotspe_reference",
+        "SlotSPEReference",
+        aliases=("slotspe",),
+    ),
 )
 
 METHOD_CATALOG = {spec.key: spec for spec in METHOD_SPECS}
