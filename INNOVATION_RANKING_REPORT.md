@@ -1,9 +1,12 @@
 # DCT-Reg 各版本创新点排名报告
 
-> **生成时间**：2026-09-25
+> **口径更新（2026-09-29）**：本文件保留历史的“创新 × 证据 × 论文可用性”综合评估，**不是纯 idea 创新排名**。完整方法相对 SlotSPE 的机制贡献评估见 [IDEA_NOVELTY_RANKING.md](IDEA_NOVELTY_RANKING.md)。此前把“v3.10 的完整主干贡献”和“v3.13 的版本新增贡献”混合排序，参照系不一致，相关创新名次撤回；下文旧综合名次不应用来回答“哪个 idea 最创新”。另已发现 v3.2 的历史 BLCA 五折报告，本文件原来的“没有真实 C-index”表述已更正；历史综合分未据此重算。
+
+> **更新日期**：2026-09-29
 > **范围**：仓库 `/data1/DCT-Reg` 内已实现或已立项的 9 个 catalog 版本（含 v3.10 冻结主方法）+ v3.2/v3.30 的内部结构臂 + v3.11-alpha HPSA 候选
-> **方法**：以代码 `key_contributions()`、官方 `docs/*.md`、`results/*.md`、`catalog.py` 状态为依据，结合"主张是否被实测验证"两个维度做横向打分；分数 1–10。
-> **声明**：排名仅用于内部梳理"创新点强弱 × 证据强度"，不构成对未发表结论的承诺；所有 C-index 都是 best-epoch 验证值，非独立外层测试。
+> **方法**：以 DCT 可执行模型与训练代码、原版 SlotSPE 模型代码、`key_contributions()`、`docs/*.md`、`results/*.md`、`catalog.py` 状态为依据，结合"主张是否被实测验证"两个维度做横向打分；分数 1–10。
+> **声明**：排名仅用于内部梳理"创新点强弱 × 证据强度"，不构成对未发表结论的承诺。UNI 对比表来自各折 best-epoch 验证 C-index；不同特征版本和配置的结果分开报告，不合并成一个跨癌种均值。当前报告不含独立外层测试结果。
+> **本次修订**：补入原版 SlotSPE 的代码对照与 v3.13 分癌种结果口径；按表内 N/C/E/P 分项和既定权重重算综合分并重新排序。分项分数保留原报告判断，综合分的重算只修正算术，不代表重新做了同行评分。
 
 ---
 
@@ -20,27 +23,40 @@
 
 > 加权总分 = 0.30·N + 0.20·C + 0.35·E + 0.15·P
 
+### 0.1 与原版 SlotSPE 的代码关系（以实际前向路径为准）
+
+| 部分 | 原版 SlotSPE | DCT v3.13 | 判断 |
+|---|---|---|---|
+| 表征与槽 | WSI/omics 编码器、双路 Slot Attention | 保留双模态编码与 Slot Attention，并将槽映射到共享语义原型坐标 | Slot Attention 属于继承基础；共享坐标是 DCT 扩展 |
+| 风险预测融合 | MoE Top-K 槽解码、跨模态注意力、两路模态内注意力，三路表示拼接后预测 | 分阶段、多几何 Sinkhorn 运输，读出事件 token 后经事件编码器和风险头预测 | DCT 改变了主融合与预测路径；该骨架早于 v3.13，来自 DCT 主干 |
+| 重建 | omics 自重建、WSI→omics 重建、WSI 自重建 | omics 自重建；WSI→omics 分支先按事实 OT 方案运输，再重建通路 token | 重建任务本身不是新点；将事实运输结果接入重建是 v3.13 的版本级增量 |
+| 训练目标 | 主生存 NLL、两个模态解码器 NLL、三项重建 | 主生存 NLL、IPCW 排序、逐槽 NLL、多样性约束、自重建与 OT 跨模态重建 | IPCW/逐槽监督/多样性是 DCT 训练目标差异；v3.13 新增的是运输感知重建项 |
+
+**创新边界**：相对原版 SlotSPE，DCT 的 OT 事件融合路径是架构差异；不能把整条 OT 主干都记为 v3.13 首创。v3.13 特有的可辨识改动是把已经用于风险预测的事实 OT 运输方案接入 WSI→omics 重建。该重建的预测收益目前没有得到消融支持。
+
+SlotSPE 的默认目标可写为 `(L_surv + L_NLL_WSI + L_NLL_omics)/B + 0.01·(MSE_omics_self + MSE_WSI→omics + cosine_WSI_self)`；重建权重可由参数覆盖。代码依据：原版 `SlotSPE-main/models/SlotSPE.py`、`SlotSPE-main/utils/core_utils.py`；DCT v3.13 的 `model.py` 与共享训练器 `train_runner.py`。
+
 ---
 
 ## 1. 总排行榜（按加权综合分排序）
 
 | 排名 | 版本 / 候选 | 状态 | N | C | E | P | **综合分** | 一句话定位 |
 |---:|---|---|---:|---:|---:|---:|---:|---|
-| **1** | **DCT v3.10**（冻结主方法） | primary | 8 | 9 | 10 | 10 | **9.10** | 五癌种 C-index 0.703 击败 SlotSPE 的多模态 OT 生存框架 |
-| **2** | **DCT v3.11（fix-v2）** per-slot NLL + diversity | experimental | 8 | 8 | 8 | 8 | **7.90** | 用 per-slot hazard 头替换 direction loss，绕过 Sinkhorn 梯度瓶颈 |
+| **1** | **DCT v3.10**（冻结主方法） | primary | 8 | 9 | 10 | 10 | **9.20** | 五癌种报告均值 0.703；SlotSPE 参考值 0.697，优越性需同协议复核 |
+| **2** | **DCT v3.11（fix-v2）** per-slot NLL + diversity | experimental | 8 | 8 | 8 | 8 | **8.00** | 用 per-slot hazard 监督替换失效的 direction loss |
 | **3** | **DCT v3.30 闭环预后传输**（5 臂） | legacy | 9 | 9 | 4 | 6 | **6.80** | 跨模态 OT → 置信门控 → 重读原始 token 的闭环；尚未跑真实数据 |
-| **4** | **HPSA 分层预后 Slot**（v3.11-alpha） | 实验候选，未合并 | 8 | 8 | 3 | 5 | **6.05** | 预后加权路由 + 动态剪枝 + 分层金字塔；仅单元测试通过 |
-| **5** | **DCT v3.16 Slot-MI 交互分解** | candidate | 8 | 7 | 4 | 5 | **5.95** | 四通道（R/Up/Ug/S）患者特异路由 + 稀疏 Top-K slot 解码器 |
-| **6** | **DCT v3.2 TGSR 4 臂**（baseline/self_update/attention_feedback/ot_feedback） | legacy | 7 | 7 | 4 | 5 | **5.65** | 跨模态匹配上下文重读原始 token；纯结构对照，未见性能优势 |
-| **7** | **DCT v3.13 运输感知 Omics 重建** | candidate | 6 | 6 | 6 | 5 | **5.65** | 0.5·self + 0.5·cross 重建正则；BLCA 5 折贡献有限甚至为负 |
-| **8** | **DCT v3.14 蒙版路径重建 + 数值修复** | candidate | 6 | 7 | 4 | 4 | **5.10** | 修复塌缩/数值问题 + masked/full/hybrid 四模式；未跑真实癌种 |
-| **9** | **DCT v3.15 RTI 基线**（NLL-only + 双线性交互） | candidate/baseline | 7 | 7 | 4 | 3 | **5.00** | 极简基线：单次池化 + 1 个余弦 OT + (T − abᵀ) 差分双线性交互 |
-| **10** | **DCT v3.8 Intervention Consistency** | legacy | 5 | 7 | 5 | 3 | **4.80** | direction/dose/reconfiguration 三个损失的源头；DCR ≈ 0.526 实验失败 |
-| **11** | **DCT v3.10 Fixed Anchors** | legacy | 4 | 5 | 5 | 3 | **4.20** | 固定极端样本作为锚点；fold0 Mono Inc 100%，但全 5 折未跑 |
-| **12** | **DCT v3.12 SlotSPE-style Omics Imputation** | （无 catalog 入口） | 4 | 4 | 4 | 2 | **3.50** | v3.11 + omics 自重建 + WSI→omics 跨模态重建；未发布为可独立导入的模型 |
-| **13** | **DCT Risk Ordering Transport** | legacy | 5 | 6 | 2 | 2 | **3.60** | 早期 risk-ordering 实验；只读代码，未跑数据 |
+| **4** | **DCT v3.16 Slot-MI 交互分解** | candidate | 8 | 7 | 4 | 5 | **5.95** | 四通道（R/Up/Ug/S）患者特异路由 + 稀疏 Top-K slot 解码器 |
+| **5** | **DCT v3.13 运输感知 Omics 重建** | candidate | 6 | 6 | 6 | 5 | **5.85** | DCT OT 主干上的运输感知重建；多癌结果不完整且协议分开 |
+| **6** | **HPSA 分层预后 Slot**（v3.11-alpha） | 实验候选，未合并 | 8 | 8 | 3 | 5 | **5.80** | 预后加权路由 + 动态剪枝 + 分层金字塔；仅单元测试通过 |
+| **7** | **DCT v3.2 TGSR 4 臂**（baseline/self_update/attention_feedback/ot_feedback） | legacy | 7 | 7 | 4 | 5 | **5.65** | 跨模态匹配上下文重读原始 token；历史 BLCA 五折报告待原始日志复核 |
+| **8** | **DCT v3.15 RTI 基线**（NLL-only + 双线性交互） | candidate/baseline | 7 | 7 | 4 | 3 | **5.35** | 单次池化 + 余弦 OT + (T − abᵀ) 差分双线性交互 |
+| **9** | **DCT v3.14 蒙版路径重建 + 数值修复** | candidate | 6 | 7 | 4 | 4 | **5.20** | 数值与塌缩修复 + masked/full/hybrid 四模式；BLCA 有 5 折结果 |
+| **10** | **DCT v3.8 Intervention Consistency** | legacy | 5 | 7 | 5 | 3 | **5.10** | direction/dose/reconfiguration 三个损失的源头；DCR ≈ 0.526 |
+| **11** | **DCT v3.10 Fixed Anchors** | legacy | 4 | 5 | 5 | 3 | **4.40** | 固定极端样本作为锚点；仅 fold0 |
+| **12** | **DCT v3.12 SlotSPE-style Omics Imputation** | （无 catalog 入口） | 4 | 4 | 4 | 2 | **3.70** | v3.11 + omics 自重建 + WSI→omics 跨模态重建；未发布为可独立导入的模型 |
+| **12** | **DCT Risk Ordering Transport** | legacy | 5 | 6 | 2 | 2 | **3.70** | 早期 risk-ordering 实验；只读代码，未跑数据 |
 
-> **说明**：第 12 名 v3.12 在 `catalog.py` 中刻意未注册（注释见 `catalog.py:148-153`），但保留了 config/launcher；这里给一个信息性占位条目。
+> **说明**：v3.12 在 `catalog.py` 中刻意未注册（注释见 `catalog.py:148-153`），但保留了 config/launcher；Risk Ordering 和 v3.12 按既定分项同为 3.70。
 
 ---
 
@@ -50,7 +66,7 @@
 |---|---|---|
 | **新颖性 N** | v3.30 闭环（9） | "原始 token 二次重读 + 患者/槽门控 + 训练折风险原型"三层组合在 OT 框架内罕见 |
 | **复杂度 C** | v3.10（9） | 四个可证伪子命题（性能/IPCW/响应方向/共享原型）边界写得很干净 |
-| **证据 E** | v3.10（10） | 5 癌种 × 5 折 C-index 完整对比已发表级；其它版本多在合成/单癌种/未跑真实 |
+| **证据 E** | v3.10（10，原分项） | 有多癌种 C-index 报告；正式论文仍须核对各癌种折数与 SlotSPE 同协议对照 |
 | **可用性 P** | v3.10（10） | 是 catalog primary，已写进 README、CLAIMS_AND_EVIDENCE、METHOD |
 
 ---
@@ -60,7 +76,7 @@
 ### 🥇 1. DCT v3.10 — Directionally Regularized Transport（`primary`）
 
 **创新点（`key_contributions()`）：**
-1. 多癌种生存预测 + IPCW-aware 排序（5 癌种平均 C-index **0.703**，超过 SlotSPE 的 0.697）
+1. 多癌种生存预测 + IPCW-aware 排序（报告的 5 癌种平均 C-index **0.703**；SlotSPE 参考值为 0.697，需同协议复核后判断优越性）
 2. 删失自适应的成对排序，处理 KM 删失分布
 3. **可解释干预审计**：在 cost space 构造低/高风险锚点干预，重新求解 Sinkhorn，看风险响应（DCR、DMR、Plan TV）
 4. **共享语义原型**对齐 WSI ↔ Omics
@@ -80,7 +96,7 @@
 ### 🥈 2. DCT v3.11（fix-v2）— Per-Slot Interpretable（`experimental`）
 
 **创新点：**
-1. **每个 WSI/Omics slot 都有独立 hazard head**，梯度直接反传至 slot attention（绕过 Sinkhorn 梯度瓶颈）
+1. **每个 WSI/Omics slot 都单独输出风险**，同模态 slot 共用线性 hazard head 参数；梯度直接反传至 slot attention（绕过 Sinkhorn 梯度瓶颈）
 2. **Per-modality 多样性 hinge**：`σ² ∈ [0.001, 0.050]`，防止槽塌缩
 3. **pairwise-distance hinge** 替代旧 anti-correlation，避免 hazard 方差冲突
 4. IPCW-aware 排序继承自 v3.10
@@ -113,7 +129,7 @@
 
 ---
 
-### 4. HPSA — Hierarchical Prognostic Slot Attention（v3.11-alpha，未合并到 catalog）
+### HPSA — Hierarchical Prognostic Slot Attention（v3.11-alpha，未合并到 catalog）
 
 **创新点（3 个独立的"首次"）：**
 1. **预后加权路由**：`Attn = softmax(QK/√d + λ·P(K))`，P(K) ∈ [0,1] 是学得的预后显著性分数（首次把生存显著性显式建模到注意力）
@@ -125,11 +141,11 @@
 - ❌ 未跑真实数据；`INNOVATION_HIERARCHICAL_PROGNOSTIC_SLOTS.md` 自述"消融实验 20 个任务运行中，Epoch 6/30"
 - ❌ 没写进 catalog；README 只在 v3.10/v3.11/v3.13/v3.2/v3.30 五个版本里介绍
 
-**为什么排第四：** 概念新颖、独立可读，但**尚未产生真实数据证据**，不能作为可发表贡献使用。
+**评分依据：** 概念新颖、独立可读，但**尚未产生真实数据证据**，不能作为可发表贡献使用。
 
 ---
 
-### 5. DCT v3.16 — Slot Interaction Decomposition（`candidate`）
+### DCT v3.16 — Slot Interaction Decomposition（`candidate`）
 
 **创新点：**
 1. **四通道路由**（R / Up / Ug / S）：每条通道学不同语义；`key_contributions` 标注"为可解释假设标签，需要消融验证"
@@ -143,11 +159,11 @@
 - ⚠️ 仅代码级 + 合成诊断；无真实癌种 C-index
 - ⚠️ R/Up/Ug/S 语义"必须通过消融验证"，文档明确不主张为正式 PID 分解
 
-**为什么排第五：** 创新点足够清晰（4 通道 + 稀疏解码），但缺乏实测；与 v3.30 一起属于"高概念、低证据"组。
+**评分依据：** 创新点足够清晰（4 通道 + 稀疏解码），但缺乏实测；与 v3.30 一起属于"高概念、低证据"组。
 
 ---
 
-### 6. DCT v3.2 — Transport-Guided Slot Reaggregation (TGSR)（4 臂对照）
+### DCT v3.2 — Transport-Guided Slot Reaggregation (TGSR)（4 臂对照）
 
 **创新点：**
 1. **跨模态匹配上下文**引导槽**重读原始 token**（不是已压缩的 slot 之间融合）
@@ -161,38 +177,55 @@
 
 **证据：**
 - ✅ 45 passed pytest，覆盖原始 token 重读、双向反传、零反馈对照、checkpoint 重载
-- ❌ 文档明确："v3.2 目前没有可报告的 C-index 或优越性结论"
-- ⚠️ 与 HPSA 同样属于"代码已就绪、真实数据待跑"
+- ⚠️ `V32_TGSR_EXPERIMENT_RESULTS.md` 报告 BLCA 四臂五折：OT 反馈 0.7057、无反馈 0.6828；`TGSR_BEST_EPOCH_RESULTS.md` 是另一组五臂目标消融，不能与四臂合并。
+- ⚠️ 上述报告指向 `/data1/DCT-Reg/results/...` 的历史训练目录；当前本地仓库未见对应原始五折 `epoch_curve`，因此只按“历史报告结果”表述，不当作已在此 checkout 独立复核的原始实验。
 
-**为什么排第六：** 与 HPSA 同档，但 v3.2 是 catalog 的 legacy 状态，有更完整的 4 臂配对协议；HPSA 反而在概念层更激进（预后加权、动态剪枝），所以排 HPSA 略高。
+**评分依据：** 有历史 BLCA 五折四臂报告，但缺本地原始日志、跨癌种验证和同协议的 v3.10/SlotSPE 对照；历史综合分仅供备查。
 
 ---
 
-### 7. DCT v3.13 — Transport-Aware Omics Reconstruction（`candidate`）
+### DCT v3.13 — Transport-Aware Omics Reconstruction（`candidate`）
 
-**创新点：**
-1. **WSI→Omics 运输重建**：用多几何 Sinkhorn 计划把 WSI 表征运输回 omics 坐标，监督 omics 语义槽
-2. **Omics 自重建**：让 omics 槽自重建 omics 自身作为锚点
-3. 继承 v3.11 fix-v2 的 per-slot NLL + 多样性约束
-4. ramp(epoch) `0→1`（2~7 epoch），避免早期干扰主任务
+**相对原版 SlotSPE 的模块差异：**
+1. SlotSPE 的风险路径是 MoE Top-K 槽解码、跨模态注意力和两路模态内注意力，再拼接三路表示预测。
+2. DCT 的风险路径使用共享语义原型坐标、分阶段多几何 Sinkhorn 运输、事件 token 编码与风险头。这是相对 SlotSPE 的融合架构变化，但属于 v3.10 起的 DCT 主干，不是 v3.13 首创。
+3. v3.13 新增路径通路查询解码器：omics 槽自重建；WSI 槽经事实 OT 方案运输后跨模态重建。SlotSPE 已有重建任务，因此版本级差异在于把事实 OT 运输路径接入重建。
+
+**实际训练目标：**
 
 **完整配方：**
 ```
-L = 1.00·L_surv + 0.10·L_rank_ipcw + 0.05·L_per_slot_nll
+L = L_surv/B + 0.10·L_rank_ipcw + 0.05·L_per_slot_nll
   + 0.10·L_per_modality_diversity + ramp·λ·(0.5·L_self + 0.5·L_cross),  λ=0.10
 ```
 
-**证据（实测完整）：**
-- ✅ BLCA UNI 5 折 baseline **0.7005 ± 0.033**
-- ✅ 关 cross（0.7023）/ 关 self（0.7048）反而**提升** +0.002~+0.004，std ↓ 0.011
-- ✅ 多癌种对比（`v311_vs_v313_uni_comparison.md`）：BRCA 持平、COADREAD +0.017、HNSC +0.009、LUSC +0.007（n=4）
-- ❌ 但作为性能正则贡献**有限甚至为负**，文档明确"可解释角度保留，作为预测性能正则可降权或移除"
+其中 `L_self` 与 `L_cross` 分别是 omics 自重建和 OT 运输后的 WSI→omics 重建。v3.13 实际目标中没有 direction、dose、reconfiguration 损失；OT 距离也不是独立加权损失项。
 
-**为什么排第七：** 是 v3.11 上第一个"已跑真实 5 折"且结果完整可比的版本；但实验结论偏负面，导致论文可用性下降。
+**实测结果：按配置分开记录，不汇总成单一多癌种均值。**
+
+| 配置 / 来源 | 癌种 | v3.13 报告分数 | 覆盖与说明 |
+|---|---|---:|---|
+| UNI，`v311_vs_v313_uni_comparison.md` | BRCA | **0.7327 ± 0.0419** | 5 折，各折 best-epoch 验证 C-index |
+| UNI，同上 | COADREAD | **0.6750 ± 0.0521** | 5 折，各折 best-epoch 验证 C-index |
+| UNI，同上 | HNSC | **0.6147 ± 0.0449** | 5 折，各折 best-epoch 验证 C-index |
+| UNI，同上 | KIRC | **0.7898 ± 0.0218** | 5 折，各折 best-epoch 验证 C-index |
+| UNI，同上 | LUSC | **0.5995 ± 0.0321** | 4 折，fold 4 缺失 |
+| UNI，同上 | BLCA | 0.6585 | 仅 1 折、1 epoch smoke test，不作为正式分数 |
+| UNI2-h，`results_v313_v314_v315_blca_uni2h.md` | BLCA | **0.7238 ± 0.0416** | 5 折报告均值；不同于 UNI 消融记录 |
+| UNI2-h，`results/multi_cancer_summary_v313.json` | BRCA | **0.6787 ± 0.0788** | 5 折 |
+| UNI2-h，同上 | COADREAD | **0.7364 ± 0.0400** | 5 折 |
+| UNI2-h，同上 | LUAD | **0.6858 ± 0.0337** | 5 折 |
+| UNI2-h，同上 | STAD | **0.6361 ± 0.0474** | 5 折 |
+
+这些汇总来自不同特征版本和训练配置，不能交叉比较。UNI2-h 的多癌 JSON 虽标注为“10-cancer”，实际仅列出 4 个癌种；本地汇总没有提供 v3.13 的 SKCM、UCEC 数值。
+
+**BLCA 重建消融：** UNI 记录中 full 为 **0.7005 ± 0.033**，no-cross 为 **0.7023 ± 0.022**，no-self 为 **0.7048 ± 0.022**。这说明该重建项在这组实验中没有表现出预测收益；UNI2-h 的 0.7238 是另一配置，不能替代这组消融结论。
+
+**评分依据：** 有真实多折结果和明确的重建消融，但癌种覆盖不完整、UNI 与 UNI2-h 不能合并，且 BLCA 重建消融未显示预测收益；适合作为机制对照，不足以支持统一的多癌种性能主张。
 
 ---
 
-### 8. DCT v3.14 — Masked Transport Reconstruction（`candidate`）
+### DCT v3.14 — Masked Transport Reconstruction（`candidate`）
 
 **创新点（在 v3.13 基础上的"修复集合"）：**
 1. **数值与塌缩修复**（7 处）：
@@ -214,11 +247,11 @@ L = 1.00·L_surv + 0.10·L_rank_ipcw + 0.05·L_per_slot_nll
 - ❌ BLCA UNI2-h 5 折 **0.7093**（mean），单 fold 最高 0.7795；**低于 v3.13 的 0.7238**
 - ⚠️ 跨 fold std 最大（0.0453）
 
-**为什么排第八：** 修复文档非常扎实，但 BLCA 结果显示修复并未带来 5 折均值提升；v3.15 的 NLL-only 反而更稳。
+**评分依据：** 修复文档非常扎实，但 BLCA 结果显示修复并未带来 5 折均值提升；v3.15 的 NLL-only 反而更稳。
 
 ---
 
-### 9. DCT v3.15 — Residual Transport Interaction（`candidate/baseline`）
+### DCT v3.15 — Residual Transport Interaction（`candidate/baseline`）
 
 **创新点（极简主义方向）：**
 1. **单次槽池化 + 单个余弦 OT**：去掉 4 阶段 × 3 几何 OT、去掉 GRU 反复更新、去掉二次聚合
@@ -237,11 +270,11 @@ L = 1.00·L_surv + 0.10·L_rank_ipcw + 0.05·L_per_slot_nll
 - ❌ BLCA UNI2-h 5 折 **0.6763**（mean）— 低于带 transport 的 v3.13 (0.7238) / v3.14 (0.7093)
 - ⚠️ 文档明说："NLL-only 平均 C-index 0.6763 低于同协议 v3.13/v3.14"
 
-**为什么排第九：** 概念清晰、代数论证扎实；但作为"基线"成绩本身偏低，且没有"超过 v3.10"的证据，难以支撑 paper-facing claim。**它的价值在于"为后续 RTI+IPCW-rank 提供独立耦合对照"。**
+**评分依据：** 概念清晰、代数论证扎实；但作为"基线"成绩本身偏低，且没有"超过 v3.10"的证据，难以支撑 paper-facing claim。**它的价值在于"为后续 RTI+IPCW-rank 提供独立耦合对照"。**
 
 ---
 
-### 10. DCT v3.8 — Intervention Consistency（`legacy`，v3.10 的父类）
+### DCT v3.8 — Intervention Consistency（`legacy`，v3.10 的父类）
 
 **创新点：**
 1. **方向一致性损失**：high/low 干预必须使风险向相反方向移动
@@ -257,7 +290,7 @@ L = 1.00·L_surv + 0.10·L_rank_ipcw + 0.05·L_per_slot_nll
 
 ---
 
-### 11. DCT v3.10 Fixed Anchors（`legacy`）
+### DCT v3.10 Fixed Anchors（`legacy`）
 
 **创新点：** 用固定极端样本替代学到的风险锚点
 
@@ -267,7 +300,7 @@ L = 1.00·L_surv + 0.10·L_rank_ipcw + 0.05·L_per_slot_nll
 
 ---
 
-### 12. DCT v3.12 — Slot Interpretable + SlotSPE-style Imputation（无 catalog 入口）
+### DCT v3.12 — Slot Interpretable + SlotSPE-style Imputation（无 catalog 入口）
 
 **创新点：**
 1. v3.11 fix-v2 + **omics 自重建** + **WSI→omics 跨模态重建**（SlotSPE 风格）
@@ -280,7 +313,7 @@ L = 1.00·L_surv + 0.10·L_rank_ipcw + 0.05·L_per_slot_nll
 
 ---
 
-### 13. DCT Risk Ordering Transport（`legacy`）
+### DCT Risk Ordering Transport（`legacy`）
 
 **创新点（早期方案）：**
 1. Risk Ordering Loss：low anchor 降风险、high anchor 升风险
@@ -296,9 +329,9 @@ L = 1.00·L_surv + 0.10·L_rank_ipcw + 0.05·L_per_slot_nll
 
 | 类别 | 代表版本 | 核心机制 |
 |---|---|---|
-| **OT 跨模态对齐** | v3.10, v3.30, v3.16 | 多几何 / 多阶段 / 多通道 Sinkhorn |
+| **OT 跨模态对齐** | v3.10, v3.13, v3.30, v3.16 | DCT 主干中的多几何 / 多阶段 / 多通道运输；v3.13 继承主干 |
 | **风险锚点干预审计** | v3.10, v3.8, v3.10-Fixed-Anchors, Risk-Ordering | 在 cost space 干预 + 重 Sinkhorn + 看响应 |
-| **每槽可解释性** | v3.11, v3.12, v3.13, v3.14 | 每个 slot 有 hazard head，per-slot NLL |
+| **每槽可解释性** | v3.11, v3.12, v3.13, v3.14 | 每个 slot 单独预测风险；模态内共享线性 hazard head，使用 per-slot NLL |
 | **多样性与防塌缩** | v3.11, v3.13, v3.14, v3.15 | diversity hinge / pair-distance / 内容中心化 |
 | **运输感知重建** | v3.13, v3.14 | WSI→Omics 跨模态重建 + omics 自重建 |
 | **闭环/重读 token** | v3.2 TGSR, v3.30 | 跨模态 OT → 匹配上下文 → 重读原始 token |
@@ -316,9 +349,9 @@ L = 1.00·L_surv + 0.10·L_rank_ipcw + 0.05·L_per_slot_nll
 
 | 等级 | 版本 | 理由 |
 |---|---|---|
-| **强可证伪** | v3.10, v3.11, v3.13 | 已用真实 5 折 C-index 与对照基线明确证伪/证实 |
-| **中可证伪** | v3.14, v3.15 | 已跑真实 5 折但结果与设计预期不完全一致 |
-| **仅可结构验证** | v3.2 TGSR, v3.30, v3.16, HPSA | 代码/合成检查通过，未跑真实 C-index |
+| **强可证伪** | v3.10, v3.11 | 已有主要配方的真实多折结果与对照 |
+| **中可证伪** | v3.13, v3.14, v3.15 | 有真实 5 折或消融，但癌种/配置覆盖不齐或结果未显示预期收益 |
+| **仅可结构验证** | v3.30, v3.16, HPSA | 代码/合成检查通过，未见真实 C-index；v3.2 另有历史 BLCA 五折报告，不能归入此行 |
 
 ---
 
@@ -326,7 +359,7 @@ L = 1.00·L_surv + 0.10·L_rank_ipcw + 0.05·L_per_slot_nll
 
 ### 5.1 三句话总结
 
-1. **唯一可写进主稿的是 v3.10**：5 癌种 5 折 C-index 平均 0.703 vs SlotSPE 0.697 + 完整的 IPCW-rank 与共享原型对齐机制。
+1. **当前最适合作为主方法候选的是 v3.10**：它是冻结版本且有多癌种结果；报告中的 0.703 与 SlotSPE 参考值 0.697 仍需在同一特征、划分和评估协议下复核后，才能写成性能优越结论。
 2. **可作为"机制修正"补充材料的最佳选择是 v3.11 fix-v2**：在 v3.10 框架上用 per-slot NLL 替代失效的 direction loss，并保留了 OT 对齐。
 3. **最具新颖性但证据不足的是 v3.30 与 HPSA**：分别代表"OT 闭环 + 训练折风险原型"与"预后加权 + 动态剪枝 + 分层金字塔"两个独立的探索方向。
 
@@ -334,9 +367,9 @@ L = 1.00·L_surv + 0.10·L_rank_ipcw + 0.05·L_per_slot_nll
 
 | 角色 | 推荐版本 | 理由 |
 |---|---|---|
-| **主方法** | v3.10 | 唯一 frozen primary + 完整证据链 |
+| **主方法候选** | v3.10 | 冻结 primary 且有多癌种结果；论文主比较需补齐同配置的 SlotSPE 对照 |
 | **主对照** | v3.11 fix-v2 | 与主方法共享 OT 骨架，仅替换可解释性机制 → 形成清晰的"OT 对齐 + 直接监督"对照 |
-| **多模态对齐有效性** | v3.13 | 是 v3.11 上最完整的 5 折 + 多癌种对照；虽然重建贡献为负，但提供了"重建正则 vs 纯生存目标"的边界 |
+| **重建机制对照** | v3.13 | BLCA 消融可说明重建项的边界；多癌种记录按 UNI / UNI2-h 分开报告，不合并为统一结论 |
 | **机制修复/数值** | v3.14, v3.15 | 作为附录展示工程边界与基线，不写进贡献 |
 | **实验候选** | v3.30, v3.16, HPSA | 留给后续工作；当前没有 C-index 证据 |
 
@@ -355,14 +388,14 @@ L = 1.00·L_surv + 0.10·L_rank_ipcw + 0.05·L_per_slot_nll
 | 版本 | 训练目标 | 新增机制 | 5 折证据 |
 |---|---|---|---|
 | v3.10 | NLL + 0.10·IPCW + 0.05·direction | 多几何阶段 OT + 共享原型 + cost-space 干预审计 | ✅ BLCA 0.721, KIRC 0.858 |
-| v3.11 fix-v2 | NLL + 0.10·IPCW + 0.05·per-slot-NLL + 0.10·per-modality-diversity + 0.5·pair-distance | 每个 slot 独立 hazard head，梯度直达 slot attention | ✅ BLCA 0.7174 |
+| v3.11 fix-v2 | NLL + 0.10·IPCW + 0.05·per-slot-NLL + 0.10·per-modality-diversity + 0.5·pair-distance | 每个 slot 单独预测风险，模态内共享 hazard head，梯度直达 slot attention | ✅ BLCA 0.7174 |
 | v3.12 | 同 v3.11 + 0.05·omics 自重建 + 0.05·WSI→omics 跨模态重建 | omics imputation (SlotSPE-style) | ⚠️ 仅 config，无 catalog |
-| v3.13 | 同 v3.11 + ramp·λ·(0.5·self + 0.5·cross), λ=0.10 | Sinkhorn 路径上 WSI→omics 重建 + omics 自重建 | ✅ BLCA 0.7005（关重建反而 +0.004） |
+| v3.13 | NLL/B + 0.10·IPCW + 0.05·per-slot-NLL + 0.10·diversity + ramp·0.10·(0.5·self + 0.5·cross) | DCT 共享原型/阶段 OT 预测主干；新增路径通路查询解码器与事实 OT 感知重建 | ✅ UNI BLCA 0.7005（消融）；UNI2-h BLCA 0.7238；其余癌种按配置见上表 |
 | v3.14 | NLL + 0.10·IPCW + 0.05·slot-NLL + 0.02·content-distance + 0.10·ramp·recon | masked 路径重建（默认）+ 数值与塌缩修复 + 4 种重建模式 | ✅ BLCA 0.7093 |
 | v3.15 | NLL only (α=0) | 单次池化 + 1 个余弦 OT + RTI 残差双线性交互 | ✅ BLCA 0.6763（基线） |
 | v3.16 | NLL + 0.10·IPCW + 0.01·channel-contrastive | 四通道路由 + Gumbel-TopK 稀疏 slot 解码 + 双向槽交互 | ❌ 无真实 5 折 |
 | v3.30（5 臂） | 主训练器 NLL（部分臂 + prognostic rank） | 跨模态 OT 反馈 → 置信门控 → 重读原始 token → 重聚合 slot；E 臂加训练折风险原型 | ❌ 无真实 5 折 |
-| v3.2 TGSR（4 臂） | NLL/B（无辅助损失） | 跨模态 OT 反馈 → 双向匹配上下文 → 重读原始 token | ❌ 无真实 5 折（45 pytest 通过） |
+| v3.2 TGSR（4 臂） | NLL/B（无辅助损失） | 跨模态 OT 反馈 → 双向匹配上下文 → 重读原始 token | ⚠️ 历史报告 BLCA 四臂各 5 折；原始日志需在原运行目录复核 |
 | v3.8 | direction + dose + reconfiguration + IPCW | 锚点干预 + 重 Sinkhorn（已被 v3.10/v3.11 取代） | ⚠️ DCR ≈ 0.526 |
 | HPSA | NLL + 辅助 | 预后加权路由 + 动态剪枝 + 三层金字塔 | ❌ 仅单元测试 |
 
