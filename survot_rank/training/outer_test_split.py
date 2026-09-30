@@ -275,7 +275,9 @@ def generate_outer_test_splits(
     folds: Iterable[int],
     inner_val_fraction: float,
     seed: int,
-    clinical_csv_name: str = "clinical.csv",
+    clinical_subdir: str = "clinical/all",
+    clinical_csv_name: str | None = None,
+    censorship_var: str = "censorship",
 ) -> dict[str, dict[int, str]]:
     """Generate outer-test split files for every (study, fold) pair.
 
@@ -289,7 +291,15 @@ def generate_outer_test_splits(
         inner_val_fraction: fraction of the parent train routed to inner_val.
         seed: base seed; per-fold seed = ``seed + 1009 * fold`` for
             independence across folds.
-        clinical_csv_name: name of the clinical CSV inside each study dir.
+        clinical_subdir: subdirectory under ``data_path`` that holds the
+            per-study clinical CSV.  Defaults to ``"clinical/all"`` to
+            match the actual dataset-factory layout at DCT.
+        clinical_csv_name: per-study filename suffix.  Defaults to
+            ``f"{study}.csv"`` — one CSV per study.
+        censorship_var: column name in the clinical CSV carrying the
+            censorship indicator.  Defaults to ``"censorship"`` (the
+            DCT codebase convention); DCT configs using the DSS endpoint
+            require ``"censorship_dss"``.
 
     Returns:
         Nested dict ``{study: {fold: fingerprint}}`` for audit logging.
@@ -299,7 +309,10 @@ def generate_outer_test_splits(
     """
     fingerprints: dict[str, dict[int, str]] = {}
     for study in studies:
-        clinical_path = os.path.join(data_path, study, clinical_csv_name)
+        clinical_name = clinical_csv_name or f"{study}.csv"
+        clinical_path = os.path.join(
+            data_path, clinical_subdir, clinical_name
+        )
         if not os.path.exists(clinical_path):
             raise FileNotFoundError(
                 f"clinical CSV not found for study {study!r}: {clinical_path}"
@@ -327,6 +340,7 @@ def generate_outer_test_splits(
                 clinical_df=clinical_df,
                 inner_val_fraction=inner_val_fraction,
                 seed=seed + 1009 * fold,
+                censorship_var=censorship_var,
             )
             out_path = os.path.join(out_study_dir, f"fold_{fold}.csv")
             frame.to_csv(out_path, index=False)
@@ -356,6 +370,29 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         type=float,
         default=DEFAULT_INNER_VAL_FRACTION,
     )
+    # clinical CSV path follows the project's actual layout: under
+    # ``<data_path>/clinical/all/<study>.csv`` (see
+    # survot_rank/research/legacy/slotspe_runtime/dataset/dataset_survival.py
+    # : ``clinical_path = os.path.join(self.data_path, "clinical", "all", ...)``).
+    # Override ``--clinical-subdir`` if your deployment stores it elsewhere.
+    parser.add_argument(
+        "--clinical-subdir",
+        default="clinical/all",
+        help=(
+            "Subdirectory under data_path that holds the per-study clinical CSV. "
+            "Default 'clinical/all' matches the layout read by the dataset factory."
+        ),
+    )
+    parser.add_argument(
+        "--censorship-var",
+        default="censorship",
+        help=(
+            "Column name in the clinical CSV carrying the censorship "
+            "indicator.  Default 'censorship'.  Set to 'censorship_dss' "
+            "when stratifying with the DSS endpoint to match the DCT "
+            "configs that use label_col=survival_months_dss."
+        ),
+    )
     return parser.parse_args(argv)
 
 
@@ -363,6 +400,7 @@ def main(argv: list[str] | None = None) -> None:
     args = _parse_args(argv)
     studies = [s.strip() for s in args.studies.split(",") if s.strip()]
     folds = [int(f.strip()) for f in args.folds.split(",") if f.strip()]
+    clinical_csv_name = f"{studies[0]}.csv"  # placeholder, overridden below
     fingerprints = generate_outer_test_splits(
         data_path=args.data_path,
         which_splits=args.which_splits,
@@ -371,6 +409,7 @@ def main(argv: list[str] | None = None) -> None:
         folds=folds,
         inner_val_fraction=args.inner_val_fraction,
         seed=args.split_seed,
+        censorship_var=args.censorship_var,
     )
     for study, fold_map in fingerprints.items():
         for fold, fp in fold_map.items():

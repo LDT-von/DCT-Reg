@@ -255,11 +255,12 @@ def test_generate_outer_test_splits_writes_csvs_and_returns_fingerprints(tmp_pat
     parent_dir = data_path / "splits" / "5fold" / study
     parent_dir.mkdir(parents=True)
 
-    # Stage the clinical CSV.
-    clinical_dir = data_path / study
-    clinical_dir.mkdir()
+    # Stage the clinical CSV under the default clinical_subdir
+    # ("clinical/all/<study>.csv"), matching the dataset factory layout.
+    clinical_dir = data_path / "clinical" / "all"
+    clinical_dir.mkdir(parents=True)
     clinical = _synthetic_clinical_df(n_events=20, n_censored=80)
-    clinical.to_csv(clinical_dir / "clinical.csv", index=False)
+    clinical.to_csv(clinical_dir / f"{study}.csv", index=False)
 
     # Stage three parent folds.
     train_ids = [f"E{i:04d}" for i in range(20)] + [f"C{i:04d}" for i in range(80)]
@@ -300,10 +301,10 @@ def test_generate_outer_test_splits_is_idempotent(tmp_path):
     folds = [0, 1]
     parent_dir = data_path / "splits" / "5fold" / study
     parent_dir.mkdir(parents=True)
-    clinical_dir = data_path / study
-    clinical_dir.mkdir()
+    clinical_dir = data_path / "clinical" / "all"
+    clinical_dir.mkdir(parents=True)
     clinical = _synthetic_clinical_df(n_events=20, n_censored=80)
-    clinical.to_csv(clinical_dir / "clinical.csv", index=False)
+    clinical.to_csv(clinical_dir / f"{study}.csv", index=False)
     train_ids = [f"E{i:04d}" for i in range(20)] + [f"C{i:04d}" for i in range(80)]
     val_ids = [f"V{i:04d}" for i in range(20)]
     parent_df = _synthetic_parent_split(train_ids, val_ids)
@@ -338,9 +339,10 @@ def test_generate_outer_test_splits_raises_when_parent_missing(tmp_path):
     data_path = tmp_path
     study = "blca"
     (data_path / "splits" / "5fold" / study).mkdir(parents=True)
-    (data_path / study).mkdir()
+    clinical_dir = data_path / "clinical" / "all"
+    clinical_dir.mkdir(parents=True)
     pd.DataFrame({"case id": ["E0"], "censorship": [0]}).to_csv(
-        data_path / study / "clinical.csv", index=False
+        clinical_dir / f"{study}.csv", index=False
     )
     with pytest.raises(FileNotFoundError, match="parent split not found"):
         generate_outer_test_splits(
