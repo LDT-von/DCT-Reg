@@ -174,10 +174,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     schedule.add_argument(
         "--gpu",
-        default="0",
+        action="append",
+        default=None,
         help=(
-            "Comma-separated physical GPU indices to assign to running "
-            "subprocesses.  Default: '0'.  Example: --gpu 0,1."
+            "Physical GPU indices to assign to running subprocesses.  "
+            "Default: '0'.  Accepts repeated flags or a comma-separated "
+            "list: --gpu 0 --gpu 1  or  --gpu 0,1."
         ),
     )
     schedule.add_argument(

@@ -271,7 +271,8 @@ def test_cli_schedule_accepts_filters():
     assert args.cancer == ["blca"]
     assert args.fold == [0]
     assert args.seed == [3]
-    assert args.gpu == "0"
+    # --gpu is repeatable; one occurrence yields a single-element list.
+    assert args.gpu == ["0"]
     assert args.jobs_per_gpu == 1
     assert args.execute is False
 

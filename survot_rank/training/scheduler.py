@@ -436,7 +436,16 @@ def cmd_schedule(args: argparse.Namespace) -> None:
     cancers = list(args.cancer) if args.cancer else list(DEFAULT_CANCERS)
     folds = list(args.fold) if args.fold else list(DEFAULT_FOLDS)
     seeds = list(args.seed) if args.seed else list(DEFAULT_SEEDS)
-    gpus = [g.strip() for g in args.gpu.split(",") if g.strip()]
+    if args.gpu is None:
+        gpus = ["0"]
+    else:
+        # Accept repeated --gpu flags (each item can itself be a
+        # comma-separated list) and flatten into a single ordered list.
+        gpus = []
+        for chunk in args.gpu:
+            gpus.extend(g.strip() for g in chunk.split(",") if g.strip())
+        if not gpus:
+            gpus = ["0"]
     protocols = [args.protocol]
 
     tasks = build_task_plan(
