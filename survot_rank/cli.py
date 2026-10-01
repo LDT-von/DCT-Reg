@@ -16,6 +16,9 @@ from .research.methods.catalog import (
     catalog_errors,
     iter_method_specs,
 )
+# Module-level import so unit tests can monkeypatch the runner without
+# touching internal function-scope bindings inside cmd_train.
+from .training.train_runner import run
 
 
 def cmd_train(args: argparse.Namespace) -> None:
@@ -28,16 +31,20 @@ def cmd_train(args: argparse.Namespace) -> None:
         extra_args = extra_args[1:]
     argv = config_to_argv(config) + extra_args
 
-    # Set CUDA_VISIBLE_DEVICES before any torch import so that
-    # torch.cuda.is_available() and device count reflect the correct GPU.
     from survot_rank.training.extended_args import process_args_extended
     parsed = process_args_extended(argv)
     # Forward the explicit `--set` overrides so model constructors can
     # distinguish "user-supplied" FROZEN_ARGUMENT keys (ablation studies).
     parsed._dct_user_overrides = set(user_keys)
-    os.environ["CUDA_VISIBLE_DEVICES"] = parsed.gpu
 
-    from survot_rank.training.train_runner import run
+    # Respect a CUDA_VISIBLE_DEVICES already set by the scheduler; only
+    # fall back to parsed.gpu when the env was not pre-set.  Without this
+    # guard, every CLI invocation would force GPU 0 regardless of the
+    # scheduler's round-robin assignment (two CLI workers would collide on
+    # the same physical GPU).
+    if "CUDA_VISIBLE_DEVICES" not in os.environ:
+        os.environ["CUDA_VISIBLE_DEVICES"] = parsed.gpu
+
     run(parsed)
 
 

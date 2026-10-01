@@ -1047,7 +1047,11 @@ def run(args):
 def main():
     start = time.time()
     args = process_args_extended()
-    os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
+    # Respect CUDA_VISIBLE_DEVICES already set by the scheduler; fall
+    # back to args.gpu when the env was not pre-set.  Without this
+    # guard, two scheduler workers would each force GPU 0 and collide.
+    if "CUDA_VISIBLE_DEVICES" not in os.environ:
+        os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
     run(args)
     end = time.time()
     print(f"\nDone. Time: {end - start:.1f}s")

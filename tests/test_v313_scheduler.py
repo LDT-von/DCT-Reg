@@ -286,6 +286,99 @@ def test_cli_schedule_execute_flag():
 
 
 # ---------------------------------------------------------------------------
+# CUDA_VISIBLE_DEVICES env-guard regression tests.
+#
+# Bug fixed: both cmd_train (cli.py) and train_runner.main() used to set
+# ``os.environ["CUDA_VISIBLE_DEVICES"] = parsed.gpu`` unconditionally.
+# The scheduler's _launch_one_task pre-sets the env to the round-robin
+# GPU index, so two scheduler workers would each stomp their env back to
+# args.gpu (always '0' from the YAML) and collide on GPU 0.  Now both
+# functions only set the env when CUDA_VISIBLE_DEVICES is absent.
+# ---------------------------------------------------------------------------
+
+
+def test_cmd_train_respects_pre_set_cuda_visible_devices(monkeypatch):
+    """cmd_train must NOT overwrite CUDA_VISIBLE_DEVICES already set by
+    the scheduler.  Otherwise two workers both force GPU 0 and we lose
+    the 2-GPU round-robin.
+
+    Verified by directly stubbing ``survot_rank.cli.run`` so cmd_train
+    exits before hitting load_config (which would need a real YAML).
+    """
+    from survot_rank import cli as cli_module
+
+    observed_env = {}
+
+    def _fake_run(parsed):
+        observed_env["CUDA_VISIBLE_DEVICES"] = os.environ.get(
+            "CUDA_VISIBLE_DEVICES", "<unset>"
+        )
+
+    monkeypatch.setattr(cli_module, "run", _fake_run)
+    # Also stub the heavy imports cmd_train calls before reaching run().
+    monkeypatch.setattr(cli_module, "load_config", lambda p: {})
+    monkeypatch.setattr(
+        cli_module, "apply_overrides", lambda cfg, overrides: cfg
+    )
+    monkeypatch.setattr(cli_module, "config_to_argv", lambda cfg: [])
+    monkeypatch.setattr(cli_module, "add_project_paths", lambda: None)
+
+    def _fake_process_args(argv):
+        ns = type("Args", (), {"gpu": "0"})()
+        return ns
+
+    import survot_rank.training.extended_args as ext_args
+    monkeypatch.setattr(ext_args, "process_args_extended", _fake_process_args)
+    monkeypatch.setenv("CUDA_VISIBLE_DEVICES", "1")
+
+    args = type("M", (), {"config": None, "set": [], "extra_args": []})()
+    cli_module.cmd_train(args)
+
+    assert observed_env["CUDA_VISIBLE_DEVICES"] == "1", (
+        "cmd_train must NOT overwrite CUDA_VISIBLE_DEVICES=1 set by the "
+        "scheduler.  Got: "
+        f"{observed_env['CUDA_VISIBLE_DEVICES']!r}"
+    )
+
+
+def test_cmd_train_falls_back_to_parsed_gpu(monkeypatch):
+    """When CUDA_VISIBLE_DEVICES is not set, cmd_train must populate it
+    from parsed.gpu so single-train invocations still work."""
+    from survot_rank import cli as cli_module
+
+    observed_env = {}
+
+    def _fake_run(parsed):
+        observed_env["CUDA_VISIBLE_DEVICES"] = os.environ.get(
+            "CUDA_VISIBLE_DEVICES", "<unset>"
+        )
+
+    monkeypatch.setattr(cli_module, "run", _fake_run)
+    monkeypatch.setattr(cli_module, "load_config", lambda p: {})
+    monkeypatch.setattr(
+        cli_module, "apply_overrides", lambda cfg, overrides: cfg
+    )
+    monkeypatch.setattr(cli_module, "config_to_argv", lambda cfg: [])
+    monkeypatch.setattr(cli_module, "add_project_paths", lambda: None)
+
+    def _fake_process_args(argv):
+        ns = type("Args", (), {"gpu": "0"})()
+        return ns
+
+    import survot_rank.training.extended_args as ext_args
+    monkeypatch.setattr(ext_args, "process_args_extended", _fake_process_args)
+    monkeypatch.delenv("CUDA_VISIBLE_DEVICES", raising=False)
+
+    args = type("M", (), {"config": None, "set": [], "extra_args": []})()
+    cli_module.cmd_train(args)
+
+    assert observed_env["CUDA_VISIBLE_DEVICES"] == "0", (
+        "cmd_train must set CUDA_VISIBLE_DEVICES=0 from parsed.gpu when "
+        f"env was unset.  Got: {observed_env['CUDA_VISIBLE_DEVICES']!r}"
+    )
+
+
+# ---------------------------------------------------------------------------
 # Config resolver.
 # ---------------------------------------------------------------------------
 

@@ -351,6 +351,10 @@ def _launch_one_task(task: ScheduledTask, project_root: str) -> dict:
     env["CUDA_VISIBLE_DEVICES"] = gpu_id
     env["PYTHONPATH"] = project_root
     cmd = _build_launch_command(task, project_root=project_root)
+    print(
+        f"[launch] task_id={task.task_id()} gpu_id={gpu_id} cmd={' '.join(cmd[4:])[:200]}",
+        flush=True,
+    )
     try:
         completed = subprocess.run(cmd, env=env, capture_output=True, text=True)
         return {
