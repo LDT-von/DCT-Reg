@@ -196,6 +196,10 @@ def build_parser() -> argparse.ArgumentParser:
         help="Concurrent training subprocesses per GPU.  Default 1.",
     )
     schedule.add_argument(
+        "--results-root",
+        help="Separate run root, e.g. results/v313_paper_v2, to preserve earlier evidence.",
+    )
+    schedule.add_argument(
         "--execute",
         action="store_true",
         help=(

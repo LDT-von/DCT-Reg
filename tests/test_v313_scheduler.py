@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import os
+from pathlib import Path
 
 import pytest
 
@@ -386,13 +387,13 @@ def test_cmd_train_falls_back_to_parsed_gpu(monkeypatch):
 def test_resolve_config_yaml_returns_canonical_path(tmp_path):
     template, full = _resolve_config_yaml("exp6", "blca", str(tmp_path))
     assert template == "exp6_blca_uni2h.yaml"
-    assert full.endswith("configs/exp6_blca_uni2h.yaml")
+    assert Path(full).parts[-2:] == ("configs", "exp6_blca_uni2h.yaml")
 
 
 def test_resolve_config_yaml_slotspe_arm():
     template, full = _resolve_config_yaml("slotspe_native", "kirc", "/x")
     assert template == "slotspe_native_kirc_uni2h.yaml"
-    assert full.endswith("/x/configs/slotspe_native_kirc_uni2h.yaml")
+    assert Path(full).parts[-2:] == ("configs", "slotspe_native_kirc_uni2h.yaml")
 
 
 # ---------------------------------------------------------------------------

@@ -7,8 +7,9 @@ Implements the v3.13 plan §4.1–§4.2 unified CLI entry:
 * ``--cancer <study>`` (repeatable; default: ``blca,kirc``)
 * ``--fold <int>`` (repeatable; default: 0..4)
 * ``--seed <int>`` (repeatable; default: 3)
-* ``--gpu 0,1`` (comma-separated physical GPU indices)
+* ``--gpu 0 --gpu 1`` (repeatable; comma-separated indices also supported)
 * ``--jobs-per-gpu N`` (concurrent subprocesses per GPU; default 1)
+* ``--results-root PATH`` (optional root for a separate result batch)
 * ``--execute`` (actually run; without this flag the scheduler prints
   the task list and exits — dry-run is the safe default)
 
@@ -18,20 +19,21 @@ target results path, the resolved YAML config path, and the SHA-256
 fingerprint of the parent split CSV (so leakage between the inner_train
 and outer_test cohorts can be checked downstream).
 
-Per-GPU fan-out is implemented with a simple ``concurrent.futures``
-process pool that respects ``--jobs-per-gpu``: each GPU gets its own
-subprocess queue.  The subprocess invokes the existing ``train``
-subcommand with the resolved config plus any per-arm ``--set`` overrides.
+Each GPU has its own thread pool of child-process launchers, capped by
+``--jobs-per-gpu``.  Each subprocess invokes the existing ``train``
+subcommand with the resolved config, per-arm overrides, and the task's
+single-fold range and output path.
 
 The scheduler does NOT touch the results directory on disk — subprocesses
 do that — so a dry-run is genuinely a no-op on disk beyond writing a
-``task_plan.json`` next to wherever the user wants it.
+plan JSON under ``results/v313_paper_v1/schedule``.
 """
 
 from __future__ import annotations
 
 import argparse
 import concurrent.futures
+from contextlib import ExitStack
 import hashlib
 import json
 import os
@@ -214,16 +216,17 @@ def _resolve_config_yaml(arm: str, study: str, project_root: str) -> tuple[str, 
 
 
 def _results_dir_for(arm: str, protocol: str, study: str, fold: int,
-                     seed: int, project_root: str) -> str:
+                     seed: int, project_root: str, results_root: str | None = None) -> str:
     """Stable, collision-free per-task results directory.
 
     Includes the protocol so the legacy_val and outer_test runs never
     share a directory even when the arm/cancer/fold/seed are equal.
     """
+    root = results_root or os.path.join(project_root, "results", "v313_paper_v1")
+    if not os.path.isabs(root):
+        root = os.path.join(project_root, root)
     return os.path.join(
-        project_root,
-        "results",
-        f"v313_paper_v1",
+        os.path.abspath(root),
         protocol,
         arm,
         study,
@@ -242,6 +245,7 @@ def build_task_plan(
     project_root: str,
     data_path: str,
     outer_split_root: str,
+    results_root: str | None = None,
 ) -> list[ScheduledTask]:
     """Build the deterministic task list.  Order: protocol → arm →
     cancer → fold → seed.  This ordering is stable across dry-runs so
@@ -273,7 +277,19 @@ def build_task_plan(
                         results_dir = _results_dir_for(
                             arm=arm, protocol=protocol, study=cancer,
                             fold=fold, seed=seed, project_root=project_root,
+                            results_root=results_root,
                         )
+                        # These values MUST reach the child CLI, rather than
+                        # merely appearing as labels in the plan. The base YAML
+                        # otherwise runs every fold into its shared base directory.
+                        extra += [
+                            f"survot_method={arm_spec['base_method']}",
+                            f"study={cancer}",
+                            f"k_start={fold}",
+                            f"k_end={fold + 1}",
+                            f"results_dir={results_dir}",
+                            f"evaluation_protocol={protocol}",
+                        ]
                         which_splits = (
                             outer_split_root if protocol == "outer_test" else "5fold_uni2h"
                         )
@@ -356,7 +372,7 @@ def _launch_one_task(task: ScheduledTask, project_root: str) -> dict:
         flush=True,
     )
     try:
-        completed = subprocess.run(cmd, env=env, capture_output=True, text=True)
+        completed = subprocess.run(cmd, env=env, cwd=project_root, capture_output=True, text=True)
         return {
             "task_id": task.task_id(),
             "returncode": completed.returncode,
@@ -379,6 +395,9 @@ def launch_tasks(
 
     Returns a summary dict with the task count and per-task status.
     """
+    if jobs_per_gpu < 1:
+        raise ValueError("jobs_per_gpu must be positive")
+    gpus = list(dict.fromkeys(gpus)) or ["0"]
     tasks = assign_gpus(tasks, gpus, jobs_per_gpu)
     summary = {
         "total": len(tasks),
@@ -396,12 +415,17 @@ def launch_tasks(
             )
         return summary
 
-    # Execute: per-GPU fan-out via concurrent.futures.
-    if not gpus:
-        gpus = ["0"]
-    with concurrent.futures.ProcessPoolExecutor(max_workers=len(gpus) * jobs_per_gpu) as pool:
+    # A global pool does not enforce each GPU's limit when task durations
+    # differ. Each GPU needs its own queue. Threads only wait on subprocesses;
+    # model execution and CUDA environments remain isolated in the children.
+    with ExitStack() as stack:
+        pools = {
+            gpu: stack.enter_context(
+                concurrent.futures.ThreadPoolExecutor(max_workers=jobs_per_gpu)
+            ) for gpu in gpus
+        }
         futures = {
-            pool.submit(_launch_one_task, task, project_root): task
+            pools[task.gpu_id.split("/")[0]].submit(_launch_one_task, task, project_root): task
             for task in tasks
         }
         for future in concurrent.futures.as_completed(futures):
@@ -461,7 +485,9 @@ def cmd_schedule(args: argparse.Namespace) -> None:
         project_root=project_root,
         data_path=data_path,
         outer_split_root=outer_split_root,
+        results_root=getattr(args, "results_root", None),
     )
+    tasks = assign_gpus(tasks, list(dict.fromkeys(gpus)), args.jobs_per_gpu)
 
     # Always dump the task plan to a JSON file under results/schedule/ so
     # the dry-run leaves a paper-auditable artefact.
