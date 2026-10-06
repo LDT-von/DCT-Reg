@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "status": "design_only_not_executable",
+  "scope": "v313_legacy_val_interpretability",
+  "note": "Proposed v313_interpretability.py and new fields are not implemented. Replace null inputs with verified server paths before implementation or execution.",
+  "inputs": {
+    "core_manifest": null,
+    "assets_manifest": null,
+    "cases_manifest": null
+  },
+  "expected_matrix": {
+    "protocol": "legacy_val",
+    "cancers": [
+      "blca",
+      "kirc"
+    ],
+    "folds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "seeds": [
+      3
+    ],
+    "arms": [
+      "exp6",
+      "direct",
+      "independent"
+    ],
+    "count": 30
+  },
+  "exports": {
+    "arms": [
+      "exp6"
+    ],
+    "cancers": [
+      "blca",
+      "kirc"
+    ],
+    "folds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "seed": 3,
+    "checkpoint_selection": "best_val_cindex_from_verified_curve",
+    "device": "cuda:0",
+    "alphas": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1
+    ],
+    "cohort_omic_attention": true,
+    "all_patient_patch_attention": false,
+    "train_risk_reference": true,
+    "profile": false,
+    "output_root": "results/v313_interpretability_v1/exports"
+  },
+  "cases": {
+    "selection": "asset_eligible_then_case_id_ascending_before_outcome_or_prediction_review",
+    "patients_per_cancer": 2,
+    "bind_by": "run_id_and_case_id",
+    "spatial_slide_handling": "one_coordinate_system_per_slide",
+    "display_slots": {
+      "strategy": "uniform_slot_indices",
+      "max_per_modality": 3
+    },
+    "top_patches": 5,
+    "top_pathways": 3,
+    "bottom_pathways": 3,
+    "exclude_padding": true,
+    "deduplicate_patch_rows": true
+  },
+  "spatial": {
+    "projection": "mean_geometry_plan_then_column_normalize_then_stage_gate_weighted_attention",
+    "coordinate_level": 0,
+    "coordinate_anchor": "upper_left",
+    "retain_raw_attention": true,
+    "retain_valid_mass": true,
+    "display_normalization": "per_slot_valid_patch_mass",
+    "interpolate_unsampled_regions": false
+  },
+  "cohort": {
+    "risk_group_threshold_source": "same_fold_training_risk",
+    "quantiles": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "quantile_method": "linear",
+    "allow_outcome_based_cutoff": false,
+    "patient_deduplication": "required_across_validation_folds",
+    "pathway_alignment": "name_and_signature_members",
+    "slot_aggregation": "equal_mean_of_normalized_omic_slot_attention",
+    "group_aggregation": "equal_patient_weight",
+    "top_pathways_per_group": 10,
+    "main_max_rows": 30,
+    "row_selection_if_exceeds_limit": "descending_group_mean_range",
+    "main_color_units": "raw_attention",
+    "supplement_row_zscore": true,
+    "report_empty_groups": true,
+    "minimum_group_size_for_display": 5
+  },
+  "km": {
+    "threshold_source": "same_fold_training_median",
+    "presentation": "per_fold_validation",
+    "logrank": "proposed_optional_extension",
+    "rmst_horizon": null
+  },
+  "figures": {
+    "main": [
+      "paired_scores",
+      "case_composites",
+      "cohort_pathways",
+      "full_plan_sweep",
+      "architecture"
+    ],
+    "supplement": [
+      "per_fold_km",
+      "all_slot_case_maps",
+      "all_pathways",
+      "slot_diagnostics"
+    ],
+    "formats": [
+      "pdf",
+      "png"
+    ],
+    "png_dpi": 300,
+    "two_column_width_mm": 180,
+    "minimum_final_font_pt": 8,
+    "output_root": "results/v313_interpretability_v1/figures"
+  },
+  "execution": {
+    "new_training_tasks": 0,
+    "implicit_training": false,
+    "require_replay_match": true,
+    "require_complete_matrix": true,
+    "overwrite": false,
+    "real_execution_authority": "user"
+  }
+}

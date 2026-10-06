@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "status": "design_only_not_executable",
+  "note": "Illustrative asset contract. Null values must come from the original extraction metadata. This is not the legacy --coordinates schema.",
+  "features": [
+    {
+      "case_id": null,
+      "slide_id": null,
+      "feature_path": null,
+      "feature_sha256": null,
+      "coords_path": null,
+      "coords_sha256": null,
+      "coords_rows": null,
+      "coordinate_system": {
+        "level": 0,
+        "anchor": "upper_left",
+        "origin": [
+          0,
+          0
+        ],
+        "axes": [
+          "x",
+          "y"
+        ]
+      },
+      "extraction_provenance": {
+        "source_h5_path": null,
+        "source_h5_sha256": null,
+        "extraction_run_id": null,
+        "feature_and_coordinate_order_verified": false,
+        "evidence_path": null
+      },
+      "slide": {
+        "path": null,
+        "sha256": null,
+        "level0_dimensions": null,
+        "mpp_x": null,
+        "mpp_y": null
+      },
+      "thumbnail": {
+        "path": null,
+        "sha256": null,
+        "dimensions": null,
+        "scale_from_level0": null
+      },
+      "patch_source": {
+        "mode": null,
+        "allowed_modes": [
+          "wsi_read_region",
+          "indexed_patch_images"
+        ],
+        "read_level": null,
+        "read_size_at_level": null,
+        "level_downsample": null,
+        "resize_after_read": null,
+        "indexed_patch_manifest": null
+      },
+      "pathology_annotations": {
+        "csv": null,
+        "annotator": null,
+        "qualification": null
+      }
+    }
+  ]
+}
