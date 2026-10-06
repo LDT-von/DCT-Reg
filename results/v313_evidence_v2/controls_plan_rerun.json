@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "source_commit": "0ed9d9d46f27b3b1973581fb5e278860ee2d2e9d",
+  "group": "controls",
+  "tasks": [
+    {
+      "arm": "direct",
+      "protocol": "legacy_val",
+      "cancer": "kirc",
+      "fold": 0,
+      "seed": 3,
+      "config_yaml": "exp6_kirc_uni2h.yaml",
+      "config_yaml_path": "/data1/DCT-Reg/results/v313_evidence_v2/controls_plan_rerun_configs/direct_kirc.yaml",
+      "extra_set": [
+        "dct_v313_cross_mode=direct",
+        "dct_v313_recon_weighting=per_branch",
+        "seed=3",
+        "survot_method=dct_v313_transport_reconstruction",
+        "study=kirc",
+        "k_start=0",
+        "k_end=1",
+        "results_dir=/data1/DCT-Reg/results/v313_controls_v2_rerun/legacy_val/direct/kirc/fold0/seed3",
+        "evaluation_protocol=legacy_val",
+        "data_path=/data1/dataset_csv",
+        "data_root_dir=/data1/TCGA-UNI2-h-features",
+        "max_epochs=30"
+      ],
+      "results_dir": "/data1/DCT-Reg/results/v313_controls_v2_rerun/legacy_val/direct/kirc/fold0/seed3",
+      "split_fingerprint": "0d7fa1420f987cc679c114eab92686f92f13c2ed19c5fbbfc45ac941ac6ba844",
+      "gpu_id": "0/0",
+      "task_id": "direct/legacy_val/kirc/fold0/seed3"
+    },
+    {
+      "arm": "independent",
+      "protocol": "legacy_val",
+      "cancer": "kirc",
+      "fold": 0,
+      "seed": 3,
+      "config_yaml": "exp6_kirc_uni2h.yaml",
+      "config_yaml_path": "/data1/DCT-Reg/results/v313_evidence_v2/controls_plan_rerun_configs/independent_kirc.yaml",
+      "extra_set": [
+        "dct_v313_plan_mode=independent",
+        "dct_v313_recon_weighting=per_branch",
+        "seed=3",
+        "survot_method=dct_v313_transport_reconstruction",
+        "study=kirc",
+        "k_start=0",
+        "k_end=1",
+        "results_dir=/data1/DCT-Reg/results/v313_controls_v2_rerun/legacy_val/independent/kirc/fold0/seed3",
+        "evaluation_protocol=legacy_val",
+        "data_path=/data1/dataset_csv",
+        "data_root_dir=/data1/TCGA-UNI2-h-features",
+        "max_epochs=30"
+      ],
+      "results_dir": "/data1/DCT-Reg/results/v313_controls_v2_rerun/legacy_val/independent/kirc/fold0/seed3",
+      "split_fingerprint": "0d7fa1420f987cc679c114eab92686f92f13c2ed19c5fbbfc45ac941ac6ba844",
+      "gpu_id": "0/0",
+      "task_id": "independent/legacy_val/kirc/fold0/seed3"
+    }
+  ]
+}
