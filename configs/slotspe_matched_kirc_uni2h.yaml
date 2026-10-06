@@ -1,8 +1,7 @@
 name: slotspe_matched
-description: 'SlotSPE original-model reference.  Matched recipe: batch=8, AdamW, alpha_surv=0.15
-  (matches DCT v3.13).'
+description: 'SlotSPE original-model reference.  Matched recipe: batch=8, AdamW, alpha_surv=0.15 (matches DCT v3.13). KIRC variant.'
 data:
-  study: blca
+  study: kirc
   data_root_dir: /data1/TCGA-UNI2-h-features
   data_path: /data1/dataset_csv
   rna_format: Pathways
@@ -16,8 +15,8 @@ split:
   k_end: 5
 train:
   survot_method: slotspe_reference
-  specific_simple: slotspe_matched_blca_uni2h
-  results_dir: /data1/DCT-Reg/results/v313_paper_v1/base/slotspe_matched/blca
+  specific_simple: slotspe_matched_kirc_uni2h
+  results_dir: /data1/DCT-Reg/results/v313_paper_v1/base/slotspe_matched/kirc
   max_epochs: 30
   batch_size: 8
   warmup_epochs: 0

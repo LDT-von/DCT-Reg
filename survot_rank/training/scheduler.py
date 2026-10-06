@@ -351,6 +351,7 @@ def _build_launch_command(task: ScheduledTask, project_root: str) -> list[str]:
     cmd = [
         sys.executable, "-m", "survot_rank.cli", "train",
         "--config", task.config_yaml_path,
+        "--results_dir", task.results_dir,
     ]
     for kv in task.extra_set:
         cmd += ["--set", kv]

@@ -30,6 +30,13 @@ def cmd_train(args: argparse.Namespace) -> None:
     if extra_args[:1] == ["--"]:
         extra_args = extra_args[1:]
     argv = config_to_argv(config) + extra_args
+    # If the caller passed --results_dir (the scheduler does this to keep
+    # per-arm output directories), forward it via argv so
+    # ``process_args_extended`` overrides the YAML ``train.results_dir``.
+    # argparse uses the LAST occurrence on duplicate flags, so we append
+    # rather than prepend.
+    if getattr(args, "results_dir", None):
+        argv = argv + ["--results_dir", args.results_dir]
 
     from survot_rank.training.extended_args import process_args_extended
     parsed = process_args_extended(argv)
@@ -119,6 +126,12 @@ def build_parser() -> argparse.ArgumentParser:
         action="append",
         default=[],
         help="Override one flat parameter, for example --set seed=5",
+    )
+    train.add_argument(
+        "--results_dir",
+        default=None,
+        help="Override the YAML train.results_dir (used by the unified "
+             "scheduler to keep per-arm output directories).",
     )
     train.add_argument("extra_args", nargs=argparse.REMAINDER)
     train.set_defaults(func=cmd_train)

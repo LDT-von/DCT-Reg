@@ -40,7 +40,7 @@ train:
 slot:
   slot_num_wsi: 8
   slot_num_omics: 8
-  slot_iters: 3
+  slot_iters: 10  # SlotSPE recipe mandates iters=10 (adapter will enforce)
   temperature: 0.01
   topk_ratio: 0.25
   top_k_method: parallel_topk_st
