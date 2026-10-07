@@ -243,7 +243,63 @@ cp configs/v313_slotspe_assets.example.json results/v313_slotspe_20261007_v2/rea
 
 ---
 
-## 11. Commit 与 push
+## 11. 后续 v3.13 机制验证工具（已上线，**未跑真实数据**）
+
+远端 `35be29d feat: add v3.13 reconstruction and patch evidence diagnostics` 引入 `paper/V313_ADDITIONAL_EVIDENCE.md` 与 5 个新文件：
+
+- `scripts/run_v313_additional_evidence.py`（入口：`run` / `plot`）
+- `survot_rank/evidence/additional.py`（运行）
+- `survot_rank/evidence/additional_plots.py`（作图）
+- `tests/test_v313_additional_evidence.py`（**65 个合成测试通过**）
+- `paper/V313_ADDITIONAL_EVIDENCE.md`（说明）
+
+设计三类冻结 checkpoint 推理验证（**不重训、不跑 outer_test**）：
+
+| 优先级 | 实验 | 核心问题 | 新图类别（每类 PDF + PNG） |
+|---|---|---|---|
+| 1 | 患者特异重建 + 配对破坏 | 解码器是否含患者信息？正确跨模态配对是否带来额外信息？ | 重建误差/检索图、错配患者预测变化图 |
+| 2 | top/bottom/random patch 删除 | 热图关注 patch 是否比同数量随机 patch 更影响预测？ | ΔC-index 与 |Δrisk| 曲线 |
+| 3 | 冻结模型的 patch 预算 | 部分 patch 下预测是否稳定？ | 保留比例—C-index 与 |Δrisk| 曲线 |
+
+入口命令（`paper/V313_ADDITIONAL_EVIDENCE.md` 第 3 节）：
+
+```bash
+PY=/home/ubuntu/.conda/envs/trisurv/bin/python
+TOOL=scripts/run_v313_additional_evidence.py
+MANIFEST="$PWD/results/v313_evidence_v2/core.json"
+OUT="$PWD/results/v313_additional_20261008"
+
+# 一折检查（建议先做 BLCA fold 0）
+$PY "$TOOL" run --manifest "$MANIFEST" --arm exp6 \
+  --cancer blca --fold 0 --output "$OUT/check"
+CUDA_VISIBLE_DEVICES=0 $PY "$TOOL" run --manifest "$MANIFEST" \
+  --arm exp6 --cancer blca --fold 0 --output "$OUT/check" \
+  --device cuda:0 --execute
+$PY "$TOOL" plot --exports "$OUT/check" --output "$OUT/figures_check"
+
+# Full 全癌种/全折（manifest 不一定覆盖十癌）
+CUDA_VISIBLE_DEVICES=0 $PY "$TOOL" run --manifest "$MANIFEST" \
+  --arm exp6 --output "$OUT/full" --device cuda:0 --execute
+$PY "$TOOL" plot --exports "$OUT/full" --output "$OUT/figures_full"
+
+# patch 诊断（Direct + Independent 对照）
+CUDA_VISIBLE_DEVICES=0 $PY "$TOOL" run --manifest "$MANIFEST" \
+  --arm direct --arm independent --experiment patches \
+  --output "$OUT/patch_controls" --device cuda:0 --execute
+$PY "$TOOL" plot --exports "$OUT/patch_controls" --output "$OUT/figures_patch_controls"
+```
+
+**本轮交付状态：仅工具与文档已落地，65 个合成测试通过；本服务器未执行真实数据推理**。`results/v313_additional_20261008/` 目录暂未创建。是否对方法有效由实际真实运行结果判断，不由本次会话预先决定。
+
+复检时只需：
+
+1. `cd /data1/DCT-Reg && git pull --ff-only origin main`（已对齐 `130c0d4`）
+2. 顺序执行上面 4 段命令即可
+3. 跨 checkpoint 误差/检索不可直接比较
+
+---
+
+## 12. Commit 与 push
 
 本会话执行的提交（本地）：
 
