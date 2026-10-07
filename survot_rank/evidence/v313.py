@@ -290,7 +290,7 @@ def export_run(run, output_root, *, device="cuda:0", alphas=(0, .25, .5, .75, 1)
         if first_payload is None:
             first_payload = payload
         for key, value in values.items():
-            if key not in ("attention_wsi", "attention_omic"):
+            if key not in ("attention_wsi",):  # exclude large per-patch WSI attention; keep attention_omic for cohort heatmap
                 collected.setdefault(key, []).append(value)
         if cid in selected:
             case_index = len(cases)
