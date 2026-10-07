@@ -109,7 +109,7 @@ SYMBOLS={'prod':'∏','sum':'∑','leq':'≤','geq':'≥','langle':'⟨','rangle
          'tau':'τ','epsilon':'ε','varepsilon':'ε','top':'⊤','odot':'⊙','sigma':'σ','rho':'ρ',
          'quad':'  ','qquad':'    ','min':'min','arg':'arg','|':'‖',
          'left':'','right':'','!':'',',':' ', ';':' ', 'colon':':',
-         'in':'∈','times':'×','delta':'δ','mathsf':'','cdot':'·','{':'{','}':'}'}
+         'in':'∈','times':'×','delta':'δ','alpha':'α','mathsf':'','cdot':'·','{':'{','}':'}'}
 
 
 def math_run(text, plain=False):
@@ -212,6 +212,7 @@ def add_equation(doc,tex):
         '6':r',\qquad h', '7':r',\qquad \widetilde s^w_l',
         '9':r'+\operatorname{SmoothL1}',
         '11':r'+0.10r(e)',
+        '13':r',\qquad T_\alpha', '14':r',\qquad H_l',
     }
     split=breaks.get(number)
     lines=tex.split(split,1) if split and split in tex else [tex]
@@ -231,7 +232,9 @@ def add_equation(doc,tex):
 
 
 def add_table(doc,rows):
-    n=len(rows[0]);widths={5:[3.25,3.35,3.35,3.2,3.55],6:[3.5,2.64,2.64,2.64,2.64,2.64]}[n]
+    n=len(rows[0]);widths={3:[1.1,3.0,12.6],4:[3.4,3.3,5.0,5.0],
+        5:[3.25,3.35,3.35,3.2,3.55],6:[3.5,2.64,2.64,2.64,2.64,2.64],
+        7:[2.8,2.0,2.0,2.0,2.0,2.0,3.9]}[n]
     if rows[0][0]=='Fold':widths=[1.4,2.5,2.5,3.2,3.35,3.75]
     t=doc.add_table(rows=0,cols=n);t.autofit=False;t.alignment=WD_TABLE_ALIGNMENT.CENTER
     for col,w in zip(t.columns,widths):col.width=Cm(w)
@@ -244,17 +247,33 @@ def add_table(doc,rows):
             if i==0:
                 sh=OxmlElement('w:shd');sh.set(qn('w:fill'),'EDEFF2');pr.append(sh)
             borders=OxmlElement('w:tcBorders')
-            for side in ('top','bottom'):
-                edge=OxmlElement('w:'+side);edge.set(qn('w:val'),'single');edge.set(qn('w:sz'),'5' if i==0 else '2');edge.set(qn('w:color'),'707070' if i==0 else 'D6D6D6');borders.append(edge)
+            for side in ('top','bottom','left','right'):
+                edge=OxmlElement('w:'+side);edge.set(qn('w:val'),'single');edge.set(qn('w:sz'),'4');edge.set(qn('w:color'),'D9D9D9');borders.append(edge)
             pr.append(borders)
+            margin=OxmlElement('w:tcMar')
+            for side in ('top','bottom','left','right'):
+                el=OxmlElement('w:'+side);el.set(qn('w:w'),'70');el.set(qn('w:type'),'dxa');margin.append(el)
+            pr.append(margin)
             p=cell.paragraphs[0];pf=p.paragraph_format;pf.first_line_indent=Cm(0);pf.line_spacing=1.08;pf.space_after=Pt(4);pf.space_before=Pt(4)
-            pf.keep_with_next=True
+            pf.keep_with_next=i==0 or i==len(rows)-1 or len(rows)<=4
             p.alignment=WD_ALIGN_PARAGRAPH.CENTER
-            add_inline(p,value,9.0 if n==6 else 9.5,i==0)
+            add_inline(p,value,8.5 if n==7 else (9.0 if n==6 else 9.5),i==0)
+
+
+def add_figure_placeholder(doc, number):
+    """Reserve an editable blank figure slot without creating fake images."""
+    p=doc.add_paragraph();p.alignment=WD_ALIGN_PARAGRAPH.CENTER
+    pf=p.paragraph_format;pf.first_line_indent=Cm(0);pf.keep_with_next=True
+    pf.space_before=Pt(12);pf.space_after=Pt(64)
+    start=OxmlElement('w:bookmarkStart');start.set(qn('w:id'),str(100+number))
+    start.set(qn('w:name'),f'figure_pending_{number}');p._p.append(start)
+    font(p.add_run(f'图 {number} 待插入'),9)
+    end=OxmlElement('w:bookmarkEnd');end.set(qn('w:id'),str(100+number));p._p.append(end)
 
 
 def build():
-    make_figures()
+    # Author-requested pending figures: do not generate or overwrite any figure.
+    QA.mkdir(parents=True,exist_ok=True)
     doc=Document();sec=doc.sections[0]
     sec.page_width=Cm(21);sec.page_height=Cm(29.7)
     sec.left_margin=sec.right_margin=Cm(2.15);sec.top_margin=sec.bottom_margin=Cm(2.05)
@@ -274,6 +293,9 @@ def build():
     while i<len(lines):
         s=lines[i].strip()
         if not s:i+=1;continue
+        if re.fullmatch(r'\[\[FIGURE:\d+\]\]',s):
+            add_figure_placeholder(doc,int(re.search(r'\d+',s).group()))
+            i+=1;continue
         if s=='$$':
             eq=[];i+=1
             while lines[i].strip()!='$$':eq.append(lines[i].strip());i+=1
@@ -310,18 +332,24 @@ def build():
             else:add_inline(p,s)
         i+=1
     doc.core_properties.title='DCT 面向多模态生存预测的阶段条件最优运输与运输感知通路重建'
-    doc.core_properties.subject='v3.13 UNI2-h 五折实验完整中文稿'
+    doc.core_properties.subject='v3.13 UNI2-h 论文修订稿 图像待插入'
     doc.core_properties.author=''
     doc.save(OUTPUT)
-    assert len(doc.tables)==5 and len(doc.inline_shapes)==2
-    assert len(list(doc._element.iter(qn('m:oMath'))))==12
-    assert '[待填' not in source and '[待补' not in source
-    assert not any(value in source for value in ('0.7131', '0.7133', '0.0107', '0.0105'))
-    report={'docx':str(OUTPUT),'tables':len(doc.tables),'figures':len(doc.inline_shapes),'equations':12,
+    pending=[int(x) for x in re.findall(r'\[\[FIGURE:(\d+)\]\]',source)]
+    status=json.loads((SOURCE.parent/'V313_MANUSCRIPT_STATUS.json').read_text(encoding='utf-8'))
+    assert sorted(pending)==status['figure_placeholders']
+    ready=status.get('ready_figures', {})
+    assert sorted(pending + [int(k) for k in ready])==list(range(1,8))
+    assert len(doc.tables)==9 and len(doc.inline_shapes)==len(ready)
+    equations=len(list(doc._element.iter(qn('m:oMath'))))
+    assert equations==15  # 14 display equations plus one inline stability constant.
+    status=json.loads((SOURCE.parent/'V313_MANUSCRIPT_STATUS.json').read_text(encoding='utf-8'))
+    report={'docx':str(OUTPUT),'tables':len(doc.tables),'figures':len(doc.inline_shapes),'equations':equations,
+            'pending_figures':pending,
             'BLCA':{'mean':BLCA.mean(axis=1).tolist(),'sample_std':BLCA.std(axis=1,ddof=1).tolist()},
             'KIRC':{'mean':KIRC.mean(axis=1).tolist(),'sample_std':KIRC.std(axis=1,ddof=1).tolist()},
-            'controls':{'status':'withdrawn; independent fold provenance required'},
-            'source_scope':'70 recorded loss runs; Stage A controls withdrawn after 637e2b8 audit'}
+            'controls':status['controls'],
+            'source_scope':'70 recorded loss folds; 50 author-supplied Full folds; 20 audited rerun control folds; 10 saved same-model sweep JSONs; six figures pending'}
     (QA/'build_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps(report,ensure_ascii=False,indent=2))
 

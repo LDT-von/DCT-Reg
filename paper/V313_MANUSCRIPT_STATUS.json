@@ -1,0 +1,342 @@
+{
+  "status": "manuscript_prepared_figures_pending",
+  "new_real_experiments": 0,
+  "figure_placeholders": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7
+  ],
+  "ten_cancer_source": "author_supplied_fold_summary",
+  "ten_cancer": {
+    "BLCA": [
+      0.6576,
+      0.6953,
+      0.7465,
+      0.7744,
+      0.7453
+    ],
+    "BRCA": [
+      0.7925,
+      0.6948,
+      0.5748,
+      0.6504,
+      0.6809
+    ],
+    "COADREAD": [
+      0.7742,
+      0.7365,
+      0.757,
+      0.7448,
+      0.6695
+    ],
+    "HNSC": [
+      0.6963,
+      0.6118,
+      0.599,
+      0.645,
+      0.7389
+    ],
+    "KIRC": [
+      0.8253,
+      0.8485,
+      0.8202,
+      0.8094,
+      0.8084
+    ],
+    "LUAD": [
+      0.7015,
+      0.7138,
+      0.7109,
+      0.6352,
+      0.6677
+    ],
+    "LUSC": [
+      0.6709,
+      0.6377,
+      0.5983,
+      0.6969,
+      0.5463
+    ],
+    "SKCM": [
+      0.6442,
+      0.6199,
+      0.6706,
+      0.6434,
+      0.7488
+    ],
+    "STAD": [
+      0.6835,
+      0.6471,
+      0.5645,
+      0.6691,
+      0.6161
+    ],
+    "UCEC": [
+      0.806,
+      0.8532,
+      0.7654,
+      0.7511,
+      0.7884
+    ]
+  },
+  "ten_cancer_macro_mean": 0.702956,
+  "controls_source": "results/v313_evidence_v2/controls_audit.json",
+  "controls_audit_sha256": "05829ecf48bac52da04056765aab524705e7b30800ed75fc6c551e0883c5be14",
+  "controls": {
+    "direct_blca": {
+      "mean": 0.7029371589802625,
+      "sample_std": 0.04742647794339003,
+      "folds": [
+        0.6499575191163977,
+        0.7081545064377682,
+        0.6987839101964453,
+        0.7778753292361721,
+        0.6799145299145299
+      ],
+      "epochs": [
+        4,
+        14,
+        4,
+        8,
+        0
+      ]
+    },
+    "direct_kirc": {
+      "mean": 0.8030239237888445,
+      "sample_std": 0.030197974032615107,
+      "folds": [
+        0.7749820273184759,
+        0.8541374474053296,
+        0.8017711171662125,
+        0.794251134644478,
+        0.7899778924097274
+      ],
+      "epochs": [
+        8,
+        10,
+        13,
+        0,
+        2
+      ]
+    },
+    "independent_blca": {
+      "mean": 0.7092559454002101,
+      "sample_std": 0.040827865835366045,
+      "folds": [
+        0.6516567544604928,
+        0.7184549356223175,
+        0.6856875584658559,
+        0.7374890254609306,
+        0.752991452991453
+      ],
+      "epochs": [
+        16,
+        14,
+        6,
+        3,
+        3
+      ]
+    },
+    "independent_kirc": {
+      "mean": 0.8053798711363476,
+      "sample_std": 0.017075871530170737,
+      "folds": [
+        0.8123652048885693,
+        0.832398316970547,
+        0.7949591280653951,
+        0.794251134644478,
+        0.7929255711127488
+      ],
+      "epochs": [
+        21,
+        18,
+        6,
+        0,
+        2
+      ]
+    }
+  },
+  "pending": [
+    "figures",
+    "SlotSPE four groups full fold values and recipe mapping",
+    "complete ten-cancer raw provenance",
+    "full-control patient/config matching"
+  ],
+  "ready_figures": {
+    "4": {
+      "image": "paper/figures/fig4_transport_sweep_manuscript.png",
+      "raw_source_commit": "24f3f101722f1e7465252ac797ed9cc933a0d67d",
+      "source_script": "scripts/plot_fig3_transport_sweep.py",
+      "plot_script": "scripts/plot_v313_manuscript_sweep.py",
+      "schema_version": null,
+      "split": "5fold_uni2h",
+      "seed": 3,
+      "max_training_epochs": 30,
+      "std_ddof": 1,
+      "checkpoint_prediction_alignment": "not recorded by standalone sweep driver",
+      "records": [
+        {
+          "path": "paper/figures/fig3_sweep_blca_fold0.json",
+          "sha256": "63ceeb47d1d2b0ec5ae180d43fb78f60ba3204af89a9a25b0eb01387931eedf1",
+          "cancer": "blca",
+          "fold": 0,
+          "n_samples": 76,
+          "cindex": [
+            0.6576040781648258,
+            0.6576040781648258,
+            0.6576040781648258,
+            0.6576040781648258,
+            0.6576040781648258
+          ]
+        },
+        {
+          "path": "paper/figures/fig3_sweep_blca_fold1.json",
+          "sha256": "924421e0de3bf5a1174060300be643f5fcf7c8051aefc24b88cad9522bd2cce6",
+          "cancer": "blca",
+          "fold": 1,
+          "n_samples": 76,
+          "cindex": [
+            0.6952789699570815,
+            0.6952789699570815,
+            0.6952789699570815,
+            0.6952789699570815,
+            0.6952789699570815
+          ]
+        },
+        {
+          "path": "paper/figures/fig3_sweep_blca_fold2.json",
+          "sha256": "63727217e85f0b94d1da2ff981493e83b874f83d1c89a02b3ee56849c58fbff2",
+          "cancer": "blca",
+          "fold": 2,
+          "n_samples": 76,
+          "cindex": [
+            0.7464920486435921,
+            0.7464920486435921,
+            0.7464920486435921,
+            0.7464920486435921,
+            0.7464920486435921
+          ]
+        },
+        {
+          "path": "paper/figures/fig3_sweep_blca_fold3.json",
+          "sha256": "0d31f7c5c39b3a5d322ca09bd440a04b70afd075c359ea876d7a38622fde6382",
+          "cancer": "blca",
+          "fold": 3,
+          "n_samples": 76,
+          "cindex": [
+            0.7743634767339772,
+            0.7743634767339772,
+            0.7743634767339772,
+            0.7743634767339772,
+            0.7743634767339772
+          ]
+        },
+        {
+          "path": "paper/figures/fig3_sweep_blca_fold4.json",
+          "sha256": "1fb2cb2439a42dd33760169a87d2a0d3237ef51d4037a61cbc9d96f601dce209",
+          "cancer": "blca",
+          "fold": 4,
+          "n_samples": 76,
+          "cindex": [
+            0.7452991452991453,
+            0.7452991452991453,
+            0.7452991452991453,
+            0.7452991452991453,
+            0.7452991452991453
+          ]
+        },
+        {
+          "path": "paper/figures/fig3_sweep_kirc_fold0.json",
+          "sha256": "dd2505041ee4ddae14a34b983855f6f8a2e796b5f5f757c5001b5ebe9cd260be",
+          "cancer": "kirc",
+          "fold": 0,
+          "n_samples": 98,
+          "cindex": [
+            0.8253055355859095,
+            0.8253055355859095,
+            0.8253055355859095,
+            0.8253055355859095,
+            0.8253055355859095
+          ]
+        },
+        {
+          "path": "paper/figures/fig3_sweep_kirc_fold1.json",
+          "sha256": "dbfeda203b3314d00fa8d54511c39da836537ad7f7468a9782fa3e3151490578",
+          "cancer": "kirc",
+          "fold": 1,
+          "n_samples": 98,
+          "cindex": [
+            0.8485273492286115,
+            0.8485273492286115,
+            0.8485273492286115,
+            0.8485273492286115,
+            0.8485273492286115
+          ]
+        },
+        {
+          "path": "paper/figures/fig3_sweep_kirc_fold2.json",
+          "sha256": "887a92e0d35e7c2ed7dd63ee7b4d3194a2d4c45ffa720c3add0a3aa41f646ae6",
+          "cancer": "kirc",
+          "fold": 2,
+          "n_samples": 98,
+          "cindex": [
+            0.8201634877384196,
+            0.8208446866485014,
+            0.8208446866485014,
+            0.8208446866485014,
+            0.8208446866485014
+          ]
+        },
+        {
+          "path": "paper/figures/fig3_sweep_kirc_fold3.json",
+          "sha256": "8efa01b1232a8e39a14e57e4a8e0e9e4372df131e430c488605365c431a58c5e",
+          "cancer": "kirc",
+          "fold": 3,
+          "n_samples": 97,
+          "cindex": [
+            0.8093797276853253,
+            0.8093797276853253,
+            0.8093797276853253,
+            0.8093797276853253,
+            0.8093797276853253
+          ]
+        },
+        {
+          "path": "paper/figures/fig3_sweep_kirc_fold4.json",
+          "sha256": "feb631eab9d79e8bdca1c063b5dfb86abd28719f71b6eb901e82b713b0cc0847",
+          "cancer": "kirc",
+          "fold": 4,
+          "n_samples": 97,
+          "cindex": [
+            0.8084008843036109,
+            0.8084008843036109,
+            0.8084008843036109,
+            0.8084008843036109,
+            0.8084008843036109
+          ]
+        }
+      ]
+    }
+  },
+  "km_figure_protocol": {
+    "layout": "one overall high/low KM per cancer",
+    "default_arm": "exp6",
+    "grouping": "per-fold train median, pool validation group labels and outcomes",
+    "risk_direction": "higher_is_worse",
+    "expected_folds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "patient_occurrences": 1,
+    "real_figure_generated": false,
+    "missing_threshold": "error; no validation fallback",
+    "output": "paper/figures/fig5_oof",
+    "tests": "synthetic checks only; no score claim"
+  }
+}

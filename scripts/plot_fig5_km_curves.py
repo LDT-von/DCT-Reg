@@ -1,196 +1,125 @@
 #!/usr/bin/env python3
-"""
-Figure KM: Kaplan-Meier survival curves from exported predictions.
-使用训练风险中位数对验证集分组，绘制 KM 曲线。
+"""One overall high/low KM plot per cancer, using five-fold validation groups.
 
-数据来源: results/v313_interpretability_v1/exports/<arm>_<cancer>_fold<f>/<run_id>/patients.npz
-        + 训练风险从 export.json 加载（如果可用）
+Reads existing audited --km exports only. Does not run models or replace missing
+training thresholds with validation medians. Full is the default model.
 """
-import sys
-import os
-sys.path.insert(0, '/data1/DCT-Reg')
-os.chdir('/data1/DCT-Reg')
+from __future__ import annotations
 
-import json
-import pickle
+import argparse
+import csv
 from pathlib import Path
-import numpy as np
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-from lifelines import KaplanMeierFitter
-from lifelines.statistics import logrank_test
+import re
+import sys
 
-OUT = Path('paper/figures'); OUT.mkdir(exist_ok=True)
-EXPORT_ROOT = Path('results/v313_interpretability_v1/exports')
-CONTROLS = json.load(open('results/v313_evidence_v2/controls.json'))
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 
-def load_split_predictions(arm: str, cancer: str, fold: int) -> dict:
-    """Load split_<f>_results.pkl from controls v2 (作者已经验证的 predictions)。"""
-    for r in CONTROLS['runs']:
-        if r['arm'] == arm and r['cancer'] == cancer and r['fold'] == fold:
-            with open(r['predictions'], 'rb') as f:
-                return pickle.load(f)
-    return {}
+def plot_cohort(cohort, output, *, show_logrank=False):
+    import numpy as np
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from lifelines import KaplanMeierFitter
+
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 10,
+        "pdf.fonttype": 42, "axes.spines.top": False, "axes.spines.right": False})
+    fig, ax = plt.subplots(figsize=(6.0, 5.9))
+    fig.subplots_adjust(left=.20, right=.97, top=.91, bottom=.32)
+    groups = {}
+    for group, label, color in [("low", "Low risk", "#2878A8"), ("high", "High risk", "#C64B4B")]:
+        rows = [r for r in cohort["patients"] if r["group"] == group]
+        times = np.asarray([r["time"] for r in rows])
+        events = np.asarray([r["event"] for r in rows])
+        groups[group] = (times, events)
+        km = KaplanMeierFitter(alpha=.05)
+        km.fit(times, events, label=f"{label} (n={len(rows)})")
+        km.plot_survival_function(ax=ax, color=color, linewidth=2.2, ci_show=True,
+            ci_alpha=.12, show_censors=True, censor_styles={"marker": "+", "ms": 5, "mew": 1})
+    max_time = max(r["time"] for r in cohort["patients"])
+    if max_time <= 0:
+        raise ValueError("At least one positive follow-up time is required")
+    ticks = np.linspace(0, max_time, 5)
+    ax.set(title=f"{cohort['cancer'].upper()} · DCT Full" if cohort["arm"] == "exp6"
+        else f"{cohort['cancer'].upper()} · {cohort['arm']}",
+        xlabel="Time (months)", ylabel="Survival probability", ylim=(0, 1.02),
+        xlim=(0, max_time), xticks=ticks)
+    ax.grid(axis="y", alpha=.15, linewidth=.6)
+    ax.legend(frameon=False, loc="upper right", fontsize=9)
+    # Y(t-) = patients whose observed follow-up is >= t. Compute directly so
+    # last-event risk sets cannot be carried forward beyond final follow-up.
+    counts = {group: [int((times >= tick).sum()) for tick in ticks]
+              for group, (times, _) in groups.items()}
+    cohort["number_at_risk"] = dict(times=ticks.tolist(), counts=counts,
+        definition="Observed follow-up >= displayed time; immediately before removals at that time")
+    ax.text(0, -.19, "Number at risk", transform=ax.transAxes, fontsize=9, clip_on=False)
+    for group, label, ypos in [("low", "Low risk", -.245), ("high", "High risk", -.30)]:
+        ax.text(-.04, ypos, label, transform=ax.transAxes, ha="right", fontsize=8, clip_on=False)
+        for tick, count in zip(ticks, counts[group]):
+            ax.text(tick / max_time, ypos, str(count), transform=ax.transAxes,
+                    ha="center", fontsize=8, clip_on=False)
+    logrank = None
+    if show_logrank:
+        from lifelines.statistics import logrank_test
+        result = logrank_test(groups["low"][0], groups["high"][0],
+            event_observed_A=groups["low"][1], event_observed_B=groups["high"][1])
+        p, chi2 = float(result.p_value), float(result.test_statistic)
+        valid = bool(np.isfinite(p) and np.isfinite(chi2))
+        logrank = {"p_value": p if valid else None, "chi2": chi2 if valid else None,
+            "interpretation": "exploratory; ignores cross-validation model dependence",
+            "status": "available" if valid else "not_estimable"}
+        label = f"Exploratory log-rank p = {p:.2g}" if valid else "Log-rank not estimable"
+        ax.text(.04, .08, label, transform=ax.transAxes, fontsize=8)
+    fig.text(.20, .035, "Groups assigned with each fold's training-risk median, then pooled.\n"
+             "Five-fold development predictions. Shading: nominal 95% CI.\n"
+             "CI and optional log-rank do not adjust for CV model dependence.", fontsize=6.7)
+    stem = f"km_{cohort['cancer']}_{cohort['arm']}_oof"
+    for suffix in ("png", "pdf"):
+        fig.savefig(output / f"{stem}.{suffix}", dpi=300, facecolor="white")
+    plt.close(fig)
+    return logrank
 
 
-def load_train_risk_from_export(arm: str, cancer: str, fold: int):
-    """Try to load train risk from export.json if --km was used."""
-    base = EXPORT_ROOT / f"{arm}_{cancer}_fold{fold}"
-    if not base.exists():
-        return None, None
-    run_dirs = sorted([d for d in base.iterdir() if d.is_dir()])
-    for run_dir in run_dirs:
-        export_path = run_dir / 'export.json'
-        if export_path.exists():
-            export = json.load(open(export_path))
-            if export.get('km_train_median') is not None:
-                return float(export['km_train_median']), export
-    return None, None
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--exports", type=Path, default=ROOT / "results/v313_interpretability_v1/exports")
+    parser.add_argument("--output", type=Path, default=ROOT / "paper/figures/fig5_oof")
+    parser.add_argument("--cancer", action="append", help="Repeat for any cancer with five complete exports; default BLCA/KIRC")
+    parser.add_argument("--arm", default="exp6", help="Default Full; 'full' is an alias for exp6")
+    parser.add_argument("--seed", type=int, default=3)
+    parser.add_argument("--show-logrank", action="store_true", help="Add an exploratory, unadjusted log-rank p-value")
+    parser.add_argument("--check-only", action="store_true", help="Validate existing data without drawing or writing")
+    args = parser.parse_args(argv)
+    cancers = args.cancer or ["blca", "kirc"]
+    if len(cancers) != len(set(cancers)) or any(not re.fullmatch(r"[a-z][a-z0-9_]*", c) for c in cancers):
+        parser.error("Cancer names must be unique lowercase identifiers")
+    if not re.fullmatch(r"[a-z][a-z0-9_]*", args.arm):
+        parser.error("Invalid model arm")
+    try:
+        from survot_rank.evidence.km_oof import collect_cohorts
+        from survot_rank.evidence.manifest import save_json
+        # Validate ALL requested cohorts before generating the first plot.
+        cohorts = collect_cohorts(args.exports, cancers, arm=args.arm, seed=args.seed)
+        if args.check_only:
+            for cancer, cohort in cohorts.items():
+                print(f"[KM check] {cancer}: five folds, {cohort['n']} unique patients, train thresholds present")
+            return 0
+        args.output.mkdir(parents=True, exist_ok=True)
+        for cancer, cohort in cohorts.items():
+            result = plot_cohort(cohort, args.output, show_logrank=args.show_logrank)
+            stem = f"km_{cancer}_{cohort['arm']}_oof"
+            cohort["logrank"] = result
+            save_json(args.output / f"{stem}.json", cohort)
+            with (args.output / f"{stem}_patients.csv").open("w", encoding="utf-8", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=list(cohort["patients"][0]))
+                writer.writeheader()
+                writer.writerows(cohort["patients"])
+            print(f"[KM] {cancer}: {args.output / (stem + '.png')}")
+    except (ValueError, OSError, KeyError, ImportError) as error:
+        parser.exit(1, f"[KM] {error}\nNo model was run. Resolve missing exports/thresholds, then retry.\n")
+    return 0
 
 
-def get_kfold_data(arm: str, cancer: str, fold: int):
-    """Get (case_ids, risks, times, events) for a fold's val set from saved pkl."""
-    preds = load_split_predictions(arm, cancer, fold)
-    if not preds:
-        return None
-    case_ids = sorted(preds.keys())
-    risks, times, events = [], [], []
-    for cid in case_ids:
-        d = preds[cid]
-        if not isinstance(d, dict):
-            continue
-        risks.append(float(d.get('risk', 0)))
-        times.append(float(d.get('time', 0)))
-        events.append(int(d.get('censor', 1)))  # 0 = event, 1 = censored
-    if not risks:
-        return None
-    return case_ids, np.array(risks), np.array(times), np.array(events)
-
-
-# Model risk = -cumprod.sum, so lower (more negative) = higher hazard
-# 'high risk' group: risk < median (more negative)
-# 'low risk' group: risk > median
-
-def plot_km_panel(ax, arm, full_data, cancer, fold, show_legend=True):
-    """Plot one KM panel for one arm/cancer/fold."""
-    if full_data is None:
-        ax.text(0.5, 0.5, f'{arm}: no data', ha='center', va='center', transform=ax.transAxes)
-        return None
-
-    case_ids, risks, times, events = full_data
-
-    # Use median of full val risks as threshold (legacy_val protocol)
-    # Or train median if available
-    train_median, _ = load_train_risk_from_export(arm, cancer, fold)
-    threshold = train_median if train_median is not None else float(np.median(risks))
-
-    # Lower (more negative) risk = higher hazard
-    low_mask = risks > threshold
-    high_mask = ~low_mask
-
-    T_low, E_low = times[low_mask], events[low_mask]
-    T_high, E_high = times[high_mask], events[high_mask]
-
-    # Convert to lifelines format (event observed: 1=event, 0=censor)
-    # In our pkl, censor=0 means event occurred
-    E_low_lf = (E_low == 0).astype(int)
-    E_high_lf = (E_high == 0).astype(int)
-
-    kmf = KaplanMeierFitter()
-
-    # Plot low risk
-    if T_low.sum() > 0:
-        kmf.fit(T_low, E_low_lf, label=f'Low-risk (n={low_mask.sum()}, events={E_low_lf.sum()})')
-        kmf.plot_survival_function(ax=ax, color='#2ca02c', linewidth=2.0, ci_show=True, ci_alpha=0.15)
-
-    # Plot high risk
-    if T_high.sum() > 0:
-        kmf.fit(T_high, E_high_lf, label=f'High-risk (n={high_mask.sum()}, events={E_high_lf.sum()})')
-        kmf.plot_survival_function(ax=ax, color='#d62728', linewidth=2.0, linestyle='--', ci_show=True, ci_alpha=0.15)
-
-    # Log-rank
-    if len(T_low) > 0 and len(T_high) > 0:
-        result = logrank_test(T_low, T_high, E_low_lf, E_high_lf)
-        pval = result.p_value
-        chi2 = result.test_statistic
-    else:
-        pval, chi2 = 1.0, 0.0
-
-    # C-index
-    from survot_rank.evidence.manifest import cindex
-    ci = cindex(times, events, risks)
-
-    ax.set_title(f'{cancer.upper()} Fold {fold}', fontsize=10, fontweight='bold')
-    ax.set_xlabel('Time (months)', fontsize=9)
-    ax.set_ylabel('Survival probability', fontsize=9)
-    ax.set_ylim(0, 1.05)
-    ax.grid(True, alpha=0.3)
-    ax.legend(fontsize=7, loc='lower left') if show_legend else ax.legend_.remove() if ax.legend_ else None
-
-    stats_text = (
-        f'n={len(risks)}\n'
-        f'C-index={ci:.3f}\n'
-        f'Log-rank χ²={chi2:.2f}\n'
-        f'p={pval:.4f}\n'
-        f'Threshold={"train" if train_median else "val"}\n'
-        f'={threshold:.3f}'
-    )
-    props = dict(boxstyle='round,pad=0.3', facecolor='wheat', alpha=0.8)
-    ax.text(0.97, 0.97, stats_text, transform=ax.transAxes,
-           fontsize=7, verticalalignment='top', horizontalalignment='right',
-           bbox=props, family='monospace')
-
-    return pval
-
-
-def plot_km_for_cancer(cancer: str, arms, folds, output_path: Path):
-    """Plot KM curves: rows=arms, cols=folds."""
-    fig, axes = plt.subplots(len(arms), len(folds), figsize=(15, 9),
-                              gridspec_kw={'wspace': 0.30, 'hspace': 0.40})
-    if len(arms) == 1:
-        axes = axes.reshape(1, -1)
-
-    fig.suptitle(f'{cancer.upper()} — KM Survival Curves (Train-median risk split)',
-                 fontsize=13, fontweight='bold', y=0.995)
-
-    pval_table = []
-    for i, arm in enumerate(arms):
-        for j, fold in enumerate(folds):
-            ax = axes[i, j]
-            data = get_kfold_data(arm, cancer, fold)
-            pval = plot_km_panel(ax, arm, data, cancer, fold, show_legend=(i == 0 and j == 0))
-            pval_table.append({'arm': arm, 'fold': fold, 'pval': pval})
-
-    # Row labels
-    for i, arm in enumerate(arms):
-        axes[i, 0].text(-0.20, 0.5, arm.upper(), transform=axes[i, 0].transAxes,
-                       fontsize=11, fontweight='bold', ha='right', va='center', rotation=0)
-
-    plt.savefig(output_path, dpi=150, bbox_inches='tight', facecolor='white')
-    plt.close()
-
-    return pval_table
-
-
-def main():
-    arms = ['exp6', 'direct', 'independent']  # Full + controls
-    folds = [0, 1, 2, 3, 4]
-
-    for cancer in ['blca', 'kirc']:
-        output = OUT / f'km_{cancer}_per_fold.png'
-        print(f"\nGenerating KM plots for {cancer.upper()}...")
-        pval_table = plot_km_for_cancer(cancer, arms, folds, output)
-
-        # Save p-values
-        pval_path = OUT / f'km_{cancer}_pvalues.json'
-        json.dump(pval_table, open(pval_path, 'w'), indent=2)
-        print(f"  Saved: {output}")
-        print(f"  P-values: {pval_path}")
-
-    print("\nAll KM plots saved.")
-
-
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    raise SystemExit(main())

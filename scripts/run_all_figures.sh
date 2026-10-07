@@ -5,7 +5,7 @@
 # 3. Transport intervention sweep (fig3_transport_sweep) — re-run from exports
 # 4. Cohort pathway heatmap (fig_d_cohort_heatmap)
 # 5. Case interpretation figure — generation requires assets
-set -e
+set -euo pipefail
 cd /data1/DCT-Reg
 
 echo "=== 1. Per-fold C-index comparison (Fig 2) ==="
@@ -16,8 +16,8 @@ echo "=== 2. Transport plan replacement sweep (Fig 3) ==="
 python scripts/plot_fig3_from_exports.py 2>&1 | tail -3
 
 echo ""
-echo "=== 3. KM survival curves (Fig 5) ==="
-python scripts/plot_fig5_km_curves.py 2>&1 | tail -10
+echo "=== 3. Overall KM curves per cancer (Fig 5, Full) ==="
+python scripts/plot_fig5_km_curves.py --arm exp6 --cancer blca --cancer kirc 2>&1 | tail -10
 
 echo ""
 echo "=== 4. Cohort pathway heatmap (Fig D) ==="
@@ -31,4 +31,4 @@ python scripts/prepare_v313_evidence.py plot \
 
 echo ""
 echo "=== Listing all generated figures ==="
-find paper/figures -type f \( -name "*.png" -o -name "*.pdf" \) -newer scripts/plot_fig2_perfold_cindex.py 2>&1 | head -30
+find paper/figures -type f \( -name "*.png" -o -name "*.pdf" \) -newer scripts/plot_fig2_perfold_cindex.py 2>&1 | awk 'NR <= 30 {print}'

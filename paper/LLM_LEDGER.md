@@ -141,3 +141,41 @@ remaining folds and adds the corresponding KIRC fold-2 micro-shift.
    α, which is too small to flip rank order in a 76- or 98-patient
    validation set. C-index is therefore expected to be flat here even
    if the model genuinely uses the plan.
+
+
+## 2026-10-07 — Manuscript integration verification of commit 24f3f10
+
+This note corrects the preceding sweep description without changing its source
+results. The committed source has `independent_plan = (T1)(T^T1)^T / sum(T)`
+and mixes raw plans; there is no column normalization before interpolation.
+Any normalization in the trained downstream model remains downstream.
+
+There are 50 cells including ten factual baselines. Four cells change, all
+KIRC fold 2 at nonzero alpha; 46 are equal to their fold baseline. Considering
+only the 40 intervention cells, 36 are unchanged. The single finding is that
+this within-checkpoint, factual-marginal replacement has little C-index effect.
+
+The standalone driver calls `replay`, not `export_run`. Its alpha-zero check
+compares two computations inside that replay; it does not load saved best
+patient predictions. Deterministic settings newly added to `export_run` are
+not executed through this driver. Four-decimal factual C-index agreement is
+observed, but patient-level saved-best alignment is not established here.
+
+The JSON has no schema version, source timestamp, patient IDs, checkpoint
+hash, n_train, per-patient risk differences, or marginal residuals. Use the
+2026-10-07 Git commit timestamp for this delivery, not checkout mtime.
+Source: `scripts/plot_fig3_transport_sweep.py`, Exp6 checkpoint family,
+`5fold_uni2h`, seed 3, maximum training budget 30 epochs; five folds per
+cancer, BLCA n=76 each, KIRC n=98/98/98/97/97. Those are validation patients.
+Risk summary statistics shift slightly; a changed distribution's moments do
+not measure paired patient-level changes.
+
+The original plot uses population SD (`ddof=0`). The manuscript Figure 4
+uses the same ten JSONs with sample SD (`ddof=1`) for consistency with its
+tables. Source Figure-3 files are preserved. The manuscript uses audited
+20-run v2 control records, separate from the retracted historical Stage A;
+the preceding blanket statement that Direct/Independent remain retracted
+does not describe this later source. No new control audit or model run was
+performed during manuscript editing. The ten-cancer table remains explicitly
+author-supplied and lacks complete raw provenance in this checkout; the
+partial main JSON does not validate it as a complete ten-cancer result.
