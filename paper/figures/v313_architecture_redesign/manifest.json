@@ -1,0 +1,31 @@
+{
+  "method": "dct_v313",
+  "source_commit": "130c0d404bfd2350fead5b3eb277499d31cfb3a7",
+  "source_sha256": {
+    "survot_rank/research/methods/distributional_counterfactual_transport/model.py": "2b6937d84f65178ffcf2f71c087fd7d21658c187ddadece4f730363f42319026",
+    "survot_rank/research/methods/ot_event_hazard_v2/model_v2.py": "e82cb344f366bc04583bb03487b22a81c4c8340520a0bcad8c650a72e8df40c5",
+    "survot_rank/research/methods/legacy/experimental/dct_v311_slot_interpretable/model.py": "698df4ecb1b58a32df0176b2da601d26ba7eb7384e8d874ebe34379d031cdec9",
+    "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/model.py": "f29b0ea02e9048bccc84707f82b668c5c40ff93b4fe52228c9230f92e1f7b60e"
+  },
+  "baseline_reference": "https://arxiv.org/html/2512.01116v2#S3",
+  "layout_reference": "SlotSPE Figure 1; original vector redraw with DCT topology",
+  "new_relative_to_slotspe": [
+    "prototype coordinate reassignment",
+    "stage-conditioned multi-geometry transport",
+    "transport-event survival readout",
+    "prediction-plan-coupled reconstruction"
+  ],
+  "reconstruction_target": "stop-gradient encoded pathway tokens",
+  "reconstruction_gate": "stop-gradient prediction gate",
+  "shared_decoder": true,
+  "training_only_reconstruction": true,
+  "schematic_not_patient_data": true,
+  "outputs": [
+    "fig1_v313_framework_en.pdf",
+    "fig1_v313_framework_en.svg",
+    "fig1_v313_framework_en.png",
+    "fig1_v313_framework_zh.pdf",
+    "fig1_v313_framework_zh.svg",
+    "fig1_v313_framework_zh.png"
+  ]
+}

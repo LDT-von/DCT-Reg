@@ -2,7 +2,6 @@
   "status": "manuscript_prepared_figures_pending",
   "new_real_experiments": 0,
   "figure_placeholders": [
-    1,
     2,
     3,
     5,
@@ -319,6 +318,15 @@
           ]
         }
       ]
+    },
+    "1": {
+      "image": "paper/figures/v313_architecture_redesign/fig1_v313_framework_en.png",
+      "chinese_image": "paper/figures/v313_architecture_redesign/fig1_v313_framework_zh.png",
+      "plot_script": "scripts/draw_v313_architecture_slotspe_layout.py",
+      "manifest": "paper/figures/v313_architecture_redesign/manifest.json",
+      "source_commit": "130c0d404bfd2350fead5b3eb277499d31cfb3a7",
+      "source_kind": "source-grounded schematic; not measured patient data",
+      "layout_reference": "SlotSPE Figure 1; original vector redraw"
     }
   },
   "km_figure_protocol": {
