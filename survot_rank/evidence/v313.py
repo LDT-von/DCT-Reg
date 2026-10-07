@@ -238,6 +238,22 @@ def profile_model(model, payload, repeats=30, warmup=5):
 
 
 def export_run(run, output_root, *, device="cuda:0", alphas=(0, .25, .5, .75, 1), case_ids=(), km=False, profile=False):
+    # Enforce deterministic cuDNN so checkpoint replay matches the saved best
+    # predictions within the audit's per-patient tolerance. Without this,
+    # floating-point reorder from non-deterministic algorithms can push the
+    # |replay - saved| difference above the 2e-5 evidence threshold on a few
+    # patients (e.g. TCGA-4Z-AA7S, TCGA-A3-3363) even though the audit-level
+    # C-index is unchanged.
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    try:
+        torch.use_deterministic_algorithms(True, warn_only=True)
+    except (AttributeError, RuntimeError):
+        pass
+    torch.manual_seed(int(run.get("seed", 3)))
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(int(run.get("seed", 3)))
+
     report = audit({"runs": [run]})
     if not report["passed"]:
         raise ValueError("; ".join(report["errors"]))
