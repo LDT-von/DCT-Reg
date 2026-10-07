@@ -324,9 +324,10 @@
       "chinese_image": "paper/figures/v313_architecture_redesign/fig1_v313_framework_zh.png",
       "plot_script": "scripts/draw_v313_architecture_slotspe_layout.py",
       "manifest": "paper/figures/v313_architecture_redesign/manifest.json",
-      "source_commit": "130c0d404bfd2350fead5b3eb277499d31cfb3a7",
+      "source_commit": "a2c7c2e22518608f40e6c26983130dcb949ffff9",
       "source_kind": "source-grounded schematic; not measured patient data",
-      "layout_reference": "SlotSPE Figure 1; original vector redraw"
+      "layout_reference": "SlotSPE Figure 1; original vector redraw",
+      "connector_layout": "straight single-segment connectors; repeated tensor references S/T/g"
     }
   },
   "km_figure_protocol": {

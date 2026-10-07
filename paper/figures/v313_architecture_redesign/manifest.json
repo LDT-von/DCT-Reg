@@ -1,6 +1,6 @@
 {
   "method": "dct_v313",
-  "source_commit": "130c0d404bfd2350fead5b3eb277499d31cfb3a7",
+  "source_commit": "a2c7c2e22518608f40e6c26983130dcb949ffff9",
   "source_sha256": {
     "survot_rank/research/methods/distributional_counterfactual_transport/model.py": "2b6937d84f65178ffcf2f71c087fd7d21658c187ddadece4f730363f42319026",
     "survot_rank/research/methods/ot_event_hazard_v2/model_v2.py": "e82cb344f366bc04583bb03487b22a81c4c8340520a0bcad8c650a72e8df40c5",
@@ -19,6 +19,12 @@
   "reconstruction_gate": "stop-gradient prediction gate",
   "shared_decoder": true,
   "training_only_reconstruction": true,
+  "connector_layout": "single-segment connectors; named tensor references for fan-out",
+  "tensor_reference_semantics": {
+    "S": "(S_w, S_o)",
+    "T": "same factual prediction plans",
+    "g": "same prediction gate; stop-gradient in reconstruction"
+  },
   "schematic_not_patient_data": true,
   "outputs": [
     "fig1_v313_framework_en.pdf",

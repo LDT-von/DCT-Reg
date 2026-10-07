@@ -44,3 +44,5 @@ python scripts/plot_fig5_km_curves.py \
 
 
 2026-10-08 框架图修订：见 `V313_ARCHITECTURE_REDESIGN.md` 与 `figures/v313_architecture_redesign/`。Markdown 正文和图状态已接入英文新图；已有 Word 文件保留，下一次运行构建脚本会采用新图。中文图用于说明，各版本共享同一计算拓扑。
+
+框架图连线修订：预测主干横向排列，cross/self 重建分为两条水平支路。取消跨面板长折线，同名 S/T/g 标记说明张量复用；模型计算拓扑保持一致。中英文 SVG/PDF/PNG 与正文图注同步更新。

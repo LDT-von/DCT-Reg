@@ -32,13 +32,15 @@ IPCW 排序、逐槽 NLL、多样性约束是训练设计，放在图底部。NL
 - `fig1_v313_framework_zh.svg` / `.pdf` / `.png`：中文解释版。
 - `manifest.json`：模型源文件哈希、源提交、参考布局和示意标识。
 
-沿用 SlotSPE Figure 1 的双路输入、编码器、槽压缩视觉顺序，原生重绘全部矢量元素，并按实际 DCT 拓扑替换中央交互与预测模块。紫色连接标出“预测计划复用于重建”；橙色虚线明确重建使用的门控停止梯度。原型库按模态分开，不暗示同号病理槽与组学槽有已证实的相同生物学含义。
+沿用 SlotSPE Figure 1 的双路输入、编码器、槽压缩视觉顺序，原生重绘全部矢量元素，并按实际 DCT 拓扑替换中央交互与预测模块。预测主干由左向右排列，重建分为 cross/self 两条水平支路；所有连接均为单段直线，不再绕过面板。
+
+同名圆形标记明确跨面板的张量复用：`S` 是同一对语义槽 `(S_w, S_o)`，`T` 是预测实际使用的同一组计划，`g` 是同一预测门控（重建时使用 `SG(g)`）。这些标记是张量引用，不是新网络模块，也不代表重新计算。图例与图注明确该约定，因此省去长距离连线而保留数据依赖。原型库按模态分开，不暗示同号病理槽与组学槽有已证实的相同生物学含义。
 
 底部重建只在训练时运行。目标是编码后的通路 tokens，不是原始基因表达；当前跨重建依赖接收者组学参与计划与门控，不能由此声称 WSI-only 缺失组学补全。图中阶段是学习的潜在阶段，不是已标注的疾病分期。所有微型矩阵、图块和 token 都是结构示意，不能当成患者实验结果。
 
 英文图注建议：
 
-> Overview of DCT v3.13. Histology and pathway tokens are compressed by local slot attention and reassigned to modality-specific prototype coordinates reused across patients (M1). Stage-conditioned multi-geometry costs and evidence-conditioned marginals define Sinkhorn transport plans (M2). The plans and slot-pair content jointly form event representations for gated survival prediction (M3). During training, the same prediction plans transport histology slots to omics-slot coordinates for pathway-token reconstruction, alongside an omics self-reconstruction branch with a shared decoder (M4). Reconstruction uses stop-gradient encoded pathway targets and a stop-gradient prediction gate. Solid arrows denote prediction flow and dashed arrows denote training-only branches. All illustrated tensors are schematic.
+> Overview of DCT v3.13. Histology and pathway tokens are compressed by local slot attention and reassigned to modality-specific prototype coordinates reused across patients (M1). Stage-conditioned multi-geometry costs and evidence-conditioned marginals define Sinkhorn transport plans (M2). The plans and slot-pair content jointly form event representations for gated survival prediction (M3). During training, the same prediction plans transport histology slots to omics-slot coordinates for pathway-token reconstruction, alongside an omics self-reconstruction branch with a shared decoder (M4). Reconstruction uses stop-gradient encoded pathway targets and a stop-gradient prediction gate. Repeated S, T and g badges denote references to the identical slot sets, prediction plans and prediction gate, respectively. Solid arrows denote prediction flow and dashed arrows denote training-only branches. All illustrated tensors are schematic.
 
 ## 代码对应关系
 

@@ -22,7 +22,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
 ROOT = Path(__file__).resolve().parents[1]
-W, H = 1660, 970
+W, H = 1760, 1170
 INK, GRAY = '#263547', '#6A7585'
 PINK, GREEN = '#B95686', '#538348'
 PURPLE, ORANGE = '#7457AC', '#B97025'
@@ -78,11 +78,23 @@ def draw(language: str) -> Drawing:
     def dot(x, y, radius, color):
         d.add(Circle(x, H-y, radius, fillColor=HexColor(color), strokeColor=None))
 
+    def ref(x, y, name, color, radius=13):
+        """Named tensor reference; repeated names mean the identical tensor.
+
+        References expose fan-out without wrapping a connector around panels.
+        They are data ports, not additional computational modules.
+        """
+        dot(x, y, radius, color)
+        text(x, y+5, name, 16, 'white', True)
+
     def box(x, y, w, h, lines, color=INK, fill='white', size=17):
         rect(x, y, w, h, fill, color)
         for i, value in enumerate(lines):
+            line_font = 'DctCN' if cn else ('DctBold' if i == 0 else 'DctSans')
+            line_width = pdfmetrics.stringWidth(value, line_font, size)
+            fitted_size = size * min(1.0, (w-24) / max(line_width, 1.0))
             text(x+w/2, y+h/2+(i-(len(lines)-1)/2)*22+6, value,
-                 size, color, bold=i == 0)
+                 fitted_size, color, bold=i == 0)
 
     def panel(x, y, w, h, tag, title, fill, color):
         rect(x, y, w, h, fill, color, 10, sw=1.1)
@@ -117,18 +129,18 @@ def draw(language: str) -> Drawing:
 
     rect(0, 0, W, H)
     text(25, 36, tr('DCT v3.13: transport-coupled prediction and pathway reconstruction',
-                    'DCT v3.13：由同一传输计划连接生存预测与通路重建'), 26, bold=True, anchor='start')
+                    'DCT v3.13：由同一传输计划连接生存预测与通路重建'), 28, bold=True, anchor='start')
     rect(25, 52, 16, 13, '#F1F3F6', '#A2ABB8', 2)
     text(50, 64, tr('Retained slot-encoding foundation', '沿用的槽编码基础'), 15, GRAY, anchor='start')
     rect(382, 52, 16, 13, M2, PURPLE, 2)
     text(407, 64, tr('M1-M4: DCT modifications relative to SlotSPE', 'M1-M4：相对 SlotSPE 的实际改动'), 15, PURPLE, anchor='start')
-    arrow([(1000, 59), (1040, 59)])
-    text(1050, 64, tr('Prediction', '预测路径'), 15, anchor='start')
-    arrow([(1200, 59), (1240, 59)], GREEN, True)
-    text(1250, 64, tr('Training-only branch', '仅训练时启用的分支'), 15, GREEN, anchor='start')
+    ref(1023, 59, 'T', PURPLE, 10)
+    text(1043, 64, tr('Repeated badges = the same tensor', '同名标记 = 同一个张量'), 15, GRAY, anchor='start')
+    arrow([(1425, 59), (1460, 59)], GREEN, True)
+    text(1472, 64, tr('Training only', '仅训练时使用'), 15, GREEN, anchor='start')
 
     # Preserve SlotSPE's recognizable twin input/encoder/compression rows.
-    panel(25, 90, 510, 470, 'A', tr('Two-modality slot encoding', '病理与组学双路槽编码'),
+    panel(25, 90, 510, 610, 'A', tr('Two-modality slot encoding', '病理与组学双路槽编码'),
           '#FBFCFD', '#A2ABB8')
     text(105, 153, tr('Histology', '病理输入'), 19, PINK, True)
     rng = random.Random(313)
@@ -160,6 +172,7 @@ def draw(language: str) -> Drawing:
     box(172, 353, 74, 108, [tr('Pathway', '通路'), tr('encoder', '编码器')], GREEN, '#EEF5E9', 16)
     arrow([(246, 407), (259, 407)], GREEN)
     tokens(262, 372, GREEN, n=3, w=8, h=70, gap=3)
+    text(276, 364, 'X_o', 15, GREEN)
     arrow([(294, 407), (307, 407)], GREEN)
     d.add(Polygon([309,H-354, 365,H-384, 365,H-430, 309,H-462],
                   fillColor=HexColor('#ECD9ED'), strokeColor=HexColor('#9F78A6'), strokeWidth=.8))
@@ -182,117 +195,119 @@ def draw(language: str) -> Drawing:
     text(452, 380, tr('Omics bank', '组学原型库'), 14, GREEN)
     slots(401, 427, n=8, step=14, size=10)
     text(452, 477, 'S_o', 17, GREEN, True)
-    text(278, 522, tr('Separate prototype banks; reused across patients',
+    text(278, 598, tr('Separate prototype banks; reused across patients',
                       '两模态原型库分开学习，并在患者间复用'), 16, GRAY)
-    text(278, 546, tr('Coordinates are learned; biological semantics need validation',
-                      '槽坐标由模型学习；生物学含义需实验验证'), 14, GRAY)
+    text(278, 627, tr('S = (S_w, S_o): the two semantic slot sets',
+                      'S = (S_w, S_o)：两模态语义槽集合'), 16, INK)
+    text(278, 680, tr('Local slot attention -> prototype coordinate reassignment',
+                      '局部槽注意力 → 原型坐标重分配'), 15, GRAY)
 
-    # M2 replaces the baseline's direct slot-interaction prediction path.
-    panel(557, 90, 560, 470, 'M2', tr('Stage-conditioned multi-geometry OT', '阶段条件化的多几何传输'),
+    # The overview has ONE horizontal prediction spine. Every connector is a
+    # single straight segment; explicit data references replace cross-panel buses.
+    arrow([(519, 292), (542, 352)], PINK)
+    arrow([(519, 438), (542, 378)], GREEN)
+    ref(547, 365, 'S', INK)
+
+    panel(565, 90, 530, 610, 'M2', tr('Stage-conditioned multi-geometry OT', '阶段条件化的多几何传输'),
           M2, PURPLE)
-    arrow([(519, 292), (547, 292), (547, 165), (580, 165)], PINK)
-    arrow([(519, 438), (551, 438), (551, 213), (580, 213)], GREEN)
-    box(582, 146, 242, 72,
-        [tr('Slot-pair costs', '槽对代价'), tr('Cosine / Euclidean / positive-dot', '余弦 / 欧氏 / 正点积')],
-        PURPLE, 'white', 15)
-    box(841, 146, 252, 72,
-        [tr('Learned stage + evidence costs', '学习阶段代价 + 证据代价'),
+    text(829, 188, tr('Construct an explicit joint transport plan', '构造显式跨模态联合传输计划'), 18, PURPLE)
+    text(829, 216, tr('Learned costs and marginals for each latent stage', '每个潜在阶段学习代价与证据边际'), 16, GRAY)
+    arrow([(560, 365), (588, 365)], INK)
+    box(590, 290, 264, 150,
+        [tr('Cost construction', '代价构造'),
+         tr('Cosine / Euclidean / positive-dot', '余弦 / 欧氏 / 正点积'),
+         tr('+ learned stage & evidence costs', '+ 学习阶段代价与证据代价'),
          tr('Evidence-conditioned marginals', '证据条件化的两侧边际')], PURPLE, 'white', 15)
-    arrow([(703, 218), (703, 241), (787, 241), (787, 259)], PURPLE)
-    arrow([(967, 218), (967, 241), (899, 241), (899, 259)], PURPLE)
-    box(647, 261, 388, 45, ['Sinkhorn OT  ->  T_(s,m)'], PURPLE, '#E9DFF5', 19)
-    arrow([(841, 306), (841, 320)], PURPLE)
+    arrow([(854, 365), (883, 365)], PURPLE)
+    box(885, 338, 175, 54, ['Sinkhorn OT'], PURPLE, '#E9DFF5', 19)
+    arrow([(1060, 365), (1069, 365)], PURPLE, head=False)
+    ref(1082, 365, 'T', PURPLE)
+    text(828, 481, tr('T_(s,m): prediction plans', 'T_(s,m)：预测所用传输计划'), 18, PURPLE, True)
     for g, label in enumerate([tr('Cosine', '余弦'), tr('Euclidean', '欧氏'), tr('Positive-dot', '正点积')]):
-        text(778+g*100, 344, label, 15, PURPLE)
+        text(790+g*117, 514, label, 15, PURPLE)
     for s in range(4):
-        y = 354+s*42
-        text(664, y+23, tr(f'Latent stage {s+1}', f'潜在阶段 {s+1}'), 15, PURPLE)
+        y = 529+s*34
+        text(661, y+23, tr(f'Latent stage {s+1}', f'潜在阶段 {s+1}'), 15, PURPLE)
         for g in range(3):
-            heatmap(760+g*100, y, 33, s*3+g+1)
-    text(835, 548, tr('4 learned latent stages x 3 geometries; schematic plans',
-                      '4 个学习潜在阶段 × 3 种几何；矩阵为示意'), 15, GRAY)
+            heatmap(775+g*117, y, 29, s*3+g+1)
+    text(830, 685, tr('4 learned latent stages x 3 geometries', '4 个学习潜在阶段 × 3 种几何'), 15, GRAY)
 
-    # M3 consumes BOTH plans AND the semantic slot content. Gate and logits are
-    # parallel outputs; the gate does not generate the logits.
-    panel(1139, 90, 496, 470, 'M3', tr('Transport-event survival prediction', '传输事件生存预测'),
+    panel(1120, 90, 615, 610, 'M3', tr('Transport-event survival prediction', '传输事件生存预测'),
           M3, ORANGE)
-    # Draw after the M3 panel so its background cannot cover this input.
-    arrow([(519, 292), (539, 292), (539, 325)], PINK, head=False, width=1.3)
-    arrow([(519, 438), (539, 438), (539, 325)], GREEN, head=False, width=1.3)
-    dot(539, 325, 3.2, INK)
-    arrow([(539, 325), (539, 135), (1128, 135), (1128, 168), (1171, 168)], INK, width=1.3)
-    arrow([(1117, 420), (1154, 420), (1154, 183), (1169, 183)], PURPLE)
-    box(1171, 150, 442, 73,
+    text(1428, 188, tr('Transport mass + slot-pair content', '传输质量 + 槽对内容'), 18, ORANGE)
+    text(1428, 216, tr('Both inputs jointly define each event', '两类输入共同构建事件表示'), 16, GRAY)
+    ref(1190, 292, 'S', INK)
+    text(1213, 298, tr('Same S_w, S_o', '复用 S_w、S_o'), 16, INK, anchor='start')
+    arrow([(1190, 305), (1190, 333)], INK)
+    arrow([(1095, 365), (1148, 365)], PURPLE)
+    box(1150, 335, 555, 60,
         [tr('Transport-event fusion', '传输事件融合'),
-         tr('Plans + slot-pair content -> event tokens', '传输计划 + 槽对内容 → 事件 tokens')], ORANGE, 'white', 17)
-    arrow([(1392, 223), (1392, 260)], ORANGE)
-    box(1192, 263, 400, 43, [tr('Stage embedding + event Transformer', '阶段嵌入 + 事件 Transformer')], ORANGE, 'white', 17)
-    arrow([(1392, 306), (1392, 322), (1272, 322), (1272, 337)], ORANGE)
-    arrow([(1392, 322), (1512, 322), (1512, 337)], ORANGE)
-    box(1192, 340, 160, 46, [tr('Stage gate g', '阶段门控 g')], ORANGE, 'white', 16)
-    box(1412, 340, 180, 46, [tr('Event logits z_s', '事件 logits z_s')], ORANGE, 'white', 16)
-    arrow([(1272, 386), (1272, 402), (1375, 402)], ORANGE)
-    arrow([(1502, 386), (1502, 402), (1410, 402)], ORANGE)
-    box(1378, 390, 30, 26, ['+'], ORANGE, '#F4E2C4', 18)
-    text(1387, 440, tr('Weighted logits: z = sum_s g_s z_s', '加权 logits：z = sum_s g_s z_s'), 17, ORANGE, True)
-    arrow([(1392, 447), (1392, 464)], ORANGE)
-    box(1184, 467, 412, 42, [tr('Hazards -> survival curve / patient risk', '风险概率 → 生存曲线 / 患者风险')], ORANGE, 'white', 17)
-    text(1387, 529, tr('Slot content and plans jointly define each event', '槽内容与传输计划共同构建事件'), 14, GRAY)
-    text(1387, 547, tr('Latent stages are not annotated disease stages', '潜在阶段不等同于已标注的疾病分期'), 14, GRAY)
+         tr('T + S -> event tokens', 'T + S → 事件 tokens')], ORANGE, 'white', 18)
+    arrow([(1428, 395), (1428, 420)], ORANGE)
+    box(1180, 422, 500, 50,
+        [tr('Stage embedding + event Transformer', '阶段嵌入 + 事件 Transformer')], ORANGE, 'white', 18)
+    arrow([(1310, 472), (1310, 518)], ORANGE)
+    arrow([(1570, 472), (1570, 518)], ORANGE)
+    rect(1220, 520, 180, 46, 'white', ORANGE)
+    text(1298, 548, tr('Stage gate', '阶段门控'), 16, ORANGE, True)
+    ref(1375, 543, 'g', ORANGE, 12)
+    box(1480, 520, 180, 46, [tr('Event logits z_s', '事件 logits z_s')], ORANGE, 'white', 16)
+    arrow([(1310, 566), (1310, 588)], ORANGE)
+    arrow([(1570, 566), (1570, 588)], ORANGE)
+    box(1180, 590, 500, 45,
+        [tr('Weighted logits: z = sum_s g_s z_s', '加权 logits：z = sum_s g_s z_s')], ORANGE, '#FFF0D9', 18)
+    arrow([(1428, 635), (1428, 649)], ORANGE)
+    box(1180, 651, 500, 34,
+        [tr('Hazards -> survival curve / patient risk', '风险概率 → 生存曲线 / 患者风险')], ORANGE, 'white', 17)
 
-    # An explicit bridge exposes the central difference from baseline recon:
-    # the EXACT plans used above are reused; the gate is stop-gradient here.
-    arrow([(1055, 354), (1070, 354), (1070, 506)], PURPLE, head=False, width=1.2)
-    arrow([(1055, 513), (1070, 513), (1070, 506)], PURPLE, head=False, width=1.2)
-    dot(1070, 506, 3.5, PURPLE)
-    arrow([(1070, 506), (1070, 587), (490, 587), (490, 719)], PURPLE, True, width=2.4)
-    rect(658, 575, 392, 24, 'white', radius=2)
-    text(854, 594, tr('Reuse the same prediction plans T_(s,m)',
-                      '复用预测实际使用的同一组 T_(s,m)'), 18, PURPLE, True)
-    arrow([(1272, 386), (1158, 386), (1158, 612), (620, 612), (620, 719)], ORANGE, True, width=1.7)
-    rect(754, 602, 345, 23, 'white', radius=2)
-    text(925, 620, tr('Prediction gate -> stop-gradient SG(g)',
-                      '预测门控 → 停止梯度 SG(g)'), 16, ORANGE)
-
-    panel(25, 644, 1610, 220, 'M4', tr('Transport-coupled pathway reconstruction', '传输耦合的通路潜变量重建'),
+    # Cross and self reconstruction use two horizontal lanes with aligned
+    # decoder input/output ports. The shared decoder is called twice; its two
+    # memories are never concatenated or jointly fed to one reconstruction.
+    panel(25, 740, 1710, 330, 'M4', tr('Transport-coupled pathway reconstruction', '传输耦合的通路潜变量重建'),
           M4, GREEN)
-    text(1614, 678, tr('TRAINING ONLY', '仅训练时使用'), 16, GREEN, True, 'end')
-    box(47, 712, 184, 49, [tr('WSI slots S_w', '病理槽 S_w')], PINK, 'white', 18)
-    box(47, 792, 184, 49, [tr('Omics slots S_o', '组学槽 S_o')], GREEN, 'white', 18)
-    arrow([(231, 736), (273, 736)], PINK, True)
-    box(276, 712, 398, 54,
+    text(1713, 774, tr('TRAINING ONLY', '仅训练时使用'), 16, GREEN, True, 'end')
+    ref(331, 806, 'T', PURPLE)
+    text(354, 812, 'T_(s,m)', 16, PURPLE, anchor='start')
+    arrow([(331, 819), (331, 840)], PURPLE, True)
+    ref(492, 806, 'g', ORANGE)
+    text(515, 812, 'SG(g)', 16, ORANGE, anchor='start')
+    arrow([(492, 819), (492, 840)], ORANGE, True)
+    box(47, 854, 184, 48, [tr('WSI slots S_w', '病理槽 S_w')], PINK, 'white', 18)
+    box(47, 985, 184, 48, [tr('Omics slots S_o', '组学槽 S_o')], GREEN, 'white', 18)
+    arrow([(231, 878), (264, 878)], PINK, True)
+    box(266, 842, 360, 72,
         [tr('Barycentric transport + stage aggregation', '重心传输 + 阶段加权聚合'),
-         tr('Mean geometries -> normalize columns -> SG(g)', '几何均值 → 按列归一化 → SG(g) 加权')], PURPLE, 'white', 16)
-    arrow([(674, 738), (700, 738)], PURPLE, True)
-    box(703, 712, 198, 49, [tr('Cross memory', '跨模态重建记忆')], PURPLE, 'white', 17)
-    arrow([(231, 816), (700, 816)], GREEN, True)
-    box(703, 792, 198, 49, [tr('Self memory', '自重建记忆')], GREEN, 'white', 17)
-    arrow([(901, 736), (927, 736), (927, 766), (952, 766)], PURPLE, True)
-    arrow([(901, 816), (927, 816), (927, 791), (952, 791)], GREEN, True)
-    box(955, 726, 258, 106,
+         tr('Mean geometries / column normalization / SG(g)', '几何均值 / 列归一化 / SG(g) 加权')], PURPLE, 'white', 16)
+    arrow([(626, 878), (768, 878)], PURPLE, True)
+    text(698, 864, tr('Cross memory', '跨模态记忆'), 15, PURPLE)
+    arrow([(231, 1009), (768, 1009)], GREEN, True)
+    text(490, 995, tr('Self memory', '自重建记忆'), 15, GREEN)
+    box(770, 842, 260, 194,
         [tr('Shared pathway decoder D', '共享通路解码器 D'),
          tr('Learned pathway queries', '学习的通路查询'),
          tr('Two calls, same parameters', '调用两次，参数共享')], GREEN, 'white', 17)
-    arrow([(1213, 750), (1240, 750)], PURPLE, True)
-    arrow([(1213, 815), (1240, 815)], GREEN, True)
-    box(1243, 714, 165, 49, [tr('Cross loss', '跨模态重建损失')], PURPLE, 'white', 16)
-    box(1243, 792, 165, 49, [tr('Self loss', '自重建损失')], GREEN, 'white', 16)
-    box(1442, 733, 171, 94,
+    arrow([(1030, 878), (1058, 878)], PURPLE, True)
+    arrow([(1030, 1009), (1058, 1009)], GREEN, True)
+    box(1060, 854, 195, 48, [tr('Cross reconstruction', '跨模态重建结果')], PURPLE, 'white', 16)
+    box(1060, 985, 195, 48, [tr('Self reconstruction', '自重建结果')], GREEN, 'white', 16)
+    arrow([(1255, 878), (1308, 878)], PURPLE, True)
+    arrow([(1255, 1009), (1308, 1009)], GREEN, True)
+    box(1310, 854, 170, 48, [tr('Cross loss', '跨模态重建损失')], PURPLE, 'white', 16)
+    box(1310, 985, 170, 48, [tr('Self loss', '自重建损失')], GREEN, 'white', 16)
+    box(1530, 900, 180, 88,
         [tr('Target: SG(X_o)', '目标：SG(X_o)'),
-         tr('Encoded pathway', '编码后的通路'),
-         tr('tokens', 'tokens')], GREEN, '#DDEFE8', 16)
-    arrow([(1442, 754), (1408, 739)], PURPLE, True)
-    arrow([(1442, 809), (1408, 816)], GREEN, True)
-    text(1530, 709, tr('From pathway encoder', '来自通路编码器'), 14, GRAY)
+         tr('Encoded pathway', '编码后的通路'), tr('tokens', 'tokens')], GREEN, '#DDEFE8', 16)
+    arrow([(1530, 923), (1482, 878)], PURPLE, True)
+    arrow([(1530, 965), (1482, 1009)], GREEN, True)
 
-    rect(25, 883, 1610, 47, '#F4F6F8', '#C8D0D9', 6)
-    text(830, 912,
+    rect(25, 1090, 1710, 40, '#F4F6F8', '#C8D0D9', 6)
+    text(880, 1116,
          tr('Training: survival NLL + IPCW rank + per-slot NLL + diversity + ramped self / cross reconstruction',
             '训练目标：生存 NLL + IPCW 排序 + 逐槽 NLL + 多样性约束 + 逐步启用的 self / cross 重建'),
          18, INK, True)
-    text(27, 955,
-         tr('SG = stop-gradient. Reconstruction targets encoded tokens; it does not claim raw gene imputation. All tensors are schematic.',
-            'SG 表示停止梯度。重建目标为编码后的通路 tokens；当前实现不代表原始基因补全。图内张量均为结构示意。'),
+    text(27, 1157,
+         tr('Repeated S, T and g badges denote tensor reuse. SG = stop-gradient. Stages and tensors are learned / schematic, not annotated disease stages.',
+            '同名 S、T、g 标记表示复用同一个张量；SG 表示停止梯度。阶段由模型学习，图内张量为示意，不对应已标注的疾病分期。'),
          15, GRAY, anchor='start')
     return d
 
@@ -338,6 +353,9 @@ def main() -> None:
         'reconstruction_target': 'stop-gradient encoded pathway tokens',
         'reconstruction_gate': 'stop-gradient prediction gate',
         'shared_decoder': True, 'training_only_reconstruction': True,
+        'connector_layout': 'single-segment connectors; named tensor references for fan-out',
+        'tensor_reference_semantics': {'S': '(S_w, S_o)', 'T': 'same factual prediction plans',
+                                       'g': 'same prediction gate; stop-gradient in reconstruction'},
         'schematic_not_patient_data': True, 'outputs': outputs,
     }
     (args.output_dir / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
