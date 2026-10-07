@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "status": "fill_with_actual_extraction_metadata",
+  "features": [
+    {
+      "case_id": "TCGA-2F-A9KP",
+      "slide_id": null,
+      "feature_sha256": null,
+      "coords_path": null,
+      "coords_key": "coords",
+      "coords_sha256": null,
+      "coordinate_system": {"level": 0, "anchor": "upper_left", "origin": [0, 0], "axes": ["x", "y"]},
+      "extraction_provenance": {
+        "feature_and_coordinate_order_verified": false,
+        "evidence_path": null
+      },
+      "slide": {"path": null, "sha256": null, "level0_dimensions": null},
+      "thumbnail": {"path": null, "sha256": null, "dimensions": null},
+      "patch_source": {
+        "mode": "wsi_read_region",
+        "read_level": null,
+        "read_size_at_level": null,
+        "level_downsample": null,
+        "indexed_patch_manifest": null,
+        "indexed_patch_manifest_sha256": null
+      }
+    }
+  ]
+}
