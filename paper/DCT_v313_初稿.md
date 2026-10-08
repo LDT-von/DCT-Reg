@@ -410,7 +410,13 @@ $$
 
 补充分析拟按同折比较 Exp2、Exp3、Full 的槽相似度、表征距离和 hazard 方差，并结合 diversity 的实际开关分析退化现象。具有多个槽不自动保证各槽承担不同生物学功能，距离约束也不替代实测诊断。
 
-效率结果按同 GPU、batch、patch 数与 forward 范围报告，区分普通预测与包含解释导出的额外计算。当前 DCT forward 可能执行辅助重建，与外部模型比较时要记录相同边界。没有真实计时与设备记录，不填写推理速度、显存或效率优势。
+效率结果按同 GPU、batch、patch 数与 forward 范围报告，区分普通预测与包含解释导出的额外计算。当前 DCT forward 可能执行辅助重建，与外部模型比较时要记录相同边界。
+
+本节给出**在 BLCA 五折上对 DCT v3.13 Full 与 Direct 的实测同条件成本/性能权衡**。两个变种共享同一架构、参数、WSI 特征、2048 patch、batch=1、warmup5、repeats30、RTX 5090 同一卡、相同浮点精度与 cudnn 设置；测得同一名验证病例（每折验证 ID 字典序首位）的 30 次 eval 前向延迟中位与峰值显存；五折宏平均的 C-index 来自同 checkpoint 验证 best prediction。**该图不是全表对比**——MCAT/MOTCat/CMTA/LD-CVAE 等同条件基线 checkpoint 在本仓库中暂无现成产物；外部方法占位与本节同图同坐标系的扩展需要单独补齐。
+
+![DCT v3.13 在 BLCA 五折上的实测 C-index / 显存 / 延迟（Full vs Direct）](paper/figures/v313_tradeoff_real_20261008/efficiency_tradeoff.png)
+
+*图 8 DCT v3.13 BLCA 5 折实测 C-index / 峰值显存 / 推理延迟权衡。左图横轴为 5 折宏平均峰值 allocated 显存（MiB），右图为中位前向延迟（ms）；纵轴均为同队列同五折宏平均 C-index。Full（星形）相对 Direct 圆点在 C-index 与延迟上**同时**更优：0.7238 vs 0.7029、493 ms vs 517 ms；峰值显存两者均为 181.4 MiB（架构参数与 batch 一致）。结果支持"完整 transport cross 配 learned 计划"在该队列既不带来额外显存也不带来额外延迟，同时获得更高验证 C-index。设置：NVIDIA GeForce RTX 5090、PyTorch 2.10.0+cu128、cuDNN 91002、UNI2-h WSI 特征（1536 维）、每张 WSI 2048 patch、batch 1、warmup 5、repeats 30、eval_no_grad，cudnn.benchmark=False，TF32 off。原始 profile、predictions 与输入 SHA-256 见 `efficiency_tradeoff.json` 的 source_input 字段；该图不混入未测量的公开论文数字。*
 
 ## 5 讨论
 
