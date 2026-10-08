@@ -297,3 +297,31 @@ PNG and final Word page were inspected. The manuscript's 23 final pages were all
 visually reviewed; it retains 8 native tables, 13 image panels and 15 native math
 nodes. The loss-recipe table stays together after the new comparison image.
 Remote progress commit d2d4877 was preserved before this scoped delivery.
+
+## 2026-10-08 OT and UNI2-h comparison focus
+
+Fetched origin and confirmed d2d4877 is already preserved in current main history.
+Section 6 records five diagnostic types on BLCA/KIRC, not a model comparison.
+Its server figures_summary directory is absent locally; the explanatory guide
+is grounded in the pushed summary script, not an asserted visual audit of server images.
+Corrected the interpretation of Direct: prediction OT is retained.
+
+Author changed baseline focus away from SlotSPE to OT or UNI2-h survival methods.
+The active manuscript reference table now contains MOTCat reproduced in TTA,
+TTA, OTSurv, and STEPH plus five UNI2-h MIL baselines from its official supplement.
+Forty-nine published means align by exact cancer names. Full original cohort
+names/means/dispersion and source SHA256 are retained, alongside unchanged 50 DCT
+fold values. CRC, KIPAN, LUNG and STES are not relabelled as DCT cohorts.
+LUSC is unranked because no external separate-cohort result is available.
+Different cohort-set Overall is not ranked. Red and underline denote descriptive
+ranks of available DSS report values, not matched independent test performance.
+ProtoPathway OS results remain separate; ME-Mamba endpoint is not assumed.
+MCSP-OTMR publisher abstract already describes OT reconstruction; the novelty
+claim is limited to the concrete transport reuse and stage/event/pathway design,
+with full-text comparison still required. Old SlotSPE artifacts remain historical.
+
+No model training, inference or feature processing was started. Fourteen focused
+provenance/ranking tests pass. All 100 score-cell styles were checked against
+computed ranks; all output hashes and the source input hash match. Standalone
+Word has one page, visually inspected. All 23 manuscript pages were inspected,
+retaining 8 native tables, 13 image panels and 15 native math nodes.

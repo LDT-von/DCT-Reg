@@ -1,0 +1,694 @@
+{
+  "comparison_type": "literature_reference",
+  "title": "DCT v3.13 OT and UNI2-h Literature Reference",
+  "missing_label": "NR",
+  "input_header": "Input / FM",
+  "columns": [
+    "BRCA",
+    "COADREAD",
+    "KIRC",
+    "UCEC",
+    "LUAD",
+    "LUSC",
+    "HNSC",
+    "SKCM",
+    "BLCA",
+    "STAD"
+  ],
+  "digits": 4,
+  "rows": [
+    {
+      "id": "motcat_tta",
+      "model": "MOTCat [TTA]",
+      "group": "tta",
+      "modality": "g.+h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "tta",
+      "source_locator": "Table 1; author reproduction for MOTCat",
+      "cells": {
+        "BRCA": {
+          "mean": 0.717,
+          "reported_dispersion": 0.058,
+          "text": "0.7170",
+          "rank": 3
+        },
+        "COADREAD": null,
+        "KIRC": {
+          "mean": 0.708,
+          "reported_dispersion": 0.109,
+          "text": "0.7080",
+          "rank": 4
+        },
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": {
+          "mean": 0.631,
+          "reported_dispersion": 0.059,
+          "text": "0.6310",
+          "rank": 7
+        },
+        "STAD": {
+          "mean": 0.576,
+          "reported_dispersion": 0.075,
+          "text": "0.5760",
+          "rank": 3
+        }
+      }
+    },
+    {
+      "id": "tta",
+      "model": "TTA",
+      "group": "tta",
+      "modality": "g.+h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "tta",
+      "source_locator": "Table 1; author reproduction for MOTCat",
+      "cells": {
+        "BRCA": {
+          "mean": 0.726,
+          "reported_dispersion": 0.039,
+          "text": "0.7260",
+          "rank": 2
+        },
+        "COADREAD": null,
+        "KIRC": {
+          "mean": 0.778,
+          "reported_dispersion": 0.117,
+          "text": "0.7780",
+          "rank": 2
+        },
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": {
+          "mean": 0.662,
+          "reported_dispersion": 0.079,
+          "text": "0.6620",
+          "rank": 2
+        },
+        "STAD": {
+          "mean": 0.613,
+          "reported_dispersion": 0.079,
+          "text": "0.6130",
+          "rank": 2
+        }
+      }
+    },
+    {
+      "id": "otsurv",
+      "model": "OTSurv",
+      "group": "otsurv",
+      "modality": "h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "otsurv",
+      "source_locator": "Table 1; PDF page 7",
+      "cells": {
+        "BRCA": {
+          "mean": 0.621,
+          "reported_dispersion": 0.071,
+          "text": "0.6210",
+          "rank": 10
+        },
+        "COADREAD": null,
+        "KIRC": {
+          "mean": 0.75,
+          "reported_dispersion": 0.149,
+          "text": "0.7500",
+          "rank": 3
+        },
+        "UCEC": null,
+        "LUAD": {
+          "mean": 0.638,
+          "reported_dispersion": 0.077,
+          "text": "0.6380",
+          "rank": 2
+        },
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": {
+          "mean": 0.637,
+          "reported_dispersion": 0.065,
+          "text": "0.6370",
+          "rank": 6
+        },
+        "STAD": {
+          "mean": 0.565,
+          "reported_dispersion": 0.057,
+          "text": "0.5650",
+          "rank": 4
+        }
+      }
+    },
+    {
+      "id": "abmil",
+      "model": "ABMIL",
+      "group": "steph_supp",
+      "modality": "h./U2",
+      "encoder": "UNI2-h",
+      "endpoint": "DSS",
+      "source_id": "steph_supp",
+      "source_locator": "Table S2; PDF page 3; reproduced MIL baselines",
+      "cells": {
+        "BRCA": {
+          "mean": 0.6648,
+          "reported_dispersion": 0.032,
+          "text": "0.6648",
+          "rank": 7
+        },
+        "COADREAD": {
+          "mean": 0.6725,
+          "reported_dispersion": 0.028,
+          "text": "0.6725",
+          "rank": 4
+        },
+        "KIRC": null,
+        "UCEC": {
+          "mean": 0.7098,
+          "reported_dispersion": 0.043,
+          "text": "0.7098",
+          "rank": 7
+        },
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": {
+          "mean": 0.6201,
+          "reported_dispersion": 0.047,
+          "text": "0.6201",
+          "rank": 4
+        },
+        "SKCM": {
+          "mean": 0.5708,
+          "reported_dispersion": 0.037,
+          "text": "0.5708",
+          "rank": 5
+        },
+        "BLCA": {
+          "mean": 0.6438,
+          "reported_dispersion": 0.015,
+          "text": "0.6438",
+          "rank": 4
+        },
+        "STAD": null
+      }
+    },
+    {
+      "id": "transmil",
+      "model": "TransMIL",
+      "group": "steph_supp",
+      "modality": "h./U2",
+      "encoder": "UNI2-h",
+      "endpoint": "DSS",
+      "source_id": "steph_supp",
+      "source_locator": "Table S2; PDF page 3; reproduced MIL baselines",
+      "cells": {
+        "BRCA": {
+          "mean": 0.6802,
+          "reported_dispersion": 0.026,
+          "text": "0.6802",
+          "rank": 5
+        },
+        "COADREAD": {
+          "mean": 0.6651,
+          "reported_dispersion": 0.059,
+          "text": "0.6651",
+          "rank": 6
+        },
+        "KIRC": null,
+        "UCEC": {
+          "mean": 0.7471,
+          "reported_dispersion": 0.072,
+          "text": "0.7471",
+          "rank": 3
+        },
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": {
+          "mean": 0.6315,
+          "reported_dispersion": 0.014,
+          "text": "0.6315",
+          "rank": 3
+        },
+        "SKCM": {
+          "mean": 0.5786,
+          "reported_dispersion": 0.039,
+          "text": "0.5786",
+          "rank": 3
+        },
+        "BLCA": {
+          "mean": 0.6173,
+          "reported_dispersion": 0.029,
+          "text": "0.6173",
+          "rank": 8
+        },
+        "STAD": null
+      }
+    },
+    {
+      "id": "ilra",
+      "model": "ILRA",
+      "group": "steph_supp",
+      "modality": "h./U2",
+      "encoder": "UNI2-h",
+      "endpoint": "DSS",
+      "source_id": "steph_supp",
+      "source_locator": "Table S2; PDF page 3; reproduced MIL baselines",
+      "cells": {
+        "BRCA": {
+          "mean": 0.6645,
+          "reported_dispersion": 0.026,
+          "text": "0.6645",
+          "rank": 8
+        },
+        "COADREAD": {
+          "mean": 0.6147,
+          "reported_dispersion": 0.041,
+          "text": "0.6147",
+          "rank": 7
+        },
+        "KIRC": null,
+        "UCEC": {
+          "mean": 0.7442,
+          "reported_dispersion": 0.057,
+          "text": "0.7442",
+          "rank": 4
+        },
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": {
+          "mean": 0.5262,
+          "reported_dispersion": 0.024,
+          "text": "0.5262",
+          "rank": 7
+        },
+        "SKCM": {
+          "mean": 0.5586,
+          "reported_dispersion": 0.042,
+          "text": "0.5586",
+          "rank": 6
+        },
+        "BLCA": {
+          "mean": 0.6608,
+          "reported_dispersion": 0.046,
+          "text": "0.6608",
+          "rank": 3
+        },
+        "STAD": null
+      }
+    },
+    {
+      "id": "r2t_mil",
+      "model": "R2T-MIL",
+      "group": "steph_supp",
+      "modality": "h./U2",
+      "encoder": "UNI2-h",
+      "endpoint": "DSS",
+      "source_id": "steph_supp",
+      "source_locator": "Table S2; PDF page 3; reproduced MIL baselines",
+      "cells": {
+        "BRCA": {
+          "mean": 0.6619,
+          "reported_dispersion": 0.04,
+          "text": "0.6619",
+          "rank": 9
+        },
+        "COADREAD": {
+          "mean": 0.6843,
+          "reported_dispersion": 0.039,
+          "text": "0.6843",
+          "rank": 3
+        },
+        "KIRC": null,
+        "UCEC": {
+          "mean": 0.7253,
+          "reported_dispersion": 0.064,
+          "text": "0.7253",
+          "rank": 6
+        },
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": {
+          "mean": 0.6169,
+          "reported_dispersion": 0.037,
+          "text": "0.6169",
+          "rank": 5
+        },
+        "SKCM": {
+          "mean": 0.5376,
+          "reported_dispersion": 0.056,
+          "text": "0.5376",
+          "rank": 7
+        },
+        "BLCA": {
+          "mean": 0.6014,
+          "reported_dispersion": 0.024,
+          "text": "0.6014",
+          "rank": 10
+        },
+        "STAD": null
+      }
+    },
+    {
+      "id": "patch_gcn",
+      "model": "Patch-GCN",
+      "group": "steph_supp",
+      "modality": "h./U2",
+      "encoder": "UNI2-h",
+      "endpoint": "DSS",
+      "source_id": "steph_supp",
+      "source_locator": "Table S2; PDF page 3; reproduced MIL baselines",
+      "cells": {
+        "BRCA": {
+          "mean": 0.7017,
+          "reported_dispersion": 0.024,
+          "text": "0.7017",
+          "rank": 4
+        },
+        "COADREAD": {
+          "mean": 0.6675,
+          "reported_dispersion": 0.041,
+          "text": "0.6675",
+          "rank": 5
+        },
+        "KIRC": null,
+        "UCEC": {
+          "mean": 0.7369,
+          "reported_dispersion": 0.058,
+          "text": "0.7369",
+          "rank": 5
+        },
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": {
+          "mean": 0.6019,
+          "reported_dispersion": 0.037,
+          "text": "0.6019",
+          "rank": 6
+        },
+        "SKCM": {
+          "mean": 0.577,
+          "reported_dispersion": 0.04,
+          "text": "0.5770",
+          "rank": 4
+        },
+        "BLCA": {
+          "mean": 0.6164,
+          "reported_dispersion": 0.025,
+          "text": "0.6164",
+          "rank": 9
+        },
+        "STAD": null
+      }
+    },
+    {
+      "id": "steph",
+      "model": "STEPH",
+      "group": "steph_supp",
+      "modality": "h./U2",
+      "encoder": "UNI2-h",
+      "endpoint": "DSS",
+      "source_id": "steph_supp",
+      "source_locator": "Table S2; PDF page 3; reproduced MIL baselines",
+      "cells": {
+        "BRCA": {
+          "mean": 0.7408,
+          "reported_dispersion": 0.06,
+          "text": "0.7408",
+          "rank": 1
+        },
+        "COADREAD": {
+          "mean": 0.7069,
+          "reported_dispersion": 0.029,
+          "text": "0.7069",
+          "rank": 2
+        },
+        "KIRC": null,
+        "UCEC": {
+          "mean": 0.783,
+          "reported_dispersion": 0.072,
+          "text": "0.7830",
+          "rank": 2
+        },
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": {
+          "mean": 0.6569,
+          "reported_dispersion": 0.042,
+          "text": "0.6569",
+          "rank": 2
+        },
+        "SKCM": {
+          "mean": 0.5948,
+          "reported_dispersion": 0.027,
+          "text": "0.5948",
+          "rank": 2
+        },
+        "BLCA": {
+          "mean": 0.6413,
+          "reported_dispersion": 0.038,
+          "text": "0.6413",
+          "rank": 5
+        },
+        "STAD": null
+      }
+    },
+    {
+      "id": "dct_v313",
+      "model": "DCT v3.13",
+      "group": "ours",
+      "modality": "g.+h./U2",
+      "encoder": "UNI2-h",
+      "endpoint": "DSS",
+      "source_id": "dct_author",
+      "source_locator": "manuscript Table 1; saved author fold summary",
+      "cells": {
+        "BRCA": {
+          "mean": 0.67868,
+          "folds": [
+            0.7925,
+            0.6948,
+            0.5748,
+            0.6504,
+            0.6809
+          ],
+          "std": 0.07875688541327673,
+          "text": "0.6787",
+          "rank": 6
+        },
+        "COADREAD": {
+          "mean": 0.7364,
+          "folds": [
+            0.7742,
+            0.7365,
+            0.757,
+            0.7448,
+            0.6695
+          ],
+          "std": 0.039998062453073906,
+          "text": "0.7364",
+          "rank": 1
+        },
+        "KIRC": {
+          "mean": 0.82236,
+          "folds": [
+            0.8253,
+            0.8485,
+            0.8202,
+            0.8094,
+            0.8084
+          ],
+          "std": 0.016274612130554766,
+          "text": "0.8224",
+          "rank": 1
+        },
+        "UCEC": {
+          "mean": 0.79282,
+          "folds": [
+            0.806,
+            0.8532,
+            0.7654,
+            0.7511,
+            0.7884
+          ],
+          "std": 0.039785072577538425,
+          "text": "0.7928",
+          "rank": 1
+        },
+        "LUAD": {
+          "mean": 0.68582,
+          "folds": [
+            0.7015,
+            0.7138,
+            0.7109,
+            0.6352,
+            0.6677
+          ],
+          "std": 0.03372116546028622,
+          "text": "0.6858",
+          "rank": 1
+        },
+        "LUSC": {
+          "mean": 0.63002,
+          "folds": [
+            0.6709,
+            0.6377,
+            0.5983,
+            0.6969,
+            0.5463
+          ],
+          "std": 0.059620231465501695,
+          "text": "0.6300",
+          "rank": null
+        },
+        "HNSC": {
+          "mean": 0.6582,
+          "folds": [
+            0.6963,
+            0.6118,
+            0.599,
+            0.645,
+            0.7389
+          ],
+          "std": 0.05872805973297603,
+          "text": "0.6582",
+          "rank": 1
+        },
+        "SKCM": {
+          "mean": 0.66538,
+          "folds": [
+            0.6442,
+            0.6199,
+            0.6706,
+            0.6434,
+            0.7488
+          ],
+          "std": 0.049965708240752485,
+          "text": "0.6654",
+          "rank": 1
+        },
+        "BLCA": {
+          "mean": 0.72382,
+          "folds": [
+            0.6576,
+            0.6953,
+            0.7465,
+            0.7744,
+            0.7453
+          ],
+          "std": 0.04672415863340934,
+          "text": "0.7238",
+          "rank": 1
+        },
+        "STAD": {
+          "mean": 0.63606,
+          "folds": [
+            0.6835,
+            0.6471,
+            0.5645,
+            0.6691,
+            0.6161
+          ],
+          "std": 0.047390167756613824,
+          "text": "0.6361",
+          "rank": 1
+        }
+      }
+    }
+  ],
+  "sources": {
+    "tta": {
+      "id": "tta",
+      "url": "https://arxiv.org/html/2511.18089",
+      "sha256": "9cbd7322c681689383cc54a2d1ce3952f7daa6681dae55c7df69be7ebece2728",
+      "bytes": 817271,
+      "status": "fetched",
+      "locator": "Table 1 and experimental settings"
+    },
+    "otsurv": {
+      "id": "otsurv",
+      "url": "https://papers.miccai.org/miccai-2025/paper/1359_paper.pdf",
+      "sha256": "2235c9e2d275b7650ef37722334aa3de3bb97defde7e082062e79d07b105ae40",
+      "bytes": 1289491,
+      "status": "fetched",
+      "locator": "Table 1 page 7; settings page 6"
+    },
+    "steph_supp": {
+      "id": "steph_supp",
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/supplemental/Liu_Sparse_Task_Vector_CVPR_2026_supplemental.pdf",
+      "sha256": "6fb2fa86997112aa5cbd0e5fd8f5885d322524aff871f3b82d9de9801dc8f544",
+      "bytes": 4801117,
+      "status": "fetched",
+      "locator": "Table S2 page 3; UNI2-h page 2",
+      "note": "Official CVPR supplement explicitly specifies UNI2-h, whereas arXiv main-text settings abbreviate it as UNI."
+    },
+    "dct_author": {
+      "url": null,
+      "path": "paper/V313_TEN_CANCER_REPORTED_COMPARISON_INPUT.json",
+      "locator": "models[id=dct_v313].folds",
+      "sha256": "d8aeeeb7f50e0ad85ecda8b1c1a1e6043e74119db2136444ec8170c18141c27a",
+      "protocol": "DSS; UNI2-h; 5-fold best validation legacy_val; author summary not held-out test"
+    }
+  },
+  "matching_status": "not_matched",
+  "complete": false,
+  "published_transcription_complete": true,
+  "ten_cancer_baseline_coverage_complete": false,
+  "baseline_counts": {
+    "BRCA": 9,
+    "COADREAD": 6,
+    "KIRC": 3,
+    "UCEC": 6,
+    "LUAD": 1,
+    "LUSC": 0,
+    "HNSC": 6,
+    "SKCM": 6,
+    "BLCA": 9,
+    "STAD": 3
+  },
+  "ranked_columns": [
+    "BRCA",
+    "COADREAD",
+    "KIRC",
+    "UCEC",
+    "LUAD",
+    "HNSC",
+    "SKCM",
+    "BLCA",
+    "STAD"
+  ],
+  "ranking_scope": "available DSS report values only; cross-protocol, descriptive ranks",
+  "dct_first": [
+    "COADREAD",
+    "KIRC",
+    "UCEC",
+    "LUAD",
+    "HNSC",
+    "SKCM",
+    "BLCA",
+    "STAD"
+  ],
+  "dct_second": [],
+  "notes": [
+    "DSS report values only. Inputs, patient splits and checkpoint selection differ; this is not a matched benchmark.",
+    "U1 = UNI; U2 = UNI2-h; g. = genomics; h. = histology. MOTCat [TTA] is a reproduction in TTA Table 1.",
+    "NR = no separate source cohort. CRC, KIPAN, LUNG and STES are not renamed to DCT cohorts.",
+    "Red bold = highest available report value; underline = second. LUSC has no comparator and is not ranked.",
+    "DCT: author five-fold best-validation summary. No Overall across different cohort sets. Full source means/SD: JSON."
+  ],
+  "input_sha256": "dbad67ca7d17cbf0eff443ec2dec2e55eefe2c03c230c2082de2d5eba4e40f57",
+  "outputs": {
+    "pdf": "a05d2a5ee27b633cf601e051a6a2d1b92e6fc97d0b86108de42f3c7623ab272d",
+    "svg": "a6709f44bc965cfe2c32ad729e163018a86eb7f24d80973304c14817f86ebdbe",
+    "png": "f84f516e2839369304f83cac3838ebb1d1b14012f89790b96eb3ffd17c521eb0",
+    "docx": "667b885e875c11c091b06682502645540be260583b3a128866982b8b48709e14",
+    "html": "d95207cc65bea693bd2c0d8885523dee908b00aab4466e8bf8409665c24888b2"
+  }
+}

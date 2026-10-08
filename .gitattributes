@@ -19,3 +19,13 @@ paper/tables/v313_ten_cancer_reported_comparison/*.svg text eol=lf
 paper/tables/v313_ten_cancer_reported_comparison/*.html text eol=lf
 paper/tables/v313_ten_cancer_reported_comparison/*.json text eol=lf
 paper/V313_TEN_CANCER_REPORTED_COMPARISON_INPUT.json text eol=lf
+
+# Current OT and UNI2-h literature reference artifacts.
+paper/tables/v313_ot_uni2h_comparison/*.pdf binary
+paper/tables/v313_ot_uni2h_comparison/*.png binary
+paper/tables/v313_ot_uni2h_comparison/*.docx binary
+paper/tables/v313_ot_uni2h_comparison/*.svg text eol=lf
+paper/tables/v313_ot_uni2h_comparison/*.html text eol=lf
+paper/tables/v313_ot_uni2h_comparison/*.json text eol=lf
+paper/V313_OT_UNI2H_COMPARISON_INPUT.json text eol=lf
+paper/V313_OT_UNI2H_MATCHED_INPUT.json text eol=lf

@@ -1,36 +1,17 @@
-更新：作者要求的公开报告值比较表已经在本地完整汇总并接入论文，不需要服务器再次汇总公开分数。完成表及数据分别为 paper/tables/v313_ten_cancer_reported_comparison 和 paper/V313_TEN_CANCER_REPORTED_COMPARISON_INPUT.json。下面任务仅用于另行整理同条件复现实验的原始记录；不得覆盖公开报告值表，未经作者授权不发起新训练。
+作者已将比较方向改为 OT 生存预测方法或使用 UNI2-h 的生存预测方法，不要求 SlotSPE 比较。公开分数已经由本机直接从论文汇总，不需要服务器再汇总公开值。当前正文表2在 paper/tables/v313_ot_uni2h_comparison/，数值及来源在 paper/V313_OT_UNI2H_COMPARISON_INPUT.json；文献导读在 paper/V313_OT_UNI2H_LITERATURE_REVIEW_20261008.md。
 
-请在服务器 DCT-Reg 仓库安全同步 origin/main，整理 DCT v3.13 十癌种同条件复现实验记录。先读取 paper/V313_TEN_CANCER_COMPARISON_INPUT.json、paper/V313_MANUSCRIPT_STATUS.json 和 scripts/build_v313_comparison_table.py。作者要求三线表、每癌种一列，第一名红色加粗、第二名加下划线，DCT 行淡黄色高亮；排名由真实分数计算，不能预设 DCT 第一或第二。
+请在服务器安全同步 origin/main，保留未提交改动，先检查已有结果，不因本提示词自动启动训练、特征提取或推理。
 
-1. 癌种列顺序：BRCA、COADREAD、KIRC、UCEC、LUAD、LUSC、HNSC、SKCM、BLCA、STAD，另有 Overall。模型清单参考作者截图，包括组学、病理和多模态三组，输入模板的空值表示尚未取得结果，不表示它们已经复现。按作者在服务器真实完成的模型清单整理主表，保留清单调整和理由，不按结果高低筛选基线。至少包括实际已完成的直接参照 SlotSPE；其他同条件模型全部纳入。没有完成的实验列入缺项，未经作者授权不发起新训练。
+一、先同步第6节对应的已完成图及原始汇总记录。核对 /data1/DCT-Reg/results/v313_additional_20261008/figures_summary/ 的10张PNG与10张PDF，将图片来源、所有折的additional.json及summary.json逐项列清楚。不要把服务器进度文字当作原始数值。核对 scripts/summarize_v313_exp6.py 的 patch_budget 横轴是否与实际保留数量一致，检索随机基准是否按每折实际患者数计算，误差条到底表示标准差还是范围。若改图，不预设趋势和显著性。
 
-2. 主表只比较同条件结果：TCGA、DSS、相同患者级五折划分、UNI2-h 病理特征（组学单模态无需病理输入）、seed=3、同一训练预算/采样与最佳验证 checkpoint 评价口径。SlotSPE native 优化配方和 matched 结果分别记录，不逐折择优；主表采用事先确定的公平比较设定。若使用本研究统一数据设置上的 native 训练配方，明确记载该差异并由作者核定，不能填一个虚假的 matched 标签。原论文不同编码器、患者样本或评价协议的数值应另放 reported-results 参考表，不合并进本次 matched 排名。
+二、外部方法优先整理已有 MOTCat、TTA、OTSurv、STEPH 的真实完成记录，缺失记为未运行，不从公开均值伪造五折。代码入口来自作者仓库，链接见文献导读。ProtoPathway 作为结构相近候选，它的公开表为 OS；如未来比较 DSS，必须适配并重新得到实际 DSS 记录。ME-Mamba 先核对终点。MCSP-OTMR 先取得全文和完整设置，摘要不足以支撑模块差异或分数。
 
-3. DCT 十癌种原值已从正文表1复制到输入模板，50折不变。定位这些折值对应的最佳 checkpoint/患者预测/原始评分记录和配置。基线每个模型每癌种也需要 folds0-4，逐折核对 C-index、患者清单、split、终点、编码器、采样、预算、选模及来源 commit。不要用约数、截图或进度摘要填五折数组；不要抄作者提供的参考图片里的分数和人数。
+三、同条件记录模板为 paper/V313_OT_UNI2H_MATCHED_INPUT.json。只整理 TCGA、DSS、相同患者级五折、UNI2-h 特征、训练和评分规则已核验的记录。单病理方法明确只有 h. 输入，多模态方法明确 g.+h. 输入，不把相同编码器当作模态一致。STEPH 采用跨癌种训练，要记录源癌种和目标折之间的患者隔离。原文 KIPAN/LUNG/STES 等合并队列不能改名当作本研究单癌种。
 
-4. 完成审计后填输入 JSON：
-   - protocol.audit="verified"，split_sha256 为每癌种按 fold0-4 排列的真实五个患者 split 文件 SHA256；
-   - 各模型 audit="verified"，protocol 填经核验的共同协议（与顶层协议一致）；
-   - folds[cancer] 填真实五折数组，非均值或标准差；
-   - sources[cancer] 填五条记录，每条有 fold、path、sha256、audit="verified"，path 指向真实保存的评分/审计文件，SHA256 与文件字节一致。相对路径从仓库根目录解析。
-   - 保留最佳 epoch、checkpoint、预测、配置、来源 commit 与患者身份审计信息在来源记录中。
-   "verified" 是完成真实核验后的状态，不能只为让脚本通过而修改标记。
+四、DCT 的50个折值保持不变，逐折查找原始评分文件、患者预测与 checkpoint，核验 best-validation / legacy_val 的开发口径。所有比较采用一致口径；没有独立测试记录时不能写成 held-out test。native 和统一训练预算的结果分别保留，不逐折挑选较优值。
 
-5. 先执行：
-   python scripts/build_v313_comparison_table.py --check-only
-   只有选定模型的全部十癌种和来源均齐全才能执行正式输出：
-   python scripts/build_v313_comparison_table.py
+五、每折保存模型版本、配置、患者划分 SHA256、checkpoint/预测/评分文件位置及 SHA256、评分口径和真实 C-index。填完后先运行：
+python scripts/build_v313_comparison_table.py --input paper/V313_OT_UNI2H_MATCHED_INPUT.json --check-only
+只有协议和全部来源记录核验通过，再输出至新的 v313_ot_uni2h_matched 目录。不要覆盖公开参考表。未完成的同条件实验列入清单，未经作者明确授权不启动。
 
-   正式输出在 paper/tables/v313_ten_cancer_comparison，包含原生可编辑 Word 表、PDF/SVG/PNG/HTML 和 JSON。缺项只可用 --allow-incomplete 输出到明确的 draft 目录；不能把 draft 标成最终主比较表。
-
-6. 每格显示五折均值，默认四位；Overall 对十个未四舍五入癌种均值等权计算。第一红色加粗、第二加下划线；显示精度下并列共享名次，第二个不同分数为第二名。每列包括所有纳入主表的模型，不能只在多模态组内排名而不标明。DCT 若排第三或更低保留实际名次。完整五折值与样本标准差保留 JSON/补充表。患者人数只在统一身份核验后加入表头。
-
-7. 执行：
-   python -m unittest discover -s tests -p test_v313_comparison_table.py
-   检查真实完整输出的每列第一/第二、并列、Overall、DCT 第一和第二的癌种清单；查看图与 Word 的所有页面，确认无截断、重叠、错位，字体可读。
-
-8. 接入正文外部基线比较部分，先完整模型主结果和跨模型比较，再消融。用正式完整表替换现在仅 BLCA/KIRC 的未填写基线表；本次生成器不直接修改既有论文 Word。将对应逐折记录保留到补充材料，更新正文、状态、README 与 ledger。无法完成全部基线时保留真实缺项，不声称完整排名，不删除作者原稿中已有数据。
-
-9. 本表与十队列 KM 分别完成，不用 KM 已完成状态替代基线比较。本次只汇总、验证和排版已有数据，不自动训练模型。缺模型/癌种时汇总所需运行命令和具体缺项交作者决定。
-
-10. 提交并 push 本次主表、必要代码、来源审计和论文变更，保留其他工作，不 force push。最终报告：纳入哪些模型、十癌种覆盖、各列最佳/次佳、DCT 第一和第二分别在哪些癌种、Overall 原始均值、协议差异、测试/视觉检查结果、图与论文路径以及远端 commit。不要把“表格代码完成”写成“模型排名已证明”。
+六、按实际完成情况更新进度并提交。正文公开表的红色/下划线仅为可用报告值排名，不能当作同条件SOTA结论；不要混排不同队列集合的 Overall。

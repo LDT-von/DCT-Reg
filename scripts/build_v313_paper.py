@@ -361,7 +361,7 @@ def build():
             'BLCA':{'mean':BLCA.mean(axis=1).tolist(),'sample_std':BLCA.std(axis=1,ddof=1).tolist()},
             'KIRC':{'mean':KIRC.mean(axis=1).tolist(),'sample_std':KIRC.std(axis=1,ddof=1).tolist()},
             'controls':status['controls'],
-            'source_scope':f'70 recorded loss folds; 50 author-supplied Full folds; 20 audited rerun control folds; 10 saved same-model sweep JSONs; 180 published reference means and 18 published Overall values; {len(pending)} main-figure placeholders; partial tissue panels tracked separately'}
+            'source_scope':f'70 recorded loss folds; 50 author-supplied Full folds; 20 audited rerun control folds; 10 saved same-model sweep JSONs; 49 aligned DSS literature reference means; OT and UNI2-h sources; no mixed-cohort Overall; {len(pending)} main-figure placeholders; partial tissue panels tracked separately'}
     (QA/'build_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps(report,ensure_ascii=False,indent=2))
 

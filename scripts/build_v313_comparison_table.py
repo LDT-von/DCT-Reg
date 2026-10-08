@@ -174,11 +174,13 @@ def summarize_reported(payload, *, digits=3):
             "dct_second":[c for c in (*CANCERS, "Overall") if ours["cells"][c]["rank"] == 2]}
 
 
-def cell_text(cell):
-    return cell["text"] if cell else "--"
+def cell_text(cell, missing="--"):
+    return cell["text"] if cell else missing
 
 
 def notes(report):
+    if report.get("notes"):
+        return report["notes"]
     if report.get("comparison_type") == "reported_reference":
         return [
           "REFERENCE: baselines from SlotSPE Table 1 (UNI); DCT from author five-fold records (UNI2-h).",
@@ -195,11 +197,13 @@ def notes(report):
 
 
 def render_vector(report, stem):
+    columns = tuple(report.get("columns", (*CANCERS, "Overall")))
+    title = report.get("title", "DCT v3.13 Ten Cancer Model Comparison")
     from reportlab.pdfgen import canvas
     from reportlab.lib.colors import HexColor
     from reportlab.pdfbase.pdfmetrics import stringWidth
     width, left, right, top, row_height = 1400, 35, 1365, 126, 29
-    col_widths = [136, 64] + [(right-left-200)/11] * 11
+    col_widths = [160, 94] + [(right-left-254)/len(columns)] * len(columns)
     edges = [left]
     for value in col_widths:
         edges.append(edges[-1] + value)
@@ -220,11 +224,11 @@ def render_vector(report, stem):
         if underline:
             span = stringWidth(value, family, size)
             line(x-span/2, y+3, x+span/2, y+3, .9, color)
-    text(width/2, 33, "DCT v3.13 Ten Cancer Model Comparison", 25, bold=True)
+    text(width/2, 33, title, 25, bold=True)
     text(width/2, 62, "Best", 17, RED, True)
     text(width/2+62, 62, "Second", 17, underline=True)
     line(left, 82, right, 82, 2.2); line(left, 86, right, 86, .8)
-    for j, header in enumerate(("Model", "Modality", *CANCERS, "Overall")):
+    for j, header in enumerate(("Model", report.get("input_header", "Modality"), *columns)):
         text((edges[j]+edges[j+1])/2, 111, header, 17.2, bold=True)
     line(left, top, right, top, 1.6)
     previous_group = None
@@ -240,9 +244,9 @@ def render_vector(report, stem):
         ours = row["id"] == "dct_v313"
         text((edges[0]+edges[1])/2, y+21, row["model"], 18, bold=ours)
         text((edges[1]+edges[2])/2, y+21, row["modality"], 18)
-        for j, column in enumerate((*CANCERS, "Overall"), 2):
+        for j, column in enumerate(columns, 2):
             cell = row["cells"][column]; rank = cell["rank"] if cell else None
-            text((edges[j]+edges[j+1])/2, y+21, cell_text(cell), 18,
+            text((edges[j]+edges[j+1])/2, y+21, cell_text(cell, report.get("missing_label", "--")), 18,
                  RED if rank == 1 else "#111111", ours or rank == 1, rank == 2)
     bottom = top + row_height*len(report["rows"])
     line(left, bottom, right, bottom, 2)
@@ -260,6 +264,8 @@ def render_vector(report, stem):
 
 
 def render_docx(report, stem):
+    columns = tuple(report.get("columns", (*CANCERS, "Overall")))
+    title_text = report.get("title", "DCT v3.13 Ten Cancer Model Comparison")
     from docx import Document
     from docx.enum.section import WD_ORIENT
     from docx.enum.table import WD_TABLE_ALIGNMENT, WD_ALIGN_VERTICAL
@@ -277,7 +283,7 @@ def render_docx(report, stem):
         st.font.color.rgb=RGBColor(0,0,0);st.font.underline=False
         st.font.size=Pt(9 if style=="Normal" else 16)
         st.paragraph_format.space_after=Pt(4)
-    title=doc.add_paragraph("DCT v3.13 Ten Cancer Model Comparison", style="Title")
+    title=doc.add_paragraph(title_text, style="Title")
     title.alignment=WD_ALIGN_PARAGRAPH.CENTER
     for r in title.runs:
         r.font.name="Times New Roman";r.font.bold=True
@@ -290,12 +296,12 @@ def render_docx(report, stem):
     p=doc.add_paragraph();p.alignment=WD_ALIGN_PARAGRAPH.CENTER
     r=p.add_run("Best");r.bold=True;r.font.color.rgb=RGBColor.from_string(RED[1:])
     p.add_run("     ");p.add_run("Second").underline=True
-    table=doc.add_table(rows=0,cols=13);table.autofit=False
+    table=doc.add_table(rows=0,cols=2+len(columns));table.autofit=False
     table.alignment=WD_TABLE_ALIGNMENT.CENTER
-    widths=[3.0,1.6]+[(27.3-4.6)/11]*11
+    widths=[3.5,2.0]+[(27.3-5.5)/len(columns)]*len(columns)
     for col,w in zip(table.columns,widths):col.width=Cm(w)
-    data=[["Model","Modality",*CANCERS,"Overall"]]+[
-        [row["model"],row["modality"],*[cell_text(row["cells"][c]) for c in (*CANCERS,"Overall")]]
+    data=[["Model",report.get("input_header", "Modality"),*columns]]+[
+        [row["model"],row["modality"],*[cell_text(row["cells"][c], report.get("missing_label", "--")) for c in columns]]
         for row in report["rows"]]
     last_group=None
     for i, values in enumerate(data):
@@ -326,7 +332,7 @@ def render_docx(report, stem):
             pf=p.paragraph_format;pf.space_before=pf.space_after=Pt(2)
             pf.line_spacing=1.0;pf.keep_with_next=i!=len(data)-1
             r=p.add_run(value);r.font.name="Times New Roman";r.font.size=Pt(9.2)
-            rank=info["cells"][(*CANCERS,"Overall")[j-2]]["rank"] if info and j>=2 and info["cells"][(*CANCERS,"Overall")[j-2]] else None
+            rank=info["cells"][columns[j-2]]["rank"] if info and j>=2 and info["cells"][columns[j-2]] else None
             r.bold=i==0 or ours or rank==1;r.underline=rank==2
             r.font.color.rgb=RGBColor.from_string(RED[1:] if rank==1 else "111111")
     for value in notes(report):
@@ -336,19 +342,21 @@ def render_docx(report, stem):
 
 
 def render_html(report, stem):
+    columns = tuple(report.get("columns", (*CANCERS, "Overall")))
+    title = report.get("title", "DCT v3.13 Ten Cancer Model Comparison")
     rows=[]
     for row in report["rows"]:
         cells=[f"<td>{html.escape(row['model'])}</td>",f"<td>{html.escape(row['modality'])}</td>"]
-        for column in (*CANCERS,"Overall"):
+        for column in columns:
             cell=row["cells"][column];rank=cell["rank"] if cell else None
             cls="best" if rank==1 else "second" if rank==2 else ""
-            cells.append(f'<td class="{cls}">{cell_text(cell)}</td>')
+            cells.append(f'<td class="{cls}">{cell_text(cell, report.get("missing_label", "--"))}</td>')
         rows.append(f'<tr class="{"ours" if row["id"]=="dct_v313" else ""}">{"".join(cells)}</tr>')
-    headers="".join(f"<th>{c}</th>" for c in ("Model","Modality",*CANCERS,"Overall"))
+    headers="".join(f"<th>{c}</th>" for c in ("Model",report.get("input_header", "Modality"),*columns))
     foot="".join(f"<p>{html.escape(n)}</p>" for n in notes(report))
     content=f'''<!doctype html><html><meta charset="utf-8"><title>DCT v3.13 comparison</title>
 <style>body{{font-family:"Times New Roman",serif;padding:24px}}h1{{font-size:24px}}table{{border-collapse:collapse;width:100%;min-width:1240px;border-top:3px double;border-bottom:2px solid}}th,td{{text-align:center;padding:7px 9px;font-size:16px}}thead{{border-bottom:1.5px solid}}.best{{color:{RED};font-weight:bold}}.second{{text-decoration:underline}}.ours{{background:{YELLOW};font-weight:bold;border-top:1.5px solid}}p{{font-size:13px}}@media print{{@page{{size:landscape;margin:12mm}}body{{padding:0}}table{{min-width:0}}}}</style>
-<h1>DCT v3.13 Ten Cancer Model Comparison</h1><p><b style="color:{RED}">Best</b> &nbsp; <u>Second</u></p>
+<h1>{html.escape(title)}</h1><p><b style="color:{RED}">Best</b> &nbsp; <u>Second</u></p>
 <table><thead><tr>{headers}</tr></thead><tbody>{"".join(rows)}</tbody></table>{foot}</html>'''
     stem.with_suffix(".html").write_text(content,encoding="utf-8",newline="\n")
 

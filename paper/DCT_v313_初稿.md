@@ -44,6 +44,8 @@ Slot Attention 通过竞争式迭代聚合，将输入集合压缩为少量潜�
 
 离散时间生存模型能够利用事件发生与右删失记录进行似然学习 [6]。逆删失概率加权可用于调整删失下的比较贡献，其解释依赖删失参考的估计及适用假设 [7]。DCT 使用患者级生存似然作为主要目标，以 IPCW 排序和逐槽监督提供辅助训练信号。训练中的 IPCW 加权与实验表中的 C-index 评价是两个独立环节。
 
+跨模态 OT 重建也已有相关研究。MCSP-OTMR 使用 OT 重建应对缺失组学，并引入 Fisher 引导的模态重加权 [13]；ME-Mamba 使用 OT 局部对齐与多专家融合 [14]。因此，本文将贡献定位于阶段条件运输、事件风险读取与复用预测运输计划的通路重建之间的具体联系，而不将 OT 对齐或 OT 重建本身作为独有机制。对 MCSP-OTMR 的定位目前依据出版社公开摘要，完整实现差异仍需全文核对。
+
 ## 3 方法
 
 ### 3.1 问题定义与整体路径
@@ -189,17 +191,19 @@ $$
 
 十队列等权平均 C-index 为 0.7030。KIRC 达到 0.8224，UCEC 为 0.7928，COADREAD 为 0.7364，BLCA 为 0.7238；LUSC 为 0.6300，是当前十队列中最低的均值。不同队列的事件率、随访、样本量和输入信息不同，癌种间分数差不直接归因于某个模块，也不等同于跨癌种迁移能力。
 
-### 4.3 外部基线比较
+### 4.3 OT 与 UNI2-h 方法的公开结果参照
 
-表 2 汇总 SlotSPE 原论文表 1 中 18 个方法的十队列报告值，并加入本文 DCT v3.13 的五折均值 [3]。基线数值从原论文 PDF 第 7 页直接提取，十队列均值另与第 22 页附录表 4 交叉核对，标准差保留在配套数值文件中。组学、病理和多模态方法均纳入逐列排名，没有只在多模态方法中选择最高值。
+表 2 按研究问题选择 OT 生存预测方法，以及使用 UNI2-h 病理特征的生存预测方法 [9–11]。MOTCat 和 TTA 的数值来自 TTA 表 1；其中 MOTCat 是 TTA 作者使用 UNI、以 DSS 为终点的复现。OTSurv 来自原论文表 1，使用 UNI 和单病理输入。STEPH 与五种 MIL 参照来自其官方补充表 S2，使用 UNI2-h 和单病理输入。本文 DCT 行沿用表 1 的真实 50 个折值，均值不变。
 
-![十癌种公开报告值与 DCT v3.13 的完整参考比较](tables/v313_ten_cancer_reported_comparison/table_v313_ten_cancer_comparison.png)
+![DCT v3.13 与 OT 和 UNI2-h 生存预测方法的公开结果参照](tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.png)
 
-*表 2 十个 TCGA 队列的公开报告值参考比较，共 19 个模型。每列第一名红色加粗，第二名加下划线，DCT 行淡黄色高亮；按三位小数的显示值计算排名，并列共享名次，第二个不同分数为第二名。原论文使用 UNI，本文使用 UNI2-h，患者划分未对齐，因此这些名次是报告值参考排名。基线 Overall 保留原论文值；DCT Overall 按十个未四舍五入癌种均值等权计算。原论文样本人数不作为本文各队列的人数。*
+*表 2 十队列公开报告值参照。红色加粗为该列已有报告值中的最高值，下划线为第二个不同的显示值，DCT 行为淡黄色。U1 表示 UNI，U2 表示 UNI2-h；g. 与 h. 分别表示组学和病理。NR 表示论文未单独报告对应队列，不表示服务器汇总未完成。LUSC 没有可用的独立外部队列数值，故不排名。各论文的队列集合不同，不混排 Overall。*
 
-在该报告值参考表中，DCT 在 KIRC（0.822）、LUAD（0.686）和 BLCA（0.724）列排名第一，在 LUSC（0.630）和 HNSC（0.658）列排名第二；Overall 为 0.703，位于 SlotSPE 的 0.721 之后，排名第二。这说明当前完整模型的报告值在部分队列具有竞争力，同时整体均值仍低于 SlotSPE 的已发表值。
+当前已汇总 49 个可按癌种名称对齐的公开均值。STEPH 的 KIPAN、LUNG、STES 为合并队列，不能分别替换 KIRC、LUAD/LUSC、STAD；TTA 与 OTSurv 的 CRC 在患者定义核对前不映射为 COADREAD。所有原始队列均值与来源离散度保留在配套数值文件中。
 
-该表比较公开报告值与作者保存的模型开发结果，编码器和患者划分差异限制了直接归因。用于检验方法增益的同条件 SlotSPE native/matched 实验需另行核对实际配置、五折评分与最佳预测，不能将公开均值转换成虚构逐折数组。论文后续消融与运输对照均依据本研究已有记录分析模块收益。
+该表显示当前报告值在部分队列具有竞争力，但输入模态、患者纳入、划分与 checkpoint 选择仍不同。DCT 目前采用 best-validation / legacy_val 开发汇总，列内名次不能解释为相同独立测试条件下的优劣。尤其 UNI2-h 病理单模态参照与 DCT 的病理、组学双模态输入不同；相同编码器本身并不建立公平比较。
+
+ProtoPathway 同样使用 UNI2-h，但以 OS 为终点 [12]，故作为结构相近的方法讨论并单独保存其公开值，不纳入本表的 DSS 排名。后续同条件参照优先覆盖 MOTCat、TTA、OTSurv 和 STEPH；模型收益与运输机制仍须结合本研究消融和对照判断。
 
 ### 4.4 消融实验
 
@@ -375,6 +379,19 @@ DCT 以模态内共享原型组织槽表示，在紧凑槽空间学习阶段条�
 
 [8] Mahmood Lab. UNI and UNI2 official model repository. [官方模型与版本说明](https://github.com/mahmoodlab/UNI). Accessed 2026-10-06.
 
+
+[9] Liu W, et al. Together, Then Apart: Balancing Alignment and Distinctiveness for Multimodal Survival Analysis. arXiv:2511.18089. [原文](https://arxiv.org/html/2511.18089).
+
+[10] Ren Q, et al. OTSurv: A Novel Multiple Instance Learning Framework for Survival Prediction with Heterogeneity-aware Optimal Transport. MICCAI, 2025. [原文](https://papers.miccai.org/miccai-2025/paper/1359_paper.pdf).
+
+[11] Liu P, et al. Sparse Task Vector Mixup with Hypernetworks for Efficient Knowledge Transfer in Whole-Slide Image Prognosis. CVPR, 2026. [原文](https://arxiv.org/html/2603.10526)，[补充材料](https://openaccess.thecvf.com/content/CVPR2026/supplemental/Liu_Sparse_Task_Vector_CVPR_2026_supplemental.pdf).
+
+[12] ProtoPathway: Biologically Structured Prototype-Pathway Fusion for Multimodal Cancer Survival Prediction. arXiv:2605.21454, 2026. [原文](https://arxiv.org/html/2605.21454)，[作者代码与 UNI2-h 特征说明](https://github.com/AmayaGS/ProtoPathway).
+
+[13] Feng L, Xiao L. Multimodal cancer survival prediction with optimal transport reconstruction and fisher-guided modal reweighting. Expert Systems with Applications, DOI:10.1016/j.eswa.2026.133823. [出版社公开摘要](https://www.sciencedirect.com/science/article/pii/S0957417426027314).
+
+[14] ME-Mamba. arXiv:2509.16900. [原文](https://arxiv.org/html/2509.16900).
+
 ## 附录 A 完整损失消融折值与最佳 epoch
 
 下面完整保留 70 个损失消融折级评分，格式为 C-index（epoch 索引）。正文统计由这些折值重算。所有配置共享 v3.13 预测架构，辅助目标随表 3 改变。
@@ -425,7 +442,7 @@ DCT 以模态内共享原型组织槽表示，在紧凑槽空间学习阶段条�
 
 历史异常 Stage A 目录与旧机制比较图已排除，不与此次 20 个重跑结果混用。HANDOFF_20261006.md 的旧 evidence 警告部分仍含未更新的 Full 来源说明，不用其 0.7208/0.8270 或 Exp6 0.7131 替换已明确的 UNI2-h Full。训练条件的最终配对核对还应包括患者、结局、split、编码器、采样、有效损失权重及最佳 checkpoint 口径。
 
-表 2 已填入 SlotSPE 原论文 18 个方法的全部十队列报告值，并加入本文 DCT v3.13。原论文表 1 的 180 个癌种均值与附录表 4 全部交叉核对，18 个 Overall 保留原文；配套 JSON 保存 180 个标准差、来源 PDF SHA256 和 DCT 的真实 50 个折值。该表为公开报告值参考比较。SlotSPE 同条件 native/matched 的四组五折原值、最佳预测与配方信息仍需另行核对。队列人数、事件/删失比例和设备信息仅在真实清单可核验时补入。
+表 2 已按作者要求改为 OT 与 UNI2-h 方法的公开结果参照，包含 9 个参照方法及 DCT，保留十癌种列。49 个可按队列名称对齐的公开均值已直接汇总；未报告的队列不补值，LUSC 不排名，不混排不同队列集合的 Overall。公开原值、离散度与来源 SHA256 记录在 paper/V313_OT_UNI2H_COMPARISON_INPUT.json；DCT 的真实 50 个折值不变。旧的 SlotSPE 报告值表仅作为历史文件保留，不再作为正文比较。队列人数、事件/删失比例和设备信息仅在真实清单可核验时补入。
 
 图 1–7 已接入已有数值或代码对应示意，图 5 仅完成十队列目标中的 BLCA/KIRC 两个癌种，其中图 6 仅包含已完成的 BLCA 病例通路和运输子图，组织空间图、Top-5 组织块与 KIRC 病例图仍待补齐。图 2、3、7 与补充图 S3 由已保存记录重绘，原始图片和 JSON 保留，来源 hash 与数值快照见 figures/v313_manuscript_integrated/manifest.json。图 3 差值按未四舍五入的原始折值计算；原稿先对均值四舍五入再相减产生的末位差异同步修正，实验成绩不变。图 4 继续使用 commit 24f3f10 的十折 sweep JSON，缺少患者级最佳预测对齐与边缘残差记录的限制保持不变。图 5 与图 7 分别使用训练风险中位数和折内验证风险百分位分组；人数以对应患者 JSON/CSV 为准，不采用历史执行报告中的不一致组数。新增服务器实验的进度报告不替代原始逐折结果，未将尚未同步核验的结论填入正文。本次论文接图不运行模型，也不填写未经实测的 KM 显著性、组织诊断或效率优势。
 

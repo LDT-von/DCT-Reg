@@ -8,16 +8,16 @@ DCT 是一个多模态生存预测框架，通过**语义对齐的多模态融�
 
 ---
 
-## v3.13 十癌种完整参考比较表
+## v3.13 OT 与 UNI2-h 公开结果参照
 
-已直接从 SlotSPE 原论文汇总 18 个方法的十癌种均值及 Overall，与 DCT v3.13 的真实 50 个折值合并为 19 行比较表，并接入论文 4.3。每列第一红色加粗、第二加下划线，DCT 行淡黄色高亮。KIRC、LUAD、BLCA 第一；LUSC、HNSC 及 Overall 第二，名次按三位显示值计算。
+当前正文表 2 比较 OT 或 UNI2-h 方向：MOTCat（TTA 作者复现）、TTA、OTSurv，以及 STEPH 和其采用 UNI2-h 的五种 MIL 参照。已直接汇总 49 个可按队列名称对齐的公开均值，并加入 DCT 的真实 50 个折值；SlotSPE 比较表退出当前正文，旧文件作为历史保留。
 
-这是公开报告值参考表：原论文使用 UNI，本研究使用 UNI2-h，患者划分未对齐。同条件复现入口和旧 draft 仍独立保留，不把公开均值虚构为五折结果。
+表格保留十癌种，第一红色加粗、第二下划线、DCT 行淡黄色。原文没单独报告的队列保持空缺，LUSC 没有参照故不排名。所有数值为 DSS；不同模态、划分与评分口径限制公平比较，不混排不同队列集合的 Overall。下面“核心贡献”属于仓库的 v3.10 历史介绍，不是 v3.13 的当前实验结果。
 
-完整表：[PNG](paper/tables/v313_ten_cancer_reported_comparison/table_v313_ten_cancer_comparison.png)、[可编辑 Word](paper/tables/v313_ten_cancer_reported_comparison/table_v313_ten_cancer_comparison.docx)、[矢量 PDF](paper/tables/v313_ten_cancer_reported_comparison/table_v313_ten_cancer_comparison.pdf)。
+[新比较表 PNG](paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.png) · [可编辑 Word](paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.docx) · [矢量 PDF](paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.pdf) · [论文来源与第6节图的导读](paper/V313_OT_UNI2H_LITERATURE_REVIEW_20261008.md)。
 
 ~~~bash
-python scripts/build_v313_comparison_table.py --reported --digits 3 --input paper/V313_TEN_CANCER_REPORTED_COMPARISON_INPUT.json --output paper/tables/v313_ten_cancer_reported_comparison
+python scripts/build_v313_literature_comparison.py
 ~~~
 
 ## 核心贡献

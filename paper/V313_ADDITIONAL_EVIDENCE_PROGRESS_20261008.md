@@ -112,3 +112,13 @@ PY=/home/ubuntu/.conda/envs/trisurv/bin/python
 | patch_budget | `blca_exp6_summary_patch_budget.{pdf,png}` | `kirc_exp6_summary_patch_budget.{pdf,png}` |
 
 **用户反馈**（2026-10-08 11:46 UTC+8）："看不懂，但还是记录一下吧"——本节用于记住用户已翻看但未理解的口语反馈。
+
+### 第 6 节本机阅读说明
+
+2026-10-08 本机已同步包含 d2d4877 的远端版本。该 commit 只更新进度说明；上述服务器 figures_summary 目录没有同步到本机，不能将读取脚本称为已查看实际图片。五类图的横轴、误差方向和解释边界见 paper/V313_OT_UNI2H_LITERATURE_REVIEW_20261008.md。它们覆盖 BLCA/KIRC 的机制诊断，不等于十癌种比较或十癌种 KM。
+
+更正第 5 节对照简称：Direct 不在 cross 重建中使用运输，但预测主路仍有 OT，不能写成整个模型“无 OT”；Independent 去掉槽对联合耦合，不能泛称网络完全没有 attention。此说明不改变服务器已有分数或图像。
+
+## 7. 外部比较方向已调整
+
+作者要求不与 SlotSPE 比较，改找 OT 生存预测或使用 UNI2-h 的相关论文。新表包含 MOTCat [TTA]、TTA、OTSurv、STEPH 及其 UNI2-h MIL 参照，已汇总 49 个同名称队列公开均值。ProtoPathway 使用 UNI2-h 但评价 OS，单独记录，不进入 DSS 排名。MCSP-OTMR 与 OT 重建叙事接近，列为优先全文复核对象。没有发起新模型运行，也没有声称公开报告值属于同条件复现。
