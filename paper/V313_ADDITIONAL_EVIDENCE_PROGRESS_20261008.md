@@ -22,15 +22,16 @@
 - **patch controls**（`results/v313_additional_20261008/patch_controls/`，`--experiment patches`），
   arms `direct` + `independent`，cancers BLCA + KIRC，五折共 20 run。
 
-  当前进度（截至 2026-10-08 01:45 UTC+8）：
+  当前进度（截至 2026-10-08 01:58 UTC+8）：
   - `direct_blca_f0_s3` ✅
   - `direct_blca_f1_s3` ✅
   - `direct_blca_f2_s3` ✅
   - `direct_blca_f3_s3` ✅
-  - `direct_blca_f4_s3` ⏳ factual 70/76（即将完成）
-  - 剩余 15 折（`direct`/`independent` × BLCA/KIRC × f0-f4）
+  - `direct_blca_f4_s3` ✅
+  - `direct_kirc_f0_s3` ⏳ factual 66/98（进行中）
+  - 剩余 14 折（`direct_kirc_f1..4`, `independent` × BLCA/KIRC × f0-f4）
 
-  节奏：约 22 min/折；总耗时 ≈ 7 h，预计 ~09:00 UTC+8 完成。
+  节奏：~22 min/折（patch-only，无 reconstruction）；剩余 14 折 ≈ 5 h，预计 ~07:00 UTC+8 完成。
 
   Plot：`figures_patch_controls/` 待 20 折全部完成后再 plot（plot 步骤会一次性生成 20 × 2 类图 = 80 张，含 PDF+PNG 160 文件）。
 
