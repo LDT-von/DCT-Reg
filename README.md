@@ -8,6 +8,18 @@ DCT 是一个多模态生存预测框架，通过**语义对齐的多模态融�
 
 ---
 
+## v3.13 十癌种完整参考比较表
+
+已直接从 SlotSPE 原论文汇总 18 个方法的十癌种均值及 Overall，与 DCT v3.13 的真实 50 个折值合并为 19 行比较表，并接入论文 4.3。每列第一红色加粗、第二加下划线，DCT 行淡黄色高亮。KIRC、LUAD、BLCA 第一；LUSC、HNSC 及 Overall 第二，名次按三位显示值计算。
+
+这是公开报告值参考表：原论文使用 UNI，本研究使用 UNI2-h，患者划分未对齐。同条件复现入口和旧 draft 仍独立保留，不把公开均值虚构为五折结果。
+
+完整表：[PNG](paper/tables/v313_ten_cancer_reported_comparison/table_v313_ten_cancer_comparison.png)、[可编辑 Word](paper/tables/v313_ten_cancer_reported_comparison/table_v313_ten_cancer_comparison.docx)、[矢量 PDF](paper/tables/v313_ten_cancer_reported_comparison/table_v313_ten_cancer_comparison.pdf)。
+
+~~~bash
+python scripts/build_v313_comparison_table.py --reported --digits 3 --input paper/V313_TEN_CANCER_REPORTED_COMPARISON_INPUT.json --output paper/tables/v313_ten_cancer_reported_comparison
+~~~
+
 ## 核心贡献
 
 ### 1. 生存预测性能（超越 SlotSPE）

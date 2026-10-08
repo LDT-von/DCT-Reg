@@ -3,7 +3,8 @@
 
 No training/inference. Complete input is required by default. An explicitly
 requested draft shows missing cells and never invents winners for incomplete
-columns. Primary cells are five-fold means; raw folds/std remain in the JSON.
+columns. Matched cells are five-fold means; raw folds/std remain in the JSON.
+--reported explicitly renders published means as a cross-protocol reference table.
 """
 from __future__ import annotations
 import argparse
@@ -130,11 +131,60 @@ def summarize(payload, *, base=ROOT, digits=4):
             "dct_second": [c for c in ranked_columns if ours["cells"][c]["rank"] == 2]}
 
 
+def summarize_reported(payload, *, digits=3):
+    """Rank source-reported means without inventing patient records or folds."""
+    if payload.get("comparison_type") != "reported_reference":
+        raise ValueError("--reported requires comparison_type=reported_reference")
+    if payload.get("schema_version") != 1 or digits not in (3, 4):
+        raise ValueError("Require schema_version=1 and display precision 3 or 4")
+    if tuple(payload.get("cancers", [])) != CANCERS or payload.get("transcription_verified") is not True:
+        raise ValueError("All ten source columns and verified transcription required")
+    models = payload["models"]
+    if len(models) < 2 or len({m["id"] for m in models}) != len(models) or "dct_v313" not in {m["id"] for m in models}:
+        raise ValueError("Require at least two unique model IDs")
+    rows = []
+    for model in models:
+        cells = {}
+        if model.get("source_kind") not in ("published_summary", "author_fold_summary"):
+            raise ValueError("Explicit published/author source kind required")
+        for column in (*CANCERS, "Overall"):
+            value = model["reported_overall"] if column == "Overall" else model["means"][column]
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or not 0 <= value <= 1:
+                raise ValueError(f"{model['model']} {column}: finite reported C-index required")
+            cells[column] = {"mean": value, "text": str(quantize(value, digits)), "rank": None,
+                             "std": model.get("std", {}).get(column),
+                             "folds": model.get("folds", {}).get(column),
+                             "source_kind": model["source_kind"]}
+        rows.append({"id": model["id"], "model": model["model"],
+                     "modality": model["modality"], "group": model["group"],
+                     "cells": cells, "ready": {c:True for c in (*CANCERS, "Overall")}})
+    for column in (*CANCERS, "Overall"):
+        ranks = dense_ranks([r["cells"][column]["mean"] for r in rows], digits)
+        for row, rank in zip(rows, ranks):
+            row["cells"][column]["rank"] = rank
+    ours = next(r for r in rows if r["id"] == "dct_v313")
+    return {"complete":True, "matched_complete":False, "comparison_type":"reported_reference",
+            "digits":digits, "cancers":list(CANCERS), "rows":rows, "problems":[],
+            "ranked_columns":list((*CANCERS, "Overall")),
+            "ranking":"dense ranks of displayed reported means; reference ranking only",
+            "overall":"Baselines: original paper Overall; DCT: equal mean of unrounded cohort means",
+            "source":payload["source"], "protocols":payload["protocols"],
+            "reference_sample_sizes":payload["reference_sample_sizes"],
+            "dct_first":[c for c in (*CANCERS, "Overall") if ours["cells"][c]["rank"] == 1],
+            "dct_second":[c for c in (*CANCERS, "Overall") if ours["cells"][c]["rank"] == 2]}
+
+
 def cell_text(cell):
     return cell["text"] if cell else "--"
 
 
 def notes(report):
+    if report.get("comparison_type") == "reported_reference":
+        return [
+          "REFERENCE: baselines from SlotSPE Table 1 (UNI); DCT from author five-fold records (UNI2-h).",
+          "Encoder and patient splits are not aligned; ranks compare reported values, not a matched reproduction.",
+          "Best: red bold. Second: underlined. Ties share rank. Overall: paper values for baselines; unrounded macro mean for DCT.",
+          "g. = genomics; h. = histology. Paper cohort counts are not assigned to the DCT row. Source means/SD are retained in JSON."]
     status = ("Complete source manifest: shared protocol declared and source-file hashes checked."
               if report["complete"] else
               "DRAFT: baseline results/source audits pending; missing cells are --; incomplete columns are not ranked.")
@@ -310,9 +360,12 @@ def main(argv=None):
     p.add_argument("--digits",type=int,choices=(3,4),default=4)
     p.add_argument("--allow-incomplete",action="store_true",help="Explicit draft preview; never ranks incomplete columns")
     p.add_argument("--check-only",action="store_true")
+    p.add_argument("--reported",action="store_true",help="Explicit cross-publication reported-value reference; never a matched comparison")
     args=p.parse_args(argv)
     try:
-        report=summarize(json.loads(args.input.read_text(encoding="utf-8")),digits=args.digits)
+        payload=json.loads(args.input.read_text(encoding="utf-8"))
+        report=(summarize_reported(payload,digits=args.digits) if args.reported
+                else summarize(payload,digits=args.digits))
         if not report["complete"] and not args.allow_incomplete:
             raise ValueError("Comparison incomplete; no files written:\n"+"\n".join(report["problems"]))
         if args.check_only:

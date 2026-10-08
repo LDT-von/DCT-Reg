@@ -557,17 +557,6 @@
     "case_and_cohort",
     "slot_diagnostics_and_cost"
   ],
-  "word_visual_qa": {
-    "date": "2026-10-08",
-    "renderer": "Microsoft Word COM + pypdfium2",
-    "pages": 23,
-    "all_pages_inspected": true,
-    "image_panels": 12,
-    "tables": 9,
-    "native_equations": 15,
-    "docx_sha256": "8c571e75196ecf41372f61cdc480457debcceb67fc686a21c264bfb340695f44",
-    "scope": "experiment ordering and partial ten-cancer KM disclosure; no model runs"
-  },
   "km_code_validation": {
     "focused_checks_passed": 3,
     "pytest_status": "not run locally; bundled environment has no pytest",
@@ -576,7 +565,8 @@
     "ten_cohort_actual_render": "pending server data and execution"
   },
   "external_comparison_table": {
-    "status": "draft_baselines_pending",
+    "status": "reported_reference_complete_matched_reproduction_pending",
+    "comparison_type": "reported_reference",
     "expected_cancers": [
       "BRCA",
       "COADREAD",
@@ -590,27 +580,98 @@
       "STAD"
     ],
     "models": 19,
-    "dct_score_columns": 10,
-    "baseline_complete_rows": 0,
-    "complete": false,
-    "ranking_ready": false,
-    "input": "paper/V313_TEN_CANCER_COMPARISON_INPUT.json",
-    "preview": "paper/tables/v313_ten_cancer_comparison_draft/table_v313_ten_cancer_comparison.png",
-    "final_target": "paper/tables/v313_ten_cancer_comparison",
+    "baseline_complete_rows": 18,
+    "complete": true,
+    "matched_complete": false,
+    "ranking_ready": true,
+    "input": "paper/V313_TEN_CANCER_REPORTED_COMPARISON_INPUT.json",
+    "preview": "paper/tables/v313_ten_cancer_reported_comparison/table_v313_ten_cancer_comparison.png",
+    "source": {
+      "paper": "Structural Prognostic Event Modeling for Multimodal Cancer Survival Analysis",
+      "local_pdf": "C:\\Users\\栋栋\\Desktop\\研一\\多模态癌症生存预测论文清单\\03_槽注意力与结构化事件\\STRUCTURAL PROGNOSTIC EVENT MODELING FOR.pdf",
+      "pdf_sha256": "126067625d1ee7b99cd5a6772be9feb51b83d344ee17adf1ef9e1de7941e0872",
+      "arxiv": "https://arxiv.org/abs/2512.01116",
+      "mean_table": 1,
+      "mean_pdf_page": 7,
+      "std_table": 4,
+      "std_pdf_page": 22,
+      "implementation_pdf_page": 21
+    },
+    "dct_first": [
+      "KIRC",
+      "LUAD",
+      "BLCA"
+    ],
+    "dct_second": [
+      "LUSC",
+      "HNSC",
+      "Overall"
+    ],
     "style": "best red bold; second underlined; DCT row pale yellow",
-    "server_prompt": "paper/V313_TEN_CANCER_COMPARISON_SERVER_PROMPT.txt",
     "validation": {
-      "functional_tests_passed": 6,
+      "published_cohort_means_crosschecked": 180,
+      "published_stds_retained": 180,
+      "published_overall_values_preserved": 18,
       "real_dct_fold_values_checked": 50,
-      "ranked_columns": 0,
-      "draft_only": true,
+      "new_model_runs": 0,
+      "functional_tests_passed": 9,
+      "ranked_columns": 11,
+      "table_cells_style_checked": 209,
       "word_pages": 1,
       "word_all_pages_inspected": true,
       "vector_png_inspected": true,
-      "docx_sha256": "a1268730bcd53c17b9822ce33f85c9c3192422c0caff64d0ea3944e5acab9829",
-      "pdf_sha256": "877abe1ada331d5347d9c1a89329684bd95e8e7e6e065834d44dd8d5fca2ddd5",
-      "new_model_runs": 0,
-      "staged_text_format": "LF; hashes checked against Git blobs"
+      "docx_sha256": "d9758cf51fca658858ea01cb26bc8c49ef51b430d873c565fef449f1acaf7893",
+      "pdf_sha256": "6a29680f0575d48e2668db86ae0bb756224dfc35bd834e794bf4384cc6f33e9d",
+      "input_sha256": "d8aeeeb7f50e0ad85ecda8b1c1a1e6043e74119db2136444ec8170c18141c27a"
+    },
+    "matched_reproduction": {
+      "status": "draft_baselines_pending",
+      "expected_cancers": [
+        "BRCA",
+        "COADREAD",
+        "KIRC",
+        "UCEC",
+        "LUAD",
+        "LUSC",
+        "HNSC",
+        "SKCM",
+        "BLCA",
+        "STAD"
+      ],
+      "models": 19,
+      "dct_score_columns": 10,
+      "baseline_complete_rows": 0,
+      "complete": false,
+      "ranking_ready": false,
+      "input": "paper/V313_TEN_CANCER_COMPARISON_INPUT.json",
+      "preview": "paper/tables/v313_ten_cancer_comparison_draft/table_v313_ten_cancer_comparison.png",
+      "final_target": "paper/tables/v313_ten_cancer_comparison",
+      "style": "best red bold; second underlined; DCT row pale yellow",
+      "server_prompt": "paper/V313_TEN_CANCER_COMPARISON_SERVER_PROMPT.txt",
+      "validation": {
+        "functional_tests_passed": 6,
+        "real_dct_fold_values_checked": 50,
+        "ranked_columns": 0,
+        "draft_only": true,
+        "word_pages": 1,
+        "word_all_pages_inspected": true,
+        "vector_png_inspected": true,
+        "docx_sha256": "a1268730bcd53c17b9822ce33f85c9c3192422c0caff64d0ea3944e5acab9829",
+        "pdf_sha256": "877abe1ada331d5347d9c1a89329684bd95e8e7e6e065834d44dd8d5fca2ddd5",
+        "new_model_runs": 0,
+        "staged_text_format": "LF; hashes checked against Git blobs"
+      }
     }
+  },
+  "word_visual_qa": {
+    "date": "2026-10-08",
+    "renderer": "Microsoft Word COM + pypdfium2",
+    "pages": 23,
+    "all_pages_inspected": true,
+    "image_panels": 13,
+    "tables": 8,
+    "native_equations": 15,
+    "docx_sha256": "d941598edbcbbbbff468051fcaf76a2df44ec87070e5da74f16fcd93c024a1e5",
+    "scope": "complete published-value reference table integrated before ablation; no model runs"
   }
 }

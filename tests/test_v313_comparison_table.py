@@ -7,7 +7,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from scripts.build_v313_comparison_table import CANCERS, dense_ranks, main, sha256, summarize
+from scripts.build_v313_comparison_table import CANCERS, dense_ranks, main, sha256, summarize, summarize_reported
 
 
 class ComparisonTableChecks(unittest.TestCase):
@@ -75,6 +75,43 @@ class ComparisonTableChecks(unittest.TestCase):
         self.assertNotIn("KIRC",result["ranked_columns"])
         self.assertNotIn("Overall",result["ranked_columns"])
         self.assertIn("BLCA",result["ranked_columns"])
+
+
+class ReportedReferenceChecks(unittest.TestCase):
+    def setUp(self):
+        path=Path(__file__).resolve().parents[1]/"paper/V313_TEN_CANCER_REPORTED_COMPARISON_INPUT.json"
+        self.payload=json.loads(path.read_text(encoding="utf-8"))
+
+    def test_complete_published_values_and_actual_ranks(self):
+        result=summarize_reported(self.payload)
+        self.assertTrue(result["complete"])
+        self.assertFalse(result["matched_complete"])
+        self.assertEqual(len(result["rows"]),19)
+        self.assertEqual(result["dct_first"],["KIRC","LUAD","BLCA"])
+        self.assertEqual(result["dct_second"],["LUSC","HNSC","Overall"])
+        for model,row in zip(self.payload["models"],result["rows"]):
+            for cancer in CANCERS:
+                self.assertEqual(row["cells"][cancer]["mean"],model["means"][cancer])
+            self.assertEqual(row["cells"]["Overall"]["mean"],model["reported_overall"])
+            if model["source_kind"]=="published_summary":
+                self.assertTrue(all(row["cells"][c]["folds"] is None for c in CANCERS))
+        ours=result["rows"][-1]
+        self.assertAlmostEqual(ours["cells"]["Overall"]["mean"],.702956,places=12)
+
+    def test_reported_mode_requires_explicit_provenance(self):
+        payload=copy.deepcopy(self.payload)
+        payload["comparison_type"]="matched"
+        with self.assertRaises(ValueError):
+            summarize_reported(payload)
+        payload=copy.deepcopy(self.payload)
+        payload["transcription_verified"]=False
+        with self.assertRaises(ValueError):
+            summarize_reported(payload)
+
+    def test_reported_input_cannot_pass_default_matched_ranking(self):
+        result=summarize(self.payload)
+        self.assertFalse(result["complete"])
+        self.assertEqual(result["ranked_columns"],[])
 
 
 if __name__=="__main__":

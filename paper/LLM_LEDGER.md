@@ -267,3 +267,33 @@ Its 20-row/13-column native Word table renders to one page; the final page and
 vector-derived PNG were visually inspected after correcting a default title
 border and a wrapped modality header. All draft columns remain unranked because
 baseline data are missing. No training, inference or feature processing was run.
+
+
+## 2026-10-08 Complete published-value reference comparison
+
+Corrected the previous scope error: the author's requested paper-table reference
+can be filled directly from the supplied SlotSPE PDF, without server-reproduced
+baseline records. Extracted all 180 cohort means and 18 published Overall values
+from Table 1 (PDF page 7); cross-checked all 180 means against appendix Table 4
+(page 22), retaining all 180 standard deviations. Added the unchanged 50 author
+DCT v3.13 folds; no baseline fold arrays were invented. The complete 19-model,
+ten-cancer table is integrated into manuscript section 4.3 before the ablations.
+
+Ranks are computed across all rows using three-decimal displayed values, with
+ties sharing dense ranks. DCT ranks first in KIRC, LUAD and BLCA; second in LUSC,
+HNSC and Overall. Published baseline Overall values are preserved; DCT Overall is
+the equal mean of ten unrounded cohort means (0.702956). This is explicitly a
+reported-reference comparison: the published models use UNI and DCT uses UNI2-h,
+and patient splits are not aligned. Matched reproduction remains independently
+pending; no model training, inference or feature processing was run.
+
+
+Final verification: all nine comparison-table tests passed, including preservation
+of all published Overall values, absence of fabricated baseline folds and isolation
+from matched ranking. All 209 score-cell styles match computed ranks. Source PDF,
+input and output SHA256 values were checked, and all 50 DCT folds are unchanged.
+Native editable comparison Word is one landscape page; the complete vector-derived
+PNG and final Word page were inspected. The manuscript's 23 final pages were all
+visually reviewed; it retains 8 native tables, 13 image panels and 15 native math
+nodes. The loss-recipe table stays together after the new comparison image.
+Remote progress commit d2d4877 was preserved before this scoped delivery.

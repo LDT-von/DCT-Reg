@@ -238,7 +238,7 @@ def add_table(doc,rows):
     if rows[0][0]=='Fold':widths=[1.4,2.5,2.5,3.2,3.35,3.75]
     t=doc.add_table(rows=0,cols=n);t.autofit=False;t.alignment=WD_TABLE_ALIGNMENT.CENTER
     for col,w in zip(t.columns,widths):col.width=Cm(w)
-    keep_table_together = rows[0][:2] == ['配置', 'BLCA C-index']
+    keep_table_together = rows[0][:2] in (['配置', 'BLCA C-index'], ['配置', 'IPCW 排序'])
     for i,values in enumerate(rows):
         row=t.add_row();props=row._tr.get_or_add_trPr();props.append(OxmlElement('w:cantSplit'))
         if i==0:props.append(OxmlElement('w:tblHeader'))
@@ -349,7 +349,7 @@ def build():
     ready=status.get('ready_figures', {})
     assert sorted(pending + [int(k) for k in ready])==list(range(1,8))
     embedded_images=re.findall(r'^!\[.*?\]\((.*?)\)$',source,re.MULTILINE)
-    assert len(doc.tables)==9 and len(doc.inline_shapes)==len(embedded_images)
+    assert len(doc.tables)==8 and len(doc.inline_shapes)==len(embedded_images)
     for entry in list(ready.values())+list(status.get('supplementary_figures',{}).values()):
         for image in entry.get('images',[entry.get('image')]):
             assert image and str(Path(image).relative_to('paper')).replace('\\','/') in embedded_images
@@ -361,7 +361,7 @@ def build():
             'BLCA':{'mean':BLCA.mean(axis=1).tolist(),'sample_std':BLCA.std(axis=1,ddof=1).tolist()},
             'KIRC':{'mean':KIRC.mean(axis=1).tolist(),'sample_std':KIRC.std(axis=1,ddof=1).tolist()},
             'controls':status['controls'],
-            'source_scope':f'70 recorded loss folds; 50 author-supplied Full folds; 20 audited rerun control folds; 10 saved same-model sweep JSONs; {len(pending)} main-figure placeholders; partial tissue panels tracked separately'}
+            'source_scope':f'70 recorded loss folds; 50 author-supplied Full folds; 20 audited rerun control folds; 10 saved same-model sweep JSONs; 180 published reference means and 18 published Overall values; {len(pending)} main-figure placeholders; partial tissue panels tracked separately'}
     (QA/'build_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps(report,ensure_ascii=False,indent=2))
 

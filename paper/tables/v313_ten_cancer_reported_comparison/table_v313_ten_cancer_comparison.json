@@ -1,0 +1,2229 @@
+{
+  "complete": true,
+  "matched_complete": false,
+  "comparison_type": "reported_reference",
+  "digits": 3,
+  "cancers": [
+    "BRCA",
+    "COADREAD",
+    "KIRC",
+    "UCEC",
+    "LUAD",
+    "LUSC",
+    "HNSC",
+    "SKCM",
+    "BLCA",
+    "STAD"
+  ],
+  "rows": [
+    {
+      "id": "mlp",
+      "model": "MLP",
+      "modality": "g.",
+      "group": "genomics",
+      "cells": {
+        "BRCA": {
+          "mean": 0.644,
+          "text": "0.644",
+          "rank": 19,
+          "std": 0.097,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.661,
+          "text": "0.661",
+          "rank": 18,
+          "std": 0.053,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.75,
+          "text": "0.750",
+          "rank": 17,
+          "std": 0.035,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.731,
+          "text": "0.731",
+          "rank": 15,
+          "std": 0.071,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.634,
+          "text": "0.634",
+          "rank": 16,
+          "std": 0.069,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.584,
+          "text": "0.584",
+          "rank": 10,
+          "std": 0.072,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.584,
+          "text": "0.584",
+          "rank": 15,
+          "std": 0.061,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.652,
+          "text": "0.652",
+          "rank": 12,
+          "std": 0.038,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.677,
+          "text": "0.677",
+          "rank": 12,
+          "std": 0.053,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.615,
+          "text": "0.615",
+          "rank": 13,
+          "std": 0.063,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.653,
+          "text": "0.653",
+          "rank": 14,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "snn",
+      "model": "SNN",
+      "modality": "g.",
+      "group": "genomics",
+      "cells": {
+        "BRCA": {
+          "mean": 0.645,
+          "text": "0.645",
+          "rank": 18,
+          "std": 0.086,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.664,
+          "text": "0.664",
+          "rank": 17,
+          "std": 0.021,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.754,
+          "text": "0.754",
+          "rank": 16,
+          "std": 0.035,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.753,
+          "text": "0.753",
+          "rank": 12,
+          "std": 0.071,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.652,
+          "text": "0.652",
+          "rank": 9,
+          "std": 0.063,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.548,
+          "text": "0.548",
+          "rank": 18,
+          "std": 0.041,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.597,
+          "text": "0.597",
+          "rank": 14,
+          "std": 0.039,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.673,
+          "text": "0.673",
+          "rank": 6,
+          "std": 0.021,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.694,
+          "text": "0.694",
+          "rank": 7,
+          "std": 0.04,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.585,
+          "text": "0.585",
+          "rank": 17,
+          "std": 0.048,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.656,
+          "text": "0.656",
+          "rank": 13,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "snntrans",
+      "model": "SNNTrans",
+      "modality": "g.",
+      "group": "genomics",
+      "cells": {
+        "BRCA": {
+          "mean": 0.657,
+          "text": "0.657",
+          "rank": 14,
+          "std": 0.06,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.71,
+          "text": "0.710",
+          "rank": 14,
+          "std": 0.053,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.747,
+          "text": "0.747",
+          "rank": 18,
+          "std": 0.035,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.724,
+          "text": "0.724",
+          "rank": 16,
+          "std": 0.061,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.648,
+          "text": "0.648",
+          "rank": 11,
+          "std": 0.059,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.555,
+          "text": "0.555",
+          "rank": 17,
+          "std": 0.042,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.605,
+          "text": "0.605",
+          "rank": 12,
+          "std": 0.065,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.684,
+          "text": "0.684",
+          "rank": 2,
+          "std": 0.029,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.699,
+          "text": "0.699",
+          "rank": 6,
+          "std": 0.031,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.593,
+          "text": "0.593",
+          "rank": 16,
+          "std": 0.038,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.662,
+          "text": "0.662",
+          "rank": 12,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "slotspe_g",
+      "model": "SlotSPE-G",
+      "modality": "g.",
+      "group": "genomics",
+      "cells": {
+        "BRCA": {
+          "mean": 0.698,
+          "text": "0.698",
+          "rank": 10,
+          "std": 0.046,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.733,
+          "text": "0.733",
+          "rank": 6,
+          "std": 0.045,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.774,
+          "text": "0.774",
+          "rank": 12,
+          "std": 0.022,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.752,
+          "text": "0.752",
+          "rank": 13,
+          "std": 0.065,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.646,
+          "text": "0.646",
+          "rank": 13,
+          "std": 0.064,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.616,
+          "text": "0.616",
+          "rank": 4,
+          "std": 0.058,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.611,
+          "text": "0.611",
+          "rank": 11,
+          "std": 0.038,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.678,
+          "text": "0.678",
+          "rank": 5,
+          "std": 0.025,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.701,
+          "text": "0.701",
+          "rank": 4,
+          "std": 0.017,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.596,
+          "text": "0.596",
+          "rank": 15,
+          "std": 0.036,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.681,
+          "text": "0.681",
+          "rank": 7,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "abmil",
+      "model": "ABMIL",
+      "modality": "h.",
+      "group": "histology",
+      "cells": {
+        "BRCA": {
+          "mean": 0.656,
+          "text": "0.656",
+          "rank": 15,
+          "std": 0.037,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.715,
+          "text": "0.715",
+          "rank": 13,
+          "std": 0.029,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.782,
+          "text": "0.782",
+          "rank": 11,
+          "std": 0.026,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.779,
+          "text": "0.779",
+          "rank": 6,
+          "std": 0.057,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.645,
+          "text": "0.645",
+          "rank": 14,
+          "std": 0.061,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.593,
+          "text": "0.593",
+          "rank": 9,
+          "std": 0.055,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.664,
+          "text": "0.664",
+          "rank": 1,
+          "std": 0.043,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.668,
+          "text": "0.668",
+          "rank": 7,
+          "std": 0.042,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.663,
+          "text": "0.663",
+          "rank": 14,
+          "std": 0.072,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.642,
+          "text": "0.642",
+          "rank": 7,
+          "std": 0.044,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.681,
+          "text": "0.681",
+          "rank": 7,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "transmil",
+      "model": "TransMIL",
+      "modality": "h.",
+      "group": "histology",
+      "cells": {
+        "BRCA": {
+          "mean": 0.647,
+          "text": "0.647",
+          "rank": 17,
+          "std": 0.032,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.723,
+          "text": "0.723",
+          "rank": 9,
+          "std": 0.027,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.767,
+          "text": "0.767",
+          "rank": 15,
+          "std": 0.035,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.759,
+          "text": "0.759",
+          "rank": 9,
+          "std": 0.059,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.655,
+          "text": "0.655",
+          "rank": 8,
+          "std": 0.052,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.582,
+          "text": "0.582",
+          "rank": 12,
+          "std": 0.039,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.644,
+          "text": "0.644",
+          "rank": 4,
+          "std": 0.02,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.632,
+          "text": "0.632",
+          "rank": 16,
+          "std": 0.05,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.647,
+          "text": "0.647",
+          "rank": 16,
+          "std": 0.032,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.656,
+          "text": "0.656",
+          "rank": 3,
+          "std": 0.038,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.671,
+          "text": "0.671",
+          "rank": 10,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "clam_sb",
+      "model": "CLAM-SB",
+      "modality": "h.",
+      "group": "histology",
+      "cells": {
+        "BRCA": {
+          "mean": 0.696,
+          "text": "0.696",
+          "rank": 11,
+          "std": 0.049,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.742,
+          "text": "0.742",
+          "rank": 3,
+          "std": 0.046,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.784,
+          "text": "0.784",
+          "rank": 10,
+          "std": 0.033,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.757,
+          "text": "0.757",
+          "rank": 10,
+          "std": 0.072,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.639,
+          "text": "0.639",
+          "rank": 15,
+          "std": 0.059,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.584,
+          "text": "0.584",
+          "rank": 10,
+          "std": 0.065,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.649,
+          "text": "0.649",
+          "rank": 3,
+          "std": 0.042,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.643,
+          "text": "0.643",
+          "rank": 14,
+          "std": 0.049,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.645,
+          "text": "0.645",
+          "rank": 17,
+          "std": 0.052,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.637,
+          "text": "0.637",
+          "rank": 10,
+          "std": 0.022,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.678,
+          "text": "0.678",
+          "rank": 8,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "clam_mb",
+      "model": "CLAM-MB",
+      "modality": "h.",
+      "group": "histology",
+      "cells": {
+        "BRCA": {
+          "mean": 0.715,
+          "text": "0.715",
+          "rank": 6,
+          "std": 0.034,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.721,
+          "text": "0.721",
+          "rank": 10,
+          "std": 0.041,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.782,
+          "text": "0.782",
+          "rank": 11,
+          "std": 0.014,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.788,
+          "text": "0.788",
+          "rank": 4,
+          "std": 0.074,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.632,
+          "text": "0.632",
+          "rank": 17,
+          "std": 0.07,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.608,
+          "text": "0.608",
+          "rank": 5,
+          "std": 0.056,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.636,
+          "text": "0.636",
+          "rank": 6,
+          "std": 0.038,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.64,
+          "text": "0.640",
+          "rank": 15,
+          "std": 0.032,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.657,
+          "text": "0.657",
+          "rank": 15,
+          "std": 0.029,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.641,
+          "text": "0.641",
+          "rank": 8,
+          "std": 0.032,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.682,
+          "text": "0.682",
+          "rank": 6,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "slotspe_h",
+      "model": "SlotSPE-H",
+      "modality": "h.",
+      "group": "histology",
+      "cells": {
+        "BRCA": {
+          "mean": 0.738,
+          "text": "0.738",
+          "rank": 2,
+          "std": 0.019,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.729,
+          "text": "0.729",
+          "rank": 7,
+          "std": 0.038,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.79,
+          "text": "0.790",
+          "rank": 7,
+          "std": 0.023,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.779,
+          "text": "0.779",
+          "rank": 6,
+          "std": 0.057,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.656,
+          "text": "0.656",
+          "rank": 7,
+          "std": 0.038,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.598,
+          "text": "0.598",
+          "rank": 7,
+          "std": 0.054,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.635,
+          "text": "0.635",
+          "rank": 7,
+          "std": 0.038,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.659,
+          "text": "0.659",
+          "rank": 11,
+          "std": 0.063,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.642,
+          "text": "0.642",
+          "rank": 18,
+          "std": 0.035,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.676,
+          "text": "0.676",
+          "rank": 1,
+          "std": 0.033,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.69,
+          "text": "0.690",
+          "rank": 5,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "porpoise",
+      "model": "Porpoise",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": {
+          "mean": 0.651,
+          "text": "0.651",
+          "rank": 16,
+          "std": 0.046,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.699,
+          "text": "0.699",
+          "rank": 15,
+          "std": 0.05,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.788,
+          "text": "0.788",
+          "rank": 8,
+          "std": 0.028,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.788,
+          "text": "0.788",
+          "rank": 4,
+          "std": 0.092,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.647,
+          "text": "0.647",
+          "rank": 12,
+          "std": 0.091,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.597,
+          "text": "0.597",
+          "rank": 8,
+          "std": 0.05,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.599,
+          "text": "0.599",
+          "rank": 13,
+          "std": 0.048,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.682,
+          "text": "0.682",
+          "rank": 3,
+          "std": 0.021,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.69,
+          "text": "0.690",
+          "rank": 9,
+          "std": 0.025,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.619,
+          "text": "0.619",
+          "rank": 12,
+          "std": 0.022,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.676,
+          "text": "0.676",
+          "rank": 9,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "mcat",
+      "model": "MCAT",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": {
+          "mean": 0.709,
+          "text": "0.709",
+          "rank": 8,
+          "std": 0.052,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.737,
+          "text": "0.737",
+          "rank": 4,
+          "std": 0.033,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.795,
+          "text": "0.795",
+          "rank": 4,
+          "std": 0.018,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.802,
+          "text": "0.802",
+          "rank": 2,
+          "std": 0.06,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.659,
+          "text": "0.659",
+          "rank": 6,
+          "std": 0.054,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.583,
+          "text": "0.583",
+          "rank": 11,
+          "std": 0.051,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.622,
+          "text": "0.622",
+          "rank": 9,
+          "std": 0.049,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.667,
+          "text": "0.667",
+          "rank": 8,
+          "std": 0.049,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.688,
+          "text": "0.688",
+          "rank": 10,
+          "std": 0.024,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.639,
+          "text": "0.639",
+          "rank": 9,
+          "std": 0.032,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.69,
+          "text": "0.690",
+          "rank": 5,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "motcat",
+      "model": "MOTCat",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": {
+          "mean": 0.717,
+          "text": "0.717",
+          "rank": 5,
+          "std": 0.064,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.742,
+          "text": "0.742",
+          "rank": 3,
+          "std": 0.042,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.799,
+          "text": "0.799",
+          "rank": 3,
+          "std": 0.013,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.773,
+          "text": "0.773",
+          "rank": 7,
+          "std": 0.06,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.663,
+          "text": "0.663",
+          "rank": 3,
+          "std": 0.052,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.573,
+          "text": "0.573",
+          "rank": 16,
+          "std": 0.026,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.627,
+          "text": "0.627",
+          "rank": 8,
+          "std": 0.049,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.688,
+          "text": "0.688",
+          "rank": 1,
+          "std": 0.054,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.7,
+          "text": "0.700",
+          "rank": 5,
+          "std": 0.01,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.642,
+          "text": "0.642",
+          "rank": 7,
+          "std": 0.019,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.692,
+          "text": "0.692",
+          "rank": 3,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "cmta",
+      "model": "CMTA",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": {
+          "mean": 0.731,
+          "text": "0.731",
+          "rank": 3,
+          "std": 0.066,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.72,
+          "text": "0.720",
+          "rank": 11,
+          "std": 0.008,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.794,
+          "text": "0.794",
+          "rank": 5,
+          "std": 0.018,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.764,
+          "text": "0.764",
+          "rank": 8,
+          "std": 0.069,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.662,
+          "text": "0.662",
+          "rank": 4,
+          "std": 0.053,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.599,
+          "text": "0.599",
+          "rank": 6,
+          "std": 0.071,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.619,
+          "text": "0.619",
+          "rank": 10,
+          "std": 0.051,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.681,
+          "text": "0.681",
+          "rank": 4,
+          "std": 0.036,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.702,
+          "text": "0.702",
+          "rank": 3,
+          "std": 0.033,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.639,
+          "text": "0.639",
+          "rank": 9,
+          "std": 0.038,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.691,
+          "text": "0.691",
+          "rank": 4,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "survpath",
+      "model": "SurvPath",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": {
+          "mean": 0.728,
+          "text": "0.728",
+          "rank": 4,
+          "std": 0.04,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.727,
+          "text": "0.727",
+          "rank": 8,
+          "std": 0.024,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.787,
+          "text": "0.787",
+          "rank": 9,
+          "std": 0.025,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.751,
+          "text": "0.751",
+          "rank": 14,
+          "std": 0.084,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.661,
+          "text": "0.661",
+          "rank": 5,
+          "std": 0.05,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.577,
+          "text": "0.577",
+          "rank": 14,
+          "std": 0.024,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.611,
+          "text": "0.611",
+          "rank": 11,
+          "std": 0.024,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.666,
+          "text": "0.666",
+          "rank": 9,
+          "std": 0.054,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.666,
+          "text": "0.666",
+          "rank": 13,
+          "std": 0.034,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.647,
+          "text": "0.647",
+          "rank": 5,
+          "std": 0.027,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.682,
+          "text": "0.682",
+          "rank": 6,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "pibd",
+      "model": "PIBD",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": {
+          "mean": 0.662,
+          "text": "0.662",
+          "rank": 13,
+          "std": 0.054,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.716,
+          "text": "0.716",
+          "rank": 12,
+          "std": 0.054,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.772,
+          "text": "0.772",
+          "rank": 13,
+          "std": 0.007,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.783,
+          "text": "0.783",
+          "rank": 5,
+          "std": 0.053,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.634,
+          "text": "0.634",
+          "rank": 16,
+          "std": 0.065,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.575,
+          "text": "0.575",
+          "rank": 15,
+          "std": 0.098,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.627,
+          "text": "0.627",
+          "rank": 8,
+          "std": 0.069,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.649,
+          "text": "0.649",
+          "rank": 13,
+          "std": 0.048,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.693,
+          "text": "0.693",
+          "rank": 8,
+          "std": 0.032,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.644,
+          "text": "0.644",
+          "rank": 6,
+          "std": 0.038,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.676,
+          "text": "0.676",
+          "rank": 9,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "mmp",
+      "model": "MMP",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": {
+          "mean": 0.714,
+          "text": "0.714",
+          "rank": 7,
+          "std": 0.05,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.686,
+          "text": "0.686",
+          "rank": 16,
+          "std": 0.016,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.77,
+          "text": "0.770",
+          "rank": 14,
+          "std": 0.011,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.755,
+          "text": "0.755",
+          "rank": 11,
+          "std": 0.073,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.634,
+          "text": "0.634",
+          "rank": 16,
+          "std": 0.048,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.58,
+          "text": "0.580",
+          "rank": 13,
+          "std": 0.043,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.58,
+          "text": "0.580",
+          "rank": 16,
+          "std": 0.049,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.682,
+          "text": "0.682",
+          "rank": 3,
+          "std": 0.029,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.686,
+          "text": "0.686",
+          "rank": 11,
+          "std": 0.004,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.602,
+          "text": "0.602",
+          "rank": 14,
+          "std": 0.02,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.669,
+          "text": "0.669",
+          "rank": 11,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "ld_cvae",
+      "model": "LD-CVAE",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": {
+          "mean": 0.705,
+          "text": "0.705",
+          "rank": 9,
+          "std": 0.05,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.753,
+          "text": "0.753",
+          "rank": 2,
+          "std": 0.029,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.792,
+          "text": "0.792",
+          "rank": 6,
+          "std": 0.025,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.788,
+          "text": "0.788",
+          "rank": 4,
+          "std": 0.068,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.651,
+          "text": "0.651",
+          "rank": 10,
+          "std": 0.055,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.62,
+          "text": "0.620",
+          "rank": 3,
+          "std": 0.045,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.635,
+          "text": "0.635",
+          "rank": 7,
+          "std": 0.051,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.682,
+          "text": "0.682",
+          "rank": 3,
+          "std": 0.037,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.635,
+          "text": "0.635",
+          "rank": 19,
+          "std": 0.037,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.653,
+          "text": "0.653",
+          "rank": 4,
+          "std": 0.036,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.692,
+          "text": "0.692",
+          "rank": 3,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "slotspe",
+      "model": "SlotSPE",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": {
+          "mean": 0.779,
+          "text": "0.779",
+          "rank": 1,
+          "std": 0.061,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "COADREAD": {
+          "mean": 0.773,
+          "text": "0.773",
+          "rank": 1,
+          "std": 0.042,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "KIRC": {
+          "mean": 0.815,
+          "text": "0.815",
+          "rank": 2,
+          "std": 0.017,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "UCEC": {
+          "mean": 0.813,
+          "text": "0.813",
+          "rank": 1,
+          "std": 0.059,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUAD": {
+          "mean": 0.683,
+          "text": "0.683",
+          "rank": 2,
+          "std": 0.058,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "LUSC": {
+          "mean": 0.634,
+          "text": "0.634",
+          "rank": 1,
+          "std": 0.079,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "HNSC": {
+          "mean": 0.642,
+          "text": "0.642",
+          "rank": 5,
+          "std": 0.035,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "SKCM": {
+          "mean": 0.688,
+          "text": "0.688",
+          "rank": 1,
+          "std": 0.051,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "BLCA": {
+          "mean": 0.708,
+          "text": "0.708",
+          "rank": 2,
+          "std": 0.025,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "STAD": {
+          "mean": 0.671,
+          "text": "0.671",
+          "rank": 2,
+          "std": 0.028,
+          "folds": null,
+          "source_kind": "published_summary"
+        },
+        "Overall": {
+          "mean": 0.721,
+          "text": "0.721",
+          "rank": 1,
+          "std": null,
+          "folds": null,
+          "source_kind": "published_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    },
+    {
+      "id": "dct_v313",
+      "model": "DCT v3.13",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": {
+          "mean": 0.67868,
+          "text": "0.679",
+          "rank": 12,
+          "std": 0.07875688541327673,
+          "folds": [
+            0.7925,
+            0.6948,
+            0.5748,
+            0.6504,
+            0.6809
+          ],
+          "source_kind": "author_fold_summary"
+        },
+        "COADREAD": {
+          "mean": 0.7364,
+          "text": "0.736",
+          "rank": 5,
+          "std": 0.039998062453073906,
+          "folds": [
+            0.7742,
+            0.7365,
+            0.757,
+            0.7448,
+            0.6695
+          ],
+          "source_kind": "author_fold_summary"
+        },
+        "KIRC": {
+          "mean": 0.82236,
+          "text": "0.822",
+          "rank": 1,
+          "std": 0.016274612130554766,
+          "folds": [
+            0.8253,
+            0.8485,
+            0.8202,
+            0.8094,
+            0.8084
+          ],
+          "source_kind": "author_fold_summary"
+        },
+        "UCEC": {
+          "mean": 0.79282,
+          "text": "0.793",
+          "rank": 3,
+          "std": 0.039785072577538425,
+          "folds": [
+            0.806,
+            0.8532,
+            0.7654,
+            0.7511,
+            0.7884
+          ],
+          "source_kind": "author_fold_summary"
+        },
+        "LUAD": {
+          "mean": 0.68582,
+          "text": "0.686",
+          "rank": 1,
+          "std": 0.03372116546028622,
+          "folds": [
+            0.7015,
+            0.7138,
+            0.7109,
+            0.6352,
+            0.6677
+          ],
+          "source_kind": "author_fold_summary"
+        },
+        "LUSC": {
+          "mean": 0.63002,
+          "text": "0.630",
+          "rank": 2,
+          "std": 0.059620231465501695,
+          "folds": [
+            0.6709,
+            0.6377,
+            0.5983,
+            0.6969,
+            0.5463
+          ],
+          "source_kind": "author_fold_summary"
+        },
+        "HNSC": {
+          "mean": 0.6582,
+          "text": "0.658",
+          "rank": 2,
+          "std": 0.05872805973297603,
+          "folds": [
+            0.6963,
+            0.6118,
+            0.599,
+            0.645,
+            0.7389
+          ],
+          "source_kind": "author_fold_summary"
+        },
+        "SKCM": {
+          "mean": 0.66538,
+          "text": "0.665",
+          "rank": 10,
+          "std": 0.049965708240752485,
+          "folds": [
+            0.6442,
+            0.6199,
+            0.6706,
+            0.6434,
+            0.7488
+          ],
+          "source_kind": "author_fold_summary"
+        },
+        "BLCA": {
+          "mean": 0.72382,
+          "text": "0.724",
+          "rank": 1,
+          "std": 0.04672415863340934,
+          "folds": [
+            0.6576,
+            0.6953,
+            0.7465,
+            0.7744,
+            0.7453
+          ],
+          "source_kind": "author_fold_summary"
+        },
+        "STAD": {
+          "mean": 0.63606,
+          "text": "0.636",
+          "rank": 11,
+          "std": 0.047390167756613824,
+          "folds": [
+            0.6835,
+            0.6471,
+            0.5645,
+            0.6691,
+            0.6161
+          ],
+          "source_kind": "author_fold_summary"
+        },
+        "Overall": {
+          "mean": 0.702956,
+          "text": "0.703",
+          "rank": 2,
+          "std": null,
+          "folds": null,
+          "source_kind": "author_fold_summary"
+        }
+      },
+      "ready": {
+        "BRCA": true,
+        "COADREAD": true,
+        "KIRC": true,
+        "UCEC": true,
+        "LUAD": true,
+        "LUSC": true,
+        "HNSC": true,
+        "SKCM": true,
+        "BLCA": true,
+        "STAD": true,
+        "Overall": true
+      }
+    }
+  ],
+  "problems": [],
+  "ranked_columns": [
+    "BRCA",
+    "COADREAD",
+    "KIRC",
+    "UCEC",
+    "LUAD",
+    "LUSC",
+    "HNSC",
+    "SKCM",
+    "BLCA",
+    "STAD",
+    "Overall"
+  ],
+  "ranking": "dense ranks of displayed reported means; reference ranking only",
+  "overall": "Baselines: original paper Overall; DCT: equal mean of unrounded cohort means",
+  "source": {
+    "paper": "Structural Prognostic Event Modeling for Multimodal Cancer Survival Analysis",
+    "local_pdf": "C:\\Users\\栋栋\\Desktop\\研一\\多模态癌症生存预测论文清单\\03_槽注意力与结构化事件\\STRUCTURAL PROGNOSTIC EVENT MODELING FOR.pdf",
+    "pdf_sha256": "126067625d1ee7b99cd5a6772be9feb51b83d344ee17adf1ef9e1de7941e0872",
+    "arxiv": "https://arxiv.org/abs/2512.01116",
+    "mean_table": 1,
+    "mean_pdf_page": 7,
+    "std_table": 4,
+    "std_pdf_page": 22,
+    "implementation_pdf_page": 21
+  },
+  "protocols": {
+    "published": {
+      "endpoint": "DSS",
+      "histology_encoder": "UNI",
+      "folds": 5,
+      "max_epochs": 30,
+      "batch_size": 32,
+      "training_patches": 4096,
+      "inference_patches": "all"
+    },
+    "dct": {
+      "endpoint": "DSS",
+      "histology_encoder": "UNI2-h",
+      "folds": 5,
+      "seed": 3,
+      "max_epochs": 30,
+      "batch_size": 8,
+      "max_patches": 2048,
+      "selection": "best-validation (legacy_val)"
+    }
+  },
+  "reference_sample_sizes": {
+    "BRCA": 1046,
+    "COADREAD": 573,
+    "KIRC": 488,
+    "UCEC": 488,
+    "LUAD": 467,
+    "LUSC": 460,
+    "HNSC": 438,
+    "SKCM": 409,
+    "BLCA": 381,
+    "STAD": 366
+  },
+  "dct_first": [
+    "KIRC",
+    "LUAD",
+    "BLCA"
+  ],
+  "dct_second": [
+    "LUSC",
+    "HNSC",
+    "Overall"
+  ],
+  "input_sha256": "d8aeeeb7f50e0ad85ecda8b1c1a1e6043e74119db2136444ec8170c18141c27a",
+  "outputs": {
+    "pdf": "6a29680f0575d48e2668db86ae0bb756224dfc35bd834e794bf4384cc6f33e9d",
+    "svg": "7dbcb3e5ac70244368bb2de4d6f069ef52ce60f8c8cc5bf6bf767982429f562e",
+    "png": "007524b254b008e5be9bfb2660a28707cb0ab0ccf34ef05517ffb170ff80c21f",
+    "docx": "d9758cf51fca658858ea01cb26bc8c49ef51b430d873c565fef449f1acaf7893",
+    "html": "683b1f363d4de51568172b4cfa848efa86424ba66d1809743db0d9070e99c778"
+  }
+}
