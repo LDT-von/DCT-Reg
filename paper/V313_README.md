@@ -2,7 +2,7 @@
 
 当前中文正文为 DCT_v313_初稿.md，Word 为 DCT_v313_初稿.docx。2026-10-07 版本继续沿用原方法结构和可编辑公式，更新十队列结果、七组训练目标、重跑运输机制对照及解释分析方法。
 
-图 4 已插入实际十折运输计划 sweep；图 1–3、5–7 继续留空。图号依次为架构、损失消融、逐折机制对照、固定模型运输干预、KM、病例解释、队列通路热图。源文件 fig3_sweep_* 与 fig3_transport_sweep.* 属于服务器旧编号；论文版 fig4_transport_sweep_manuscript.* 由相同 JSON 重绘，仅改版式、图号和样本标准差口径。尚未收到图片的结果段不预写趋势或生物学结论。
+图 1 已接入依据实际代码重绘的框架图，提供中英文 PDF/SVG/PNG，M1-M4 标出相对 SlotSPE 的改动；图 4 已插入实际十折运输计划 sweep；图 2–3、5–7 继续留空。图号依次为架构、损失消融、逐折机制对照、固定模型运输干预、KM、病例解释、队列通路热图。源文件 fig3_sweep_* 与 fig3_transport_sweep.* 属于服务器旧编号；论文版 fig4_transport_sweep_manuscript.* 由相同 JSON 重绘，仅改版式、图号和样本标准差口径。尚未收到图片的结果段不预写趋势或生物学结论。
 
 scripts/plot_v313_manuscript_sweep.py 只读取已保存的十折 JSON 生成论文版图，无训练或 checkpoint 推理。正文 §4.8、讨论和结论已纳入固定模型低敏感性观察；它不替代重训控制臂。逐患者最佳预测对齐与边缘残差仍未在本次 JSON 中交付。LLM_LEDGER.md 末尾保留针对 24f3f10 的来源核对补记。
 
@@ -41,3 +41,8 @@ python scripts/plot_fig5_km_curves.py \
 --show-logrank 是可选的探索性统计，不作为独立外部验证显著性。
 若 check-only 报缺折或缺 km_train_median，先按经过核验的 Full manifest
 补对应 export --km；不要用控制臂清单代替 Full 清单，也不回退到验证中位数。
+
+
+2026-10-08 框架图修订：见 `V313_ARCHITECTURE_REDESIGN.md` 与 `figures/v313_architecture_redesign/`。Markdown 正文和图状态已接入英文新图；已有 Word 文件保留，下一次运行构建脚本会采用新图。中文图用于说明，各版本共享同一计算拓扑。
+
+框架图连线修订：预测主干横向排列，cross/self 重建分为两条水平支路。取消跨面板长折线，同名 S/T/g 标记说明张量复用；模型计算拓扑保持一致。中英文 SVG/PDF/PNG 与正文图注同步更新。

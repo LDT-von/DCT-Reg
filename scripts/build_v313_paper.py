@@ -349,7 +349,7 @@ def build():
             'BLCA':{'mean':BLCA.mean(axis=1).tolist(),'sample_std':BLCA.std(axis=1,ddof=1).tolist()},
             'KIRC':{'mean':KIRC.mean(axis=1).tolist(),'sample_std':KIRC.std(axis=1,ddof=1).tolist()},
             'controls':status['controls'],
-            'source_scope':'70 recorded loss folds; 50 author-supplied Full folds; 20 audited rerun control folds; 10 saved same-model sweep JSONs; six figures pending'}
+            'source_scope':f'70 recorded loss folds; 50 author-supplied Full folds; 20 audited rerun control folds; 10 saved same-model sweep JSONs; {len(pending)} figures pending'}
     (QA/'build_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps(report,ensure_ascii=False,indent=2))
 
