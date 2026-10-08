@@ -295,9 +295,9 @@ $$
 
 图中显示组人数、删失标记、名义 95% 置信区间和在险人数表。这是验证集选择最佳 checkpoint 后的五折总体分层，仍属于开发阶段结果，不称为单模型外部验证。若显示 log-rank p 值，仅作为探索性统计，其常规计算未校正交叉验证模型之间的依赖；不据此声称独立测试显著性。时间范围由实际随访支持决定。
 
-![DCT v3.13 Full 十队列总体 KM：BLCA / BRCA / COADREAD / HNSC / KIRC / LUAD（1/2）](paper/figures/fig5_ten_cancers/figure5_ten_cancers_part1.png)
+![DCT v3.13 Full 十队列总体 KM：BLCA / BRCA / COADREAD / HNSC / KIRC / LUAD（1/2）](figures/fig5_ten_cancers/figure5_ten_cancers_part1.png)
 
-![DCT v3.13 Full 十队列总体 KM：LUSC / SKCM / STAD / UCEC（2/2）](paper/figures/fig5_ten_cancers/figure5_ten_cancers_part2.png)
+![DCT v3.13 Full 十队列总体 KM：LUSC / SKCM / STAD / UCEC（2/2）](figures/fig5_ten_cancers/figure5_ten_cancers_part2.png)
 
 *图 5 总览（1/2 + 2/2）十队列总体 KM 曲线。共 4 760 名验证患者，每癌种 1 个面板，红色为高风险、蓝色为低风险；每折以对应训练折风险中位数固定阈值、汇总验证患者组别与结局；展示删失标记、名义 95% CI 和在险人数。log-rank p 值仅作为探索性统计，未校正 CV 模型依赖。p 值范围 9.6×10⁻⁴（STAD）至 7.3×10⁻¹⁷（KIRC）。*
 
@@ -318,43 +318,43 @@ $$
 
 下表逐图引出 10 个单独 KM 曲线（10/10 覆盖），顺序对应总览面板；图路径位于 `paper/figures/fig5_ten_cancers/` 下。每个单图保存 PDF 与 PNG，伴随的 JSON 含 raw logrank p/chi2、number_at_risk、threshold 与 pool 后 patient 列表，CSV 为逐患者 risk/time/event/group。Figure 5 总览元数据由 `figure5_ten_cancers.json` 汇总，含每个 JSON 的 SHA-256 哈希。
 
-![BLCA Full 五折总体高低风险生存曲线](paper/figures/fig5_ten_cancers/km_blca_exp6_oof.png)
+![BLCA Full 五折总体高低风险生存曲线](figures/fig5_ten_cancers/km_blca_exp6_oof.png)
 
 *图 5a BLCA 总体高低风险 KM 曲线。共 380 名验证患者，低风险 172 人、高风险 208 人；探索性 log-rank p = 6.4×10⁻⁷。每折按训练患者风险中位数固定分组阈值，再汇总验证患者组别与结局；展示删失标记、名义 95% 置信区间和在险人数。*
 
-![BRCA Full 五折总体高低风险生存曲线](paper/figures/fig5_ten_cancers/km_brca_exp6_oof.png)
+![BRCA Full 五折总体高低风险生存曲线](figures/fig5_ten_cancers/km_brca_exp6_oof.png)
 
 *图 5b BRCA 总体高低风险 KM 曲线。共 775 名验证患者，低风险 365 人、高风险 410 人；探索性 log-rank p = 2.1×10⁻³。分组与显示口径同图 5a。*
 
-![COADREAD Full 五折总体高低风险生存曲线](paper/figures/fig5_ten_cancers/km_coadread_exp6_oof.png)
+![COADREAD Full 五折总体高低风险生存曲线](figures/fig5_ten_cancers/km_coadread_exp6_oof.png)
 
 *图 5c COADREAD 总体高低风险 KM 曲线。共 553 名验证患者，低风险 251 人、高风险 302 人；探索性 log-rank p = 2.2×10⁻⁸。分组与显示口径同图 5a。*
 
-![HNSC Full 五折总体高低风险生存曲线](paper/figures/fig5_ten_cancers/km_hnsc_exp6_oof.png)
+![HNSC Full 五折总体高低风险生存曲线](figures/fig5_ten_cancers/km_hnsc_exp6_oof.png)
 
 *图 5d HNSC 总体高低风险 KM 曲线。共 437 名验证患者，低风险 170 人、高风险 267 人；探索性 log-rank p = 1.7×10⁻⁵。分组与显示口径同图 5a。*
 
-![KIRC Full 五折总体高低风险生存曲线](paper/figures/fig5_ten_cancers/km_kirc_exp6_oof.png)
+![KIRC Full 五折总体高低风险生存曲线](figures/fig5_ten_cancers/km_kirc_exp6_oof.png)
 
 *图 5e KIRC 总体高低风险 KM 曲线。共 488 名验证患者，低风险 225 人、高风险 263 人；探索性 log-rank p = 7.3×10⁻¹⁷。分组与显示口径同图 5a。*
 
-![LUAD Full 五折总体高低风险生存曲线](paper/figures/fig5_ten_cancers/km_luad_exp6_oof.png)
+![LUAD Full 五折总体高低风险生存曲线](figures/fig5_ten_cancers/km_luad_exp6_oof.png)
 
 *图 5f LUAD 总体高低风险 KM 曲线。共 449 名验证患者，低风险 208 人、高风险 241 人；探索性 log-rank p = 6.8×10⁻⁷。分组与显示口径同图 5a。*
 
-![LUSC Full 五折总体高低风险生存曲线](paper/figures/fig5_ten_cancers/km_lusc_exp6_oof.png)
+![LUSC Full 五折总体高低风险生存曲线](figures/fig5_ten_cancers/km_lusc_exp6_oof.png)
 
 *图 5g LUSC 总体高低风险 KM 曲线。共 454 名验证患者，低风险 212 人、高风险 242 人；探索性 log-rank p = 5.2×10⁻⁶。分组与显示口径同图 5a。*
 
-![SKCM Full 五折总体高低风险生存曲线](paper/figures/fig5_ten_cancers/km_skcm_exp6_oof.png)
+![SKCM Full 五折总体高低风险生存曲线](figures/fig5_ten_cancers/km_skcm_exp6_oof.png)
 
 *图 5h SKCM 总体高低风险 KM 曲线。共 388 名验证患者，低风险 199 人、高风险 189 人；探索性 log-rank p = 1.2×10⁻⁸。分组与显示口径同图 5a。*
 
-![STAD Full 五折总体高低风险生存曲线](paper/figures/fig5_ten_cancers/km_stad_exp6_oof.png)
+![STAD Full 五折总体高低风险生存曲线](figures/fig5_ten_cancers/km_stad_exp6_oof.png)
 
 *图 5i STAD 总体高低风险 KM 曲线。共 349 名验证患者，低风险 141 人、高风险 208 人；探索性 log-rank p = 9.6×10⁻⁴。分组与显示口径同图 5a。*
 
-![UCEC Full 五折总体高低风险生存曲线](paper/figures/fig5_ten_cancers/km_ucec_exp6_oof.png)
+![UCEC Full 五折总体高低风险生存曲线](figures/fig5_ten_cancers/km_ucec_exp6_oof.png)
 
 *图 5j UCEC 总体高低风险 KM 曲线。共 487 名验证患者，低风险 218 人、高风险 269 人；探索性 log-rank p = 7.5×10⁻¹⁰。分组与显示口径同图 5a。*
 
@@ -372,21 +372,21 @@ $$
 
 此映射遵循模型“先平均几何计划、再按列归一化、最后阶段融合”的顺序。原始权重用于数值核验，显示版本另行记录有效 patch 总质量。它表示经运输关联的组学槽空间权重，不是基因表达的实测空间分布。
 
-![BLCA 病例 TCGA-2F-A9KP 的通路到组学槽注意力矩阵](paper/figures/v313_reference_panels_real_20261008/raw/pathway_slot_map.png)
+![BLCA 病例 TCGA-2F-A9KP 的通路到组学槽注意力矩阵](figures/v313_reference_panels_real_20261008/raw/pathway_slot_map.png)
 
 *图 6a TCGA-2F-A9KP 的通路—槽聚合矩阵。列为八个组学槽，行为按最大权重槽排序的 329 条通路，颜色保留原始 attention。该图描述模型聚合关联，不代表实测基因表达或组织分割。*
 
-![TCGA-2F-A9KP 全通路×槽矩阵 + 每槽 Top-3/Bottom-3 通路（raw attention）](paper/figures/v313_reference_panels_real_20261008/raw/pathway_case_panel_raw.png)
+![TCGA-2F-A9KP 全通路×槽矩阵 + 每槽 Top-3/Bottom-3 通路（raw attention）](figures/v313_reference_panels_real_20261008/raw/pathway_case_panel_raw.png)
 
-*图 6c TCGA-2F-A9KP 的槽—通路组合面板（原始 attention）。左 A 列：329 条通路 × 8 个组学槽的全矩阵，按各通路 argmax 槽分组排序；色标为 raw pooling attention，范围随每槽真实值动态设定，相同 raw 值在每个槽中分别产生差异。右 4×2 网格：8 个组学槽的 Top-3 / Bottom-3 通路，名字单独放右侧栏避免遮挡。每槽 Top/Bottom 由 raw 排序得到，所选通路名同步存于 panel JSON 的 selection=“top/bottom”。当前注意力数值集中在 10⁻⁴ 量级，故 raw 矩阵呈现近乎单一颜色；这是真实 attention 范围，不是颜色映射错误。*
+*图 6c TCGA-2F-A9KP 的槽—通路组合面板（原始 attention）。左侧为 329 条通路 × 8 个组学槽的完整矩阵，按各通路最大权重槽分组排序；所有槽共享从 0 到全矩阵最大值约 0.00342 的统一色标，同一 raw 值对应同一颜色。实际权重范围约为 0.00237–0.00342，均值约为 0.00304，属于 10⁻³ 量级；因为数值集中在零起点色标的上段，矩阵整体偏红。右侧按槽展示原始权重最高与最低的各三条通路，名称与数值保存在组合面板 JSON；Top/Bottom 表示模型高/低关注，不赋予生物学相关性标签。*
 
-![TCGA-2F-A9KP 全通路×槽矩阵 + 每槽 Top-3/Bottom-3 通路（within-slot percentile）](paper/figures/v313_reference_panels_real_20261008/percentile/pathway_case_panel_percentile.png)
+![TCGA-2F-A9KP 全通路×槽矩阵 + 每槽 Top-3/Bottom-3 通路（within-slot percentile）](figures/v313_reference_panels_real_20261008/percentile/pathway_case_panel_percentile.png)
 
-*图 6d TCGA-2F-A9KP 的槽—通路组合面板（within-slot 百分位）。色标为 0–1 的槽内百分位；这是显示口径，不改变 Top/Bottom 选择与 raw 数值。低位百分位不能等同于生物学无关，相同 raw 值在不同槽内可对应不同百分位。raw attention 范围与每个槽的 raw_attention_range 同时写入 panel JSON，可从显示颜色回到 raw 数值。*
+*图 6d TCGA-2F-A9KP 的槽—通路组合面板（槽内百分位）。色标为 0–1 的槽内 midrank 百分位，并列 raw 值保持相同百分位；这种显示只呈现槽内排序，不改变 Top/Bottom 选择与 raw 数值。相同 raw 值在不同槽内可对应不同百分位，低百分位不等同于生物学无关。完整 raw_attention 与 raw_attention_range_by_slot 同时保存在组合面板 JSON，解释颜色差异时须核对实际权重差值。*
 
-![BLCA 病例 TCGA-2F-A9KP 的 8 个组学槽 Top-3 / Bottom-3 通路（独立横排）](paper/figures/v313_reference_panels_real_20261008/raw/slot_pathways.png)
+![BLCA 病例 TCGA-2F-A9KP 的 8 个组学槽 Top-3 / Bottom-3 通路（独立横排）](figures/v313_reference_panels_real_20261008/raw/slot_pathways.png)
 
-*图 6e TCGA-2F-A9KP 的 8 个组学槽分别独立横排的 Top-3 / Bottom-3 通路。配色与图 6c 一致；raw attention 数值标签显示在条形右侧。该图与图 6c 右网格共享同一 selected 通路集合，但提供更大的单槽字号，便于逐槽阅读。*
+*图 6e TCGA-2F-A9KP 的八个组学槽分别展示 Top-3/Bottom-3 通路的独立条形面板。横轴为原始聚合权重，高关注条形为蓝色、低关注条形为灰色；每个槽所选六条通路与图 6c 一致。该图提供另一种阅读布局，不构成新增独立解释证据。*
 
 ![BLCA 病例的学习运输计划、同边际独立计划与差值](figures/v313_slotspe_20261007_v2/blca_a9kp_transport/transport_association.png)
 
@@ -412,11 +412,11 @@ $$
 
 效率结果按同 GPU、batch、patch 数与 forward 范围报告，区分普通预测与包含解释导出的额外计算。当前 DCT forward 可能执行辅助重建，与外部模型比较时要记录相同边界。
 
-本节给出**在 BLCA 五折上对 DCT v3.13 Full 与 Direct 的实测同条件成本/性能权衡**。两个变种共享同一架构、参数、WSI 特征、2048 patch、batch=1、warmup5、repeats30、RTX 5090 同一卡、相同浮点精度与 cudnn 设置；测得同一名验证病例（每折验证 ID 字典序首位）的 30 次 eval 前向延迟中位与峰值显存；五折宏平均的 C-index 来自同 checkpoint 验证 best prediction。**该图不是全表对比**——MCAT/MOTCat/CMTA/LD-CVAE 等同条件基线 checkpoint 在本仓库中暂无现成产物；外部方法占位与本节同图同坐标系的扩展需要单独补齐。
+本节报告 BLCA 五折上 DCT v3.13 Full 与 Direct 的实测成本和性能。两者具有相同模型结构与参数量，分别使用各自训练所得权重；Direct 只改变 cross 重建输入，预测仍保留学习 OT，因此该比较用于考察运输重建训练配方，不能当作去掉预测 OT 的效率实验。根据测量记录，两者使用相同 GPU、浮点精度、WSI 特征、2048 patch、batch=1、warmup=5、repeats=30 与 cuDNN 设置；每折固定同一名验证病例，取 30 次同步 eval 前向的延迟中位数，再对五折等权平均。C-index 使用相应 checkpoint 的最佳验证患者预测，属于 legacy_val 开发证据；这些成本测量没有提供新的独立预测性能实验。当前结果显示相同峰值显存与较高的验证 C-index，但稳定的延迟差异仍需独立重复、交替测量顺序与 GPU 负载控制。外部方法 MCAT/MOTCat/CMTA/LD-CVAE 尚缺同条件 checkpoint，本图不支持跨方法效率优势。
 
-![DCT v3.13 在 BLCA 五折上的实测 C-index / 显存 / 延迟（Full vs Direct）](paper/figures/v313_tradeoff_real_20261008/efficiency_tradeoff.png)
+![DCT v3.13 在 BLCA 五折上的实测 C-index / 显存 / 延迟（Full vs Direct）](figures/v313_tradeoff_real_20261008/efficiency_tradeoff.png)
 
-*图 8 DCT v3.13 BLCA 5 折实测 C-index / 峰值显存 / 推理延迟权衡。左图横轴为 5 折宏平均峰值 allocated 显存（MiB），右图为中位前向延迟（ms）；纵轴均为同队列同五折宏平均 C-index。Full（星形）相对 Direct 圆点在 C-index 与延迟上**同时**更优：0.7238 vs 0.7029、493 ms vs 517 ms；峰值显存两者均为 181.4 MiB（架构参数与 batch 一致）。结果支持"完整 transport cross 配 learned 计划"在该队列既不带来额外显存也不带来额外延迟，同时获得更高验证 C-index。设置：NVIDIA GeForce RTX 5090、PyTorch 2.10.0+cu128、cuDNN 91002、UNI2-h WSI 特征（1536 维）、每张 WSI 2048 patch、batch 1、warmup 5、repeats 30、eval_no_grad，cudnn.benchmark=False，TF32 off。原始 profile、predictions 与输入 SHA-256 见 `efficiency_tradeoff.json` 的 source_input 字段；该图不混入未测量的公开论文数字。*
+*图 8 DCT v3.13 在 BLCA 五折上的实测性能与计算成本。纵轴为五折验证 C-index 的均值；左图横轴为五折固定病例峰值 allocated 显存的均值，右图为各折 30 次同步前向延迟中位数的五折均值。Full 和 Direct 的 C-index 分别为 0.7238 和 0.7029，差值为 +0.0209；峰值显存均为 181.4 MiB。延迟汇总分别为 493.0 和 517.2 ms，本次 Full 的汇总值较低；逐折 Full−Direct 为 −170.4、−3.4、+62.8、−3.6、−6.4 ms，差值有明显折间波动，当前不能据此声称稳定加速、速度差异显著或在所有病例均无额外耗时。设置记录为 RTX 5090、PyTorch 2.10.0+cu128、cuDNN 91002、UNI2-h 1536 维、2048 patch、batch=1、warmup=5、repeats=30、eval_no_grad、cudnn.benchmark=False、TF32 off。数据来源路径与哈希见效率图 JSON 的 source_input；本图只比较两个 DCT 变种，不混用公开论文分数。*
 
 ## 5 讨论
 

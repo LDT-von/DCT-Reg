@@ -420,3 +420,11 @@ or matched baselines are reported rather than automatically trained. Existing
 manuscript and external comparison table remain unchanged.
 
 推送整合：保留远端 7bfec1f、acb7cbc；十癌种 KM 文件和 10 个来源 JSON LF 哈希通过只读核对，V313_MANUSCRIPT_STATUS 的 Figure 5 交付覆盖更新为 10/10，患者/checkpoint/split 审计仍列为待补。新消融表仍保留 a1a4584 来源快照，不混入后续正文变更。
+
+### 2026-10-08：b3147b7 新增真实图复核与图注修正
+
+- 拉取 f9b951c/bdf4c16/b3147b7，核对组合病例 8×329 raw 一致性、成本来源输入与三个图产物哈希、逐折均值。
+- 正文修正 17 个图片相对路径；图 6c/6e 数量级、色标和配色按实际图/代码修正；图 8 明确延迟是五折中位数的均值及其折间波动，保留全部实测数值。
+- 当前工作树缺少服务器 20 个预测/profile 源文件，未独立重做源审计；原服务器 pass 与本机文件审查边界分开记录。
+- 十队列九行表缺失记录数纠正为 320；Full 已有结果不重训，先服务器只读 inventory，strict matched 0.05 单列。
+- 更新状态记录；无模型代码或图数据改动，真实训练/推理次数为 0。复核见 paper/V313_NEW_FIGURES_REVIEW_20261008.md。
