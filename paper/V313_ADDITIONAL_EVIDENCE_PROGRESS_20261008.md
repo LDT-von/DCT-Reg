@@ -94,3 +94,21 @@ PY=/home/ubuntu/.conda/envs/trisurv/bin/python
 并把 20 折 patch controls 的 2 类图与 exp6 五折对比分析（patches experiment 只有 patch_deletion / patch_budget，无 patient_pairing / pathway_reconstruction）：
 - Direct（无 OT）vs exp6（Full OT）：看 OT + cross reconstruction 是否带来 patch 删除/预算上的差异
 - Independent（no co-attention）vs exp6：看耦合组织是否带来 patch 删除/预算上的差异
+
+## 6. 汇总图（per-cancer summary figures）
+
+用户要求"一个实验一个癌症一张图，不要分折"。**已生成 10 张汇总图**（5 类 × 2 cancer，每类 PDF + PNG = 20 文件），
+位置 `results/v313_additional_20261008/figures_summary/`。
+原 100 张分折图（`figures_blca_full/`, `figures_kirc_full/`, `figures_check/`）已删除。
+
+汇总脚本：`scripts/summarize_v313_exp6.py`（`6791e1e`）。
+
+| 类 | BLCA | KIRC |
+|---|---|---|
+| reconstruction | `blca_exp6_summary_reconstruction.{pdf,png}` | `kirc_exp6_summary_reconstruction.{pdf,png}` |
+| pathway_advantage | `blca_exp6_summary_pathway_advantage.{pdf,png}` | `kirc_exp6_summary_pathway_advantage.{pdf,png}` |
+| pairing | `blca_exp6_summary_pairing.{pdf,png}` | `kirc_exp6_summary_pairing.{pdf,png}` |
+| patch_deletion | `blca_exp6_summary_patch_deletion.{pdf,png}` | `kirc_exp6_summary_patch_deletion.{pdf,png}` |
+| patch_budget | `blca_exp6_summary_patch_budget.{pdf,png}` | `kirc_exp6_summary_patch_budget.{pdf,png}` |
+
+**用户反馈**（2026-10-08 11:46 UTC+8）："看不懂，但还是记录一下吧"——本节用于记住用户已翻看但未理解的口语反馈。
