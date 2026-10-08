@@ -46,3 +46,19 @@ python scripts/plot_fig5_km_curves.py \
 plot_fig5_km_curves.py 默认要求十个癌种，全部校验通过后才作图，另外生成两页十队列总览（前六/后四队列）。--cancer 仅用于明确请求的单队列调试，不能将两癌种输出标成十队列完成。服务器任务提示词见 V313_TEN_CANCER_KM_SERVER_PROMPT.txt。
 
 参考 SlotSPE 主表 1、完整 KM 图 6 和统计表 7：当前稿件还缺十队列同条件外部基线、完整 KM、组织解释与临床分析。其原文使用验证风险中位数分组；本项目沿用折内训练风险中位数，方法说明不改写成与其完全相同。原文分数不直接填入本项目 matched 比较表。
+
+
+十癌种模型比较主表已按作者截图准备：十癌种及 Overall 分别排名，第一名红色加粗，第二名加下划线，DCT v3.13 行淡黄色突出。表格采用三线表并按模态分组，保留 Word 原生表格及 PDF/SVG/PNG/HTML。当前仅有 DCT 十癌种作者汇总，基线缺项以 -- 显示，所有不完整列不排名；不将单独一行的 DCT 标成十列第一。
+
+输入模板为 V313_TEN_CANCER_COMPARISON_INPUT.json，18 个参考模型仅是待汇总清单，不代表已完成复现。服务器执行提示词见 V313_TEN_CANCER_COMPARISON_SERVER_PROMPT.txt。只汇总已有同条件记录，若某模型未运行则列出缺项，不自动发起新训练。最终主表须逐折溯源并核对共同协议；原论文分数不直接填入 matched 主表。不要复制截图中的患者人数。
+
+正式输入补齐且审计通过后，先检查再生成正式表：
+
+    python scripts/build_v313_comparison_table.py --check-only
+    python scripts/build_v313_comparison_table.py
+
+仅预览版式，缺项不计排名；不能接入为最终主结果：
+
+    python scripts/build_v313_comparison_table.py --allow-incomplete --output paper/tables/v313_ten_cancer_comparison_draft
+
+主表显示四位均值；并列显示值共享名次，第二个不同分数为第二名。Overall 按十个未四舍五入癌种均值等权计算。五折值与样本标准差保留在输出 JSON；正式接入正文时可把完整逐折表保留在补充材料。

@@ -1,0 +1,803 @@
+{
+  "complete": false,
+  "digits": 4,
+  "cancers": [
+    "BRCA",
+    "COADREAD",
+    "KIRC",
+    "UCEC",
+    "LUAD",
+    "LUSC",
+    "HNSC",
+    "SKCM",
+    "BLCA",
+    "STAD"
+  ],
+  "rows": [
+    {
+      "id": "mlp",
+      "model": "MLP",
+      "modality": "g.",
+      "group": "genomics",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "snn",
+      "model": "SNN",
+      "modality": "g.",
+      "group": "genomics",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "snntrans",
+      "model": "SNNTrans",
+      "modality": "g.",
+      "group": "genomics",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "slotspe_g",
+      "model": "SlotSPE-G",
+      "modality": "g.",
+      "group": "genomics",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "abmil",
+      "model": "ABMIL",
+      "modality": "h.",
+      "group": "histology",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "transmil",
+      "model": "TransMIL",
+      "modality": "h.",
+      "group": "histology",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "clam_sb",
+      "model": "CLAM-SB",
+      "modality": "h.",
+      "group": "histology",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "clam_mb",
+      "model": "CLAM-MB",
+      "modality": "h.",
+      "group": "histology",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "slotspe_h",
+      "model": "SlotSPE-H",
+      "modality": "h.",
+      "group": "histology",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "porpoise",
+      "model": "Porpoise",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "mcat",
+      "model": "MCAT",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "motcat",
+      "model": "MOTCat",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "cmta",
+      "model": "CMTA",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "survpath",
+      "model": "SurvPath",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "pibd",
+      "model": "PIBD",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "mmp",
+      "model": "MMP",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "ld_cvae",
+      "model": "LD-CVAE",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "slotspe",
+      "model": "SlotSPE",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null,
+        "Overall": null
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    },
+    {
+      "id": "dct_v313",
+      "model": "DCT v3.13",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "cells": {
+        "BRCA": {
+          "mean": 0.67868,
+          "std": 0.07875688541327673,
+          "folds": [
+            0.7925,
+            0.6948,
+            0.5748,
+            0.6504,
+            0.6809
+          ],
+          "text": "0.6787",
+          "rank": null
+        },
+        "COADREAD": {
+          "mean": 0.7364,
+          "std": 0.039998062453073906,
+          "folds": [
+            0.7742,
+            0.7365,
+            0.757,
+            0.7448,
+            0.6695
+          ],
+          "text": "0.7364",
+          "rank": null
+        },
+        "KIRC": {
+          "mean": 0.82236,
+          "std": 0.016274612130554766,
+          "folds": [
+            0.8253,
+            0.8485,
+            0.8202,
+            0.8094,
+            0.8084
+          ],
+          "text": "0.8224",
+          "rank": null
+        },
+        "UCEC": {
+          "mean": 0.79282,
+          "std": 0.039785072577538425,
+          "folds": [
+            0.806,
+            0.8532,
+            0.7654,
+            0.7511,
+            0.7884
+          ],
+          "text": "0.7928",
+          "rank": null
+        },
+        "LUAD": {
+          "mean": 0.68582,
+          "std": 0.03372116546028622,
+          "folds": [
+            0.7015,
+            0.7138,
+            0.7109,
+            0.6352,
+            0.6677
+          ],
+          "text": "0.6858",
+          "rank": null
+        },
+        "LUSC": {
+          "mean": 0.63002,
+          "std": 0.059620231465501695,
+          "folds": [
+            0.6709,
+            0.6377,
+            0.5983,
+            0.6969,
+            0.5463
+          ],
+          "text": "0.6300",
+          "rank": null
+        },
+        "HNSC": {
+          "mean": 0.6582,
+          "std": 0.05872805973297603,
+          "folds": [
+            0.6963,
+            0.6118,
+            0.599,
+            0.645,
+            0.7389
+          ],
+          "text": "0.6582",
+          "rank": null
+        },
+        "SKCM": {
+          "mean": 0.66538,
+          "std": 0.049965708240752485,
+          "folds": [
+            0.6442,
+            0.6199,
+            0.6706,
+            0.6434,
+            0.7488
+          ],
+          "text": "0.6654",
+          "rank": null
+        },
+        "BLCA": {
+          "mean": 0.72382,
+          "std": 0.04672415863340934,
+          "folds": [
+            0.6576,
+            0.6953,
+            0.7465,
+            0.7744,
+            0.7453
+          ],
+          "text": "0.7238",
+          "rank": null
+        },
+        "STAD": {
+          "mean": 0.63606,
+          "std": 0.047390167756613824,
+          "folds": [
+            0.6835,
+            0.6471,
+            0.5645,
+            0.6691,
+            0.6161
+          ],
+          "text": "0.6361",
+          "rank": null
+        },
+        "Overall": {
+          "mean": 0.702956,
+          "text": "0.7030",
+          "rank": null
+        }
+      },
+      "ready": {
+        "BRCA": false,
+        "COADREAD": false,
+        "KIRC": false,
+        "UCEC": false,
+        "LUAD": false,
+        "LUSC": false,
+        "HNSC": false,
+        "SKCM": false,
+        "BLCA": false,
+        "STAD": false,
+        "Overall": false
+      }
+    }
+  ],
+  "problems": [
+    "Common protocol/split audit pending",
+    "MLP: protocol/source audit pending",
+    "MLP: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "SNN: protocol/source audit pending",
+    "SNN: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "SNNTrans: protocol/source audit pending",
+    "SNNTrans: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "SlotSPE-G: protocol/source audit pending",
+    "SlotSPE-G: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "ABMIL: protocol/source audit pending",
+    "ABMIL: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "TransMIL: protocol/source audit pending",
+    "TransMIL: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "CLAM-SB: protocol/source audit pending",
+    "CLAM-SB: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "CLAM-MB: protocol/source audit pending",
+    "CLAM-MB: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "SlotSPE-H: protocol/source audit pending",
+    "SlotSPE-H: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "Porpoise: protocol/source audit pending",
+    "Porpoise: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "MCAT: protocol/source audit pending",
+    "MCAT: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "MOTCat: protocol/source audit pending",
+    "MOTCat: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "CMTA: protocol/source audit pending",
+    "CMTA: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "SurvPath: protocol/source audit pending",
+    "SurvPath: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "PIBD: protocol/source audit pending",
+    "PIBD: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "MMP: protocol/source audit pending",
+    "MMP: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "LD-CVAE: protocol/source audit pending",
+    "LD-CVAE: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "SlotSPE: protocol/source audit pending",
+    "SlotSPE: missing BRCA, COADREAD, KIRC, UCEC, LUAD, LUSC, HNSC, SKCM, BLCA, STAD",
+    "DCT v3.13: protocol/source audit pending"
+  ],
+  "ranked_columns": [],
+  "ranking": "dense ranks of displayed rounded means; ties share rank",
+  "overall": "equal mean of ten unrounded cohort means",
+  "dct_first": [],
+  "dct_second": [],
+  "input_sha256": "849b0518d5a7878379200bfbfb516ce18acb6c7e2b0ffaf8de4e96bf6c723ca3",
+  "outputs": {
+    "pdf": "877abe1ada331d5347d9c1a89329684bd95e8e7e6e065834d44dd8d5fca2ddd5",
+    "svg": "c6182720001491e4c72567618eb247eff67e2ce9a8a927394fdbbea6559df55f",
+    "png": "04765aa6871691b088e505b48705328ace00cf59291be433146ed77c90aefbb1",
+    "docx": "a1268730bcd53c17b9822ce33f85c9c3192422c0caff64d0ea3944e5acab9829",
+    "html": "8bcd869d237c8d6234323b8f7fcccb8040e9e417155b10375253a586c70c0a69"
+  }
+}

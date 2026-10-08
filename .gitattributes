@@ -3,3 +3,11 @@ paper/figures/v313_manuscript_integrated/*.pdf binary
 paper/figures/v313_manuscript_integrated/*.png binary
 paper/figures/v313_manuscript_integrated/*.json text eol=lf
 paper/figures/v313_manuscript_integrated/*.svg text eol=lf
+# Preserve comparison-table vector offsets and recorded artifact hashes.
+paper/tables/v313_ten_cancer_comparison*/*.pdf binary
+paper/tables/v313_ten_cancer_comparison*/*.png binary
+paper/tables/v313_ten_cancer_comparison*/*.docx binary
+paper/tables/v313_ten_cancer_comparison*/*.svg text eol=lf
+paper/tables/v313_ten_cancer_comparison*/*.html text eol=lf
+paper/tables/v313_ten_cancer_comparison*/*.json text eol=lf
+paper/V313_TEN_CANCER_COMPARISON_INPUT.json text eol=lf

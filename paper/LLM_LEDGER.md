@@ -243,3 +243,27 @@ equations. All 14 integrated-figure source hashes, 19 output hashes, 70 recorded
 loss folds and unchanged 50 Full folds passed structural/value checks. Figure 5
 remains explicitly 2/10 and Figure 6 tissue panels remain partial. No extraction,
 training or inference was run locally.
+
+
+## 2026-10-08 Ten-cancer model comparison table
+
+The author requested the supplied paper-table style: a column for every cancer,
+red/bold best results, underlined second results, and a highlighted DCT row.
+Implemented native Word, vector PDF/SVG, PNG and HTML outputs from saved fold
+records. The table input includes the reference-model roster and the unchanged
+DCT author-supplied ten-cohort folds; baseline score cells remain null. No scores,
+patient counts or ranks are copied from the reference screenshot. Default output
+requires complete verified model/cohort sources and a shared audited protocol.
+An explicit draft preview leaves incomplete columns unranked. Ties at displayed
+precision share a dense rank; Overall uses unrounded cohort means.
+
+
+Six functional unittest checks passed: displayed-value ties, DCT not forced into
+the top two, unrounded macro mean, missing-cohort no-output behavior, protocol
+mismatch and changed source hashes. Native Word red/underline formatting was
+also checked using internal fixtures, which are not published model measurements.
+The delivered draft preserves the real 50 DCT fold values and their macro mean.
+Its 20-row/13-column native Word table renders to one page; the final page and
+vector-derived PNG were visually inspected after correcting a default title
+border and a wrapped modality header. All draft columns remain unranked because
+baseline data are missing. No training, inference or feature processing was run.

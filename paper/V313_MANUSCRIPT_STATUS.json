@@ -574,5 +574,43 @@
     "server_pytest_target": "tests/test_v313_km_oof.py (13 tests)",
     "syntax_checked": true,
     "ten_cohort_actual_render": "pending server data and execution"
+  },
+  "external_comparison_table": {
+    "status": "draft_baselines_pending",
+    "expected_cancers": [
+      "BRCA",
+      "COADREAD",
+      "KIRC",
+      "UCEC",
+      "LUAD",
+      "LUSC",
+      "HNSC",
+      "SKCM",
+      "BLCA",
+      "STAD"
+    ],
+    "models": 19,
+    "dct_score_columns": 10,
+    "baseline_complete_rows": 0,
+    "complete": false,
+    "ranking_ready": false,
+    "input": "paper/V313_TEN_CANCER_COMPARISON_INPUT.json",
+    "preview": "paper/tables/v313_ten_cancer_comparison_draft/table_v313_ten_cancer_comparison.png",
+    "final_target": "paper/tables/v313_ten_cancer_comparison",
+    "style": "best red bold; second underlined; DCT row pale yellow",
+    "server_prompt": "paper/V313_TEN_CANCER_COMPARISON_SERVER_PROMPT.txt",
+    "validation": {
+      "functional_tests_passed": 6,
+      "real_dct_fold_values_checked": 50,
+      "ranked_columns": 0,
+      "draft_only": true,
+      "word_pages": 1,
+      "word_all_pages_inspected": true,
+      "vector_png_inspected": true,
+      "docx_sha256": "a1268730bcd53c17b9822ce33f85c9c3192422c0caff64d0ea3944e5acab9829",
+      "pdf_sha256": "877abe1ada331d5347d9c1a89329684bd95e8e7e6e065834d44dd8d5fca2ddd5",
+      "new_model_runs": 0,
+      "staged_text_format": "LF; hashes checked against Git blobs"
+    }
   }
 }
