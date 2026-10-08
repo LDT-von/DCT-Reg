@@ -33,7 +33,9 @@
 
   节奏：~22 min/折（patch-only，无 reconstruction）；剩余 14 折 ≈ 5 h，预计 ~07:00 UTC+8 完成。
 
-  Plot：`figures_patch_controls/` 待 20 折全部完成后再 plot（plot 步骤会一次性生成 20 折 × 4 类图 = 80 张图（每张含 PDF+PNG = 160 文件），不含 reconstruction 类，因 patches experiment 没有 raw risk 计算 cindex，也没有 pathway forward）。
+  Plot：`figures_patch_controls/` 待 20 折全部完成后再 plot。
+  每折 2 类图（patch_deletion、patch_budget，各含 PDF+PNG = 4 文件），20 折共 40 文件（20 张图）。
+  patches experiment 没有 patient_pairing、pathway_reconstruction、topk_patch、random_deletion（代码里不存在这些输出）。
 
 ## 3. 已知结论（不预设未来结果）
 
@@ -89,6 +91,6 @@ PY=/home/ubuntu/.conda/envs/trisurv/bin/python
   --output /data1/DCT-Reg/results/v313_additional_20261008/figures_patch_controls
 ```
 
-并把 20 折 patch controls 的 4 类图与 exp6 五折对比分析（注意 patches experiment 只有 topk_patch / patch_deletion / patch_budget / random_deletion，无 patient_pairing / pathway_reconstruction）：
+并把 20 折 patch controls 的 2 类图与 exp6 五折对比分析（patches experiment 只有 patch_deletion / patch_budget，无 patient_pairing / pathway_reconstruction）：
 - Direct（无 OT）vs exp6（Full OT）：看 OT + cross reconstruction 是否带来 patch 删除/预算上的差异
 - Independent（no co-attention）vs exp6：看耦合组织是否带来 patch 删除/预算上的差异
