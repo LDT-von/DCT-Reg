@@ -8,10 +8,10 @@ from pathlib import Path
 import numpy as np
 
 from .manifest import cindex, save_json, sha256
-from .additional import RECON_MODES, summarize_patches
+from .additional import RECON_MODES, RETRIEVAL_VERSION, RETRIEVAL_CENTER, summarize_patches
 
 
-def read_exports(root):
+def read_exports(root, *, require_corrected_retrieval=False):
     paths = sorted(Path(root).rglob("additional.json"))
     if not paths:
         raise ValueError("No completed additional exports")
@@ -38,10 +38,23 @@ def read_exports(root):
         if "patches" in record and record["patches"] != summarize_patches(arrays):
             raise ValueError("Patch summary disagrees with raw patient arrays")
         if "reconstruction" in record:
+            if require_corrected_retrieval and (record.get("retrieval_metric_version") != RETRIEVAL_VERSION
+                    or record.get("retrieval_center_definition") != RETRIEVAL_CENTER):
+                raise ValueError("Legacy retrieval center: re-export reconstruction with retrieval metric v2; "
+                                 "pairing/patch/error-only summaries may still use checked legacy arrays")
+            if record.get("retrieval_metric_version") == RETRIEVAL_VERSION:
+                center = arrays.get("retrieval_training_mean")
+                if record.get("retrieval_center_definition") != RETRIEVAL_CENTER or center is None or center.ndim != 2:
+                    raise ValueError("Missing arithmetic training retrieval center")
+            names = arrays.get("pathway_names")
+            if names is None or names.ndim != 1 or len(names) != len(set(names.tolist())):
+                raise ValueError("Invalid pathway identities")
             for mode in RECON_MODES:
                 errors = arrays[f"reconstruction_{mode}_error"] if mode != "shuffled" else arrays["reconstruction_shuffled_all_error"]
                 ranks = arrays[f"retrieval_{mode}_rank"] if mode != "shuffled" else arrays["retrieval_shuffled_all_rank"]
-                if errors.shape[0] != len(ids) or ranks.shape[0] != len(ids) or np.any((ranks < 1) | (ranks > len(ids))):
+                expected_shape = (len(ids), record["repeats"], len(names)) if mode == "shuffled" else (len(ids), len(names))
+                expected_ranks = (len(ids), record["repeats"]) if mode == "shuffled" else (len(ids),)
+                if errors.shape != expected_shape or ranks.shape != expected_ranks or np.any((ranks < 1) | (ranks > len(ids))) or np.any(ranks != np.floor(ranks)):
                     raise ValueError("Invalid reconstruction shape or retrieval ranks")
                 stats = record["reconstruction"][mode]
                 if not np.allclose([stats["mean_error"], stats["top1"], stats["mrr"]],
@@ -50,8 +63,13 @@ def read_exports(root):
             donors = arrays["donor_case_ids"]
             if donors.shape != (record["repeats"], len(ids)) or any(set(row.tolist()) != set(ids) for row in donors) or np.any(donors == arrays["case_ids"][None]):
                 raise ValueError("Invalid shuffled donor identities")
+            if arrays["pairing_shuffled_risk"].shape != (len(ids), record["repeats"]):
+                raise ValueError("Shuffled risk shape disagrees with repeat count")
             scores = [cindex(arrays["time"], arrays["censor"], arrays["pairing_shuffled_risk"][:, r]) for r in range(record["repeats"])]
-            if not np.allclose(scores, record["pairing"]["shuffled_cindex"], atol=1e-10):
+            native = cindex(arrays["time"], arrays["censor"], arrays["risk"])
+            delta = float(np.abs(arrays["pairing_shuffled_risk"] - arrays["risk"][:, None]).mean())
+            if not np.allclose(scores, record["pairing"]["shuffled_cindex"], atol=1e-10) or not np.allclose(
+                    [native, delta], [record["pairing"]["native_cindex"], record["pairing"]["mean_abs_delta"]], atol=1e-10):
                 raise ValueError("Pairing summary disagrees with raw patient arrays")
         for previous, previous_arrays, _ in exports:
             old = previous["run"]
@@ -66,7 +84,7 @@ def make_additional_figures(root, output):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    exports = read_exports(root)
+    exports = read_exports(root, require_corrected_retrieval=True)
     out = Path(output)
     if out.exists() and any(out.iterdir()):
         raise ValueError("Figure directory must be empty; use a fresh output directory")
@@ -131,8 +149,15 @@ def make_additional_figures(root, output):
             save(fig, "patient_pairing")
             for k in RECON_MODES:
                 table.append(dict(cancer=run["cancer"], arm=run["arm"], fold=run["fold"], seed=run["seed"],
-                                  experiment="reconstruction", condition=k, value=stats[k]["mean_error"],
+                                  experiment="reconstruction", metric="normalized_latent_error", direction="lower", condition=k, value=stats[k]["mean_error"],
                                   top1=stats[k]["top1"], mrr=stats[k]["mrr"]))
+            for condition, value, metric, direction in (
+                ("native", record["pairing"]["native_cindex"], "cindex", "higher"),
+                ("shuffled_mean", float(np.mean(record["pairing"]["shuffled_cindex"])), "cindex", "higher"),
+                ("shuffled_mean", record["pairing"]["mean_abs_delta"], "mean_absolute_risk_delta", "diagnostic")):
+                table.append(dict(cancer=run["cancer"], arm=run["arm"], fold=run["fold"], seed=run["seed"],
+                    experiment="pairing", metric=metric, direction=direction, condition=condition,
+                    value=value, top1="", mrr=""))
         if "patches" in record:
             stats = record["patches"]
             fractions = arrays["fractions"]
@@ -164,10 +189,14 @@ def make_additional_figures(root, output):
             for row in stats["deletion"]:
                 for mode in ("top", "bottom", "random"):
                     table.append(dict(cancer=run["cancer"], arm=run["arm"], fold=run["fold"], seed=run["seed"],
-                        experiment="deletion", condition=f"{mode}@{row['removed_fraction']}",
+                        experiment="deletion", metric="cindex", direction="higher", condition=f"{mode}@{row['removed_fraction']}",
                         value=float(np.mean(row[mode + "_cindex"])), top1="", mrr=""))
+            for row in stats["budget"]:
+                table.append(dict(cancer=run["cancer"], arm=run["arm"], fold=run["fold"], seed=run["seed"],
+                    experiment="budget", metric="cindex", direction="higher",
+                    condition=f"random@{row['retained_fraction']}", value=float(np.mean(row["cindex"])), top1="", mrr=""))
     with (out / "fold_metrics.csv").open("w", encoding="utf-8", newline="") as stream:
-        fields = ("cancer", "arm", "fold", "seed", "experiment", "condition", "value", "top1", "mrr")
+        fields = ("cancer", "arm", "fold", "seed", "experiment", "metric", "direction", "condition", "value", "top1", "mrr")
         writer = csv.DictWriter(stream, fieldnames=fields)
         writer.writeheader()
         writer.writerows(table)

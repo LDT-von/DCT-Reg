@@ -6,7 +6,7 @@
 
 | 方法 | 来源与定位 | 已核实的输入及终点 | 对 DCT 的意义 |
 |---|---|---|---|
-| MOTCat (2023) | ICCV 2023，[原文](https://openaccess.thecvf.com/content/ICCV2023/papers/Xu_Multimodal_Optimal_Transport-based_Co-Attention_Transformer_with_Global_Structure_Consistency_for_ICCV_2023_paper.pdf) | 原论文病理与组学，ResNet50，OS；新表采用 TTA 作者用 UNI 在 DSS 上复现的数值 | 直接检验多模态 OT 耦合的价值；原论文 OS 值不混入 DSS 排名 |
+| MOTCat (2023) | ICCV 2023，[原文](https://openaccess.thecvf.com/content/ICCV2023/papers/Xu_Multimodal_Optimal_Transport-based_Co-Attention_Transformer_with_Global_Structure_Consistency_for_ICCV_2023_paper.pdf) | 原论文病理与组学，ResNet50，OS；扩展表采用 SlotSPE 作者用 UNI 在 DSS 上重评估的完整十队列值 | 直接检验多模态 OT 耦合的价值；原论文 OS 值不混入 DSS 排名 |
 | TTA (2025) | [Together Then Apart 原文](https://arxiv.org/html/2511.18089)，[代码](https://github.com/Y-Research-SBU/TTA) | 病理与组学，UNI，DSS，五折 site-stratified | 原型与联合 UOT 对齐，兼顾模态的独特信息；优先多模态参照 |
 | OTSurv (2025) | MICCAI 2025，[原文](https://papers.miccai.org/miccai-2025/paper/1359_paper.pdf)，[代码](https://github.com/Y-Research-SBU/OTSurv) | 仅病理，UNI 1024 维，DSS | 检验带全局质量与局部不确定性约束的 OT 聚合；输入少于 DCT |
 | STEPH (2026) | CVPR 2026，[原文](https://arxiv.org/html/2603.10526)，[官方补充材料](https://openaccess.thecvf.com/content/CVPR2026/supplemental/Liu_Sparse_Task_Vector_CVPR_2026_supplemental.pdf)，[代码](https://github.com/liupei101/STEPH) | 仅病理，补充材料明确 UNI2-h 1536 维，DSS | 相同病理编码器的参考；利用跨癌种知识，输入和训练策略仍不同 |
@@ -63,8 +63,11 @@ ME-Mamba 表 1 中 UNI 版本：BLCA 0.6583，BRCA 0.7313，UCEC 0.7508，GBMLGG
 | pathway_advantage | 哪些通路从正确运输中获益 | 横向差值是对照误差减 native 误差；正值支持 native 更准，负值表示对照更准。不是通路重要性或风险相关性 |
 | pairing | 病理与组学配对打乱后预测是否变化 | 同时看 C-index 与风险变化。风险变了但 C-index 没有改善，不能证明预测收益；重复打乱不是新增独立样本 |
 | patch_deletion | 模型选出的组织块是否比随机块更影响预测 | 比较删除高分、低分、随机块后的 C-index 和风险变化。需要对照和折间稳定性，不只看一条曲线下降 |
-| patch_budget | 少量组织块能否保留排序能力 | 横轴是保留比例，比较策略的 C-index。当前脚本从删除比例换算横轴，需确认与原始 budget 记录一致 |
+| patch_budget | 少量组织块能否保留排序能力 | 横轴是保留比例，比较策略的 C-index。修正版横轴直接取 budget.retained_fraction，并检查跨折设置一致 |
 
 这些图只覆盖两个癌种、Full 的现有记录；它们不等于十癌种 KM，也不是外部方法比较。对照中的 Direct 仅去掉 cross 重建的运输使用，不能简称整个模型无 OT，因为预测主路仍使用 OT。Independent 去掉槽对联合耦合，不能泛称网络没有任何 attention。
 
 导读暂不把没有本机核验的服务器统计或图片结论写成正文已验证结果。
+
+
+诊断审计更新：旧 CSV 的 reconstruction/native 与 shuffled 是重建误差，不是 C-index；旧患者检索使用重复归一化的训练均值，已改为 v2。上文导读的检索结论需基于修正版重新导出，不以旧 Top-1 判断患者特异性。具体影响和服务器步骤见进度第 8 节及 V313_DIAGNOSTIC_BUGFIX_SERVER_PROMPT_20261008.txt。

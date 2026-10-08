@@ -356,3 +356,34 @@ all 23 manuscript pages were visually reviewed; the manuscript retains 8 native
 tables, 13 embedded panels and 15 native math nodes. No model training, inference
 or feature processing was run. Cross-paper ranks remain descriptive public-value
 references with explicit input/split/checkpoint differences, not matched results.
+
+## 2026-10-08 v3.13 additional diagnostic bug audit
+
+Audited the delivered server-summary code without starting real patient
+export, inference or training. Confirmed the historical progress confused
+reconstruction/native and shuffled mean_error with C-index. Those CSV rows
+were never C-index; the previous nearly-unchanged shuffled-ranking inference
+is withdrawn until pairing JSON/raw arrays are verified.
+
+Fixed double LayerNorm of the arithmetic training-token mean used for
+centered retrieval. Two new regression tests failed on old code and pass
+with the fix. Retrieval v2 preserves and exports the actual arithmetic
+mean; old Top-1/MRR requires reconstruction-only re-export from the same
+checkpoints and settings. The fix leaves trained model/objectives, latent
+reconstruction distance, pairing risks and patch interventions unchanged.
+
+Replaced the unvalidated hard-coded summary script with an explicit CLI:
+checked array hashes, native/shuffled C-index, patient/fold identities,
+pathway order, actual repeat counts, fold-specific chance levels and budget
+record fractions. Added metric/direction to CSV, with distinct pairing and
+budget rows. Legacy retrieval is blocked from corrected plots; the other
+four classes can be redrawn from checked legacy arrays. An optional Full
+paper-fold consistency check stops mismatched inputs before output.
+
+All 38 focused tests passed (additional evidence, summary, core evidence).
+Five synthetic summary PNGs were visually checked; these QA images are
+not scientific results and are not delivered as patient figures. Raw
+server additional arrays and real ten diagnostic images remain absent
+locally. A server prompt preserves old exports, redraws eight unaffected
+plots and re-exports only the two corrected retrieval plots. No manuscript
+scores, baseline table, model code, weights or training jobs were changed.

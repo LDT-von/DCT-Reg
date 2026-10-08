@@ -127,3 +127,26 @@ PY=/home/ubuntu/.conda/envs/trisurv/bin/python
 ### 比较表扩展及年份
 
 作者进一步要求保留 SlotSPE 表中其他方法的数据，仅去掉 SlotSPE 自身。当前表已扩展为 21 个参照方法加 DCT，每个方法标注年份；原表其他 15 行的完整十队列数值、离散度和 Overall 原样保留，额外六项贡献 33 个对齐均值，共 183 个公开均值。十癌种均有比较对象。Overall 仅排名完整相同十队列行，额外方法不同队列集合不混入。MLP 与 SNNTrans 的引用年份及 DCT 当前工作年份加注说明。没有新增模型运行。
+
+
+## 8. 本机诊断代码审计与勘误（2026-10-08）
+
+本节覆盖上文的解读，保留旧进度作为历史记录。只做代码审计、合成回归测试及合成图排版检查，没有启动真实患者导出、推理或训练。服务器原始 additional.json/npz 和十张实际图片仍未同步本机。
+
+### 已确认的问题及影响
+
+1. **CSV 指标误读。** 旧 additional_plots.py 在 experiment=reconstruction、condition=native/shuffled 的 value 保存 mean_error，不是 C-index。上文第 3 节引用 fold_metrics.csv 得出 native/shuffled C-index 近似相同的结论不能成立；0.8649/0.8648 的示例须回查原始字段。真正的配对 C-index 在 additional.json 的 pairing.native_cindex / shuffled_cindex，并由原始风险计算。新版 CSV 增加 metric/direction，并独立输出 pairing 与 budget 行。此前依据这段进度作出的“错配后排序几乎不变”判断撤回，等待核验 JSON/NPZ。
+2. **检索中心重复归一化。** training_mean 已是训练患者逐个 LayerNorm 后的 token 算术均值，旧 exporter 又对均值 LayerNorm，用改变后的向量中心化。训练均值对照也被重复归一化。这偏离减去训练均值的检索定义，会改变 Top-1、MRR 和 centered energy。两项新增合成测试在旧代码失败，修复后通过。新版保留精确算术均值并标 retrieval_metric_version=2；旧 Top-1/MRR 不能充当修正版结果。旧数组未保存完整解码表征，无法仅凭误差和秩恢复正确检索，须用同一 checkpoint、患者和诊断设置重新导出 reconstruction，不需要重训。修复不改变训练模型、重建距离、配对风险或 patch 诊断。修复后指标是否提高尚未知。
+3. **汇总入口缺少校验且图注写死。** 旧 summarize_v313_exp6.py 绕过 array SHA256 与患者身份检查；没有核对跨折通路顺序；把打乱次数固定标为 16×5；随机检索基线只取 fold0 患者数。预算横轴还从 deletion 记录推导。新版复用严格导出校验，要求完整五折、无重复患者和一致通路顺序，按真实 repeats/N 与 budget.retained_fraction 作图，记录来源和图像哈希。配对 C-index 逐折连线，风险变化按折展示；不混合不同 checkpoint 原始风险排名。重建误差棒明确为五折样本 SD。
+
+### 检查中未发现对应实现错误的部分
+
+C-index 与训练用 sksurv 指标在含删失/风险并列的合成样例一致；错配风险确实重新求解接收患者组学与供体病理的成本、计划和风险头，不是重复 native 分数。两侧槽编码各自独立，没有把供体组学缓存混入接收患者。patch 子集重新编码并重算运输；padding 排除，随机 tie-break 和嵌套预算保留。native 重建距离与模型训练距离一致。此处是代码与合成验证，不能替代服务器实际数组审计。
+
+### 接下来怎样看图
+
+先从旧的两癌种 Full 导出重画 pathway_advantage、pairing、patch_deletion、patch_budget，共八张；新版入口会重算配对统计并检查与正文 Full 折值是否一致。重建检索两张需重新导出 reconstruction 后画 v2。旧记录里根据不同癌种绝对误差推断病理贡献更强的结论继续撤回；应比较各癌种内控制误差减 native 误差。保留原始输出，不删除旧图，不用合成预览充当真实实验图。
+
+服务器完整核验、重导出和出图提示词：paper/V313_DIAGNOSTIC_BUGFIX_SERVER_PROMPT_20261008.txt。
+
+验证记录：additional evidence、summary 和 core evidence 三组共 38 项测试通过；五张合成汇总 PNG 已逐张检查排版。合成 QA 不属于模型真实实验结果，本轮未启动服务器作业。

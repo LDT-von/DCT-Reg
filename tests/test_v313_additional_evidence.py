@@ -1,6 +1,7 @@
 """Synthetic scientific-contract tests, not real-data performance evidence."""
 from __future__ import annotations
 
+import csv
 import json
 from pathlib import Path
 from types import SimpleNamespace
@@ -150,6 +151,15 @@ def test_synthetic_full_pipeline_and_corrupt_export_rejection(tmp_path, monkeypa
     assert len(index) == 5
     assert len(list((tmp_path / "figures").glob("*.pdf"))) == 5
     assert len(list((tmp_path / "figures").glob("*.png"))) == 5
+    with (tmp_path / "figures/fold_metrics.csv").open(encoding="utf-8", newline="") as stream:
+        rows = list(csv.DictReader(stream))
+    recon = next(r for r in rows if r["experiment"] == "reconstruction" and r["condition"] == "native")
+    paired = next(r for r in rows if r["experiment"] == "pairing" and r["condition"] == "native")
+    assert recon["metric"] == "normalized_latent_error" and recon["direction"] == "lower"
+    assert float(recon["value"]) == summary["reconstruction"]["native"]["mean_error"]
+    assert paired["metric"] == "cindex" and paired["direction"] == "higher"
+    assert float(paired["value"]) == summary["pairing"]["native_cindex"]
+    assert any(r["experiment"] == "budget" and r["metric"] == "cindex" for r in rows)
     with np.load(exports / "synthetic_only" / "additional.npz") as arrays:
         assert arrays["reconstruction_shuffled_all_error"].shape == (3, 2, 5)
     with pytest.raises(ValueError, match="fresh"):
@@ -176,3 +186,27 @@ def test_cli_default_does_not_load_checkpoint_or_create_outputs(tmp_path, capsys
     main(["run", "--manifest", str(manifest), "--output", str(output)])
     assert "no checkpoint/data loaded" in capsys.readouterr().out
     assert not output.exists()
+
+
+def test_training_mean_retrieval_control_keeps_the_arithmetic_mean(model):
+    p = payload()
+    sw, so, target = a.encode_patient(model, p)
+    # A real arithmetic mean of normalized tokens need not have unit variance.
+    center = torch.nn.functional.layer_norm(target[0], (target.size(-1),)) * .25
+    _, decoded, _ = a.decode_controls(model, sw, so, target, sw, center)
+    assert np.allclose(decoded["train_mean"], center.cpu().numpy(), atol=1e-7)
+
+
+def test_export_retrieval_center_is_the_unmodified_training_mean(tmp_path, monkeypatch, model):
+    original_mean, original_metric = a.training_mean, a.retrieval_metrics
+    reference = {}
+    def capture_mean(*args, **kwargs):
+        value = original_mean(*args, **kwargs)
+        reference["mean"] = value.cpu().numpy()
+        return value
+    def verify_metric(decoded, targets, center):
+        assert np.allclose(center, reference["mean"], atol=1e-7)
+        return original_metric(decoded, targets, center)
+    monkeypatch.setattr(a, "training_mean", capture_mean)
+    monkeypatch.setattr(a, "retrieval_metrics", verify_metric)
+    synthetic_export(tmp_path, monkeypatch, model)

@@ -827,5 +827,27 @@
         }
       }
     }
-  ]
+  ],
+  "additional_diagnostic_code_audit": {
+    "date": "2026-10-08",
+    "status": "code_fixed_synthetic_validated_real_server_audit_pending",
+    "baseline_commit": "df96d12c873cbc4a1d5bf0fcb5252017a87295dc",
+    "retrieval_metric_version": 2,
+    "focused_tests_passed": 38,
+    "before_fix_center_regressions_failed": 2,
+    "synthetic_summary_images_visually_checked": 5,
+    "real_patient_training_or_inference_started": false,
+    "real_server_arrays_available_locally": false,
+    "historical_csv_cindex_interpretation": "withdrawn: reconstruction value is mean_error",
+    "legacy_retrieval_status": "requires same-checkpoint reconstruction-only re-export",
+    "legacy_redraw_classes": [
+      "pathway_advantage",
+      "pairing",
+      "patch_deletion",
+      "patch_budget"
+    ],
+    "expected_real_summary_pngs_after_server_validation": 10,
+    "model_training_objectives_and_paper_scores_changed": false,
+    "server_prompt": "paper/V313_DIAGNOSTIC_BUGFIX_SERVER_PROMPT_20261008.txt"
+  }
 }

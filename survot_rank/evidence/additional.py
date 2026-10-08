@@ -19,6 +19,8 @@ from .manifest import audit, cindex, predictions, revision, save_json, sha256
 from .v313 import indexed_sample, load_run, mix_plans, pathway_error, payload_for, replay
 
 RECON_MODES = ("native", "product", "direct", "shuffled", "train_mean", "self")
+RETRIEVAL_VERSION = 2
+RETRIEVAL_CENTER = "arithmetic mean of individually layer-normalized training tokens"
 
 
 def stable_rng(seed, *keys):
@@ -134,7 +136,13 @@ def decode_controls(model, sw, so, target, donor_sw, train_mean):
                    shuffled=decoder(donor_sw if model._cross_mode == "direct" else shuffled),
                    train_mean=train_mean.unsqueeze(0), self=decoder(so))
     errors = {key: pathway_error(value, target).cpu().numpy()[0] for key, value in decoded.items()}
-    normalized = {key: F.layer_norm(value, (value.size(-1),)).cpu().numpy()[0] for key, value in decoded.items()}
+    # training_mean is already the arithmetic mean in the normalized target
+    # space. Normalizing it again moves the retrieval center and invents a
+    # patient residual for the constant-mean control. Loss normalization above
+    # remains exactly the trained model's reconstruction distance.
+    normalized = {key: (value if key == "train_mean" else
+                       F.layer_norm(value, (value.size(-1),))).cpu().numpy()[0]
+                  for key, value in decoded.items()}
     return errors, normalized, float(model._risk(shuffled_logits).item())
 
 
@@ -306,7 +314,10 @@ def export_additional(run, output_root, *, experiment="all", device="cuda:0",
             shuffled_errors.append(patient_shuffles)
             shuffled_risks.append(patient_shuffled_risks)
         target = torch.cat([F.layer_norm(x[2], (x[2].size(-1),)) for x in cached]).numpy()
-        center = F.layer_norm(train_mean, (train_mean.size(-1),)).cpu().numpy()
+        center = train_mean.cpu().numpy()
+        arrays["retrieval_training_mean"] = center
+        summary["retrieval_metric_version"] = RETRIEVAL_VERSION
+        summary["retrieval_center_definition"] = RETRIEVAL_CENTER
         arrays["target_centered_energy"] = np.square(target - center).mean(-1)
         arrays["target_patient_variance"] = target.var(0).mean(-1)
         arrays["donor_case_ids"] = np.asarray(ids)[donors]
