@@ -211,3 +211,35 @@ second review of the two pages changed by the final wording correction. No
 image clipping, overlaps or orphaned captions were found. All 14 source hashes,
 19 generated asset hashes and 70 Appendix A fold values passed checks. Figure 6
 remains explicitly partial; no training or inference was executed.
+
+## 2026-10-08 Ten-cancer KM scope and experiment ordering correction
+
+The author clarified that Figure 5 must cover all ten cancer cohorts. The prior
+2-cohort insertion was incomplete: BLCA/KIRC panels remain real, but the eight
+other cancer panels have no patient-level source materials in the local checkout.
+Figure 5 is now explicitly partial (2/10), with KIRC indexed as panel e under the
+paper's canonical ten-cancer order. No missing cohort curves or p-values are filled.
+
+Reviewed the author's local SlotSPE PDF, particularly pp. 7, 8, 24, 25 and 32.
+Table 1 precedes ablations; Figure 6 covers ten cohorts and Table 7 reports log-rank
+and RMST statistics. This establishes a gap in coverage and experimental evidence;
+its published scores and validation-median grouping are not imported as matched
+DCT measurements or substituted for this project's training-median protocol.
+
+Moved general implementation settings to 4.1; full ten-cohort results to 4.2;
+external baselines to 4.3; merged loss configurations, results and branch-weight
+interpretation into 4.4. Renumbered tables and corresponding body/appendix references.
+Only document edits, source reading, plot-code checks and document rendering are
+performed locally. The server task is provided as a prompt for the author to dispatch.
+
+
+Final local verification: the three focused KM coverage checks passed. The bundled
+Python has no pytest, matplotlib or lifelines; the full 13-test pytest target and
+real ten-cohort plot rendering remain server work, and are not reported as passed.
+Word COM produced 23 pages; every rasterized page was visually reviewed. The short
+loss-results table now stays together, and the case pathway panel fits with its
+formula and caption. The document retains 9 tables, 12 image panels and 15 native
+equations. All 14 integrated-figure source hashes, 19 output hashes, 70 recorded
+loss folds and unchanged 50 Full folds passed structural/value checks. Figure 5
+remains explicitly 2/10 and Figure 6 tissue panels remain partial. No extraction,
+training or inference was run locally.

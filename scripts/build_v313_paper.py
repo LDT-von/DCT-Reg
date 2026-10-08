@@ -238,6 +238,7 @@ def add_table(doc,rows):
     if rows[0][0]=='Fold':widths=[1.4,2.5,2.5,3.2,3.35,3.75]
     t=doc.add_table(rows=0,cols=n);t.autofit=False;t.alignment=WD_TABLE_ALIGNMENT.CENTER
     for col,w in zip(t.columns,widths):col.width=Cm(w)
+    keep_table_together = rows[0][:2] == ['配置', 'BLCA C-index']
     for i,values in enumerate(rows):
         row=t.add_row();props=row._tr.get_or_add_trPr();props.append(OxmlElement('w:cantSplit'))
         if i==0:props.append(OxmlElement('w:tblHeader'))
@@ -255,7 +256,7 @@ def add_table(doc,rows):
                 el=OxmlElement('w:'+side);el.set(qn('w:w'),'70');el.set(qn('w:type'),'dxa');margin.append(el)
             pr.append(margin)
             p=cell.paragraphs[0];pf=p.paragraph_format;pf.first_line_indent=Cm(0);pf.line_spacing=1.08;pf.space_after=Pt(4);pf.space_before=Pt(4)
-            pf.keep_with_next=i==0 or i==len(rows)-1 or len(rows)<=4
+            pf.keep_with_next=keep_table_together or i==0 or i==len(rows)-1 or len(rows)<=4
             p.alignment=WD_ALIGN_PARAGRAPH.CENTER
             add_inline(p,value,8.5 if n==7 else (9.0 if n==6 else 9.5),i==0)
 
@@ -316,7 +317,8 @@ def build():
             with Image.open(image_path) as image:
                 pixel_width,pixel_height=image.size
             # Keep a tall panel and its caption on one page without stretching.
-            width=min(16.5,21.2*pixel_width/pixel_height)
+            max_height=18.6 if image_path.name == 'pathway_slot_map.png' else 21.2
+            width=min(16.5,max_height*pixel_width/pixel_height)
             shape=p.add_run().add_picture(str(image_path),width=Cm(width))
             shape._inline.docPr.set('descr',alt);i+=1;continue
         if s.startswith('#'):

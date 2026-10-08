@@ -118,3 +118,36 @@ def test_incomplete_shared_cohort_rejected(exported):
     records[3]["train_ids"] = records[3]["train_ids"] + ["unexpected_patient"]
     with pytest.raises(ValueError, match="common patient cohort"):
         pool_folds(records, cancer="blca")
+
+
+def test_default_figure_scope_requires_all_ten_cohorts_before_writing(exported, tmp_path, capsys):
+    from scripts.plot_fig5_km_curves import main, PAPER_CANCERS
+    root, _ = exported
+    output = tmp_path / "must_not_be_partial"
+    with pytest.raises(SystemExit) as result:
+        main(["--exports", str(root), "--output", str(output)])
+    assert result.value.code == 1
+    stderr = capsys.readouterr().err
+    assert all(cancer.upper() in stderr for cancer in PAPER_CANCERS if cancer != "blca")
+    assert not output.exists()
+
+
+def test_explicit_one_cohort_check_does_not_draw_or_write(exported, tmp_path):
+    from scripts.plot_fig5_km_curves import main
+    root, _ = exported
+    output = tmp_path / "check_only"
+    assert main(["--exports", str(root), "--output", str(output),
+                 "--cancer", "blca", "--check-only"]) == 0
+    assert not output.exists()
+
+
+def test_preflight_reports_invalid_and_missing_cohorts_together(exported, capsys):
+    from scripts.plot_fig5_km_curves import main
+    root, paths = exported
+    meta = json.loads(paths[0].read_text())
+    meta["km_train_median"] = None
+    paths[0].write_text(json.dumps(meta))
+    with pytest.raises(SystemExit):
+        main(["--exports", str(root), "--cancer", "blca", "--cancer", "kirc", "--check-only"])
+    stderr = capsys.readouterr().err
+    assert "BLCA" in stderr and "km_train_median" in stderr and "KIRC" in stderr
