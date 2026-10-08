@@ -305,3 +305,11 @@ def patch_reader(spatial):
                                      tuple(int(x) for x in source["read_size_at_level"])).convert("RGB")
         return read, slide.close
     raise ValueError("Choose wsi_read_region or indexed_patch_images in the assets manifest")
+
+
+def pathway_percentiles(weights):
+    """Within-slot midrank percentiles; ties share a value, uniform is 0.5."""
+    weights=np.asarray(weights,dtype=float)
+    if weights.ndim!=2 or not weights.size or not np.isfinite(weights).all() or (weights<0).any():
+        raise ValueError("Require finite nonnegative slot-by-pathway attention")
+    return np.stack([within_fold_percentile(row) for row in weights])

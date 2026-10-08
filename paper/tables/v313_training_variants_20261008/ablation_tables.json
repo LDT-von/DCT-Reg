@@ -1,0 +1,377 @@
+{
+  "input": {
+    "schema_version": 1,
+    "cancers": [
+      "BRCA",
+      "COADREAD",
+      "KIRC",
+      "UCEC",
+      "LUAD",
+      "LUSC",
+      "HNSC",
+      "SKCM",
+      "BLCA",
+      "STAD"
+    ],
+    "variants": [
+      {
+        "id": "exp0",
+        "label": "Exp0: patient NLL only",
+        "kind": "loss_recipe",
+        "folds": {
+          "BLCA": [
+            0.6423,
+            0.6721,
+            0.6988,
+            0.7103,
+            0.7769
+          ],
+          "KIRC": [
+            0.8073,
+            0.864,
+            0.8379,
+            0.7837,
+            0.7671
+          ]
+        }
+      },
+      {
+        "id": "exp1",
+        "label": "Exp1: + IPCW ranking",
+        "kind": "loss_recipe",
+        "folds": {
+          "BLCA": [
+            0.6296,
+            0.6918,
+            0.7044,
+            0.734,
+            0.7889
+          ],
+          "KIRC": [
+            0.7886,
+            0.8471,
+            0.7834,
+            0.7958,
+            0.7524
+          ]
+        }
+      },
+      {
+        "id": "exp2",
+        "label": "Exp2: + per-slot NLL",
+        "kind": "loss_recipe",
+        "folds": {
+          "BLCA": [
+            0.6517,
+            0.6927,
+            0.7147,
+            0.7954,
+            0.7402
+          ],
+          "KIRC": [
+            0.78,
+            0.8268,
+            0.7752,
+            0.7943,
+            0.7841
+          ]
+        }
+      },
+      {
+        "id": "exp3",
+        "label": "Exp3: + diversity, no reconstruction",
+        "kind": "loss_recipe",
+        "folds": {
+          "BLCA": [
+            0.6576,
+            0.703,
+            0.7399,
+            0.7524,
+            0.7496
+          ],
+          "KIRC": [
+            0.8203,
+            0.8703,
+            0.7698,
+            0.7905,
+            0.7738
+          ]
+        }
+      },
+      {
+        "id": "exp4",
+        "label": "Exp4: self only (0.025)",
+        "kind": "loss_recipe",
+        "folds": {
+          "BLCA": [
+            0.6576,
+            0.7056,
+            0.681,
+            0.7629,
+            0.7436
+          ],
+          "KIRC": [
+            0.8239,
+            0.8527,
+            0.7732,
+            0.789,
+            0.7841
+          ]
+        }
+      },
+      {
+        "id": "exp5",
+        "label": "Exp5: cross only (0.025)",
+        "kind": "loss_recipe",
+        "folds": {
+          "BLCA": [
+            0.6576,
+            0.691,
+            0.7203,
+            0.7805,
+            0.7444
+          ],
+          "KIRC": [
+            0.7951,
+            0.8485,
+            0.7738,
+            0.7927,
+            0.8032
+          ]
+        }
+      },
+      {
+        "id": "exp6",
+        "label": "Full: self + cross (0.05 each)",
+        "kind": "loss_recipe",
+        "folds": {
+          "BLCA": [
+            0.6576,
+            0.6953,
+            0.7465,
+            0.7744,
+            0.7453
+          ],
+          "BRCA": [
+            0.7925,
+            0.6948,
+            0.5748,
+            0.6504,
+            0.6809
+          ],
+          "COADREAD": [
+            0.7742,
+            0.7365,
+            0.757,
+            0.7448,
+            0.6695
+          ],
+          "HNSC": [
+            0.6963,
+            0.6118,
+            0.599,
+            0.645,
+            0.7389
+          ],
+          "KIRC": [
+            0.8253,
+            0.8485,
+            0.8202,
+            0.8094,
+            0.8084
+          ],
+          "LUAD": [
+            0.7015,
+            0.7138,
+            0.7109,
+            0.6352,
+            0.6677
+          ],
+          "LUSC": [
+            0.6709,
+            0.6377,
+            0.5983,
+            0.6969,
+            0.5463
+          ],
+          "SKCM": [
+            0.6442,
+            0.6199,
+            0.6706,
+            0.6434,
+            0.7488
+          ],
+          "STAD": [
+            0.6835,
+            0.6471,
+            0.5645,
+            0.6691,
+            0.6161
+          ],
+          "UCEC": [
+            0.806,
+            0.8532,
+            0.7654,
+            0.7511,
+            0.7884
+          ]
+        }
+      },
+      {
+        "id": "direct",
+        "label": "Direct: cross reconstruction from WSI slots",
+        "kind": "trained_mechanism_control",
+        "folds": {
+          "BLCA": [
+            0.6499575191163977,
+            0.7081545064377682,
+            0.6987839101964453,
+            0.7778753292361721,
+            0.6799145299145299
+          ],
+          "KIRC": [
+            0.7749820273184759,
+            0.8541374474053296,
+            0.8017711171662125,
+            0.794251134644478,
+            0.7899778924097274
+          ]
+        }
+      },
+      {
+        "id": "independent",
+        "label": "Independent: product coupling",
+        "kind": "trained_mechanism_control",
+        "folds": {
+          "BLCA": [
+            0.6516567544604928,
+            0.7184549356223175,
+            0.6856875584658559,
+            0.7374890254609306,
+            0.752991452991453
+          ],
+          "KIRC": [
+            0.8123652048885693,
+            0.832398316970547,
+            0.7949591280653951,
+            0.794251134644478,
+            0.7929255711127488
+          ]
+        }
+      }
+    ],
+    "context": {
+      "endpoint": "DSS",
+      "encoder": "UNI2-h",
+      "seed": 3,
+      "protocol": "legacy_val",
+      "selection": "best validation"
+    },
+    "sources": [
+      {
+        "path": "paper/DCT_v313_初稿.md",
+        "sha256_lf": "98f27128a092d6ab38396c15a345b40f0a7a56411b8645abff96c19be4695d61"
+      },
+      {
+        "path": "paper/V313_OT_UNI2H_COMPARISON_INPUT.json",
+        "sha256_lf": "cf5730f5ac55389350e4a0a0327690174f02800374422909e6be9ec7b787fae0"
+      },
+      {
+        "path": "results/v313_evidence_v2/controls_audit.json",
+        "sha256_lf": "905f3eb5d107dc41a73cfa79dab5424e71d8b3428160c8d95460a24f2aaebd7b"
+      }
+    ],
+    "note": "Historical single-branch weights are 0.025; Full weights are 0.05 each. Loss recipes are not uniformly one-component removals. Full/control patient-config pairing still requires final matching audit.",
+    "source_commit": "a1a45844ce891333c95f88e58ec235e0068f01cc"
+  },
+  "tables": [
+    {
+      "name": "ablation_two_cohorts",
+      "complete": true,
+      "cancers": [
+        "BLCA",
+        "KIRC"
+      ],
+      "rank_styles": [
+        {
+          "row": 3,
+          "column": 0,
+          "style": "second"
+        },
+        {
+          "row": 6,
+          "column": 0,
+          "style": "first"
+        },
+        {
+          "row": 0,
+          "column": 1,
+          "style": "second"
+        },
+        {
+          "row": 6,
+          "column": 1,
+          "style": "first"
+        },
+        {
+          "row": 3,
+          "column": 2,
+          "style": "second"
+        },
+        {
+          "row": 6,
+          "column": 2,
+          "style": "first"
+        }
+      ],
+      "files": {
+        "png": "1048f48658f1585884d4803114324343d6478354752957462a2ac481bb129b64",
+        "pdf": "b41919158f2cae33fb68e18855b7da807e4a356220155ce3a8081618c993af85",
+        "svg": "a8db38c55d0065cc77fbbfeebe8415cc8df0707bc9d41a2714cfbe9925763e94"
+      }
+    },
+    {
+      "name": "ablation_ten_cohort_coverage",
+      "complete": false,
+      "cancers": [
+        "BRCA",
+        "COADREAD",
+        "KIRC",
+        "UCEC",
+        "LUAD",
+        "LUSC",
+        "HNSC",
+        "SKCM",
+        "BLCA",
+        "STAD"
+      ],
+      "rank_styles": [
+        {
+          "row": 0,
+          "column": 2,
+          "style": "second"
+        },
+        {
+          "row": 6,
+          "column": 2,
+          "style": "first"
+        },
+        {
+          "row": 3,
+          "column": 8,
+          "style": "second"
+        },
+        {
+          "row": 6,
+          "column": 8,
+          "style": "first"
+        }
+      ],
+      "files": {
+        "png": "91e3a811ac44676ca63c258f3da2d8c5efc61afdc482ad22c7598d6e431482e4",
+        "pdf": "f726cbb3185f1b391c6eb5a165dc8c0d4741fd66c05e4e4f0592af3302b9fa3e",
+        "svg": "0682d77e16f13ce727b45c7277c9fa8d9b62ea705051e9feb062ddd1bc2cb821"
+      }
+    }
+  ]
+}

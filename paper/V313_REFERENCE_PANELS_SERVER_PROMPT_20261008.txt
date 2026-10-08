@@ -1,0 +1,28 @@
+请在服务器继续 DCT v3.13 的三类论文图，只复用现有 checkpoint/真实记录，不训练、不删除、不覆盖旧结果，不加入 SlotSPE 比较行。同步 origin/main 前检查当前修改；只能安全快进，冲突保留并报告。阅读 paper/V313_REFERENCE_PANELS_20261008.md；之前检索中心 v2 修复任务独立保留。
+
+一、消融表
+现有新表位于 paper/tables/v313_training_variants_20261008，已包含 BLCA/KIRC 的七个历史训练配方及 Direct/Independent。只读查找其余八癌种同 UNI2-h、DSS、seed3、legacy_val 协议的现成消融，记录 curve/checkpoint/best predictions/config/split 来源与哈希，缺失则报告。不要用其他方法分数补 DCT 消融，也不要自动训练。尤其 Exp4/5 的旧 0.025 权重与 matched 0.05 分行；Exp0 是同架构 NLL，不是 Vanilla Slots。完整结果可写新的输入 JSON，运行 scripts/plot_v313_reference_panels.py ablation --input <真实汇总JSON> --output <新空目录>。保留 NR、真实五折标准差和单列可用数不足时不排名的规则。
+
+二、病例槽—通路组合图（只读原始导出，无需推理）
+用已有 manifest、split 和 export.json 锁定 TCGA-2F-A9KP 的真实 Full 验证折，核对 case NPZ/患者风险、pathway_names、attention_omic、factual plans、checkpoint 来源。RUN_BLCA 设为包含 export.json 的精确目录，不预设 fold。先 check-only；然后分别在新的原始值/百分位目录运行：
+PY=/home/ubuntu/.conda/envs/trisurv/bin/python
+"$PY" scripts/plot_v313_slotspe_style.py pathways --export "$RUN_BLCA" --case-id TCGA-2F-A9KP --scale raw --check-only --output "$FRESH_RAW"
+"$PY" scripts/plot_v313_slotspe_style.py pathways --export "$RUN_BLCA" --case-id TCGA-2F-A9KP --scale raw --output "$FRESH_RAW"
+"$PY" scripts/plot_v313_slotspe_style.py pathways --export "$RUN_BLCA" --case-id TCGA-2F-A9KP --scale percentile --output "$FRESH_PERCENTILE"
+
+需交付两个 pathway_case_panel_*.png/pdf/json。图左为全部通路×槽，右为全部槽的 Top/Bottom-3；不省略差别小的槽。原始注意力 range 很小时须如实说明，百分位不能当绝对强度，不能把低关注称为生物学无关。KIRC 若有既有合法病例，按验证 ID 字典序首位选择；不能挑最漂亮病例。若原始导出缺失，先列出缺项，不用旧 Top/Bottom JSON 的少量条目编造全矩阵。真实组织图另需组织资源，本任务不默认启动补导出。
+
+三、性能—显存/时间图
+先只读清查 DCT、MOTCat、MCAT、CMTA、LD-CVAE 或已有其他非 SlotSPE 方法的 UNI2-h/DSS 同患者划分 checkpoint 和最佳患者预测。公开论文表格分数不能用作本图的 y 轴。现成同条件基线缺失则报告，不补训练，不混另一编码器或癌种集合。
+
+对于现有合格 checkpoint，可用同一个 survot_rank.evidence.v313.profile_model 进行受控前向测量。DCT 原生 load_run 只支持 DCT；外部方法用其官方模型加载与输入接口，并仅用薄适配器转换前向参数，保持实际计算图。为每个方法/癌种/fold0–4 固定同一个验证病例（验证 ID 字典序首位）、同一 WSI 特征张量、batch1、2048 patches/相同特征维数、精度、GPU、PyTorch/CUDA/cuDNN/TF32 设置，warmup5/repeats30；实际训练/预测采样与该设置不符时报告，不能拿 4096-patch 成绩配 2048-patch 耗时。GPU 上每次前后同步；记录实际峰值 total allocated MiB（含模型与输入），不写 CPU 估计数。一次只保留当前待测模型，避免其他驻留模型污染显存，结束后保留实验文件。
+
+每个 profile_model 返回字段再加真实 benchmark_case_ids。另存现有 export.json 结构的 profile_json：run 的 cancer/fold/seed/protocol/split_csv、hashes 的 predictions/checkpoint/split_csv、profile。保证 best predictions 与这个 checkpoint 一致，记录模型原生默认是否包含解释分支；不把额外 sweep 计入。原 DCT export --profile 默认测其验证读取首位，如不是约定字典序首位则不能复用，需按约定病例重新测量，不修改旧 profile。
+
+复制 configs/v313_efficiency_tradeoff.example.json 为新的真实输入，填所有实际路径、binary predictions_sha256 与 profile 文本 LF SHA256；它是缺数据模板，不能直接生成正式图。profile_json 和原始患者 pkl 保存服务器，不进入 Git。生成图：
+"$PY" scripts/plot_v313_reference_panels.py tradeoff --input "$REAL_MEASURED_JSON" --output "$FRESH_COST_FIGURES"
+
+脚本重算每折 C-index、核对训练/验证全集及五折互斥、配对患者结局、profile 来源和实际 WSI 输入指纹；有差异就停止，不调阈值或换最有利的数据。至少两项方法且相同完整队列集合才画正式对比。DCT 星形坐标按实测结果，不保证在左上角。
+
+四、提交与报告
+保留旧输出；逐张检查真实图的通路长名称、色条/百分位口径、数值标注、字体裁切和点标签遮挡。只提交核验后的轻量 PNG/PDF/SVG/图来源 JSON 与实际进展，不提交 checkpoint、NPZ、pkl、WSI 和患者原始数据。新的真实输出放 paper/figures/v313_reference_panels_real_<新id>。不要自动改正文分数/旧比较表，不用本机 SYNTHETIC_QA 图当真实结果。报告已完成图名、仍缺的癌种/方法、测量协议、真实结论和可拉取 commit。

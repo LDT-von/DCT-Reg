@@ -1,5 +1,5 @@
 {
-  "status": "manuscript_reordered_ten_cancer_km_2_of_10_tissue_pending",
+  "status": "manuscript_reordered_ten_cancer_km_delivered_tissue_pending",
   "new_real_experiments": 0,
   "figure_placeholders": [],
   "ten_cancer_source": "author_supplied_fold_summary",
@@ -158,8 +158,8 @@
     "Figure 6 WSI/Top-5/KIRC tissue panels",
     "S1 slot diagnostics and S2 measured efficiency",
     "additional server result download and source audit",
-    "Figure 5: complete eight missing cancer KM cohorts from server records; C-index means cannot substitute for patient predictions.",
-    "OT and UNI2-h matched baseline records; MCSP-OTMR full-text audit"
+    "OT and UNI2-h matched baseline records; MCSP-OTMR full-text audit",
+    "Figure 5: delivered ten-cancer KM files and LF source hashes checked; patient/checkpoint/split audit remains pending."
   ],
   "ready_figures": {
     "4": {
@@ -351,25 +351,138 @@
     },
     "5": {
       "images": [
-        "paper/figures/v313_slotspe_20261007_v2/km_blca/km_blca_exp6_oof.png",
-        "paper/figures/v313_slotspe_20261007_v2/km_kirc/km_kirc_exp6_oof.png"
+        "paper/figures/fig5_ten_cancers/figure5_ten_cancers_part1.png",
+        "paper/figures/fig5_ten_cancers/figure5_ten_cancers_part2.png"
+      ],
+      "individual_images": [
+        "paper/figures/fig5_ten_cancers/km_blca_exp6_oof.png",
+        "paper/figures/fig5_ten_cancers/km_brca_exp6_oof.png",
+        "paper/figures/fig5_ten_cancers/km_coadread_exp6_oof.png",
+        "paper/figures/fig5_ten_cancers/km_hnsc_exp6_oof.png",
+        "paper/figures/fig5_ten_cancers/km_kirc_exp6_oof.png",
+        "paper/figures/fig5_ten_cancers/km_luad_exp6_oof.png",
+        "paper/figures/fig5_ten_cancers/km_lusc_exp6_oof.png",
+        "paper/figures/fig5_ten_cancers/km_skcm_exp6_oof.png",
+        "paper/figures/fig5_ten_cancers/km_stad_exp6_oof.png",
+        "paper/figures/fig5_ten_cancers/km_ucec_exp6_oof.png"
       ],
       "protocol": "legacy_val",
-      "grouping": "per-fold training-risk median; pool validation labels",
+      "grouping": "per-fold training-risk median, then pool validation labels",
       "patients": {
         "blca": {
           "n": 380,
           "low": 172,
           "high": 208
         },
+        "brca": {
+          "n": 775,
+          "low": 365,
+          "high": 410
+        },
+        "coadread": {
+          "n": 553,
+          "low": 251,
+          "high": 302
+        },
+        "hnsc": {
+          "n": 437,
+          "low": 170,
+          "high": 267
+        },
         "kirc": {
           "n": 488,
           "low": 225,
           "high": 263
+        },
+        "luad": {
+          "n": 449,
+          "low": 208,
+          "high": 241
+        },
+        "lusc": {
+          "n": 454,
+          "low": 212,
+          "high": 242
+        },
+        "skcm": {
+          "n": 388,
+          "low": 199,
+          "high": 189
+        },
+        "stad": {
+          "n": 349,
+          "low": 141,
+          "high": 208
+        },
+        "ucec": {
+          "n": 487,
+          "low": 218,
+          "high": 269
         }
       },
-      "logrank": null,
-      "complete": false,
+      "logrank": {
+        "blca": {
+          "p_value": 6.42920087963772e-07,
+          "chi2": 24.779063827232278,
+          "interpretation": "exploratory; ignores cross-validation model dependence",
+          "status": "available"
+        },
+        "brca": {
+          "p_value": 0.002141872003195033,
+          "chi2": 9.423800103951216,
+          "interpretation": "exploratory; ignores cross-validation model dependence",
+          "status": "available"
+        },
+        "coadread": {
+          "p_value": 2.198231244934655e-08,
+          "chi2": 31.311065688472784,
+          "interpretation": "exploratory; ignores cross-validation model dependence",
+          "status": "available"
+        },
+        "hnsc": {
+          "p_value": 1.666652337479599e-05,
+          "chi2": 18.536686911421402,
+          "interpretation": "exploratory; ignores cross-validation model dependence",
+          "status": "available"
+        },
+        "kirc": {
+          "p_value": 7.25757766537966e-17,
+          "chi2": 69.60166047202017,
+          "interpretation": "exploratory; ignores cross-validation model dependence",
+          "status": "available"
+        },
+        "luad": {
+          "p_value": 6.793080154458675e-07,
+          "chi2": 24.67295448281826,
+          "interpretation": "exploratory; ignores cross-validation model dependence",
+          "status": "available"
+        },
+        "lusc": {
+          "p_value": 5.2311415683825e-06,
+          "chi2": 20.750737992777793,
+          "interpretation": "exploratory; ignores cross-validation model dependence",
+          "status": "available"
+        },
+        "skcm": {
+          "p_value": 1.1555860472743302e-08,
+          "chi2": 32.56017413130811,
+          "interpretation": "exploratory; ignores cross-validation model dependence",
+          "status": "available"
+        },
+        "stad": {
+          "p_value": 0.0009577403426611048,
+          "chi2": 10.90753210885451,
+          "interpretation": "exploratory; ignores cross-validation model dependence",
+          "status": "available"
+        },
+        "ucec": {
+          "p_value": 7.45913384601927e-10,
+          "chi2": 37.89669911833268,
+          "interpretation": "exploratory; ignores cross-validation model dependence",
+          "status": "available"
+        }
+      },
+      "complete": true,
       "expected_cancers": [
         "blca",
         "brca",
@@ -384,19 +497,22 @@
       ],
       "completed_cancers": [
         "blca",
-        "kirc"
-      ],
-      "missing_cancers": [
         "brca",
         "coadread",
         "hnsc",
+        "kirc",
         "luad",
         "lusc",
         "skcm",
         "stad",
         "ucec"
       ],
-      "coverage": "2/10"
+      "missing_cancers": [],
+      "coverage": "10/10",
+      "source_commit": "7bfec1f",
+      "receipt": "paper/figures/fig5_ten_cancers/figure5_ten_cancers.json",
+      "source_json_lf_hashes_checked": 10,
+      "patient_checkpoint_split_audit": "pending; not performed in reference-panel delivery"
     },
     "6": {
       "images": [
@@ -849,5 +965,28 @@
     "expected_real_summary_pngs_after_server_validation": 10,
     "model_training_objectives_and_paper_scores_changed": false,
     "server_prompt": "paper/V313_DIAGNOSTIC_BUGFIX_SERVER_PROMPT_20261008.txt"
+  },
+  "reference_style_panels": {
+    "date": "2026-10-08",
+    "status": "recorded_tables_ready_case_and_cost_code_ready_real_server_outputs_pending",
+    "training_variants": 9,
+    "complete_variant_cohorts": [
+      "BLCA",
+      "KIRC"
+    ],
+    "full_cohorts": 10,
+    "new_real_model_runs": 0,
+    "table_directory": "paper/tables/v313_training_variants_20261008",
+    "table_pdf_pages": 2,
+    "real_case_npz_available_locally": false,
+    "real_efficiency_comparison_available": false,
+    "historical_single_branch_weight": 0.025,
+    "full_single_branch_weight": 0.05,
+    "focused_tests_passed": 55,
+    "manuscript_or_external_table_changed": false,
+    "server_prompt": "paper/V313_REFERENCE_PANELS_SERVER_PROMPT_20261008.txt",
+    "guide": "paper/V313_REFERENCE_PANELS_20261008.md",
+    "table_png_and_pdf_visual_qa_passed": true,
+    "synthetic_case_and_cost_qa_only": true
   }
 }

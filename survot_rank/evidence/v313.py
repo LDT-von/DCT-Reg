@@ -213,6 +213,8 @@ def payload_for(sample, args, device):
 
 @torch.no_grad()
 def profile_model(model, payload, repeats=30, warmup=5):
+    if model.training or repeats < 2 or warmup < 1:
+        raise ValueError("Profile requires eval mode, positive warmup and at least two repeats")
     device = next(model.parameters()).device
     def synchronize():
         if device.type == "cuda":
@@ -229,9 +231,19 @@ def profile_model(model, payload, repeats=30, warmup=5):
         model(**payload)
         synchronize()
         samples.append((time.perf_counter() - start) * 1000)
+    import hashlib
+    wsi = payload["x_wsi"].detach().contiguous()
+    fingerprint = hashlib.sha256(str((tuple(wsi.shape), str(wsi.dtype))).encode() +
+                                 wsi.view(torch.uint8).cpu().numpy().tobytes()).hexdigest()
     return dict(device=str(device), hardware=torch.cuda.get_device_name(device) if device.type == "cuda" else "CPU",
-                torch_version=torch.__version__, batch_size=payload["x_wsi"].size(0), patches=payload["x_wsi"].size(1),
-                repeats=repeats, warmup=warmup, forward="standard model.eval() forward including built-in explanations",
+                torch_version=torch.__version__, cuda_version=torch.version.cuda,
+                cudnn_version=torch.backends.cudnn.version(),
+                precision=f"weights={next(model.parameters()).dtype};wsi={wsi.dtype};autocast={torch.is_autocast_enabled()}",
+                forward_mode="eval_no_grad", feature_dim=wsi.size(-1), wsi_input_sha256=fingerprint,
+                cudnn_benchmark=torch.backends.cudnn.benchmark, cudnn_deterministic=torch.backends.cudnn.deterministic,
+                matmul_allow_tf32=torch.backends.cuda.matmul.allow_tf32,
+                batch_size=payload["x_wsi"].size(0), patches=payload["x_wsi"].size(1),
+                repeats=repeats, warmup=warmup, forward="standard eval forward of supplied model, including any built-in explanations",
                 parameters=sum(p.numel() for p in model.parameters()), latency_ms_median=float(np.median(samples)),
                 latency_ms_p95=float(np.quantile(samples, .95)),
                 peak_allocated_mb=torch.cuda.max_memory_allocated(device) / 2**20 if device.type == "cuda" else None)
@@ -323,6 +335,8 @@ def export_run(run, output_root, *, device="cuda:0", alphas=(0, .25, .5, .75, 1)
         merged["train_time"] = train.label_df[factory.label_col].to_numpy(float)
         merged["train_censor"] = train.label_df[factory.censorship_var].to_numpy(float)
     profile_result = profile_model(model, first_payload) if profile else None
+    if profile_result is not None:
+        profile_result["benchmark_case_ids"] = [actual_ids[0]]
     for key, tensor in model.named_buffers():
         if not torch.equal(tensor, before[key]):
             raise ValueError(f"Read-only replay mutated buffer {key}")

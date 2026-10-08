@@ -387,3 +387,36 @@ server additional arrays and real ten diagnostic images remain absent
 locally. A server prompt preserves old exports, redraws eight unaffected
 plots and re-exports only the two corrected retrieval plots. No manuscript
 scores, baseline table, model code, weights or training jobs were changed.
+
+## 2026-10-08 reference-style training table, pathway composite and cost panels
+
+User supplied a ten-cohort ablation table, performance/memory/time scatterplots,
+and patient slot-pathway composite. Added a no-inference table CLI using the
+70 recorded loss folds, 20 audited mechanism-control folds and unchanged 50
+Full folds. BLCA/KIRC are complete across nine rows; the other eight cohorts
+remain explicitly NR outside Full. Historical single-branch 0.025 weights
+are labelled, not renamed as matched-weight removals. Red/underline reflect
+available recorded means; one-entry columns have no competitive ranking.
+
+Added a single-patient full pathway matrix alongside all slots' Top/Bottom-3.
+Raw is default; optional tied midrank percentiles retain all raw values and
+ranges. Uniform weights stay 0.5, rather than manufactured percentile contrast.
+Long pathway names determine panel height. No actual case NPZ is local, so
+new real composite awaits read-only server plotting, not guessed matrix values.
+
+Expanded profile provenance without changing model/training/prediction paths:
+CUDA/precision/input fingerprints and timing settings, plus benchmark patient.
+Cost plotting recomputes C-index from raw best predictions, requires complete
+matched folds and patient/outcome/train/split and WSI-input agreement, checks
+source hashes and identical hardware/measurement settings. Baseline native
+load/forward adapters remain in their own implementations; no claim that DCT
+loader supports arbitrary methods. Measured-input template has no fake scores.
+
+All 55 focused tests passed. Two real-record table PDFs/PNGs were visually
+checked; synthetic composite and cost QA are explicitly synthetic and excluded
+from final scientific artifacts. No real patient inference/training started.
+Server instructions reuse existing outputs/checkpoints only; missing ablation
+or matched baselines are reported rather than automatically trained. Existing
+manuscript and external comparison table remain unchanged.
+
+推送整合：保留远端 7bfec1f、acb7cbc；十癌种 KM 文件和 10 个来源 JSON LF 哈希通过只读核对，V313_MANUSCRIPT_STATUS 的 Figure 5 交付覆盖更新为 10/10，患者/checkpoint/split 审计仍列为待补。新消融表仍保留 a1a4584 来源快照，不混入后续正文变更。

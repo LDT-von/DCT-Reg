@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT))
 import numpy as np
 from survot_rank.evidence.slotspe_style import (
     collect_attention, group_pathways, load_case, load_spatial_assets,
-    patch_reader, top_patch_rows, transport_maps,
+    patch_reader, top_patch_rows, transport_maps, pathway_percentiles,
 )
 
 COLORS = ["#D55E00", "#0072B2", "#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#A6761D", "#666666"]
@@ -118,6 +118,69 @@ def plot_pathways(case, output):
          pathway_order=[str(case["names"][i]) for i in order],
          assignment="argmax of final pooling attention; a visual grouping, not a biological label"))
 
+
+
+def plot_pathway_case_panel(case, output, *, scale="raw"):
+    """One patient: all pathways x slots, beside each slot's top/bottom three."""
+    if scale not in ("raw", "percentile"):
+        raise ValueError("Select raw attention or within-slot percentile")
+    plt=plotting()
+    raw=case['arrays']['attention_omic'][0]
+    names=np.asarray(case['names'])
+    if raw.ndim!=2 or raw.shape[1]!=len(names) or len(set(names.tolist()))!=len(names) or len(names)<2:
+        raise ValueError("Invalid real pathway/slot identities")
+    shown=pathway_percentiles(raw) if scale=='percentile' else raw
+    winner=raw.argmax(0)
+    order=np.lexsort((-raw.max(0),winner))
+    rows=int(np.ceil(len(raw)/2))
+    n=min(3,len(names)//2)
+    selected_names=[]
+    for weights in raw:
+        ranking=np.argsort(weights,kind='stable')
+        selected_names.extend(names[np.concatenate([ranking[-n:][::-1],ranking[:n]])])
+    max_lines=max(len(wrap(name,40).splitlines()) for name in selected_names)
+    row_height=max(3.6,max_lines*.85+1.2)
+    fig=plt.figure(figsize=(18,max(5,rows*row_height)))
+    grid=fig.add_gridspec(rows,3,width_ratios=[.7,1.5,1.5],wspace=.22,hspace=.60)
+    matrix=fig.add_subplot(grid[:,0])
+    im=matrix.imshow(shown[:,order].T,aspect='auto',cmap='YlOrRd',vmin=0,
+                     vmax=1 if scale=='percentile' else max(float(shown.max()),1e-12))
+    matrix.set_xticks(range(len(raw)),range(len(raw)))
+    matrix.set_xlabel('Omics slots');matrix.set_ylabel(f'All {len(names)} pathways, ordered by preferred slot')
+    matrix.set_title('A  Pathway-to-slot assignment',loc='left',fontsize=10)
+    fig.colorbar(im,ax=matrix,fraction=.06,pad=.04,label='Within-slot percentile' if scale=='percentile' else 'Raw pooling attention')
+    panels=[]
+    n=min(3,len(names)//2)
+    for slot in range(len(raw)):
+        row,col=slot%rows,slot//rows
+        sub=grid[row,col+1].subgridspec(1,2,width_ratios=[1.65,1],wspace=.03)
+        labels=fig.add_subplot(sub[0,0]);ax=fig.add_subplot(sub[0,1])
+        ranking=np.argsort(raw[slot],kind='stable')
+        chosen=np.concatenate([ranking[-n:][::-1],ranking[:n]])
+        heights=shown[slot,chosen]
+        ax.barh(range(2*n),heights,color=[COLORS[slot%len(COLORS)]]*n+['#bcc3ca']*n)
+        ax.set_yticks([]);ax.invert_yaxis()
+        labels.set_ylim(ax.get_ylim());labels.set_xlim(0,1);labels.axis('off')
+        for y,index in enumerate(chosen):
+            labels.text(.99,y,wrap(names[index],40),ha='right',va='center',fontsize=7,linespacing=1.0)
+        labels.set_title(f'Omics slot {slot}: Top-{n} / Bottom-{n}',loc='left',fontsize=9,fontweight='bold')
+        ax.set_xlabel('Percentile' if scale=='percentile' else 'Raw attention',fontsize=8)
+        limit=1.12 if scale=='percentile' else max(float(heights.max())*1.22,1e-12)
+        ax.set_xlim(0,limit)
+        if scale!='percentile':ax.ticklabel_format(axis='x',style='sci',scilimits=(-3,3))
+        for y,value in enumerate(heights):
+            ax.text(float(value)+limit*.015,y,f'{value:.2f}' if scale=='percentile' else f'{value:.3g}',va='center',fontsize=6.5)
+        panels.append(dict(slot=slot,pathways=[dict(pathway=str(names[i]),raw_attention=float(raw[slot,i]),
+                         displayed_value=float(shown[slot,i]),selection='top' if j<n else 'bottom') for j,i in enumerate(chosen)]))
+    fig.suptitle(f"{case['case_id']} | omics-slot pathway associations",fontsize=13,fontweight='bold',y=.99)
+    note=('Percentiles show within-slot order only; ties share rank. Raw attention is retained in JSON.' if scale=='percentile'
+          else 'Raw final pooling/prototype-rollout attention. Top/Bottom selection is descriptive, not biological relevance.')
+    fig.text(.5,.015,note,ha='center',fontsize=9)
+    fig.subplots_adjust(top=.94,bottom=.08,left=.055,right=.98)
+    save(fig,output,'pathway_case_panel_'+scale,dict(**case_meta(case),scale=scale,panels=panels,
+         pathway_order=names[order].tolist(),raw_attention=raw.tolist(),
+         raw_attention_range_by_slot=np.ptp(raw,axis=1).tolist(),
+         note_display=note,assignment='Preferred raw-attention slot; percentile display does not change membership'))
 
 def projections(case):
     a = case["arrays"]
@@ -284,6 +347,8 @@ def main(argv=None):
         p.add_argument("--case-id", required=True)
         p.add_argument("--output", type=Path, required=True)
         p.add_argument("--check-only", action="store_true")
+        if name == "pathways":
+            p.add_argument("--scale", choices=["raw", "percentile"], default="raw", help="Combined panel display; raw values are always retained")
         if name == "case":
             p.add_argument("--assets", type=Path, required=True)
             p.add_argument("--slide-index", type=int, default=0)
@@ -330,7 +395,11 @@ def main(argv=None):
                 if not args.check_only:
                     plot_case(case, spatial, slide=args.slide_index, slots=slots, output=args.output)
             elif not args.check_only:
-                (plot_pathways if args.command == "pathways" else plot_coupling)(case, args.output)
+                if args.command == "pathways":
+                    plot_pathways(case, args.output)
+                    plot_pathway_case_panel(case, args.output, scale=args.scale)
+                else:
+                    plot_coupling(case, args.output)
             print(f"[checked] {args.case_id}: patient-ID lookup and pathway/slot dimensions match")
     except (ValueError, OSError, KeyError, ImportError) as error:
         ap.exit(1, f"[figure] {error}\nNo model was executed.\n")
