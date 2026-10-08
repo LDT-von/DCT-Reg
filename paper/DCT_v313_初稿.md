@@ -372,9 +372,21 @@ $$
 
 此映射遵循模型“先平均几何计划、再按列归一化、最后阶段融合”的顺序。原始权重用于数值核验，显示版本另行记录有效 patch 总质量。它表示经运输关联的组学槽空间权重，不是基因表达的实测空间分布。
 
-![BLCA 病例 TCGA-2F-A9KP 的通路到组学槽注意力矩阵](figures/v313_slotspe_20261007_v2/blca_a9kp_pathways/pathway_slot_map.png)
+![BLCA 病例 TCGA-2F-A9KP 的通路到组学槽注意力矩阵](paper/figures/v313_reference_panels_real_20261008/raw/pathway_slot_map.png)
 
 *图 6a TCGA-2F-A9KP 的通路—槽聚合矩阵。列为八个组学槽，行为按最大权重槽排序的 329 条通路，颜色保留原始 attention。该图描述模型聚合关联，不代表实测基因表达或组织分割。*
+
+![TCGA-2F-A9KP 全通路×槽矩阵 + 每槽 Top-3/Bottom-3 通路（raw attention）](paper/figures/v313_reference_panels_real_20261008/raw/pathway_case_panel_raw.png)
+
+*图 6c TCGA-2F-A9KP 的槽—通路组合面板（原始 attention）。左 A 列：329 条通路 × 8 个组学槽的全矩阵，按各通路 argmax 槽分组排序；色标为 raw pooling attention，范围随每槽真实值动态设定，相同 raw 值在每个槽中分别产生差异。右 4×2 网格：8 个组学槽的 Top-3 / Bottom-3 通路，名字单独放右侧栏避免遮挡。每槽 Top/Bottom 由 raw 排序得到，所选通路名同步存于 panel JSON 的 selection=“top/bottom”。当前注意力数值集中在 10⁻⁴ 量级，故 raw 矩阵呈现近乎单一颜色；这是真实 attention 范围，不是颜色映射错误。*
+
+![TCGA-2F-A9KP 全通路×槽矩阵 + 每槽 Top-3/Bottom-3 通路（within-slot percentile）](paper/figures/v313_reference_panels_real_20261008/percentile/pathway_case_panel_percentile.png)
+
+*图 6d TCGA-2F-A9KP 的槽—通路组合面板（within-slot 百分位）。色标为 0–1 的槽内百分位；这是显示口径，不改变 Top/Bottom 选择与 raw 数值。低位百分位不能等同于生物学无关，相同 raw 值在不同槽内可对应不同百分位。raw attention 范围与每个槽的 raw_attention_range 同时写入 panel JSON，可从显示颜色回到 raw 数值。*
+
+![BLCA 病例 TCGA-2F-A9KP 的 8 个组学槽 Top-3 / Bottom-3 通路（独立横排）](paper/figures/v313_reference_panels_real_20261008/raw/slot_pathways.png)
+
+*图 6e TCGA-2F-A9KP 的 8 个组学槽分别独立横排的 Top-3 / Bottom-3 通路。配色与图 6c 一致；raw attention 数值标签显示在条形右侧。该图与图 6c 右网格共享同一 selected 通路集合，但提供更大的单槽字号，便于逐槽阅读。*
 
 ![BLCA 病例的学习运输计划、同边际独立计划与差值](figures/v313_slotspe_20261007_v2/blca_a9kp_transport/transport_association.png)
 
@@ -510,7 +522,7 @@ DCT 以模态内共享原型组织槽表示，在紧凑槽空间学习阶段条�
 | 图 3 | 结果 4.5，已插入 | 事实 sweep Full 与审计控制臂折值；Full-control 配对核对仍待完成 |
 | 图 4 | 结果 4.6，已插入 | 十折 sweep JSON（24f3f10）；患者预测对齐与边缘残差记录仍待补 |
 | 图 5 | 结果 4.7，十队列目标 10/10 | BLCA/KIRC/BRCA/COADREAD/HNSC/LUAD/LUSC/SKCM/STAD/UCEC 全部接入；含总览 2 页 + 10 张单图 + JSON/CSV/figure5 汇总 |
-| 图 6 | 结果 4.8，非组织子图已插入 | BLCA 病例 ID、通路与实际运输；原坐标、组织图、Top-5 及 KIRC 病例待补 |
+| 图 6 | 结果 4.8，非组织子图已扩展 | BLCA 病例 TCGA-2F-A9KP 通路槽矩阵（6a）、运输关联（6b）、槽—通路组合面板 raw（6c）与 percentile（6d）、逐槽 Top-3/Bottom-3 独立横排（6e）；真实组织图、Top-5 组织块与 KIRC 病例图仍待补 |
 | 图 7 | 结果 4.8，已插入两面板 | 折内验证风险百分位四组、绝对 attention 差值、组人数及原始矩阵 |
 
 槽诊断与效率图 S1、S2 仍待正式结果；原始队列通路平均权重已接入补充图 S3。校准或临床图按数据支持另行接入。真实组织图未完成的状态单独记录，不以已经插入的非组织病例子图替代。
