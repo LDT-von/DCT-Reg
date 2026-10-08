@@ -8,13 +8,13 @@ DCT 是一个多模态生存预测框架，通过**语义对齐的多模态融�
 
 ---
 
-## v3.13 OT 与 UNI2-h 公开结果参照
+## v3.13 带方法年份的扩展公开比较表
 
-当前正文表 2 比较 OT 或 UNI2-h 方向：MOTCat（TTA 作者复现）、TTA、OTSurv，以及 STEPH 和其采用 UNI2-h 的五种 MIL 参照。已直接汇总 49 个可按队列名称对齐的公开均值，并加入 DCT 的真实 50 个折值；SlotSPE 比较表退出当前正文，旧文件作为历史保留。
+当前正文表 2 有 21 个参照方法加 DCT：沿用 SlotSPE 表 1 中其他 15 个基线的完整十癌种数值，去掉 SlotSPE 自身全部三行，再加入 TTA、OTSurv、STEPH 和三种 UNI2-h MIL 参照。每个方法标注年份，公开队列均值共 183 个，DCT 原有 50 个折值不变。
 
-表格保留十癌种，第一红色加粗、第二下划线、DCT 行淡黄色。原文没单独报告的队列保持空缺，LUSC 没有参照故不排名。所有数值为 DSS；不同模态、划分与评分口径限制公平比较，不混排不同队列集合的 Overall。下面“核心贡献”属于仓库的 v3.10 历史介绍，不是 v3.13 的当前实验结果。
+十癌种均有参照；第一红色加粗，第二下划线，DCT 行淡黄色。Overall 仅给完整相同十队列行排名，额外方法的未报告队列及不相同队列集合的 Overall 保留 NR。MLP/SNNTrans 的引用年份和 DCT 的当前研究年份均加注说明。不同来源的特征、模态与评分口径仍有差异，该表属于公开值参考。下面“核心贡献”是仓库的 v3.10 历史介绍，不是 v3.13 当前实验结果。
 
-[新比较表 PNG](paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.png) · [可编辑 Word](paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.docx) · [矢量 PDF](paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.pdf) · [论文来源与第6节图的导读](paper/V313_OT_UNI2H_LITERATURE_REVIEW_20261008.md)。
+[扩展表 PNG](paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.png) · [可编辑 Word](paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.docx) · [矢量 PDF](paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.pdf) · [来源及年份说明](paper/V313_OT_UNI2H_LITERATURE_REVIEW_20261008.md)。
 
 ~~~bash
 python scripts/build_v313_literature_comparison.py

@@ -122,3 +122,8 @@ PY=/home/ubuntu/.conda/envs/trisurv/bin/python
 ## 7. 外部比较方向已调整
 
 作者要求不与 SlotSPE 比较，改找 OT 生存预测或使用 UNI2-h 的相关论文。新表包含 MOTCat [TTA]、TTA、OTSurv、STEPH 及其 UNI2-h MIL 参照，已汇总 49 个同名称队列公开均值。ProtoPathway 使用 UNI2-h 但评价 OS，单独记录，不进入 DSS 排名。MCSP-OTMR 与 OT 重建叙事接近，列为优先全文复核对象。没有发起新模型运行，也没有声称公开报告值属于同条件复现。
+
+
+### 比较表扩展及年份
+
+作者进一步要求保留 SlotSPE 表中其他方法的数据，仅去掉 SlotSPE 自身。当前表已扩展为 21 个参照方法加 DCT，每个方法标注年份；原表其他 15 行的完整十队列数值、离散度和 Overall 原样保留，额外六项贡献 33 个对齐均值，共 183 个公开均值。十癌种均有比较对象。Overall 仅排名完整相同十队列行，额外方法不同队列集合不混入。MLP 与 SNNTrans 的引用年份及 DCT 当前工作年份加注说明。没有新增模型运行。

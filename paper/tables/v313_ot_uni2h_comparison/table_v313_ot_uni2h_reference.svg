@@ -1,161 +1,334 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="544" viewBox="0 0 1400 544">
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="926" viewBox="0 0 1400 926">
 <rect width="100%" height="100%" fill="white"/>
-<text x="700.0" y="33" text-anchor="middle" font-family="Times New Roman,serif" font-size="25" font-weight="bold" fill="#111111">DCT v3.13 OT and UNI2-h Literature Reference</text>
+<text x="700.0" y="33" text-anchor="middle" font-family="Times New Roman,serif" font-size="25" font-weight="bold" fill="#111111">DCT v3.13 Ten Cancer Literature Comparison</text>
 <text x="700.0" y="62" text-anchor="middle" font-family="Times New Roman,serif" font-size="17" font-weight="bold" fill="#D7191C">Best</text>
 <text x="762.0" y="62" text-anchor="middle" font-family="Times New Roman,serif" font-size="17" font-weight="normal" fill="#111111">Second</text>
 <line x1="736.976" y1="65" x2="787.024" y2="65" stroke="#111111" stroke-width="0.9"/>
 <line x1="35" y1="82" x2="1365" y2="82" stroke="#111111" stroke-width="2.2"/>
 <line x1="35" y1="86" x2="1365" y2="86" stroke="#111111" stroke-width="0.8"/>
-<text x="115.0" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">Model</text>
-<text x="242.0" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">Input / FM</text>
-<text x="342.8" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">BRCA</text>
-<text x="450.40000000000003" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">COADREAD</text>
-<text x="558.0" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">KIRC</text>
-<text x="665.6000000000001" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">UCEC</text>
-<text x="773.2" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">LUAD</text>
-<text x="880.8000000000002" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">LUSC</text>
-<text x="988.4000000000001" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">HNSC</text>
-<text x="1096.0" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">SKCM</text>
-<text x="1203.6" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">BLCA</text>
-<text x="1311.1999999999998" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">STAD</text>
+<text x="139.0" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">Model (year)</text>
+<text x="290.0" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">Input / FM</text>
+<text x="383.72727272727275" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">BRCA</text>
+<text x="477.18181818181813" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">COADREAD</text>
+<text x="570.6363636363636" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">KIRC</text>
+<text x="664.0909090909091" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">UCEC</text>
+<text x="757.5454545454546" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">LUAD</text>
+<text x="851.0000000000001" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">LUSC</text>
+<text x="944.4545454545456" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">HNSC</text>
+<text x="1037.909090909091" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">SKCM</text>
+<text x="1131.3636363636365" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">BLCA</text>
+<text x="1224.818181818182" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">STAD</text>
+<text x="1318.2727272727275" y="111" text-anchor="middle" font-family="Times New Roman,serif" font-size="17.2" font-weight="bold" fill="#111111">Overall</text>
 <line x1="35" y1="126" x2="1365" y2="126" stroke="#111111" stroke-width="1.6"/>
-<text x="115.0" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">MOTCat [TTA]</text>
-<text x="242.0" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g.+h./U1</text>
-<text x="342.8" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7170</text>
-<text x="450.40000000000003" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="558.0" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7080</text>
-<text x="665.6000000000001" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="773.2" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="880.8000000000002" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="988.4000000000001" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="1096.0" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="1203.6" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6310</text>
-<text x="1311.1999999999998" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5760</text>
-<text x="115.0" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">TTA</text>
-<text x="242.0" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g.+h./U1</text>
-<text x="342.8" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7260</text>
-<line x1="318.05" y1="179" x2="367.55" y2="179" stroke="#111111" stroke-width="0.9"/>
-<text x="450.40000000000003" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="558.0" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7780</text>
-<line x1="533.25" y1="179" x2="582.75" y2="179" stroke="#111111" stroke-width="0.9"/>
-<text x="665.6000000000001" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="773.2" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="880.8000000000002" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="988.4000000000001" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="1096.0" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="1203.6" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6620</text>
-<line x1="1178.85" y1="179" x2="1228.35" y2="179" stroke="#111111" stroke-width="0.9"/>
-<text x="1311.1999999999998" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6130</text>
-<line x1="1286.4499999999998" y1="179" x2="1335.9499999999998" y2="179" stroke="#111111" stroke-width="0.9"/>
-<line x1="35" y1="184" x2="1365" y2="184" stroke="#555555" stroke-width="0.7"/>
-<text x="115.0" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">OTSurv</text>
-<text x="242.0" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U1</text>
-<text x="342.8" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6210</text>
-<text x="450.40000000000003" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="558.0" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7500</text>
-<text x="665.6000000000001" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="773.2" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6380</text>
-<line x1="748.45" y1="208" x2="797.95" y2="208" stroke="#111111" stroke-width="0.9"/>
-<text x="880.8000000000002" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="988.4000000000001" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="1096.0" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="1203.6" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6370</text>
-<text x="1311.1999999999998" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5650</text>
+<text x="139.0" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">MLP (1998*)</text>
+<text x="290.0" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g./-</text>
+<text x="383.72727272727275" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6440</text>
+<text x="477.18181818181813" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6610</text>
+<text x="570.6363636363636" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7500</text>
+<text x="664.0909090909091" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7310</text>
+<text x="757.5454545454546" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6340</text>
+<text x="851.0000000000001" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5840</text>
+<text x="944.4545454545456" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5840</text>
+<text x="1037.909090909091" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6520</text>
+<text x="1131.3636363636365" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6770</text>
+<text x="1224.818181818182" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6150</text>
+<text x="1318.2727272727275" y="147" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6530</text>
+<text x="139.0" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">SNN (2017)</text>
+<text x="290.0" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g./-</text>
+<text x="383.72727272727275" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6450</text>
+<text x="477.18181818181813" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6640</text>
+<text x="570.6363636363636" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7540</text>
+<text x="664.0909090909091" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7530</text>
+<text x="757.5454545454546" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6520</text>
+<text x="851.0000000000001" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5480</text>
+<text x="944.4545454545456" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5970</text>
+<text x="1037.909090909091" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6730</text>
+<text x="1131.3636363636365" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6940</text>
+<text x="1224.818181818182" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5850</text>
+<text x="1318.2727272727275" y="176" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6560</text>
+<text x="139.0" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">SNNTrans (2021*)</text>
+<text x="290.0" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g./-</text>
+<text x="383.72727272727275" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6570</text>
+<text x="477.18181818181813" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7100</text>
+<text x="570.6363636363636" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7470</text>
+<text x="664.0909090909091" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7240</text>
+<text x="757.5454545454546" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6480</text>
+<text x="851.0000000000001" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5550</text>
+<text x="944.4545454545456" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6050</text>
+<text x="1037.909090909091" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6840</text>
+<line x1="1013.159090909091" y1="208" x2="1062.659090909091" y2="208" stroke="#111111" stroke-width="0.9"/>
+<text x="1131.3636363636365" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6990</text>
+<text x="1224.818181818182" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5930</text>
+<text x="1318.2727272727275" y="205" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6620</text>
 <line x1="35" y1="213" x2="1365" y2="213" stroke="#555555" stroke-width="0.7"/>
-<text x="115.0" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">ABMIL</text>
-<text x="242.0" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U2</text>
-<text x="342.8" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6648</text>
-<text x="450.40000000000003" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6725</text>
-<text x="558.0" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="665.6000000000001" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7098</text>
-<text x="773.2" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="880.8000000000002" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="988.4000000000001" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6201</text>
-<text x="1096.0" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5708</text>
-<text x="1203.6" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6438</text>
-<text x="1311.1999999999998" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="115.0" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">TransMIL</text>
-<text x="242.0" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U2</text>
-<text x="342.8" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6802</text>
-<text x="450.40000000000003" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6651</text>
-<text x="558.0" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="665.6000000000001" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7471</text>
-<text x="773.2" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="880.8000000000002" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="988.4000000000001" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6315</text>
-<text x="1096.0" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5786</text>
-<text x="1203.6" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6173</text>
-<text x="1311.1999999999998" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="115.0" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">ILRA</text>
-<text x="242.0" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U2</text>
-<text x="342.8" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6645</text>
-<text x="450.40000000000003" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6147</text>
-<text x="558.0" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="665.6000000000001" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7442</text>
-<text x="773.2" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="880.8000000000002" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="988.4000000000001" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5262</text>
-<text x="1096.0" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5586</text>
-<text x="1203.6" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6608</text>
-<text x="1311.1999999999998" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="115.0" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">R2T-MIL</text>
-<text x="242.0" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U2</text>
-<text x="342.8" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6619</text>
-<text x="450.40000000000003" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6843</text>
-<text x="558.0" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="665.6000000000001" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7253</text>
-<text x="773.2" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="880.8000000000002" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="988.4000000000001" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6169</text>
-<text x="1096.0" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5376</text>
-<text x="1203.6" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6014</text>
-<text x="1311.1999999999998" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="115.0" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">Patch-GCN</text>
-<text x="242.0" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U2</text>
-<text x="342.8" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7017</text>
-<text x="450.40000000000003" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6675</text>
-<text x="558.0" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="665.6000000000001" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7369</text>
-<text x="773.2" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="880.8000000000002" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="988.4000000000001" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6019</text>
-<text x="1096.0" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5770</text>
-<text x="1203.6" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6164</text>
-<text x="1311.1999999999998" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="115.0" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">STEPH</text>
-<text x="242.0" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U2</text>
-<text x="342.8" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.7408</text>
-<text x="450.40000000000003" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7069</text>
-<line x1="425.65000000000003" y1="382" x2="475.15000000000003" y2="382" stroke="#111111" stroke-width="0.9"/>
-<text x="558.0" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="665.6000000000001" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7830</text>
-<line x1="640.8500000000001" y1="382" x2="690.3500000000001" y2="382" stroke="#111111" stroke-width="0.9"/>
-<text x="773.2" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="880.8000000000002" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<text x="988.4000000000001" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6569</text>
-<line x1="963.6500000000001" y1="382" x2="1013.1500000000001" y2="382" stroke="#111111" stroke-width="0.9"/>
-<text x="1096.0" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5948</text>
-<line x1="1071.25" y1="382" x2="1120.75" y2="382" stroke="#111111" stroke-width="0.9"/>
-<text x="1203.6" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6413</text>
-<text x="1311.1999999999998" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
-<rect x="35" y="387" width="1330" height="29" fill="#FFF7CF"/>
-<line x1="35" y1="387" x2="1365" y2="387" stroke="#111111" stroke-width="1.5"/>
-<text x="115.0" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#111111">DCT v3.13</text>
-<text x="242.0" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g.+h./U2</text>
-<text x="342.8" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#111111">0.6787</text>
-<text x="450.40000000000003" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.7364</text>
-<text x="558.0" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.8224</text>
-<text x="665.6000000000001" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.7928</text>
-<text x="773.2" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.6858</text>
-<text x="880.8000000000002" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#111111">0.6300</text>
-<text x="988.4000000000001" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.6582</text>
-<text x="1096.0" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.6654</text>
-<text x="1203.6" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.7238</text>
-<text x="1311.1999999999998" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.6361</text>
-<line x1="35" y1="416" x2="1365" y2="416" stroke="#111111" stroke-width="2"/>
-<text x="35" y="441" font-family="Times New Roman,serif" font-size="15" fill="#333333">DSS report values only. Inputs, patient splits and checkpoint selection differ; this is not a matched benchmark.</text>
-<text x="35" y="463" font-family="Times New Roman,serif" font-size="15" fill="#333333">U1 = UNI; U2 = UNI2-h; g. = genomics; h. = histology. MOTCat [TTA] is a reproduction in TTA Table 1.</text>
-<text x="35" y="485" font-family="Times New Roman,serif" font-size="15" fill="#333333">NR = no separate source cohort. CRC, KIPAN, LUNG and STES are not renamed to DCT cohorts.</text>
-<text x="35" y="507" font-family="Times New Roman,serif" font-size="15" fill="#333333">Red bold = highest available report value; underline = second. LUSC has no comparator and is not ranked.</text>
-<text x="35" y="529" font-family="Times New Roman,serif" font-size="15" fill="#333333">DCT: author five-fold best-validation summary. No Overall across different cohort sets. Full source means/SD: JSON.</text>
+<text x="139.0" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">ABMIL (2018)</text>
+<text x="290.0" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U1</text>
+<text x="383.72727272727275" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6560</text>
+<text x="477.18181818181813" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7150</text>
+<text x="570.6363636363636" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7820</text>
+<text x="664.0909090909091" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7790</text>
+<text x="757.5454545454546" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6450</text>
+<text x="851.0000000000001" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5930</text>
+<text x="944.4545454545456" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.6640</text>
+<text x="1037.909090909091" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6680</text>
+<text x="1131.3636363636365" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6630</text>
+<text x="1224.818181818182" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6420</text>
+<text x="1318.2727272727275" y="234" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6810</text>
+<text x="139.0" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">TransMIL (2021)</text>
+<text x="290.0" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U1</text>
+<text x="383.72727272727275" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6470</text>
+<text x="477.18181818181813" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7230</text>
+<text x="570.6363636363636" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7670</text>
+<text x="664.0909090909091" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7590</text>
+<text x="757.5454545454546" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6550</text>
+<text x="851.0000000000001" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5820</text>
+<text x="944.4545454545456" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6440</text>
+<text x="1037.909090909091" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6320</text>
+<text x="1131.3636363636365" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6470</text>
+<text x="1224.818181818182" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.6560</text>
+<text x="1318.2727272727275" y="263" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6710</text>
+<text x="139.0" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">CLAM-SB (2021)</text>
+<text x="290.0" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U1</text>
+<text x="383.72727272727275" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6960</text>
+<text x="477.18181818181813" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7420</text>
+<line x1="452.43181818181813" y1="295" x2="501.93181818181813" y2="295" stroke="#111111" stroke-width="0.9"/>
+<text x="570.6363636363636" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7840</text>
+<text x="664.0909090909091" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7570</text>
+<text x="757.5454545454546" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6390</text>
+<text x="851.0000000000001" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5840</text>
+<text x="944.4545454545456" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6490</text>
+<text x="1037.909090909091" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6430</text>
+<text x="1131.3636363636365" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6450</text>
+<text x="1224.818181818182" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6370</text>
+<text x="1318.2727272727275" y="292" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6780</text>
+<text x="139.0" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">CLAM-MB (2021)</text>
+<text x="290.0" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U1</text>
+<text x="383.72727272727275" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7150</text>
+<text x="477.18181818181813" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7210</text>
+<text x="570.6363636363636" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7820</text>
+<text x="664.0909090909091" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7880</text>
+<text x="757.5454545454546" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6320</text>
+<text x="851.0000000000001" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6080</text>
+<text x="944.4545454545456" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6360</text>
+<text x="1037.909090909091" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6400</text>
+<text x="1131.3636363636365" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6570</text>
+<text x="1224.818181818182" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6410</text>
+<text x="1318.2727272727275" y="321" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6820</text>
+<line x1="35" y1="329" x2="1365" y2="329" stroke="#555555" stroke-width="0.7"/>
+<text x="139.0" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">Porpoise (2022)</text>
+<text x="290.0" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g.+h./U1</text>
+<text x="383.72727272727275" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6510</text>
+<text x="477.18181818181813" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6990</text>
+<text x="570.6363636363636" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7880</text>
+<text x="664.0909090909091" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7880</text>
+<text x="757.5454545454546" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6470</text>
+<text x="851.0000000000001" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5970</text>
+<text x="944.4545454545456" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5990</text>
+<text x="1037.909090909091" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6820</text>
+<text x="1131.3636363636365" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6900</text>
+<text x="1224.818181818182" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6190</text>
+<text x="1318.2727272727275" y="350" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6760</text>
+<text x="139.0" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">MCAT (2021)</text>
+<text x="290.0" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g.+h./U1</text>
+<text x="383.72727272727275" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7090</text>
+<text x="477.18181818181813" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7370</text>
+<text x="570.6363636363636" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7950</text>
+<text x="664.0909090909091" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.8020</text>
+<text x="757.5454545454546" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6590</text>
+<text x="851.0000000000001" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5830</text>
+<text x="944.4545454545456" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6220</text>
+<text x="1037.909090909091" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6670</text>
+<text x="1131.3636363636365" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6880</text>
+<text x="1224.818181818182" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6390</text>
+<text x="1318.2727272727275" y="379" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6900</text>
+<text x="139.0" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">MOTCat (2023)</text>
+<text x="290.0" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g.+h./U1</text>
+<text x="383.72727272727275" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7170</text>
+<text x="477.18181818181813" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7420</text>
+<line x1="452.43181818181813" y1="411" x2="501.93181818181813" y2="411" stroke="#111111" stroke-width="0.9"/>
+<text x="570.6363636363636" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7990</text>
+<line x1="545.8863636363636" y1="411" x2="595.3863636363636" y2="411" stroke="#111111" stroke-width="0.9"/>
+<text x="664.0909090909091" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7730</text>
+<text x="757.5454545454546" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6630</text>
+<line x1="732.7954545454546" y1="411" x2="782.2954545454546" y2="411" stroke="#111111" stroke-width="0.9"/>
+<text x="851.0000000000001" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5730</text>
+<text x="944.4545454545456" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6270</text>
+<text x="1037.909090909091" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.6880</text>
+<text x="1131.3636363636365" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7000</text>
+<text x="1224.818181818182" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6420</text>
+<text x="1318.2727272727275" y="408" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6920</text>
+<line x1="1293.5227272727275" y1="411" x2="1343.0227272727275" y2="411" stroke="#111111" stroke-width="0.9"/>
+<text x="139.0" y="437" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">CMTA (2023)</text>
+<text x="290.0" y="437" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g.+h./U1</text>
+<text x="383.72727272727275" y="437" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7310</text>
+<line x1="358.97727272727275" y1="440" x2="408.47727272727275" y2="440" stroke="#111111" stroke-width="0.9"/>
+<text x="477.18181818181813" y="437" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7200</text>
+<text x="570.6363636363636" y="437" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7940</text>
+<text x="664.0909090909091" y="437" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7640</text>
+<text x="757.5454545454546" y="437" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6620</text>
+<text x="851.0000000000001" y="437" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5990</text>
+<text x="944.4545454545456" y="437" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6190</text>
+<text x="1037.909090909091" y="437" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6810</text>
+<text x="1131.3636363636365" y="437" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7020</text>
+<line x1="1106.6136363636365" y1="440" x2="1156.1136363636365" y2="440" stroke="#111111" stroke-width="0.9"/>
+<text x="1224.818181818182" y="437" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6390</text>
+<text x="1318.2727272727275" y="437" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6910</text>
+<text x="139.0" y="466" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">SurvPath (2024)</text>
+<text x="290.0" y="466" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g.+h./U1</text>
+<text x="383.72727272727275" y="466" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7280</text>
+<text x="477.18181818181813" y="466" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7270</text>
+<text x="570.6363636363636" y="466" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7870</text>
+<text x="664.0909090909091" y="466" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7510</text>
+<text x="757.5454545454546" y="466" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6610</text>
+<text x="851.0000000000001" y="466" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5770</text>
+<text x="944.4545454545456" y="466" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6110</text>
+<text x="1037.909090909091" y="466" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6660</text>
+<text x="1131.3636363636365" y="466" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6660</text>
+<text x="1224.818181818182" y="466" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6470</text>
+<text x="1318.2727272727275" y="466" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6820</text>
+<text x="139.0" y="495" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">PIBD (2024)</text>
+<text x="290.0" y="495" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g.+h./U1</text>
+<text x="383.72727272727275" y="495" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6620</text>
+<text x="477.18181818181813" y="495" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7160</text>
+<text x="570.6363636363636" y="495" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7720</text>
+<text x="664.0909090909091" y="495" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7830</text>
+<text x="757.5454545454546" y="495" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6340</text>
+<text x="851.0000000000001" y="495" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5750</text>
+<text x="944.4545454545456" y="495" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6270</text>
+<text x="1037.909090909091" y="495" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6490</text>
+<text x="1131.3636363636365" y="495" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6930</text>
+<text x="1224.818181818182" y="495" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6440</text>
+<text x="1318.2727272727275" y="495" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6760</text>
+<text x="139.0" y="524" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">MMP (2024)</text>
+<text x="290.0" y="524" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g.+h./U1</text>
+<text x="383.72727272727275" y="524" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7140</text>
+<text x="477.18181818181813" y="524" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6860</text>
+<text x="570.6363636363636" y="524" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7700</text>
+<text x="664.0909090909091" y="524" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7550</text>
+<text x="757.5454545454546" y="524" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6340</text>
+<text x="851.0000000000001" y="524" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5800</text>
+<text x="944.4545454545456" y="524" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5800</text>
+<text x="1037.909090909091" y="524" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6820</text>
+<text x="1131.3636363636365" y="524" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6860</text>
+<text x="1224.818181818182" y="524" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6020</text>
+<text x="1318.2727272727275" y="524" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6690</text>
+<text x="139.0" y="553" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">LD-CVAE (2025)</text>
+<text x="290.0" y="553" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g.+h./U1</text>
+<text x="383.72727272727275" y="553" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7050</text>
+<text x="477.18181818181813" y="553" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.7530</text>
+<text x="570.6363636363636" y="553" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7920</text>
+<text x="664.0909090909091" y="553" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7880</text>
+<text x="757.5454545454546" y="553" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6510</text>
+<text x="851.0000000000001" y="553" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6200</text>
+<line x1="826.2500000000001" y1="556" x2="875.7500000000001" y2="556" stroke="#111111" stroke-width="0.9"/>
+<text x="944.4545454545456" y="553" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6350</text>
+<text x="1037.909090909091" y="553" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6820</text>
+<text x="1131.3636363636365" y="553" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6350</text>
+<text x="1224.818181818182" y="553" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6530</text>
+<line x1="1200.068181818182" y1="556" x2="1249.568181818182" y2="556" stroke="#111111" stroke-width="0.9"/>
+<text x="1318.2727272727275" y="553" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6920</text>
+<line x1="1293.5227272727275" y1="556" x2="1343.0227272727275" y2="556" stroke="#111111" stroke-width="0.9"/>
+<line x1="35" y1="561" x2="1365" y2="561" stroke="#555555" stroke-width="0.7"/>
+<text x="139.0" y="582" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">ILRA (2023)</text>
+<text x="290.0" y="582" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U2</text>
+<text x="383.72727272727275" y="582" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6645</text>
+<text x="477.18181818181813" y="582" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6147</text>
+<text x="570.6363636363636" y="582" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="664.0909090909091" y="582" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7442</text>
+<text x="757.5454545454546" y="582" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="851.0000000000001" y="582" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="944.4545454545456" y="582" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5262</text>
+<text x="1037.909090909091" y="582" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5586</text>
+<text x="1131.3636363636365" y="582" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6608</text>
+<text x="1224.818181818182" y="582" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="1318.2727272727275" y="582" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="139.0" y="611" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">R2T-MIL (2024)</text>
+<text x="290.0" y="611" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U2</text>
+<text x="383.72727272727275" y="611" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6619</text>
+<text x="477.18181818181813" y="611" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6843</text>
+<text x="570.6363636363636" y="611" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="664.0909090909091" y="611" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7253</text>
+<text x="757.5454545454546" y="611" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="851.0000000000001" y="611" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="944.4545454545456" y="611" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6169</text>
+<text x="1037.909090909091" y="611" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5376</text>
+<text x="1131.3636363636365" y="611" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6014</text>
+<text x="1224.818181818182" y="611" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="1318.2727272727275" y="611" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="139.0" y="640" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">Patch-GCN (2021)</text>
+<text x="290.0" y="640" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U2</text>
+<text x="383.72727272727275" y="640" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7017</text>
+<text x="477.18181818181813" y="640" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6675</text>
+<text x="570.6363636363636" y="640" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="664.0909090909091" y="640" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7369</text>
+<text x="757.5454545454546" y="640" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="851.0000000000001" y="640" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="944.4545454545456" y="640" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6019</text>
+<text x="1037.909090909091" y="640" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5770</text>
+<text x="1131.3636363636365" y="640" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6164</text>
+<text x="1224.818181818182" y="640" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="1318.2727272727275" y="640" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="139.0" y="669" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">OTSurv (2025)</text>
+<text x="290.0" y="669" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U1</text>
+<text x="383.72727272727275" y="669" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6210</text>
+<text x="477.18181818181813" y="669" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="570.6363636363636" y="669" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7500</text>
+<text x="664.0909090909091" y="669" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="757.5454545454546" y="669" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6380</text>
+<text x="851.0000000000001" y="669" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="944.4545454545456" y="669" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="1037.909090909091" y="669" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="1131.3636363636365" y="669" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6370</text>
+<text x="1224.818181818182" y="669" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5650</text>
+<text x="1318.2727272727275" y="669" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="139.0" y="698" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">TTA (2025)</text>
+<text x="290.0" y="698" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g.+h./U1</text>
+<text x="383.72727272727275" y="698" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7260</text>
+<text x="477.18181818181813" y="698" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="570.6363636363636" y="698" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7780</text>
+<text x="664.0909090909091" y="698" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="757.5454545454546" y="698" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="851.0000000000001" y="698" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="944.4545454545456" y="698" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="1037.909090909091" y="698" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="1131.3636363636365" y="698" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6620</text>
+<text x="1224.818181818182" y="698" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6130</text>
+<text x="1318.2727272727275" y="698" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="139.0" y="727" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">STEPH (2026)</text>
+<text x="290.0" y="727" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">h./U2</text>
+<text x="383.72727272727275" y="727" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.7408</text>
+<text x="477.18181818181813" y="727" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7069</text>
+<text x="570.6363636363636" y="727" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="664.0909090909091" y="727" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.7830</text>
+<text x="757.5454545454546" y="727" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="851.0000000000001" y="727" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="944.4545454545456" y="727" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6569</text>
+<text x="1037.909090909091" y="727" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.5948</text>
+<text x="1131.3636363636365" y="727" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">0.6413</text>
+<text x="1224.818181818182" y="727" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<text x="1318.2727272727275" y="727" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">NR</text>
+<rect x="35" y="735" width="1330" height="29" fill="#FFF7CF"/>
+<line x1="35" y1="735" x2="1365" y2="735" stroke="#111111" stroke-width="1.5"/>
+<text x="139.0" y="756" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#111111">DCT v3.13 (2026**)</text>
+<text x="290.0" y="756" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="normal" fill="#111111">g.+h./U2</text>
+<text x="383.72727272727275" y="756" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#111111">0.6787</text>
+<text x="477.18181818181813" y="756" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#111111">0.7364</text>
+<text x="570.6363636363636" y="756" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.8224</text>
+<text x="664.0909090909091" y="756" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#111111">0.7928</text>
+<line x1="639.3409090909091" y1="759" x2="688.8409090909091" y2="759" stroke="#111111" stroke-width="0.9"/>
+<text x="757.5454545454546" y="756" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.6858</text>
+<text x="851.0000000000001" y="756" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.6300</text>
+<text x="944.4545454545456" y="756" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#111111">0.6582</text>
+<line x1="919.7045454545456" y1="759" x2="969.2045454545456" y2="759" stroke="#111111" stroke-width="0.9"/>
+<text x="1037.909090909091" y="756" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#111111">0.6654</text>
+<text x="1131.3636363636365" y="756" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.7238</text>
+<text x="1224.818181818182" y="756" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#111111">0.6361</text>
+<text x="1318.2727272727275" y="756" text-anchor="middle" font-family="Times New Roman,serif" font-size="18" font-weight="bold" fill="#D7191C">0.7030</text>
+<line x1="35" y1="764" x2="1365" y2="764" stroke="#111111" stroke-width="2"/>
+<text x="35" y="789" font-family="Times New Roman,serif" font-size="15" fill="#333333">Public DSS report values; inputs, splits and checkpoint selection differ. Ranks are descriptive, not matched results.</text>
+<text x="35" y="811" font-family="Times New Roman,serif" font-size="15" fill="#333333">15 baseline rows: SlotSPE Table 1; all SlotSPE model rows excluded. Extra rows: TTA, OTSurv, STEPH S2.</text>
+<text x="35" y="833" font-family="Times New Roman,serif" font-size="15" fill="#333333">U1 = UNI; U2 = UNI2-h; - = no histology input; g. = genomics; h. = histology. NR = no separate source cohort.</text>
+<text x="35" y="855" font-family="Times New Roman,serif" font-size="15" fill="#333333">Red bold = highest available value; underline = second. Overall only for rows reporting the same ten cohorts.</text>
+<text x="35" y="877" font-family="Times New Roman,serif" font-size="15" fill="#333333">Year: original publication; TTA: first preprint 2025 (scores from 2026 v2). *MLP: cited textbook; SNNTrans: component year.</text>
+<text x="35" y="899" font-family="Times New Roman,serif" font-size="15" fill="#333333">**DCT 2026 = current work year, not publication. DCT is a five-fold best-validation summary; source folds/SD in JSON.</text>
 </svg>

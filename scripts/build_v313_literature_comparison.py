@@ -1,7 +1,7 @@
 """Render source-reported OT/UNI2-h DSS results; never run a model.
 
 Incomplete literature coverage is expected and is not a matched benchmark.
-Only exact cohort names are aligned. No mixed-cohort Overall is calculated.
+Only exact cohort names are aligned. Overall is restricted to complete ten-cohort rows.
 """
 from __future__ import annotations
 import argparse
@@ -30,10 +30,16 @@ def summarize_literature(payload, *, base=ROOT):
     ids = [m['id'] for m in payload['models']]
     if len(set(ids)) != len(ids) or ids.count('dct_v313') != 1:
         raise ValueError('Require unique IDs and one DCT row')
+    if any('slotspe' in (m['id']+' '+m['model']).lower() for m in payload['models']):
+        raise ValueError('SlotSPE comparison rows are excluded by author request')
+    columns = (*CANCERS, 'Overall')
     rows = []
     for model in payload['models']:
         if model['endpoint'] != 'DSS' or model.get('transcription_verified') is not True:
             raise ValueError(f"Unverified or different endpoint: {model['model']}")
+        year = model.get('year')
+        if isinstance(year, bool) or not isinstance(year, int) or not 1900 <= year <= int(payload['access_date'][:4]) or not model.get('year_verified') or not model.get('year_source'):
+            raise ValueError('Every row requires a verified year and source')
         source = sources[model['source_id']]
         digest = source.get('sha256', '')
         if not isinstance(digest, str) or len(digest) != 64:
@@ -64,13 +70,21 @@ def summarize_literature(payload, *, base=ROOT):
             if cell:
                 cell.update(text=str(quantize(cell['mean'],digits)),rank=None)
             cells[cancer] = cell
-        suffix = 'U2' if model['encoder'] == 'UNI2-h' else 'U1'
-        rows.append({'id':model['id'],'model':model['model'],'group':model['group'],
+        full_ten = len(model['original_cohorts']) == 10 and set(model['original_cohorts']) == set(CANCERS) and all(cells[c] is not None for c in CANCERS)
+        overall = model.get('reported_overall')
+        if overall is not None and (not full_ten or isinstance(overall, bool) or not isinstance(overall, (int,float)) or not math.isfinite(overall) or not 0 <= overall <= 1):
+            raise ValueError('Overall requires exactly the same ten cohorts and a valid source value')
+        if model['id'] == 'dct_v313' and full_ten:
+            overall = float(sum(Decimal(str(v)) for c in CANCERS for v in folds[c])/50)
+        cells['Overall'] = {'mean':overall,'text':str(quantize(overall,digits)),'rank':None} if overall is not None else None
+        suffix = 'U2' if model['encoder'] == 'UNI2-h' else 'U1' if model['encoder'] == 'UNI' else '-'
+        marker = '*' if model['year_kind'] == 'reference_year' else '**' if model['year_kind'] == 'current_work_year' else ''
+        rows.append({'id':model['id'],'model':f"{model['model']} ({year}{marker})",'base_model':model['model'],'year':year,'year_kind':model['year_kind'],'year_source':model['year_source'],'group':model['group'],
                      'modality':model['modality']+'/'+suffix,'encoder':model['encoder'],
                      'endpoint':model['endpoint'],'source_id':model['source_id'],
                      'source_locator':model['source_locator'],'cells':cells})
     ranked, counts = [], {}
-    for cancer in CANCERS:
+    for cancer in columns:
         available = [row for row in rows if row['cells'][cancer] is not None]
         counts[cancer] = sum(row['id'] != 'dct_v313' for row in available)
         if len(available) < 2:
@@ -79,20 +93,22 @@ def summarize_literature(payload, *, base=ROOT):
             row['cells'][cancer]['rank'] = rank
         ranked.append(cancer)
     ours = next(r for r in rows if r['id']=='dct_v313')
-    return {'comparison_type':'literature_reference','title':'DCT v3.13 OT and UNI2-h Literature Reference',
-            'missing_label':'NR','input_header':'Input / FM','columns':list(CANCERS),'digits':digits,'rows':rows,
+    return {'comparison_type':'literature_reference','title':'DCT v3.13 Ten Cancer Literature Comparison',
+            'compact':True,'model_column_width':208,'model_column_cm':4.1,'model_header':'Model (year)','header_font_sizes':{'COADREAD':8.5},'missing_label':'NR','input_header':'Input / FM','columns':list(columns),'digits':digits,'rows':rows,
             'sources':sources,'matching_status':'not_matched','complete':False,
-            'published_transcription_complete':True,'ten_cancer_baseline_coverage_complete':all(counts.values()),
+            'published_transcription_complete':True,'ten_cancer_baseline_coverage_complete':all(counts[c] for c in CANCERS),
             'baseline_counts':counts,'ranked_columns':ranked,
             'ranking_scope':'available DSS report values only; cross-protocol, descriptive ranks',
             'dct_first':[c for c in ranked if ours['cells'][c]['rank']==1],
             'dct_second':[c for c in ranked if ours['cells'][c]['rank']==2],
             'notes':[
-              'DSS report values only. Inputs, patient splits and checkpoint selection differ; this is not a matched benchmark.',
-              'U1 = UNI; U2 = UNI2-h; g. = genomics; h. = histology. MOTCat [TTA] is a reproduction in TTA Table 1.',
-              'NR = no separate source cohort. CRC, KIPAN, LUNG and STES are not renamed to DCT cohorts.',
-              'Red bold = highest available report value; underline = second. LUSC has no comparator and is not ranked.',
-              'DCT: author five-fold best-validation summary. No Overall across different cohort sets. Full source means/SD: JSON.']}
+              'Public DSS report values; inputs, splits and checkpoint selection differ. Ranks are descriptive, not matched results.',
+              '15 baseline rows: SlotSPE Table 1; all SlotSPE model rows excluded. Extra rows: TTA, OTSurv, STEPH S2.',
+              'U1 = UNI; U2 = UNI2-h; - = no histology input; g. = genomics; h. = histology. NR = no separate source cohort.',
+              'Red bold = highest available value; underline = second. Overall only for rows reporting the same ten cohorts.',
+              'Year: original publication; TTA: first preprint 2025 (scores from 2026 v2). *MLP: cited textbook; SNNTrans: component year.',
+              '**DCT 2026 = current work year, not publication. DCT is a five-fold best-validation summary; source folds/SD in JSON.']}
+
 
 
 def main():

@@ -159,7 +159,7 @@
     "S1 slot diagnostics and S2 measured efficiency",
     "additional server result download and source audit",
     "Figure 5: complete eight missing cancer KM cohorts from server records; C-index means cannot substitute for patient predictions.",
-    "OT and UNI2-h matched baseline records; LUSC literature coverage absent; MCSP-OTMR full-text audit"
+    "OT and UNI2-h matched baseline records; MCSP-OTMR full-text audit"
   ],
   "ready_figures": {
     "4": {
@@ -565,25 +565,30 @@
     "ten_cohort_actual_render": "pending server data and execution"
   },
   "external_comparison_table": {
-    "status": "source_values_aggregated_reference",
+    "status": "expanded_source_values_with_years",
     "comparison_type": "literature_reference",
     "input": "paper/V313_OT_UNI2H_COMPARISON_INPUT.json",
     "preview": "paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.png",
-    "models": 10,
-    "published_aligned_cells": 49,
+    "models": 22,
+    "baseline_models": 21,
+    "published_aligned_cells": 183,
+    "source_ten_cohort_baselines": 15,
+    "source_ten_cohort_overall_values": 15,
     "matching_status": "not_matched",
     "complete": false,
+    "ten_cancer_baseline_coverage_complete": true,
     "baseline_counts": {
-      "BRCA": 9,
-      "COADREAD": 6,
-      "KIRC": 3,
-      "UCEC": 6,
-      "LUAD": 1,
-      "LUSC": 0,
-      "HNSC": 6,
-      "SKCM": 6,
-      "BLCA": 9,
-      "STAD": 3
+      "BRCA": 21,
+      "COADREAD": 19,
+      "KIRC": 17,
+      "UCEC": 19,
+      "LUAD": 16,
+      "LUSC": 15,
+      "HNSC": 19,
+      "SKCM": 19,
+      "BLCA": 21,
+      "STAD": 17,
+      "Overall": 15
     },
     "ranked_columns": [
       "BRCA",
@@ -591,54 +596,64 @@
       "KIRC",
       "UCEC",
       "LUAD",
+      "LUSC",
       "HNSC",
       "SKCM",
       "BLCA",
-      "STAD"
+      "STAD",
+      "Overall"
     ],
     "dct_first_report_values_only": [
-      "COADREAD",
       "KIRC",
-      "UCEC",
       "LUAD",
-      "HNSC",
-      "SKCM",
+      "LUSC",
       "BLCA",
-      "STAD"
+      "Overall"
     ],
-    "dct_second_report_values_only": [],
+    "dct_second_report_values_only": [
+      "UCEC",
+      "HNSC"
+    ],
     "server_prompt": "paper/V313_TEN_CANCER_COMPARISON_SERVER_PROMPT.txt",
     "no_new_model_runs": true,
-    "source_input_sha256": "dbad67ca7d17cbf0eff443ec2dec2e55eefe2c03c230c2082de2d5eba4e40f57",
+    "year_on_every_row": true,
+    "slotspe_comparison_rows": 0,
+    "source_input_sha256": "cf5730f5ac55389350e4a0a0327690174f02800374422909e6be9ec7b787fae0",
     "validation": {
-      "tests_passed": 14,
-      "score_cell_styles_checked": 100,
-      "dct_real_fold_values_unchanged": 50,
-      "published_aligned_cells": 49,
-      "word_pages": 1,
-      "word_all_pages_inspected": true,
-      "vector_png_inspected": true,
-      "new_model_runs": 0,
-      "artifact_hashes": {
-        "pdf": "a05d2a5ee27b633cf601e051a6a2d1b92e6fc97d0b86108de42f3c7623ab272d",
-        "svg": "a6709f44bc965cfe2c32ad729e163018a86eb7f24d80973304c14817f86ebdbe",
-        "png": "f84f516e2839369304f83cac3838ebb1d1b14012f89790b96eb3ffd17c521eb0",
-        "docx": "667b885e875c11c091b06682502645540be260583b3a128866982b8b48709e14",
-        "html": "d95207cc65bea693bd2c0d8885523dee908b00aab4466e8bf8409665c24888b2"
+      "focused_tests_passed": 18,
+      "original_baseline_means_preserved": 150,
+      "original_baseline_dispersions_preserved": 150,
+      "original_baseline_overall_preserved": 15,
+      "dct_real_folds_unchanged": 50,
+      "score_cell_styles_verified": 242,
+      "method_years_verified": 22,
+      "standalone_word_pages": 1,
+      "standalone_word_page_visually_inspected": true,
+      "vector_preview_visually_inspected": true,
+      "input_and_output_sha256_verified": true,
+      "source_input_sha256": "cf5730f5ac55389350e4a0a0327690174f02800374422909e6be9ec7b787fae0",
+      "output_sha256": {
+        "pdf": "6d7323441d6ef9c1e722537327fc0cee768e31652a44c8d4eb2336887682c3c0",
+        "svg": "2d8834e4f006c97f9b3c6c1e8a147db1afa2f06902e9ad0338f17ae747f39a7e",
+        "png": "cae82a88bb55a630d7847e39790a9159cf2da0a772b1bdea531a2dacef985a7f",
+        "docx": "51399b6cfe45a19eeb6a145055eb25e8ab78b1e6e7ca0738bc8287d61e46641d",
+        "html": "ca71846e11b4f16312102cbf209a2a49c5eebf4cd6a161ed2a1663e1afc98c4d"
       }
     }
   },
   "word_visual_qa": {
     "status": "passed",
     "pages": 23,
-    "all_pages_inspected": true,
-    "method": "Word COM PDF export; every page inspected via two-page original-detail PNG sheets",
-    "tables": 8,
-    "figures": 13,
-    "native_equations": 15,
-    "docx_sha256": "21ee3bcddc020e604ea77519c8080f525c101cda206f3e7b4429f3b5c6222441",
-    "qa_pdf_sha256": "0d8fb242e450125fecd497c6c7dbb79ae7c85ef6125d5a021b004e5a40badb56",
-    "scope": "OT and UNI2-h reference replaces active SlotSPE comparison; no model runs"
+    "all_pages_visually_inspected": true,
+    "method": "Word COM PDF export and pypdfium2 rendered page inspection",
+    "native_tables": 8,
+    "embedded_image_panels": 13,
+    "native_math_nodes": 15,
+    "manuscript_docx_sha256": "46b250280d331f5e013b65e0b86e3ff2baff476ffcaa3397cd7f502706334df8",
+    "qa_pdf_sha256": "0364eba26d061e8d39afaa904a281a45dd2d1fd99dd3b8a6b7865958edc34c35",
+    "comparison_image_sha256": "cae82a88bb55a630d7847e39790a9159cf2da0a772b1bdea531a2dacef985a7f",
+    "comparison_source": "22 rows; all ten cancers; year on every row",
+    "model_training_or_inference_run": false
   },
   "comparison_history": [
     {
@@ -740,6 +755,74 @@
             "pdf_sha256": "877abe1ada331d5347d9c1a89329684bd95e8e7e6e065834d44dd8d5fca2ddd5",
             "new_model_runs": 0,
             "staged_text_format": "LF; hashes checked against Git blobs"
+          }
+        }
+      }
+    },
+    {
+      "active": false,
+      "reason": "author requested more methods from SlotSPE table excluding its own rows, plus method years",
+      "record": {
+        "status": "source_values_aggregated_reference",
+        "comparison_type": "literature_reference",
+        "input": "paper/V313_OT_UNI2H_COMPARISON_INPUT.json",
+        "preview": "paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.png",
+        "models": 10,
+        "published_aligned_cells": 49,
+        "matching_status": "not_matched",
+        "complete": false,
+        "baseline_counts": {
+          "BRCA": 9,
+          "COADREAD": 6,
+          "KIRC": 3,
+          "UCEC": 6,
+          "LUAD": 1,
+          "LUSC": 0,
+          "HNSC": 6,
+          "SKCM": 6,
+          "BLCA": 9,
+          "STAD": 3
+        },
+        "ranked_columns": [
+          "BRCA",
+          "COADREAD",
+          "KIRC",
+          "UCEC",
+          "LUAD",
+          "HNSC",
+          "SKCM",
+          "BLCA",
+          "STAD"
+        ],
+        "dct_first_report_values_only": [
+          "COADREAD",
+          "KIRC",
+          "UCEC",
+          "LUAD",
+          "HNSC",
+          "SKCM",
+          "BLCA",
+          "STAD"
+        ],
+        "dct_second_report_values_only": [],
+        "server_prompt": "paper/V313_TEN_CANCER_COMPARISON_SERVER_PROMPT.txt",
+        "no_new_model_runs": true,
+        "source_input_sha256": "dbad67ca7d17cbf0eff443ec2dec2e55eefe2c03c230c2082de2d5eba4e40f57",
+        "validation": {
+          "tests_passed": 14,
+          "score_cell_styles_checked": 100,
+          "dct_real_fold_values_unchanged": 50,
+          "published_aligned_cells": 49,
+          "word_pages": 1,
+          "word_all_pages_inspected": true,
+          "vector_png_inspected": true,
+          "new_model_runs": 0,
+          "artifact_hashes": {
+            "pdf": "a05d2a5ee27b633cf601e051a6a2d1b92e6fc97d0b86108de42f3c7623ab272d",
+            "svg": "a6709f44bc965cfe2c32ad729e163018a86eb7f24d80973304c14817f86ebdbe",
+            "png": "f84f516e2839369304f83cac3838ebb1d1b14012f89790b96eb3ffd17c521eb0",
+            "docx": "667b885e875c11c091b06682502645540be260583b3a128866982b8b48709e14",
+            "html": "d95207cc65bea693bd2c0d8885523dee908b00aab4466e8bf8409665c24888b2"
           }
         }
       }

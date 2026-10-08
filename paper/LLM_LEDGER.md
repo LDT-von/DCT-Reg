@@ -325,3 +325,34 @@ provenance/ranking tests pass. All 100 score-cell styles were checked against
 computed ranks; all output hashes and the source input hash match. Standalone
 Word has one page, visually inspected. All 23 manuscript pages were inspected,
 retaining 8 native tables, 13 image panels and 15 native math nodes.
+
+
+## 2026-10-08 Expanded comparison table and verified years
+
+Author requested reuse of the other-method results from the original SlotSPE
+table, with every method dated and all SlotSPE model rows excluded. Restored
+all 15 non-SlotSPE baseline rows, preserving 150 cohort means, 150 dispersions
+and 15 published ten-cohort Overall values exactly. Retained six unique extra
+methods from the OT/UNI2-h sources: ILRA, R2T-MIL, Patch-GCN, OTSurv, TTA and
+STEPH. MOTCat, ABMIL and TransMIL consistently use the complete ten-cohort
+source, avoiding duplicate methods and cellwise selection from different reports.
+The active table has 21 baselines plus DCT, 183 aligned published cohort means,
+and unchanged 50 real DCT fold values. Every cancer now has comparators. Overall
+is populated only for the same complete ten cohorts; subset-source means stay NR.
+
+Every row has a verified year/source. MLP 1998 is the cited textbook year and
+SNNTrans 2021 is a component-reference year, both explicitly marked. TTA 2025
+is its first preprint year, while the values are from its 2026 v2. DCT 2026 is
+the current work year, not a publication claim. Primary year references and
+source hashes are recorded in the input and literature guide. The R2T-MIL name
+is retained from STEPH S2 and its original RRT-MIL paper title is explained.
+
+All 18 focused data/provenance/ranking tests passed. All 242 score-cell texts,
+red first-place styles and second-place underlines match computed ranks.
+Input/output hashes were checked; the manuscript embeds the current comparison
+image. The native editable comparison Word fits one landscape page and was
+visually checked after fixing the COADREAD header wrap. The vector preview and
+all 23 manuscript pages were visually reviewed; the manuscript retains 8 native
+tables, 13 embedded panels and 15 native math nodes. No model training, inference
+or feature processing was run. Cross-paper ranks remain descriptive public-value
+references with explicit input/split/checkpoint differences, not matched results.

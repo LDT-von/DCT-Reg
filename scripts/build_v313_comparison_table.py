@@ -203,11 +203,12 @@ def render_vector(report, stem):
     from reportlab.lib.colors import HexColor
     from reportlab.pdfbase.pdfmetrics import stringWidth
     width, left, right, top, row_height = 1400, 35, 1365, 126, 29
-    col_widths = [160, 94] + [(right-left-254)/len(columns)] * len(columns)
+    model_width = report.get("model_column_width", 160)
+    col_widths = [model_width, 94] + [(right-left-model_width-94)/len(columns)] * len(columns)
     edges = [left]
     for value in col_widths:
         edges.append(edges[-1] + value)
-    height = top + row_height * len(report["rows"]) + 128
+    height = top + row_height * len(report["rows"]) + max(128, 30 + 22*len(notes(report)))
     cv = canvas.Canvas(str(stem.with_suffix(".pdf")), pagesize=(width*.6, height*.6))
     cv.scale(.6, .6)
     svg = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
@@ -228,7 +229,7 @@ def render_vector(report, stem):
     text(width/2, 62, "Best", 17, RED, True)
     text(width/2+62, 62, "Second", 17, underline=True)
     line(left, 82, right, 82, 2.2); line(left, 86, right, 86, .8)
-    for j, header in enumerate(("Model", report.get("input_header", "Modality"), *columns)):
+    for j, header in enumerate((report.get("model_header", "Model"), report.get("input_header", "Modality"), *columns)):
         text((edges[j]+edges[j+1])/2, 111, header, 17.2, bold=True)
     line(left, top, right, top, 1.6)
     previous_group = None
@@ -298,9 +299,10 @@ def render_docx(report, stem):
     p.add_run("     ");p.add_run("Second").underline=True
     table=doc.add_table(rows=0,cols=2+len(columns));table.autofit=False
     table.alignment=WD_TABLE_ALIGNMENT.CENTER
-    widths=[3.5,2.0]+[(27.3-5.5)/len(columns)]*len(columns)
+    model_cm=report.get("model_column_cm",3.5)
+    widths=[model_cm,2.0]+[(27.3-model_cm-2.0)/len(columns)]*len(columns)
     for col,w in zip(table.columns,widths):col.width=Cm(w)
-    data=[["Model",report.get("input_header", "Modality"),*columns]]+[
+    data=[[report.get("model_header", "Model"),report.get("input_header", "Modality"),*columns]]+[
         [row["model"],row["modality"],*[cell_text(row["cells"][c], report.get("missing_label", "--")) for c in columns]]
         for row in report["rows"]]
     last_group=None
@@ -324,14 +326,15 @@ def render_docx(report, stem):
             tcpr.append(borders)
             margins=OxmlElement("w:tcMar")
             for side in ("top","bottom","left","right"):
-                item=OxmlElement("w:"+side);item.set(qn("w:w"),"45");item.set(qn("w:type"),"dxa");margins.append(item)
+                item=OxmlElement("w:"+side);item.set(qn("w:w"),"30" if report.get("compact") else "45");item.set(qn("w:type"),"dxa");margins.append(item)
             tcpr.append(margins)
             if ours:
                 sh=OxmlElement("w:shd");sh.set(qn("w:fill"),YELLOW[1:]);tcpr.append(sh)
             p=cell.paragraphs[0];p.alignment=WD_ALIGN_PARAGRAPH.CENTER
-            pf=p.paragraph_format;pf.space_before=pf.space_after=Pt(2)
+            pf=p.paragraph_format;pf.space_before=pf.space_after=Pt(1 if report.get("compact") else 2)
             pf.line_spacing=1.0;pf.keep_with_next=i!=len(data)-1
-            r=p.add_run(value);r.font.name="Times New Roman";r.font.size=Pt(9.2)
+            r=p.add_run(value);r.font.name="Times New Roman"
+            r.font.size=Pt(report.get("header_font_sizes",{}).get(value,9.2) if i==0 else 9.2)
             rank=info["cells"][columns[j-2]]["rank"] if info and j>=2 and info["cells"][columns[j-2]] else None
             r.bold=i==0 or ours or rank==1;r.underline=rank==2
             r.font.color.rgb=RGBColor.from_string(RED[1:] if rank==1 else "111111")
@@ -352,7 +355,7 @@ def render_html(report, stem):
             cls="best" if rank==1 else "second" if rank==2 else ""
             cells.append(f'<td class="{cls}">{cell_text(cell, report.get("missing_label", "--"))}</td>')
         rows.append(f'<tr class="{"ours" if row["id"]=="dct_v313" else ""}">{"".join(cells)}</tr>')
-    headers="".join(f"<th>{c}</th>" for c in ("Model",report.get("input_header", "Modality"),*columns))
+    headers="".join(f"<th>{c}</th>" for c in (report.get("model_header", "Model"),report.get("input_header", "Modality"),*columns))
     foot="".join(f"<p>{html.escape(n)}</p>" for n in notes(report))
     content=f'''<!doctype html><html><meta charset="utf-8"><title>DCT v3.13 comparison</title>
 <style>body{{font-family:"Times New Roman",serif;padding:24px}}h1{{font-size:24px}}table{{border-collapse:collapse;width:100%;min-width:1240px;border-top:3px double;border-bottom:2px solid}}th,td{{text-align:center;padding:7px 9px;font-size:16px}}thead{{border-bottom:1.5px solid}}.best{{color:{RED};font-weight:bold}}.second{{text-decoration:underline}}.ours{{background:{YELLOW};font-weight:bold;border-top:1.5px solid}}p{{font-size:13px}}@media print{{@page{{size:landscape;margin:12mm}}body{{padding:0}}table{{min-width:0}}}}</style>

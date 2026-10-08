@@ -1,4 +1,4 @@
-作者已将比较方向改为 OT 生存预测方法或使用 UNI2-h 的生存预测方法，不要求 SlotSPE 比较。公开分数已经由本机直接从论文汇总，不需要服务器再汇总公开值。当前正文表2在 paper/tables/v313_ot_uni2h_comparison/，数值及来源在 paper/V313_OT_UNI2H_COMPARISON_INPUT.json；文献导读在 paper/V313_OT_UNI2H_LITERATURE_REVIEW_20261008.md。
+作者进一步要求：沿用 SlotSPE 表 1 中其他 15 个方法的数据，排除 SlotSPE 自身三行，并保留新增 OT/UNI2-h 方法。当前有 21 个参照方法加 DCT，所有行有年份，公开均值 183 个。公开分数已经由本机直接从论文汇总，不需要服务器再汇总公开值。当前正文表2在 paper/tables/v313_ot_uni2h_comparison/，数值及来源在 paper/V313_OT_UNI2H_COMPARISON_INPUT.json；文献导读在 paper/V313_OT_UNI2H_LITERATURE_REVIEW_20261008.md。
 
 请在服务器安全同步 origin/main，保留未提交改动，先检查已有结果，不因本提示词自动启动训练、特征提取或推理。
 
@@ -14,4 +14,4 @@
 python scripts/build_v313_comparison_table.py --input paper/V313_OT_UNI2H_MATCHED_INPUT.json --check-only
 只有协议和全部来源记录核验通过，再输出至新的 v313_ot_uni2h_matched 目录。不要覆盖公开参考表。未完成的同条件实验列入清单，未经作者明确授权不启动。
 
-六、按实际完成情况更新进度并提交。正文公开表的红色/下划线仅为可用报告值排名，不能当作同条件SOTA结论；不要混排不同队列集合的 Overall。
+六、按实际完成情况更新进度并提交。正文公开表的红色/下划线仅为可用报告值排名，不能当作同条件SOTA结论；Overall 仅给同样完整十队列行排名；额外方法不同队列集合的总体值不能混入。MLP/SNNTrans 引用年份与 DCT 当前工作年份的表注必须保留。
