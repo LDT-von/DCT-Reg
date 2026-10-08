@@ -1,0 +1,5 @@
+# Preserve manuscript plot bytes and vector-PDF offsets across checkouts.
+paper/figures/v313_manuscript_integrated/*.pdf binary
+paper/figures/v313_manuscript_integrated/*.png binary
+paper/figures/v313_manuscript_integrated/*.json text eol=lf
+paper/figures/v313_manuscript_integrated/*.svg text eol=lf

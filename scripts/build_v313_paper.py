@@ -272,7 +272,7 @@ def add_figure_placeholder(doc, number):
 
 
 def build():
-    # Author-requested pending figures: do not generate or overwrite any figure.
+    # Embed saved figure assets only; never run a model or regenerate plots here.
     QA.mkdir(parents=True,exist_ok=True)
     doc=Document();sec=doc.sections[0]
     sec.page_width=Cm(21);sec.page_height=Cm(29.7)
@@ -311,7 +311,13 @@ def build():
             alt,path=re.match(r'!\[(.*?)\]\((.*?)\)',s).groups()
             p=doc.add_paragraph();p.alignment=WD_ALIGN_PARAGRAPH.CENTER;pf=p.paragraph_format
             pf.first_line_indent=Cm(0);pf.keep_with_next=True
-            shape=p.add_run().add_picture(str(SOURCE.parent/path),width=Cm(16.5))
+            image_path=SOURCE.parent/path
+            from PIL import Image
+            with Image.open(image_path) as image:
+                pixel_width,pixel_height=image.size
+            # Keep a tall panel and its caption on one page without stretching.
+            width=min(16.5,21.2*pixel_width/pixel_height)
+            shape=p.add_run().add_picture(str(image_path),width=Cm(width))
             shape._inline.docPr.set('descr',alt);i+=1;continue
         if s.startswith('#'):
             level=len(s)-len(s.lstrip('#'));p=doc.add_paragraph(style={1:'Title',2:'Heading 1',3:'Heading 2'}[level])
@@ -332,7 +338,7 @@ def build():
             else:add_inline(p,s)
         i+=1
     doc.core_properties.title='DCT 面向多模态生存预测的阶段条件最优运输与运输感知通路重建'
-    doc.core_properties.subject='v3.13 UNI2-h 论文修订稿 图像待插入'
+    doc.core_properties.subject='v3.13 UNI2-h 论文修订稿 已接入实验图 病例组织图待补'
     doc.core_properties.author=''
     doc.save(OUTPUT)
     pending=[int(x) for x in re.findall(r'\[\[FIGURE:(\d+)\]\]',source)]
@@ -340,16 +346,20 @@ def build():
     assert sorted(pending)==status['figure_placeholders']
     ready=status.get('ready_figures', {})
     assert sorted(pending + [int(k) for k in ready])==list(range(1,8))
-    assert len(doc.tables)==9 and len(doc.inline_shapes)==len(ready)
+    embedded_images=re.findall(r'^!\[.*?\]\((.*?)\)$',source,re.MULTILINE)
+    assert len(doc.tables)==9 and len(doc.inline_shapes)==len(embedded_images)
+    for entry in list(ready.values())+list(status.get('supplementary_figures',{}).values()):
+        for image in entry.get('images',[entry.get('image')]):
+            assert image and str(Path(image).relative_to('paper')).replace('\\','/') in embedded_images
     equations=len(list(doc._element.iter(qn('m:oMath'))))
     assert equations==15  # 14 display equations plus one inline stability constant.
     status=json.loads((SOURCE.parent/'V313_MANUSCRIPT_STATUS.json').read_text(encoding='utf-8'))
     report={'docx':str(OUTPUT),'tables':len(doc.tables),'figures':len(doc.inline_shapes),'equations':equations,
-            'pending_figures':pending,
+            'pending_figures':pending,'partial_figures':status.get('partial_figures',{}),'embedded_images':embedded_images,
             'BLCA':{'mean':BLCA.mean(axis=1).tolist(),'sample_std':BLCA.std(axis=1,ddof=1).tolist()},
             'KIRC':{'mean':KIRC.mean(axis=1).tolist(),'sample_std':KIRC.std(axis=1,ddof=1).tolist()},
             'controls':status['controls'],
-            'source_scope':f'70 recorded loss folds; 50 author-supplied Full folds; 20 audited rerun control folds; 10 saved same-model sweep JSONs; {len(pending)} figures pending'}
+            'source_scope':f'70 recorded loss folds; 50 author-supplied Full folds; 20 audited rerun control folds; 10 saved same-model sweep JSONs; {len(pending)} main-figure placeholders; partial tissue panels tracked separately'}
     (QA/'build_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps(report,ensure_ascii=False,indent=2))
 

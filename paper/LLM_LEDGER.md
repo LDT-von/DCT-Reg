@@ -179,3 +179,35 @@ does not describe this later source. No new control audit or model run was
 performed during manuscript editing. The ten-cancer table remains explicitly
 author-supplied and lacks complete raw provenance in this checkout; the
 partial main JSON does not validate it as a complete ten-cancer result.
+
+
+## 2026-10-08 Existing figure integration
+
+Inserted Figures 2, 3, 5, 6 and 7 into the v3.13 manuscript and added raw
+cohort means as Supplementary Figure S3. Figure 6 contains only the verified
+BLCA pathway-slot and transport panels; WSI, Top-5 tissue patches and the
+KIRC case remain incomplete.
+
+Cohort groups are within-fold validation-risk midrank quartiles, not
+training-risk thresholds. KM groups retain per-fold training-risk medians.
+Counts come from actual JSON/CSV, correcting inconsistent historical report
+prose. The difference heatmaps subtract the unweighted four-group mean in
+absolute attention units; no row z-score or significance claim is added.
+
+The Full/control plot uses exact factual sweep scores and audited control
+scores. Difference rounding is applied after subtraction, correcting the
+previous rounded-means arithmetic. Original scores, exports and images are
+unchanged. Plot sources, immutable numeric snapshots and output hashes are
+recorded in figures/v313_manuscript_integrated/manifest.json.
+
+Remote progress report 6ae840a records completed server Full experiments,
+but their actual results were not present in this checkout and were not
+used as manuscript evidence. This document operation starts no model job.
+
+Validation completed: Word rebuilt with 12 embedded image panels, 9 tables and
+15 native equation objects. LibreOffice was unavailable; Microsoft Word COM
+exported the QA PDF. All 23 pages were rasterized and inspected, including a
+second review of the two pages changed by the final wording correction. No
+image clipping, overlaps or orphaned captions were found. All 14 source hashes,
+19 generated asset hashes and 70 Appendix A fold values passed checks. Figure 6
+remains explicitly partial; no training or inference was executed.
