@@ -1,0 +1,60 @@
+请解决 DCT v3.13 的 E010「固定 Full 模型运输计划替换」证据缺口。仓库 /data1/DCT-Reg，结果根目录 /data1/DCT-Reg/results。
+
+目标是查清不同 alpha 的分数为何相同，定位是否存在替换、导出、信号传递或统计指标问题。不要预设“结构性缺陷”，不要为了让 C-index 改变而修改模型。保留原模型、全部成绩、失败/撤回记录与原始文件。
+
+执行范围：先完成已有结果的只读盘点、离线核验和必要的诊断代码准备；不启动训练。若需要重新运行模型才能补充张量，把可运行的推理命令和资源需求交给我，由我执行。不要自动 push 或改写论文主档。
+
+一、先核对材料
+1. 读取本仓库 AGENTS.md，记录当前提交与已有工作区改动，保留这些改动。
+2. 在 results 的相关 v313/E010/解释性导出目录中进行有界盘点，找出真实的 export.json、patients.npz、原始 sweep JSON、曲线、最佳预测、checkpoint 和划分文件。无法直接扫描或缺失就明确列出，不能声称全量收齐。
+3. 仅使用 BLCA/KIRC Exp6 Full、seed=3、legacy_val、v3.13 transport reconstruction、Pathways。确认训练来源、配置及 overrides、checkpoint、best epoch、患者和结局一致。不要用当前 HEAD 猜训练 source_commit。
+4. 旧的十份 sweep JSON 只有风险分布统计，无法直接计算逐患者风险差或证明中间层变化；不要把均值风险差称为逐患者最大风险差。
+5. 原报告“event gate 与 plans 解耦，所以 transport 无法影响预测”的表述不成立：gate 仍可间接依赖由计划参与生成的事件表示。没有直接传入原始 plans，不等于没有间接路径。“边际残差约 0.05”等值也必须有实际数组与明确定义支持。
+
+二、优先复用现有患者级导出
+本机已准备工具：
+实验档案/实验代码/E010_运输计划干预/追加核验_20261009/
+包含 audit_saved_exports.py、test_audit_saved_exports.py、README.md、SERVER_PROMPT.txt。
+本机尚未 push 该目录；先确认服务器有这些文件。若没有，应先接收这个目录，不假定已有远端提交含工具；不要擅自覆盖同名材料。
+
+1. 用经过核对的真实 export 目录生成新的清单 JSON：
+{"schema_version":1,"exports":["<真实目录1>","<真实目录2>"]}
+每个目录必须同时含 export.json 和 patients.npz。
+2. 先核验 BLCA fold0 和 KIRC fold2（若存在），再扩展到 BLCA/KIRC 各 5 折。
+3. 在研究环境中运行：
+python '实验档案/实验代码/E010_运输计划干预/追加核验_20261009/audit_saved_exports.py' --input '<新清单真实路径>' --output '<尚不存在的新结果目录>'
+十折齐全时追加 --require-ten-folds。
+输出放在新的“实验档案/表格图片/E010_运输计划干预/追加核验_<时间戳>”目录，不覆盖已有文件。
+4. 按患者 ID 严格对应 alpha=0,0.25,0.5,0.75,1 的结果。报告风险差的有符号均值、绝对均值、中位数、P95、最大值及去除共同偏移后的最大值；不能只看四舍五入后的 C-index。
+5. 报告 C-index 的可比较对总数、concordant/discordant/tied 数、各类状态转变及全部患者对的排序变化。检查相同 C-index 是否隐藏正反变化抵消。
+6. 工具若发现来源哈希、患者、结局、配置或分数不一致，应保留现场并定位具体错误，不跳过检查；缺少来源材料也不能伪造字段或复制其他折填数。
+
+三、缺失中间数组时准备诊断导出
+如果已有数组不足以定位，先修补导出入口，提供运行命令给我，不自行启动推理。保持同 checkpoint、同患者顺序、eval 模式和既有计算；不要增加会改变结果的编码器二次调用。
+实际捕获：
+- factual plans 与每个 alpha 进入融合层的 mixed plans；
+- fusion events、encoded event tokens、stage gate、logits 和最终风险；
+- 条件允许时保留 cross-pathway reconstruction error。
+对应 patients.npz 可追加：
+sweep_plans [N,5,S,G,Kw,Ko]
+sweep_fusion_events [N,5,...]
+sweep_encoded_event_tokens [N,5,...]
+sweep_stage_gate [N,5,...]
+sweep_logits [N,5,...]
+保留 case_ids/time/censor/risk/sweep_risk/alphas 及原有 plans/rows/cols。保存真实导出提交、配置、训练来源、checkpoint 哈希和 best epoch。
+
+验证 P_alpha=(1-alpha)*P+alpha*(row_sum(P)*col_sum(P)/sum(P)) 是否与实际捕获数组一致。分别报告内部耦合变化、相对原计划的行/列边际变化、质量变化、相对求解器目标边际的残差。这四种量不能混用。只由原计划重算出的混合计划不能当作运行时替换已生效的证据。
+按“计划 → 融合事件 → 事件编码 → gate/logits → 风险 → 排序”逐层给出差异。缺少哪层就写缺证据，不能据此断言该层无作用。
+
+四、根据证据处理
+- 若 alpha 未进入计算或导出反复用了同一输出：只修补具体错误，保留原结果并单独提供重跑命令。
+- 若计划变化但后续表示显著减弱：指出从哪层开始减弱，并核对该层是否只依赖固定边际、归一化或聚合形式；不要仅凭数值小就称设计无效。
+- 若风险变化但排序/C-index 相同：报告事实，不靠改模型强行制造指标变化。
+- 若要评价训练贡献：另提同划分、种子、训练预算、损失和 checkpoint 选择规则的 Full/Direct 或适当机制消融方案，不能用固定模型推理干预替代训练对照。若修改架构，另立候选方案，旧 v313 成绩不得冒充新结构成绩。
+- 不使用总运输质量作为这个干预的判别特征，因为总质量在该替换下应保持相同。
+
+五、交付
+给出中文、可复核的结论：实际检查了哪些折，哪些文件缺失，具体问题是否被证实，修了什么，哪些推理/训练尚未执行。
+整理一张“实际计划变化—风险最大差—可比较对变化—C-index”按队列/折/alpha 的表，提供报告、CSV/JSON、诊断代码、命令与来源路径。
+这是 E010 追加核验，沿用 E010，不新增或复用实验编号。论文和 Word 主档暂不改写，等实际核验结果齐全再更新。
+

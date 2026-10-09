@@ -26,8 +26,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from survot_rank.research.methods.legacy.experimental.dct_v313_transport_reconstruction.wsi_reconstruction import WSISlotReconstructionDecoder
-
 from survot_rank.research.methods.legacy.experimental.dct_v311_slot_interpretable.model import (
     DCTV311SlotInterpretable,
 )
@@ -178,35 +176,17 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
                 f"{weighting_mode!r}"
             )
         self._recon_weighting_mode = weighting_mode
-        self._wsi_reconstruction_requested = float(
-            getattr(args, "dct_v313_lambda_wsi_reconstruction", 0.0)
-        )
-        self._wsi_reconstruction_budget = str(
-            getattr(args, "dct_v313_wsi_reconstruction_budget", "additive")
-        ).lower()
-        self._wsi_reconstruction_chunk_size = int(
-            getattr(args, "dct_v313_wsi_reconstruction_chunk_size", 256)
-        )
-        if not math.isfinite(self._wsi_reconstruction_requested) or self._wsi_reconstruction_requested < 0:
-            raise ValueError("dct_v313_lambda_wsi_reconstruction must be finite and nonnegative")
-        if self._wsi_reconstruction_budget not in ("additive", "fixed_total"):
-            raise ValueError("dct_v313_wsi_reconstruction_budget must be additive or fixed_total")
-        if self._wsi_reconstruction_chunk_size <= 0:
-            raise ValueError("dct_v313_wsi_reconstruction_chunk_size must be positive")
-        if self._wsi_reconstruction_requested > 0 and weighting_mode != "per_branch":
-            raise ValueError("WSI reconstruction requires dct_v313_recon_weighting=per_branch")
         super().__init__(args, omic_input_dim, omic_names, pathway_names)
 
         dim = int(self.wsi_projection_dim)
         # ------------------------------------------------------------------
         # Effective per-branch reconstruction coefficients.
         #
-        # The original two coefficients are computed first; optional WSI
-        # coefficients/budget adjustment are applied below.
+        # We always work with TWO independent coefficients (self/cross).
         # The same pair is consumed by `reconstruction_losses` and
         # `forward`, so the value the combiner multiplies with is exactly
         # what the audit log reports.  ``dct_v313_lambda_reconstruction_effective``
-        # holds the SUM of the active branches — i.e. the constant that the legacy code
+        # holds the SUM of the two — i.e. the constant that the legacy code
         # used to renormalise to (no double-down).
         #
         #   - legacy     (commit 93d8314): ``coef_i = effective_weight × fraction_i``.
@@ -277,25 +257,15 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
                 else self.RECONSTRUCTION_WEIGHT * self.RECONSTRUCTION_CROSS_FRACTION
             )
 
-        wsi_branch_coef = self._wsi_reconstruction_requested
-        if wsi_branch_coef > 0 and self._wsi_reconstruction_budget == "fixed_total":
-            original_budget = self_branch_coef + cross_branch_coef
-            if original_budget <= 0:
-                raise ValueError("fixed_total WSI reconstruction requires an active omics reconstruction branch")
-            factor = original_budget / (original_budget + wsi_branch_coef)
-            self_branch_coef *= factor
-            cross_branch_coef *= factor
-            wsi_branch_coef *= factor
-        self.dct_v313_reconstruction_wsi_coef = wsi_branch_coef
         self.dct_v313_reconstruction_self_coef = self_branch_coef
         self.dct_v313_reconstruction_cross_coef = cross_branch_coef
         # ``dct_v313_lambda_reconstruction_effective`` reports the SUM of
-        # all active per-branch coefficients — i.e. the maximum coefficient that the
+        # per-branch coefficients — i.e. the maximum coefficient that the
         # combiner can apply to the loss before the ramp multiplier.  This
         # replaces the legacy "renormalised weight" semantics and makes the
         # audit field directly comparable to ``effective_recon_coefficients()``.
         self.dct_v313_lambda_reconstruction_effective = (
-            self_branch_coef + cross_branch_coef + wsi_branch_coef
+            self_branch_coef + cross_branch_coef
         )
         self.dct_v313_reconstruction_self_fraction = (
             0.0 if self._ablation_disable_self else self.RECONSTRUCTION_SELF_FRACTION
@@ -311,15 +281,6 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             num_pathways=int(self.num_pathways),
             num_heads=heads,
         )
-        # Disabled means no module, no new parameters, and no extra RNG draws.
-        # Instantiate after existing modules to preserve shared initial weights.
-        self.wsi_reconstruction_decoder = None
-        if self.dct_v313_reconstruction_wsi_coef > 0:
-            # Keep the caller's CPU RNG continuation identical across arms.
-            with torch.random.fork_rng(devices=[]):
-                self.wsi_reconstruction_decoder = WSISlotReconstructionDecoder(
-                    dim, heads, self._wsi_reconstruction_chunk_size,
-                )
         self._last_reconstruction_self = 0.0
         self._last_reconstruction_cross = 0.0
         self._last_reconstruction_total = 0.0
@@ -419,8 +380,6 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             weights["reconstruction_cross"] = (
                 self.RECONSTRUCTION_WEIGHT * self.RECONSTRUCTION_CROSS_FRACTION
             )
-        if self.dct_v313_reconstruction_wsi_coef > 0:
-            weights["reconstruction_wsi"] = float(self.dct_v313_reconstruction_wsi_coef)
         return weights
 
     # The v3.14 schema emitter historically invoked
@@ -438,7 +397,7 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
         terms by, so it can be cross-referenced with the audit log without
         guessing the mode.
         """
-        coefficients = {
+        return {
             "weighting_mode": self._recon_weighting_mode,
             "self": float(self.dct_v313_reconstruction_self_coef),
             "cross": float(self.dct_v313_reconstruction_cross_coef),
@@ -449,17 +408,6 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             "cross_mode": self._cross_mode,
             "plan_mode": self._plan_mode,
         }
-        if self.dct_v313_reconstruction_wsi_coef > 0:
-            coefficients.update(
-                wsi=float(self.dct_v313_reconstruction_wsi_coef),
-                wsi_requested=self._wsi_reconstruction_requested,
-                wsi_budget=self._wsi_reconstruction_budget,
-                wsi_chunk_size=self._wsi_reconstruction_chunk_size,
-                wsi_target="detached_projected_patch_features",
-                wsi_query="frozen_random_projection_of_detached_target",
-                wsi_loss="cosine_patient_mean",
-            )
-        return coefficients
 
     @classmethod
     def key_contributions(cls) -> list[str]:
@@ -695,29 +643,6 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
         )
         return self_loss, cross_loss, total, transported_wsi
 
-    def wsi_reconstruction_loss(self, slots_wsi, x_wsi_proj, kwargs):
-        """Optional WSI self reconstruction; raw zero rows indicate padding."""
-        if self.wsi_reconstruction_decoder is None:
-            return slots_wsi.new_zeros(())
-        raw = kwargs["x_wsi"]
-        valid = raw.detach().ne(0).any(dim=-1)
-        explicit = kwargs.get("wsi_patch_mask")
-        if explicit is not None:
-            explicit = torch.as_tensor(explicit, device=raw.device, dtype=torch.bool)
-            if explicit.shape != valid.shape:
-                raise ValueError("wsi_patch_mask must have shape [B, N], True=valid")
-            valid = valid & explicit
-        available = self._batch_bool_mask(
-            kwargs.get("wsi_available"), batch=raw.size(0), device=raw.device, default=True,
-        )
-        missing = self._batch_bool_mask(
-            kwargs.get("wsi_missing"), batch=raw.size(0), device=raw.device, default=False,
-        )
-        valid = valid & (available & ~missing).unsqueeze(-1)
-        return self.wsi_reconstruction_decoder.reconstruction_loss(
-            slots_wsi, x_wsi_proj, valid,
-        )
-
     def forward(self, **kwargs):
         if not self.training:
             return super().forward(**kwargs)
@@ -795,15 +720,12 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
                 available=available,
             )
         )
-        reconstruction_wsi = self.wsi_reconstruction_loss(slots_wsi, x_wsi_proj, kwargs)
-        if self.dct_v313_reconstruction_wsi_coef > 0:
-            reconstruction = reconstruction + self.dct_v313_reconstruction_wsi_coef * reconstruction_wsi
         ramp = self._reconstruction_ramp(epoch)
         # The combiner uses the per-branch coefficients directly so the
         # value multiplied into the loss matches the audit log exactly.
         # No additional scaling by ``effective_weight_total`` happens here
         # (that would be a double-down bug).  The ramp still scales both
-        # active branches uniformly.
+        # branches uniformly.
         effective_reconstruction_weight = ramp
 
         aux_loss = (
@@ -850,20 +772,4 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
                 [row_entropy.flatten(), col_entropy.flatten()]
             ).mean().detach(),
         }
-        if self.dct_v313_reconstruction_wsi_coef > 0:
-            self.last_training_losses.update(
-                v313_reconstruction_wsi=reconstruction_wsi.detach(),
-                v313_reconstruction_self_coef=factual_costs.new_tensor(
-                    self.dct_v313_reconstruction_self_coef
-                ),
-                v313_reconstruction_cross_coef=factual_costs.new_tensor(
-                    self.dct_v313_reconstruction_cross_coef
-                ),
-                v313_reconstruction_total_coef=factual_costs.new_tensor(
-                    self.dct_v313_lambda_reconstruction_effective
-                ),
-                v313_reconstruction_wsi_coef=factual_costs.new_tensor(
-                    self.dct_v313_reconstruction_wsi_coef
-                ),
-            )
         return factual_logits, aux_loss
