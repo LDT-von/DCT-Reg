@@ -1,0 +1,13 @@
+{
+  "id": "E040",
+  "entries": [
+    {
+      "requested": "scripts/_archive_v310_v311/audit_v314.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\audit_v314.py",
+      "sha256": "f53c9c773c3f526c33394fb2106fb7f0e0b7b14dac42648783d7a06a29d87e78",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

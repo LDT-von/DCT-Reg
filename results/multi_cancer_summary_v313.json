@@ -1,0 +1,74 @@
+{
+  "version": "v3.13",
+  "tag": "uni2h 10-cancer",
+  "config": "dct_v313_uni2h.yaml",
+  "gpus": [
+    0,
+    1
+  ],
+  "n_epochs": 30,
+  "stopping_patience": 10,
+  "launcher": "run_v313_uni2h_10cancer.py",
+  "log_dir": "/data1/DCT-Reg/logs/v313_uni2h_10cancer",
+  "results_dir": "/data1/DCT-Reg/results/dct_v313_uni2h",
+  "cancers": {
+    "BRCA": {
+      "cindex_folds": [
+        0.7925,
+        0.6948,
+        0.5748,
+        0.6504,
+        0.6809
+      ],
+      "cindex_mean": 0.67868,
+      "cindex_std": 0.07875688541327673
+    },
+    "COADREAD": {
+      "cindex_folds": [
+        0.7742,
+        0.7365,
+        0.757,
+        0.7448,
+        0.6695
+      ],
+      "cindex_mean": 0.7364,
+      "cindex_std": 0.039998062453073906
+    },
+    "LUAD": {
+      "cindex_folds": [
+        0.7015,
+        0.7138,
+        0.7109,
+        0.6352,
+        0.6677
+      ],
+      "cindex_mean": 0.68582,
+      "cindex_std": 0.03372116546028622
+    },
+    "STAD": {
+      "cindex_folds": [
+        0.6835,
+        0.6471,
+        0.5645,
+        0.6691,
+        0.6161
+      ],
+      "cindex_mean": 0.63606,
+      "cindex_std": 0.047390167756613824
+    }
+  },
+  "overall": {
+    "n_folds": 20,
+    "cindex_mean": 0.68424,
+    "cindex_std": 0.06074913384697674,
+    "vs_v310_cancers": [
+      "BLCA",
+      "HNSC",
+      "KIRC",
+      "LUSC",
+      "SKCM",
+      "OVERALL"
+    ],
+    "vs_v310_overall_mean": 0.6963850509614439
+  }
+}

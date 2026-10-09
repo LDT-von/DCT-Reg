@@ -1,16 +1,14 @@
-# DCT v3.11 Per-Slot Interpretable - BLCA UNI Config
-# Training: python -m survot_rank.cli train --config configs/dct_v311_blca_uni.yaml --set=study=blca --set=k_start=0 --set=k_end=5
+# DCT v3.11 Per-Slot Interpretable - BLCA UNI Config (原始版 - merged diversity)
 #
-# Recipe: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*diversity
+# Recipe: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*diversity (merged)
 # (dct_v311_* params are forced by DCTV311SlotInterpretable.FROZEN_ARGUMENTS)
 #
 name: dct_v311_blca_uni
 description: |
   DCT v3.11 per-slot interpretable training on BLCA with UNI features.
-  - survot_method: dct_v311_slot_interpretable
+  原始版 diversity (merged): 所有 slot 的 variance 一起算
   - Objective: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*diversity
-  - Direction loss disabled (dct_v38_lambda_direction=0.0)
-  - Diversity: per-sample variance in [0.005, 0.050]
+  - Direction loss disabled
 
 data:
   study: blca
@@ -25,12 +23,12 @@ data:
 
 split:
   k_start: 0
-  k_end: 5
+  k_end: 2
 
 train:
   survot_method: dct_v311_slot_interpretable
   specific_simple: dct_v311_blca_uni
-  results_dir: /data1/DCT-Reg/results/dct_v311_blca_uni_fixed/blca
+  results_dir: /data1/DCT-Reg/results/dct_v311_blca_uni/blca
   max_epochs: 30
   batch_size: 8
   warmup_epochs: 0
@@ -71,7 +69,6 @@ model:
   dct_ipcw_rank_temperature: 0.50
   dct_ipcw_max_weight: 10.0
   dct_ipcw_rank_memory_size: 64
-  # Direction loss DISABLED in v3.11 (DCR ≈ random)
   dct_v38_lambda_direction: 0.0
   dct_v38_lambda_dose: 0.0
   dct_v38_lambda_reconfiguration: 0.0
@@ -95,9 +92,6 @@ model:
   dct_v38_dose_every: 1
   dct_lambda_etar: 0.0
   dct_lambda_listwise: 0.0
-  # NOTE: dct_v311_lambda_slot_nll, dct_v311_lambda_slot_diversity,
-  #       dct_v311_variance_min, dct_v311_variance_max are forced by
-  #       DCTV311SlotInterpretable.FROZEN_ARGUMENTS (not in argparse)
   spt_prog_cost: 0.20
   rg_eps_start: 0.10
   rg_eps_anneal: 12

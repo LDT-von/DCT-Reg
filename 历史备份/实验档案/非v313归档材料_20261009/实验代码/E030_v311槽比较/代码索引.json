@@ -1,0 +1,20 @@
+{
+  "id": "E030",
+  "entries": [
+    {
+      "requested": "scripts/_archive_v310_v311/compare_v311_fixed_vs_unfixed.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\compare_v311_fixed_vs_unfixed.py",
+      "sha256": "261925cfd32c357e2237d9b920ed809467d0da5c2d0c8efb88100f5bec6a13ca",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "scripts/_archive_v310_v311/analyze_v311_fixed_proof.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\analyze_v311_fixed_proof.py",
+      "sha256": "0361dfc53afcabe1387cd163f4c2da170490d6d5eb85eeb7132c0ae02b64c8ba",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

@@ -1,0 +1,25 @@
+{
+  "experiment": "E015",
+  "title": "Full 十队列实测成本分布",
+  "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+  "shared_model": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/model.py",
+  "entries": [
+    {
+      "path": "scripts/plot_v313_tradeoff_per_cohort.py",
+      "present": true,
+      "sha256": "55caf3ad386418041c990c0093a59f62a1b769166dccad0fd51270bf92841645"
+    },
+    {
+      "path": "scripts/run_v313_additional_evidence.py",
+      "present": true,
+      "sha256": "62488771a322156fe81b4102a3c59e29f3dc27a01fd8e9d7c23bac3b13c86a16"
+    },
+    {
+      "path": "survot_rank/evidence/additional.py",
+      "present": true,
+      "sha256": "857e9921fb0f7837e55dd45dfb2c519d18c0395376844d234b3a03b903c3a8ae"
+    }
+  ],
+  "shared_snapshot": "../共享代码快照_2b1c622",
+  "execution_note": "仅作源代码溯源，整理阶段没有执行训练、推理或导出作业。以原工程环境与历史 overrides 复现。"
+}

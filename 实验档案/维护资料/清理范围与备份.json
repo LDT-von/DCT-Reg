@@ -1,0 +1,558 @@
+{
+  "scope": "Reversible retirement of 25 explicit non-v313 archive copies only; no file deletion; production code, historical reports and raw snapshots untouched",
+  "backup": "E:\\DCT-Reg\\历史备份\\实验档案\\实验档案_44条_收窄v313前_20261009.zip",
+  "backup_sha256": "a1478f2a8779d368cfe71685fdc9d7cec158c2f8a3eed5b17a24fea9e9a85eda",
+  "records_before": 44,
+  "records_after": 19,
+  "kept_ids": [
+    "E001",
+    "E002",
+    "E003",
+    "E004",
+    "E005",
+    "E006",
+    "E007",
+    "E008",
+    "E009",
+    "E010",
+    "E011",
+    "E012",
+    "E013",
+    "E014",
+    "E015",
+    "E016",
+    "E037",
+    "E038",
+    "E039"
+  ],
+  "removed_ids": [
+    "E017",
+    "E018",
+    "E019",
+    "E020",
+    "E021",
+    "E022",
+    "E023",
+    "E024",
+    "E025",
+    "E026",
+    "E027",
+    "E028",
+    "E029",
+    "E030",
+    "E031",
+    "E032",
+    "E033",
+    "E034",
+    "E035",
+    "E036",
+    "E040",
+    "E041",
+    "E042",
+    "E043",
+    "E044"
+  ],
+  "transfers": [
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E017_v310目标消融",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E017_v310目标消融",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E017_v310目标消融",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E017_v310目标消融",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E018_v310机制对照",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E018_v310机制对照",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E018_v310机制对照",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E018_v310机制对照",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E019_v310跨癌",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E019_v310跨癌",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E019_v310跨癌",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E019_v310跨癌",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E020_TGSR反馈",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E020_TGSR反馈",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E020_TGSR反馈",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E020_TGSR反馈",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E021_TGSR目标",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E021_TGSR目标",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E021_TGSR目标",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E021_TGSR目标",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E022_锚点诊断",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E022_锚点诊断",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E022_锚点诊断",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E022_锚点诊断",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E023_固定锚点训练",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E023_固定锚点训练",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E023_固定锚点训练",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E023_固定锚点训练",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E024_固定锚点审计",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E024_固定锚点审计",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E024_固定锚点审计",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E024_固定锚点审计",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E025_v311固定E4",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E025_v311固定E4",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E025_v311固定E4",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E025_v311固定E4",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E026_ProofA",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E026_ProofA",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E026_ProofA",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E026_ProofA",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E027_ProofB",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E027_ProofB",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E027_ProofB",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E027_ProofB",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E028_ProofC",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E028_ProofC",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E028_ProofC",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E028_ProofC",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E029_ProofD",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E029_ProofD",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E029_ProofD",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E029_ProofD",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E030_v311槽比较",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E030_v311槽比较",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E030_v311槽比较",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E030_v311槽比较",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E031_旧方向与零假设",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E031_旧方向与零假设",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E031_旧方向与零假设",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E031_旧方向与零假设",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E032_旧E4分布",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E032_旧E4分布",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E032_旧E4分布",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E032_旧E4分布",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E033_旧OT替换",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E033_旧OT替换",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E033_旧OT替换",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E033_旧OT替换",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E034_旧统计检验",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E034_旧统计检验",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E034_旧统计检验",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E034_旧统计检验",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E035_旧KM",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E035_旧KM",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E035_旧KM",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E035_旧KM",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E036_隔离方向两折",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E036_隔离方向两折",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E036_隔离方向两折",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E036_隔离方向两折",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E040_v314结构审计",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E040_v314结构审计",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E040_v314结构审计",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E040_v314结构审计",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E041_v315结构与排序",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E041_v315结构与排序",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E041_v315结构与排序",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E041_v315结构与排序",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E042_v316候选实现",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E042_v316候选实现",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E042_v316候选实现",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E042_v316候选实现",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E043_运输修复演示",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E043_运输修复演示",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E043_运输修复演示",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E043_运输修复演示",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\E044_待运行与缺失",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\E044_待运行与缺失",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\表格图片\\E044_待运行与缺失",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\表格图片\\E044_待运行与缺失",
+      "kind": "per_experiment_archive_copy"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\dct_v3_risk_ordering.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\dct_v3_risk_ordering.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "0a2822e05eec598ed6f091858a4b7a341632a6bdb7bfde4c7aede1d33e2c4366"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\configs\\dct_v315_rti_rank_blca_uni2h.yaml",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\configs\\dct_v315_rti_rank_blca_uni2h.yaml",
+      "kind": "non_v313_code_copy",
+      "sha256": "6969dfa8b4889b6736e8dd266857d8282ff34390c6df3e1a9bd24db047cdd068"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\configs\\dct_v316_slot_mi_decomposition.yaml",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\configs\\dct_v316_slot_mi_decomposition.yaml",
+      "kind": "non_v313_code_copy",
+      "sha256": "dc2d43a0e1b6b5eec47a5ae603a190c36f338c1ee8b01922d2692214c9cfffab"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\tests\\test_dct_v316_slot_mi.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\tests\\test_dct_v316_slot_mi.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "7fc7f02e69ea7f5be753eaaf14cf52304345d3af9d0bf410e4d967fcdf8082ee"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\tests\\test_dct_v316_standalone.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\tests\\test_dct_v316_standalone.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "e480884991710204f2d1e18937655eec7ce9d0a462de83fe8f97e214be9bb2ca"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\ablate_reader.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\ablate_reader.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "eee97c30199f4832bb00b772867688971ae291c902b4f2360f97ecc88e437e3f"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\analyze_e4_results.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\analyze_e4_results.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "7268ddc3b124e9eb456d27a5d6bfbc8746542ccc318b8a41244247850b107357"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\analyze_v311_fixed_proof.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\analyze_v311_fixed_proof.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "0361dfc53afcabe1387cd163f4c2da170490d6d5eb85eeb7132c0ae02b64c8ba"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\anchor_consistency_analysis.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\anchor_consistency_analysis.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "17095a4330d1095a14e4bab57ca548b5ed39f6aeff91ae7f6d38ab08678b5cb0"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\anchor_separation_analysis.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\anchor_separation_analysis.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "711f57e98fb5779f0a7e492a0ae86581c4ae12c1fca08f3ae9302fdc1c519434"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\audit_dct_reg.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\audit_dct_reg.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "14195c0c53670d1b43b61f9576361c3415127103a76ce31bd433c5cceeb4161e"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\audit_fixed_anchors_batch.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\audit_fixed_anchors_batch.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "1f3f4927893fce0932e0bf18345aa10cb36210610c3b5dde856dbb26d31ca053"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\audit_v314.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\audit_v314.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "f53c9c773c3f526c33394fb2106fb7f0e0b7b14dac42648783d7a06a29d87e78"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\audit_v315.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\audit_v315.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "613774ed0fed6c58a24d5bae2849d1d486c6fc9b691abed350612b9906f7610b"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\compare_v311_fixed_vs_unfixed.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\compare_v311_fixed_vs_unfixed.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "261925cfd32c357e2237d9b920ed809467d0da5c2d0c8efb88100f5bec6a13ca"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\compute_calibration_and_dca.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\compute_calibration_and_dca.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "90e8baabb51e155d5ef2bf9421f2f2dc39b87208a52cfa0dc8ca2db4d2bfbced"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\e4_audit_adapted.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\e4_audit_adapted.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "e3a3d761c19e1dbab10c46745d5a21be1857118fea5fa8cc1fff192ac01d8a18"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\e4_v311_fixed_audit.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\e4_v311_fixed_audit.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "bd3635a0f01b44ad2509ef9633ba9849a0c0cd4052379042e6c9d9a9d75dca49"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\generate_figure3_all_cancers.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\generate_figure3_all_cancers.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "ec09aac2ed935b1caf1c39c4d4c92871960acc4f164b4b4b952dc4da70a322a8"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\kaplan_meier_analysis.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\kaplan_meier_analysis.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "194372eab0626f1241175714c64db7f8e8217df170b3ed5e8bc65f8f4d9dd452"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\kirc_refill_5fold.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\kirc_refill_5fold.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "476f563e74c19e312cd4808496060367712597f125e65f32f9b6dba3938d699e"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\kp_multi_cancer.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\kp_multi_cancer.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "0c6ad64a92723c35a468e23aee1b07dfadfd9d689e315272ed3c2e0a9c11f662"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\make_e4_audit_report.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\make_e4_audit_report.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "25fa8da97a8ee0d942aeb2f328be4ca189af376b7fcbe37e8ad1404b32e1cfa7"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\proof_D_visualization.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\proof_D_visualization.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "54aa24678a8848effccf521a0f6a7ee4b148ccc3428184e0b7d3d8bdc6fa4fdb"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\run_all_e4_experiments.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\run_all_e4_experiments.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "389f38a918232f572ea93d416c626fc8c86777a30470ed919b0232326bcc1109"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\run_anchor_experiments.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\run_anchor_experiments.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "1891a36f667a98fe2ff10267e80c6ec26b4c4b594c8a4e2eb27036c8fcca3841"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\run_dct_v310_experiments.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\run_dct_v310_experiments.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "876668ea855b3bdc4bf87385cb212a1f271f10fa5b413f3ab8e35563031070b2"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\run_dct_v310_final_cross_cancer.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\run_dct_v310_final_cross_cancer.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "5ad82c6876936d1a0d62a82d441fa26552aa0c333127c5b83e8746fd1612f8ca"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\statistical_significance_analysis.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\statistical_significance_analysis.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "2590387e6d0265a46d129897432a32aedb33902f1b04580c10e116841efa25b7"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\test_ot_contribution.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\test_ot_contribution.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "aa219a63d852cdb75c9d7b1412c60041aa098a8e803e6c4a54435d7d734d5ead"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\train_fixed_5fold.sh",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\train_fixed_5fold.sh",
+      "kind": "non_v313_code_copy",
+      "sha256": "80dfbe5e0fbd1101042d11e3419600d933b2b0736b9ba6040f4a82f4b5d25fa2"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\train_transport_fix_minimal.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\train_transport_fix_minimal.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "5346b4e1bda9601bfea4d19d9f5585349a4d2aaf9456c54bad2ceacb7238efdf"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\validate_transport_improvements.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\validate_transport_improvements.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "64d151a54429d2727878cdf86ab47dcccab4a621d2a15d4853bf02bb6e0f8412"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\proof_experiments\\proof_A_recipe_compare.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\proof_experiments\\proof_A_recipe_compare.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "828020d21cdb4a5936b42f9ec463641a95f6c06158012b1caae8db28affcdaca"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\proof_experiments\\proof_B_variance_constraint_FIXED.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\proof_experiments\\proof_B_variance_constraint_FIXED.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "791ffd140309dbe171f866207f2cd89fb0c7d6b808a114e68db8a40085dcd131"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\proof_experiments\\proof_C_ipcw_rank.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\proof_experiments\\proof_C_ipcw_rank.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "e1ccf2e8528fd9646bf2599ed91ef132468a475655a991cb926997f7e5c88b8b"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\survot_rank\\research\\methods\\dct_v316_slot_mi_interaction\\dct_v316_model.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\survot_rank\\research\\methods\\dct_v316_slot_mi_interaction\\dct_v316_model.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "9893cc00416adc7dc6b3bd8b1bd733f68723e2ed3889f1b507e3366f52987fd9"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\补录代码快照_2b1c622\\survot_rank\\research\\methods\\dct_v316_slot_mi_interaction\\model.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\补录代码快照_2b1c622\\survot_rank\\research\\methods\\dct_v316_slot_mi_interaction\\model.py",
+      "kind": "non_v313_code_copy",
+      "sha256": "e6d1338ba2c5dc81359d0d0edab84ac1639da3769fb60e287f9af02ab6372f24"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\共享代码快照_2b1c622\\survot_rank\\research\\methods\\legacy\\experimental\\dct_v314_masked_transport_reconstruction\\losses.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\共享代码快照_2b1c622\\survot_rank\\research\\methods\\legacy\\experimental\\dct_v314_masked_transport_reconstruction\\losses.py",
+      "kind": "optional_non_v313_loss_copy",
+      "sha256": "e3e49572ee2181238cff2b6c0de7a038cbaf8edbe24338304d2c7c7486435147"
+    },
+    {
+      "source": "E:\\DCT-Reg\\实验档案\\实验代码\\共享代码快照_2b1c622\\survot_rank\\research\\methods\\legacy\\experimental\\dct_v315_residual_transport\\losses.py",
+      "target": "E:\\DCT-Reg\\历史备份\\实验档案\\非v313归档材料_20261009\\实验代码\\共享代码快照_2b1c622\\survot_rank\\research\\methods\\legacy\\experimental\\dct_v315_residual_transport\\losses.py",
+      "kind": "optional_non_v313_loss_copy",
+      "sha256": "bd270baacab8a29335e9b8e61c659b4fd2aa5296b53ef4f743c01c19186e50c7"
+    }
+  ],
+  "delete_paths": [],
+  "retained_inherited_dependencies": [
+    "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/model.py",
+    "survot_rank/research/methods/legacy/experimental/dct_v311_slot_interpretable/model.py",
+    "survot_rank/research/methods/dct_v310_directional_regularized_transport/model.py"
+  ],
+  "removed_optional_loss_reason": "v314/v315 loss files are reached only in the corresponding method-selection branches, not v313; shared train_runner source retained unchanged",
+  "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+  "executed_models": false,
+  "status": "applied and verified",
+  "retired_files_verified": 237
+}

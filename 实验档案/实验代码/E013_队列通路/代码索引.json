@@ -1,0 +1,25 @@
+{
+  "experiment": "E013",
+  "title": "BLCA 和 KIRC 队列通路权重差值",
+  "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+  "shared_model": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/model.py",
+  "entries": [
+    {
+      "path": "scripts/plot_v313_slotspe_style.py",
+      "present": true,
+      "sha256": "91eb2a063e8e200cbeb73633dc1b94f9829c0d800e15addbe48dbe552c598787"
+    },
+    {
+      "path": "scripts/prepare_v313_manuscript_panels.py",
+      "present": true,
+      "sha256": "088fcd9f30d6a0a14ae2ccafa812ce8e4b4305c39474c7c788da07919ef5a3eb"
+    },
+    {
+      "path": "survot_rank/evidence/slotspe_style.py",
+      "present": true,
+      "sha256": "7873aec5717b9d7a0550f385e4efcb55dd38a1d2bb84f110ffa96f3525e0a32f"
+    }
+  ],
+  "shared_snapshot": "../共享代码快照_2b1c622",
+  "execution_note": "仅作源代码溯源，整理阶段没有执行训练、推理或导出作业。以原工程环境与历史 overrides 复现。"
+}

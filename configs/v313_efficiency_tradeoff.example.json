@@ -1,0 +1,276 @@
+{
+  "schema_version": 1,
+  "context": {
+    "cancers": [
+      "BLCA",
+      "KIRC"
+    ],
+    "endpoint": "DSS",
+    "encoder": "UNI2-h",
+    "protocol": "legacy_val",
+    "seed": 3
+  },
+  "models": [
+    {
+      "id": "dct_v313",
+      "label": "DCT v3.13",
+      "ours": true,
+      "measurements": [
+        {
+          "cancer": "BLCA",
+          "fold": 0,
+          "predictions": "profiled_runs/dct_v313/blca_f0/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/dct_v313/blca_f0/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 1,
+          "predictions": "profiled_runs/dct_v313/blca_f1/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/dct_v313/blca_f1/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 2,
+          "predictions": "profiled_runs/dct_v313/blca_f2/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/dct_v313/blca_f2/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 3,
+          "predictions": "profiled_runs/dct_v313/blca_f3/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/dct_v313/blca_f3/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 4,
+          "predictions": "profiled_runs/dct_v313/blca_f4/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/dct_v313/blca_f4/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 0,
+          "predictions": "profiled_runs/dct_v313/kirc_f0/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/dct_v313/kirc_f0/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 1,
+          "predictions": "profiled_runs/dct_v313/kirc_f1/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/dct_v313/kirc_f1/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 2,
+          "predictions": "profiled_runs/dct_v313/kirc_f2/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/dct_v313/kirc_f2/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 3,
+          "predictions": "profiled_runs/dct_v313/kirc_f3/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/dct_v313/kirc_f3/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 4,
+          "predictions": "profiled_runs/dct_v313/kirc_f4/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/dct_v313/kirc_f4/export.json",
+          "profile_sha256_lf": null
+        }
+      ]
+    },
+    {
+      "id": "motcat",
+      "label": "MOTCat",
+      "ours": false,
+      "measurements": [
+        {
+          "cancer": "BLCA",
+          "fold": 0,
+          "predictions": "profiled_runs/motcat/blca_f0/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/motcat/blca_f0/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 1,
+          "predictions": "profiled_runs/motcat/blca_f1/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/motcat/blca_f1/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 2,
+          "predictions": "profiled_runs/motcat/blca_f2/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/motcat/blca_f2/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 3,
+          "predictions": "profiled_runs/motcat/blca_f3/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/motcat/blca_f3/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 4,
+          "predictions": "profiled_runs/motcat/blca_f4/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/motcat/blca_f4/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 0,
+          "predictions": "profiled_runs/motcat/kirc_f0/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/motcat/kirc_f0/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 1,
+          "predictions": "profiled_runs/motcat/kirc_f1/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/motcat/kirc_f1/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 2,
+          "predictions": "profiled_runs/motcat/kirc_f2/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/motcat/kirc_f2/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 3,
+          "predictions": "profiled_runs/motcat/kirc_f3/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/motcat/kirc_f3/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 4,
+          "predictions": "profiled_runs/motcat/kirc_f4/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/motcat/kirc_f4/export.json",
+          "profile_sha256_lf": null
+        }
+      ]
+    },
+    {
+      "id": "mcat",
+      "label": "MCAT",
+      "ours": false,
+      "measurements": [
+        {
+          "cancer": "BLCA",
+          "fold": 0,
+          "predictions": "profiled_runs/mcat/blca_f0/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/mcat/blca_f0/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 1,
+          "predictions": "profiled_runs/mcat/blca_f1/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/mcat/blca_f1/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 2,
+          "predictions": "profiled_runs/mcat/blca_f2/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/mcat/blca_f2/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 3,
+          "predictions": "profiled_runs/mcat/blca_f3/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/mcat/blca_f3/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 4,
+          "predictions": "profiled_runs/mcat/blca_f4/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/mcat/blca_f4/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 0,
+          "predictions": "profiled_runs/mcat/kirc_f0/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/mcat/kirc_f0/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 1,
+          "predictions": "profiled_runs/mcat/kirc_f1/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/mcat/kirc_f1/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 2,
+          "predictions": "profiled_runs/mcat/kirc_f2/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/mcat/kirc_f2/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 3,
+          "predictions": "profiled_runs/mcat/kirc_f3/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/mcat/kirc_f3/export.json",
+          "profile_sha256_lf": null
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 4,
+          "predictions": "profiled_runs/mcat/kirc_f4/best_predictions.pkl",
+          "predictions_sha256": null,
+          "profile_json": "profiled_runs/mcat/kirc_f4/export.json",
+          "profile_sha256_lf": null
+        }
+      ]
+    }
+  ]
+}

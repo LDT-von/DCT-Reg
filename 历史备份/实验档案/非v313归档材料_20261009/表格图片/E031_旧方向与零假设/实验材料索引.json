@@ -1,0 +1,192 @@
+{
+  "id": "E031",
+  "folder": "E031_旧方向与零假设",
+  "title": "旧版跨癌方向审计和运输零假设",
+  "kind": "补录实验或审计",
+  "status": "JSON 已保存 审计判据需复核",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "跨癌 DCR、TV 和 BLCA factual、uniform、shuffled、anchor-swap；部分队列仅两折。",
+  "conclusion": "旧 uniform/shuffled 与 factual 的 DCR 完全相同；另有报告指出读取 factual 字段的问题。保留数值，但不能据此确认运输无效或已有效。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "paper_outputs/_archive_v310_v311/all_cancer_audits.json",
+    "paper_outputs/_archive_v310_v311/null_hypothesis_summary.json",
+    "paper_outputs/_archive_v310_v311/figure3_dose_response_partial.json",
+    "paper_outputs/_archive_v310_v311/DCR_AUDIT_REVISED.md",
+    "proof_experiments_validation_report.md",
+    "AUDIT_BEST_EPOCH_RESULTS.md",
+    "audit_results/AUDIT_REPORT.md",
+    "audit_results/AUDIT_SUMMARY.md",
+    "audit_results/blca_fold0_audit_summary.json",
+    "paper_outputs/_archive_v310_v311/figure3_partial_data.json",
+    "paper_outputs/_archive_v310_v311/PAPER_COMPLETION_REPORT.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/audit_dct_reg.py",
+    "scripts/_archive_v310_v311/generate_figure3_all_cancers.py"
+  ],
+  "tables": [
+    {
+      "title": "旧跨癌 DCR 汇总",
+      "headers": [
+        "队列",
+        "折数",
+        "平均 DCR",
+        "平均 TV"
+      ],
+      "rows": [
+        [
+          "HNSC",
+          "5",
+          "0.3936",
+          "0.6174"
+        ],
+        [
+          "SKCM",
+          "5",
+          "0.6003",
+          "0.7422"
+        ],
+        [
+          "LUSC",
+          "2",
+          "0.3997",
+          "0.8292"
+        ],
+        [
+          "KIRC",
+          "2",
+          "0.5664",
+          "0.7784"
+        ],
+        [
+          "BLCA",
+          "5",
+          "0.5265",
+          "未记录"
+        ]
+      ]
+    },
+    {
+      "title": "旧零假设摘要",
+      "headers": [
+        "控制",
+        "平均 DCR",
+        "标准差"
+      ],
+      "rows": [
+        [
+          "factual",
+          "0.4570",
+          "0.1017"
+        ],
+        [
+          "uniform_plan",
+          "0.4570",
+          "0.1017"
+        ],
+        [
+          "shuffled_plan",
+          "0.4570",
+          "0.1017"
+        ],
+        [
+          "anchor_swap",
+          "0.4674",
+          "0.0818"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E031",
+      "source": "paper_outputs/_archive_v310_v311/all_cancer_audits.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E031_旧方向与零假设\\原始材料\\paper_outputs\\_archive_v310_v311\\all_cancer_audits.json",
+      "sha256": "2176ff49195ed9398bb684582e306d7204fc902df2ee72c3dca5cbb334c83d1f"
+    },
+    {
+      "experiment": "E031",
+      "source": "paper_outputs/_archive_v310_v311/null_hypothesis_summary.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E031_旧方向与零假设\\原始材料\\paper_outputs\\_archive_v310_v311\\null_hypothesis_summary.json",
+      "sha256": "488f1bc24bb97550a81b22516b5f577c7f7719649d4d324418f2d69fa51eebed"
+    },
+    {
+      "experiment": "E031",
+      "source": "paper_outputs/_archive_v310_v311/figure3_dose_response_partial.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E031_旧方向与零假设\\原始材料\\paper_outputs\\_archive_v310_v311\\figure3_dose_response_partial.json",
+      "sha256": "7291038332affd7bf7cb753836782892655ca2bcbece633f81c4215a16a7a4d0"
+    },
+    {
+      "experiment": "E031",
+      "source": "paper_outputs/_archive_v310_v311/DCR_AUDIT_REVISED.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E031_旧方向与零假设\\原始材料\\paper_outputs\\_archive_v310_v311\\DCR_AUDIT_REVISED.md",
+      "sha256": "05dd4c3bc0b7103f83074583485b778d011d315203340322da0c7d103f47d77d"
+    },
+    {
+      "experiment": "E031",
+      "source": "proof_experiments_validation_report.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E031_旧方向与零假设\\原始材料\\proof_experiments_validation_report.md",
+      "sha256": "63910c0f9f1086ec6cc0a477c2b3555df960a4886273b6bfaf6339428d573b09"
+    },
+    {
+      "experiment": "E031",
+      "source": "AUDIT_BEST_EPOCH_RESULTS.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E031_旧方向与零假设\\原始材料\\AUDIT_BEST_EPOCH_RESULTS.md",
+      "sha256": "3be444b7ff7178f34f5b65c89a158d27a1afcda21990f85f6d7a966f0858d211"
+    },
+    {
+      "experiment": "E031",
+      "source": "audit_results/AUDIT_REPORT.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E031_旧方向与零假设\\原始材料\\audit_results\\AUDIT_REPORT.md",
+      "sha256": "bb3b11a15c4fa0125da9c974f76d7cb93ca67fb59a419926ea3b6b046580ae54"
+    },
+    {
+      "experiment": "E031",
+      "source": "audit_results/AUDIT_SUMMARY.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E031_旧方向与零假设\\原始材料\\audit_results\\AUDIT_SUMMARY.md",
+      "sha256": "3642a46ed71577a5a405dd9a6513b84a0ef36cc6f59847c5c99126747766f374"
+    },
+    {
+      "experiment": "E031",
+      "source": "audit_results/blca_fold0_audit_summary.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E031_旧方向与零假设\\原始材料\\audit_results\\blca_fold0_audit_summary.json",
+      "sha256": "490ecd9a9f0a9b8c450e630f1dc5641e30150706fe337c3c71fbdaa1d792f21f"
+    },
+    {
+      "experiment": "E031",
+      "source": "paper_outputs/_archive_v310_v311/figure3_partial_data.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E031_旧方向与零假设\\原始材料\\paper_outputs\\_archive_v310_v311\\figure3_partial_data.json",
+      "sha256": "7291038332affd7bf7cb753836782892655ca2bcbece633f81c4215a16a7a4d0"
+    },
+    {
+      "experiment": "E031",
+      "source": "paper_outputs/_archive_v310_v311/PAPER_COMPLETION_REPORT.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E031_旧方向与零假设\\原始材料\\paper_outputs\\_archive_v310_v311\\PAPER_COMPLETION_REPORT.md",
+      "sha256": "c0b3926829a54eec852442b1080347cc2b3a1acae6daebc2fb54f1e6a5d908a2"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "case_id": "TCGA-2F-A9KP",
+  "source_commit": "2b1c622",
+  "source_json_sha256": "c357dded954e4082f4b4bbbc358d917ad2f4ae7aa35220c91f90aede9dcc2ebd",
+  "source_export": {
+    "export_sha256": "8fdea665a741b063af929dfd3b4b119266c33db5817b028d97a5a201e84f12c6",
+    "case_sha256": "9bae9c2e5a602c98890e9fb7f6c3eee521502f456be21b19a2a63d266a5c443b",
+    "patients_sha256": "79e6f76a511fe3dcab83ab7403eefd90b5609624a018408b716ca55bbf7bb108"
+  },
+  "shape": [
+    8,
+    329
+  ],
+  "uniform_attention": 0.00303951367781155,
+  "raw_min": 0.002374486532062292,
+  "raw_max": 0.003418655600398779,
+  "per_slot_sums": [
+    1.0000000023283064,
+    0.9999999983701855,
+    0.9999999694991857,
+    0.9999999997671694,
+    1.00000004703179,
+    0.9999999161809683,
+    1.00000003981404,
+    0.9999999920837581
+  ],
+  "normalized_entropy": [
+    0.9997942630148234,
+    0.9999492246255387,
+    0.999962576434482,
+    0.9997055392194517,
+    0.9995196850357051,
+    0.99989386910083,
+    0.9996243495718673,
+    0.9998462691635556
+  ],
+  "top3_mass": [
+    0.009634716669097543,
+    0.009457961190491915,
+    0.009451175341382623,
+    0.010221794713288546,
+    0.01008928706869483,
+    0.00986512703821063,
+    0.009847436100244522,
+    0.010046916548162699
+  ],
+  "selected_pathways": 33,
+  "row_sort": "preferred raw slot, descending raw maximum",
+  "raw_color_limits": "global observed min/max; nonzero lower bound explicitly shown",
+  "percentile_formula": "within-slot midrank / 329, matches source displayed values",
+  "identity_checks": "all selected names, raw weights, and percentiles match both recorded panel JSONs",
+  "limitations": "One patient final pooling/prototype-rollout weights; not a slot-collapse test or causal attribution"
+}

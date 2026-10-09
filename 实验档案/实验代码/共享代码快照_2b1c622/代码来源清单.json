@@ -1,0 +1,327 @@
+{
+  "commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+  "files": [
+    {
+      "path": "configs/dct_v313_blca_uni.yaml",
+      "sha256": "acca2cb351a2f025db9f6b4f7125fee32752c24a9ab9732fb486516e29795ce1",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "configs/dct_v313_blca_uni2h.yaml",
+      "sha256": "3b478926c3cc01afd57ce57ecc08c3527be41781277479fece3a2a5198009013",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "configs/dct_v313_brca_uni.yaml",
+      "sha256": "17a7a3b7701e937ef696f223ac7b6d70b99b7d646334ab9bcfb39176c31baa15",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "configs/dct_v313_coadread_uni.yaml",
+      "sha256": "fa5a73ab2064bfa1865e2d3913150824c6b30c779cbb83b777343ecf9d02b202",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "configs/dct_v313_hnsc_uni.yaml",
+      "sha256": "fba6be39cde034e71a910db8adb21760641e61df9a07be7e0e6f3923c8764a20",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "configs/dct_v313_kirc_uni.yaml",
+      "sha256": "1cddf654079e28cc46a6e4479bfa05c5688d161c0269e29e7c561a4c5f7ac62d",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "configs/dct_v313_luad_uni.yaml",
+      "sha256": "a14d7499efacd630edf969add96a05380697e85d8c103fbe7749646db2ee7ec7",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "configs/dct_v313_lusc_uni.yaml",
+      "sha256": "b68bfe93d7501a359ae941280bcb0f44b54fca1f13669e199573092eb3d65b25",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "configs/dct_v313_skcm_uni.yaml",
+      "sha256": "3168f66a48b62102cea14f0a660f26d3584a3bd619a7a628b590c8829844918f",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "configs/dct_v313_stad_uni.yaml",
+      "sha256": "12fafe62e4f951b7d857bad5792da303313162d0a22a8174387a030b0f08136b",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "configs/dct_v313_ucec_uni.yaml",
+      "sha256": "a872cf771f2f5b8babab829cf1230deb3a6c81a0ce56830ebb9709b9ebfb8f8e",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "configs/dct_v313_uni2h.yaml",
+      "sha256": "f129b547e74d107ad057f35f2a579232c2493e0f2df49efb4fe6f3b62bbff987",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "results/v313_evidence_v2/controls_plan_configs/direct_blca.yaml",
+      "sha256": "6585d7175a5dd07c53f1e1840f1bc56a15cd4175f303ec1c35a697d434b2e8f3",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "results/v313_evidence_v2/controls_plan_configs/direct_kirc.yaml",
+      "sha256": "47f8dbfa46683bce420893b49cc2b81a16a96c001e6822aa0c318029829b6d4a",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "results/v313_evidence_v2/controls_plan_configs/independent_blca.yaml",
+      "sha256": "6585d7175a5dd07c53f1e1840f1bc56a15cd4175f303ec1c35a697d434b2e8f3",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "results/v313_evidence_v2/controls_plan_configs/independent_kirc.yaml",
+      "sha256": "47f8dbfa46683bce420893b49cc2b81a16a96c001e6822aa0c318029829b6d4a",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/assemble_v313_tradeoff.py",
+      "sha256": "18722cad5298286c4b7d78c0d7bbc9159eb965bc831b4c7d07b5131025677d89",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/build_v313_comparison_table.py",
+      "sha256": "a72d7af8ee77587d1cd95df74f7e1151d7193027eb1cb302a192b540069ca6a8",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/build_v313_literature_comparison.py",
+      "sha256": "e249cf07a89ba478a04d566f6db8b3036786a4b01c63eb38f82aba4fbde8ff23",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/plot_fig3_from_exports.py",
+      "sha256": "190ca5ba9bc3068654c013cf837fa8f90e4e4d7f28922371acec67485c98963d",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/plot_fig3_transport_sweep.py",
+      "sha256": "67a3d4700a8c69dc186549c6e2b69b5166adf8e53e3e06c401b52a3aeb769423",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/plot_fig5_km_curves.py",
+      "sha256": "f9fc14d5c4f5bfa14cc95a65cf7099f30289218aa3488b9aee71dcef5a680c51",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/plot_v313_manuscript_sweep.py",
+      "sha256": "8855dad4644dcc8fc8859d5d6f2b5c2008c19458b6e9a0f5eed09d84da4f5c19",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/plot_v313_reference_panels.py",
+      "sha256": "f024e57b4a3c9f86926e7188ee3b9af39be32ddf4db57a2aa39a42591bfd3a0b",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/plot_v313_slotspe_style.py",
+      "sha256": "91eb2a063e8e200cbeb73633dc1b94f9829c0d800e15addbe48dbe552c598787",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/plot_v313_tradeoff_per_cohort.py",
+      "sha256": "55caf3ad386418041c990c0093a59f62a1b769166dccad0fd51270bf92841645",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/prepare_v313_evidence.py",
+      "sha256": "324f163181921f730c46da320987a70a5d6409fa8737d155525bec51f647a4f1",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/prepare_v313_manuscript_panels.py",
+      "sha256": "088fcd9f30d6a0a14ae2ccafa812ce8e4b4305c39474c7c788da07919ef5a3eb",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/rerun_v313_export_for_attention.py",
+      "sha256": "c535f9971aa249f5903adf5b2b69d022096932b5f817f62909081705bc88dc16",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/rerun_v313_export_with_km.py",
+      "sha256": "d6c3c492f29c3a360701abbd5d59ea315678ce5dc31748f6d0571d2160ee86b5",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/run_ablation_loss_components.py",
+      "sha256": "7be4b59c007699568e4f3e41cb229b0d178be9bb372a2e0b963e5a2d869295a0",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/run_v313_additional_evidence.py",
+      "sha256": "62488771a322156fe81b4102a3c59e29f3dc27a01fd8e9d7c23bac3b13c86a16",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/run_v313_uni2h_10cancer.py",
+      "sha256": "161c12aef6b771dc827a5cf4216ecb37e878d0bedea7be984906dd17afef334d",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/summarize_v313_exp6.py",
+      "sha256": "4256e5f4967beed2c3933cdd7d37f8f60c8bd223ab48bb13399038b5fa9d14bf",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/evidence/additional.py",
+      "sha256": "857e9921fb0f7837e55dd45dfb2c519d18c0395376844d234b3a03b903c3a8ae",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/evidence/km_oof.py",
+      "sha256": "819e23ea589870a7dfd1aedfe82606c9ab41b342d1b01a4a6e970ff3d915757e",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/evidence/reference_panels.py",
+      "sha256": "7a35adef13406e265d29f8daa4ae52e763d00dbabe994da457f466296860f69f",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/evidence/slotspe_style.py",
+      "sha256": "7873aec5717b9d7a0550f385e4efcb55dd38a1d2bb84f110ffa96f3525e0a32f",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/evidence/v313.py",
+      "sha256": "ab8a2154179d540a1d0a789a39ea574e7e5c0259a76b5a5d9b0a681544bdbb6c",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/research/methods/catalog.py",
+      "sha256": "151d5bca18a89f7b4d8073a910985ff2e7a26951362b45b354d7fd6b2b0b8e94",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/research/methods/legacy/experimental/dct_v311_slot_interpretable/model.py",
+      "sha256": "0a04e6d4247461b5a3bd656c250b74058e3a1c19bc0fe00d2ec9d56b99ea0eee",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/model.py",
+      "sha256": "fffe73729745af2be7b1a6b482aea31f6948172f78dbea59b1284ffc4a846062",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/training/train_runner.py",
+      "sha256": "b9eb91dc66ee23f4b51049cf94b7ed414b20b4a69f9817f45227e25037a73e46",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/evidence/manifest.py",
+      "sha256": "85b3aecc1787431d182925934fa52ba09b0510d9f0c1272f2b954af59f92a74e",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/training/paths.py",
+      "sha256": "f7068a36ab64dd9ddb3e83699299a5475eedf9760af6487d655d013b8eba8f69",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/training/model_factory.py",
+      "sha256": "0c8d34e95de6ca736570be8224f3a178b144019dcd634f2b86cbda8b7f00b0e8",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/config.py",
+      "sha256": "839d19e2de2ca4c0a66a68be66b6e5110a41b3ad5351c7ca91263f160412cde7",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/training/scheduler.py",
+      "sha256": "ce499317b7ed2952599a2b6484151fc75548925897eab216c70977847c80269f",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/evidence/plots.py",
+      "sha256": "247283c306dd4aeed774a53edfcb9ee54ac337a392b48d3d1ba2692d3fd00efd",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/evidence/additional_plots.py",
+      "sha256": "c929f11a10512d1351b181fc486adbb60b12cc9ea0f0a99307c974b6e77f4628",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/training/extended_args.py",
+      "sha256": "754825d4d4b52bfb422ce4bb4d50526ce4a05fb7a13de399052c2e564e1faba4",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/research/methods/dct_v310_directional_regularized_transport/model.py",
+      "sha256": "37c3662a2e1422b139a484d30ce8db562cd90b61c03d1f8b4778356535b05135",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/training/sparse_event.py",
+      "sha256": "aac5075c4c3b2a99b4894522bfc029312ea66876ca1731c1aaeef0c03fe5104c",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/project.py",
+      "sha256": "db5e7ab4daaec83c627d5b304c0710f4cad99b26acf68357554af775d58ec602",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/research/methods/dct_transport_intervention_consistency/model.py",
+      "sha256": "aefb5c0a68405548cb57392ee47dd1561fee2737ecc3435def60afca7cca9494",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/research/methods/legacy/ablation/dct_transport_intervention_consistency/model.py",
+      "sha256": "93842af95f21c5aa5d6392eaa34ff2b1289062bc2ee0f402587a2d81377c7289",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/research/methods/distributional_counterfactual_transport/model.py",
+      "sha256": "65f6300f9c380ef8e137f49350e42a18e84840d33bcb1989f487d7b69a86c9e0",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/research/methods/faithful_evidence_transport/model.py",
+      "sha256": "df0e615c68d22041611ba14f0d65ffeef4db8c1734e7d2acc31c33c2f7428a9b",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/research/methods/ot_event_hazard_v2/model_v2.py",
+      "sha256": "fd040f16ea36cf39cc0ba7515ddfa0cf47c8a8d861c14ef421eb460756d0187f",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/research/methods/stagewise_prognostic_transport/model.py",
+      "sha256": "ee87451f6ebed701d55519ba19a87a20d94558464f9e7707f268ad0e600dce8a",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/research/components/slot_attention.py",
+      "sha256": "bb99e8e6b22efbe75f80ccec54418c4c095b5a678fed8944b1cbeba0a2b15e02",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/research/components/omics_encoder.py",
+      "sha256": "8342b4b6b76d49a59b402e6ae7e92ee73255a94cb971bb07acd92e8364a6e3d4",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "survot_rank/research/methods/rank_guided_event_transport/model.py",
+      "sha256": "a899215201efa3c881b71e25e1e9dc88543ee2796a4a82a04b20911e9e29e8cf",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    },
+    {
+      "path": "scripts/plot_fig_c_case_interpretation.py",
+      "sha256": "58c0a4b307bd9fdf04863c047f9f6aee5efefd22407d50e148ad781d9f931bfe",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88"
+    }
+  ],
+  "unresolved_requested": [],
+  "purpose": "Frozen source copy for provenance; datasets/checkpoints/environment remain in original project/server"
+}

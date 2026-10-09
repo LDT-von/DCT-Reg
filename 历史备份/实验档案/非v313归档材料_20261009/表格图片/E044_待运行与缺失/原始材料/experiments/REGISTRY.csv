@@ -1,0 +1,8 @@
+experiment_id,scope,comparison,status,evidence_path,claim_supported
+E0_structure,unit_tests,frozen objective and intervention controls,implemented,,code wiring only
+E1_partial_direction_legacy2fold,6 cancers folds 2 and 3,reported direction off/on,quarantined,experiments/candidate_evidence/DIRECTION_LOSS_2FOLD_LEGACY_VAL.md,none until provenance and frozen-class contradiction are resolved
+E1_blca_2x2,BLCA 5-fold,nll/ipcw/direction/full,pending,,objective contribution
+E2_final_30fold,6 cancers x 5 folds,DCT-Reg vs matched baselines,pending,,predictive validity
+E3_controls,BLCA UCEC LUSC folds 1 2 4,fixed coupling and null anchors,pending,,transport necessity and specificity
+E4_dose_audit,held-out patients,alpha sweep and plan diagnostics,pending,,directional response
+E5_external,independent cohort,locked DCT-Reg,pending,,external generalization

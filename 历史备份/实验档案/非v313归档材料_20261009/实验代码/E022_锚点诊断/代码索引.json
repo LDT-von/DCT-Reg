@@ -1,0 +1,27 @@
+{
+  "id": "E022",
+  "entries": [
+    {
+      "requested": "scripts/_archive_v310_v311/anchor_consistency_analysis.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\anchor_consistency_analysis.py",
+      "sha256": "17095a4330d1095a14e4bab57ca548b5ed39f6aeff91ae7f6d38ab08678b5cb0",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "scripts/_archive_v310_v311/anchor_separation_analysis.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\anchor_separation_analysis.py",
+      "sha256": "711f57e98fb5779f0a7e492a0ae86581c4ae12c1fca08f3ae9302fdc1c519434",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "scripts/_archive_v310_v311/run_anchor_experiments.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\run_anchor_experiments.py",
+      "sha256": "1891a36f667a98fe2ff10267e80c6ec26b4c4b594c8a4e2eb27036c8fcca3841",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

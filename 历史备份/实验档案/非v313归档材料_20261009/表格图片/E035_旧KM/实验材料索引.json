@@ -1,0 +1,114 @@
+{
+  "id": "E035",
+  "folder": "E035_旧KM",
+  "title": "旧版 KM 三组分层与五癌种曲线",
+  "kind": "补录实验或审计",
+  "status": "汇总 CSV 已保存 原图部分本地缺失",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "旧版按风险三组或两组；不是 E011 的训练中位数十队列方案。",
+  "conclusion": "保留组数、人数、p 值和来源，旧版与新版不相互覆盖；原始患者预测、分组阈值与选择协议待补。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "paper_outputs/_archive_v310_v311/km_curves/kaplan_meier_report.txt",
+    "paper_outputs/_archive_v310_v311/km_curves/pairwise_logrank_tests.csv",
+    "paper_outputs/_archive_v310_v311/km_curves/risk_stratification_summary.csv",
+    "paper_outputs/_archive_v310_v311/km_curves/variant_comparison.csv",
+    "paper_outputs/_archive_v310_v311/km_curves_multi_cancer/km_summary.csv"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/kaplan_meier_analysis.py",
+    "scripts/_archive_v310_v311/kp_multi_cancer.py"
+  ],
+  "tables": [
+    {
+      "title": "旧五癌种 KM 摘要",
+      "headers": [
+        "Cancer",
+        "N",
+        "Events",
+        "log_rank_p_3group",
+        "log_rank_p_2group"
+      ],
+      "rows": [
+        [
+          "BLCA",
+          "380",
+          "128",
+          "1.0070558116871953e-05",
+          "9.484647284777675e-06"
+        ],
+        [
+          "HNSC",
+          "437",
+          "140",
+          "0.005626487105041828",
+          "0.0001543884920772614"
+        ],
+        [
+          "SKCM",
+          "388",
+          "165",
+          "2.53772291402999e-06",
+          "7.43991764529383e-05"
+        ],
+        [
+          "LUSC",
+          "454",
+          "125",
+          "0.00026616456332355165",
+          "3.9350909251190535e-05"
+        ],
+        [
+          "KIRC",
+          "98",
+          "23",
+          "6.367168205688524e-08",
+          "1.4922614860844817e-05"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E035",
+      "source": "paper_outputs/_archive_v310_v311/km_curves/kaplan_meier_report.txt",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E035_旧KM\\原始材料\\paper_outputs\\_archive_v310_v311\\km_curves\\kaplan_meier_report.txt",
+      "sha256": "1f72a7962bddbe9f6959733a6415150b25777d0a1c3e365eec58f4d63884e449"
+    },
+    {
+      "experiment": "E035",
+      "source": "paper_outputs/_archive_v310_v311/km_curves/pairwise_logrank_tests.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E035_旧KM\\原始材料\\paper_outputs\\_archive_v310_v311\\km_curves\\pairwise_logrank_tests.csv",
+      "sha256": "6362f04c9ccc66831f7af50b2639383d2313c7a2e734573e0be10b3a9f7dc5e0"
+    },
+    {
+      "experiment": "E035",
+      "source": "paper_outputs/_archive_v310_v311/km_curves/risk_stratification_summary.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E035_旧KM\\原始材料\\paper_outputs\\_archive_v310_v311\\km_curves\\risk_stratification_summary.csv",
+      "sha256": "375099415855d81bcc678b1a7da188462658c6e060610fd2a0b4197a8b12939b"
+    },
+    {
+      "experiment": "E035",
+      "source": "paper_outputs/_archive_v310_v311/km_curves/variant_comparison.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E035_旧KM\\原始材料\\paper_outputs\\_archive_v310_v311\\km_curves\\variant_comparison.csv",
+      "sha256": "6efe714043c811ae5aa89f681b08d5980d00dfdd929b38d68bc335ab33876d61"
+    },
+    {
+      "experiment": "E035",
+      "source": "paper_outputs/_archive_v310_v311/km_curves_multi_cancer/km_summary.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E035_旧KM\\原始材料\\paper_outputs\\_archive_v310_v311\\km_curves_multi_cancer\\km_summary.csv",
+      "sha256": "51505fe39cef2f13b584266bea4d286ccaeca96d5fa819d632e3cd54b128ca0a"
+    }
+  ]
+}

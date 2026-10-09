@@ -1,0 +1,109 @@
+# DCT v3.14 Masked Transport Reconstruction - BLCA UNI
+#
+# Objective:
+#   NLL_sum/B + 0.10*IPCW-rank + 0.05*per-slot-NLL + 0.02*content-distance-hinge
+#   + ramp(epoch)*0.10*(0.5*masked-self + 0.5*OT-masked-cross)
+#
+# The factual survival path uses complete paired modalities.  Only the
+# auxiliary reconstruction view masks 20% of encoded pathway tokens.  Its
+# Sinkhorn plans are re-solved from masked omics slots, and reconstruction is
+# scored only at masked positions.  POC, POM, Cox, direction, dose, and
+# reconfiguration losses are disabled.
+
+name: dct_v314_blca_uni
+description: |
+  DCT v3.14 masked transport reconstruction on BLCA UNI.  The version-local
+  candidate has its own prototype-query slots, transport backbone, stable NLL,
+  and masked pathway completion; no inheritance/import from older model versions.
+  Loss weights are starting points, not clinically validated optima.
+
+data:
+  study: blca
+  data_root_dir: /data/CPathPatchFeature
+  data_path: /data1/dataset_csv
+  rna_format: Pathways
+  label_col: survival_months_dss
+  signature: combine
+  n_classes: 4
+  num_patches: 4096
+  encoding_dim: 1024
+
+split:
+  k_start: 0
+  k_end: 5
+
+train:
+  survot_method: dct_v314_masked_transport_reconstruction
+  specific_simple: dct_v314_blca_uni
+  results_dir: /data1/DCT-Reg/results/dct_v314_blca_uni/blca
+  max_epochs: 30
+  batch_size: 32
+  warmup_epochs: 0
+  grad_clip_norm: 1.0
+  seed: 3
+  lr: 0.0005
+  opt: adamW
+  reg: 0.0005
+  scheduler: cosine
+  gpu: 0
+  num_workers: 4
+  bag_loss: nll_surv
+  alpha_surv: 0.5  # Existing convention: censored NLL is scaled by 1-alpha.
+  min_free_space_gb: 2.0
+  fit_bins_on_train: true
+  binning_mode: global_qcut
+  dct_slot_init_mode: deterministic
+  event_stratified_batches: true
+  event_sampling_fraction: 0.0
+
+slot:
+  slot_num_wsi: 16
+  slot_num_omics: 16
+  slot_iters: 10
+  temperature: 0.01
+  topk_ratio: 0.25
+  top_k_method: parallel_topk_st
+
+model:
+  wsi_encoder: uni
+  wsi_projection_dim: 256
+  otehv2_eps: 0.05
+  otehv2_iter: 50
+  otehv2_heads: 4
+  otehv2_layers: 2
+  otehv2_dropout: 0.15
+  dct_num_stages: 4
+  dct_lambda_ipcw_rank: 0.10
+  dct_ipcw_rank_margin: 0.02
+  dct_ipcw_rank_temperature: 0.50
+  dct_ipcw_max_weight: 10.0
+  dct_ipcw_rank_memory_size: 64
+  dct_v38_lambda_direction: 0.0
+  dct_v38_lambda_dose: 0.0
+  dct_v38_lambda_reconfiguration: 0.0
+  dct_anchor_momentum: 0.90
+  dct_evidence_cost_weight: 0.0
+  dct_evidence_mass_floor: 0.05
+  dct_evidence_marginal_strength: 1.0
+  dct_geometry_reliability_strength: 0.0
+  dct_coupling_projection_iters: 1000
+  dct_coupling_projection_tol: 0.0001
+  dct_mix_ratio: 1.0
+  dct_lambda_etar: 0.0
+  dct_lambda_listwise: 0.0
+  spt_prog_cost: 0.20
+  rg_eps_start: 0.10
+  rg_eps_anneal: 12
+
+  # Explicit candidate switches, saved/checked in checkpoint metadata.
+  dct_v314_lambda_slot_nll: 0.05
+  dct_v314_lambda_slot_diversity: 0.02
+  dct_v314_lambda_mtr: 0.10
+  dct_v314_mask_ratio: 0.20
+  dct_v314_reconstruction_mode: masked  # masked | full | hybrid | off
+  # Self/cross are averaged 0.5/0.5; hybrid averages masked/full 0.5/0.5.
+  # Ramp: clip((epoch-2)/5,0,1). Hybrid does NOT double the loss budget.
+
+split_setup:
+  which_splits: 5fold
+  on_missing_wsi: error

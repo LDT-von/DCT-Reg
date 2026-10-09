@@ -1,0 +1,86 @@
+{
+  "id": "E018",
+  "folder": "E018_v310机制对照",
+  "title": "v3.10 锚点和耦合机制对照",
+  "kind": "补录实验或审计",
+  "status": "历史报告部分折完成",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "BLCA、LUSC、UCEC；cross-fold frozen、permuted、fixed coupling、noisy anchors。",
+  "conclusion": "各控制臂折数与 Full 对照范围不同，历史汇总不能直接证明运输机制必要性。Stage jitter 未找到分数。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "EXPERIMENT_DATA_SUMMARY.md",
+    "DCT_v310_Experiments_Report.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/run_dct_v310_experiments.py"
+  ],
+  "tables": [
+    {
+      "title": "历史机制控制覆盖",
+      "headers": [
+        "实验",
+        "BLCA",
+        "LUSC",
+        "UCEC",
+        "Folds"
+      ],
+      "rows": [
+        [
+          "Full Model",
+          "0.7175",
+          "-",
+          "-",
+          "5/5"
+        ],
+        [
+          "Cross-Fold Frozen",
+          "0.5523",
+          "0.5266",
+          "0.5364",
+          "BLCA:5, 其他:1"
+        ],
+        [
+          "Permuted Reference",
+          "0.5281",
+          "0.4955",
+          "0.5353",
+          "各3/5"
+        ],
+        [
+          "Fixed Coupling",
+          "0.5497",
+          "0.5086",
+          "0.4981",
+          "各3/5"
+        ],
+        [
+          "Noisy Anchors",
+          "0.5286",
+          "0.4731",
+          "0.4820",
+          "各3/5"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E018",
+      "source": "EXPERIMENT_DATA_SUMMARY.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E018_v310机制对照\\原始材料\\EXPERIMENT_DATA_SUMMARY.md",
+      "sha256": "e0da03ffde98a9505117c0f6780811132bda3f97e0bc3c11cd6962b621ec9a83"
+    },
+    {
+      "experiment": "E018",
+      "source": "DCT_v310_Experiments_Report.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E018_v310机制对照\\原始材料\\DCT_v310_Experiments_Report.md",
+      "sha256": "ca0322aec987f580391759e45741ca6186b9098d27b0bf6f348ae850121ed4c3"
+    }
+  ]
+}

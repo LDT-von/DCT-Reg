@@ -1,0 +1,20 @@
+{
+  "id": "E025",
+  "entries": [
+    {
+      "requested": "scripts/_archive_v310_v311/e4_v311_fixed_audit.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\e4_v311_fixed_audit.py",
+      "sha256": "bd3635a0f01b44ad2509ef9633ba9849a0c0cd4052379042e6c9d9a9d75dca49",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "scripts/_archive_v310_v311/make_e4_audit_report.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\make_e4_audit_report.py",
+      "sha256": "25fa8da97a8ee0d942aeb2f328be4ca189af376b7fcbe37e8ad1404b32e1cfa7",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

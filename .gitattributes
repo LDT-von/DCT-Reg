@@ -1,0 +1,35 @@
+# Preserve manuscript plot bytes and vector-PDF offsets across checkouts.
+paper/figures/v313_manuscript_integrated/*.pdf binary
+paper/figures/v313_manuscript_integrated/*.png binary
+paper/figures/v313_manuscript_integrated/*.json text eol=lf
+paper/figures/v313_manuscript_integrated/*.svg text eol=lf
+# Preserve comparison-table vector offsets and recorded artifact hashes.
+paper/tables/v313_ten_cancer_comparison*/*.pdf binary
+paper/tables/v313_ten_cancer_comparison*/*.png binary
+paper/tables/v313_ten_cancer_comparison*/*.docx binary
+paper/tables/v313_ten_cancer_comparison*/*.svg text eol=lf
+paper/tables/v313_ten_cancer_comparison*/*.html text eol=lf
+paper/tables/v313_ten_cancer_comparison*/*.json text eol=lf
+paper/V313_TEN_CANCER_COMPARISON_INPUT.json text eol=lf
+# Complete published-value reference table; distinct from matched draft outputs.
+paper/tables/v313_ten_cancer_reported_comparison/*.pdf binary
+paper/tables/v313_ten_cancer_reported_comparison/*.png binary
+paper/tables/v313_ten_cancer_reported_comparison/*.docx binary
+paper/tables/v313_ten_cancer_reported_comparison/*.svg text eol=lf
+paper/tables/v313_ten_cancer_reported_comparison/*.html text eol=lf
+paper/tables/v313_ten_cancer_reported_comparison/*.json text eol=lf
+paper/V313_TEN_CANCER_REPORTED_COMPARISON_INPUT.json text eol=lf
+
+# Current OT and UNI2-h literature reference artifacts.
+paper/tables/v313_ot_uni2h_comparison/*.pdf binary
+paper/tables/v313_ot_uni2h_comparison/*.png binary
+paper/tables/v313_ot_uni2h_comparison/*.docx binary
+paper/tables/v313_ot_uni2h_comparison/*.svg text eol=lf
+paper/tables/v313_ot_uni2h_comparison/*.html text eol=lf
+paper/tables/v313_ot_uni2h_comparison/*.json text eol=lf
+paper/V313_OT_UNI2H_COMPARISON_INPUT.json text eol=lf
+paper/V313_OT_UNI2H_MATCHED_INPUT.json text eol=lf
+
+# Archive source hashes and recovery copies require byte-identical checkouts.
+"实验档案/**" -text
+"历史备份/**" -text

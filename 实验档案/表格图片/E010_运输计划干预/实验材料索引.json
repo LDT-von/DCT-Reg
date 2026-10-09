@@ -1,0 +1,155 @@
+{
+  "id": "E010",
+  "folder": "E010_运输计划干预",
+  "title": "固定 Full 模型的运输计划替换",
+  "kind": "固定 checkpoint 分析",
+  "status": "十折 JSON 已保存",
+  "purpose": "固定训练完成的 Full，检验同实际边缘的计划替换是否影响排序评价。",
+  "setting": "BLCA/KIRC 各五折，alpha 为 0、0.25、0.5、0.75、1；全部阶段与几何分支替换计划，重新计算后续门控。",
+  "conclusion": "BLCA 在全部强度下 C-index 不变；KIRC 仅 fold2 在非零强度下小幅变化。该固定模型的排序评价对这类替换基本不敏感。",
+  "pending": "尚缺训练时最佳患者预测的逐患者对齐、风险差分、重建误差和实际边缘残差。不得用旧三折汇总替代此十折记录。",
+  "sources": [
+    "paper/figures/fig3_sweep_blca_fold0.json 至 fold4",
+    "paper/figures/fig3_sweep_kirc_fold0.json 至 fold4"
+  ],
+  "scripts": [
+    "scripts/plot_v313_manuscript_sweep.py",
+    "scripts/plot_fig3_from_exports.py",
+    "scripts/plot_fig3_transport_sweep.py",
+    "scripts/prepare_v313_evidence.py",
+    "survot_rank/evidence/v313.py"
+  ],
+  "tables": [
+    {
+      "title": "计划替换的五折汇总",
+      "headers": [
+        "alpha",
+        "BLCA C-index",
+        "KIRC C-index"
+      ],
+      "rows": [
+        [
+          "0.0",
+          "0.723808 ± 0.046715",
+          "0.822355 ± 0.016291"
+        ],
+        [
+          "0.25",
+          "0.723808 ± 0.046715",
+          "0.822492 ± 0.016271"
+        ],
+        [
+          "0.5",
+          "0.723808 ± 0.046715",
+          "0.822492 ± 0.016271"
+        ],
+        [
+          "0.75",
+          "0.723808 ± 0.046715",
+          "0.822492 ± 0.016271"
+        ],
+        [
+          "1.0",
+          "0.723808 ± 0.046715",
+          "0.822492 ± 0.016271"
+        ]
+      ]
+    }
+  ],
+  "figures": [
+    {
+      "path": "表格图片\\E010_运输计划干预\\原始材料\\fig4_transport_sweep_manuscript.png",
+      "caption": "同一 Full 模型内的计划替换；不同于 E009 重新训练 Independent。"
+    }
+  ],
+  "assets": [
+    {
+      "experiment": "E010",
+      "source": "paper/figures/fig3_sweep_blca_fold0.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E010_运输计划干预\\原始材料\\fig3_sweep_blca_fold0.json",
+      "sha256": "63ceeb47d1d2b0ec5ae180d43fb78f60ba3204af89a9a25b0eb01387931eedf1"
+    },
+    {
+      "experiment": "E010",
+      "source": "paper/figures/fig3_sweep_blca_fold1.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E010_运输计划干预\\原始材料\\fig3_sweep_blca_fold1.json",
+      "sha256": "924421e0de3bf5a1174060300be643f5fcf7c8051aefc24b88cad9522bd2cce6"
+    },
+    {
+      "experiment": "E010",
+      "source": "paper/figures/fig3_sweep_blca_fold2.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E010_运输计划干预\\原始材料\\fig3_sweep_blca_fold2.json",
+      "sha256": "63727217e85f0b94d1da2ff981493e83b874f83d1c89a02b3ee56849c58fbff2"
+    },
+    {
+      "experiment": "E010",
+      "source": "paper/figures/fig3_sweep_blca_fold3.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E010_运输计划干预\\原始材料\\fig3_sweep_blca_fold3.json",
+      "sha256": "0d31f7c5c39b3a5d322ca09bd440a04b70afd075c359ea876d7a38622fde6382"
+    },
+    {
+      "experiment": "E010",
+      "source": "paper/figures/fig3_sweep_blca_fold4.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E010_运输计划干预\\原始材料\\fig3_sweep_blca_fold4.json",
+      "sha256": "1fb2cb2439a42dd33760169a87d2a0d3237ef51d4037a61cbc9d96f601dce209"
+    },
+    {
+      "experiment": "E010",
+      "source": "paper/figures/fig3_sweep_kirc_fold0.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E010_运输计划干预\\原始材料\\fig3_sweep_kirc_fold0.json",
+      "sha256": "dd2505041ee4ddae14a34b983855f6f8a2e796b5f5f757c5001b5ebe9cd260be"
+    },
+    {
+      "experiment": "E010",
+      "source": "paper/figures/fig3_sweep_kirc_fold1.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E010_运输计划干预\\原始材料\\fig3_sweep_kirc_fold1.json",
+      "sha256": "dbfeda203b3314d00fa8d54511c39da836537ad7f7468a9782fa3e3151490578"
+    },
+    {
+      "experiment": "E010",
+      "source": "paper/figures/fig3_sweep_kirc_fold2.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E010_运输计划干预\\原始材料\\fig3_sweep_kirc_fold2.json",
+      "sha256": "887a92e0d35e7c2ed7dd63ee7b4d3194a2d4c45ffa720c3add0a3aa41f646ae6"
+    },
+    {
+      "experiment": "E010",
+      "source": "paper/figures/fig3_sweep_kirc_fold3.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E010_运输计划干预\\原始材料\\fig3_sweep_kirc_fold3.json",
+      "sha256": "8efa01b1232a8e39a14e57e4a8e0e9e4372df131e430c488605365c431a58c5e"
+    },
+    {
+      "experiment": "E010",
+      "source": "paper/figures/fig3_sweep_kirc_fold4.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E010_运输计划干预\\原始材料\\fig3_sweep_kirc_fold4.json",
+      "sha256": "feb631eab9d79e8bdca1c063b5dfb86abd28719f71b6eb901e82b713b0cc0847"
+    },
+    {
+      "experiment": "E010",
+      "source": "paper/figures/fig4_transport_sweep_manuscript.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E010_运输计划干预\\原始材料\\fig4_transport_sweep_manuscript.png",
+      "sha256": "c42cf874f47743144906dfa601a67c97beca1782c903cc3ac2cebda3c0fcf0f8"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "id": "E041",
+  "folder": "E041_v315结构与排序",
+  "title": "v3.15 RTI 基线结构审计与排序实现",
+  "kind": "补录实验或审计",
+  "status": "合成检查有 JSON 新排序实现无临床分数",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "旧 NLL-only 基线 CPU/GPU/independent 审计；RTI 定向排序是后续候选配置，证据分开。",
+  "conclusion": "旧 GPU 合成配置三 seed 各 30 步有限值；independent 的交互为零。后续 RTI 排序代码完成不等于有真实验证 C-index。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "audit_results/v315_cpu.json",
+    "audit_results/v315_gpu.json",
+    "audit_results/v315_independent.json",
+    "docs/DCT_V315_BASELINE.md",
+    "docs/DCT_V315_PLAN.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/audit_v315.py",
+    "configs/dct_v315_rti_rank_blca_uni2h.yaml"
+  ],
+  "tables": [
+    {
+      "title": "GPU 合成基线摘要",
+      "headers": [
+        "Seed",
+        "有限步数",
+        "NLL transport 梯度",
+        "峰值 allocated MiB"
+      ],
+      "rows": [
+        [
+          "3",
+          "30",
+          "0.1589",
+          "568.14"
+        ],
+        [
+          "17",
+          "30",
+          "0.3173",
+          "568.14"
+        ],
+        [
+          "29",
+          "30",
+          "0.2341",
+          "568.14"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E041",
+      "source": "audit_results/v315_cpu.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E041_v315结构与排序\\原始材料\\audit_results\\v315_cpu.json",
+      "sha256": "eb2edd6afea8ee856d28ea44393a3e9e881da729dacaacb09b1c3b8af9e4fcb1"
+    },
+    {
+      "experiment": "E041",
+      "source": "audit_results/v315_gpu.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E041_v315结构与排序\\原始材料\\audit_results\\v315_gpu.json",
+      "sha256": "ea0da0b1c91763726dc4a85728a2037d7fea91631dced3784faff94e842a97f6"
+    },
+    {
+      "experiment": "E041",
+      "source": "audit_results/v315_independent.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E041_v315结构与排序\\原始材料\\audit_results\\v315_independent.json",
+      "sha256": "75c797a09fcab18b4b0438fd28f085c53cacb9e05cc482366e69c5c0f391acfb"
+    },
+    {
+      "experiment": "E041",
+      "source": "docs/DCT_V315_BASELINE.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E041_v315结构与排序\\原始材料\\docs\\DCT_V315_BASELINE.md",
+      "sha256": "ed953c2ec85fc5ebdee37a7cb82210d0eb06a1d50a13533b8eea7def0e6b4382"
+    },
+    {
+      "experiment": "E041",
+      "source": "docs/DCT_V315_PLAN.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E041_v315结构与排序\\原始材料\\docs\\DCT_V315_PLAN.md",
+      "sha256": "aa9047933fbdc1cc72025f52e6af769de042f40d777e56f983a395bd45c50569"
+    }
+  ]
+}

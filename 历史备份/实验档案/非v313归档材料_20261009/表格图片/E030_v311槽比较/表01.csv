@@ -1,0 +1,4 @@
+﻿版本,WSI C-index,Omics C-index,原报告解读 未核实
+Fixed,0.5746,0.6944,Omics C-index 更高（slot 有区分度）
+Unfixed,0.5548,0.6546,Omics C-index 略低（slot collapse 影响）
+差值,+0.0198 ,+0.0399 ,Fixed 在两个模态都更高

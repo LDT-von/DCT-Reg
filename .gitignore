@@ -59,6 +59,7 @@ wandb/
 # IDE
 .vscode/
 .idea/
+.codegraph/
 *.swp
 *.swo
 
@@ -83,6 +84,7 @@ transport_diagnosis/
 .trash_*/
 *_trash_*/
 .trash/
+.ablation_buggy_runs_backup/
 
 # Top-level SlotSPE working copy (third_party/SlotSPE is the tracked one)
 /SlotSPE/

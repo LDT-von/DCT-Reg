@@ -1,0 +1,37 @@
+请只核验和修正 DCT v3.13 新增诊断图，不训练，不改模型架构、权重、损失、现有比较表或正文成绩。不要删除旧导出或旧图，不覆盖非空目录。当前目标是正确展示两个癌种、每类一张汇总图，共十张真实图。
+
+一、同步与检查
+在 /data1/DCT-Reg 检查工作区后同步 origin/main（可快进就快进；如有冲突保留并报告，不重置已有改动）。阅读 paper/V313_ADDITIONAL_EVIDENCE_PROGRESS_20261008.md 第 8 节。新版 summary 的 --exports、--output 必须显式指定。
+PY=/home/ubuntu/.conda/envs/trisurv/bin/python
+BASE=/data1/DCT-Reg/results/v313_additional_20261008
+
+二、先重画不受检索中心影响的八张图；这里只读已存数组，不加载模型
+"$PY" scripts/summarize_v313_exp6.py \
+  --exports "$BASE/blca_full" --exports "$BASE/kirc_full" \
+  --arm exp6 --classes pathway_advantage pairing patch_deletion patch_budget \
+  --paper-input paper/V313_OT_UNI2H_COMPARISON_INPUT.json \
+  --output "$BASE/figures_summary_checked_20261008"
+
+校验不通过就停止并报告具体字段。尤其如果报 Paper Full mismatch，列出癌种/折、原始 pairing.native_cindex、重算 C-index、正文折值及 checkpoint/predictions/split/config 哈希；不能自动改正文分数、替换 checkpoint 或为了过检查更改阈值。
+读取该目录 summary_index.json：按折报告实际 native/shuffled C-index、均值差、风险变化、注意力 relative range 及 padding shift。旧 fold_metrics.csv 的 reconstruction/native 与 shuffled 为 mean_error；禁止把这一列当 C-index。所有跨折汇总按折计算，不能将原始风险池化后计算 C-index；随机重复不是独立患者。
+
+三、只修复重建检索，复用相同 checkpoint；无需训练、无需重跑昂贵的 patch 删除
+core manifest 原路径：results/v313_evidence_v2/core.json。先用现有 manifest 审计核对选中的 exp6 是否正好是 BLCA/KIRC 的 10 个 fold，与旧 additional.json 的 run 及 checkpoint/config/curve/predictions/split 哈希逐项一致。读取每个旧 additional.json 的 repeats、diagnostic_seed、fractions，逐项沿用；不能根据旧图注假定 repeats=16，也不能直接改用默认重复数。若十折设置一致，可一次调用下面的 CLI；不一致则每折调用，保持旧设置，输出同一新的空导出根目录。
+
+先 dry-run：
+"$PY" scripts/run_v313_additional_evidence.py run \
+  --manifest results/v313_evidence_v2/core.json --arm exp6 --cancer blca --cancer kirc \
+  --experiment reconstruction --output "$BASE/reconstruction_retrieval_v2_20261008"
+
+实际执行时把从旧 JSON 读取的 --repeats、--diagnostic-seed、--fractions 补齐，再加 --device cuda:0 --execute。这里明确授权仅执行所选旧 checkpoint 的 reconstruction 诊断，不训练、不执行 patches 实验。若发现设置、身份、来源不一致，先报告，不盲目运行。确认新导出均标记 retrieval_metric_version=2、retrieval_center_definition 为训练 normalized token 的算术均值。
+
+只画这两张修正版检索图：
+"$PY" scripts/summarize_v313_exp6.py \
+  --exports "$BASE/reconstruction_retrieval_v2_20261008" --arm exp6 --classes reconstruction \
+  --paper-input paper/V313_OT_UNI2H_COMPARISON_INPUT.json \
+  --output "$BASE/figures_summary_retrieval_v2_20261008"
+
+四、交付我可以看懂的十张图
+每张图按癌种汇总五折，不再输出几十张分折图。八张有效诊断加两张 v2 重建检索，共十张 PNG 和十张 PDF；保留两个 summary_index.json。配对图左边是真正的 native/shuffled C-index 逐折配对，右边是各折风险变化；重建图左边是误差（越低越好），右边是 v2 Top-1（越高越好）；通路优势红色代表控制误差高于 native；删除图对比 top/bottom/random；预算图从 budget.retained_fraction 读横轴。
+
+逐张查看实际图片是否有裁切、遮挡或错标，并如实汇总，不能预设修复会让模型更好。检索若仍接近随机也应报告；风险改变不自动代表预后排序改善。把最终十张 PNG/PDF 与两份索引整理到新的 paper/figures/v313_diagnostics_checked_20261008/ 供本机查看，只提交这些图、索引和真实核验进展；additional.npz、模型、患者原始数据不入 Git。保留所有已有服务器改动，不自动接入正文，不更改旧折值，不用合成 QA 图替代真实图。最后提供可拉取的提交号和每类图的具体文件名。

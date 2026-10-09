@@ -1,0 +1,79 @@
+{
+  "id": "E021",
+  "folder": "E021_TGSR目标",
+  "title": "TGSR 目标函数与可学习反馈强度",
+  "kind": "补录实验或审计",
+  "status": "历史报告五组五折 参考臂仅一折",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "NLL、IPCW、direction、full、full learned；tgsr_nll 的 fold0 预算与其他折不同。",
+  "conclusion": "Full 和 learned 报告均值为 0.7087/0.7084。完整参考臂未找到，不称为公平超越；保留协议差异。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "TGSR_BEST_EPOCH_RESULTS.md",
+    "TGSR_FINAL_VERDICT.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/run_dct_v32_objective_experiments.py"
+  ],
+  "tables": [
+    {
+      "title": "目标函数历史汇总",
+      "headers": [
+        "变体",
+        "五折报告均值与标准差",
+        "覆盖状态"
+      ],
+      "rows": [
+        [
+          "tgsr_full",
+          "0.7087 ± 0.0657",
+          " 5/5"
+        ],
+        [
+          "tgsr_full_learned",
+          "0.7084 ± 0.0466",
+          " 5/5"
+        ],
+        [
+          "tgsr_nll",
+          "0.7018 ± 0.0420",
+          " 5/5"
+        ],
+        [
+          "v310_full_reference",
+          "0.6950 (1/5)",
+          " 1/5"
+        ],
+        [
+          "tgsr_ipcw",
+          "0.6911 ± 0.0380",
+          " 5/5"
+        ],
+        [
+          "tgsr_direction",
+          "0.6871 ± 0.0324",
+          " 5/5"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E021",
+      "source": "TGSR_BEST_EPOCH_RESULTS.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E021_TGSR目标\\原始材料\\TGSR_BEST_EPOCH_RESULTS.md",
+      "sha256": "6b7f3eff28f413c4819db78f14c5c2fed80d99744d1afec204405c8658e68904"
+    },
+    {
+      "experiment": "E021",
+      "source": "TGSR_FINAL_VERDICT.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E021_TGSR目标\\原始材料\\TGSR_FINAL_VERDICT.md",
+      "sha256": "f94f35e98c57ae83b0fc81e26d09fb2e3af5be1f748e3f6da41c7c52049c13d8"
+    }
+  ]
+}

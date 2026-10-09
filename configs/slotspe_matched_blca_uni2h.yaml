@@ -1,0 +1,89 @@
+name: slotspe_matched
+description: 'SlotSPE original-model reference.  Matched recipe: batch=8, AdamW, alpha_surv=0.15
+  (matches DCT v3.13).'
+data:
+  study: blca
+  data_root_dir: /data1/TCGA-UNI2-h-features
+  data_path: /data1/dataset_csv
+  rna_format: Pathways
+  label_col: survival_months_dss
+  signature: combine
+  n_classes: 4
+  num_patches: 2048
+  encoding_dim: 1536
+split:
+  k_start: 0
+  k_end: 5
+train:
+  survot_method: slotspe_reference
+  specific_simple: slotspe_matched_blca_uni2h
+  results_dir: /data1/DCT-Reg/results/v313_paper_v1/base/slotspe_matched/blca
+  max_epochs: 30
+  batch_size: 8
+  warmup_epochs: 0
+  grad_clip_norm: 1.0
+  seed: 3
+  lr: 0.0005
+  opt: adamW
+  reg: 0.0005
+  scheduler: cosine
+  gpu: 0
+  num_workers: 4
+  bag_loss: nll_surv
+  alpha_surv: 0.15
+  min_free_space_gb: 2.0
+  fit_bins_on_train: true
+  binning_mode: global_qcut
+  dct_slot_init_mode: deterministic
+  event_stratified_batches: true
+  event_sampling_fraction: 0.0
+slot:
+  slot_num_wsi: 8
+  slot_num_omics: 8
+  slot_iters: 10  # SlotSPE recipe mandates iters=10 (adapter will enforce)
+  temperature: 0.01
+  topk_ratio: 0.25
+  top_k_method: parallel_topk_st
+model:
+  wsi_encoder: uni2-h
+  wsi_projection_dim: 256
+  otehv2_eps: 0.05
+  otehv2_iter: 50
+  otehv2_heads: 4
+  otehv2_layers: 2
+  otehv2_dropout: 0.15
+  dct_num_stages: 4
+  dct_lambda_ipcw_rank: 0.1
+  dct_ipcw_rank_margin: 0.02
+  dct_ipcw_rank_temperature: 0.5
+  dct_ipcw_max_weight: 10.0
+  dct_ipcw_rank_memory_size: 64
+  dct_v38_lambda_direction: 0.0
+  dct_v38_lambda_dose: 0.0
+  dct_v38_lambda_reconfiguration: 0.0
+  dct_anchor_momentum: 0.9
+  dct_evidence_cost_weight: 0.0
+  dct_evidence_mass_floor: 0.05
+  dct_evidence_marginal_strength: 1.0
+  dct_geometry_reliability_strength: 0.0
+  dct_coupling_projection_iters: 1000
+  dct_coupling_projection_tol: 0.0001
+  dct_coordinate_temperature: 0.3
+  dct_mix_ratio: 1.0
+  dct_v38_direction_margin: 0.02
+  dct_v38_dose_margin: 0.005
+  dct_v38_reconfiguration_margin: 0.02
+  dct_v38_temperature: 0.05
+  dct_v38_alpha_mid: 0.5
+  dct_v38_alpha_full: 1.0
+  dct_v38_warmup_epochs: 0
+  dct_v38_ramp_epochs: 0
+  dct_v38_dose_every: 1
+  dct_lambda_etar: 0.0
+  dct_lambda_listwise: 0.0
+  spt_prog_cost: 0.2
+  rg_eps_start: 0.1
+  rg_eps_anneal: 12
+split_setup:
+  which_splits: 5fold_uni2h
+  on_missing_wsi: error

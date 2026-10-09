@@ -1,0 +1,5030 @@
+{
+  "schema_version": 1,
+  "cancer": "ucec",
+  "arm": "exp6",
+  "seed": 3,
+  "protocol": "legacy_val",
+  "grouping": "within-fold training-risk median, then pool labels",
+  "risk_direction": "higher_is_worse",
+  "threshold_ties": "high",
+  "n": 487,
+  "high_n": 269,
+  "low_n": 218,
+  "folds": [
+    {
+      "fold": 0,
+      "run_id": "exp6_ucec_f0_s3",
+      "n": 98,
+      "high_n": 62,
+      "low_n": 36,
+      "train_median": -3.9549217224121094,
+      "source": {
+        "export": "/data1/DCT-Reg/results/v313_ten_cancer_km/exports/exp6_ucec_f0_s3/export.json",
+        "export_sha256": "fc012eb612dcb24e277997f4c5b42c0e6b7e8706ad0844b328be39c0de4be182",
+        "patients": "/data1/DCT-Reg/results/v313_ten_cancer_km/exports/exp6_ucec_f0_s3/patients.npz",
+        "patients_sha256": "b73c523dc8d7dd74b4e5ee1dd3a625dfb0a66f7ac2e31344f1579e0e43b62e28",
+        "artifact_hashes": {
+          "config": "f129b547e74d107ad057f35f2a579232c2493e0f2df49efb4fe6f3b62bbff987",
+          "curve": "d27ba25693d113bc46b6e6ad1f42dd200ef3ed48bb2d4dad7609100b8a5b4128",
+          "predictions": "6395a881267796ccc4f2fa05d6516452e7a41417d2cebe22cfcbe3e3d5305779",
+          "split_csv": "7832847a51d8c53be9d8d35530f7e3211743f70059b10f182963e5d0cf9a0caf",
+          "checkpoint": "5bcc4e8cb8b386c89d599173200a7641273a642049610abc067a211eb6f673f5"
+        },
+        "best_epoch": 17
+      }
+    },
+    {
+      "fold": 1,
+      "run_id": "exp6_ucec_f1_s3",
+      "n": 98,
+      "high_n": 49,
+      "low_n": 49,
+      "train_median": -3.9206764698028564,
+      "source": {
+        "export": "/data1/DCT-Reg/results/v313_ten_cancer_km/exports/exp6_ucec_f1_s3/export.json",
+        "export_sha256": "886b24e23ffcd4548133ed706b8b87a171506cf20fe37b9985afa1c5ea183eb9",
+        "patients": "/data1/DCT-Reg/results/v313_ten_cancer_km/exports/exp6_ucec_f1_s3/patients.npz",
+        "patients_sha256": "7349ca1c4f2597bc3651a26bec0376782bb27166b5e9bd66c18cc5cc57ea413b",
+        "artifact_hashes": {
+          "config": "f129b547e74d107ad057f35f2a579232c2493e0f2df49efb4fe6f3b62bbff987",
+          "curve": "46c7cf4dedf304f8469dbbe23c072ce58dd0008a48a6b626b2a59239cbfeaed0",
+          "predictions": "6f5bd602d23ed5f6f04a69af8606eff8d73b8abce94f0eca90cb7f37674f3bcb",
+          "split_csv": "68dedeee5e86418c29aa8917c74b3266ba10ce6604b7d34503db2de47b9a3d63",
+          "checkpoint": "d9ecf021861132994733c3520f2630a804a910982a87e2c4ea10f08ef0cd27d6"
+        },
+        "best_epoch": 5
+      }
+    },
+    {
+      "fold": 2,
+      "run_id": "exp6_ucec_f2_s3",
+      "n": 97,
+      "high_n": 51,
+      "low_n": 46,
+      "train_median": -3.9116894006729126,
+      "source": {
+        "export": "/data1/DCT-Reg/results/v313_ten_cancer_km/exports/exp6_ucec_f2_s3/export.json",
+        "export_sha256": "c1d3cf03d345a7dbcaac483014cc63722db72381599e719c155960553c685c98",
+        "patients": "/data1/DCT-Reg/results/v313_ten_cancer_km/exports/exp6_ucec_f2_s3/patients.npz",
+        "patients_sha256": "5dfa4f04d91db14fb76a913ac4d549ef7456e5039e156a61f270fbfc16d3ad95",
+        "artifact_hashes": {
+          "config": "f129b547e74d107ad057f35f2a579232c2493e0f2df49efb4fe6f3b62bbff987",
+          "curve": "6f9a01117cd2390e4c1942cb24b918f4cac19f4f0a995769d97f83c3fe057a3a",
+          "predictions": "67e84ce825b990cc28db51cd43f65405b832a0dd5e8640808e590181a09f4ac0",
+          "split_csv": "797a550534d181774d19457ada0276ffa7a95007eac1b8c0cdebf63092858962",
+          "checkpoint": "6d006090c1a806a075adf47adfd56a5c7f5df4b6faab6f2683fae6e6b69192e5"
+        },
+        "best_epoch": 6
+      }
+    },
+    {
+      "fold": 3,
+      "run_id": "exp6_ucec_f3_s3",
+      "n": 97,
+      "high_n": 55,
+      "low_n": 42,
+      "train_median": -3.944187641143799,
+      "source": {
+        "export": "/data1/DCT-Reg/results/v313_ten_cancer_km/exports/exp6_ucec_f3_s3/export.json",
+        "export_sha256": "9261df486657da3210b3f974aea2240a7cb3dae5078499c305ffde9887981e65",
+        "patients": "/data1/DCT-Reg/results/v313_ten_cancer_km/exports/exp6_ucec_f3_s3/patients.npz",
+        "patients_sha256": "e280fe6c1677fca7b26823977ce9ebe0510539f58c95d7aca2cccb59ac0170d1",
+        "artifact_hashes": {
+          "config": "f129b547e74d107ad057f35f2a579232c2493e0f2df49efb4fe6f3b62bbff987",
+          "curve": "c8b072ddf717401b384098af96cf137ef4899fc1f64b72ad40109d2a9d25c7a9",
+          "predictions": "fe0b5db34f9cb5e7babe9494c9c693fdc1ae93778768e413fbfb5d1e441f5187",
+          "split_csv": "6318daa1ab8eb25981a29c3a1083b66c38191f1fdddfb9940f3817944ae92d77",
+          "checkpoint": "b3941c749239c7966a56690c50153f5b4956919d099ddc1997adadb8738fd4ca"
+        },
+        "best_epoch": 7
+      }
+    },
+    {
+      "fold": 4,
+      "run_id": "exp6_ucec_f4_s3",
+      "n": 97,
+      "high_n": 52,
+      "low_n": 45,
+      "train_median": -3.9757097959518433,
+      "source": {
+        "export": "/data1/DCT-Reg/results/v313_ten_cancer_km/exports/exp6_ucec_f4_s3/export.json",
+        "export_sha256": "38f7a752cc2d3f91c4a2ba78e735dd75ec8e45480a407f0edb2f4e1233d8f7b4",
+        "patients": "/data1/DCT-Reg/results/v313_ten_cancer_km/exports/exp6_ucec_f4_s3/patients.npz",
+        "patients_sha256": "fe2574e00c446fb1685042d7eb848dd0a26611a15b771b2ee20d0a47b06a0eac",
+        "artifact_hashes": {
+          "config": "f129b547e74d107ad057f35f2a579232c2493e0f2df49efb4fe6f3b62bbff987",
+          "curve": "57d4c4e13c931457c44ae2496041c562da9ba0efe7dbf0432240bfd2a893356a",
+          "predictions": "d7f5210fce8ebbf63a03c2962789bf081182fe13d744af47933525e8c3111c86",
+          "split_csv": "a71b66a2270bfe46e899450b9203d8ccf90a248d4a433ef3ba44ca889d07b8ba",
+          "checkpoint": "f4403e7d3d39ad96528f808b916ebad736b7b035b54760c308bedbe9e11c85c8"
+        },
+        "best_epoch": 15
+      }
+    }
+  ],
+  "patients": [
+    {
+      "case_id": "TCGA-2E-A9G8",
+      "fold": 3,
+      "risk": -3.6788077354431152,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 41.062564849853516,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-4E-A92E",
+      "fold": 0,
+      "risk": -3.9494924545288086,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 0.4273925721645355,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-5B-A90C",
+      "fold": 0,
+      "risk": -3.954486608505249,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 39.51737594604492,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-5S-A9Q8",
+      "fold": 0,
+      "risk": -3.9553632736206055,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 10.290298461914062,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0G1",
+      "fold": 0,
+      "risk": -3.910909414291382,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 106.88101959228516,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0G2",
+      "fold": 1,
+      "risk": -3.9294252395629883,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 149.5545196533203,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0G3",
+      "fold": 0,
+      "risk": -3.904114246368408,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 46.94742965698242,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0G5",
+      "fold": 3,
+      "risk": -3.6953132152557373,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 37.01877212524414,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0G9",
+      "fold": 2,
+      "risk": -3.9134576320648193,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 83.50593566894531,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GA",
+      "fold": 1,
+      "risk": -3.894155740737915,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 17.85186004638672,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-A5-A0GB",
+      "fold": 2,
+      "risk": -3.9120330810546875,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 32.7777214050293,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GD",
+      "fold": 4,
+      "risk": -3.981818199157715,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 112.53575134277344,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GE",
+      "fold": 3,
+      "risk": -3.6955654621124268,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 105.36870574951172,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GG",
+      "fold": 0,
+      "risk": -3.9548134803771973,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 123.68083953857422,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GH",
+      "fold": 2,
+      "risk": -3.9107916355133057,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 74.1032943725586,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GI",
+      "fold": 1,
+      "risk": -3.946690082550049,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 88.17437744140625,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GJ",
+      "fold": 0,
+      "risk": -3.9548439979553223,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 65.75270080566406,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GM",
+      "fold": 2,
+      "risk": -3.9124035835266113,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 60.52536392211914,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GN",
+      "fold": 0,
+      "risk": -3.956346035003662,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 60.52536392211914,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GP",
+      "fold": 3,
+      "risk": -3.9464166164398193,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 46.552913665771484,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GQ",
+      "fold": 4,
+      "risk": -3.983081340789795,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 73.87316131591797,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GR",
+      "fold": 1,
+      "risk": -3.8923826217651367,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 36.82151412963867,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GU",
+      "fold": 4,
+      "risk": -3.97794508934021,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 28.273662567138672,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GV",
+      "fold": 2,
+      "risk": -3.9133999347686768,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 54.015846252441406,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GW",
+      "fold": 1,
+      "risk": -3.5673437118530273,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 23.210704803466797,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0GX",
+      "fold": 2,
+      "risk": -3.913330078125,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 68.64582061767578,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0R6",
+      "fold": 4,
+      "risk": -2.320246934890747,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 37.90643310546875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0R7",
+      "fold": 4,
+      "risk": -3.976583957672119,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 17.588848114013672,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0R8",
+      "fold": 0,
+      "risk": -3.9548227787017822,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 19.59430503845215,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0R9",
+      "fold": 2,
+      "risk": -3.916281223297119,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 24.624387741088867,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0RA",
+      "fold": 4,
+      "risk": -3.983011484146118,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 29.062694549560547,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0VO",
+      "fold": 3,
+      "risk": -3.7052741050720215,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 28.766807556152344,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0VP",
+      "fold": 0,
+      "risk": -3.9547958374023438,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 42.34474182128906,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A0VQ",
+      "fold": 3,
+      "risk": -3.9462363719940186,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 15.94503116607666,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A1OF",
+      "fold": 3,
+      "risk": -3.9461913108825684,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 31.988691329956055,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A1OG",
+      "fold": 4,
+      "risk": -3.854910373687744,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 31.988691329956055,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-A5-A1OH",
+      "fold": 3,
+      "risk": -3.670875310897827,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 36.328369140625,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A1OJ",
+      "fold": 3,
+      "risk": -3.694251298904419,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 33.0736083984375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A1OK",
+      "fold": 3,
+      "risk": -3.6916496753692627,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 30.147615432739258,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A2K2",
+      "fold": 2,
+      "risk": -2.855776071548462,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 118.19048309326172,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A2K3",
+      "fold": 4,
+      "risk": -3.9761266708374023,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 66.147216796875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A2K4",
+      "fold": 0,
+      "risk": -3.9054341316223145,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 28.635303497314453,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-A5-A2K5",
+      "fold": 1,
+      "risk": -3.927746057510376,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 24.7230167388916,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A2K7",
+      "fold": 0,
+      "risk": -3.9141931533813477,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 34.94756317138672,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A3LO",
+      "fold": 3,
+      "risk": -3.7220611572265625,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 25.512048721313477,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A3LP",
+      "fold": 3,
+      "risk": -3.6568212509155273,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 14.958740234375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A7WJ",
+      "fold": 4,
+      "risk": -3.977764368057251,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 11.210836410522461,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-A7WK",
+      "fold": 3,
+      "risk": -3.627439498901367,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 18.410757064819336,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-A5-AB3J",
+      "fold": 2,
+      "risk": -3.9118878841400146,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 16.832693099975586,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A23M",
+      "fold": 4,
+      "risk": -2.3729465007781982,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 20.251832962036133,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AJ-A23N",
+      "fold": 2,
+      "risk": -1.7621817588806152,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 14.432718276977539,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AJ-A2QK",
+      "fold": 4,
+      "risk": -1.8342666625976562,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 21.139493942260742,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A2QL",
+      "fold": 1,
+      "risk": -3.930459976196289,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 19.791563034057617,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A2QM",
+      "fold": 4,
+      "risk": -2.6462113857269287,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 29.39145851135254,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A2QN",
+      "fold": 3,
+      "risk": -3.6937906742095947,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 35.14482116699219,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A2QO",
+      "fold": 0,
+      "risk": -3.955382823944092,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 34.35578918457031,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3BD",
+      "fold": 3,
+      "risk": -3.6775174140930176,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 34.158531188964844,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3BF",
+      "fold": 0,
+      "risk": -3.647585391998291,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 18.114870071411133,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3BG",
+      "fold": 2,
+      "risk": -1.5958096981048584,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 18.081993103027344,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3BI",
+      "fold": 3,
+      "risk": -3.690870761871338,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 18.903902053833008,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3BK",
+      "fold": 2,
+      "risk": -3.9121243953704834,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 33.8955192565918,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3EJ",
+      "fold": 1,
+      "risk": -3.0262813568115234,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 1.6438175439834595,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AJ-A3EK",
+      "fold": 1,
+      "risk": -3.928342580795288,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 14.662853240966797,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3EL",
+      "fold": 4,
+      "risk": -3.97090744972229,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 22.487424850463867,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3EM",
+      "fold": 0,
+      "risk": -3.9559059143066406,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 22.25728988647461,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3I9",
+      "fold": 2,
+      "risk": -2.746074676513672,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 17.06282615661621,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AJ-A3IA",
+      "fold": 2,
+      "risk": -2.0210893154144287,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 20.81072998046875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3NC",
+      "fold": 3,
+      "risk": -3.6909303665161133,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 36.985897064208984,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3NE",
+      "fold": 4,
+      "risk": -3.9824905395507812,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 20.64634895324707,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3NF",
+      "fold": 4,
+      "risk": -3.8121225833892822,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 21.20524787902832,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3NG",
+      "fold": 4,
+      "risk": -3.641540288925171,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 15.616267204284668,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3NH",
+      "fold": 0,
+      "risk": -3.9550206661224365,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 10.191669464111328,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3OJ",
+      "fold": 3,
+      "risk": -3.9460437297821045,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 15.353256225585938,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3OK",
+      "fold": 2,
+      "risk": -3.9125537872314453,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 15.94503116607666,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3OL",
+      "fold": 3,
+      "risk": -3.6954762935638428,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 14.761482238769531,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AJ-A3QS",
+      "fold": 3,
+      "risk": -3.700793743133545,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 16.865568161010742,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A3TW",
+      "fold": 4,
+      "risk": -3.9485788345336914,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 16.865568161010742,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A5DW",
+      "fold": 0,
+      "risk": -3.9548354148864746,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 12.82177734375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A6NU",
+      "fold": 0,
+      "risk": -1.1948999166488647,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 20.777854919433594,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A8CT",
+      "fold": 3,
+      "risk": -3.7363877296447754,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 2.6958608627319336,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A8CV",
+      "fold": 4,
+      "risk": -3.9811863899230957,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 35.111942291259766,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AJ-A8CW",
+      "fold": 4,
+      "risk": -3.9822449684143066,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 0.13150541484355927,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A051",
+      "fold": 2,
+      "risk": -3.911712408065796,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 129.79583740234375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A052",
+      "fold": 1,
+      "risk": -2.754371166229248,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 21.994279861450195,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AP-A054",
+      "fold": 2,
+      "risk": -1.9758249521255493,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 23.30933380126953,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AP-A056",
+      "fold": 1,
+      "risk": -2.9785103797912598,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 86.0702896118164,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A059",
+      "fold": 1,
+      "risk": -3.8870906829833984,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 48.0323486328125,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A05A",
+      "fold": 4,
+      "risk": -2.5773322582244873,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 63.91162872314453,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A05D",
+      "fold": 0,
+      "risk": -3.933870792388916,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 57.796627044677734,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A05H",
+      "fold": 1,
+      "risk": -3.6973795890808105,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 45.533748626708984,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A05J",
+      "fold": 2,
+      "risk": -2.6800520420074463,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 36.88726806640625,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A05N",
+      "fold": 4,
+      "risk": -3.96877384185791,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 23.86823081970215,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A05O",
+      "fold": 1,
+      "risk": -3.874134063720703,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 12.624519348144531,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A05P",
+      "fold": 3,
+      "risk": -3.9462804794311523,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 20.909358978271484,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A0L8",
+      "fold": 1,
+      "risk": -3.6597037315368652,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 48.78850555419922,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AP-A0L9",
+      "fold": 4,
+      "risk": -2.9024882316589355,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 125.42328643798828,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A0LD",
+      "fold": 4,
+      "risk": -3.976337432861328,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 117.99322509765625,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A0LE",
+      "fold": 4,
+      "risk": -3.983151435852051,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 110.36591339111328,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A0LF",
+      "fold": 0,
+      "risk": -3.95497727394104,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 93.99349212646484,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A0LG",
+      "fold": 0,
+      "risk": -3.954707384109497,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 66.245849609375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A0LH",
+      "fold": 2,
+      "risk": -3.3556909561157227,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 36.361244201660156,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AP-A0LI",
+      "fold": 1,
+      "risk": -3.6863417625427246,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 97.7085189819336,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A0LJ",
+      "fold": 1,
+      "risk": -3.932563543319702,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 46.7172966003418,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A0LL",
+      "fold": 1,
+      "risk": -3.930572032928467,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 83.96620178222656,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A0LM",
+      "fold": 4,
+      "risk": -3.9766581058502197,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 27.122989654541016,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A0LN",
+      "fold": 2,
+      "risk": -3.9097611904144287,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 82.51964569091797,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A0LO",
+      "fold": 0,
+      "risk": -3.954895496368408,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 33.402374267578125,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AP-A0LP",
+      "fold": 0,
+      "risk": -3.9547061920166016,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 61.64316177368164,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A0LS",
+      "fold": 4,
+      "risk": -3.982788562774658,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 95.4729232788086,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A0LT",
+      "fold": 1,
+      "risk": -3.9267091751098633,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 49.21590042114258,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A0LV",
+      "fold": 2,
+      "risk": -3.900902271270752,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 25.08465576171875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A1DH",
+      "fold": 2,
+      "risk": -3.9112513065338135,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 71.67044830322266,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A1DK",
+      "fold": 3,
+      "risk": -3.701982259750366,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 90.96886444091797,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A1DM",
+      "fold": 1,
+      "risk": -3.9299299716949463,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 55.88979721069336,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A1DO",
+      "fold": 4,
+      "risk": -3.976182460784912,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 31.29828643798828,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A1DP",
+      "fold": 0,
+      "risk": -3.9547479152679443,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 35.539337158203125,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AP-A1DQ",
+      "fold": 3,
+      "risk": -3.6673223972320557,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 46.783050537109375,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AP-A1DR",
+      "fold": 2,
+      "risk": -1.9269050359725952,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 49.150146484375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A1DV",
+      "fold": 2,
+      "risk": -3.909618616104126,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 6.706775665283203,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A1E0",
+      "fold": 0,
+      "risk": -3.9551992416381836,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 60.22947692871094,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A1E1",
+      "fold": 4,
+      "risk": -3.9831466674804688,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 45.862510681152344,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A1E3",
+      "fold": 2,
+      "risk": -3.9099395275115967,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 27.846269607543945,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A1E4",
+      "fold": 0,
+      "risk": -3.9547948837280273,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 51.12272644042969,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AP-A3K1",
+      "fold": 3,
+      "risk": -3.6930289268493652,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 21.89565086364746,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AP-A5FX",
+      "fold": 4,
+      "risk": -3.9701266288757324,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 36.13111114501953,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AW-A1PO",
+      "fold": 4,
+      "risk": -2.594243049621582,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 0.5588979721069336,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A05S",
+      "fold": 2,
+      "risk": -3.9052233695983887,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 13.577933311462402,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AX-A05T",
+      "fold": 2,
+      "risk": -3.912883758544922,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 33.205116271972656,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A05U",
+      "fold": 0,
+      "risk": -3.9547641277313232,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 29.687345504760742,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A05W",
+      "fold": 2,
+      "risk": -3.9132492542266846,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 80.54706573486328,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A05Y",
+      "fold": 1,
+      "risk": -3.943814277648926,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 88.24012756347656,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A05Z",
+      "fold": 0,
+      "risk": -3.9547977447509766,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 71.50606536865234,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A060",
+      "fold": 4,
+      "risk": -3.8165862560272217,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 35.342079162597656,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A062",
+      "fold": 4,
+      "risk": -3.968939781188965,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 45.994014739990234,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A063",
+      "fold": 1,
+      "risk": -3.9246230125427246,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 79.46214294433594,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A064",
+      "fold": 0,
+      "risk": -3.9461896419525146,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 49.8734245300293,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A06B",
+      "fold": 4,
+      "risk": -2.4027392864227295,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 67.65953063964844,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A06F",
+      "fold": 1,
+      "risk": -3.6825766563415527,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 57.467864990234375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A06L",
+      "fold": 3,
+      "risk": -3.6483640670776367,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 60.65686798095703,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A0IU",
+      "fold": 2,
+      "risk": -3.909846067428589,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 35.736595153808594,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A0IW",
+      "fold": 4,
+      "risk": -3.981511116027832,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 37.77492904663086,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A0IZ",
+      "fold": 1,
+      "risk": -3.930415153503418,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 43.82417678833008,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A0J0",
+      "fold": 1,
+      "risk": -3.902510166168213,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 40.10914993286133,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A0J1",
+      "fold": 1,
+      "risk": -3.9154558181762695,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 77.39093017578125,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A1C4",
+      "fold": 4,
+      "risk": -3.97678542137146,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 13.2820463180542,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A1C5",
+      "fold": 0,
+      "risk": -3.9550819396972656,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 32.90922927856445,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A1C7",
+      "fold": 2,
+      "risk": -1.8168621063232422,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 34.651676177978516,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A1C8",
+      "fold": 4,
+      "risk": -2.134491443634033,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 25.512048721313477,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A1C9",
+      "fold": 3,
+      "risk": -3.694288730621338,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 26.36683464050293,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A1CA",
+      "fold": 2,
+      "risk": -3.910918712615967,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 32.021568298339844,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A1CC",
+      "fold": 0,
+      "risk": -3.956047296524048,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 25.906564712524414,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A1CE",
+      "fold": 4,
+      "risk": -2.870880126953125,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 34.092777252197266,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A1CF",
+      "fold": 2,
+      "risk": -3.9101781845092773,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 76.83203125,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A1CI",
+      "fold": 2,
+      "risk": -3.913203716278076,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 85.478515625,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A1CJ",
+      "fold": 3,
+      "risk": -3.6935739517211914,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 73.41289520263672,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A1CK",
+      "fold": 4,
+      "risk": -3.976456642150879,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 80.25117492675781,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A1CN",
+      "fold": 1,
+      "risk": -3.686828374862671,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 37.57767105102539,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-AX-A2IN",
+      "fold": 3,
+      "risk": -3.9392058849334717,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 31.1339054107666,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-AX-A2IO",
+      "fold": 3,
+      "risk": -2.9821882247924805,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 64.93079376220703,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0JN",
+      "fold": 0,
+      "risk": -3.909071207046509,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 80.38268280029297,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0JR",
+      "fold": 1,
+      "risk": -3.932380437850952,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 56.908966064453125,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0JS",
+      "fold": 3,
+      "risk": -3.946326732635498,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 86.36618041992188,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0JT",
+      "fold": 0,
+      "risk": -3.9570367336273193,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 55.29802322387695,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0JU",
+      "fold": 3,
+      "risk": -3.946244716644287,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 59.243186950683594,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0JV",
+      "fold": 3,
+      "risk": -3.9463021755218506,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 86.0045394897461,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0JX",
+      "fold": 3,
+      "risk": -3.9447319507598877,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 58.75004196166992,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0JY",
+      "fold": 4,
+      "risk": -3.9573676586151123,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 69.27047729492188,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0JZ",
+      "fold": 3,
+      "risk": -3.945852041244507,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 71.44031524658203,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0K0",
+      "fold": 1,
+      "risk": -3.929255485534668,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 48.59124755859375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0K1",
+      "fold": 3,
+      "risk": -3.94635009765625,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 36.49275207519531,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0K2",
+      "fold": 4,
+      "risk": -3.975944995880127,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 72.62386322021484,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0K3",
+      "fold": 1,
+      "risk": -3.7940168380737305,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 27.287372589111328,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-B5-A0K4",
+      "fold": 0,
+      "risk": -3.955306053161621,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 57.76375198364258,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0K6",
+      "fold": 3,
+      "risk": -3.9460744857788086,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 64.20751190185547,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0K7",
+      "fold": 2,
+      "risk": -3.913790702819824,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 63.54998779296875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0K8",
+      "fold": 2,
+      "risk": -3.911674737930298,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 27.846269607543945,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A0K9",
+      "fold": 1,
+      "risk": -3.849642753601074,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 13.446428298950195,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11E",
+      "fold": 3,
+      "risk": -3.9434401988983154,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 59.8349609375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11F",
+      "fold": 1,
+      "risk": -3.946106433868408,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 185.78427124023438,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11G",
+      "fold": 1,
+      "risk": -3.929319381713867,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 113.35765838623047,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11H",
+      "fold": 0,
+      "risk": -3.954965829849243,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 88.33876037597656,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11I",
+      "fold": 4,
+      "risk": -3.976337194442749,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 75.71424102783203,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11J",
+      "fold": 1,
+      "risk": -3.929765224456787,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 54.4432373046875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11L",
+      "fold": 4,
+      "risk": -3.975635051727295,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 73.64302825927734,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11M",
+      "fold": 2,
+      "risk": -3.916159152984619,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 44.777591705322266,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11N",
+      "fold": 1,
+      "risk": -3.891676425933838,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 61.6760368347168,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11O",
+      "fold": 0,
+      "risk": -3.954805850982666,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 85.77439880371094,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11P",
+      "fold": 3,
+      "risk": -3.946115255355835,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 52.04326629638672,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11Q",
+      "fold": 3,
+      "risk": -3.699998140335083,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 32.087318420410156,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11R",
+      "fold": 0,
+      "risk": -3.9548239707946777,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 77.22654724121094,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11S",
+      "fold": 2,
+      "risk": -3.9161217212677,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 73.28138732910156,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11U",
+      "fold": 1,
+      "risk": -3.920151710510254,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 16.73406410217285,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11V",
+      "fold": 2,
+      "risk": -3.9152512550354004,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 19.561429977416992,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11W",
+      "fold": 4,
+      "risk": -3.9760971069335938,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 19.495676040649414,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11X",
+      "fold": 1,
+      "risk": -3.4196929931640625,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 19.59430503845215,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11Y",
+      "fold": 1,
+      "risk": -3.929469347000122,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 18.410757064819336,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A11Z",
+      "fold": 0,
+      "risk": -3.954725503921509,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 17.358713150024414,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A121",
+      "fold": 2,
+      "risk": -3.916294574737549,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 16.56968116760254,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A1MR",
+      "fold": 2,
+      "risk": -3.907672166824341,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 225.4989013671875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A1MS",
+      "fold": 4,
+      "risk": -3.9600400924682617,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 102.31121063232422,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-B5-A1MU",
+      "fold": 2,
+      "risk": -3.9100844860076904,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 50.89259338378906,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-B5-A1MV",
+      "fold": 1,
+      "risk": -3.930036783218384,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 51.45149230957031,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A1MW",
+      "fold": 4,
+      "risk": -3.9751553535461426,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 14.69572925567627,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A1MX",
+      "fold": 0,
+      "risk": -3.9554121494293213,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 48.4268684387207,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A1MY",
+      "fold": 3,
+      "risk": -3.67197847366333,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 11.868363380432129,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-B5-A1MZ",
+      "fold": 4,
+      "risk": -3.974095344543457,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 52.53641128540039,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A1N2",
+      "fold": 4,
+      "risk": -3.9651618003845215,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 31.36404037475586,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-B5-A3F9",
+      "fold": 4,
+      "risk": -3.976529836654663,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 136.6012420654297,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A3FA",
+      "fold": 0,
+      "risk": -3.955317735671997,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 96.29483795166016,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A3FB",
+      "fold": 2,
+      "risk": -3.910231828689575,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 93.5003433227539,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A3FC",
+      "fold": 4,
+      "risk": -3.9762635231018066,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 71.83483123779297,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A3FD",
+      "fold": 4,
+      "risk": -3.976454257965088,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 39.35299301147461,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A3FH",
+      "fold": 2,
+      "risk": -3.912093162536621,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 27.649011611938477,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A3S1",
+      "fold": 0,
+      "risk": -3.5054931640625,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 29.654470443725586,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A5OC",
+      "fold": 1,
+      "risk": -3.926206588745117,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 41.062564849853516,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A5OD",
+      "fold": 3,
+      "risk": -3.6786391735076904,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 34.12565231323242,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-B5-A5OE",
+      "fold": 2,
+      "risk": -1.4604963064193726,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 34.94756317138672,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0LW",
+      "fold": 3,
+      "risk": -3.9461491107940674,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 18.608015060424805,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0LX",
+      "fold": 3,
+      "risk": -3.945906639099121,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 20.186080932617188,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0M0",
+      "fold": 3,
+      "risk": -3.731414794921875,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 19.331295013427734,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0M2",
+      "fold": 1,
+      "risk": -3.8947110176086426,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 20.942235946655273,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0M3",
+      "fold": 0,
+      "risk": -3.955077648162842,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 35.2105712890625,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0M4",
+      "fold": 0,
+      "risk": -3.9549245834350586,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 71.24305725097656,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0M6",
+      "fold": 1,
+      "risk": -3.5935699939727783,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 22.06003189086914,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0M7",
+      "fold": 1,
+      "risk": -3.9463398456573486,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 63.681495666503906,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0M9",
+      "fold": 1,
+      "risk": -3.9302077293395996,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 74.62931823730469,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0MA",
+      "fold": 3,
+      "risk": -3.6950125694274902,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 10.717690467834473,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-BG-A0MC",
+      "fold": 1,
+      "risk": -3.9305098056793213,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 41.522830963134766,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0MG",
+      "fold": 0,
+      "risk": -3.9547817707061768,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 48.558372497558594,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0MI",
+      "fold": 0,
+      "risk": -3.954777717590332,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 23.47371482849121,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0MO",
+      "fold": 0,
+      "risk": -3.954979181289673,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 43.0351448059082,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0MQ",
+      "fold": 1,
+      "risk": -3.923464298248291,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 59.736331939697266,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0MT",
+      "fold": 3,
+      "risk": -3.6945090293884277,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 21.17237091064453,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0MU",
+      "fold": 0,
+      "risk": -3.954972743988037,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 20.284709930419922,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0RY",
+      "fold": 4,
+      "risk": -3.6468825340270996,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 15.4190092086792,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0VT",
+      "fold": 1,
+      "risk": -3.929807186126709,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 51.55012130737305,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0VV",
+      "fold": 0,
+      "risk": -3.9550318717956543,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 51.056976318359375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0VW",
+      "fold": 3,
+      "risk": -3.9462242126464844,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 52.0103874206543,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0VX",
+      "fold": 0,
+      "risk": -3.954941511154175,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 34.290035247802734,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0VZ",
+      "fold": 3,
+      "risk": -3.946253538131714,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 52.635040283203125,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0W1",
+      "fold": 4,
+      "risk": -3.9830989837646484,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 52.832298278808594,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0W2",
+      "fold": 4,
+      "risk": -3.9768354892730713,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 56.5802001953125,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0YU",
+      "fold": 3,
+      "risk": -3.693892478942871,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 14.827235221862793,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A0YV",
+      "fold": 3,
+      "risk": -3.001999855041504,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 12.55876636505127,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A186",
+      "fold": 3,
+      "risk": -3.9461464881896973,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 13.775191307067871,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A187",
+      "fold": 1,
+      "risk": -3.9426097869873047,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 14.728605270385742,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A18A",
+      "fold": 4,
+      "risk": -3.9830832481384277,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 14.005326271057129,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A18B",
+      "fold": 3,
+      "risk": -3.9461028575897217,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 15.451885223388672,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A18C",
+      "fold": 3,
+      "risk": -3.6679625511169434,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 15.451885223388672,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A222",
+      "fold": 0,
+      "risk": -3.954257011413574,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 9.567018508911133,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A2AD",
+      "fold": 0,
+      "risk": -3.953096389770508,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 20.021697998046875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A2AE",
+      "fold": 0,
+      "risk": -3.9080941677093506,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 23.70384979248047,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A2L7",
+      "fold": 3,
+      "risk": -3.9452896118164062,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 20.12032699584961,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A3EW",
+      "fold": 2,
+      "risk": -3.90977144241333,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 11.309465408325195,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BG-A3PP",
+      "fold": 0,
+      "risk": -3.8398780822753906,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 22.388795852661133,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BK-A0C9",
+      "fold": 2,
+      "risk": -3.9157752990722656,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 35.900978088378906,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BK-A0CA",
+      "fold": 2,
+      "risk": -3.913416862487793,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 34.980438232421875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BK-A0CB",
+      "fold": 3,
+      "risk": -3.9429171085357666,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 35.900978088378906,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BK-A0CC",
+      "fold": 2,
+      "risk": -1.8419766426086426,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 35.07906723022461,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BK-A139",
+      "fold": 3,
+      "risk": -3.7104454040527344,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 31.002399444580078,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-BK-A13B",
+      "fold": 0,
+      "risk": -3.9553964138031006,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 31.758556365966797,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BK-A13C",
+      "fold": 0,
+      "risk": -3.955157995223999,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 24.986026763916016,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BK-A26L",
+      "fold": 2,
+      "risk": -2.2405943870544434,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 24.131242752075195,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BK-A4ZD",
+      "fold": 2,
+      "risk": -3.913472890853882,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 16.635433197021484,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BK-A56F",
+      "fold": 4,
+      "risk": -3.9824788570404053,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 13.183417320251465,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BK-A6W3",
+      "fold": 4,
+      "risk": -3.983067274093628,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 10.027287483215332,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BK-A6W4",
+      "fold": 3,
+      "risk": -3.6941490173339844,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 9.862905502319336,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0T9",
+      "fold": 4,
+      "risk": -3.9702866077423096,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 46.94742965698242,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-BS-A0TA",
+      "fold": 2,
+      "risk": -3.907327651977539,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 24.328500747680664,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-BS-A0TC",
+      "fold": 2,
+      "risk": -3.9136571884155273,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 85.54426574707031,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0TD",
+      "fold": 2,
+      "risk": -3.913034200668335,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 78.21284484863281,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0TE",
+      "fold": 0,
+      "risk": -3.709239959716797,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 4.799947261810303,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-BS-A0TG",
+      "fold": 4,
+      "risk": -2.579460620880127,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 77.9498291015625,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0TI",
+      "fold": 0,
+      "risk": -3.8384757041931152,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 61.873294830322266,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0TJ",
+      "fold": 1,
+      "risk": -3.7265517711639404,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 67.98829650878906,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0U5",
+      "fold": 1,
+      "risk": -3.9317569732666016,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 96.49209594726562,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0U7",
+      "fold": 1,
+      "risk": -3.9308934211730957,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 30.739389419555664,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0U8",
+      "fold": 1,
+      "risk": -3.9436075687408447,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 97.41262817382812,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0U9",
+      "fold": 2,
+      "risk": -3.907525062561035,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 92.87569427490234,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0UA",
+      "fold": 3,
+      "risk": -3.94634747505188,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 114.90284729003906,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0UF",
+      "fold": 3,
+      "risk": -3.946168899536133,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 85.84015655517578,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0UJ",
+      "fold": 3,
+      "risk": -3.9461841583251953,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 82.38813781738281,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0UL",
+      "fold": 3,
+      "risk": -3.6988301277160645,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 81.56623077392578,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0UM",
+      "fold": 0,
+      "risk": -3.954824447631836,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 86.9250717163086,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0UT",
+      "fold": 1,
+      "risk": -3.911546230316162,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 72.72248840332031,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0UV",
+      "fold": 4,
+      "risk": -3.9154574871063232,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 73.2485122680664,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0V4",
+      "fold": 0,
+      "risk": -3.9549145698547363,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 59.50619888305664,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0V6",
+      "fold": 0,
+      "risk": -3.9547853469848633,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 89.58805847167969,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0V7",
+      "fold": 3,
+      "risk": -3.697068214416504,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 63.58286666870117,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0V8",
+      "fold": 4,
+      "risk": -2.9202675819396973,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 83.63743591308594,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0VI",
+      "fold": 2,
+      "risk": -3.908886194229126,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 86.99082946777344,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-BS-A0WQ",
+      "fold": 3,
+      "risk": -3.696093797683716,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 66.47598266601562,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A0ZN",
+      "fold": 3,
+      "risk": -3.9448933601379395,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 16.832693099975586,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A0ZO",
+      "fold": 2,
+      "risk": -3.917095899581909,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 19.791563034057617,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A0ZP",
+      "fold": 0,
+      "risk": -3.86572003364563,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 29.95035743713379,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A0ZQ",
+      "fold": 3,
+      "risk": -3.7047648429870605,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 8.5478515625,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A0ZR",
+      "fold": 4,
+      "risk": -3.9801812171936035,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 0.5588979721069336,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A0ZS",
+      "fold": 1,
+      "risk": -3.211791753768921,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 4.8657002449035645,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A0ZU",
+      "fold": 3,
+      "risk": -3.944328784942627,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 28.66817855834961,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A0ZV",
+      "fold": 0,
+      "risk": -3.9547622203826904,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 23.933984756469727,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A0ZZ",
+      "fold": 3,
+      "risk": -3.6517422199249268,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 22.553176879882812,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A101",
+      "fold": 1,
+      "risk": -3.9314327239990234,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 1.7424466609954834,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A102",
+      "fold": 2,
+      "risk": -3.9134106636047363,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 4.438307762145996,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A103",
+      "fold": 3,
+      "risk": -3.6962571144104004,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 21.994279861450195,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A15V",
+      "fold": 4,
+      "risk": -3.9740428924560547,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 39.4844970703125,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A15W",
+      "fold": 2,
+      "risk": -3.9149651527404785,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 30.08186149597168,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A15X",
+      "fold": 4,
+      "risk": -3.98040771484375,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 29.88460350036621,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A15Z",
+      "fold": 0,
+      "risk": -3.9553871154785156,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 1.9068284034729004,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A160",
+      "fold": 1,
+      "risk": -3.920330286026001,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 3.6821513175964355,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A161",
+      "fold": 1,
+      "risk": -3.946261405944824,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 29.325706481933594,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A163",
+      "fold": 1,
+      "risk": -3.940410614013672,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 32.58046340942383,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A165",
+      "fold": 0,
+      "risk": -3.955012798309326,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 0.6575270295143127,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A167",
+      "fold": 2,
+      "risk": -3.913346767425537,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 15.714896202087402,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A168",
+      "fold": 2,
+      "risk": -3.9134082794189453,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 36.098236083984375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A169",
+      "fold": 4,
+      "risk": -3.9714536666870117,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 37.314659118652344,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A16B",
+      "fold": 3,
+      "risk": -3.9461746215820312,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 36.361244201660156,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A16D",
+      "fold": 1,
+      "risk": -3.929562568664551,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 37.51191711425781,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A16E",
+      "fold": 2,
+      "risk": -3.913809299468994,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 36.788639068603516,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A16F",
+      "fold": 4,
+      "risk": -3.9763360023498535,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 2.630108118057251,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A16G",
+      "fold": 0,
+      "risk": -3.7845516204833984,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 27.41887664794922,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-D1-A16I",
+      "fold": 2,
+      "risk": -3.9109318256378174,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 11.506723403930664,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A16J",
+      "fold": 1,
+      "risk": -3.907822847366333,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 29.91748046875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A16N",
+      "fold": 2,
+      "risk": -3.910839319229126,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 31.068153381347656,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A16O",
+      "fold": 2,
+      "risk": -3.91633939743042,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 33.63250732421875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A16Q",
+      "fold": 4,
+      "risk": -3.980496883392334,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 10.651938438415527,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A16R",
+      "fold": 0,
+      "risk": -3.955434799194336,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 0.690403401851654,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A16S",
+      "fold": 1,
+      "risk": -3.7896642684936523,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 18.67376708984375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A16V",
+      "fold": 2,
+      "risk": -3.9134433269500732,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 3.945162296295166,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A16X",
+      "fold": 2,
+      "risk": -3.9162001609802246,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 3.649275064468384,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A16Y",
+      "fold": 2,
+      "risk": -3.9123735427856445,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 17.490219116210938,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A174",
+      "fold": 0,
+      "risk": -3.954861640930176,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 19.528553009033203,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A175",
+      "fold": 3,
+      "risk": -3.9461987018585205,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 6.6410231590271,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A176",
+      "fold": 4,
+      "risk": -3.981055498123169,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 30.147615432739258,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A177",
+      "fold": 0,
+      "risk": -3.950930595397949,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 18.0162410736084,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A179",
+      "fold": 1,
+      "risk": -3.8853912353515625,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 14.728605270385742,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-D1-A17A",
+      "fold": 4,
+      "risk": -3.901634454727173,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 1.5780649185180664,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A17B",
+      "fold": 0,
+      "risk": -3.9552130699157715,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 7.0026631355285645,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A17C",
+      "fold": 3,
+      "risk": -3.946237564086914,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 0.9862905740737915,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A17D",
+      "fold": 4,
+      "risk": -3.979703903198242,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 30.44350242614746,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A17F",
+      "fold": 2,
+      "risk": -3.916382312774658,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 1.2821776866912842,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A17H",
+      "fold": 0,
+      "risk": -3.95524001121521,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 28.010652542114258,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A17K",
+      "fold": 1,
+      "risk": -3.0521562099456787,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 28.076404571533203,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A17L",
+      "fold": 2,
+      "risk": -3.917210102081299,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 26.36683464050293,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A17M",
+      "fold": 1,
+      "risk": -3.9467029571533203,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 10.2245454788208,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A17N",
+      "fold": 0,
+      "risk": -3.9552040100097656,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 1.5123121738433838,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A17Q",
+      "fold": 1,
+      "risk": -3.9464306831359863,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 1.7753230333328247,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A17R",
+      "fold": 1,
+      "risk": -3.9303908348083496,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 11.1450834274292,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A17S",
+      "fold": 1,
+      "risk": -3.9454753398895264,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 24.295623779296875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A17T",
+      "fold": 1,
+      "risk": -3.9462637901306152,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 2.3342208862304688,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A17U",
+      "fold": 2,
+      "risk": -3.9134273529052734,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 22.914817810058594,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A1NS",
+      "fold": 3,
+      "risk": -3.9462339878082275,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 1.4136831760406494,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A1NU",
+      "fold": 4,
+      "risk": -2.8656935691833496,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 13.216293334960938,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A1NW",
+      "fold": 0,
+      "risk": -3.8343214988708496,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 0.7232797741889954,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A1NX",
+      "fold": 2,
+      "risk": -3.9104981422424316,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 18.246376037597656,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A1NY",
+      "fold": 2,
+      "risk": -3.9118661880493164,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 16.865568161010742,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A1NZ",
+      "fold": 2,
+      "risk": -3.917186737060547,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 18.0162410736084,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A1O0",
+      "fold": 3,
+      "risk": -3.6905994415283203,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 2.0712101459503174,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A1O5",
+      "fold": 1,
+      "risk": -3.9122414588928223,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 15.057369232177734,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A1O7",
+      "fold": 0,
+      "risk": -3.9217801094055176,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 1.0520433187484741,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A1O8",
+      "fold": 3,
+      "risk": -3.946147918701172,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 3.945162296295166,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A2G0",
+      "fold": 4,
+      "risk": -3.9800543785095215,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 48.78850555419922,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A2G5",
+      "fold": 2,
+      "risk": -3.9134840965270996,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 47.83509063720703,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A2G6",
+      "fold": 2,
+      "risk": -3.913437843322754,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 8.482098579406738,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-D1-A2G7",
+      "fold": 0,
+      "risk": -3.92579984664917,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 58.94729995727539,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A3DA",
+      "fold": 0,
+      "risk": -3.9008936882019043,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 15.879278182983398,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A3DG",
+      "fold": 1,
+      "risk": -3.3995723724365234,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 4.27392578125,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A3DH",
+      "fold": 4,
+      "risk": -3.965449810028076,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 18.838150024414062,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-D1-A3JQ",
+      "fold": 0,
+      "risk": -3.866927146911621,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 17.29296112060547,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-DF-A2KN",
+      "fold": 4,
+      "risk": -3.977043628692627,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 2.2027156352996826,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-DF-A2KR",
+      "fold": 0,
+      "risk": -3.9126548767089844,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 71.60469818115234,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-DF-A2KS",
+      "fold": 3,
+      "risk": -3.692936897277832,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 109.08373260498047,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-DF-A2KU",
+      "fold": 4,
+      "risk": -3.9673280715942383,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 100.83177185058594,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-DF-A2KV",
+      "fold": 3,
+      "risk": -3.9460346698760986,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 89.3250503540039,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-DF-A2KY",
+      "fold": 0,
+      "risk": -3.9556007385253906,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 10.914948463439941,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-DF-A2KZ",
+      "fold": 4,
+      "risk": -3.9673614501953125,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 27.155866622924805,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-DF-A2L0",
+      "fold": 0,
+      "risk": -3.950530767440796,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 25.906564712524414,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-DI-A0WH",
+      "fold": 0,
+      "risk": -3.806230068206787,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 16.306671142578125,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-DI-A1BU",
+      "fold": 3,
+      "risk": -3.945967674255371,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 39.28723907470703,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-DI-A1BY",
+      "fold": 1,
+      "risk": -3.9438185691833496,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 36.6242561340332,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-DI-A1C3",
+      "fold": 4,
+      "risk": -3.976614236831665,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 24.295623779296875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-DI-A1NN",
+      "fold": 4,
+      "risk": -3.425286054611206,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 35.37495422363281,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-DI-A1NO",
+      "fold": 0,
+      "risk": -3.8882837295532227,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 9.369760513305664,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-DI-A2QT",
+      "fold": 4,
+      "risk": -2.4729228019714355,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 12.394384384155273,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-DI-A2QU",
+      "fold": 4,
+      "risk": -2.749126672744751,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 31.101028442382812,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-DI-A2QY",
+      "fold": 1,
+      "risk": -3.846980571746826,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 110.1029052734375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-E6-A1LX",
+      "fold": 3,
+      "risk": -3.945985794067383,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 23.375085830688477,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-E6-A1LZ",
+      "fold": 1,
+      "risk": -2.8089239597320557,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 79.10050201416016,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-E6-A2P8",
+      "fold": 4,
+      "risk": -3.9439728260040283,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 2.3670973777770996,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-E6-A8L9",
+      "fold": 2,
+      "risk": -2.279695749282837,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 33.30374526977539,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EC-A1NJ",
+      "fold": 3,
+      "risk": -3.9461236000061035,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 16.043659210205078,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EC-A1QX",
+      "fold": 2,
+      "risk": -3.9102306365966797,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 7.364302635192871,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EC-A24G",
+      "fold": 2,
+      "risk": -3.916109561920166,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 16.799816131591797,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A1Y5",
+      "fold": 1,
+      "risk": -3.187567710876465,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 10.914948463439941,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A1Y7",
+      "fold": 2,
+      "risk": -3.9087488651275635,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 49.150146484375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A1Y8",
+      "fold": 4,
+      "risk": -2.4386281967163086,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 37.70917510986328,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A22R",
+      "fold": 0,
+      "risk": -3.954526424407959,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 61.741790771484375,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A22S",
+      "fold": 2,
+      "risk": -3.9124715328216553,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 61.544532775878906,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A22T",
+      "fold": 3,
+      "risk": -3.9442858695983887,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 66.90337371826172,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A22U",
+      "fold": 1,
+      "risk": -3.930485725402832,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 46.25702667236328,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A22X",
+      "fold": 1,
+      "risk": -3.9275689125061035,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 57.599369049072266,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A22Y",
+      "fold": 4,
+      "risk": -3.982823371887207,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 51.517242431640625,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A2CG",
+      "fold": 0,
+      "risk": -3.901768684387207,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 51.41861343383789,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A2CH",
+      "fold": 0,
+      "risk": -3.3690571784973145,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 19.39704704284668,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-EO-A3AS",
+      "fold": 2,
+      "risk": -1.9665533304214478,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 34.38866424560547,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A3AU",
+      "fold": 0,
+      "risk": -3.954958915710449,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 50.72821044921875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A3AV",
+      "fold": 0,
+      "risk": -3.9558467864990234,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 35.14482116699219,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A3AY",
+      "fold": 1,
+      "risk": -3.918729543685913,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 38.07081604003906,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A3AZ",
+      "fold": 2,
+      "risk": -2.2813124656677246,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 27.155866622924805,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A3B0",
+      "fold": 4,
+      "risk": -3.95326566696167,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 46.421409606933594,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A3B1",
+      "fold": 2,
+      "risk": -3.6421046257019043,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 26.958608627319336,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A3KU",
+      "fold": 1,
+      "risk": -3.5627565383911133,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 22.25728988647461,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A3KW",
+      "fold": 3,
+      "risk": -3.6913464069366455,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 16.33954620361328,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A3KX",
+      "fold": 4,
+      "risk": -3.982785224914551,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 38.46533203125,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EO-A3L0",
+      "fold": 3,
+      "risk": -3.9461238384246826,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 51.08985137939453,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GC",
+      "fold": 3,
+      "risk": -3.6916275024414062,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 54.1473503112793,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GD",
+      "fold": 3,
+      "risk": -3.9461519718170166,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 53.884342193603516,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GE",
+      "fold": 0,
+      "risk": -3.9549455642700195,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 24.361377716064453,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GF",
+      "fold": 3,
+      "risk": -3.694829225540161,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 27.155866622924805,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GH",
+      "fold": 1,
+      "risk": -3.920865535736084,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 23.34221076965332,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GI",
+      "fold": 3,
+      "risk": -3.945924997329712,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 23.34221076965332,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GK",
+      "fold": 1,
+      "risk": -3.9301223754882812,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 22.78331184387207,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GL",
+      "fold": 0,
+      "risk": -3.955364465713501,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 33.33662033081055,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GM",
+      "fold": 3,
+      "risk": -3.6873040199279785,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 32.711971282958984,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-EY-A1GO",
+      "fold": 3,
+      "risk": -3.9458398818969727,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 19.26554298400879,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GP",
+      "fold": 2,
+      "risk": -3.8902382850646973,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 18.838150024414062,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GQ",
+      "fold": 1,
+      "risk": -3.921926498413086,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 17.884735107421875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GR",
+      "fold": 1,
+      "risk": -3.9062910079956055,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 17.62172508239746,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GS",
+      "fold": 3,
+      "risk": -3.668661594390869,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 22.02715492248535,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-EY-A1GT",
+      "fold": 4,
+      "risk": -3.972522735595703,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 16.109413146972656,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GU",
+      "fold": 2,
+      "risk": -3.910249710083008,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 32.7777214050293,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GV",
+      "fold": 2,
+      "risk": -1.2930881977081299,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 15.813525199890137,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1GW",
+      "fold": 3,
+      "risk": -3.6929101943969727,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 11.079330444335938,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-EY-A1GX",
+      "fold": 3,
+      "risk": -3.944298028945923,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 37.0516471862793,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A1H0",
+      "fold": 2,
+      "risk": -3.9137649536132812,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 19.331295013427734,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A210",
+      "fold": 1,
+      "risk": -3.7677059173583984,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 12.591642379760742,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A212",
+      "fold": 1,
+      "risk": -2.9891834259033203,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 10.191669464111328,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-EY-A214",
+      "fold": 2,
+      "risk": -1.7407515048980713,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 14.399842262268066,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A215",
+      "fold": 2,
+      "risk": -3.9083497524261475,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 18.87102699279785,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A2OM",
+      "fold": 4,
+      "risk": -0.035737499594688416,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 22.81618881225586,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A2ON",
+      "fold": 1,
+      "risk": -3.6593003273010254,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 20.054574966430664,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-EY-A2OO",
+      "fold": 0,
+      "risk": -3.9548792839050293,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 45.76388168334961,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A2OP",
+      "fold": 4,
+      "risk": -3.943214178085327,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 31.035276412963867,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A2OQ",
+      "fold": 1,
+      "risk": -3.879638671875,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 29.095571517944336,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A3L3",
+      "fold": 1,
+      "risk": -3.860366106033325,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 27.353124618530273,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A3QX",
+      "fold": 1,
+      "risk": -3.8763463497161865,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 32.514713287353516,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-EY-A4KR",
+      "fold": 2,
+      "risk": -2.4993457794189453,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 11.37521743774414,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-EY-A547",
+      "fold": 4,
+      "risk": -0.9735767841339111,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 17.917612075805664,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A548",
+      "fold": 1,
+      "risk": -3.9385883808135986,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 14.136831283569336,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A549",
+      "fold": 0,
+      "risk": -3.9554238319396973,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 19.89019203186035,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A54A",
+      "fold": 0,
+      "risk": -1.9345488548278809,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 14.69572925567627,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A5W2",
+      "fold": 3,
+      "risk": -3.9459736347198486,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 16.964197158813477,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-EY-A72D",
+      "fold": 3,
+      "risk": -3.94520902633667,
+      "train_median": -3.944187641143799,
+      "group": "low",
+      "time": 5.884867191314697,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-FI-A2CX",
+      "fold": 2,
+      "risk": -3.91070556640625,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 66.7718734741211,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-FI-A2CY",
+      "fold": 3,
+      "risk": -3.6926357746124268,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 68.3828125,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-FI-A2D0",
+      "fold": 4,
+      "risk": -3.9750702381134033,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 39.8790168762207,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-FI-A2D2",
+      "fold": 1,
+      "risk": -3.4479002952575684,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 77.32518005371094,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-FI-A2D4",
+      "fold": 2,
+      "risk": -1.6329489946365356,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 7.988953590393066,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-FI-A2D5",
+      "fold": 0,
+      "risk": -3.7860379219055176,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 13.840944290161133,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-FI-A2D6",
+      "fold": 2,
+      "risk": -1.7781758308410645,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 25.216161727905273,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-FI-A2EU",
+      "fold": 4,
+      "risk": -2.579040765762329,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 96.6893539428711,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-FI-A2EW",
+      "fold": 3,
+      "risk": -3.692988395690918,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 59.0130500793457,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-FI-A2EX",
+      "fold": 0,
+      "risk": -3.9093050956726074,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 9.336883544921875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-FI-A2EY",
+      "fold": 4,
+      "risk": -3.97584867477417,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 28.931190490722656,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-FI-A2F4",
+      "fold": 1,
+      "risk": -3.9305434226989746,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 73.31426239013672,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-FI-A2F8",
+      "fold": 1,
+      "risk": -3.639514923095703,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 30.67363739013672,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-FI-A2F9",
+      "fold": 4,
+      "risk": -2.559495687484741,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 59.27606201171875,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-FI-A3PV",
+      "fold": 0,
+      "risk": -3.9553184509277344,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 41.062564849853516,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-FI-A3PX",
+      "fold": 2,
+      "risk": -1.6832871437072754,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 78.3772201538086,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-H5-A2HR",
+      "fold": 1,
+      "risk": -3.7799997329711914,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 1.7424466609954834,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-JU-AAVI",
+      "fold": 4,
+      "risk": -2.4162757396698,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 17.753231048583984,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-K6-A3WQ",
+      "fold": 3,
+      "risk": -3.660095691680908,
+      "train_median": -3.944187641143799,
+      "group": "high",
+      "time": 14.038202285766602,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-PG-A5BC",
+      "fold": 4,
+      "risk": -2.4678304195404053,
+      "train_median": -3.9757097959518433,
+      "group": "high",
+      "time": 23.243581771850586,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-PG-A6IB",
+      "fold": 1,
+      "risk": -3.875227689743042,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 21.303876876831055,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-PG-A7D5",
+      "fold": 2,
+      "risk": -3.9108705520629883,
+      "train_median": -3.9116894006729126,
+      "group": "high",
+      "time": 38.695465087890625,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-PG-A914",
+      "fold": 0,
+      "risk": -3.8738365173339844,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 22.5860538482666,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-PG-A916",
+      "fold": 1,
+      "risk": -3.9307098388671875,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 17.161455154418945,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-PG-A917",
+      "fold": 4,
+      "risk": -3.98291277885437,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 6.969786643981934,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-QF-A5YS",
+      "fold": 2,
+      "risk": -3.9132652282714844,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 22.651805877685547,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-QF-A5YT",
+      "fold": 4,
+      "risk": -3.982635498046875,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 39.944766998291016,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-QS-A5YQ",
+      "fold": 2,
+      "risk": -3.913693428039551,
+      "train_median": -3.9116894006729126,
+      "group": "low",
+      "time": 24.95315170288086,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-QS-A5YR",
+      "fold": 1,
+      "risk": -3.930271625518799,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 23.638097763061523,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-QS-A744",
+      "fold": 4,
+      "risk": -3.9819116592407227,
+      "train_median": -3.9757097959518433,
+      "group": "low",
+      "time": 14.827235221862793,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-QS-A8F1",
+      "fold": 1,
+      "risk": -3.535369396209717,
+      "train_median": -3.9206764698028564,
+      "group": "high",
+      "time": 4.438307762145996,
+      "censor": 0,
+      "event": 1
+    },
+    {
+      "case_id": "TCGA-SJ-A6ZI",
+      "fold": 0,
+      "risk": -3.8892760276794434,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 20.744977951049805,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-SJ-A6ZJ",
+      "fold": 0,
+      "risk": -3.955279588699341,
+      "train_median": -3.9549217224121094,
+      "group": "low",
+      "time": 18.279251098632812,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-SL-A6J9",
+      "fold": 0,
+      "risk": -3.893833637237549,
+      "train_median": -3.9549217224121094,
+      "group": "high",
+      "time": 0.06575270742177963,
+      "censor": 1,
+      "event": 0
+    },
+    {
+      "case_id": "TCGA-SL-A6JA",
+      "fold": 1,
+      "risk": -3.925372838973999,
+      "train_median": -3.9206764698028564,
+      "group": "low",
+      "time": 0.23013445734977722,
+      "censor": 1,
+      "event": 0
+    }
+  ],
+  "note": "Five-fold out-of-fold grouping at validation-selected checkpoints; descriptive development evidence. Raw risks are not ranked across folds. Pooled log-rank/CI ignore CV model dependence.",
+  "number_at_risk": {
+    "times": [
+      0.0,
+      56.374725341796875,
+      112.74945068359375,
+      169.12417602539062,
+      225.4989013671875
+    ],
+    "counts": {
+      "low": [
+        218,
+        56,
+        7,
+        1,
+        0
+      ],
+      "high": [
+        269,
+        62,
+        4,
+        1,
+        1
+      ]
+    },
+    "definition": "Observed follow-up >= displayed time; immediately before removals at that time"
+  },
+  "logrank": {
+    "p_value": 7.45913384601927e-10,
+    "chi2": 37.89669911833268,
+    "interpretation": "exploratory; ignores cross-validation model dependence",
+    "status": "available"
+  }
+}

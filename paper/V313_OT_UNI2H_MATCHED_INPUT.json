@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "cancers": [
+    "BRCA",
+    "COADREAD",
+    "KIRC",
+    "UCEC",
+    "LUAD",
+    "LUSC",
+    "HNSC",
+    "SKCM",
+    "BLCA",
+    "STAD"
+  ],
+  "protocol": {
+    "audit": "pending",
+    "comparison": "matched",
+    "dataset": "TCGA",
+    "endpoint": "DSS",
+    "histology_encoder": "UNI2-h",
+    "seed": 3,
+    "folds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "selection": "best-validation C-index (legacy_val)",
+    "max_epochs": 30,
+    "max_patches": 2048,
+    "split_sha256": {
+      "BRCA": null,
+      "COADREAD": null,
+      "KIRC": null,
+      "UCEC": null,
+      "LUAD": null,
+      "LUSC": null,
+      "HNSC": null,
+      "SKCM": null,
+      "BLCA": null,
+      "STAD": null
+    }
+  },
+  "models": [
+    {
+      "id": "dct_v313",
+      "model": "DCT v3.13",
+      "modality": "g.+h.",
+      "group": "multimodal",
+      "audit": "pending",
+      "protocol": null,
+      "folds": {
+        "BRCA": [
+          0.7925,
+          0.6948,
+          0.5748,
+          0.6504,
+          0.6809
+        ],
+        "COADREAD": [
+          0.7742,
+          0.7365,
+          0.757,
+          0.7448,
+          0.6695
+        ],
+        "KIRC": [
+          0.8253,
+          0.8485,
+          0.8202,
+          0.8094,
+          0.8084
+        ],
+        "UCEC": [
+          0.806,
+          0.8532,
+          0.7654,
+          0.7511,
+          0.7884
+        ],
+        "LUAD": [
+          0.7015,
+          0.7138,
+          0.7109,
+          0.6352,
+          0.6677
+        ],
+        "LUSC": [
+          0.6709,
+          0.6377,
+          0.5983,
+          0.6969,
+          0.5463
+        ],
+        "HNSC": [
+          0.6963,
+          0.6118,
+          0.599,
+          0.645,
+          0.7389
+        ],
+        "SKCM": [
+          0.6442,
+          0.6199,
+          0.6706,
+          0.6434,
+          0.7488
+        ],
+        "BLCA": [
+          0.6576,
+          0.6953,
+          0.7465,
+          0.7744,
+          0.7453
+        ],
+        "STAD": [
+          0.6835,
+          0.6471,
+          0.5645,
+          0.6691,
+          0.6161
+        ]
+      },
+      "sources": {
+        "BRCA": [],
+        "COADREAD": [],
+        "KIRC": [],
+        "UCEC": [],
+        "LUAD": [],
+        "LUSC": [],
+        "HNSC": [],
+        "SKCM": [],
+        "BLCA": [],
+        "STAD": []
+      }
+    },
+    {
+      "id": "motcat",
+      "model": "MOTCat",
+      "modality": "g.+h.",
+      "group": "ot_or_uni2h",
+      "audit": "pending",
+      "protocol": {
+        "audit": "pending",
+        "comparison": "matched",
+        "dataset": "TCGA",
+        "endpoint": "DSS",
+        "histology_encoder": "UNI2-h",
+        "seed": 3,
+        "folds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "selection": "best-validation C-index (legacy_val)",
+        "max_epochs": 30,
+        "max_patches": 2048,
+        "split_sha256": {
+          "BRCA": null,
+          "COADREAD": null,
+          "KIRC": null,
+          "UCEC": null,
+          "LUAD": null,
+          "LUSC": null,
+          "HNSC": null,
+          "SKCM": null,
+          "BLCA": null,
+          "STAD": null
+        }
+      },
+      "folds": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null
+      },
+      "sources": {
+        "BRCA": [],
+        "COADREAD": [],
+        "KIRC": [],
+        "UCEC": [],
+        "LUAD": [],
+        "LUSC": [],
+        "HNSC": [],
+        "SKCM": [],
+        "BLCA": [],
+        "STAD": []
+      }
+    },
+    {
+      "id": "tta",
+      "model": "TTA",
+      "modality": "g.+h.",
+      "group": "ot_or_uni2h",
+      "audit": "pending",
+      "protocol": {
+        "audit": "pending",
+        "comparison": "matched",
+        "dataset": "TCGA",
+        "endpoint": "DSS",
+        "histology_encoder": "UNI2-h",
+        "seed": 3,
+        "folds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "selection": "best-validation C-index (legacy_val)",
+        "max_epochs": 30,
+        "max_patches": 2048,
+        "split_sha256": {
+          "BRCA": null,
+          "COADREAD": null,
+          "KIRC": null,
+          "UCEC": null,
+          "LUAD": null,
+          "LUSC": null,
+          "HNSC": null,
+          "SKCM": null,
+          "BLCA": null,
+          "STAD": null
+        }
+      },
+      "folds": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null
+      },
+      "sources": {
+        "BRCA": [],
+        "COADREAD": [],
+        "KIRC": [],
+        "UCEC": [],
+        "LUAD": [],
+        "LUSC": [],
+        "HNSC": [],
+        "SKCM": [],
+        "BLCA": [],
+        "STAD": []
+      }
+    },
+    {
+      "id": "otsurv",
+      "model": "OTSurv",
+      "modality": "h.",
+      "group": "ot_or_uni2h",
+      "audit": "pending",
+      "protocol": {
+        "audit": "pending",
+        "comparison": "matched",
+        "dataset": "TCGA",
+        "endpoint": "DSS",
+        "histology_encoder": "UNI2-h",
+        "seed": 3,
+        "folds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "selection": "best-validation C-index (legacy_val)",
+        "max_epochs": 30,
+        "max_patches": 2048,
+        "split_sha256": {
+          "BRCA": null,
+          "COADREAD": null,
+          "KIRC": null,
+          "UCEC": null,
+          "LUAD": null,
+          "LUSC": null,
+          "HNSC": null,
+          "SKCM": null,
+          "BLCA": null,
+          "STAD": null
+        }
+      },
+      "folds": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null
+      },
+      "sources": {
+        "BRCA": [],
+        "COADREAD": [],
+        "KIRC": [],
+        "UCEC": [],
+        "LUAD": [],
+        "LUSC": [],
+        "HNSC": [],
+        "SKCM": [],
+        "BLCA": [],
+        "STAD": []
+      }
+    },
+    {
+      "id": "steph",
+      "model": "STEPH",
+      "modality": "h.",
+      "group": "ot_or_uni2h",
+      "audit": "pending",
+      "protocol": {
+        "audit": "pending",
+        "comparison": "matched",
+        "dataset": "TCGA",
+        "endpoint": "DSS",
+        "histology_encoder": "UNI2-h",
+        "seed": 3,
+        "folds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "selection": "best-validation C-index (legacy_val)",
+        "max_epochs": 30,
+        "max_patches": 2048,
+        "split_sha256": {
+          "BRCA": null,
+          "COADREAD": null,
+          "KIRC": null,
+          "UCEC": null,
+          "LUAD": null,
+          "LUSC": null,
+          "HNSC": null,
+          "SKCM": null,
+          "BLCA": null,
+          "STAD": null
+        }
+      },
+      "folds": {
+        "BRCA": null,
+        "COADREAD": null,
+        "KIRC": null,
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": null,
+        "STAD": null
+      },
+      "sources": {
+        "BRCA": [],
+        "COADREAD": [],
+        "KIRC": [],
+        "UCEC": [],
+        "LUAD": [],
+        "LUSC": [],
+        "HNSC": [],
+        "SKCM": [],
+        "BLCA": [],
+        "STAD": []
+      }
+    }
+  ],
+  "note": "Roster follows the supplied visual reference; pending baselines are not claimed as completed experiments. DCT folds are the unchanged author-supplied summary; run provenance audit remains pending.",
+  "source": "paper/V313_MANUSCRIPT_STATUS.json:ten_cancer",
+  "scope": "Optional matched record template. No literature means are copied into baseline folds. No new training is authorized by this template."
+}

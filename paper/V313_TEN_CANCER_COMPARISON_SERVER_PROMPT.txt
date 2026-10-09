@@ -1,0 +1,17 @@
+作者进一步要求：沿用 SlotSPE 表 1 中其他 15 个方法的数据，排除 SlotSPE 自身三行，并保留新增 OT/UNI2-h 方法。当前有 21 个参照方法加 DCT，所有行有年份，公开均值 183 个。公开分数已经由本机直接从论文汇总，不需要服务器再汇总公开值。当前正文表2在 paper/tables/v313_ot_uni2h_comparison/，数值及来源在 paper/V313_OT_UNI2H_COMPARISON_INPUT.json；文献导读在 paper/V313_OT_UNI2H_LITERATURE_REVIEW_20261008.md。
+
+请在服务器安全同步 origin/main，保留未提交改动，先检查已有结果，不因本提示词自动启动训练、特征提取或推理。
+
+一、先同步第6节对应的已完成图及原始汇总记录。核对 /data1/DCT-Reg/results/v313_additional_20261008/figures_summary/ 的10张PNG与10张PDF，将图片来源、所有折的additional.json及summary.json逐项列清楚。不要把服务器进度文字当作原始数值。核对 scripts/summarize_v313_exp6.py 的 patch_budget 横轴是否与实际保留数量一致，检索随机基准是否按每折实际患者数计算，误差条到底表示标准差还是范围。若改图，不预设趋势和显著性。
+
+二、外部方法优先整理已有 MOTCat、TTA、OTSurv、STEPH 的真实完成记录，缺失记为未运行，不从公开均值伪造五折。代码入口来自作者仓库，链接见文献导读。ProtoPathway 作为结构相近候选，它的公开表为 OS；如未来比较 DSS，必须适配并重新得到实际 DSS 记录。ME-Mamba 先核对终点。MCSP-OTMR 先取得全文和完整设置，摘要不足以支撑模块差异或分数。
+
+三、同条件记录模板为 paper/V313_OT_UNI2H_MATCHED_INPUT.json。只整理 TCGA、DSS、相同患者级五折、UNI2-h 特征、训练和评分规则已核验的记录。单病理方法明确只有 h. 输入，多模态方法明确 g.+h. 输入，不把相同编码器当作模态一致。STEPH 采用跨癌种训练，要记录源癌种和目标折之间的患者隔离。原文 KIPAN/LUNG/STES 等合并队列不能改名当作本研究单癌种。
+
+四、DCT 的50个折值保持不变，逐折查找原始评分文件、患者预测与 checkpoint，核验 best-validation / legacy_val 的开发口径。所有比较采用一致口径；没有独立测试记录时不能写成 held-out test。native 和统一训练预算的结果分别保留，不逐折挑选较优值。
+
+五、每折保存模型版本、配置、患者划分 SHA256、checkpoint/预测/评分文件位置及 SHA256、评分口径和真实 C-index。填完后先运行：
+python scripts/build_v313_comparison_table.py --input paper/V313_OT_UNI2H_MATCHED_INPUT.json --check-only
+只有协议和全部来源记录核验通过，再输出至新的 v313_ot_uni2h_matched 目录。不要覆盖公开参考表。未完成的同条件实验列入清单，未经作者明确授权不启动。
+
+六、按实际完成情况更新进度并提交。正文公开表的红色/下划线仅为可用报告值排名，不能当作同条件SOTA结论；Overall 仅给同样完整十队列行排名；额外方法不同队列集合的总体值不能混入。MLP/SNNTrans 引用年份与 DCT 当前工作年份的表注必须保留。

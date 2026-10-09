@@ -1,0 +1,69 @@
+{
+  "id": "E030",
+  "folder": "E030_v311槽比较",
+  "title": "v3.11 Fixed 和 Unfixed 槽输出比较",
+  "kind": "补录实验或审计",
+  "status": "历史报告 原始 hazard pkl 未同步",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "比较单槽输出、方差及模态级分数。",
+  "conclusion": "历史报告记录 Fixed/Unfixed 的 WSI 分数 0.5746/0.5548，omic 0.6944/0.6546。报告用曲线形状推断输出含义的解释未核实，不作为当前模型定义。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "results/v311_fixed_proof/v311_fixed_proof_report.md",
+    "results/v311_fixed_proof/v311_fixed_vs_unfixed_comparison.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/compare_v311_fixed_vs_unfixed.py",
+    "scripts/_archive_v310_v311/analyze_v311_fixed_proof.py"
+  ],
+  "tables": [
+    {
+      "title": "原报告数值",
+      "headers": [
+        "版本",
+        "WSI C-index",
+        "Omics C-index",
+        "原报告解读 未核实"
+      ],
+      "rows": [
+        [
+          "Fixed",
+          "0.5746",
+          "0.6944",
+          "Omics C-index 更高（slot 有区分度）"
+        ],
+        [
+          "Unfixed",
+          "0.5548",
+          "0.6546",
+          "Omics C-index 略低（slot collapse 影响）"
+        ],
+        [
+          "差值",
+          "+0.0198 ",
+          "+0.0399 ",
+          "Fixed 在两个模态都更高"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E030",
+      "source": "results/v311_fixed_proof/v311_fixed_proof_report.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E030_v311槽比较\\原始材料\\results\\v311_fixed_proof\\v311_fixed_proof_report.md",
+      "sha256": "0d4bc63c52fe3ad5ddeafd9524e00d1687669680800a6c34dea5327622c052ae"
+    },
+    {
+      "experiment": "E030",
+      "source": "results/v311_fixed_proof/v311_fixed_vs_unfixed_comparison.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E030_v311槽比较\\原始材料\\results\\v311_fixed_proof\\v311_fixed_vs_unfixed_comparison.md",
+      "sha256": "f86b74f518b6b67cbfa935bd0990556b591989fe6487a847f76e7aa08cf061b6"
+    }
+  ]
+}

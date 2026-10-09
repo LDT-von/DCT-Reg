@@ -1,0 +1,200 @@
+{
+  "id": "E014",
+  "folder": "E014_两队列成本",
+  "title": "Full 与 Direct 两队列实测成本",
+  "kind": "已训练模型的 profile",
+  "status": "汇总记录已保存 计时待复核",
+  "purpose": "比较 BLCA/KIRC Full 与 Direct 的性能及评估前向成本。",
+  "setting": "RTX 5090、float32、batch=1、2048 patches、warmup=5、repeats=30。每折测首位验证病例；横轴延迟是各折重复前向中位数的宏平均。",
+  "conclusion": "Full/Direct 的两队列平均 C-index 为 0.7731/0.7530，峰值 allocated 显存同为 181.39 MiB；平均延迟为 488.66/504.19 ms。",
+  "pending": "Full 仅 4/10 折延迟更低。BLCA fold0 的 Direct 为 650.62 ms、Full 为 482.76 ms，明显影响平均值；不得称稳定更快。原始逐次计时仍在服务器。BLCA 五折与两队列图复用同一批预测。",
+  "sources": [
+    "paper/figures/v313_tradeoff_real_20261008/tradeoff_blca_kirc/efficiency_tradeoff.json"
+  ],
+  "scripts": [
+    "scripts/assemble_v313_tradeoff.py",
+    "scripts/plot_v313_reference_panels.py",
+    "scripts/run_v313_additional_evidence.py",
+    "survot_rank/evidence/additional.py",
+    "survot_rank/evidence/reference_panels.py"
+  ],
+  "tables": [
+    {
+      "title": "两队列十折宏平均",
+      "headers": [
+        "方法",
+        "C-index",
+        "峰值 allocated 显存 MiB",
+        "前向延迟 ms"
+      ],
+      "rows": [
+        [
+          "Full",
+          "0.7731",
+          "181.39",
+          "488.66"
+        ],
+        [
+          "Direct",
+          "0.7530",
+          "181.39",
+          "504.19"
+        ]
+      ]
+    },
+    {
+      "title": "逐折前向延迟",
+      "headers": [
+        "队列",
+        "Fold",
+        "Full ms",
+        "Direct ms",
+        "Direct 减 Full ms"
+      ],
+      "rows": [
+        [
+          "BLCA",
+          "0",
+          "482.76",
+          "650.62",
+          "+167.86"
+        ],
+        [
+          "BLCA",
+          "1",
+          "500.70",
+          "481.36",
+          "-19.34"
+        ],
+        [
+          "BLCA",
+          "2",
+          "510.94",
+          "484.01",
+          "-26.94"
+        ],
+        [
+          "BLCA",
+          "3",
+          "477.15",
+          "484.90",
+          "+7.75"
+        ],
+        [
+          "BLCA",
+          "4",
+          "485.79",
+          "485.24",
+          "-0.55"
+        ],
+        [
+          "KIRC",
+          "0",
+          "481.85",
+          "476.47",
+          "-5.38"
+        ],
+        [
+          "KIRC",
+          "1",
+          "503.54",
+          "512.61",
+          "+9.07"
+        ],
+        [
+          "KIRC",
+          "2",
+          "483.13",
+          "480.15",
+          "-2.98"
+        ],
+        [
+          "KIRC",
+          "3",
+          "479.81",
+          "476.48",
+          "-3.33"
+        ],
+        [
+          "KIRC",
+          "4",
+          "480.93",
+          "510.10",
+          "+29.17"
+        ]
+      ]
+    }
+  ],
+  "figures": [
+    {
+      "path": "表格图片\\E014_两队列成本\\原始材料\\tradeoff_blca_kirc\\efficiency_tradeoff.png",
+      "caption": "原始两均值成本图，长方法名和版式待修。结论以本条逐折表为准，平均延迟差不代表稳定加速。"
+    }
+  ],
+  "assets": [
+    {
+      "experiment": "E014",
+      "source": "paper/figures/v313_tradeoff_real_20261008/tradeoff_blca_kirc/efficiency_tradeoff.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E014_两队列成本\\原始材料\\tradeoff_blca_kirc\\efficiency_tradeoff.json",
+      "sha256": "942f0d44d77d2299bc069441d9804698f01fb6bea71467b06a104bf3cef0888c"
+    },
+    {
+      "experiment": "E014",
+      "source": "paper/figures/v313_tradeoff_real_20261008/tradeoff_blca_kirc/efficiency_tradeoff.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E014_两队列成本\\原始材料\\tradeoff_blca_kirc\\efficiency_tradeoff.pdf",
+      "sha256": "f9672851c3326b26a3ab9a206d4fa136d43aafd1efebfb823e02b8908123466a"
+    },
+    {
+      "experiment": "E014",
+      "source": "paper/figures/v313_tradeoff_real_20261008/tradeoff_blca_kirc/efficiency_tradeoff.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E014_两队列成本\\原始材料\\tradeoff_blca_kirc\\efficiency_tradeoff.png",
+      "sha256": "531b25be1e2198896bd4dc3f41b3b361e16f755dff712986af294ccd21f4739a"
+    },
+    {
+      "experiment": "E014",
+      "source": "paper/figures/v313_tradeoff_real_20261008/tradeoff_blca_kirc/efficiency_tradeoff.svg",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E014_两队列成本\\原始材料\\tradeoff_blca_kirc\\efficiency_tradeoff.svg",
+      "sha256": "0962561272e8c7893215c180d41739eaa04a7acf00abe9bcf19de3467e3c04f7"
+    },
+    {
+      "experiment": "E014",
+      "source": "paper/figures/v313_tradeoff_real_20261008/efficiency_tradeoff.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E014_两队列成本\\原始材料\\BLCA_五折子集\\efficiency_tradeoff.png",
+      "sha256": "497a1a6f8b71e7fb06d609871e2e85726ce68157fd6f2c82378e8c39b3fc1f6b"
+    },
+    {
+      "experiment": "E014",
+      "source": "paper/figures/v313_tradeoff_real_20261008/efficiency_tradeoff.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E014_两队列成本\\原始材料\\BLCA_五折子集\\efficiency_tradeoff.pdf",
+      "sha256": "bd299c095db1f9298cd910234d3779822e7bf80b63824168d6bb04c13113977f"
+    },
+    {
+      "experiment": "E014",
+      "source": "paper/figures/v313_tradeoff_real_20261008/efficiency_tradeoff.svg",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E014_两队列成本\\原始材料\\BLCA_五折子集\\efficiency_tradeoff.svg",
+      "sha256": "db4dd0341627a7b3bf7680b95abeb7697a81df46c25eb9db776ea5592ebfc503"
+    },
+    {
+      "experiment": "E014",
+      "source": "paper/figures/v313_tradeoff_real_20261008/efficiency_tradeoff.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E014_两队列成本\\原始材料\\BLCA_五折子集\\efficiency_tradeoff.json",
+      "sha256": "2b7ebc928ebda91257ed1746c6ce078e5428421a6fed8b1e9b953e7e45954971"
+    }
+  ]
+}

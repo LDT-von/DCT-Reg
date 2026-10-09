@@ -1,0 +1,171 @@
+{
+  "kind": "synthetic structure only; no clinical performance claim",
+  "options": {
+    "output": "audit_results/v315_cpu.json",
+    "steps": 30,
+    "seeds": [
+      3,
+      17,
+      29
+    ],
+    "device": "cpu",
+    "dim": 32,
+    "encoding_dim": 32,
+    "patches": 48,
+    "batch_size": 16,
+    "slots": 8,
+    "mode": "ot",
+    "alpha_surv": 0.0
+  },
+  "source_sha256": {
+    "losses.py": "bd270baacab8a29335e9b8e61c659b4fd2aa5296b53ef4f743c01c19186e50c7",
+    "model.py": "6f7d650c591e919039f74359a3aa755b64041506d6fdf131385e562ccbbe902a",
+    "__init__.py": "918415ffb45a1fbb055fa3bc7cb3504a887575b5f3700bccef54f9d4e1e551c3"
+  },
+  "seeds": {
+    "3": {
+      "parameters": 11464,
+      "initial": {
+        "v315_auxiliary": 0.0,
+        "v315_marginal_error": 2.9802322387695312e-08,
+        "v315_interaction_rms": 0.17800341546535492,
+        "v315_delta_logit_rms": 0.07875877618789673,
+        "v315_wsi_cosine": 0.7213161587715149,
+        "v315_wsi_slot_std": 0.20074941217899323,
+        "v315_wsi_attention_overlap": 0.12083069980144501,
+        "v315_omic_cosine": 0.545049786567688,
+        "v315_omic_slot_std": 0.26782697439193726,
+        "v315_omic_attention_overlap": 0.2731153666973114,
+        "nll": 1.763421654701233,
+        "wsi_effective_rank": 6.31272029876709,
+        "omic_effective_rank": 5.641917705535889,
+        "plan_independence_distance": 0.09765105694532394,
+        "global_logit_rms": 0.2329358011484146
+      },
+      "nll_gradient_norms": {
+        "wsi_encoder": 0.5435060858726501,
+        "omic_encoders": 0.36428913474082947,
+        "wsi_slots": 0.13042263686656952,
+        "omic_slots": 0.18142925202846527,
+        "global_head": 1.3701061010360718,
+        "transport": 0.37082284688949585
+      },
+      "finite_steps": 30,
+      "max_preclip_gradient_norm": 1.5788390636444092,
+      "median_step_seconds": 0.0499545000056969,
+      "final": {
+        "v315_auxiliary": 0.0,
+        "v315_marginal_error": 1.4901161193847656e-08,
+        "v315_interaction_rms": 0.25405651330947876,
+        "v315_delta_logit_rms": 0.25622305274009705,
+        "v315_wsi_cosine": 0.7155685424804688,
+        "v315_wsi_slot_std": 0.20479579269886017,
+        "v315_wsi_attention_overlap": 0.12065083533525467,
+        "v315_omic_cosine": 0.5162071585655212,
+        "v315_omic_slot_std": 0.28517797589302063,
+        "v315_omic_attention_overlap": 0.24444147944450378,
+        "nll": 0.8266526460647583,
+        "wsi_effective_rank": 6.2169647216796875,
+        "omic_effective_rank": 5.529562473297119,
+        "plan_independence_distance": 0.11804435402154922,
+        "global_logit_rms": 0.6824025511741638
+      }
+    },
+    "17": {
+      "parameters": 11464,
+      "initial": {
+        "v315_auxiliary": 0.0,
+        "v315_marginal_error": 2.9802322387695312e-08,
+        "v315_interaction_rms": 0.18338096141815186,
+        "v315_delta_logit_rms": 0.1032387912273407,
+        "v315_wsi_cosine": 0.7524654269218445,
+        "v315_wsi_slot_std": 0.18564251065254211,
+        "v315_wsi_attention_overlap": 0.14367078244686127,
+        "v315_omic_cosine": 0.525786280632019,
+        "v315_omic_slot_std": 0.27977460622787476,
+        "v315_omic_attention_overlap": 0.24904431402683258,
+        "nll": 1.9802361726760864,
+        "wsi_effective_rank": 6.081099987030029,
+        "omic_effective_rank": 5.813719749450684,
+        "plan_independence_distance": 0.09721733629703522,
+        "global_logit_rms": 0.35883480310440063
+      },
+      "nll_gradient_norms": {
+        "wsi_encoder": 0.8488284945487976,
+        "omic_encoders": 0.47317832708358765,
+        "wsi_slots": 0.1984686255455017,
+        "omic_slots": 0.2078438699245453,
+        "global_head": 1.9797078371047974,
+        "transport": 0.3986586630344391
+      },
+      "finite_steps": 30,
+      "max_preclip_gradient_norm": 2.2594621181488037,
+      "median_step_seconds": 0.05412415001046611,
+      "final": {
+        "v315_auxiliary": 0.0,
+        "v315_marginal_error": 1.4901161193847656e-08,
+        "v315_interaction_rms": 0.22518408298492432,
+        "v315_delta_logit_rms": 0.2055654674768448,
+        "v315_wsi_cosine": 0.7498799562454224,
+        "v315_wsi_slot_std": 0.18774820864200592,
+        "v315_wsi_attention_overlap": 0.136749267578125,
+        "v315_omic_cosine": 0.4989859461784363,
+        "v315_omic_slot_std": 0.2966269552707672,
+        "v315_omic_attention_overlap": 0.23275277018547058,
+        "nll": 0.8771662712097168,
+        "wsi_effective_rank": 6.078211307525635,
+        "omic_effective_rank": 5.678220748901367,
+        "plan_independence_distance": 0.10609609633684158,
+        "global_logit_rms": 0.769456684589386
+      }
+    },
+    "29": {
+      "parameters": 11464,
+      "initial": {
+        "v315_auxiliary": 0.0,
+        "v315_marginal_error": 4.470348358154297e-08,
+        "v315_interaction_rms": 0.17775247991085052,
+        "v315_delta_logit_rms": 0.08352602273225784,
+        "v315_wsi_cosine": 0.7848734855651855,
+        "v315_wsi_slot_std": 0.16674110293388367,
+        "v315_wsi_attention_overlap": 0.18078242242336273,
+        "v315_omic_cosine": 0.5258879065513611,
+        "v315_omic_slot_std": 0.27798834443092346,
+        "v315_omic_attention_overlap": 0.24088911712169647,
+        "nll": 1.5962588787078857,
+        "wsi_effective_rank": 6.206977367401123,
+        "omic_effective_rank": 5.667567253112793,
+        "plan_independence_distance": 0.09770791232585907,
+        "global_logit_rms": 0.19895322620868683
+      },
+      "nll_gradient_norms": {
+        "wsi_encoder": 0.5850662589073181,
+        "omic_encoders": 0.376064270734787,
+        "wsi_slots": 0.175502747297287,
+        "omic_slots": 0.1825564205646515,
+        "global_head": 1.0686932802200317,
+        "transport": 0.20777630805969238
+      },
+      "finite_steps": 30,
+      "max_preclip_gradient_norm": 1.3164844512939453,
+      "median_step_seconds": 0.043510100011189934,
+      "final": {
+        "v315_auxiliary": 0.0,
+        "v315_marginal_error": 1.4901161193847656e-08,
+        "v315_interaction_rms": 0.2683393061161041,
+        "v315_delta_logit_rms": 0.29378634691238403,
+        "v315_wsi_cosine": 0.7756733298301697,
+        "v315_wsi_slot_std": 0.1703033745288849,
+        "v315_wsi_attention_overlap": 0.1824282705783844,
+        "v315_omic_cosine": 0.5252877473831177,
+        "v315_omic_slot_std": 0.284877747297287,
+        "v315_omic_attention_overlap": 0.24434301257133484,
+        "nll": 0.8183274269104004,
+        "wsi_effective_rank": 6.192403793334961,
+        "omic_effective_rank": 5.448565483093262,
+        "plan_independence_distance": 0.12143794447183609,
+        "global_logit_rms": 0.5681713223457336
+      }
+    }
+  }
+}

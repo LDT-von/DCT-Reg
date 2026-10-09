@@ -1,0 +1,20 @@
+{
+  "id": "E041",
+  "entries": [
+    {
+      "requested": "scripts/_archive_v310_v311/audit_v315.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\audit_v315.py",
+      "sha256": "613774ed0fed6c58a24d5bae2849d1d486c6fc9b691abed350612b9906f7610b",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "configs/dct_v315_rti_rank_blca_uni2h.yaml",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\configs\\dct_v315_rti_rank_blca_uni2h.yaml",
+      "sha256": "6969dfa8b4889b6736e8dd266857d8282ff34390c6df3e1a9bd24db047cdd068",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

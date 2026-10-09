@@ -1,0 +1,137 @@
+[
+  {
+    "arm": "exp6",
+    "fold": 0,
+    "pval": 0.02713864867998987,
+    "cindex": 0.6576040781648258,
+    "threshold": -2.675220251083374,
+    "threshold_kind": "train_median",
+    "data_source": "export"
+  },
+  {
+    "arm": "exp6",
+    "fold": 1,
+    "pval": 0.009168628490801427,
+    "cindex": 0.6952789699570815,
+    "threshold": -2.5532119274139404,
+    "threshold_kind": "train_median",
+    "data_source": "inference"
+  },
+  {
+    "arm": "exp6",
+    "fold": 2,
+    "pval": 0.03368188678550199,
+    "cindex": 0.7464920486435921,
+    "threshold": -2.216343641281128,
+    "threshold_kind": "train_median",
+    "data_source": "export"
+  },
+  {
+    "arm": "exp6",
+    "fold": 3,
+    "pval": 0.0073138788589013565,
+    "cindex": 0.7743634767339772,
+    "threshold": -3.186182975769043,
+    "threshold_kind": "train_median",
+    "data_source": "inference"
+  },
+  {
+    "arm": "exp6",
+    "fold": 4,
+    "pval": 0.08811286802482152,
+    "cindex": 0.7452991452991453,
+    "threshold": -2.5636448860168457,
+    "threshold_kind": "train_median",
+    "data_source": "export"
+  },
+  {
+    "arm": "direct",
+    "fold": 0,
+    "pval": 0.08312777086504591,
+    "cindex": 0.6499575191163977,
+    "threshold": -2.9035632610321045,
+    "threshold_kind": "val_median",
+    "data_source": "controls_pkl"
+  },
+  {
+    "arm": "direct",
+    "fold": 1,
+    "pval": 0.010601602955018139,
+    "cindex": 0.7081545064377682,
+    "threshold": -3.3828628063201904,
+    "threshold_kind": "val_median",
+    "data_source": "controls_pkl"
+  },
+  {
+    "arm": "direct",
+    "fold": 2,
+    "pval": 0.055031364925090906,
+    "cindex": 0.6987839101964453,
+    "threshold": -3.1487661600112915,
+    "threshold_kind": "val_median",
+    "data_source": "controls_pkl"
+  },
+  {
+    "arm": "direct",
+    "fold": 3,
+    "pval": 0.002458205913739365,
+    "cindex": 0.7778753292361721,
+    "threshold": -3.707842469215393,
+    "threshold_kind": "val_median",
+    "data_source": "controls_pkl"
+  },
+  {
+    "arm": "direct",
+    "fold": 4,
+    "pval": 0.03381892815654831,
+    "cindex": 0.6799145299145299,
+    "threshold": -2.9763107299804688,
+    "threshold_kind": "val_median",
+    "data_source": "controls_pkl"
+  },
+  {
+    "arm": "independent",
+    "fold": 0,
+    "pval": 0.0873321976461148,
+    "cindex": 0.6516567544604928,
+    "threshold": -3.293722629547119,
+    "threshold_kind": "val_median",
+    "data_source": "controls_pkl"
+  },
+  {
+    "arm": "independent",
+    "fold": 1,
+    "pval": 0.03670090226585983,
+    "cindex": 0.7184549356223175,
+    "threshold": -3.6527249813079834,
+    "threshold_kind": "val_median",
+    "data_source": "controls_pkl"
+  },
+  {
+    "arm": "independent",
+    "fold": 2,
+    "pval": 0.12117339787520641,
+    "cindex": 0.6856875584658559,
+    "threshold": -3.4505720138549805,
+    "threshold_kind": "val_median",
+    "data_source": "controls_pkl"
+  },
+  {
+    "arm": "independent",
+    "fold": 3,
+    "pval": 0.005780840974682557,
+    "cindex": 0.7374890254609306,
+    "threshold": -3.136193037033081,
+    "threshold_kind": "val_median",
+    "data_source": "controls_pkl"
+  },
+  {
+    "arm": "independent",
+    "fold": 4,
+    "pval": 0.02444640684826609,
+    "cindex": 0.752991452991453,
+    "threshold": -3.1954039335250854,
+    "threshold_kind": "val_median",
+    "data_source": "controls_pkl"
+  }
+]

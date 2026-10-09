@@ -1,0 +1,345 @@
+{
+  "mode": "reversible move of explicit independent legacy scripts/reports; delete reproducible caches only",
+  "transfers": [
+    {
+      "source": "E:\\DCT-Reg\\find_best_v310_v311.py",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\find_best_v310_v311.py",
+      "sha256": "7642e04750259db0325100f7e7185cd111deb53403d6e4da6617e635f6f2dc77",
+      "kind": "independent historical script"
+    },
+    {
+      "source": "E:\\DCT-Reg\\scan_all_v310_v311.py",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\scan_all_v310_v311.py",
+      "sha256": "6d8e500e01f6abee2a267a005bce08e48f1d06e708de0fc71ef93183212ee21e",
+      "kind": "independent historical script"
+    },
+    {
+      "source": "E:\\DCT-Reg\\scripts\\compare_v310_v311_audit.py",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\scripts\\compare_v310_v311_audit.py",
+      "sha256": "f908a6348e2d3ea2f9821bd3edbcefe9de31627c4de92b6dae9520be2d3b5656",
+      "kind": "independent historical script"
+    },
+    {
+      "source": "E:\\DCT-Reg\\scripts\\compare_v311_fixed_vs_unfixed.py",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\scripts\\compare_v311_fixed_vs_unfixed.py",
+      "sha256": "e45e7de30f165e52db69d738abd8173982386eb7fca71939e9eed5c0931033e3",
+      "kind": "independent historical script"
+    },
+    {
+      "source": "E:\\DCT-Reg\\scripts\\compare_v311_vs_v310.py",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\scripts\\compare_v311_vs_v310.py",
+      "sha256": "811c9e00e6035bcd2c584e8d5b7123e6311def9fb4ae83d6c2de21baa2db88c8",
+      "kind": "independent historical script"
+    },
+    {
+      "source": "E:\\DCT-Reg\\scripts\\monitor_v311_training.py",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\scripts\\monitor_v311_training.py",
+      "sha256": "3e9b05d7531be9afd0c498dac967be5ebee826c268d68d9be7fbb0c5bb1d8de7",
+      "kind": "independent historical script"
+    },
+    {
+      "source": "E:\\DCT-Reg\\scripts\\monitor_v311_v2_live.py",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\scripts\\monitor_v311_v2_live.py",
+      "sha256": "dd260ad304a59d3d39500309e01fc074239258250d15393408c7f9225b8816f7",
+      "kind": "independent historical script"
+    },
+    {
+      "source": "E:\\DCT-Reg\\scripts\\monitor_v311_v2_training.py",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\scripts\\monitor_v311_v2_training.py",
+      "sha256": "b4a24ab1142d4819e63cc49b0f852bfdb656526df0c09327a68933711a1ccea4",
+      "kind": "independent historical script"
+    },
+    {
+      "source": "E:\\DCT-Reg\\scripts\\run_dct_v311_fixed_training.py",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\scripts\\run_dct_v311_fixed_training.py",
+      "sha256": "6183f89d5caae492c33d4848379d4d920de50d3183f4f12fd01fbe15c091841f",
+      "kind": "independent historical script"
+    },
+    {
+      "source": "E:\\DCT-Reg\\scripts\\inspect_v311_pkl.py",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\scripts\\inspect_v311_pkl.py",
+      "sha256": "068be10dd426d1554037fc912423fa444ca28fb2b234088c7be0f79f2c1dbd32",
+      "kind": "independent historical script"
+    },
+    {
+      "source": "E:\\DCT-Reg\\scripts\\draw_v311_architecture.py",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\scripts\\draw_v311_architecture.py",
+      "sha256": "346d5fabbb614ee815466dc970eeb1b990adb1a1a00dd543cc07a4f6ea818b41",
+      "kind": "independent historical script"
+    },
+    {
+      "source": "E:\\DCT-Reg\\scripts\\run_dct_v311_blca_uni2h_v2_5fold.sh",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\scripts\\run_dct_v311_blca_uni2h_v2_5fold.sh",
+      "sha256": "84893eec87ef2d21cbcf0b47f217c632c845a108a940eff9f42f1b0f9091efb8",
+      "kind": "independent historical script"
+    },
+    {
+      "source": "E:\\DCT-Reg\\scripts\\train_v311_fixed_v2.sh",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\scripts\\train_v311_fixed_v2.sh",
+      "sha256": "94f0b6d381cf393a6cff8d83a074c422e15afd6cded45c7c6cefd7b778f7c23f",
+      "kind": "independent historical script"
+    },
+    {
+      "source": "E:\\DCT-Reg\\scripts\\watch_v311_uni2h_v2.sh",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\scripts\\watch_v311_uni2h_v2.sh",
+      "sha256": "4e42a8b9854ef0cdac8e72cf4f0875f46ba623b70dfca002940c28a0fdc62a6e",
+      "kind": "independent historical script"
+    },
+    {
+      "source": "E:\\DCT-Reg\\DCT_v310_Ablation_Results.md",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\DCT_v310_Ablation_Results.md",
+      "sha256": "048df7a3e317f27ac1e160cb0fbc1810555b66dbee18703b41c21cc83310e607",
+      "kind": "non-v313 historical report"
+    },
+    {
+      "source": "E:\\DCT-Reg\\DCT_v310_Ablation_Results_COMPLETE.md",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\DCT_v310_Ablation_Results_COMPLETE.md",
+      "sha256": "9f3753c88bca47418d61c079f26b4896ca78041d9f18d0ddce2b99564efaadd4",
+      "kind": "non-v313 historical report"
+    },
+    {
+      "source": "E:\\DCT-Reg\\DCT_V310_AUDIT_COMPLETE_SUMMARY.md",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\DCT_V310_AUDIT_COMPLETE_SUMMARY.md",
+      "sha256": "eeb90bc45477f0e59c8c7e7f35b9070cc70625bb006e1492b655faea45d3942c",
+      "kind": "non-v313 historical report"
+    },
+    {
+      "source": "E:\\DCT-Reg\\DCT_v310_Experiments_Report.md",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\DCT_v310_Experiments_Report.md",
+      "sha256": "ca0322aec987f580391759e45741ca6186b9098d27b0bf6f348ae850121ed4c3",
+      "kind": "non-v313 historical report"
+    },
+    {
+      "source": "E:\\DCT-Reg\\TGSR_BEST_EPOCH_RESULTS.md",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\TGSR_BEST_EPOCH_RESULTS.md",
+      "sha256": "6b7f3eff28f413c4819db78f14c5c2fed80d99744d1afec204405c8658e68904",
+      "kind": "non-v313 historical report"
+    },
+    {
+      "source": "E:\\DCT-Reg\\TGSR_DECISION_ANALYSIS.md",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\TGSR_DECISION_ANALYSIS.md",
+      "sha256": "e2edebf82d98d2d6313bdbea6d87954c0641b99dc63087d0bcb72283bbf7bddc",
+      "kind": "non-v313 historical report"
+    },
+    {
+      "source": "E:\\DCT-Reg\\TGSR_FINAL_VERDICT.md",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\TGSR_FINAL_VERDICT.md",
+      "sha256": "f94f35e98c57ae83b0fc81e26d09fb2e3af5be1f748e3f6da41c7c52049c13d8",
+      "kind": "non-v313 historical report"
+    },
+    {
+      "source": "E:\\DCT-Reg\\TGSR_NEXT_EXPERIMENTS.md",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\TGSR_NEXT_EXPERIMENTS.md",
+      "sha256": "6fbc4e7ed3becd58a2acf6a80f55671b8483262d44be5a2ec66bf758e3846fba",
+      "kind": "non-v313 historical report"
+    },
+    {
+      "source": "E:\\DCT-Reg\\TGSR_OPTIMIZATION_STATUS.md",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\TGSR_OPTIMIZATION_STATUS.md",
+      "sha256": "126d236b0afb7273847784f8d1c457d73fb89475c8c0ec8f22d91fd7a49220ca",
+      "kind": "non-v313 historical report"
+    },
+    {
+      "source": "E:\\DCT-Reg\\V32_TGSR_EXPERIMENT_RESULTS.md",
+      "target": "E:\\DCT-Reg\\历史备份\\项目清理\\非v313独立材料_第二轮_20261009\\V32_TGSR_EXPERIMENT_RESULTS.md",
+      "sha256": "626da80d17e63fdb5feed961ce7ea8b50fe907f3790da15a911d27cf96578bb0",
+      "kind": "non-v313 historical report"
+    }
+  ],
+  "caches": [
+    {
+      "path": "E:\\DCT-Reg\\.pytest_cache",
+      "files": 5,
+      "bytes": 12753
+    },
+    {
+      "path": "E:\\DCT-Reg\\.ruff_cache",
+      "files": 5,
+      "bytes": 574
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\__pycache__",
+      "files": 4,
+      "bytes": 8807
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\__pycache__",
+      "files": 1,
+      "bytes": 178
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\training\\__pycache__",
+      "files": 7,
+      "bytes": 63008
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\components\\__pycache__",
+      "files": 6,
+      "bytes": 48659
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\methods\\__pycache__",
+      "files": 2,
+      "bytes": 6198
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\legacy\\slotspe_runtime\\dataset\\__pycache__",
+      "files": 1,
+      "bytes": 19041
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\legacy\\slotspe_runtime\\utils\\__pycache__",
+      "files": 4,
+      "bytes": 43146
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\methods\\dct_v310_directional_regularized_transport\\__pycache__",
+      "files": 2,
+      "bytes": 6368
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\methods\\dct_v316_slot_mi_interaction\\__pycache__",
+      "files": 3,
+      "bytes": 28098
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\methods\\dct_v32_tgsr_objective_study\\__pycache__",
+      "files": 2,
+      "bytes": 5110
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\methods\\dct_v32_transport_guided_slot_reaggregation\\__pycache__",
+      "files": 2,
+      "bytes": 4686
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\methods\\dct_v330_closed_loop_prognostic_transport\\__pycache__",
+      "files": 2,
+      "bytes": 12395
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\methods\\distributional_counterfactual_transport\\__pycache__",
+      "files": 2,
+      "bytes": 28931
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\methods\\faithful_evidence_transport\\__pycache__",
+      "files": 2,
+      "bytes": 6678
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\methods\\ot_event_hazard_v2\\__pycache__",
+      "files": 2,
+      "bytes": 10207
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\methods\\rank_guided_event_transport\\__pycache__",
+      "files": 2,
+      "bytes": 6377
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\methods\\stagewise_prognostic_transport\\__pycache__",
+      "files": 2,
+      "bytes": 5236
+    },
+    {
+      "path": "E:\\DCT-Reg\\survot_rank\\research\\methods\\legacy\\experimental\\dct_v311_slot_interpretable\\__pycache__",
+      "files": 1,
+      "bytes": 13316
+    },
+    {
+      "path": "E:\\DCT-Reg\\scripts\\__pycache__",
+      "files": 12,
+      "bytes": 148821
+    },
+    {
+      "path": "E:\\DCT-Reg\\tests\\__pycache__",
+      "files": 8,
+      "bytes": 155093
+    },
+    {
+      "path": "E:\\DCT-Reg\\standalone\\DCT-v3.11\\dct_v311\\__pycache__",
+      "files": 8,
+      "bytes": 43264
+    },
+    {
+      "path": "E:\\DCT-Reg\\standalone\\DCT-v3.11\\scripts\\__pycache__",
+      "files": 1,
+      "bytes": 2467
+    },
+    {
+      "path": "E:\\DCT-Reg\\standalone\\DCT-v3.11\\tests\\__pycache__",
+      "files": 6,
+      "bytes": 16376
+    }
+  ],
+  "skipped": [],
+  "v313_protected_source_paths": [
+    "configs/dct_v313_blca_uni.yaml",
+    "configs/dct_v313_blca_uni2h.yaml",
+    "configs/dct_v313_brca_uni.yaml",
+    "configs/dct_v313_coadread_uni.yaml",
+    "configs/dct_v313_hnsc_uni.yaml",
+    "configs/dct_v313_kirc_uni.yaml",
+    "configs/dct_v313_luad_uni.yaml",
+    "configs/dct_v313_lusc_uni.yaml",
+    "configs/dct_v313_skcm_uni.yaml",
+    "configs/dct_v313_stad_uni.yaml",
+    "configs/dct_v313_ucec_uni.yaml",
+    "configs/dct_v313_uni2h.yaml",
+    "results/v313_evidence_v2/controls_plan_configs/direct_blca.yaml",
+    "results/v313_evidence_v2/controls_plan_configs/direct_kirc.yaml",
+    "results/v313_evidence_v2/controls_plan_configs/independent_blca.yaml",
+    "results/v313_evidence_v2/controls_plan_configs/independent_kirc.yaml",
+    "scripts/assemble_v313_tradeoff.py",
+    "scripts/build_v313_comparison_table.py",
+    "scripts/build_v313_literature_comparison.py",
+    "scripts/plot_fig3_from_exports.py",
+    "scripts/plot_fig3_transport_sweep.py",
+    "scripts/plot_fig5_km_curves.py",
+    "scripts/plot_fig_c_case_interpretation.py",
+    "scripts/plot_v313_manuscript_sweep.py",
+    "scripts/plot_v313_reference_panels.py",
+    "scripts/plot_v313_slotspe_style.py",
+    "scripts/plot_v313_tradeoff_per_cohort.py",
+    "scripts/prepare_v313_evidence.py",
+    "scripts/prepare_v313_manuscript_panels.py",
+    "scripts/rerun_v313_export_for_attention.py",
+    "scripts/rerun_v313_export_with_km.py",
+    "scripts/run_ablation_loss_components.py",
+    "scripts/run_v313_additional_evidence.py",
+    "scripts/run_v313_uni2h_10cancer.py",
+    "scripts/summarize_v313_exp6.py",
+    "survot_rank/config.py",
+    "survot_rank/evidence/additional.py",
+    "survot_rank/evidence/additional_plots.py",
+    "survot_rank/evidence/km_oof.py",
+    "survot_rank/evidence/manifest.py",
+    "survot_rank/evidence/plots.py",
+    "survot_rank/evidence/reference_panels.py",
+    "survot_rank/evidence/slotspe_style.py",
+    "survot_rank/evidence/v313.py",
+    "survot_rank/project.py",
+    "survot_rank/research/components/omics_encoder.py",
+    "survot_rank/research/components/slot_attention.py",
+    "survot_rank/research/methods/catalog.py",
+    "survot_rank/research/methods/dct_transport_intervention_consistency/model.py",
+    "survot_rank/research/methods/dct_v310_directional_regularized_transport/model.py",
+    "survot_rank/research/methods/distributional_counterfactual_transport/model.py",
+    "survot_rank/research/methods/faithful_evidence_transport/model.py",
+    "survot_rank/research/methods/legacy/ablation/dct_transport_intervention_consistency/model.py",
+    "survot_rank/research/methods/legacy/experimental/dct_v311_slot_interpretable/model.py",
+    "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/model.py",
+    "survot_rank/research/methods/ot_event_hazard_v2/model_v2.py",
+    "survot_rank/research/methods/rank_guided_event_transport/model.py",
+    "survot_rank/research/methods/stagewise_prognostic_transport/model.py",
+    "survot_rank/training/extended_args.py",
+    "survot_rank/training/model_factory.py",
+    "survot_rank/training/paths.py",
+    "survot_rank/training/scheduler.py",
+    "survot_rank/training/sparse_event.py",
+    "survot_rank/training/train_runner.py"
+  ],
+  "model_config_tests_retained": true,
+  "server_touched": false
+}

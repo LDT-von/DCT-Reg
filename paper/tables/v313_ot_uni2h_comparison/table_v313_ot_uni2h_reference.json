@@ -1,0 +1,1898 @@
+{
+  "comparison_type": "literature_reference",
+  "title": "DCT v3.13 Ten Cancer Literature Comparison",
+  "compact": true,
+  "model_column_width": 208,
+  "model_column_cm": 4.1,
+  "model_header": "Model (year)",
+  "header_font_sizes": {
+    "COADREAD": 8.5
+  },
+  "missing_label": "NR",
+  "input_header": "Input / FM",
+  "columns": [
+    "BRCA",
+    "COADREAD",
+    "KIRC",
+    "UCEC",
+    "LUAD",
+    "LUSC",
+    "HNSC",
+    "SKCM",
+    "BLCA",
+    "STAD",
+    "Overall"
+  ],
+  "digits": 4,
+  "rows": [
+    {
+      "id": "mlp",
+      "model": "MLP (1998*)",
+      "base_model": "MLP",
+      "year": 1998,
+      "year_kind": "reference_year",
+      "year_source": {
+        "url": "https://arxiv.org/abs/2512.01116",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "genomics",
+      "modality": "g./-",
+      "encoder": "none",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.644,
+          "reported_dispersion": 0.097,
+          "text": "0.6440",
+          "rank": 21
+        },
+        "COADREAD": {
+          "mean": 0.661,
+          "reported_dispersion": 0.053,
+          "text": "0.6610",
+          "rank": 18
+        },
+        "KIRC": {
+          "mean": 0.75,
+          "reported_dispersion": 0.035,
+          "text": "0.7500",
+          "rank": 15
+        },
+        "UCEC": {
+          "mean": 0.731,
+          "reported_dispersion": 0.071,
+          "text": "0.7310",
+          "rank": 15
+        },
+        "LUAD": {
+          "mean": 0.634,
+          "reported_dispersion": 0.069,
+          "text": "0.6340",
+          "rank": 14
+        },
+        "LUSC": {
+          "mean": 0.584,
+          "reported_dispersion": 0.072,
+          "text": "0.5840",
+          "rank": 7
+        },
+        "HNSC": {
+          "mean": 0.584,
+          "reported_dispersion": 0.061,
+          "text": "0.5840",
+          "rank": 17
+        },
+        "SKCM": {
+          "mean": 0.652,
+          "reported_dispersion": 0.038,
+          "text": "0.6520",
+          "rank": 10
+        },
+        "BLCA": {
+          "mean": 0.677,
+          "reported_dispersion": 0.053,
+          "text": "0.6770",
+          "rank": 10
+        },
+        "STAD": {
+          "mean": 0.615,
+          "reported_dispersion": 0.063,
+          "text": "0.6150",
+          "rank": 11
+        },
+        "Overall": {
+          "mean": 0.653,
+          "text": "0.6530",
+          "rank": 13
+        }
+      }
+    },
+    {
+      "id": "snn",
+      "model": "SNN (2017)",
+      "base_model": "SNN",
+      "year": 2017,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://proceedings.neurips.cc/paper_files/paper/2017/hash/5d44ee6f2c3f71b73125876103c8f6c4-Abstract.html",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "genomics",
+      "modality": "g./-",
+      "encoder": "none",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.645,
+          "reported_dispersion": 0.086,
+          "text": "0.6450",
+          "rank": 20
+        },
+        "COADREAD": {
+          "mean": 0.664,
+          "reported_dispersion": 0.021,
+          "text": "0.6640",
+          "rank": 17
+        },
+        "KIRC": {
+          "mean": 0.754,
+          "reported_dispersion": 0.035,
+          "text": "0.7540",
+          "rank": 14
+        },
+        "UCEC": {
+          "mean": 0.753,
+          "reported_dispersion": 0.071,
+          "text": "0.7530",
+          "rank": 11
+        },
+        "LUAD": {
+          "mean": 0.652,
+          "reported_dispersion": 0.063,
+          "text": "0.6520",
+          "rank": 7
+        },
+        "LUSC": {
+          "mean": 0.548,
+          "reported_dispersion": 0.041,
+          "text": "0.5480",
+          "rank": 15
+        },
+        "HNSC": {
+          "mean": 0.597,
+          "reported_dispersion": 0.039,
+          "text": "0.5970",
+          "rank": 16
+        },
+        "SKCM": {
+          "mean": 0.673,
+          "reported_dispersion": 0.021,
+          "text": "0.6730",
+          "rank": 5
+        },
+        "BLCA": {
+          "mean": 0.694,
+          "reported_dispersion": 0.04,
+          "text": "0.6940",
+          "rank": 5
+        },
+        "STAD": {
+          "mean": 0.585,
+          "reported_dispersion": 0.048,
+          "text": "0.5850",
+          "rank": 15
+        },
+        "Overall": {
+          "mean": 0.656,
+          "text": "0.6560",
+          "rank": 12
+        }
+      }
+    },
+    {
+      "id": "snntrans",
+      "model": "SNNTrans (2021*)",
+      "base_model": "SNNTrans",
+      "year": 2021,
+      "year_kind": "reference_year",
+      "year_source": {
+        "url": "https://arxiv.org/abs/2512.01116",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "genomics",
+      "modality": "g./-",
+      "encoder": "none",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.657,
+          "reported_dispersion": 0.06,
+          "text": "0.6570",
+          "rank": 16
+        },
+        "COADREAD": {
+          "mean": 0.71,
+          "reported_dispersion": 0.053,
+          "text": "0.7100",
+          "rank": 11
+        },
+        "KIRC": {
+          "mean": 0.747,
+          "reported_dispersion": 0.035,
+          "text": "0.7470",
+          "rank": 16
+        },
+        "UCEC": {
+          "mean": 0.724,
+          "reported_dispersion": 0.061,
+          "text": "0.7240",
+          "rank": 17
+        },
+        "LUAD": {
+          "mean": 0.648,
+          "reported_dispersion": 0.059,
+          "text": "0.6480",
+          "rank": 9
+        },
+        "LUSC": {
+          "mean": 0.555,
+          "reported_dispersion": 0.042,
+          "text": "0.5550",
+          "rank": 14
+        },
+        "HNSC": {
+          "mean": 0.605,
+          "reported_dispersion": 0.065,
+          "text": "0.6050",
+          "rank": 13
+        },
+        "SKCM": {
+          "mean": 0.684,
+          "reported_dispersion": 0.029,
+          "text": "0.6840",
+          "rank": 2
+        },
+        "BLCA": {
+          "mean": 0.699,
+          "reported_dispersion": 0.031,
+          "text": "0.6990",
+          "rank": 4
+        },
+        "STAD": {
+          "mean": 0.593,
+          "reported_dispersion": 0.038,
+          "text": "0.5930",
+          "rank": 14
+        },
+        "Overall": {
+          "mean": 0.662,
+          "text": "0.6620",
+          "rank": 11
+        }
+      }
+    },
+    {
+      "id": "abmil",
+      "model": "ABMIL (2018)",
+      "base_model": "ABMIL",
+      "year": 2018,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://proceedings.mlr.press/v80/ilse18a.html",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "histology",
+      "modality": "h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.656,
+          "reported_dispersion": 0.037,
+          "text": "0.6560",
+          "rank": 17
+        },
+        "COADREAD": {
+          "mean": 0.715,
+          "reported_dispersion": 0.029,
+          "text": "0.7150",
+          "rank": 10
+        },
+        "KIRC": {
+          "mean": 0.782,
+          "reported_dispersion": 0.026,
+          "text": "0.7820",
+          "rank": 9
+        },
+        "UCEC": {
+          "mean": 0.779,
+          "reported_dispersion": 0.057,
+          "text": "0.7790",
+          "rank": 5
+        },
+        "LUAD": {
+          "mean": 0.645,
+          "reported_dispersion": 0.061,
+          "text": "0.6450",
+          "rank": 11
+        },
+        "LUSC": {
+          "mean": 0.593,
+          "reported_dispersion": 0.055,
+          "text": "0.5930",
+          "rank": 6
+        },
+        "HNSC": {
+          "mean": 0.664,
+          "reported_dispersion": 0.043,
+          "text": "0.6640",
+          "rank": 1
+        },
+        "SKCM": {
+          "mean": 0.668,
+          "reported_dispersion": 0.042,
+          "text": "0.6680",
+          "rank": 6
+        },
+        "BLCA": {
+          "mean": 0.663,
+          "reported_dispersion": 0.072,
+          "text": "0.6630",
+          "rank": 12
+        },
+        "STAD": {
+          "mean": 0.642,
+          "reported_dispersion": 0.044,
+          "text": "0.6420",
+          "rank": 5
+        },
+        "Overall": {
+          "mean": 0.681,
+          "text": "0.6810",
+          "rank": 6
+        }
+      }
+    },
+    {
+      "id": "transmil",
+      "model": "TransMIL (2021)",
+      "base_model": "TransMIL",
+      "year": 2021,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://proceedings.neurips.cc/paper/2021/hash/10c272d06794d3e5785d5e7c5356e9ff-Abstract.html",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "histology",
+      "modality": "h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.647,
+          "reported_dispersion": 0.032,
+          "text": "0.6470",
+          "rank": 19
+        },
+        "COADREAD": {
+          "mean": 0.723,
+          "reported_dispersion": 0.027,
+          "text": "0.7230",
+          "rank": 6
+        },
+        "KIRC": {
+          "mean": 0.767,
+          "reported_dispersion": 0.035,
+          "text": "0.7670",
+          "rank": 13
+        },
+        "UCEC": {
+          "mean": 0.759,
+          "reported_dispersion": 0.059,
+          "text": "0.7590",
+          "rank": 8
+        },
+        "LUAD": {
+          "mean": 0.655,
+          "reported_dispersion": 0.052,
+          "text": "0.6550",
+          "rank": 6
+        },
+        "LUSC": {
+          "mean": 0.582,
+          "reported_dispersion": 0.039,
+          "text": "0.5820",
+          "rank": 9
+        },
+        "HNSC": {
+          "mean": 0.644,
+          "reported_dispersion": 0.02,
+          "text": "0.6440",
+          "rank": 5
+        },
+        "SKCM": {
+          "mean": 0.632,
+          "reported_dispersion": 0.05,
+          "text": "0.6320",
+          "rank": 14
+        },
+        "BLCA": {
+          "mean": 0.647,
+          "reported_dispersion": 0.032,
+          "text": "0.6470",
+          "rank": 16
+        },
+        "STAD": {
+          "mean": 0.656,
+          "reported_dispersion": 0.038,
+          "text": "0.6560",
+          "rank": 1
+        },
+        "Overall": {
+          "mean": 0.671,
+          "text": "0.6710",
+          "rank": 9
+        }
+      }
+    },
+    {
+      "id": "clam_sb",
+      "model": "CLAM-SB (2021)",
+      "base_model": "CLAM-SB",
+      "year": 2021,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://www.nature.com/articles/s41551-020-00682-w",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "histology",
+      "modality": "h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.696,
+          "reported_dispersion": 0.049,
+          "text": "0.6960",
+          "rank": 11
+        },
+        "COADREAD": {
+          "mean": 0.742,
+          "reported_dispersion": 0.046,
+          "text": "0.7420",
+          "rank": 2
+        },
+        "KIRC": {
+          "mean": 0.784,
+          "reported_dispersion": 0.033,
+          "text": "0.7840",
+          "rank": 8
+        },
+        "UCEC": {
+          "mean": 0.757,
+          "reported_dispersion": 0.072,
+          "text": "0.7570",
+          "rank": 9
+        },
+        "LUAD": {
+          "mean": 0.639,
+          "reported_dispersion": 0.059,
+          "text": "0.6390",
+          "rank": 12
+        },
+        "LUSC": {
+          "mean": 0.584,
+          "reported_dispersion": 0.065,
+          "text": "0.5840",
+          "rank": 7
+        },
+        "HNSC": {
+          "mean": 0.649,
+          "reported_dispersion": 0.042,
+          "text": "0.6490",
+          "rank": 4
+        },
+        "SKCM": {
+          "mean": 0.643,
+          "reported_dispersion": 0.049,
+          "text": "0.6430",
+          "rank": 12
+        },
+        "BLCA": {
+          "mean": 0.645,
+          "reported_dispersion": 0.052,
+          "text": "0.6450",
+          "rank": 17
+        },
+        "STAD": {
+          "mean": 0.637,
+          "reported_dispersion": 0.022,
+          "text": "0.6370",
+          "rank": 8
+        },
+        "Overall": {
+          "mean": 0.678,
+          "text": "0.6780",
+          "rank": 7
+        }
+      }
+    },
+    {
+      "id": "clam_mb",
+      "model": "CLAM-MB (2021)",
+      "base_model": "CLAM-MB",
+      "year": 2021,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://www.nature.com/articles/s41551-020-00682-w",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "histology",
+      "modality": "h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.715,
+          "reported_dispersion": 0.034,
+          "text": "0.7150",
+          "rank": 6
+        },
+        "COADREAD": {
+          "mean": 0.721,
+          "reported_dispersion": 0.041,
+          "text": "0.7210",
+          "rank": 7
+        },
+        "KIRC": {
+          "mean": 0.782,
+          "reported_dispersion": 0.014,
+          "text": "0.7820",
+          "rank": 9
+        },
+        "UCEC": {
+          "mean": 0.788,
+          "reported_dispersion": 0.074,
+          "text": "0.7880",
+          "rank": 3
+        },
+        "LUAD": {
+          "mean": 0.632,
+          "reported_dispersion": 0.07,
+          "text": "0.6320",
+          "rank": 15
+        },
+        "LUSC": {
+          "mean": 0.608,
+          "reported_dispersion": 0.056,
+          "text": "0.6080",
+          "rank": 3
+        },
+        "HNSC": {
+          "mean": 0.636,
+          "reported_dispersion": 0.038,
+          "text": "0.6360",
+          "rank": 6
+        },
+        "SKCM": {
+          "mean": 0.64,
+          "reported_dispersion": 0.032,
+          "text": "0.6400",
+          "rank": 13
+        },
+        "BLCA": {
+          "mean": 0.657,
+          "reported_dispersion": 0.029,
+          "text": "0.6570",
+          "rank": 15
+        },
+        "STAD": {
+          "mean": 0.641,
+          "reported_dispersion": 0.032,
+          "text": "0.6410",
+          "rank": 6
+        },
+        "Overall": {
+          "mean": 0.682,
+          "text": "0.6820",
+          "rank": 5
+        }
+      }
+    },
+    {
+      "id": "porpoise",
+      "model": "Porpoise (2022)",
+      "base_model": "Porpoise",
+      "year": 2022,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://arxiv.org/abs/2512.01116",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "multimodal",
+      "modality": "g.+h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.651,
+          "reported_dispersion": 0.046,
+          "text": "0.6510",
+          "rank": 18
+        },
+        "COADREAD": {
+          "mean": 0.699,
+          "reported_dispersion": 0.05,
+          "text": "0.6990",
+          "rank": 13
+        },
+        "KIRC": {
+          "mean": 0.788,
+          "reported_dispersion": 0.028,
+          "text": "0.7880",
+          "rank": 6
+        },
+        "UCEC": {
+          "mean": 0.788,
+          "reported_dispersion": 0.092,
+          "text": "0.7880",
+          "rank": 3
+        },
+        "LUAD": {
+          "mean": 0.647,
+          "reported_dispersion": 0.091,
+          "text": "0.6470",
+          "rank": 10
+        },
+        "LUSC": {
+          "mean": 0.597,
+          "reported_dispersion": 0.05,
+          "text": "0.5970",
+          "rank": 5
+        },
+        "HNSC": {
+          "mean": 0.599,
+          "reported_dispersion": 0.048,
+          "text": "0.5990",
+          "rank": 15
+        },
+        "SKCM": {
+          "mean": 0.682,
+          "reported_dispersion": 0.021,
+          "text": "0.6820",
+          "rank": 3
+        },
+        "BLCA": {
+          "mean": 0.69,
+          "reported_dispersion": 0.025,
+          "text": "0.6900",
+          "rank": 7
+        },
+        "STAD": {
+          "mean": 0.619,
+          "reported_dispersion": 0.022,
+          "text": "0.6190",
+          "rank": 10
+        },
+        "Overall": {
+          "mean": 0.676,
+          "text": "0.6760",
+          "rank": 8
+        }
+      }
+    },
+    {
+      "id": "mcat",
+      "model": "MCAT (2021)",
+      "base_model": "MCAT",
+      "year": 2021,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://arxiv.org/abs/2512.01116",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "multimodal",
+      "modality": "g.+h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.709,
+          "reported_dispersion": 0.052,
+          "text": "0.7090",
+          "rank": 8
+        },
+        "COADREAD": {
+          "mean": 0.737,
+          "reported_dispersion": 0.033,
+          "text": "0.7370",
+          "rank": 3
+        },
+        "KIRC": {
+          "mean": 0.795,
+          "reported_dispersion": 0.018,
+          "text": "0.7950",
+          "rank": 3
+        },
+        "UCEC": {
+          "mean": 0.802,
+          "reported_dispersion": 0.06,
+          "text": "0.8020",
+          "rank": 1
+        },
+        "LUAD": {
+          "mean": 0.659,
+          "reported_dispersion": 0.054,
+          "text": "0.6590",
+          "rank": 5
+        },
+        "LUSC": {
+          "mean": 0.583,
+          "reported_dispersion": 0.051,
+          "text": "0.5830",
+          "rank": 8
+        },
+        "HNSC": {
+          "mean": 0.622,
+          "reported_dispersion": 0.049,
+          "text": "0.6220",
+          "rank": 9
+        },
+        "SKCM": {
+          "mean": 0.667,
+          "reported_dispersion": 0.049,
+          "text": "0.6670",
+          "rank": 7
+        },
+        "BLCA": {
+          "mean": 0.688,
+          "reported_dispersion": 0.024,
+          "text": "0.6880",
+          "rank": 8
+        },
+        "STAD": {
+          "mean": 0.639,
+          "reported_dispersion": 0.032,
+          "text": "0.6390",
+          "rank": 7
+        },
+        "Overall": {
+          "mean": 0.69,
+          "text": "0.6900",
+          "rank": 4
+        }
+      }
+    },
+    {
+      "id": "motcat",
+      "model": "MOTCat (2023)",
+      "base_model": "MOTCat",
+      "year": 2023,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://arxiv.org/abs/2306.08330",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "multimodal",
+      "modality": "g.+h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.717,
+          "reported_dispersion": 0.064,
+          "text": "0.7170",
+          "rank": 5
+        },
+        "COADREAD": {
+          "mean": 0.742,
+          "reported_dispersion": 0.042,
+          "text": "0.7420",
+          "rank": 2
+        },
+        "KIRC": {
+          "mean": 0.799,
+          "reported_dispersion": 0.013,
+          "text": "0.7990",
+          "rank": 2
+        },
+        "UCEC": {
+          "mean": 0.773,
+          "reported_dispersion": 0.06,
+          "text": "0.7730",
+          "rank": 6
+        },
+        "LUAD": {
+          "mean": 0.663,
+          "reported_dispersion": 0.052,
+          "text": "0.6630",
+          "rank": 2
+        },
+        "LUSC": {
+          "mean": 0.573,
+          "reported_dispersion": 0.026,
+          "text": "0.5730",
+          "rank": 13
+        },
+        "HNSC": {
+          "mean": 0.627,
+          "reported_dispersion": 0.049,
+          "text": "0.6270",
+          "rank": 8
+        },
+        "SKCM": {
+          "mean": 0.688,
+          "reported_dispersion": 0.054,
+          "text": "0.6880",
+          "rank": 1
+        },
+        "BLCA": {
+          "mean": 0.7,
+          "reported_dispersion": 0.01,
+          "text": "0.7000",
+          "rank": 3
+        },
+        "STAD": {
+          "mean": 0.642,
+          "reported_dispersion": 0.019,
+          "text": "0.6420",
+          "rank": 5
+        },
+        "Overall": {
+          "mean": 0.692,
+          "text": "0.6920",
+          "rank": 2
+        }
+      }
+    },
+    {
+      "id": "cmta",
+      "model": "CMTA (2023)",
+      "base_model": "CMTA",
+      "year": 2023,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://arxiv.org/abs/2309.12855",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "multimodal",
+      "modality": "g.+h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.731,
+          "reported_dispersion": 0.066,
+          "text": "0.7310",
+          "rank": 2
+        },
+        "COADREAD": {
+          "mean": 0.72,
+          "reported_dispersion": 0.008,
+          "text": "0.7200",
+          "rank": 8
+        },
+        "KIRC": {
+          "mean": 0.794,
+          "reported_dispersion": 0.018,
+          "text": "0.7940",
+          "rank": 4
+        },
+        "UCEC": {
+          "mean": 0.764,
+          "reported_dispersion": 0.069,
+          "text": "0.7640",
+          "rank": 7
+        },
+        "LUAD": {
+          "mean": 0.662,
+          "reported_dispersion": 0.053,
+          "text": "0.6620",
+          "rank": 3
+        },
+        "LUSC": {
+          "mean": 0.599,
+          "reported_dispersion": 0.071,
+          "text": "0.5990",
+          "rank": 4
+        },
+        "HNSC": {
+          "mean": 0.619,
+          "reported_dispersion": 0.051,
+          "text": "0.6190",
+          "rank": 10
+        },
+        "SKCM": {
+          "mean": 0.681,
+          "reported_dispersion": 0.036,
+          "text": "0.6810",
+          "rank": 4
+        },
+        "BLCA": {
+          "mean": 0.702,
+          "reported_dispersion": 0.033,
+          "text": "0.7020",
+          "rank": 2
+        },
+        "STAD": {
+          "mean": 0.639,
+          "reported_dispersion": 0.038,
+          "text": "0.6390",
+          "rank": 7
+        },
+        "Overall": {
+          "mean": 0.691,
+          "text": "0.6910",
+          "rank": 3
+        }
+      }
+    },
+    {
+      "id": "survpath",
+      "model": "SurvPath (2024)",
+      "base_model": "SurvPath",
+      "year": 2024,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://arxiv.org/abs/2512.01116",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "multimodal",
+      "modality": "g.+h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.728,
+          "reported_dispersion": 0.04,
+          "text": "0.7280",
+          "rank": 3
+        },
+        "COADREAD": {
+          "mean": 0.727,
+          "reported_dispersion": 0.024,
+          "text": "0.7270",
+          "rank": 5
+        },
+        "KIRC": {
+          "mean": 0.787,
+          "reported_dispersion": 0.025,
+          "text": "0.7870",
+          "rank": 7
+        },
+        "UCEC": {
+          "mean": 0.751,
+          "reported_dispersion": 0.084,
+          "text": "0.7510",
+          "rank": 12
+        },
+        "LUAD": {
+          "mean": 0.661,
+          "reported_dispersion": 0.05,
+          "text": "0.6610",
+          "rank": 4
+        },
+        "LUSC": {
+          "mean": 0.577,
+          "reported_dispersion": 0.024,
+          "text": "0.5770",
+          "rank": 11
+        },
+        "HNSC": {
+          "mean": 0.611,
+          "reported_dispersion": 0.024,
+          "text": "0.6110",
+          "rank": 12
+        },
+        "SKCM": {
+          "mean": 0.666,
+          "reported_dispersion": 0.054,
+          "text": "0.6660",
+          "rank": 8
+        },
+        "BLCA": {
+          "mean": 0.666,
+          "reported_dispersion": 0.034,
+          "text": "0.6660",
+          "rank": 11
+        },
+        "STAD": {
+          "mean": 0.647,
+          "reported_dispersion": 0.027,
+          "text": "0.6470",
+          "rank": 3
+        },
+        "Overall": {
+          "mean": 0.682,
+          "text": "0.6820",
+          "rank": 5
+        }
+      }
+    },
+    {
+      "id": "pibd",
+      "model": "PIBD (2024)",
+      "base_model": "PIBD",
+      "year": 2024,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://arxiv.org/abs/2512.01116",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "multimodal",
+      "modality": "g.+h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.662,
+          "reported_dispersion": 0.054,
+          "text": "0.6620",
+          "rank": 14
+        },
+        "COADREAD": {
+          "mean": 0.716,
+          "reported_dispersion": 0.054,
+          "text": "0.7160",
+          "rank": 9
+        },
+        "KIRC": {
+          "mean": 0.772,
+          "reported_dispersion": 0.007,
+          "text": "0.7720",
+          "rank": 11
+        },
+        "UCEC": {
+          "mean": 0.783,
+          "reported_dispersion": 0.053,
+          "text": "0.7830",
+          "rank": 4
+        },
+        "LUAD": {
+          "mean": 0.634,
+          "reported_dispersion": 0.065,
+          "text": "0.6340",
+          "rank": 14
+        },
+        "LUSC": {
+          "mean": 0.575,
+          "reported_dispersion": 0.098,
+          "text": "0.5750",
+          "rank": 12
+        },
+        "HNSC": {
+          "mean": 0.627,
+          "reported_dispersion": 0.069,
+          "text": "0.6270",
+          "rank": 8
+        },
+        "SKCM": {
+          "mean": 0.649,
+          "reported_dispersion": 0.048,
+          "text": "0.6490",
+          "rank": 11
+        },
+        "BLCA": {
+          "mean": 0.693,
+          "reported_dispersion": 0.032,
+          "text": "0.6930",
+          "rank": 6
+        },
+        "STAD": {
+          "mean": 0.644,
+          "reported_dispersion": 0.038,
+          "text": "0.6440",
+          "rank": 4
+        },
+        "Overall": {
+          "mean": 0.676,
+          "text": "0.6760",
+          "rank": 8
+        }
+      }
+    },
+    {
+      "id": "mmp",
+      "model": "MMP (2024)",
+      "base_model": "MMP",
+      "year": 2024,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://arxiv.org/abs/2407.00224",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "multimodal",
+      "modality": "g.+h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.714,
+          "reported_dispersion": 0.05,
+          "text": "0.7140",
+          "rank": 7
+        },
+        "COADREAD": {
+          "mean": 0.686,
+          "reported_dispersion": 0.016,
+          "text": "0.6860",
+          "rank": 14
+        },
+        "KIRC": {
+          "mean": 0.77,
+          "reported_dispersion": 0.011,
+          "text": "0.7700",
+          "rank": 12
+        },
+        "UCEC": {
+          "mean": 0.755,
+          "reported_dispersion": 0.073,
+          "text": "0.7550",
+          "rank": 10
+        },
+        "LUAD": {
+          "mean": 0.634,
+          "reported_dispersion": 0.048,
+          "text": "0.6340",
+          "rank": 14
+        },
+        "LUSC": {
+          "mean": 0.58,
+          "reported_dispersion": 0.043,
+          "text": "0.5800",
+          "rank": 10
+        },
+        "HNSC": {
+          "mean": 0.58,
+          "reported_dispersion": 0.049,
+          "text": "0.5800",
+          "rank": 18
+        },
+        "SKCM": {
+          "mean": 0.682,
+          "reported_dispersion": 0.029,
+          "text": "0.6820",
+          "rank": 3
+        },
+        "BLCA": {
+          "mean": 0.686,
+          "reported_dispersion": 0.004,
+          "text": "0.6860",
+          "rank": 9
+        },
+        "STAD": {
+          "mean": 0.602,
+          "reported_dispersion": 0.02,
+          "text": "0.6020",
+          "rank": 13
+        },
+        "Overall": {
+          "mean": 0.669,
+          "text": "0.6690",
+          "rank": 10
+        }
+      }
+    },
+    {
+      "id": "ld_cvae",
+      "model": "LD-CVAE (2025)",
+      "base_model": "LD-CVAE",
+      "year": 2025,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://arxiv.org/abs/2503.09496",
+        "locator": "Section 4.2 cited reference"
+      },
+      "group": "multimodal",
+      "modality": "g.+h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "slotspe_baselines",
+      "source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "cells": {
+        "BRCA": {
+          "mean": 0.705,
+          "reported_dispersion": 0.05,
+          "text": "0.7050",
+          "rank": 9
+        },
+        "COADREAD": {
+          "mean": 0.753,
+          "reported_dispersion": 0.029,
+          "text": "0.7530",
+          "rank": 1
+        },
+        "KIRC": {
+          "mean": 0.792,
+          "reported_dispersion": 0.025,
+          "text": "0.7920",
+          "rank": 5
+        },
+        "UCEC": {
+          "mean": 0.788,
+          "reported_dispersion": 0.068,
+          "text": "0.7880",
+          "rank": 3
+        },
+        "LUAD": {
+          "mean": 0.651,
+          "reported_dispersion": 0.055,
+          "text": "0.6510",
+          "rank": 8
+        },
+        "LUSC": {
+          "mean": 0.62,
+          "reported_dispersion": 0.045,
+          "text": "0.6200",
+          "rank": 2
+        },
+        "HNSC": {
+          "mean": 0.635,
+          "reported_dispersion": 0.051,
+          "text": "0.6350",
+          "rank": 7
+        },
+        "SKCM": {
+          "mean": 0.682,
+          "reported_dispersion": 0.037,
+          "text": "0.6820",
+          "rank": 3
+        },
+        "BLCA": {
+          "mean": 0.635,
+          "reported_dispersion": 0.037,
+          "text": "0.6350",
+          "rank": 20
+        },
+        "STAD": {
+          "mean": 0.653,
+          "reported_dispersion": 0.036,
+          "text": "0.6530",
+          "rank": 2
+        },
+        "Overall": {
+          "mean": 0.692,
+          "text": "0.6920",
+          "rank": 2
+        }
+      }
+    },
+    {
+      "id": "ilra",
+      "model": "ILRA (2023)",
+      "base_model": "ILRA",
+      "year": 2023,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://openreview.net/pdf?id=01KmhBsEPFO",
+        "locator": "official paper metadata"
+      },
+      "group": "additional",
+      "modality": "h./U2",
+      "encoder": "UNI2-h",
+      "endpoint": "DSS",
+      "source_id": "steph_supp",
+      "source_locator": "Table S2; PDF page 3; reproduced MIL baselines",
+      "cells": {
+        "BRCA": {
+          "mean": 0.6645,
+          "reported_dispersion": 0.026,
+          "text": "0.6645",
+          "rank": 13
+        },
+        "COADREAD": {
+          "mean": 0.6147,
+          "reported_dispersion": 0.041,
+          "text": "0.6147",
+          "rank": 19
+        },
+        "KIRC": null,
+        "UCEC": {
+          "mean": 0.7442,
+          "reported_dispersion": 0.057,
+          "text": "0.7442",
+          "rank": 13
+        },
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": {
+          "mean": 0.5262,
+          "reported_dispersion": 0.024,
+          "text": "0.5262",
+          "rank": 19
+        },
+        "SKCM": {
+          "mean": 0.5586,
+          "reported_dispersion": 0.042,
+          "text": "0.5586",
+          "rank": 17
+        },
+        "BLCA": {
+          "mean": 0.6608,
+          "reported_dispersion": 0.046,
+          "text": "0.6608",
+          "rank": 14
+        },
+        "STAD": null,
+        "Overall": null
+      }
+    },
+    {
+      "id": "r2t_mil",
+      "model": "R2T-MIL (2024)",
+      "base_model": "R2T-MIL",
+      "year": 2024,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://openaccess.thecvf.com/content/CVPR2024/html/Tang_Feature_Re-Embedding_Towards_Foundation_Model-Level_Performance_in_Computational_Pathology_CVPR_2024_paper.html",
+        "locator": "official paper metadata"
+      },
+      "group": "additional",
+      "modality": "h./U2",
+      "encoder": "UNI2-h",
+      "endpoint": "DSS",
+      "source_id": "steph_supp",
+      "source_locator": "Table S2; PDF page 3; reproduced MIL baselines",
+      "cells": {
+        "BRCA": {
+          "mean": 0.6619,
+          "reported_dispersion": 0.04,
+          "text": "0.6619",
+          "rank": 15
+        },
+        "COADREAD": {
+          "mean": 0.6843,
+          "reported_dispersion": 0.039,
+          "text": "0.6843",
+          "rank": 15
+        },
+        "KIRC": null,
+        "UCEC": {
+          "mean": 0.7253,
+          "reported_dispersion": 0.064,
+          "text": "0.7253",
+          "rank": 16
+        },
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": {
+          "mean": 0.6169,
+          "reported_dispersion": 0.037,
+          "text": "0.6169",
+          "rank": 11
+        },
+        "SKCM": {
+          "mean": 0.5376,
+          "reported_dispersion": 0.056,
+          "text": "0.5376",
+          "rank": 18
+        },
+        "BLCA": {
+          "mean": 0.6014,
+          "reported_dispersion": 0.024,
+          "text": "0.6014",
+          "rank": 22
+        },
+        "STAD": null,
+        "Overall": null
+      }
+    },
+    {
+      "id": "patch_gcn",
+      "model": "Patch-GCN (2021)",
+      "base_model": "Patch-GCN",
+      "year": 2021,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://arxiv.org/abs/2107.09886",
+        "locator": "official paper metadata"
+      },
+      "group": "additional",
+      "modality": "h./U2",
+      "encoder": "UNI2-h",
+      "endpoint": "DSS",
+      "source_id": "steph_supp",
+      "source_locator": "Table S2; PDF page 3; reproduced MIL baselines",
+      "cells": {
+        "BRCA": {
+          "mean": 0.7017,
+          "reported_dispersion": 0.024,
+          "text": "0.7017",
+          "rank": 10
+        },
+        "COADREAD": {
+          "mean": 0.6675,
+          "reported_dispersion": 0.041,
+          "text": "0.6675",
+          "rank": 16
+        },
+        "KIRC": null,
+        "UCEC": {
+          "mean": 0.7369,
+          "reported_dispersion": 0.058,
+          "text": "0.7369",
+          "rank": 14
+        },
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": {
+          "mean": 0.6019,
+          "reported_dispersion": 0.037,
+          "text": "0.6019",
+          "rank": 14
+        },
+        "SKCM": {
+          "mean": 0.577,
+          "reported_dispersion": 0.04,
+          "text": "0.5770",
+          "rank": 16
+        },
+        "BLCA": {
+          "mean": 0.6164,
+          "reported_dispersion": 0.025,
+          "text": "0.6164",
+          "rank": 21
+        },
+        "STAD": null,
+        "Overall": null
+      }
+    },
+    {
+      "id": "otsurv",
+      "model": "OTSurv (2025)",
+      "base_model": "OTSurv",
+      "year": 2025,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://papers.miccai.org/miccai-2025/0660-Paper1359.html",
+        "locator": "official paper metadata"
+      },
+      "group": "additional",
+      "modality": "h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "otsurv",
+      "source_locator": "Table 1; PDF page 7",
+      "cells": {
+        "BRCA": {
+          "mean": 0.621,
+          "reported_dispersion": 0.071,
+          "text": "0.6210",
+          "rank": 22
+        },
+        "COADREAD": null,
+        "KIRC": {
+          "mean": 0.75,
+          "reported_dispersion": 0.149,
+          "text": "0.7500",
+          "rank": 15
+        },
+        "UCEC": null,
+        "LUAD": {
+          "mean": 0.638,
+          "reported_dispersion": 0.077,
+          "text": "0.6380",
+          "rank": 13
+        },
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": {
+          "mean": 0.637,
+          "reported_dispersion": 0.065,
+          "text": "0.6370",
+          "rank": 19
+        },
+        "STAD": {
+          "mean": 0.565,
+          "reported_dispersion": 0.057,
+          "text": "0.5650",
+          "rank": 16
+        },
+        "Overall": null
+      }
+    },
+    {
+      "id": "tta",
+      "model": "TTA (2025)",
+      "base_model": "TTA",
+      "year": 2025,
+      "year_kind": "first_preprint_year",
+      "year_source": {
+        "url": "https://arxiv.org/abs/2511.18089",
+        "locator": "official paper metadata"
+      },
+      "group": "additional",
+      "modality": "g.+h./U1",
+      "encoder": "UNI",
+      "endpoint": "DSS",
+      "source_id": "tta",
+      "source_locator": "TTA v2 (2026) Table 1; TTA author row",
+      "cells": {
+        "BRCA": {
+          "mean": 0.726,
+          "reported_dispersion": 0.039,
+          "text": "0.7260",
+          "rank": 4
+        },
+        "COADREAD": null,
+        "KIRC": {
+          "mean": 0.778,
+          "reported_dispersion": 0.117,
+          "text": "0.7780",
+          "rank": 10
+        },
+        "UCEC": null,
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": null,
+        "SKCM": null,
+        "BLCA": {
+          "mean": 0.662,
+          "reported_dispersion": 0.079,
+          "text": "0.6620",
+          "rank": 13
+        },
+        "STAD": {
+          "mean": 0.613,
+          "reported_dispersion": 0.079,
+          "text": "0.6130",
+          "rank": 12
+        },
+        "Overall": null
+      }
+    },
+    {
+      "id": "steph",
+      "model": "STEPH (2026)",
+      "base_model": "STEPH",
+      "year": 2026,
+      "year_kind": "publication_year",
+      "year_source": {
+        "url": "https://arxiv.org/abs/2603.10526",
+        "locator": "official paper metadata"
+      },
+      "group": "additional",
+      "modality": "h./U2",
+      "encoder": "UNI2-h",
+      "endpoint": "DSS",
+      "source_id": "steph_supp",
+      "source_locator": "Table S2; PDF page 3; reproduced MIL baselines",
+      "cells": {
+        "BRCA": {
+          "mean": 0.7408,
+          "reported_dispersion": 0.06,
+          "text": "0.7408",
+          "rank": 1
+        },
+        "COADREAD": {
+          "mean": 0.7069,
+          "reported_dispersion": 0.029,
+          "text": "0.7069",
+          "rank": 12
+        },
+        "KIRC": null,
+        "UCEC": {
+          "mean": 0.783,
+          "reported_dispersion": 0.072,
+          "text": "0.7830",
+          "rank": 4
+        },
+        "LUAD": null,
+        "LUSC": null,
+        "HNSC": {
+          "mean": 0.6569,
+          "reported_dispersion": 0.042,
+          "text": "0.6569",
+          "rank": 3
+        },
+        "SKCM": {
+          "mean": 0.5948,
+          "reported_dispersion": 0.027,
+          "text": "0.5948",
+          "rank": 15
+        },
+        "BLCA": {
+          "mean": 0.6413,
+          "reported_dispersion": 0.038,
+          "text": "0.6413",
+          "rank": 18
+        },
+        "STAD": null,
+        "Overall": null
+      }
+    },
+    {
+      "id": "dct_v313",
+      "model": "DCT v3.13 (2026**)",
+      "base_model": "DCT v3.13",
+      "year": 2026,
+      "year_kind": "current_work_year",
+      "year_source": {
+        "path": "paper/V313_MANUSCRIPT_STATUS.json",
+        "locator": "current work date 2026-10-08; not a publication"
+      },
+      "group": "ours",
+      "modality": "g.+h./U2",
+      "encoder": "UNI2-h",
+      "endpoint": "DSS",
+      "source_id": "dct_author",
+      "source_locator": "manuscript Table 1; saved author fold summary",
+      "cells": {
+        "BRCA": {
+          "mean": 0.67868,
+          "folds": [
+            0.7925,
+            0.6948,
+            0.5748,
+            0.6504,
+            0.6809
+          ],
+          "std": 0.07875688541327673,
+          "text": "0.6787",
+          "rank": 12
+        },
+        "COADREAD": {
+          "mean": 0.7364,
+          "folds": [
+            0.7742,
+            0.7365,
+            0.757,
+            0.7448,
+            0.6695
+          ],
+          "std": 0.039998062453073906,
+          "text": "0.7364",
+          "rank": 4
+        },
+        "KIRC": {
+          "mean": 0.82236,
+          "folds": [
+            0.8253,
+            0.8485,
+            0.8202,
+            0.8094,
+            0.8084
+          ],
+          "std": 0.016274612130554766,
+          "text": "0.8224",
+          "rank": 1
+        },
+        "UCEC": {
+          "mean": 0.79282,
+          "folds": [
+            0.806,
+            0.8532,
+            0.7654,
+            0.7511,
+            0.7884
+          ],
+          "std": 0.039785072577538425,
+          "text": "0.7928",
+          "rank": 2
+        },
+        "LUAD": {
+          "mean": 0.68582,
+          "folds": [
+            0.7015,
+            0.7138,
+            0.7109,
+            0.6352,
+            0.6677
+          ],
+          "std": 0.03372116546028622,
+          "text": "0.6858",
+          "rank": 1
+        },
+        "LUSC": {
+          "mean": 0.63002,
+          "folds": [
+            0.6709,
+            0.6377,
+            0.5983,
+            0.6969,
+            0.5463
+          ],
+          "std": 0.059620231465501695,
+          "text": "0.6300",
+          "rank": 1
+        },
+        "HNSC": {
+          "mean": 0.6582,
+          "folds": [
+            0.6963,
+            0.6118,
+            0.599,
+            0.645,
+            0.7389
+          ],
+          "std": 0.05872805973297603,
+          "text": "0.6582",
+          "rank": 2
+        },
+        "SKCM": {
+          "mean": 0.66538,
+          "folds": [
+            0.6442,
+            0.6199,
+            0.6706,
+            0.6434,
+            0.7488
+          ],
+          "std": 0.049965708240752485,
+          "text": "0.6654",
+          "rank": 9
+        },
+        "BLCA": {
+          "mean": 0.72382,
+          "folds": [
+            0.6576,
+            0.6953,
+            0.7465,
+            0.7744,
+            0.7453
+          ],
+          "std": 0.04672415863340934,
+          "text": "0.7238",
+          "rank": 1
+        },
+        "STAD": {
+          "mean": 0.63606,
+          "folds": [
+            0.6835,
+            0.6471,
+            0.5645,
+            0.6691,
+            0.6161
+          ],
+          "std": 0.047390167756613824,
+          "text": "0.6361",
+          "rank": 9
+        },
+        "Overall": {
+          "mean": 0.702956,
+          "text": "0.7030",
+          "rank": 1
+        }
+      }
+    }
+  ],
+  "sources": {
+    "tta": {
+      "id": "tta",
+      "url": "https://arxiv.org/html/2511.18089",
+      "sha256": "9cbd7322c681689383cc54a2d1ce3952f7daa6681dae55c7df69be7ebece2728",
+      "bytes": 817271,
+      "status": "fetched",
+      "locator": "Table 1 and experimental settings",
+      "version": "arXiv v2, 2026-07-14"
+    },
+    "otsurv": {
+      "id": "otsurv",
+      "url": "https://papers.miccai.org/miccai-2025/paper/1359_paper.pdf",
+      "sha256": "2235c9e2d275b7650ef37722334aa3de3bb97defde7e082062e79d07b105ae40",
+      "bytes": 1289491,
+      "status": "fetched",
+      "locator": "Table 1 page 7; settings page 6"
+    },
+    "steph_supp": {
+      "id": "steph_supp",
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/supplemental/Liu_Sparse_Task_Vector_CVPR_2026_supplemental.pdf",
+      "sha256": "6fb2fa86997112aa5cbd0e5fd8f5885d322524aff871f3b82d9de9801dc8f544",
+      "bytes": 4801117,
+      "status": "fetched",
+      "locator": "Table S2 page 3; UNI2-h page 2",
+      "note": "Official CVPR supplement explicitly specifies UNI2-h, whereas arXiv main-text settings abbreviate it as UNI."
+    },
+    "dct_author": {
+      "url": null,
+      "path": "paper/V313_TEN_CANCER_REPORTED_COMPARISON_INPUT.json",
+      "locator": "models[id=dct_v313].folds",
+      "sha256": "d8aeeeb7f50e0ad85ecda8b1c1a1e6043e74119db2136444ec8170c18141c27a",
+      "protocol": "DSS; UNI2-h; 5-fold best validation legacy_val; author summary not held-out test"
+    },
+    "slotspe_baselines": {
+      "url": "https://arxiv.org/abs/2512.01116",
+      "path": "paper/V313_TEN_CANCER_REPORTED_COMPARISON_INPUT.json",
+      "sha256": "d8aeeeb7f50e0ad85ecda8b1c1a1e6043e74119db2136444ec8170c18141c27a",
+      "original_pdf_sha256": "126067625d1ee7b99cd5a6772be9feb51b83d344ee17adf1ef9e1de7941e0872",
+      "locator": "Table 1 PDF page 7; standard deviations Table 4 page 22; year citations section 4.2 page 7",
+      "protocol": {
+        "endpoint": "DSS",
+        "histology_encoder": "UNI",
+        "folds": 5,
+        "max_epochs": 30,
+        "batch_size": 32,
+        "training_patches": 4096,
+        "inference_patches": "all"
+      },
+      "note": "Source is SlotSPE authors' re-evaluation of other methods, not those methods' original score tables. SlotSPE g./h./g.+h. rows are excluded."
+    }
+  },
+  "matching_status": "not_matched",
+  "complete": false,
+  "published_transcription_complete": true,
+  "ten_cancer_baseline_coverage_complete": true,
+  "baseline_counts": {
+    "BRCA": 21,
+    "COADREAD": 19,
+    "KIRC": 17,
+    "UCEC": 19,
+    "LUAD": 16,
+    "LUSC": 15,
+    "HNSC": 19,
+    "SKCM": 19,
+    "BLCA": 21,
+    "STAD": 17,
+    "Overall": 15
+  },
+  "ranked_columns": [
+    "BRCA",
+    "COADREAD",
+    "KIRC",
+    "UCEC",
+    "LUAD",
+    "LUSC",
+    "HNSC",
+    "SKCM",
+    "BLCA",
+    "STAD",
+    "Overall"
+  ],
+  "ranking_scope": "available DSS report values only; cross-protocol, descriptive ranks",
+  "dct_first": [
+    "KIRC",
+    "LUAD",
+    "LUSC",
+    "BLCA",
+    "Overall"
+  ],
+  "dct_second": [
+    "UCEC",
+    "HNSC"
+  ],
+  "notes": [
+    "Public DSS report values; inputs, splits and checkpoint selection differ. Ranks are descriptive, not matched results.",
+    "15 baseline rows: SlotSPE Table 1; all SlotSPE model rows excluded. Extra rows: TTA, OTSurv, STEPH S2.",
+    "U1 = UNI; U2 = UNI2-h; - = no histology input; g. = genomics; h. = histology. NR = no separate source cohort.",
+    "Red bold = highest available value; underline = second. Overall only for rows reporting the same ten cohorts.",
+    "Year: original publication; TTA: first preprint 2025 (scores from 2026 v2). *MLP: cited textbook; SNNTrans: component year.",
+    "**DCT 2026 = current work year, not publication. DCT is a five-fold best-validation summary; source folds/SD in JSON."
+  ],
+  "input_sha256": "cf5730f5ac55389350e4a0a0327690174f02800374422909e6be9ec7b787fae0",
+  "outputs": {
+    "pdf": "6d7323441d6ef9c1e722537327fc0cee768e31652a44c8d4eb2336887682c3c0",
+    "svg": "2d8834e4f006c97f9b3c6c1e8a147db1afa2f06902e9ad0338f17ae747f39a7e",
+    "png": "cae82a88bb55a630d7847e39790a9159cf2da0a772b1bdea531a2dacef985a7f",
+    "docx": "51399b6cfe45a19eeb6a145055eb25e8ab78b1e6e7ca0738bc8287d61e46641d",
+    "html": "ca71846e11b4f16312102cbf209a2a49c5eebf4cd6a161ed2a1663e1afc98c4d"
+  }
+}

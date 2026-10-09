@@ -1,0 +1,32 @@
+{
+  "document": "DCT实验总档案.docx",
+  "document_sha256": "c084fe985f1f149f22ddc7b4bad1c7175e59d1ba2769dba5e800a0e192ce96f9",
+  "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+  "pages": 33,
+  "record_count": 16,
+  "native_tables": 34,
+  "embedded_figures": 9,
+  "checked_material_hashes": 160,
+  "checked_frozen_code_hashes": 65,
+  "checked_relative_links": 32,
+  "record_first_pages": {
+    "E001": 4,
+    "E002": 5,
+    "E003": 6,
+    "E004": 7,
+    "E005": 8,
+    "E006": 9,
+    "E007": 10,
+    "E008": 13,
+    "E009": 14,
+    "E010": 16,
+    "E011": 18,
+    "E012": 20,
+    "E013": 22,
+    "E014": 25,
+    "E015": 27,
+    "E016": 29
+  },
+  "visual_qa": "All 33 rendered pages inspected; cohort figures enlarged onto separate pages; TOC updated by Word",
+  "verification_scope": "Archive consistency and document layout only; no model job executed"
+}

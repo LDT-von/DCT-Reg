@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "context": {
+    "cancers": [
+      "BLCA",
+      "BRCA",
+      "COADREAD",
+      "HNSC",
+      "KIRC",
+      "LUAD",
+      "LUSC",
+      "SKCM",
+      "STAD",
+      "UCEC"
+    ],
+    "endpoint": "DSS",
+    "encoder": "UNI2-h",
+    "protocol": "legacy_val",
+    "seed": 3
+  },
+  "note": "Per-cohort 5-fold macro average; same RTX 5090 / 2048 patch / batch 1 / repeats 30 / warmup 5 measurement protocol. Each (cancer, fold) is the same 10-cohort Full export that contributes to tradeoff_input_blca_kirc.json for BLCA/KIRC. C-index recomputed from predictions pkl.",
+  "points": [
+    {
+      "cancer": "BLCA",
+      "cindex": 0.7238075437597244,
+      "memory_mib": 181.39501953125,
+      "latency_ms": 491.4683821843937,
+      "parameters": 32427800
+    },
+    {
+      "cancer": "BRCA",
+      "cindex": 0.6786843244630739,
+      "memory_mib": 181.39560546875,
+      "latency_ms": 487.70383240189403,
+      "parameters": 32427032
+    },
+    {
+      "cancer": "COADREAD",
+      "cindex": 0.7364249280828744,
+      "memory_mib": 180.57373046875,
+      "latency_ms": 480.1569623989053,
+      "parameters": 32213528
+    },
+    {
+      "cancer": "HNSC",
+      "cindex": 0.6582093997913991,
+      "memory_mib": 180.94775390625,
+      "latency_ms": 486.32031191373244,
+      "parameters": 32311064
+    },
+    {
+      "cancer": "KIRC",
+      "cindex": 0.8223553969083752,
+      "memory_mib": 181.39208984375,
+      "latency_ms": 485.85010718088597,
+      "parameters": 32427032
+    },
+    {
+      "cancer": "LUAD",
+      "cindex": 0.6858336200556057,
+      "memory_mib": 181.39208984375,
+      "latency_ms": 480.68280630977824,
+      "parameters": 32427032
+    },
+    {
+      "cancer": "LUSC",
+      "cindex": 0.6300224676232677,
+      "memory_mib": 181.39208984375,
+      "latency_ms": 499.49842038331553,
+      "parameters": 32427032
+    },
+    {
+      "cancer": "SKCM",
+      "cindex": 0.6653691973615786,
+      "memory_mib": 181.39013671875,
+      "latency_ms": 487.3602785752155,
+      "parameters": 32426776
+    },
+    {
+      "cancer": "STAD",
+      "cindex": 0.6360419967288082,
+      "memory_mib": 180.27099609375,
+      "latency_ms": 481.48279710439965,
+      "parameters": 32134936
+    },
+    {
+      "cancer": "UCEC",
+      "cindex": 0.7928107574460382,
+      "memory_mib": 180.57080078125,
+      "latency_ms": 479.8152207979001,
+      "parameters": 32212760
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "id": "E017",
+  "folder": "E017_v310目标消融",
+  "title": "v3.10 BLCA 四臂目标消融",
+  "kind": "补录实验或审计",
+  "status": "历史报告有五折表 原始训练日志未同步",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "Full、Direction-only、IPCW-only、NLL-only；旧报告最佳验证口径。",
+  "conclusion": "报告 Full 为 0.7175，Direction 为 0.7087。仅凭均值不能证明方向正确或目标协同；不能替代 E001 至 E007。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "EXPERIMENT_DATA_SUMMARY.md",
+    "DCT_v310_Ablation_Results_COMPLETE.md",
+    "VERIFIED_RESULTS_2026_09_05.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/run_dct_v310_experiments.py"
+  ],
+  "tables": [
+    {
+      "title": "历史五折目标消融",
+      "headers": [
+        "变体",
+        "均值",
+        "标准差"
+      ],
+      "rows": [
+        [
+          "Full Model",
+          "0.7175",
+          "0.0543"
+        ],
+        [
+          "Direction Only",
+          "0.7087",
+          "0.0481"
+        ],
+        [
+          "NLL Only",
+          "0.6824",
+          "0.0555"
+        ],
+        [
+          "IPCW Only",
+          "0.6777",
+          "0.0463"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E017",
+      "source": "EXPERIMENT_DATA_SUMMARY.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E017_v310目标消融\\原始材料\\EXPERIMENT_DATA_SUMMARY.md",
+      "sha256": "e0da03ffde98a9505117c0f6780811132bda3f97e0bc3c11cd6962b621ec9a83"
+    },
+    {
+      "experiment": "E017",
+      "source": "DCT_v310_Ablation_Results_COMPLETE.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E017_v310目标消融\\原始材料\\DCT_v310_Ablation_Results_COMPLETE.md",
+      "sha256": "9f3753c88bca47418d61c079f26b4896ca78041d9f18d0ddce2b99564efaadd4"
+    },
+    {
+      "experiment": "E017",
+      "source": "VERIFIED_RESULTS_2026_09_05.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E017_v310目标消融\\原始材料\\VERIFIED_RESULTS_2026_09_05.md",
+      "sha256": "33411a8f990fa4f6e51ef46be609dab3707a89a7b2268027b6f9576a34e3d36b"
+    }
+  ]
+}

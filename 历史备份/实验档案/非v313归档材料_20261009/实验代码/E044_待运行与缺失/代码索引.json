@@ -1,0 +1,41 @@
+{
+  "id": "E044",
+  "entries": [
+    {
+      "requested": "dct_v3_risk_ordering.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\dct_v3_risk_ordering.py",
+      "sha256": "0a2822e05eec598ed6f091858a4b7a341632a6bdb7bfde4c7aede1d33e2c4366",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "scripts/_archive_v310_v311/ablate_reader.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\ablate_reader.py",
+      "sha256": "eee97c30199f4832bb00b772867688971ae291c902b4f2360f97ecc88e437e3f",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "scripts/_archive_v310_v311/compute_calibration_and_dca.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\compute_calibration_and_dca.py",
+      "sha256": "90e8baabb51e155d5ef2bf9421f2f2dc39b87208a52cfa0dc8ca2db4d2bfbced",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "scripts/_archive_v310_v311/rerun_dct_v313_triple_w.sh",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\rerun_dct_v313_triple_w.sh",
+      "sha256": "38881d61f94966fbd42f2803a45a7a8aeb806aee5e198dbae2aa7925327f0f7a",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "scripts/_archive_v310_v311/rerun_dct_v313_disable_both.sh",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\rerun_dct_v313_disable_both.sh",
+      "sha256": "e4343fe2d700db58c813f2bf5aee333f901444e7dbb760d2f5db2ced0ec16426",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

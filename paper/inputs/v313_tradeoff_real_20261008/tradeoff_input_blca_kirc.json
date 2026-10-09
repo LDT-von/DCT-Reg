@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "context": {
+    "cancers": [
+      "BLCA",
+      "KIRC"
+    ],
+    "endpoint": "DSS",
+    "encoder": "UNI2-h",
+    "protocol": "legacy_val",
+    "seed": 3
+  },
+  "models": [
+    {
+      "id": "dct_v313_full",
+      "label": "DCT v3.13 Full (transport cross)",
+      "ours": true,
+      "measurements": [
+        {
+          "cancer": "BLCA",
+          "fold": 0,
+          "predictions": "/data1/DCT-Reg/results/dct_v313_blca_uni2h/blca/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_blca_uni2h/split_0_results.pkl",
+          "predictions_sha256": "de27a09b5c8173950e14df463f060f4d76885f81d6365816db2cbffd2ca6ee29",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_10cohort_5fold_full/exp6_blca_f0_s3/export.json",
+          "profile_sha256_lf": "f69df713dbcd9c28e34a38c6607163c7486243fd0dbd6c20d778ce903577c07d"
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 1,
+          "predictions": "/data1/DCT-Reg/results/dct_v313_blca_uni2h/blca/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_blca_uni2h/split_1_results.pkl",
+          "predictions_sha256": "a430b3a9d8641034a4e65f02658ee8d48cffe808617f0e9f663e2600fb41bb6d",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_10cohort_5fold_full/exp6_blca_f1_s3/export.json",
+          "profile_sha256_lf": "51b50c5b2b33745f908454b306f8896d814b9301014d2d0f957074c9745035d3"
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 2,
+          "predictions": "/data1/DCT-Reg/results/dct_v313_blca_uni2h/blca/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_blca_uni2h/split_2_results.pkl",
+          "predictions_sha256": "8f034ab697571f29cc7fba14da89bff37d80a525a05cce1fb688af86b532839e",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_10cohort_5fold_full/exp6_blca_f2_s3/export.json",
+          "profile_sha256_lf": "e2f8ae1a974c983b557969d2dc4ec8c33cf7c584a03a24485d326a3f9d6e3c5a"
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 3,
+          "predictions": "/data1/DCT-Reg/results/dct_v313_blca_uni2h/blca/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_blca_uni2h/split_3_results.pkl",
+          "predictions_sha256": "58b50dab58c436bf1449e496dd2a930843101c829271213ea0ea0737b1ac3256",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_10cohort_5fold_full/exp6_blca_f3_s3/export.json",
+          "profile_sha256_lf": "722a93f8c4311172a9971f06a91d64a700987915561dc34c6c962ad9037c678b"
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 4,
+          "predictions": "/data1/DCT-Reg/results/dct_v313_blca_uni2h/blca/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_blca_uni2h/split_4_results.pkl",
+          "predictions_sha256": "2f13b3cda00922edd3b8b840a2623ee4a051f8cea87179c8802bcdc9fc9b645d",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_10cohort_5fold_full/exp6_blca_f4_s3/export.json",
+          "profile_sha256_lf": "177ab3469b6190111219c956c927a8b1fa746d834fbf75a55e033279a8fd7e16"
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 0,
+          "predictions": "/data1/DCT-Reg/results/dct_v313_uni2h/kirc/kirc/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_kirc_uni2h/split_0_results.pkl",
+          "predictions_sha256": "c46b89b6b4d34a925fb7170bbc9a0aee485503751d9684d61f7b50c4295835c7",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_10cohort_5fold_full/exp6_kirc_f0_s3/export.json",
+          "profile_sha256_lf": "fec36b71486d86cc12ec32c7dff033ae329015abb8e8fc8f276a54042240cd4b"
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 1,
+          "predictions": "/data1/DCT-Reg/results/dct_v313_uni2h/kirc/kirc/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_kirc_uni2h/split_1_results.pkl",
+          "predictions_sha256": "44c74541a212f0f8542a9237a41bf1b9ef548e6d946f7e76d5ced5e2d2c8f60f",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_10cohort_5fold_full/exp6_kirc_f1_s3/export.json",
+          "profile_sha256_lf": "12ea026cd8d1e098acd3ae0743466b468579509cf24dd1b80d332903860ead48"
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 2,
+          "predictions": "/data1/DCT-Reg/results/dct_v313_uni2h/kirc/kirc/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_kirc_uni2h/split_2_results.pkl",
+          "predictions_sha256": "d4d467362e4b0ea7343923e2ea62b6354ea10164e32072e01c09b3f3fe86c33c",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_10cohort_5fold_full/exp6_kirc_f2_s3/export.json",
+          "profile_sha256_lf": "026b0586ea432ecdbbc394e703a9bffd4bb2e792d5f8cd6eba97e48b81fcf0c6"
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 3,
+          "predictions": "/data1/DCT-Reg/results/dct_v313_uni2h/kirc/kirc/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_kirc_uni2h/split_3_results.pkl",
+          "predictions_sha256": "48d720c1677b20ad829d4f03188a79225d0a632db077b7916995c1b2bd6843c6",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_10cohort_5fold_full/exp6_kirc_f3_s3/export.json",
+          "profile_sha256_lf": "e96e25793a25efd64df06c39b8e3dfb7bc33792fdae48ca79a3111e116e02f5d"
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 4,
+          "predictions": "/data1/DCT-Reg/results/dct_v313_uni2h/kirc/kirc/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_kirc_uni2h/split_4_results.pkl",
+          "predictions_sha256": "4af6dfdd24326bacc1120a763033067830eedd915605e49195142134ee1493e9",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_10cohort_5fold_full/exp6_kirc_f4_s3/export.json",
+          "profile_sha256_lf": "d6af394308d36418c2736b37d885ee76972755f4386980a13f15df8329fae61e"
+        }
+      ]
+    },
+    {
+      "id": "dct_v313_direct",
+      "label": "DCT v3.13 Direct (cross reconstruction from WSI slots)",
+      "ours": false,
+      "measurements": [
+        {
+          "cancer": "BLCA",
+          "fold": 0,
+          "predictions": "/data1/DCT-Reg/results/v313_controls_v2/legacy_val/direct/blca/fold0/seed3/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_exp6_blca_uni2h/split_0_results.pkl",
+          "predictions_sha256": "0b05101b8d74f0a0c87b35a141a76b988881048e8e5db16d5b42acc437028877",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_direct_blca_5fold/direct_blca_f0_s3/export.json",
+          "profile_sha256_lf": "a978ac1894dfc25e31f3b1cf135bf8168a80cc4b3037d9b02386435962307e75"
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 1,
+          "predictions": "/data1/DCT-Reg/results/v313_controls_v2/legacy_val/direct/blca/fold1/seed3/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_exp6_blca_uni2h/split_1_results.pkl",
+          "predictions_sha256": "52ce29b8311cab3dd943c2717e01bf1d6b5ea264d14cb0b4b9d9e0c69099b33f",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_direct_blca_5fold/direct_blca_f1_s3/export.json",
+          "profile_sha256_lf": "a0a68a2df307982a5feccc3f9be3c3851c81a98305a1561adf40fb8920692e76"
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 2,
+          "predictions": "/data1/DCT-Reg/results/v313_controls_v2/legacy_val/direct/blca/fold2/seed3/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_exp6_blca_uni2h/split_2_results.pkl",
+          "predictions_sha256": "908311e4bf27c1d56cbfda3712c5afb266e82b676d0a73985dd32812698a0038",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_direct_blca_5fold/direct_blca_f2_s3/export.json",
+          "profile_sha256_lf": "732fd8df8cfed12ec2a993dfccfe4b6be222402b90a759b0d3cde9fb8653dca9"
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 3,
+          "predictions": "/data1/DCT-Reg/results/v313_controls_v2/legacy_val/direct/blca/fold3/seed3/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_exp6_blca_uni2h/split_3_results.pkl",
+          "predictions_sha256": "fc0459fe33ae97aed592bbb189849e1f4cb840cb01e0d6ef1a04fa29967df05e",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_direct_blca_5fold/direct_blca_f3_s3/export.json",
+          "profile_sha256_lf": "0f9ff287370c4afcc62af8c395ab389f481a48362c3a1c4ad358cd3a0d05afc5"
+        },
+        {
+          "cancer": "BLCA",
+          "fold": 4,
+          "predictions": "/data1/DCT-Reg/results/v313_controls_v2/legacy_val/direct/blca/fold4/seed3/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_exp6_blca_uni2h/split_4_results.pkl",
+          "predictions_sha256": "9c59f782bb976b511b8a937e80852f1b1fa33d3ceea1747e0a0d8df238333492",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_direct_blca_5fold/direct_blca_f4_s3/export.json",
+          "profile_sha256_lf": "fa79fe93c75015d162bbc401c961c2c0d17e797b29b2e11be40c9a650ab1e386"
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 0,
+          "predictions": "/data1/DCT-Reg/results/v313_controls_v2/legacy_val/direct/kirc/fold0/seed3/kirc/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_exp6_kirc_uni2h/split_0_results.pkl",
+          "predictions_sha256": "0ce6e21c05677b2a067494de8a2b4e29b8bce5db273e7ee991c8c5b285ba0776",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_kirc_5fold_direct/direct_kirc_f0_s3/export.json",
+          "profile_sha256_lf": "95774336f18cfdcb2ff6faeb143f1ef9bb631a738b7c70265d48e2015c24ee52"
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 1,
+          "predictions": "/data1/DCT-Reg/results/v313_controls_v2/legacy_val/direct/kirc/fold1/seed3/kirc/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_exp6_kirc_uni2h/split_1_results.pkl",
+          "predictions_sha256": "2ca246e82878e33d5132b20dd0867589fef2c2c0858b2429eff750a0b6f64823",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_kirc_5fold_direct/direct_kirc_f1_s3/export.json",
+          "profile_sha256_lf": "26a0d1993d99d3b846c9920f2325a8d43a43a663b32a9f67ea6dd1408b03088c"
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 2,
+          "predictions": "/data1/DCT-Reg/results/v313_controls_v2/legacy_val/direct/kirc/fold2/seed3/kirc/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_exp6_kirc_uni2h/split_2_results.pkl",
+          "predictions_sha256": "92f3b984d22f0e1ce9a047c831703320a7a7ea1dc5807171bd4a67b27fe96884",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_kirc_5fold_direct/direct_kirc_f2_s3/export.json",
+          "profile_sha256_lf": "8d171017b56de80c28fe9bcbb8ac79d973f0ae4cda2222c5cd52488b79cc5adf"
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 3,
+          "predictions": "/data1/DCT-Reg/results/v313_controls_v2/legacy_val/direct/kirc/fold3/seed3/kirc/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_exp6_kirc_uni2h/split_3_results.pkl",
+          "predictions_sha256": "36b534e74e4d404660bd35ee19e4beb89589a6d631974d187fd330c9c588ba16",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_kirc_5fold_direct/direct_kirc_f3_s3/export.json",
+          "profile_sha256_lf": "545b223baf7d68e4a04654412f274952869f838c15428042ce454b096d94625a"
+        },
+        {
+          "cancer": "KIRC",
+          "fold": 4,
+          "predictions": "/data1/DCT-Reg/results/v313_controls_v2/legacy_val/direct/kirc/fold4/seed3/kirc/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_exp6_kirc_uni2h/split_4_results.pkl",
+          "predictions_sha256": "8c6df9dee51016f0be380a4cd6e25a1d1f8301984e581d6b62d15fa16dcff18d",
+          "profile_json": "/data1/DCT-Reg/results/v313_tradeoff_real_20261008/exports_kirc_5fold_direct/direct_kirc_f4_s3/export.json",
+          "profile_sha256_lf": "109a97a4eb84435cddaff2a6457dd260a465eda5bed6a1f8f576d1d75f683281"
+        }
+      ]
+    }
+  ]
+}

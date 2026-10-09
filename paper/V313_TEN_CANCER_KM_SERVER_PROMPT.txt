@@ -1,0 +1,37 @@
+请在服务器上的 DCT-Reg 仓库完成 DCT v3.13 Full 的十队列 KM 图，并接入现有论文。当前正文已改为先十队列完整模型结果，再外部基线，再消融实验。图 5 的目标是 10/10，目前仅 BLCA/KIRC 两个真实面板，不能把它们标为完成。
+
+范围：BLCA、BRCA、COADREAD、HNSC、KIRC、LUAD、LUSC、SKCM、STAD、UCEC；每癌种 folds 0–4，seed=3，共 50 个 Full run。论文目标为 UNI2-h、v3.13、患者级五折最佳验证（legacy_val）记录，不混入 UNI、v3.14/15/16、Direct/Independent 或新补跑的另一套 Full。先读取本地更改并安全同步 origin/main，保留已有工作。
+
+1. 读取 paper/DCT_v313_初稿.md 的表 1 和 paper/V313_MANUSCRIPT_STATUS.json 的 ten_cancer，定位表中这 50 折实际对应的 checkpoint、最佳逐患者预测、配置、患者 split 和来源 commit。不能把 C-index 汇总或训练 epoch 曲线当作患者预测。输出一份 50 行来源表，记录 cancer/fold/run_id/best_epoch/protocol/encoder/config/split/checkpoint/prediction/source_commit 与文件 hashes。记录缺项，不编造文件路径。
+
+2. 优先复用经过审计且身份一致的 export.json + patients.npz。验证每折 case_ids、risk、time、censor、保存的最佳预测、完整验证患者集合和训练风险中位数 km_train_median。每个 run 的实际患者预测 C-index 应与正文该折四位数相符；不相符时定位 checkpoint/采样/epoch/配置来源，不能悄悄改论文分数或混用记录。
+
+3. 训练风险中位数、患者预测或导出不足时，使用这批既有 Full checkpoint 补 export --km，不重新训练。先审查 paper/V313_EVIDENCE_RUNBOOK.md、scripts/prepare_v313_evidence.py 及对应 exporter，建立仅包含上述 50 个 Full run 的 manifest。严格加载、最佳 epoch 温度、训练 reference buffer 与逐患者 replay 检查保持原有判据。KM 仅需 alphas=0，不执行额外机制 sweep 或 profile。导出到新的 results/v313_ten_cancer_km/exports，保留旧结果，不删除或覆盖历史文件。不要使用仅允许 blca/kirc 的旧 rerun_v313_export_with_km.py 来冒充十队列导出。
+
+可参考已存在的命令接口（将 MANIFEST 换成实际审计通过的 Full 50-run manifest）：
+python scripts/prepare_v313_evidence.py audit --manifest MANIFEST
+python scripts/prepare_v313_evidence.py export --manifest MANIFEST \
+  --output results/v313_ten_cancer_km/exports --device cuda:0 --alphas 0 --km
+
+4. 形成恰好包含 50 个选定 run 的作图输入根目录，不混入补病例的重复导出、备份目录或其他 seed。校验同癌种五折验证患者恰好构成同一队列完整划分，每名患者只贡献一次，训练/验证身份正确。相对文件引用与 split hash 必须可解析。不同折的原始 risk 不直接混合排行。
+
+5. 按每折训练患者风险中位数先给验证患者分高低组，再按癌种汇总五折组别与结局；风险越大对应生存越短，等于阈值归为 high。蓝色 low、红色 high，显示删失标记、名义 95% CI、组人数和在险人数。沿用本项目训练中位数口径，不改写为 SlotSPE 的验证中位数。
+
+6. 使用更新后的十队列默认入口：
+python scripts/plot_fig5_km_curves.py \
+  --exports results/v313_ten_cancer_km/exports --arm exp6 --check-only
+
+全部通过后：
+python scripts/plot_fig5_km_curves.py \
+  --exports results/v313_ten_cancer_km/exports --arm exp6 \
+  --output paper/figures/fig5_ten_cancers
+
+默认癌种即上述十个，不传仅 blca/kirc 的过滤参数。输出每癌种 PNG/PDF、患者分组 CSV、来源 JSON，以及两页十队列总览和 figure5_ten_cancers.json。缺任一癌种时脚本应报告全部问题，并在作图前停止。统计 p 值若需要，使用 --show-logrank 实际计算并明确它是忽略 CV 模型依赖的探索性统计；不抄参考论文的 p 值，也不宣称独立测试显著性。RMST/临床分析不属于本次必须新增的实验。
+
+7. 运行 tests/test_v313_km_oof.py，重点验证默认十队列、缺项不输出部分图、训练阈值与患者划分。检查两页总览和十个单图：文字可读，图例与组人数一致，删失标记、时间单位、在险表正确，无截断和重叠。若总览过密，调整字体和布局后重画；保留可编辑文字的矢量 PDF。
+
+8. 接入正文 4.7 十队列风险分层，用真实十队列总览替换当前仅 5a/5e 的示例，更新图注、患者人数、来源说明。将 V313_MANUSCRIPT_STATUS.json 的图 5 状态改为 complete=true、coverage=10/10，只在十癌种均核验后修改；保留图 6 组织资源仍缺的状态。实验章节顺序不回退，也不把两个癌种的消融范围混成十队列消融。
+
+9. 同步重建 Word。若服务器无法用 Word/LibreOffice渲染，应明确报告 Word 排版尚待本机检查，不标记视觉 QA 完成；可以保留可重建的 Markdown 与图片。仅提交本次图 5、来源记录、必要脚本修正、正文/状态/README/ledger 更新，排除大 checkpoint、患者特征文件和无关训练日志。保留本项目已有患者结果引用惯例，不因打包缺项而写假数据。
+
+10. commit 并 push（若远端有新提交先安全整合，不 force push），最终报告：10/10 完成情况、每癌种验证人数/low/high、50 折来源对应、实际命令、测试结果、图像与论文路径、确切远端 commit；未完成项逐项列出。完成后不要用“提示词写好/代码写好”代替实际曲线生成与接入。

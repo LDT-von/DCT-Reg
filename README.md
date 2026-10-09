@@ -8,6 +8,18 @@ DCT 是一个多模态生存预测框架，通过**语义对齐的多模态融�
 
 ---
 
+## v3.13 带方法年份的扩展公开比较表
+
+当前正文表 2 有 21 个参照方法加 DCT：沿用 SlotSPE 表 1 中其他 15 个基线的完整十癌种数值，去掉 SlotSPE 自身全部三行，再加入 TTA、OTSurv、STEPH 和三种 UNI2-h MIL 参照。每个方法标注年份，公开队列均值共 183 个，DCT 原有 50 个折值不变。
+
+十癌种均有参照；第一红色加粗，第二下划线，DCT 行淡黄色。Overall 仅给完整相同十队列行排名，额外方法的未报告队列及不相同队列集合的 Overall 保留 NR。MLP/SNNTrans 的引用年份和 DCT 的当前研究年份均加注说明。不同来源的特征、模态与评分口径仍有差异，该表属于公开值参考。下面“核心贡献”是仓库的 v3.10 历史介绍，不是 v3.13 当前实验结果。
+
+[扩展表 PNG](paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.png) · [可编辑 Word](paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.docx) · [矢量 PDF](paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.pdf) · [来源及年份说明](paper/V313_OT_UNI2H_LITERATURE_REVIEW_20261008.md)。
+
+~~~bash
+python scripts/build_v313_literature_comparison.py
+~~~
+
 ## 核心贡献
 
 ### 1. 生存预测性能（超越 SlotSPE）
@@ -79,17 +91,31 @@ python scripts/run_dct_v330_experiments.py smoke
 python scripts/run_dct_v330_experiments.py run
 ```
 
+## 新候选：模型 v3.13 运输感知 Omics 重建
+
+v3.13 在 v3.11 fix-v2 基础上，新增"运输感知 omics 重建"正则（self + cross 两路，λ=0.10）。已跑 3 变体 × 5 fold 消融，结果显示**重建项对 BLCA 性能贡献有限**（关 self/cross 反而 +0.002~0.004）。
+
+- [v3.13 方法边界、消融结果与运行说明](docs/DCT_V313_TRANSPORT_RECONSTRUCTION.md)
+- 调度脚本：`scripts/run_dct_v313_ablations_5fold.sh`
+- 配置：`configs/dct_v313_blca_uni.yaml`
+- 补跑：`scripts/rerun_dct_v313_double_w_failed.sh`
+
+```bash
+bash scripts/run_dct_v313_ablations_5fold.sh          # 全量消融 5 fold
+bash scripts/rerun_dct_v313_double_w_failed.sh        # 仅补 double_w 的 fold2/3/4
+```
+
 ## 新候选：模型 v3.2 TGSR
 
 TGSR (Training fold Guided Survival Risk) 研究方向。
 
 ---
 
-## 版本清单（8 个 DCT 变体 + 5 个父基类）
+## 版本清单（9 个 DCT 变体 + 5 个父基类）
 
-`survot_rank/research/methods/catalog.py` 注册的"DCT 模型类"共 **8 个**，外加 `methods/` 下 5 个被它们继承、但**不能单独当版本用**的父基类（详见 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)）。
+`survot_rank/research/methods/catalog.py` 注册的"DCT 模型类"共 **9 个**，外加 `methods/` 下 5 个被它们继承、但**不能单独当版本用**的父基类（详见 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)）。
 
-### 8 个 catalog 版本
+### 9 个 catalog 版本
 
 | Key | 真实名称 | 状态 | 目录 | 角色 |
 |---|---|---|---|---|
@@ -101,6 +127,7 @@ TGSR (Training fold Guided Survival Risk) 研究方向。
 | `dct_v32_transport_guided_slot_reaggregation` | DCT v3.2 运输引导槽重聚合 | legacy | `methods/legacy/ablation/` | TGSR 的 4 臂结构对照（baseline/self_update/attention_feedback/ot_feedback） |
 | `dct_v330_closed_loop_prognostic_transport` | DCT v3.30 闭环预后传输 | legacy | `methods/legacy/ablation/` | 5 臂闭环（baseline/self_update/ot_feedback/confidence_gate/prognostic_rank） |
 | `dct_v311_slot_interpretable` | DCT v3.11 槽级可解释 | experimental | `methods/legacy/experimental/` | per-slot NLL + 多样性约束；关掉 direction 损失 |
+| `dct_v313_transport_reconstruction` | DCT v3.13 运输感知 Omics 重建 | candidate | `methods/legacy/experimental/` | 在 v3.11 基础上新增 0.5·self + 0.5·cross 重建正则（λ=0.10, ramp 2→7）；BLCA 5-fold 见 [docs](docs/DCT_V313_TRANSPORT_RECONSTRUCTION.md) |
 
 ### 5 个父基类（实现依赖，不算独立版本）
 

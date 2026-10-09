@@ -1,0 +1,60 @@
+{
+  "id": "E020",
+  "folder": "E020_TGSR反馈",
+  "title": "v3.2 TGSR 四臂反馈消融",
+  "kind": "补录实验或审计",
+  "status": "历史报告记录 20 个训练任务",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "BLCA 五折；无反馈、self update、attention feedback、OT feedback，报告 NLL-only。",
+  "conclusion": "OT feedback 报告均值 0.7057，baseline 为 0.6828；不能由此证明锚点方向，也不能与不同配方 v3.10 直接归因比较。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "V32_TGSR_EXPERIMENT_RESULTS.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/run_dct_v32_experiments.py"
+  ],
+  "tables": [
+    {
+      "title": "历史反馈消融均值",
+      "headers": [
+        "变体",
+        "报告均值",
+        "报告标准差"
+      ],
+      "rows": [
+        [
+          "ot_feedback",
+          "0.7057",
+          "0.0379"
+        ],
+        [
+          "self_update",
+          "0.6899",
+          "0.0168"
+        ],
+        [
+          "attention_feedback",
+          "0.6890",
+          "0.0284"
+        ],
+        [
+          "baseline",
+          "0.6828",
+          "0.0451"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E020",
+      "source": "V32_TGSR_EXPERIMENT_RESULTS.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E020_TGSR反馈\\原始材料\\V32_TGSR_EXPERIMENT_RESULTS.md",
+      "sha256": "626da80d17e63fdb5feed961ce7ea8b50fe907f3790da15a911d27cf96578bb0"
+    }
+  ]
+}

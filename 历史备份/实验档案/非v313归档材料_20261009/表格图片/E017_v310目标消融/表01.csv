@@ -1,0 +1,5 @@
+﻿变体,均值,标准差
+Full Model,0.7175,0.0543
+Direction Only,0.7087,0.0481
+NLL Only,0.6824,0.0555
+IPCW Only,0.6777,0.0463

@@ -1,0 +1,13 @@
+{
+  "fold": 0,
+  "checkpoint": "/data1/DCT-Reg/results/dct_v3.10/robust/final_50ep_old/blca/blca/SurvOTRank_dct_v310_directional_regularized_transport/0.0005_b8_survival_months_dss_Dim_256_e_50_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v310_dct_reg_blca_50ep/model_best_s0.pth",
+  "study": "blca",
+  "method": "dct_v310_directional_regularized_transport",
+  "full_cindex": 0.7012678288431062,
+  "no_ot_cindex": 0.7060221870047544,
+  "ot_contribution": -0.004754358161648153,
+  "ot_percentage": -0.6779661016949118,
+  "n_full": 77,
+  "n_no_ot": 77,
+  "verdict": "minimal"
+}

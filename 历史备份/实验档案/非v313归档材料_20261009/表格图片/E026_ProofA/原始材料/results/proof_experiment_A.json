@@ -1,0 +1,130 @@
+{
+  "by_recipe": {
+    "v3.11 BLCA UNI (NLL+IPCW+per-slot+div)": {
+      "recipe": "v3.11 BLCA UNI (NLL+IPCW+per-slot+div)",
+      "root": "/data1/DCT-Reg/results/dct_v311_blca_uni_fixed",
+      "folds": {
+        "0": {
+          "best_val_cindex": 0.7013,
+          "best_epoch": 15,
+          "mean_last5": 0.6223,
+          "n_epochs": 30,
+          "psnll_final": 0.7947,
+          "div_final": 0.003823,
+          "var_final": 0.025171,
+          "ipcw_final": 0.134
+        },
+        "1": {
+          "best_val_cindex": 0.7403,
+          "best_epoch": 8,
+          "mean_last5": 0.6398,
+          "n_epochs": 30,
+          "psnll_final": 0.6038,
+          "div_final": 0.002354,
+          "var_final": 0.026272,
+          "ipcw_final": 0.07
+        },
+        "2": {
+          "best_val_cindex": 0.6837,
+          "best_epoch": 20,
+          "mean_last5": 0.6504,
+          "n_epochs": 30,
+          "psnll_final": 0.7055,
+          "div_final": 0.004609,
+          "var_final": 0.032556,
+          "ipcw_final": 0.0967
+        },
+        "3": {
+          "best_val_cindex": 0.7027,
+          "best_epoch": 19,
+          "mean_last5": 0.6577,
+          "n_epochs": 30,
+          "psnll_final": 0.5706,
+          "div_final": 0.007055,
+          "var_final": 0.035936,
+          "ipcw_final": 0.0706
+        },
+        "4": {
+          "best_val_cindex": 0.7589,
+          "best_epoch": 24,
+          "mean_last5": 0.7036,
+          "n_epochs": 30,
+          "psnll_final": 0.4338,
+          "div_final": 0.005414,
+          "var_final": 0.028261,
+          "ipcw_final": 0.076
+        }
+      },
+      "mean_best": 0.7174,
+      "mean_last5": 0.6548,
+      "std_best": 0.0311
+    },
+    "v3.11 BLCA UNI2-h (early 1ep smoke)": {
+      "recipe": "v3.11 BLCA UNI2-h (early 1ep smoke)",
+      "root": "/data1/DCT-Reg/results/dct_v311_blca_uni2h_v2_smoke",
+      "folds": {
+        "0": {
+          "best_val_cindex": 0.5616,
+          "best_epoch": 0,
+          "mean_last5": 0.5616,
+          "n_epochs": 1,
+          "psnll_final": 1.6493,
+          "div_final": 0.001965,
+          "var_final": 0.003495,
+          "ipcw_final": 0.3968
+        }
+      },
+      "mean_best": 0.5616,
+      "mean_last5": 0.5616,
+      "std_best": 0.0
+    },
+    "v3.10 BLCA UNI2-h frozen (NLL+IPCW)": {
+      "recipe": "v3.10 BLCA UNI2-h frozen (NLL+IPCW)",
+      "root": "/data1/DCT-Reg/results/20260910_v310_blca_uni2h_frozen",
+      "folds": {
+        "0": {
+          "best_val_cindex": 0.6194,
+          "best_epoch": 4,
+          "mean_last5": 0.5828,
+          "n_epochs": 11,
+          "psnll_final": null,
+          "div_final": null,
+          "var_final": null,
+          "ipcw_final": 0.3593
+        }
+      },
+      "mean_best": 0.6194,
+      "mean_last5": 0.5828,
+      "std_best": 0.0
+    },
+    "v3.10 BLCA UNI2-h (NLL+IPCW)": {
+      "recipe": "v3.10 BLCA UNI2-h (NLL+IPCW)",
+      "root": "/data1/DCT-Reg/results/20260909_v310_blca_uni2h",
+      "folds": {
+        "0": {
+          "best_val_cindex": 0.5964,
+          "best_epoch": 4,
+          "mean_last5": 0.5395,
+          "n_epochs": 5,
+          "psnll_final": null,
+          "div_final": null,
+          "var_final": null,
+          "ipcw_final": 0.3571
+        },
+        "1": {
+          "best_val_cindex": 0.6378,
+          "best_epoch": 2,
+          "mean_last5": 0.6247,
+          "n_epochs": 29,
+          "psnll_final": null,
+          "div_final": null,
+          "var_final": null,
+          "ipcw_final": 0.2396
+        }
+      },
+      "mean_best": 0.6171,
+      "mean_last5": 0.5821,
+      "std_best": 0.0293
+    }
+  }
+}

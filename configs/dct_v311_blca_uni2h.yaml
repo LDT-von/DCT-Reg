@@ -1,18 +1,14 @@
-# DCT v3.11 Per-Slot Interpretable - BLCA UNI2-h Config
-# Training: python -m survot_rank.cli train --config configs/dct_v311_blca_uni2h.yaml --set=k_start=0 --set=k_end=5
+# DCT v3.11 Per-Slot Interpretable - BLCA UNI2-h Config (原始版 - merged diversity)
 #
-# Recipe: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*diversity
+# Recipe: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*diversity (merged)
 # (dct_v311_* params are forced by DCTV311SlotInterpretable.FROZEN_ARGUMENTS)
-#
-# Diff vs dct_v311_blca_uni.yaml:
-#   - data_root_dir: /data1/TCGA-UNI2-h-features  (was /data/CPathPatchFeature)
-#   - encoding_dim : 1536                        (was 1024)
-#   - results_dir  : dct_v311_blca_uni2h_v2      (separate from old uni2h run)
 #
 name: dct_v311_blca_uni2h
 description: |
-  DCT v3.11 per-slot interpretable training on BLCA with UNI2-h (1536d) features.
-  Same recipe as dct_v311_blca_uni.yaml, only the feature backend is uni2-h.
+  DCT v3.11 per-slot interpretable training on BLCA with UNI2-h features.
+  原始版 diversity (merged): 所有 slot 的 variance 一起算
+  - Objective: NLL + 0.10*IPCW-rank + 0.05*per_slot_nll + 0.02*diversity
+  - Direction loss disabled
 
 data:
   study: blca
@@ -22,17 +18,17 @@ data:
   label_col: survival_months_dss
   signature: combine
   n_classes: 4
-  num_patches: 4096
+  num_patches: 2048
   encoding_dim: 1536
 
 split:
   k_start: 0
-  k_end: 5
+  k_end: 2
 
 train:
   survot_method: dct_v311_slot_interpretable
   specific_simple: dct_v311_blca_uni2h
-  results_dir: /data1/DCT-Reg/results/dct_v311_blca_uni2h_v2/blca
+  results_dir: /data1/DCT-Reg/results/dct_v311_blca_uni2h/blca
   max_epochs: 30
   batch_size: 8
   warmup_epochs: 0
@@ -73,7 +69,6 @@ model:
   dct_ipcw_rank_temperature: 0.50
   dct_ipcw_max_weight: 10.0
   dct_ipcw_rank_memory_size: 64
-  # Direction loss DISABLED in v3.11 (DCR ≈ random)
   dct_v38_lambda_direction: 0.0
   dct_v38_lambda_dose: 0.0
   dct_v38_lambda_reconfiguration: 0.0

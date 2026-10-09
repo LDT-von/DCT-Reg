@@ -1,0 +1,90 @@
+{
+  "id": "E023",
+  "folder": "E023_固定锚点训练",
+  "title": "固定锚点 BLCA 五折训练",
+  "kind": "补录实验或审计",
+  "status": "历史报告有训练结果",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "报告使用预提取固定锚点，30 epochs。历史模型描述与实际前向是否一致需核对。",
+  "conclusion": "五折分数 0.7100、0.6684、0.6773、0.6842、0.7304，均值约 0.6941；不由此宣称方向机制通过。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "COMPLETE_STATUS_SUMMARY.md",
+    "FIXED_ANCHORS_EXECUTION_SUMMARY.md",
+    "README_FIXED_ANCHORS_EXPERIMENT.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/run_fixed_anchor_experiments.py",
+    "scripts/_archive_v310_v311/train_fixed_5fold.sh"
+  ],
+  "tables": [
+    {
+      "title": "原报告数值",
+      "headers": [
+        "Fold",
+        "Best C-index",
+        "Best Epoch",
+        "状态"
+      ],
+      "rows": [
+        [
+          "0",
+          "0.7100",
+          "10",
+          " 完成"
+        ],
+        [
+          "1",
+          "0.6684",
+          "1",
+          " 完成"
+        ],
+        [
+          "2",
+          "0.6773",
+          "21",
+          " 完成"
+        ],
+        [
+          "3",
+          "0.6842",
+          "18",
+          " 完成"
+        ],
+        [
+          "4",
+          "0.7304",
+          "7",
+          " 完成"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E023",
+      "source": "COMPLETE_STATUS_SUMMARY.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E023_固定锚点训练\\原始材料\\COMPLETE_STATUS_SUMMARY.md",
+      "sha256": "908086efaa81d5a6fbb98444661425e6e3375074c61d8d23876bf0f37775a250"
+    },
+    {
+      "experiment": "E023",
+      "source": "FIXED_ANCHORS_EXECUTION_SUMMARY.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E023_固定锚点训练\\原始材料\\FIXED_ANCHORS_EXECUTION_SUMMARY.md",
+      "sha256": "cd7a4f64b7bf0f8df2b789c8ea3d7902ef0c094aa153e53233335e50cbbe72d9"
+    },
+    {
+      "experiment": "E023",
+      "source": "README_FIXED_ANCHORS_EXPERIMENT.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E023_固定锚点训练\\原始材料\\README_FIXED_ANCHORS_EXPERIMENT.md",
+      "sha256": "8e3f5d8ec6d98a32367c5069cba58d1cf7cf4546fbeb0a0e6a15fc589891bfdf"
+    }
+  ]
+}

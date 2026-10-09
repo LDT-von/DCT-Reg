@@ -1,0 +1,71 @@
+{
+  "id": "E033",
+  "folder": "E033_旧OT替换",
+  "title": "旧 BLCA 两折均匀计划替换",
+  "kind": "补录实验或审计",
+  "status": "两折 JSON 已保存 模型身份需核对",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "固定模型 monkey-patch OT 计划为均匀；不是训练时移除 OT。",
+  "conclusion": "两折 No-OT 分数略高；运行 method 名和 checkpoint 身份仍需核对，不外推到 v3.13 Full。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "paper_outputs/_archive_v310_v311/ot_contribution_blca_fold0.json",
+    "paper_outputs/_archive_v310_v311/ot_contribution_blca_fold1.json",
+    "paper_outputs/_archive_v310_v311/ot_contribution_summary.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/test_ot_contribution.py"
+  ],
+  "tables": [
+    {
+      "title": "两折计划替换",
+      "headers": [
+        "Fold",
+        "Full C-index",
+        "均匀计划 C-index",
+        "Full 减均匀"
+      ],
+      "rows": [
+        [
+          "0",
+          "0.7013",
+          "0.7060",
+          "-0.0048"
+        ],
+        [
+          "1",
+          "0.8012",
+          "0.8046",
+          "-0.0034"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E033",
+      "source": "paper_outputs/_archive_v310_v311/ot_contribution_blca_fold0.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E033_旧OT替换\\原始材料\\paper_outputs\\_archive_v310_v311\\ot_contribution_blca_fold0.json",
+      "sha256": "dddd5531f6d7c5eafd22f86286fdbff7e961dc6af2faf068f78dd849a8358934"
+    },
+    {
+      "experiment": "E033",
+      "source": "paper_outputs/_archive_v310_v311/ot_contribution_blca_fold1.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E033_旧OT替换\\原始材料\\paper_outputs\\_archive_v310_v311\\ot_contribution_blca_fold1.json",
+      "sha256": "465dd55f1c61a3a9d5ffc26902318d570826336f974fbb3b9544ac4eb0bc5052"
+    },
+    {
+      "experiment": "E033",
+      "source": "paper_outputs/_archive_v310_v311/ot_contribution_summary.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E033_旧OT替换\\原始材料\\paper_outputs\\_archive_v310_v311\\ot_contribution_summary.md",
+      "sha256": "4b1c2de281a46907f80c728712f5ec9c4895e34cdcfa61db58ee1f346b7564cf"
+    }
+  ]
+}

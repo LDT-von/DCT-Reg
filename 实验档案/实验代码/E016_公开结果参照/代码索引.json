@@ -1,0 +1,20 @@
+{
+  "experiment": "E016",
+  "title": "外部方法公开报告值参照",
+  "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+  "shared_model": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/model.py",
+  "entries": [
+    {
+      "path": "scripts/build_v313_comparison_table.py",
+      "present": true,
+      "sha256": "a72d7af8ee77587d1cd95df74f7e1151d7193027eb1cb302a192b540069ca6a8"
+    },
+    {
+      "path": "scripts/build_v313_literature_comparison.py",
+      "present": true,
+      "sha256": "e249cf07a89ba478a04d566f6db8b3036786a4b01c63eb38f82aba4fbde8ff23"
+    }
+  ],
+  "shared_snapshot": "../共享代码快照_2b1c622",
+  "execution_note": "仅作源代码溯源，整理阶段没有执行训练、推理或导出作业。以原工程环境与历史 overrides 复现。"
+}

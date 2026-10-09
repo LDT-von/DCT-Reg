@@ -1,0 +1,200 @@
+{
+  "id": "E040",
+  "folder": "E040_v314结构审计",
+  "title": "v3.14 重建与槽结构数值审计",
+  "kind": "补录实验或审计",
+  "status": "合成数据结构检查 真实癌种分数未建立",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "CPU/GPU、多 seed、masked/full/off 控制与维度修复；各 JSON 有自己的参数与源码哈希。",
+  "conclusion": "结构审计验证有限步前向、反向和有限值，不能声称 v3.14 的 C-index 优于 v3.13。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "audit_results/v314_after.json",
+    "audit_results/v314_before.json",
+    "audit_results/v314_dimension_check.json",
+    "audit_results/v314_dimension_distance.json",
+    "audit_results/v314_dimension_scaled.json",
+    "audit_results/v314_final_gpu_shape.json",
+    "audit_results/v314_final_masked.json",
+    "audit_results/v314_full_control.json",
+    "audit_results/v314_hybrid_control.json",
+    "audit_results/v314_off_control.json",
+    "docs/DCT_V314_DEBUG_REPORT.md",
+    "docs/DCT_V314_MASKED_TRANSPORT_RECONSTRUCTION_PLAN.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/audit_v314.py"
+  ],
+  "tables": [
+    {
+      "title": "合成检查覆盖",
+      "headers": [
+        "材料",
+        "设备",
+        "模式",
+        "步骤"
+      ],
+      "rows": [
+        [
+          "v314_after.json",
+          "cpu",
+          "见配置",
+          "见配置"
+        ],
+        [
+          "v314_before.json",
+          "cpu",
+          "见配置",
+          "见配置"
+        ],
+        [
+          "v314_dimension_check.json",
+          "cuda",
+          "masked",
+          "5"
+        ],
+        [
+          "v314_dimension_distance.json",
+          "cuda",
+          "masked",
+          "10"
+        ],
+        [
+          "v314_dimension_scaled.json",
+          "cuda",
+          "masked",
+          "10"
+        ],
+        [
+          "v314_final_gpu_shape.json",
+          "cuda",
+          "masked",
+          "30"
+        ],
+        [
+          "v314_final_masked.json",
+          "cpu",
+          "masked",
+          "30"
+        ],
+        [
+          "v314_full_control.json",
+          "cpu",
+          "full",
+          "30"
+        ],
+        [
+          "v314_hybrid_control.json",
+          "cpu",
+          "hybrid",
+          "30"
+        ],
+        [
+          "v314_off_control.json",
+          "cpu",
+          "off",
+          "30"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E040",
+      "source": "audit_results/v314_after.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_after.json",
+      "sha256": "331464a0ac4c1dd658d0984e5165b16b3a30aa2db6ff85c69e918f3153ebe7ee"
+    },
+    {
+      "experiment": "E040",
+      "source": "audit_results/v314_before.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_before.json",
+      "sha256": "419390df25364eb3c82fe129dea9d803e83a6316b6a8a53f582ddba5a65f4d5c"
+    },
+    {
+      "experiment": "E040",
+      "source": "audit_results/v314_dimension_check.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_dimension_check.json",
+      "sha256": "0e8a0c0c3c206ecead859b627319094f2b582e4a12ff74c854273c1599448f35"
+    },
+    {
+      "experiment": "E040",
+      "source": "audit_results/v314_dimension_distance.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_dimension_distance.json",
+      "sha256": "c66408b6ec650b0eb0318583b7c79c1c2602177e45555949af92028c74a980d0"
+    },
+    {
+      "experiment": "E040",
+      "source": "audit_results/v314_dimension_scaled.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_dimension_scaled.json",
+      "sha256": "5ec74acfac622eedc92118a60a412e93b585cd0dd7ae862985e69da64b48e373"
+    },
+    {
+      "experiment": "E040",
+      "source": "audit_results/v314_final_gpu_shape.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_final_gpu_shape.json",
+      "sha256": "60a17e508789c9749990b84419c9decddf4007b803d27d8f9f2629eae999dba9"
+    },
+    {
+      "experiment": "E040",
+      "source": "audit_results/v314_final_masked.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_final_masked.json",
+      "sha256": "d5b61639eebd8a8f3b716ef6fcc3218d3938c692676daaa22925feee6c7b0b1e"
+    },
+    {
+      "experiment": "E040",
+      "source": "audit_results/v314_full_control.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_full_control.json",
+      "sha256": "ded15cadf520b4cbbfd4ee5f2104175f466c32128da6fe04be02fd774568c6e4"
+    },
+    {
+      "experiment": "E040",
+      "source": "audit_results/v314_hybrid_control.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_hybrid_control.json",
+      "sha256": "9c02188c0e15ce9838f3b6cde9d1039aa30565258ea318a47032f8c85f6fbb63"
+    },
+    {
+      "experiment": "E040",
+      "source": "audit_results/v314_off_control.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_off_control.json",
+      "sha256": "dca6215c3c6929db7276cd05733b53b8c1e176bbd48b390f8f3a9ff019c840ee"
+    },
+    {
+      "experiment": "E040",
+      "source": "docs/DCT_V314_DEBUG_REPORT.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E040_v314结构审计\\原始材料\\docs\\DCT_V314_DEBUG_REPORT.md",
+      "sha256": "124ee1e12e18b6d4e2fb34f11e8d703d6c1a0861cfab1690d3daa96dbffbb4b8"
+    },
+    {
+      "experiment": "E040",
+      "source": "docs/DCT_V314_MASKED_TRANSPORT_RECONSTRUCTION_PLAN.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E040_v314结构审计\\原始材料\\docs\\DCT_V314_MASKED_TRANSPORT_RECONSTRUCTION_PLAN.md",
+      "sha256": "6b0e7762cf3988cb0292c2e263f022243ab9b0e71fa00204bab9ad0f31aa5746"
+    }
+  ]
+}
