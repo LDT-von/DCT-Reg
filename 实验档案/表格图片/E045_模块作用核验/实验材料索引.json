@@ -1,0 +1,25 @@
+{
+  "experiment": "E045",
+  "status": "两张历史记录图完成；真实患者 replay 与槽诊断待运行",
+  "existing_record_figures": [
+    "实验档案/表格图片/E045_模块作用核验/现有记录_20261009/training_module_gains.png",
+    "实验档案/表格图片/E045_模块作用核验/现有记录_20261009/frozen_plan_ranking_response.png"
+  ],
+  "existing_record_table": [
+    "实验档案/表格图片/E045_模块作用核验/现有记录_20261009/paired_fold_gains.csv"
+  ],
+  "sources_and_output_hashes": "实验档案/表格图片/E045_模块作用核验/现有记录_20261009/evidence.json",
+  "source_commit": "9e81a04dddf0ac8e3d1e3e160da381b3ff5d2b0f",
+  "not_yet_generated": [
+    "replay_plan_blca",
+    "replay_plan_kirc",
+    "slot_diagnostics_blca",
+    "slot_diagnostics_kirc",
+    "retrieval_v2_real_review"
+  ],
+  "code": [
+    "实验档案/实验代码/E045_模块作用核验/visualize_v313_idea.py",
+    "实验档案/实验代码/E045_模块作用核验/SERVER_PROMPT.txt"
+  ],
+  "no_new_real_runs": true
+}

@@ -1039,5 +1039,41 @@
     "manuscript_relative_image_paths_fixed": 17,
     "new_local_training_or_inference_runs": 0,
     "review": "paper/V313_NEW_FIGURES_REVIEW_20261008.md"
+  },
+  "idea_module_review_E045": {
+    "date": "2026-10-09",
+    "source_commit": "9e81a04",
+    "archive_master": "实验档案/DCT实验总档案.docx",
+    "code": "实验档案/实验代码/E045_模块作用核验",
+    "figures": "实验档案/表格图片/E045_模块作用核验/现有记录_20261009",
+    "verdict": "preliminary training benefit; fine-transport mechanism not established",
+    "full_minus_direct": {
+      "blca": {
+        "mean": 0.020882841019737364,
+        "wins": 3,
+        "folds": 5
+      },
+      "kirc": {
+        "mean": 0.01933607621115534,
+        "wins": 4,
+        "folds": 5
+      }
+    },
+    "full_minus_independent": {
+      "blca": {
+        "mean": 0.014564054599790021,
+        "wins": 3,
+        "folds": 5
+      },
+      "kirc": {
+        "mean": 0.016980128863652365,
+        "wins": 5,
+        "folds": 5
+      }
+    },
+    "frozen_plan_response": "BLCA ranking unchanged; KIRC only fold2 small positive change",
+    "new_real_model_runs": 0,
+    "real_replay_pending": true,
+    "retrieval_v2_real_results_pending": true
   }
 }
