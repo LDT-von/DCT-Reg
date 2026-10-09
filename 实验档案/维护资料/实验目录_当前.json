@@ -1,7 +1,7 @@
 {
   "updated": "2026-10-09",
-  "records_count": 20,
-  "next_experiment": "E046",
+  "records_count": 21,
+  "next_experiment": "E047",
   "master": "实验档案/DCT实验总档案.docx",
   "base_snapshot": "实验档案/维护资料/实验目录_建档快照.json",
   "records": [
@@ -4190,6 +4190,28 @@
       ],
       "sources": [
         "实验档案/表格图片/E045_模块作用核验/现有记录_20261009/evidence.json"
+      ],
+      "new_training_runs": 0,
+      "new_patient_inference_runs": 0
+    },
+    {
+      "id": "E046",
+      "folder": "E046_WSI自重建消融",
+      "title": "v313 可选 WSI 自重建：增量与固定预算对照",
+      "kind": "候选辅助分支训练消融",
+      "status": "代码与合成检查就绪；真实训练未运行",
+      "purpose": "检验 WSI 自重建是否改善槽表征与生存预测，区分新增分支与增加系数预算的收益。",
+      "setting": "Full、WSI additive、WSI fixed_total；共同UNI2-h配置；默认outer_test，5折与固定seed；建议3/13/23。",
+      "conclusion": "仅验证实现、梯度、掩码、系数与兼容性；尚不能宣称真实性能提高。",
+      "pending": "服务器训练、患者/配置匹配、逐折与多seed配对结果；Word主档未修改，真实结果后备份更新。",
+      "scripts": [
+        "实验档案/实验代码/E046_WSI自重建消融/run_wsi_reconstruction_ablation.py",
+        "实验档案/实验代码/E046_WSI自重建消融/SERVER_PROMPT.txt"
+      ],
+      "figures": [],
+      "tables": [],
+      "sources": [
+        "实验档案/实验代码/E046_WSI自重建消融/README.md"
       ],
       "new_training_runs": 0,
       "new_patient_inference_runs": 0

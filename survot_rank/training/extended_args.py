@@ -785,6 +785,19 @@ def build_base_parser() -> argparse.ArgumentParser:
         ),
     )
     parser.add_argument(
+        "--dct_v313_lambda_wsi_reconstruction", type=float, default=0.0,
+        help="Optional WSI slot-to-patch feature self-reconstruction weight; 0 preserves Full.",
+    )
+    parser.add_argument(
+        "--dct_v313_wsi_reconstruction_budget", default="additive",
+        choices=["additive", "fixed_total"],
+        help="Add WSI weight, or rescale all reconstruction coefficients to the original active budget.",
+    )
+    parser.add_argument(
+        "--dct_v313_wsi_reconstruction_chunk_size", type=int, default=256,
+        help="Patch query chunk size for WSI reconstruction attention (positive integer).",
+    )
+    parser.add_argument(
         "--slotspe_recipe",
         type=str,
         default="native",
