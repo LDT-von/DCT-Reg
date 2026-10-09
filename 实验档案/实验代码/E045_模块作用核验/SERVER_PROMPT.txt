@@ -1,0 +1,34 @@
+只做 DCT v3.13 的 E045 模块作用核验。现有 19 条档案、历史版本、checkpoint、结果和图表全部保留。先安全同步 main，阅读 AGENTS.md、实验档案/保护与续写规则.md 与 E045 README。代码只放实验档案/实验代码/E045_模块作用核验，图表只放实验档案/表格图片/E045_模块作用核验的新子目录；原始患者数组保持服务器 results 目录，不进入 Git。
+
+任务不是证明“数据分数高”，而是检验：在相同患者与 checkpoint 下改变学习到的槽对应，是否改变条件通路重建和预测；并记录槽是否确有不同表征与 hazard。不得预设模块一定有效，不删除不利结果、不挑最好病例。
+
+一、先盘点原始资料
+清查 BLCA/KIRC Full exp6、seed3、legacy_val 的 manifest、curve、最佳 predictions、checkpoint、配置和五折 split，并核对 Full/Direct/Independent 训练配方唯一变化与有效权重。Direct 保留预测 OT；Independent 同时改变预测和 cross 重建。不要把旧 E037 撤回对照或 Exp4/5 的 0.025 单支配方作为严格 0.05 删除实验。
+
+二、运输重放与槽功能图 无需重训
+先查有没有经过当前 exporter 验证、包含五个 alpha 的旧 export.json + patients.npz；不能以三个病例 NPZ 或 PNG 代替全验证患者数组。若有，检查来源并复用；若没有，使用下面现有 export 入口重放既有 Full checkpoint。只导出 BLCA/KIRC exp6，五折，保持历史实际数据设置与患者，不训练，不加 --km 或 --profile：
+
+PY=<当前已核验环境的 Python>
+MANIFEST=<真实审计通过的 core manifest JSON 绝对路径>
+EXPORTS_BLCA=<results 中全新的 E045 BLCA 导出根目录>
+EXPORTS_KIRC=<results 中全新的 E045 KIRC 导出根目录>
+"$PY" scripts/prepare_v313_evidence.py audit --manifest "$MANIFEST" --output <新的审计JSON>
+"$PY" scripts/prepare_v313_evidence.py export --manifest "$MANIFEST" --arm exp6 --cancer blca --output "$EXPORTS_BLCA" --device cuda:0 --alphas 0,0.25,0.5,0.75,1
+"$PY" scripts/prepare_v313_evidence.py export --manifest "$MANIFEST" --arm exp6 --cancer kirc --output "$EXPORTS_KIRC" --device cuda:0 --alphas 0,0.25,0.5,0.75,1
+
+BLCA/KIRC 分别导出到两个全新根目录，不修改历史 manifest。固定同一模型权重和患者，alpha=0 必须复现保存的最佳预测；各阶段/几何计划采用 (1-alpha)*T + alpha*(同事实边际的乘积)，所有后续门控重新计算。每个 alpha 的行列边际残差必须 <=1e-4，任何不一致先停止查原因，不放宽阈值到通过为止。
+
+按 replay_input.example.json 结构列出十个实际 export 目录（读取 run 标识，不猜目录名），保留 source paths。运行：
+"$PY" '实验档案/实验代码/E045_模块作用核验/visualize_v313_idea.py' replay --input <真实清单JSON> --output '实验档案/表格图片/E045_模块作用核验/<新输出子目录>'
+
+应交付每癌种两张图，PNG/PDF/SVG 与 replay_review.json：
+- plan_mechanism_response：同图看逐折 delta C-index、患者绝对风险变化/本折原始风险 IQR、cross 通路 token 重建误差变化。不能跨 checkpoint 混合原始风险排名；每个点保留真实符号，误差不升或下降都如实报告。
+- slot_function_diagnostics：每患者的原始槽表征余弦相似度、跨槽 hazard 方差、最终组学通路 attention 的归一化熵。熵接近 1 是聚合权重接近均匀，不独立证明 raw slots 完全塌缩；这些图也不能定义生物学槽功能。
+
+三、配对重建图 优先修正版 v2
+复用当前 scripts/run_v313_additional_evidence.py 和 paper/V313_DIAGNOSTIC_BUGFIX_SERVER_PROMPT_20261008.txt，不重写旧检索。native、错配病理 WSI、训练均值都按相同 checkpoint/患者条件计算；错配重新求解运输。training_mean 是逐患者 LayerNorm 后 token 的算术均值，不能再次 LayerNorm。必须 retrieval_metric_version=2；版本1无法凭旧 rank 恢复，需同 checkpoint 的 reconstruction 重导出。冻结目标的组学依然参与运输，所以只叫“条件潜在重建”，不叫仅病理预测未观测基因。缺源数据时列缺项，不捏造十张图已完成。
+
+四、报告与登记
+以已有 E045 的现有记录图作为 baseline 阅读：Full 相对 Direct 的均值收益为 BLCA +0.0209/KIRC +0.0193，固定运输替换的 C-index 基本不变。新图要回答对应是否真的被解码/风险头使用，不能靠热图颜色证明。保留每个患者、fold、配置、checkpoint、源数组和图片哈希，报告是否支持/未支持假说，以及仍缺患者级配对、多 seed 与 matched 重训的部分。
+
+本轮不自动补其余八癌种训练。当前九行消融表缺 320 条折记录，Full 已有十队列；先只读检索真正缺项再另列训练计划。修改实验 Word 主档必须先备份；E045 是现有记录再分析加新图入口，不能计成新增 10 次训练。提交轻量新图、来源摘要与更新状态，患者 pkl/NPZ、WSI 与模型文件不入 Git。

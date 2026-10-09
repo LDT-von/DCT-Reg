@@ -1,0 +1,15 @@
+仅完成 E046 的 DCT v3.13 WSI 自重建消融。先拉取当前 main，阅读同目录 README。
+保留所有已有结果，不删除/移动/覆盖 checkpoint、日志、历史图、配置与实验档案。
+先打印启动计划，不执行模型：使用 run_wsi_reconstruction_ablation.py，
+--results-root 指定全新目录，--cancers blca kirc --seeds 3 13 23 --protocol outer_test。
+确认全部 split SHA256 有值且三个 arm 的患者划分、训练配方、fold、seed 完全一致。
+若服务器没有外层测试划分，先报告缺失，不用 legacy_val 冒充独立测试。
+确认训练资源与数据目录后，用同一计划加 --execute；启动入口单GPU串行。
+记录 source commit、base_config 快照、plan.json、日志、实际权重、最佳epoch、checkpoint及预测来源。
+不要按WSI分支表现回调超参；Full需同批次对照，不能只拼接历史最优分数。
+完成后按protocol/癌种/seed汇总五折，比较 wsi_additive 和 wsi_fixed_total 相对 full 的配对差值，
+核对患者身份/结局/划分、选模规则，保留不支持该分支的结果。十癌种扩展用 --cancers all。
+代码保存到 实验档案/实验代码/E046_WSI自重建消融，真实图表保存到
+实验档案/表格图片/E046_WSI自重建消融 的新批次子目录。原始训练输出留在 results-root，
+返回表格、图、来源JSON和缺失清单。图里必须标清开发验证还是独立测试，不用合成结果填性能表。
+修改Word总档前备份；目前主档尚未写入真实E046结果，E047为下一编号。
