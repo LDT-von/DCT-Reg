@@ -1,0 +1,568 @@
+"""DCT v3.11: Per-Slot Interpretability via Direct Survival Supervision.
+
+This module replaces the direction loss (DCR ≈ 0.526 ≈ random) with a
+mechanism that directly supervises slot-level representations:
+
+1. **Per-Slot NLL**: Each WSI slot and each Omics slot independently predicts
+   survival outcomes through its own hazard head. Gradients flow directly back
+   to the slot attention mechanism — no Sinkhorn bottleneck in the gradient path.
+
+2. **Slot Diversity Loss**: Forces slot predictions to have non-trivial variance,
+   preventing the model from collapsing all slots to the same representation.
+   The diversity target is a bounded range [σ²_min, σ²_max], enforced by a
+   two-sided hinge that cannot be bypassed by the encoder or OT plan.
+
+Key difference from v3.10:
+  - v3.10: direction loss gradient is attenuated by Sinkhorn (epsilon=0.05)
+  - v3.11: per-slot NLL gradient reaches slot attention directly; diversity
+    constraint lives purely in representation space
+
+This class keeps all v3.10 frozen invariants except:
+  - dct_v38_lambda_direction = 0.0  (direction loss disabled)
+  - New: per_slot_nll and slot_diversity objectives
+"""
+
+from __future__ import annotations
+
+from typing import Any
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+from survot_rank.research.methods.dct_v310_directional_regularized_transport.model import (
+    DCTV310DirectionalRegularizedTransport,
+)
+
+
+class DCTV311SlotInterpretable(DCTV310DirectionalRegularizedTransport):
+    """DCT v3.11: per-slot survival supervision + diversity constraint.
+
+    Replaces the direction loss with a mechanism that makes slot representations
+    directly interpretable via independent hazard predictions.  The key invariant:
+
+    - Every WSI slot and every Omics slot has its own hazard head.
+    - Each head is supervised by IPCW-weighted NLL.
+    - Slot predictions must vary (σ² > 0) so the model cannot collapse them.
+
+    The OT plan and event encoder remain intact; they still contribute to the
+    main survival prediction.  The new losses add *additional* supervision that
+    the gradient analysis proved the direction loss could not provide.
+    """
+
+    NLL_WEIGHT = 1.0
+    IPCW_RANK_WEIGHT = 0.10
+    # Direction loss is disabled because DCR ≈ 0.526 ≈ random (audit results 2026).
+    DIRECTION_WEIGHT = 0.0
+
+    # New v3.11 objective weights (frozen, paper-facing).
+    PER_SLOT_NLL_WEIGHT = 0.05
+    # Per-modality diversity needs higher weight than merged (5x larger) because
+    # the hinge only fires per-modality (8 slots vs 16), and the per-slot NLL
+    # gradient dominates otherwise (see smoke training analysis 2026-09-12).
+    SLOT_DIVERSITY_WEIGHT = 0.10  # was 0.02 for merged; raised to 0.10 for per-modality
+    # Anti-correlation weight was removed; replaced by pairwise-distance hinge
+    # on raw slot representations.  See PAIR_DIST_WEIGHT below.
+    PAIR_DIST_WEIGHT = 0.5  # weight applied to pair-distance hinge on raw slots
+
+    # Diversity target range (σ² per sample, per batch).
+    # For per-modality diversity (only 8 slots), variance naturally lower than merged.
+    # Lower bound 0.001 prevents full collapse while allowing meaningful diversity.
+    VARIANCE_MIN = 0.001
+    VARIANCE_MAX = 0.050
+
+    FROZEN_ARGUMENTS = dict(DCTV310DirectionalRegularizedTransport.FROZEN_ARGUMENTS)
+    FROZEN_ARGUMENTS.update({
+        # Disable direction loss explicitly.
+        "dct_v38_lambda_direction": 0.0,
+        # Disable dose and reconfiguration (they depend on direction loss).
+        "dct_v38_lambda_dose": 0.0,
+        "dct_v38_lambda_reconfiguration": 0.0,
+        # Per-slot NLL weight.
+        "dct_v311_lambda_slot_nll": PER_SLOT_NLL_WEIGHT,
+        # Slot diversity weight (BLCA 0.7174 winner used 0.02 = merged diversity).
+        "dct_v311_lambda_slot_diversity": 0.02,
+        # Diversity variance bounds.
+        "dct_v311_variance_min": VARIANCE_MIN,
+        "dct_v311_variance_max": VARIANCE_MAX,
+        # Zero out all v3.8 structural losses (dose/reconfig) for a clean baseline.
+        "dct_v38_warmup_epochs": 0,
+        "dct_v38_ramp_epochs": 0,
+    })
+
+    # Ablation override: when `dct_v313_disable_self_reconstruction` or
+    # `dct_v313_disable_cross_reconstruction` (or the v3.11 ablation flags
+    # exposed via CLI `--set`) is non-zero, the corresponding FROZEN_ARGUMENT
+    # is INTENTIONALLY allowed to win.  To make per-experiment ablation real,
+    # we only stamp FROZEN_ARGUMENTS onto `args` if the caller did not already
+    # supply that attribute on the command line.  We detect "user-supplied"
+    # by tracking which keys were emitted by `--set` (populated below).
+    @classmethod
+    def _filter_frozen_arguments(cls, args, frozen: dict[str, Any]) -> dict[str, Any]:
+        user_keys = getattr(args, "_dct_user_overrides", None)
+        if not user_keys:
+            return frozen
+        return {k: v for k, v in frozen.items() if k not in user_keys}
+
+    def __init__(self, args, omic_input_dim=None, omic_names=None, pathway_names=None):
+        # Enforce frozen recipe before any parent construction — but respect
+        # user overrides supplied via CLI `--set` (ablation studies).
+        for name, value in self._filter_frozen_arguments(args, self.FROZEN_ARGUMENTS).items():
+            setattr(args, name, value)
+        super().__init__(args, omic_input_dim, omic_names, pathway_names)
+
+        # ---- Per-Slot Hazard Heads ----
+        # Gradient path: per_slot_nll → slot_hazard_head → slots → slot_attention
+        # No Sinkhorn, no OT plan, no event_encoder in this gradient chain.
+        dim = self.wsi_projection_dim
+        num_classes = self.num_classes
+        num_wsi_slots = int(getattr(args, "slot_num_wsi", 8))
+        num_omic_slots = int(getattr(args, "slot_num_omics", 4))
+
+        self.per_slot_hazard_wsi = nn.Linear(dim, num_classes)
+        self.per_slot_hazard_omic = nn.Linear(dim, num_classes)
+        self.num_wsi_slots = num_wsi_slots
+        self.num_omic_slots = num_omic_slots
+
+        # ---- Model attribute sync (for diagnostics) ----
+        # Prefer CLI `--set dct_lambda_ipcw_rank=...` over the class default
+        # so that ablation studies can zero out the IPCW rank term.
+        self.dct_lambda_ipcw_rank = float(
+            getattr(args, "dct_lambda_ipcw_rank", self.IPCW_RANK_WEIGHT)
+        )
+        self.dct_v38_lambda_direction = 0.0
+        self.dct_v38_lambda_dose = 0.0
+        self.dct_v38_lambda_reconfiguration = 0.0
+
+        # ---- Diagnostics (updated each forward pass) ----
+        self._last_per_slot_nll = 0.0
+        self._last_slot_diversity = 0.0
+        self._last_slot_variance = 0.0
+        # Per-modality diagnostics (used by per-modality diversity loss)
+        self._last_slot_variance_wsi = 0.0
+        self._last_slot_variance_omic = 0.0
+        # Pairwise-distance diagnostics (anti-collapse signal on raw slots)
+        self._last_slot_pair_dist_wsi = 0.0
+        self._last_slot_pair_dist_omic = 0.0
+
+    @classmethod
+    def objective_weights(cls) -> dict[str, float]:
+        """Return the immutable paper objective for manifests and tests."""
+        return {
+            "nll": cls.NLL_WEIGHT,
+            "ipcw_rank": cls.IPCW_RANK_WEIGHT,
+            "per_slot_nll": cls.PER_SLOT_NLL_WEIGHT,
+            "slot_diversity": cls.SLOT_DIVERSITY_WEIGHT,
+            "slot_pair_dist": cls.PAIR_DIST_WEIGHT,
+        }
+
+    @classmethod
+    def key_contributions(cls) -> list[str]:
+        """Return DCT v3.11 contribution claims in priority order."""
+        return [
+            "Per-slot survival supervision: each WSI/Omics slot independently predicts risk",
+            "Diversity constraint: prevents slot collapse, enables multi-subtype representation",
+            "IPCW-aware ranking for reliable survival curves",
+            "Interpretable: slot hazard predictions are directly readable (no OT bottleneck)",
+        ]
+
+    # ============================================================
+    #  Per-Slot NLL Loss
+    # ============================================================
+
+    def _nll_surv_per_slot(self, hazard, y_onehot, event_mask, censor_mask, ipcw):
+        """Compute IPCW-weighted discrete-time NLL for a [B, K, C] hazard tensor.
+
+        Discrete-time NLL (standard formula from loss_func.py):
+            Event patient (c=0):  L = -(log S(t-1) + log h(t))
+            Censored patient (c=1): L = -log S(T_c)
+
+        Args:
+            hazard: [B, K, C] sigmoid hazard per slot
+            y_onehot: [B, C] one-hot time bin
+            event_mask: [B, 1] True where event is observed (c=0)
+            censor_mask: [B, 1] True where patient is censored (c=1)
+            ipcw: [B, 1] IPCW weight per patient
+
+        Returns:
+            [B, K] NLL loss per slot, already IPCW-weighted.
+        """
+        eps = 1e-7
+        log_h = (hazard + eps).clamp_max(1.0 - eps).log()    # [B, K, C]
+        log_s = (1.0 - hazard + eps).clamp_max(1.0 - eps).log()  # [B, K, C]
+
+        # S_padded[t] = S(t), where S(0) = 1, S(1) = 1 - h(0), etc.
+        # S_padded shape: [B, K, C+1] with S_padded[..., 0] = 1
+        ones = torch.ones_like(log_s[..., :1])  # [B, K, 1]
+        s_padded = torch.cat([ones, log_s], dim=-1)  # [B, K, C+1]
+
+        # y index per patient: [B, 1]
+        y_idx = y_onehot.argmax(dim=-1, keepdim=True)  # [B, 1]
+        y_idx_exp = y_idx.unsqueeze(1).expand(-1, hazard.size(1), -1)  # [B, K, 1]
+
+        # For event patients: -log S(t-1) - log h(t)
+        s_prev = torch.gather(s_padded, dim=-1, index=y_idx_exp).squeeze(-1)  # [B, K]
+        h_this = torch.gather(log_h, dim=-1, index=y_idx_exp).squeeze(-1)     # [B, K]
+        uncensored_loss = -(s_prev + h_this)  # [B, K]
+
+        # For censored patients: -log S(T_c) = -S_padded[..., y+1]
+        s_at_censor = torch.gather(
+            s_padded, dim=-1, index=(y_idx_exp + 1).clamp(max=s_padded.size(-1) - 1)
+        ).squeeze(-1)  # [B, K]
+        censored_loss = -s_at_censor  # [B, K]
+
+        # Apply masks (broadcast across slot dimension)
+        event_nll = uncensored_loss * event_mask  # [B, K]
+        surv_nll = censored_loss * censor_mask    # [B, K]
+        nll_per_slot = event_nll + surv_nll       # [B, K]
+
+        return nll_per_slot * ipcw  # [B, K]
+
+    def per_slot_nll_loss(self, slots_wsi, slots_omic, y, event_time, c):
+        """IPCW-weighted NLL per slot, averaged across all slots.
+
+        Args:
+            slots_wsi: [B, K_w, D] WSI slot representations
+            slots_omic: [B, K_o, D] Omics slot representations
+            y: [B] discrete time-bin labels (long) OR [B, C] one-hot floats
+            event_time: [B] raw event times (not used directly, for IPCW)
+            c: [B] censorship flag (0=event, 1=censored)
+
+        Returns:
+            Scalar loss = mean NLL across WSI slots and Omics slots.
+
+        Gradient path (critical difference from direction loss):
+            L_slot → per_slot_hazard_* → slots_wsi/omic → slot_attention
+            No Sinkhorn, no OT plan, no event_encoder.
+        """
+        bsz = slots_wsi.size(0)
+
+        # Per-slot hazard predictions.  Per-slot heads broadcast over the
+        # time-bin dimension; their out_features must equal the number of
+        # discrete bins (``n_classes`` in the trainer).
+        hazard_wsi = torch.sigmoid(self.per_slot_hazard_wsi(slots_wsi))    # [B, K_w, C]
+        hazard_omic = torch.sigmoid(self.per_slot_hazard_omic(slots_omic)) # [B, K_o, C]
+        num_classes = hazard_wsi.size(-1)
+
+        # Normalize y → one-hot of shape [B, num_classes].
+        if y.dim() == 1:
+            y_idx = y.long().view(bsz)
+            if y_idx.max().item() >= num_classes:
+                raise ValueError(
+                    f"per_slot_nll_loss: label index {int(y_idx.max())} "
+                    f">= num_classes {num_classes}"
+                )
+            y_onehot = torch.zeros(bsz, num_classes, device=y.device, dtype=hazard_wsi.dtype)
+            y_onehot.scatter_(1, y_idx.unsqueeze(1), 1.0)
+        elif y.dim() == 2:
+            y_onehot = y.float()
+        else:
+            raise ValueError(
+                f"per_slot_nll_loss: y must be [B] or [B, C], got {tuple(y.shape)}"
+            )
+
+        event_mask = (c.float() < 0.5).view(bsz, 1)      # [B, 1]
+        censor_mask = (c.float() >= 0.5).view(bsz, 1)     # [B, 1]
+
+        # IPCW weights.
+        ipcw = self._ipcw(event_time.float()).view(bsz, 1).clamp_min(1e-3)  # [B, 1]
+
+        # WSI slot NLL.
+        nll_wsi = self._nll_surv_per_slot(hazard_wsi, y_onehot, event_mask, censor_mask, ipcw)  # [B, K_w]
+        loss_wsi = nll_wsi.mean()
+
+        # Omics slot NLL.
+        nll_omic = self._nll_surv_per_slot(hazard_omic, y_onehot, event_mask, censor_mask, ipcw)  # [B, K_o]
+        loss_omic = nll_omic.mean()
+
+        self._last_per_slot_nll = (loss_wsi.item() + loss_omic.item()) * 0.5
+        return 0.5 * (loss_wsi + loss_omic)
+
+    # ============================================================
+    #  Slot Diversity Loss
+    # ============================================================
+
+    def slot_diversity_loss(self, slots_wsi, slots_omic):
+        """Per-modality DECOUPLED diversity, applied to slot REPRESENTATIONS.
+
+        Operates on raw slots (post-encoder) so the gradient flows back to
+        slot attention directly — not through the OT plan, not through the
+        per-slot hazard head, and not through the main survival head.
+
+        Two complementary mechanisms per modality, applied INDEPENDENTLY to
+        WSI slots and Omics slots (no cross-modality compensation, since a
+        high-variance modality can otherwise hide a collapsed one):
+
+          1. Variance band hinge (forces σ² ∈ [margin_min, margin_max])
+             on per-slot hazard predictions.  Soft constraint.
+          2. Pairwise-distance hinge on slot representations.  HARD
+             constraint that pushes every pair of slots to be at least
+             `target_dist` apart in L2 — even when one modality has very
+             few effective slots, this prevents silent collapse.
+
+        Why both?  In v3.11 per-modality (8 slots per modality), variance
+        alone is dominated by per_slot_nll which rewards all slots
+        predicting the correct hazard (a collapse-inducing gradient).  The
+        pairwise-distance hinge on raw slots provides a non-collapse signal
+        that is INDEPENDENT of the hazard head, so it cannot be co-opted
+        by per_slot_nll.
+
+        Args:
+            slots_wsi: [B, K_w, D] WSI slot representations
+            slots_omic: [B, K_o, D] Omics slot representations
+        Returns:
+            Scalar diversity loss = mean(W_diversity + O_diversity).
+        """
+        hazard_wsi = torch.sigmoid(self.per_slot_hazard_wsi(slots_wsi))   # [B, K_w, C]
+        hazard_omic = torch.sigmoid(self.per_slot_hazard_omic(slots_omic))  # [B, K_o, C]
+
+        margin_min = float(getattr(self.args, "dct_v311_variance_min", self.VARIANCE_MIN) or self.VARIANCE_MIN)
+        margin_max = float(getattr(self.args, "dct_v311_variance_max", self.VARIANCE_MAX) or self.VARIANCE_MAX)
+        target_pair_dist = float(getattr(self.args, "dct_v311_target_pair_dist", 1.0) or 1.0)
+
+        # ---- Mechanism 1: Variance band hinge (per-sample) ----
+        def _per_sample_variance(hazard):
+            mean = hazard.mean(dim=1, keepdim=True)
+            return ((hazard - mean) ** 2).mean(dim=(1, 2))  # [B]
+
+        def _hinge(var):
+            return F.relu(margin_min - var) + F.relu(var - margin_max)
+
+        var_wsi = _per_sample_variance(hazard_wsi)
+        var_omic = _per_sample_variance(hazard_omic)
+
+        # ---- Mechanism 2: Pairwise L2 distance hinge (on raw slots) ----
+        # This is the critical anti-collapse signal.  In a perfectly symmetric
+        # collapse state all slot representations are identical, so the
+        # squared-distance pair term is exactly zero; combined with the
+        # target_dist² bound, the loss has a CONSTANT positive value when
+        # slots collapse.  As soon as slots differ by even ε (which always
+        # happens in practice due to slot-attention noise), the gradient is
+        # 2·(slots_k − slots_l)/K² and pushes them apart.
+        def _pair_dist_sq(slots):
+            # slots: [B, K, D]
+            diff_sq = (slots.unsqueeze(2) - slots.unsqueeze(1)) ** 2  # [B, K, K, D]
+            pair_sq = diff_sq.sum(dim=-1)  # [B, K, K]
+            identity = torch.eye(slots.size(1), device=slots.device).unsqueeze(0)
+            mask = 1.0 - identity
+            n_off = mask.sum().item() / slots.size(0)
+            return (pair_sq * mask).sum(dim=(1, 2)) / max(n_off, 1.0)
+
+        target_sq = target_pair_dist ** 2
+        pair_wsi_sq = _pair_dist_sq(slots_wsi)
+        pair_omic_sq = _pair_dist_sq(slots_omic)
+
+        # Track diagnostics for monitoring
+        self._last_slot_variance_wsi = var_wsi.mean().item()
+        self._last_slot_variance_omic = var_omic.mean().item()
+        self._last_slot_pair_dist_wsi = pair_wsi_sq.mean().item() ** 0.5
+        self._last_slot_pair_dist_omic = pair_omic_sq.mean().item() ** 0.5
+        # Backward-compat (combined metric for monitoring only)
+        self._last_slot_variance = 0.5 * (var_wsi.mean().item() + var_omic.mean().item())
+
+        # Each modality contributes independently to the diversity loss.
+        # Per-modality weights prevent one modality from compensating for a
+        # collapsed one.  Variance hinge keeps σ² in band; pairwise-distance
+        # hinge on RAW SLOTS provides the strong anti-collapse signal that
+        # variance alone cannot — variance is dominated by per_slot_nll which
+        # rewards identical-correct predictions (a collapse attractor).
+        pair_weight = float(getattr(self.args, "dct_v311_lambda_pair_dist", 0.5) or 0.5)
+        loss_wsi = _hinge(var_wsi).mean() + pair_weight * F.relu(target_sq - pair_wsi_sq).mean()
+        loss_omic = _hinge(var_omic).mean() + pair_weight * F.relu(target_sq - pair_omic_sq).mean()
+        batch_loss = 0.5 * (loss_wsi + loss_omic)
+
+        self._last_slot_diversity = batch_loss.item()
+        return batch_loss
+
+    # ============================================================
+    #  Full Forward Pass
+    # ============================================================
+
+    def forward(self, **kwargs):
+        """Forward pass with per-slot survival supervision.
+
+        This re-implements the DCT base forward chain with per-slot NLL
+        and diversity injected into the auxiliary loss.  The parent class's
+        `_combine_auxiliary_objectives` is NOT called; we replace it here
+        to keep the chain clean and avoid accidentally mixing in the
+        direction loss from parent classes.
+        """
+        # ---- Encoding ----
+        x_wsi_proj = self.wsi_mlp(kwargs["x_wsi"])
+        x_omics = self._encode_omics(kwargs)
+
+        (
+            slots_wsi,
+            slots_omic,
+            wsi_coord_assign,
+            omic_coord_assign,
+        ) = self._encode_transport_slots(x_wsi_proj, x_omics, kwargs)
+
+        epoch = int(getattr(self.args, "cur_epoch", kwargs.get("cur_epoch", 0)))
+        if self.training:
+            self._reset_ipcw_memory_for_epoch(epoch)
+
+        # ---- Transport plan ----
+        factual_costs, rows, cols, evidence_gate = self._cost_tensor(slots_wsi, slots_omic)
+        factual_plans, ot_distance = self._plans_from_cost_tensor(
+            factual_costs, rows, cols, epoch, replay_fixed=False
+        )
+        if self.dct_fixed_coupling:
+            self._factual_plan_cache = [
+                [plan.detach() for plan in stage_plans]
+                for stage_plans in factual_plans
+            ]
+
+        self._last_factual_costs = factual_costs.detach()
+        self._last_factual_rows = rows.detach()
+        self._last_factual_cols = cols.detach()
+        self._last_slots_wsi = slots_wsi.detach()
+        self._last_slots_omic = slots_omic.detach()
+
+        # ---- Event encoding and risk prediction ----
+        factual_logits, factual_gate = self._encode_logits_from_plans(
+            slots_wsi, slots_omic, factual_plans
+        )
+        factual_risk = self._risk(factual_logits)
+
+        # ---- IPCW ranking loss ----
+        low_weights = factual_costs.new_zeros(
+            factual_costs.size(0), self.spt_num_stages
+        )
+        high_weights = torch.zeros_like(low_weights)
+        ipcw_rank_loss = factual_costs.new_zeros(())
+
+        if kwargs.get("event_time") is not None and kwargs.get("c") is not None:
+            low_weights, high_weights = self._stage_membership_weights(
+                kwargs["event_time"], kwargs["c"]
+            )
+            if self.training and self.dct_lambda_ipcw_rank != 0.0:
+                ipcw_rank_loss = self._ipcw_pairwise_ranking_loss(
+                    factual_logits, kwargs["event_time"], kwargs["c"]
+                )
+                self._remember_ipcw_batch(
+                    factual_risk,
+                    kwargs["event_time"].float().view(-1),
+                    kwargs["c"].float().view(-1),
+                )
+            if self.training:
+                self._update_risk_anchors(factual_costs.detach(), low_weights, high_weights)
+
+        # ---- Per-slot losses (only during training with labels) ----
+        y = kwargs.get("y")
+        event_time = kwargs.get("event_time")
+        c = kwargs.get("c")
+
+        per_slot_nll = factual_costs.new_zeros(())
+        slot_diversity = factual_costs.new_zeros(())
+
+        if self.training and y is not None and event_time is not None and c is not None:
+            per_slot_nll = self.per_slot_nll_loss(
+                slots_wsi, slots_omic, y, event_time, c
+            )
+            slot_diversity = self.slot_diversity_loss(slots_wsi, slots_omic)
+
+        # ---- Combine auxiliary objectives (v3.11 recipe) ----
+        lambda_slot_nll = float(
+            getattr(self.args, "dct_v311_lambda_slot_nll", self.PER_SLOT_NLL_WEIGHT)
+        )
+        lambda_diversity = float(
+            getattr(self.args, "dct_v311_lambda_slot_diversity", self.SLOT_DIVERSITY_WEIGHT)
+        )
+
+        aux_loss = (
+            self.dct_lambda_ipcw_rank * ipcw_rank_loss
+            + lambda_slot_nll * per_slot_nll
+            + lambda_diversity * slot_diversity
+        )
+
+        # ---- Training diagnostics ----
+        if self.training:
+            active_stage_fraction = (
+                ((low_weights > 0).any(dim=0) & (high_weights > 0).any(dim=0))
+                .to(factual_costs.dtype)
+                .mean()
+            )
+            import math
+            row_entropy = -(
+                rows.clamp_min(1e-8) * rows.clamp_min(1e-8).log()
+            ).sum(dim=-1) / math.log(max(2, rows.size(-1)))
+            col_entropy = -(
+                cols.clamp_min(1e-8) * cols.clamp_min(1e-8).log()
+            ).sum(dim=-1) / math.log(max(2, cols.size(-1)))
+
+            self.last_training_losses = {
+                "ot": ot_distance.detach(),
+                "ipcw_rank": ipcw_rank_loss.detach(),
+                "v311_per_slot_nll": (
+                    per_slot_nll.detach()
+                    if torch.is_tensor(per_slot_nll)
+                    else factual_costs.new_tensor(float(per_slot_nll))
+                ),
+                "v311_slot_diversity": (
+                    slot_diversity.detach()
+                    if torch.is_tensor(slot_diversity)
+                    else factual_costs.new_tensor(float(slot_diversity))
+                ),
+                "v311_slot_variance": factual_costs.new_tensor(self._last_slot_variance),
+                "v311_slot_variance_wsi": factual_costs.new_tensor(
+                    getattr(self, "_last_slot_variance_wsi", self._last_slot_variance)
+                ),
+                "v311_slot_variance_omic": factual_costs.new_tensor(
+                    getattr(self, "_last_slot_variance_omic", self._last_slot_variance)
+                ),
+                "v311_slot_pair_dist_wsi": factual_costs.new_tensor(
+                    getattr(self, "_last_slot_pair_dist_wsi", 0.0)
+                ),
+                "v311_slot_pair_dist_omic": factual_costs.new_tensor(
+                    getattr(self, "_last_slot_pair_dist_omic", 0.0)
+                ),
+                "v311_per_slot_nll_lambda": factual_costs.new_tensor(lambda_slot_nll),
+                "v311_slot_diversity_lambda": factual_costs.new_tensor(lambda_diversity),
+                "active_stage_fraction": active_stage_fraction.detach(),
+                "anchor_coverage": self.risk_anchor_seen.to(factual_costs.dtype).mean().detach(),
+                "evidence_marginal_entropy": torch.cat(
+                    [row_entropy.flatten(), col_entropy.flatten()]
+                ).mean().detach(),
+            }
+
+        # ---- Evaluation mode: counterfactual audit ----
+        if not self.training:
+            low_costs, high_costs = self._counterfactual_costs(factual_costs)
+            low_plans, _ = self._plans_from_cost_tensor(
+                low_costs, rows, cols, epoch, replay_fixed=True
+            )
+            high_plans, _ = self._plans_from_cost_tensor(
+                high_costs, rows, cols, epoch, replay_fixed=True
+            )
+            low_logits, _ = self._encode_logits_from_plans(slots_wsi, slots_omic, low_plans)
+            high_logits, _ = self._encode_logits_from_plans(slots_wsi, slots_omic, high_plans)
+            low_risk = self._risk(low_logits)
+            high_risk = self._risk(high_logits)
+
+            self.last_explanations = {
+                "stage_slot_pair_evidence": torch.stack(
+                    [item[0] for item in factual_plans], dim=1
+                ).detach(),
+                "evidence_gate": evidence_gate.detach(),
+                "wsi_coordinate_assignment": wsi_coord_assign.detach(),
+                "omic_coordinate_assignment": omic_coord_assign.detach(),
+                "factual_risk": factual_risk.detach(),
+                "low_risk_counterfactual": low_risk.detach(),
+                "high_risk_counterfactual": high_risk.detach(),
+                "counterfactual_risk_delta_low": (low_risk - factual_risk).detach(),
+                "counterfactual_risk_delta_high": (high_risk - factual_risk).detach(),
+                "risk_anchor_costs": self.risk_anchor_costs.detach(),
+                "risk_anchor_seen": self.risk_anchor_seen.detach(),
+                "stage_edges": self.dct_stage_edges.detach(),
+                "event_gate": factual_gate.detach(),
+                # Per-slot hazard predictions (new interpretability output).
+                "per_slot_hazard_wsi": torch.sigmoid(
+                    self.per_slot_hazard_wsi(slots_wsi)
+                ).detach(),
+                "per_slot_hazard_omic": torch.sigmoid(
+                    self.per_slot_hazard_omic(slots_omic)
+                ).detach(),
+            }
+
+        return factual_logits, aux_loss

@@ -1,0 +1,9 @@
+{
+  "fold": 2,
+  "n_samples": 76,
+  "n_failed": 0,
+  "anchor_distance": 32.0,
+  "mr_low": 0.7105263157894737,
+  "mr_high": 0.7894736842105263,
+  "mr_mean": 0.75
+}

@@ -1,0 +1,20 @@
+{
+  "id": "E024",
+  "entries": [
+    {
+      "requested": "scripts/_archive_v310_v311/audit_fixed_anchors_batch.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\audit_fixed_anchors_batch.py",
+      "sha256": "1f3f4927893fce0932e0bf18345aa10cb36210610c3b5dde856dbb26d31ca053",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "scripts/_archive_v310_v311/e4_audit_adapted.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\e4_audit_adapted.py",
+      "sha256": "e3a3d761c19e1dbab10c46745d5a21be1857118fea5fa8cc1fff192ac01d8a18",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

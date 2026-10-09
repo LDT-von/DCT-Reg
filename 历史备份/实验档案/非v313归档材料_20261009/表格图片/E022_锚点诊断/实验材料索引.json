@@ -1,0 +1,81 @@
+{
+  "id": "E022",
+  "folder": "E022_锚点诊断",
+  "title": "锚点跨折一致性和风险分离诊断",
+  "kind": "补录实验或审计",
+  "status": "有历史报告 原始诊断 JSON 在服务器未同步",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "报告三项：跨折一致性、模态内距离、高低风险原型分离。",
+  "conclusion": "报告 WSI/omic 跨折相似度 0.694/0.798、归一化风险分离 0.0174。阈值与因果解释未独立复核，仅保留诊断结果。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "ANCHOR_EXPERIMENTS_REPORT_20260907.md",
+    "ANCHOR_DIAGNOSIS_SUMMARY_CN.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/anchor_consistency_analysis.py",
+    "scripts/_archive_v310_v311/anchor_separation_analysis.py",
+    "scripts/_archive_v310_v311/run_anchor_experiments.py"
+  ],
+  "tables": [
+    {
+      "title": "原报告数值",
+      "headers": [
+        "实验",
+        "指标",
+        "阈值",
+        "实际值",
+        "状态"
+      ],
+      "rows": [
+        [
+          "1.1 锚点跨折一致性",
+          "WSI 原型相似度",
+          ">0.70",
+          "0.694",
+          " 失败"
+        ],
+        [
+          "1.1 锚点跨折一致性",
+          "Omic 原型相似度",
+          ">0.70",
+          "0.798",
+          " 通过"
+        ],
+        [
+          "1.2 锚点分离度",
+          "原型内部离散度",
+          "-",
+          "0.597 ± 0.03",
+          "✓ 正常"
+        ],
+        [
+          "1.3 风险原型分离度",
+          "归一化分离度",
+          ">2.0",
+          "0.0174",
+          " 失败"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E022",
+      "source": "ANCHOR_EXPERIMENTS_REPORT_20260907.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E022_锚点诊断\\原始材料\\ANCHOR_EXPERIMENTS_REPORT_20260907.md",
+      "sha256": "5b861f7d9c18803c4655f53fb65e10c5819622ce98644c4436c2e68f5ba3a0a0"
+    },
+    {
+      "experiment": "E022",
+      "source": "ANCHOR_DIAGNOSIS_SUMMARY_CN.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E022_锚点诊断\\原始材料\\ANCHOR_DIAGNOSIS_SUMMARY_CN.md",
+      "sha256": "fc6615899208fc5f68ce10ec3ad53422b721ab2f60db2687106a826809a9d016"
+    }
+  ]
+}

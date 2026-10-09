@@ -1,0 +1,765 @@
+{
+  "id": "E038",
+  "folder": "E038_v313多病例",
+  "title": "v3.13 多病例解释图补录",
+  "kind": "补录实验或审计",
+  "status": "已同步病例 PNG 缺部分逐病例身份清单",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "BLCA/KIRC 的 Full 与控制臂病例图；按目录和文件计数，文件数不是独立患者数。",
+  "conclusion": "上一版只展示一个病例，遗漏了两癌种多折病例图；已补归档。图片本身不证明真实组织空间对应。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "paper/figures/case_interpretation/blca_fold0/case_TCGA-4Z-AA86.png",
+    "paper/figures/case_interpretation/blca_fold0/case_TCGA-BL-A5ZZ.png",
+    "paper/figures/case_interpretation/blca_fold0/case_TCGA-BT-A20O.png",
+    "paper/figures/case_interpretation/blca_fold1/case_TCGA-2F-A9KP.png",
+    "paper/figures/case_interpretation/blca_fold1/case_TCGA-2F-A9KW.png",
+    "paper/figures/case_interpretation/blca_fold1/case_TCGA-4Z-AA7Q.png",
+    "paper/figures/case_interpretation/blca_fold2/case_TCGA-2F-A9KQ.png",
+    "paper/figures/case_interpretation/blca_fold2/case_TCGA-2F-A9KR.png",
+    "paper/figures/case_interpretation/blca_fold2/case_TCGA-2F-A9KT.png",
+    "paper/figures/case_interpretation/blca_fold3/case_TCGA-4Z-AA7W.png",
+    "paper/figures/case_interpretation/blca_fold3/case_TCGA-4Z-AA81.png",
+    "paper/figures/case_interpretation/blca_fold3/case_TCGA-4Z-AA82.png",
+    "paper/figures/case_interpretation/blca_fold4/case_TCGA-2F-A9KO.png",
+    "paper/figures/case_interpretation/blca_fold4/case_TCGA-4Z-AA7N.png",
+    "paper/figures/case_interpretation/blca_fold4/case_TCGA-4Z-AA7O.png",
+    "paper/figures/case_interpretation/kirc_fold0/case_TCGA-A3-3317.png",
+    "paper/figures/case_interpretation/kirc_fold0/case_TCGA-A3-3324.png",
+    "paper/figures/case_interpretation/kirc_fold0/case_TCGA-A3-3325.png",
+    "paper/figures/case_interpretation/kirc_fold1/case_TCGA-6D-AA2E.png",
+    "paper/figures/case_interpretation/kirc_fold1/case_TCGA-A3-3306.png",
+    "paper/figures/case_interpretation/kirc_fold1/case_TCGA-A3-3331.png",
+    "paper/figures/case_interpretation/kirc_fold2/case_TCGA-3Z-A93Z.png",
+    "paper/figures/case_interpretation/kirc_fold2/case_TCGA-A3-3308.png",
+    "paper/figures/case_interpretation/kirc_fold2/case_TCGA-A3-3322.png",
+    "paper/figures/case_interpretation/kirc_fold3/case_TCGA-A3-3316.png",
+    "paper/figures/case_interpretation/kirc_fold3/case_TCGA-A3-3319.png",
+    "paper/figures/case_interpretation/kirc_fold3/case_TCGA-A3-3323.png",
+    "paper/figures/case_interpretation/kirc_fold4/case_TCGA-A3-3307.png",
+    "paper/figures/case_interpretation/kirc_fold4/case_TCGA-A3-3311.png",
+    "paper/figures/case_interpretation/kirc_fold4/case_TCGA-A3-3313.png",
+    "paper/figures/case_interpretation_v2/blca_direct_fold3/case_TCGA-4Z-AA7W.png",
+    "paper/figures/case_interpretation_v2/blca_direct_fold3/case_TCGA-4Z-AA81.png",
+    "paper/figures/case_interpretation_v2/blca_direct_fold4/case_TCGA-2F-A9KO.png",
+    "paper/figures/case_interpretation_v2/blca_direct_fold4/case_TCGA-4Z-AA7N.png",
+    "paper/figures/case_interpretation_v2/blca_exp6_fold0/case_TCGA-4Z-AA86.png",
+    "paper/figures/case_interpretation_v2/blca_exp6_fold0/case_TCGA-BL-A5ZZ.png",
+    "paper/figures/case_interpretation_v2/blca_exp6_fold1/case_TCGA-2F-A9KP.png",
+    "paper/figures/case_interpretation_v2/blca_exp6_fold1/case_TCGA-2F-A9KW.png",
+    "paper/figures/case_interpretation_v2/blca_exp6_fold2/case_TCGA-2F-A9KQ.png",
+    "paper/figures/case_interpretation_v2/blca_exp6_fold2/case_TCGA-2F-A9KR.png",
+    "paper/figures/case_interpretation_v2/blca_exp6_fold3/case_TCGA-4Z-AA7W.png",
+    "paper/figures/case_interpretation_v2/blca_exp6_fold3/case_TCGA-4Z-AA81.png",
+    "paper/figures/case_interpretation_v2/blca_exp6_fold4/case_TCGA-2F-A9KO.png",
+    "paper/figures/case_interpretation_v2/blca_exp6_fold4/case_TCGA-4Z-AA7N.png",
+    "paper/figures/case_interpretation_v2/blca_independent_fold2/case_TCGA-2F-A9KQ.png",
+    "paper/figures/case_interpretation_v2/blca_independent_fold2/case_TCGA-2F-A9KR.png",
+    "paper/figures/case_interpretation_v2/kirc_direct_fold4/case_TCGA-A3-3307.png",
+    "paper/figures/case_interpretation_v2/kirc_direct_fold4/case_TCGA-A3-3311.png",
+    "paper/figures/case_interpretation_v2/kirc_exp6_fold0/case_TCGA-A3-3317.png",
+    "paper/figures/case_interpretation_v2/kirc_exp6_fold0/case_TCGA-A3-3324.png",
+    "paper/figures/case_interpretation_v2/kirc_exp6_fold1/case_TCGA-6D-AA2E.png",
+    "paper/figures/case_interpretation_v2/kirc_exp6_fold1/case_TCGA-A3-3306.png",
+    "paper/figures/case_interpretation_v2/kirc_exp6_fold2/case_TCGA-3Z-A93Z.png",
+    "paper/figures/case_interpretation_v2/kirc_exp6_fold2/case_TCGA-A3-3308.png",
+    "paper/figures/case_interpretation_v2/kirc_exp6_fold3/case_TCGA-A3-3316.png",
+    "paper/figures/case_interpretation_v2/kirc_exp6_fold3/case_TCGA-A3-3319.png",
+    "paper/figures/case_interpretation_v2/kirc_exp6_fold4/case_TCGA-A3-3307.png",
+    "paper/figures/case_interpretation_v2/kirc_exp6_fold4/case_TCGA-A3-3311.png",
+    "paper/figures/case_interpretation_v2/kirc_independent_fold1/case_TCGA-6D-AA2E.png",
+    "paper/figures/case_interpretation_v2/kirc_independent_fold1/case_TCGA-A3-3306.png",
+    "paper/figures/case_interpretation_v2/kirc_independent_fold2/case_TCGA-3Z-A93Z.png",
+    "paper/figures/case_interpretation_v2/kirc_independent_fold2/case_TCGA-A3-3308.png",
+    "paper/figures/case_interpretation_v2/kirc_independent_fold3/case_TCGA-A3-3316.png",
+    "paper/figures/case_interpretation_v2/kirc_independent_fold3/case_TCGA-A3-3319.png",
+    "paper/figures/case_interpretation_v2/kirc_independent_fold4/case_TCGA-A3-3307.png",
+    "paper/figures/case_interpretation_v2/kirc_independent_fold4/case_TCGA-A3-3311.png"
+  ],
+  "scripts": [
+    "scripts/plot_fig_c_case_interpretation.py"
+  ],
+  "tables": [
+    {
+      "title": "病例图文件覆盖",
+      "headers": [
+        "版本目录",
+        "病例 PNG 数",
+        "统计单位"
+      ],
+      "rows": [
+        [
+          "case_interpretation/blca_fold0",
+          "3",
+          "图文件"
+        ],
+        [
+          "case_interpretation/blca_fold1",
+          "3",
+          "图文件"
+        ],
+        [
+          "case_interpretation/blca_fold2",
+          "3",
+          "图文件"
+        ],
+        [
+          "case_interpretation/blca_fold3",
+          "3",
+          "图文件"
+        ],
+        [
+          "case_interpretation/blca_fold4",
+          "3",
+          "图文件"
+        ],
+        [
+          "case_interpretation/kirc_fold0",
+          "3",
+          "图文件"
+        ],
+        [
+          "case_interpretation/kirc_fold1",
+          "3",
+          "图文件"
+        ],
+        [
+          "case_interpretation/kirc_fold2",
+          "3",
+          "图文件"
+        ],
+        [
+          "case_interpretation/kirc_fold3",
+          "3",
+          "图文件"
+        ],
+        [
+          "case_interpretation/kirc_fold4",
+          "3",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/blca_direct_fold3",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/blca_direct_fold4",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/blca_exp6_fold0",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/blca_exp6_fold1",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/blca_exp6_fold2",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/blca_exp6_fold3",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/blca_exp6_fold4",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/blca_independent_fold2",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/kirc_direct_fold4",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/kirc_exp6_fold0",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/kirc_exp6_fold1",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/kirc_exp6_fold2",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/kirc_exp6_fold3",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/kirc_exp6_fold4",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/kirc_independent_fold1",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/kirc_independent_fold2",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/kirc_independent_fold3",
+          "2",
+          "图文件"
+        ],
+        [
+          "case_interpretation_v2/kirc_independent_fold4",
+          "2",
+          "图文件"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold0/case_TCGA-4Z-AA86.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold0\\case_TCGA-4Z-AA86.png",
+      "sha256": "2cbb2da206b5f0bf10922db44b279833bb8123b8517743768acfc821ce5c3584"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold0/case_TCGA-BL-A5ZZ.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold0\\case_TCGA-BL-A5ZZ.png",
+      "sha256": "897847130672432d9534f9918baa860fc58171e8aca5bea66f399d94a36803c0"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold0/case_TCGA-BT-A20O.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold0\\case_TCGA-BT-A20O.png",
+      "sha256": "10f699ff296d2551fd0ae8b55ee6ab33f60a02a9fc7ffb9a10bee9e612b9e81f"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold1/case_TCGA-2F-A9KP.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold1\\case_TCGA-2F-A9KP.png",
+      "sha256": "8a1a08e1b3d35e6120025799c3e2c6fa4151e25eb4ed4b340051e61b1affb7fc"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold1/case_TCGA-2F-A9KW.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold1\\case_TCGA-2F-A9KW.png",
+      "sha256": "852547d33d2fa69f3118e0ffeb91796f8ae45df93eeefe73d0acd4d69ead3909"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold1/case_TCGA-4Z-AA7Q.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold1\\case_TCGA-4Z-AA7Q.png",
+      "sha256": "1907f26cd5e10902f90628144b9bc52f306b2a7f34e32f07c80dccf429c314f9"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold2/case_TCGA-2F-A9KQ.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold2\\case_TCGA-2F-A9KQ.png",
+      "sha256": "17ea4b99f7e5c3e293cd58dd4c1df5eee2ec0c5c9d1cc927253ec304878a9195"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold2/case_TCGA-2F-A9KR.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold2\\case_TCGA-2F-A9KR.png",
+      "sha256": "59b8abb7d06ca1af22a2e408c9b749fa5a85bf5fbeec863adc105505d6077a7c"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold2/case_TCGA-2F-A9KT.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold2\\case_TCGA-2F-A9KT.png",
+      "sha256": "612b9a723ad0bd77466efe0d8a6b0d352abdd3a5cfe6510358f7269bec4fc12e"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold3/case_TCGA-4Z-AA7W.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold3\\case_TCGA-4Z-AA7W.png",
+      "sha256": "7e39059dc854d3649ed5acd34d016aa57460768272440cb683293e8aa7bfc5b8"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold3/case_TCGA-4Z-AA81.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold3\\case_TCGA-4Z-AA81.png",
+      "sha256": "69660f41ec842d3c80ec494edb29f8d3291e2a51f38f1c2657ea92087d059024"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold3/case_TCGA-4Z-AA82.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold3\\case_TCGA-4Z-AA82.png",
+      "sha256": "bcf1244060a1376216a1a1a798ba34d504cbbc34bb27a93f31f3a7add729cead"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold4/case_TCGA-2F-A9KO.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold4\\case_TCGA-2F-A9KO.png",
+      "sha256": "544fc78bee1e1e703db0440b073aa3e23bd9af3f8568a8a8c43b34ff1b131b44"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold4/case_TCGA-4Z-AA7N.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold4\\case_TCGA-4Z-AA7N.png",
+      "sha256": "a50efa8530c1fe6ecd6d246cc11d5733b1b9fc1fd16ad15d6d1fb6b07e6a9eea"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/blca_fold4/case_TCGA-4Z-AA7O.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold4\\case_TCGA-4Z-AA7O.png",
+      "sha256": "4d251d4823e739c48f684b83b7c549707a2fe533f1818b32e4a2c70f098fa2ff"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold0/case_TCGA-A3-3317.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold0\\case_TCGA-A3-3317.png",
+      "sha256": "73924fe3e7c380fc4d6b694bf0146f954beff2c290f0b3a2ccad0d8384b7fd92"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold0/case_TCGA-A3-3324.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold0\\case_TCGA-A3-3324.png",
+      "sha256": "6bfb95411f87f0560e5a2c16f45c8b1b3541ee6ff209efa7d421d0317e112ca2"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold0/case_TCGA-A3-3325.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold0\\case_TCGA-A3-3325.png",
+      "sha256": "f5127136221139acafc395c59a87d02d586155398818edcf4150c2ad745f8eff"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold1/case_TCGA-6D-AA2E.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold1\\case_TCGA-6D-AA2E.png",
+      "sha256": "093ed00137205cb6c76a164a107dd8e40021837dd5deda1825e49b2c82cff735"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold1/case_TCGA-A3-3306.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold1\\case_TCGA-A3-3306.png",
+      "sha256": "848ba1fe08e2b25b618ce5bcb8b9f0297c90f249fc265381828649bf309e2b2e"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold1/case_TCGA-A3-3331.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold1\\case_TCGA-A3-3331.png",
+      "sha256": "3e97f1bb2230a0c4d91bd0b09ed7f497d21154af8116ce8f6882dd37af4953f9"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold2/case_TCGA-3Z-A93Z.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold2\\case_TCGA-3Z-A93Z.png",
+      "sha256": "9b1c40a1da40d57c2a17c3b6bd4fb83831d20a4b6fbcef4c911aac67fcec9673"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold2/case_TCGA-A3-3308.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold2\\case_TCGA-A3-3308.png",
+      "sha256": "7792c70eebd19ab5e6ee011cf48f165bf91ab74b139bec3272098134a8361851"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold2/case_TCGA-A3-3322.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold2\\case_TCGA-A3-3322.png",
+      "sha256": "e2cfa31224d030a120577f469fc20745eb22bf27cff60bdfa8ce65ce794664e7"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold3/case_TCGA-A3-3316.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold3\\case_TCGA-A3-3316.png",
+      "sha256": "ea254e8f897e006290f83214ce128775891452fafd0b32a9ebb98f0b545ccafd"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold3/case_TCGA-A3-3319.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold3\\case_TCGA-A3-3319.png",
+      "sha256": "04ade8ede90a1c433bc6a68b0659469186bcf7d1dda5ea230eb1df10e8d364e9"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold3/case_TCGA-A3-3323.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold3\\case_TCGA-A3-3323.png",
+      "sha256": "67cb7c59ed4ce7e1964b3a404fea9d2708a82274628bbcb1ace7103e0344bf8b"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold4/case_TCGA-A3-3307.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold4\\case_TCGA-A3-3307.png",
+      "sha256": "63a70dfb163efe29c642314820c9d1362e89c7fcdc553895a026644cc3cb66d3"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold4/case_TCGA-A3-3311.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold4\\case_TCGA-A3-3311.png",
+      "sha256": "83c759355992a42ec0029db12cf4a622b46e69beb8953f53045964ce67365938"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation/kirc_fold4/case_TCGA-A3-3313.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold4\\case_TCGA-A3-3313.png",
+      "sha256": "a35839f7bdd8d00032115da9d7b28a56e3ef1cdc7c5ede47c3f05dfc173cb707"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_direct_fold3/case_TCGA-4Z-AA7W.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_direct_fold3\\case_TCGA-4Z-AA7W.png",
+      "sha256": "e14c63814f8ef944cb3139789f71c76f33839229d6f5b9cf7b183e6841c242f4"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_direct_fold3/case_TCGA-4Z-AA81.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_direct_fold3\\case_TCGA-4Z-AA81.png",
+      "sha256": "43828db61bec24f31296eff00e41daf4a39a189cc3dc536af5a09bd9f996d02c"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_direct_fold4/case_TCGA-2F-A9KO.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_direct_fold4\\case_TCGA-2F-A9KO.png",
+      "sha256": "11291dcb97c77ecce59acd0b96855a86c0949e3944cd4aaeedd1f8627adac29c"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_direct_fold4/case_TCGA-4Z-AA7N.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_direct_fold4\\case_TCGA-4Z-AA7N.png",
+      "sha256": "aa4284b79d5b10ac16a0daf11ca7d29abf14c8d33d7ff594a8264f720bed00fe"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_exp6_fold0/case_TCGA-4Z-AA86.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold0\\case_TCGA-4Z-AA86.png",
+      "sha256": "22717678de21561fa953bf9fdc4841ef0b2f5dd88e32660433eed9e9054146f3"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_exp6_fold0/case_TCGA-BL-A5ZZ.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold0\\case_TCGA-BL-A5ZZ.png",
+      "sha256": "ddc3aef0307d1052981d37c9eb499ff8950ad5ad9688f88af3869a0724a1fff8"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_exp6_fold1/case_TCGA-2F-A9KP.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold1\\case_TCGA-2F-A9KP.png",
+      "sha256": "dc46b07cf9f82d47e551eda9c8ec2963360586e7a3f621a47bf8d716e612df15"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_exp6_fold1/case_TCGA-2F-A9KW.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold1\\case_TCGA-2F-A9KW.png",
+      "sha256": "b7729e5fb2bb91ffc66c0d4d94e6f12f13ac27f1acc09d6c483a65d3b8ebbce6"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_exp6_fold2/case_TCGA-2F-A9KQ.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold2\\case_TCGA-2F-A9KQ.png",
+      "sha256": "b507cfa7563f871a22e4c6efa8a16b13bca829d1004775aa78c0ad3e60eede35"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_exp6_fold2/case_TCGA-2F-A9KR.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold2\\case_TCGA-2F-A9KR.png",
+      "sha256": "90cd20078f8aad350c985206083896f9a53b56ef93cc9681e90c4a6f2658d56f"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_exp6_fold3/case_TCGA-4Z-AA7W.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold3\\case_TCGA-4Z-AA7W.png",
+      "sha256": "5154814fcd5ed422c18f6a11c64d6018482995739ce0f55ee3d49917983dc94e"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_exp6_fold3/case_TCGA-4Z-AA81.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold3\\case_TCGA-4Z-AA81.png",
+      "sha256": "9c5454f726991d8f9d126303ab6562bb78515af2ed916c8b5132701b84e97248"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_exp6_fold4/case_TCGA-2F-A9KO.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold4\\case_TCGA-2F-A9KO.png",
+      "sha256": "9f7648195a50ba3dc61e8024eb74938134e6f4fda12e5d58df0a2bfc71370ea0"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_exp6_fold4/case_TCGA-4Z-AA7N.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold4\\case_TCGA-4Z-AA7N.png",
+      "sha256": "081a894c2dcec8f62bb9acc56550898e0abfaec056dfaf2c4d980371d6677c82"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_independent_fold2/case_TCGA-2F-A9KQ.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_independent_fold2\\case_TCGA-2F-A9KQ.png",
+      "sha256": "65a3137ac33cf20f82679db1344dfcc0cd17a966aaf73c3c3bbe59b923fcc9e7"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/blca_independent_fold2/case_TCGA-2F-A9KR.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_independent_fold2\\case_TCGA-2F-A9KR.png",
+      "sha256": "f439ec789d1f91d0ab5e307fb02ac5b5242ca0716ccb64b6d9bafd956b939634"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_direct_fold4/case_TCGA-A3-3307.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_direct_fold4\\case_TCGA-A3-3307.png",
+      "sha256": "b4b5b9692dca531d7a1395f925d69191969635088acb7c7b7a4743493f356088"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_direct_fold4/case_TCGA-A3-3311.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_direct_fold4\\case_TCGA-A3-3311.png",
+      "sha256": "26f61b04b8c2c713e0c2dd427e6e7ad7ae2f73857edb6fba1d6453f2fa481e35"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold0/case_TCGA-A3-3317.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold0\\case_TCGA-A3-3317.png",
+      "sha256": "3702bc4983de92cd791d505d4491eba587a2760ed00e051107f92a6180fdb389"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold0/case_TCGA-A3-3324.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold0\\case_TCGA-A3-3324.png",
+      "sha256": "4a8edb6f5e765f0bc195af8f30613fe0e97341570774defb458254696f353289"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold1/case_TCGA-6D-AA2E.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold1\\case_TCGA-6D-AA2E.png",
+      "sha256": "43f215ad29fdc6a65a384bb83ea3d0c98018250a32a1a29f083a721734265f4e"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold1/case_TCGA-A3-3306.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold1\\case_TCGA-A3-3306.png",
+      "sha256": "ec9f4090e168b69a3f0872af50a38f7c973dc6fb738644c4194339f76e7186fc"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold2/case_TCGA-3Z-A93Z.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold2\\case_TCGA-3Z-A93Z.png",
+      "sha256": "3efba83f424bbca543ac972c3cc8a87f47114ed215630b752def1ce14ffe05ea"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold2/case_TCGA-A3-3308.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold2\\case_TCGA-A3-3308.png",
+      "sha256": "f1eeb3270b6f41d9ddc5ca5f3907a24af9c44d84ca76d105cf27c49b07c9c032"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold3/case_TCGA-A3-3316.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold3\\case_TCGA-A3-3316.png",
+      "sha256": "a19062fb4b18bc9db3de650c56b433978652cfc2cba6cda32de69ceac0070e06"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold3/case_TCGA-A3-3319.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold3\\case_TCGA-A3-3319.png",
+      "sha256": "1f3d01f7884d2260600f0ceffc9dfc42c8b9cbd332d301d3ce54fcc3beea58c7"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold4/case_TCGA-A3-3307.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold4\\case_TCGA-A3-3307.png",
+      "sha256": "01694fac488084ad06ed04b270ba5d3cbc1fa56a6e011d7d3fa3c432cc037b53"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold4/case_TCGA-A3-3311.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold4\\case_TCGA-A3-3311.png",
+      "sha256": "2f7ea674c2d980c6aa52b10c73ed4b3e4d478bcecd102050725899683fb9ed88"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_independent_fold1/case_TCGA-6D-AA2E.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold1\\case_TCGA-6D-AA2E.png",
+      "sha256": "3fcc92bfcad584637bba27b5238bfbe41f308cd6602a1c4925a8f455bb51fe2d"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_independent_fold1/case_TCGA-A3-3306.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold1\\case_TCGA-A3-3306.png",
+      "sha256": "8738ecd339d6b0741b7dee0a01b685c20259488bd056cb7bfeafaf31fd204a32"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_independent_fold2/case_TCGA-3Z-A93Z.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold2\\case_TCGA-3Z-A93Z.png",
+      "sha256": "06f19c81989673cd2272e1fa5cc6d30888889b6ccbea1d16fdd749a2f5cf14c8"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_independent_fold2/case_TCGA-A3-3308.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold2\\case_TCGA-A3-3308.png",
+      "sha256": "1fb2ccce7c45584437d45381cbe6adbf27dff8307484d1e5425c0f66da75ed01"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_independent_fold3/case_TCGA-A3-3316.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold3\\case_TCGA-A3-3316.png",
+      "sha256": "238f692a3fe8ebb0fdb6ddeb6a42d299af4f18f5c9f8ae7a54b58d7fc59d14e4"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_independent_fold3/case_TCGA-A3-3319.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold3\\case_TCGA-A3-3319.png",
+      "sha256": "d103e005b231429d304dc3e7932e34c9953ef5718cdc16888fc6af91858eb8db"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_independent_fold4/case_TCGA-A3-3307.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold4\\case_TCGA-A3-3307.png",
+      "sha256": "b3e6e7a9aba32839cfe9cb015160b480c29eb955e69705fff7cb50085b76a91b"
+    },
+    {
+      "experiment": "E038",
+      "source": "paper/figures/case_interpretation_v2/kirc_independent_fold4/case_TCGA-A3-3311.png",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold4\\case_TCGA-A3-3311.png",
+      "sha256": "27588383a602a226e25f307ae0f6dc7ee2b41506b9e48b98c08e37c8bd869f1f"
+    }
+  ]
+}

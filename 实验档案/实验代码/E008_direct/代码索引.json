@@ -1,0 +1,40 @@
+{
+  "experiment": "E008",
+  "title": "Direct 重建输入对照",
+  "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+  "shared_model": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/model.py",
+  "entries": [
+    {
+      "path": "scripts/prepare_v313_evidence.py",
+      "present": true,
+      "sha256": "324f163181921f730c46da320987a70a5d6409fa8737d155525bec51f647a4f1"
+    },
+    {
+      "path": "scripts/run_v313_additional_evidence.py",
+      "present": true,
+      "sha256": "62488771a322156fe81b4102a3c59e29f3dc27a01fd8e9d7c23bac3b13c86a16"
+    },
+    {
+      "path": "survot_rank/evidence/v313.py",
+      "present": true,
+      "sha256": "ab8a2154179d540a1d0a789a39ea574e7e5c0259a76b5a5d9b0a681544bdbb6c"
+    },
+    {
+      "path": "survot_rank/evidence/additional.py",
+      "present": true,
+      "sha256": "857e9921fb0f7837e55dd45dfb2c519d18c0395376844d234b3a03b903c3a8ae"
+    },
+    {
+      "path": "results/v313_evidence_v2/controls_plan_configs/direct_blca.yaml",
+      "present": true,
+      "sha256": "6585d7175a5dd07c53f1e1840f1bc56a15cd4175f303ec1c35a697d434b2e8f3"
+    },
+    {
+      "path": "results/v313_evidence_v2/controls_plan_configs/direct_kirc.yaml",
+      "present": true,
+      "sha256": "47f8dbfa46683bce420893b49cc2b81a16a96c001e6822aa0c318029829b6d4a"
+    }
+  ],
+  "shared_snapshot": "../共享代码快照_2b1c622",
+  "execution_note": "仅作源代码溯源，整理阶段没有执行训练、推理或导出作业。以原工程环境与历史 overrides 复现。"
+}

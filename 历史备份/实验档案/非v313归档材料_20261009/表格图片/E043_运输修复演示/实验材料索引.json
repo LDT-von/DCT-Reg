@@ -1,0 +1,81 @@
+{
+  "id": "E043",
+  "folder": "E043_运输修复演示",
+  "title": "运输增强模块的短程演示",
+  "kind": "补录实验或审计",
+  "status": "历史模块演示 无癌种验证结果",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "历史报告 3 秒 50 步模块优化，多分辨率锚点与对比目标。",
+  "conclusion": "报告时间变化指标 0.0059 至 0.3845，属于组件演示；不能写成真实生存预测提升或已集成训练成果。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "transport_fix_results.md",
+    "transport_fix_proposal.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/train_transport_fix_minimal.py",
+    "scripts/_archive_v310_v311/validate_transport_improvements.py"
+  ],
+  "tables": [
+    {
+      "title": "原报告数值",
+      "headers": [
+        "Metric",
+        "Baseline",
+        "Improved",
+        "Factor"
+      ],
+      "rows": [
+        [
+          "Min temporal variation",
+          "0.0059",
+          "0.3845",
+          "65.4×"
+        ],
+        [
+          "Mean temporal variation",
+          "0.1343",
+          "0.3987",
+          "3.0×"
+        ],
+        [
+          "Max temporal variation",
+          "0.2539",
+          "0.4156",
+          "1.6×"
+        ],
+        [
+          "Temporal contrast loss",
+          "0.0527",
+          "0.0000",
+          "∞"
+        ],
+        [
+          "Mean spatial variation",
+          "0.2153",
+          "0.1052",
+          "0.5×"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E043",
+      "source": "transport_fix_results.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E043_运输修复演示\\原始材料\\transport_fix_results.md",
+      "sha256": "1093a5d58f70c119522f644f780ed5017b67b4b98ca199867ff2db5fc241c970"
+    },
+    {
+      "experiment": "E043",
+      "source": "transport_fix_proposal.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E043_运输修复演示\\原始材料\\transport_fix_proposal.md",
+      "sha256": "b17a8ca34054a58fd542acda33f4b03a92f82a96ed9439aa3498d35009e3de83"
+    }
+  ]
+}

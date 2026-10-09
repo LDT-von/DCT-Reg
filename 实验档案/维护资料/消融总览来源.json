@@ -1,0 +1,19 @@
+{
+  "derived_from": "E001–E007 native result tables and recorded effective coefficients; no new training",
+  "record_count": 7,
+  "cohorts": [
+    "BLCA",
+    "KIRC"
+  ],
+  "fold_result_count": 70,
+  "files": [
+    {
+      "target": "表格图片\\消融实验总览\\五折结果.csv",
+      "sha256": "44561d31a4c0edf552f1657e6bb43d4ab4e5e617d503095b242925ad63409b8e"
+    },
+    {
+      "target": "表格图片\\消融实验总览\\目标系数.csv",
+      "sha256": "3b2ff2a73e63e31cb0757899eb5971af36f590ca69726f22542129be04e1c0df"
+    }
+  ]
+}

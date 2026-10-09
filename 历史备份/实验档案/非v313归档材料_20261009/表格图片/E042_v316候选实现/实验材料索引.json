@@ -1,0 +1,48 @@
+{
+  "id": "E042",
+  "folder": "E042_v316候选实现",
+  "title": "v3.16 槽交互分解候选实现",
+  "kind": "补录实验或审计",
+  "status": "本地代码和测试存在 未找到训练结果",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "配置与 模型 实现保留；不把测试源文件存在当作测试已执行。",
+  "conclusion": "找到候选模块、配置和测试，未找到对应癌种折级训练曲线、checkpoint 或 score JSON。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [],
+  "scripts": [
+    "configs/dct_v316_slot_mi_decomposition.yaml",
+    "survot_rank/research/methods/dct_v316_slot_mi_interaction/model.py",
+    "survot_rank/research/methods/dct_v316_slot_mi_interaction/dct_v316_model.py",
+    "tests/test_dct_v316_slot_mi.py",
+    "tests/test_dct_v316_standalone.py"
+  ],
+  "tables": [
+    {
+      "title": "当前证据",
+      "headers": [
+        "材料",
+        "状态",
+        "可支持范围"
+      ],
+      "rows": [
+        [
+          "本地模型 配置 测试",
+          "存在",
+          "候选实现"
+        ],
+        [
+          "真实训练曲线和分数",
+          "未找到",
+          "不填性能数值"
+        ],
+        [
+          "历史测试完成声明",
+          "未在本次重跑",
+          "不替代运行记录"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": []
+}

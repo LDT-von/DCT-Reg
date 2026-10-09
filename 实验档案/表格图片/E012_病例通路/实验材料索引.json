@@ -1,0 +1,353 @@
+{
+  "id": "E012",
+  "folder": "E012_病例通路",
+  "title": "BLCA 病例槽与通路解释",
+  "kind": "已有模型的病例分析",
+  "status": "已有导出和图表 校版中",
+  "purpose": "记录病例 TCGA-2F-A9KP 的八个组学槽与 329 条通路的最终聚合权重。",
+  "setting": "BLCA fold1、Exp6 Full、seed=3；展示 raw 权重、槽内百分位与 Top-3/Bottom-3；原始组织图和 Top-5 组织块未接入。",
+  "conclusion": "最终通路权重约 0.00237–0.00342，每槽权重和约 1，接近均匀分配 1/329。可描述相对偏好，当前图不能单独证明强生物学分工。",
+  "pending": "旧 raw 图从零起色标导致整体偏红；percentile 只表示排序。Top/Bottom 百分位条形图信息有限。尚缺真实组织空间证据；单病例聚合权重不能作为槽塌缩判据。",
+  "sources": [
+    "paper/figures/v313_reference_panels_real_20261008/raw/pathway_case_panel_raw.json"
+  ],
+  "scripts": [
+    "scripts/plot_v313_slotspe_style.py",
+    "survot_rank/evidence/slotspe_style.py",
+    "scripts/rerun_v313_export_for_attention.py"
+  ],
+  "tables": [
+    {
+      "title": "每槽原始权重诊断",
+      "headers": [
+        "槽",
+        "最小权重",
+        "最大权重",
+        "标准化熵",
+        "Top-3 权重和"
+      ],
+      "rows": [
+        [
+          "0",
+          "0.002560",
+          "0.003214",
+          "0.999794",
+          "0.009635"
+        ],
+        [
+          "1",
+          "0.002838",
+          "0.003155",
+          "0.999949",
+          "0.009458"
+        ],
+        [
+          "2",
+          "0.002893",
+          "0.003153",
+          "0.999963",
+          "0.009451"
+        ],
+        [
+          "3",
+          "0.002711",
+          "0.003419",
+          "0.999706",
+          "0.010222"
+        ],
+        [
+          "4",
+          "0.002411",
+          "0.003366",
+          "0.999520",
+          "0.010089"
+        ],
+        [
+          "5",
+          "0.002833",
+          "0.003290",
+          "0.999894",
+          "0.009865"
+        ],
+        [
+          "6",
+          "0.002374",
+          "0.003283",
+          "0.999624",
+          "0.009847"
+        ],
+        [
+          "7",
+          "0.002781",
+          "0.003358",
+          "0.999846",
+          "0.010047"
+        ]
+      ]
+    }
+  ],
+  "figures": [
+    {
+      "path": "表格图片\\E012_病例通路\\原始材料\\20261009_校版预览\\pathway_selected_dense_comparison.png",
+      "caption": "33 条入选通路并排比较。左侧 raw 色标采用实际观测范围，下界不为零；右侧仅为槽内排序。完整 329 通路矢量图在材料目录。"
+    }
+  ],
+  "assets": [
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/percentile/pathway_case_panel_percentile.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\percentile\\pathway_case_panel_percentile.json",
+      "sha256": "b041d33ccb818ba6393882d7c79cc5c1ed478fd36ef6e82099cb31494bd62ef0"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/percentile/pathway_case_panel_percentile.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\percentile\\pathway_case_panel_percentile.pdf",
+      "sha256": "671462126f97e151e2f0d3e9fce2e7c6e602e811650dc5c2fd79d1f8561507f6"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/percentile/pathway_case_panel_percentile.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\percentile\\pathway_case_panel_percentile.png",
+      "sha256": "f407c3dc92b07bb7721a2cbcb85ef5d993a471cc0fd62467ad3bbfd35634967b"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/percentile/pathway_slot_map.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\percentile\\pathway_slot_map.json",
+      "sha256": "f655a5fadd38eeee55cbb81e21d2fccde519beff419c24dcdb2348dae7f2ddda"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/percentile/pathway_slot_map.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\percentile\\pathway_slot_map.pdf",
+      "sha256": "2f30d53e81875408c260a0b57c8259ef5e72bd76eaba52670e756f235b5262f8"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/percentile/pathway_slot_map.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\percentile\\pathway_slot_map.png",
+      "sha256": "1a17336564045c5e9739306d8a8455d97b112c8d561ba4e61a3175d63e315dd3"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/percentile/slot_pathways.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\percentile\\slot_pathways.json",
+      "sha256": "97324d025db12ee4a2829083bbfbbe3cffb8af4cecc5f68869d7b1c2569cc742"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/percentile/slot_pathways.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\percentile\\slot_pathways.pdf",
+      "sha256": "07f26b40cdbe6c8b297b30fb4e8c51eafffd06aea0ad95a38f1753656199e7a7"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/percentile/slot_pathways.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\percentile\\slot_pathways.png",
+      "sha256": "357b73ebb0d829fff7379e4a76fc2c213d4ee91a61d4b45e5201ea3b6267c283"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/raw/pathway_case_panel_raw.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\raw\\pathway_case_panel_raw.json",
+      "sha256": "c357dded954e4082f4b4bbbc358d917ad2f4ae7aa35220c91f90aede9dcc2ebd"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/raw/pathway_case_panel_raw.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\raw\\pathway_case_panel_raw.pdf",
+      "sha256": "8b7069e3ea2dd331a5eadc0626ea8946a913e56f10f22ff6f289b97eee247f53"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/raw/pathway_case_panel_raw.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\raw\\pathway_case_panel_raw.png",
+      "sha256": "5bc0fd00d5082406d9d45af30abaafd6f7dbd734f9aa8fa016333e4a26e9f360"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/raw/pathway_slot_map.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\raw\\pathway_slot_map.json",
+      "sha256": "f655a5fadd38eeee55cbb81e21d2fccde519beff419c24dcdb2348dae7f2ddda"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/raw/pathway_slot_map.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\raw\\pathway_slot_map.pdf",
+      "sha256": "dc6ba2b616e5966db73893ecb4be8f813c4f248f5a4338f172bb8104a76006cb"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/raw/pathway_slot_map.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\raw\\pathway_slot_map.png",
+      "sha256": "1a17336564045c5e9739306d8a8455d97b112c8d561ba4e61a3175d63e315dd3"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/raw/slot_pathways.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\raw\\slot_pathways.json",
+      "sha256": "97324d025db12ee4a2829083bbfbbe3cffb8af4cecc5f68869d7b1c2569cc742"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/raw/slot_pathways.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\raw\\slot_pathways.pdf",
+      "sha256": "44f98f3116afd5b77c48fcd45b050579eb2f54c5787aaedaea2b5f4ec2a87aa1"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_reference_panels_real_20261008/raw/slot_pathways.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\v313_reference_panels_real_20261008\\raw\\slot_pathways.png",
+      "sha256": "357b73ebb0d829fff7379e4a76fc2c213d4ee91a61d4b45e5201ea3b6267c283"
+    },
+    {
+      "experiment": "E012",
+      "source": "C:\\Users\\栋栋\\.codex\\visualizations\\2026\\10\\08\\01a11aaf-3037-70b3-9649-30f9bfa9cf94\\dct-paper-2b1c622\\redesign_20261009\\figure_revision_audit.json",
+      "source_kind": "local",
+      "source_commit": "local figure revision 2026-10-09 from 2b1c622",
+      "target": "表格图片\\E012_病例通路\\原始材料\\20261009_校版预览\\figure_revision_audit.json",
+      "sha256": "ecac2048889f61952f5259aaf9c35fe1372091afbbd5ce98ef7c34db045af9dc"
+    },
+    {
+      "experiment": "E012",
+      "source": "C:\\Users\\栋栋\\.codex\\visualizations\\2026\\10\\08\\01a11aaf-3037-70b3-9649-30f9bfa9cf94\\dct-paper-2b1c622\\redesign_20261009\\pathway_all_329_dense_comparison.pdf",
+      "source_kind": "local",
+      "source_commit": "local figure revision 2026-10-09 from 2b1c622",
+      "target": "表格图片\\E012_病例通路\\原始材料\\20261009_校版预览\\pathway_all_329_dense_comparison.pdf",
+      "sha256": "13ae6b0bbd159bbce17b55eb2e731130789cd93cb6e4d4ef4db15324a7bca10f"
+    },
+    {
+      "experiment": "E012",
+      "source": "C:\\Users\\栋栋\\.codex\\visualizations\\2026\\10\\08\\01a11aaf-3037-70b3-9649-30f9bfa9cf94\\dct-paper-2b1c622\\redesign_20261009\\pathway_all_329_dense_comparison.png",
+      "source_kind": "local",
+      "source_commit": "local figure revision 2026-10-09 from 2b1c622",
+      "target": "表格图片\\E012_病例通路\\原始材料\\20261009_校版预览\\pathway_all_329_dense_comparison.png",
+      "sha256": "704c7088797a37ac2ab0d149ef05af2cdbae6a9b3e92e43a4a7bf26aa2ab5abe"
+    },
+    {
+      "experiment": "E012",
+      "source": "C:\\Users\\栋栋\\.codex\\visualizations\\2026\\10\\08\\01a11aaf-3037-70b3-9649-30f9bfa9cf94\\dct-paper-2b1c622\\redesign_20261009\\pathway_all_329_dense_comparison.svg",
+      "source_kind": "local",
+      "source_commit": "local figure revision 2026-10-09 from 2b1c622",
+      "target": "表格图片\\E012_病例通路\\原始材料\\20261009_校版预览\\pathway_all_329_dense_comparison.svg",
+      "sha256": "7949f0544301a9d1203ebbf1a8a6cd3b987a13610e4c1d066778d953e6407e28"
+    },
+    {
+      "experiment": "E012",
+      "source": "C:\\Users\\栋栋\\.codex\\visualizations\\2026\\10\\08\\01a11aaf-3037-70b3-9649-30f9bfa9cf94\\dct-paper-2b1c622\\redesign_20261009\\pathway_selected_dense_comparison.pdf",
+      "source_kind": "local",
+      "source_commit": "local figure revision 2026-10-09 from 2b1c622",
+      "target": "表格图片\\E012_病例通路\\原始材料\\20261009_校版预览\\pathway_selected_dense_comparison.pdf",
+      "sha256": "02e54e47337074091a2b302db178764f7b38629bd66e484d2e18b4f404a26fbe"
+    },
+    {
+      "experiment": "E012",
+      "source": "C:\\Users\\栋栋\\.codex\\visualizations\\2026\\10\\08\\01a11aaf-3037-70b3-9649-30f9bfa9cf94\\dct-paper-2b1c622\\redesign_20261009\\pathway_selected_dense_comparison.png",
+      "source_kind": "local",
+      "source_commit": "local figure revision 2026-10-09 from 2b1c622",
+      "target": "表格图片\\E012_病例通路\\原始材料\\20261009_校版预览\\pathway_selected_dense_comparison.png",
+      "sha256": "8bc02b637426cd003d3e5b32166462b448e7309d2cf89e648a1e95491dbe04d5"
+    },
+    {
+      "experiment": "E012",
+      "source": "C:\\Users\\栋栋\\.codex\\visualizations\\2026\\10\\08\\01a11aaf-3037-70b3-9649-30f9bfa9cf94\\dct-paper-2b1c622\\redesign_20261009\\pathway_selected_dense_comparison.svg",
+      "source_kind": "local",
+      "source_commit": "local figure revision 2026-10-09 from 2b1c622",
+      "target": "表格图片\\E012_病例通路\\原始材料\\20261009_校版预览\\pathway_selected_dense_comparison.svg",
+      "sha256": "c1b1f4e3dbb61b8be39bb02eafc3790321700cc09875140029926f054455b144"
+    },
+    {
+      "experiment": "E012",
+      "source": "C:\\Users\\栋栋\\.codex\\visualizations\\2026\\10\\08\\01a11aaf-3037-70b3-9649-30f9bfa9cf94\\dct-paper-2b1c622\\redesign_20261009\\render_pathway_revision.py",
+      "source_kind": "local",
+      "source_commit": "local figure revision 2026-10-09 from 2b1c622",
+      "target": "实验代码\\E012_病例通路\\校版绘图\\render_pathway_revision.py",
+      "sha256": "ebd8c912870f29f9347e6b316b6f0b717b20761435849f2cb37f51aa2af0c5f4"
+    },
+    {
+      "experiment": "E012",
+      "source": "C:\\Users\\栋栋\\.codex\\visualizations\\2026\\10\\08\\01a11aaf-3037-70b3-9649-30f9bfa9cf94\\dct-paper-2b1c622\\redesign_20261009\\slot_top_bottom_raw_dotplots.pdf",
+      "source_kind": "local",
+      "source_commit": "local figure revision 2026-10-09 from 2b1c622",
+      "target": "表格图片\\E012_病例通路\\原始材料\\20261009_校版预览\\slot_top_bottom_raw_dotplots.pdf",
+      "sha256": "0da0885ee4fb3902b7511d0089e255d84e1d40de86ce27ab255b1b714bc1e009"
+    },
+    {
+      "experiment": "E012",
+      "source": "C:\\Users\\栋栋\\.codex\\visualizations\\2026\\10\\08\\01a11aaf-3037-70b3-9649-30f9bfa9cf94\\dct-paper-2b1c622\\redesign_20261009\\slot_top_bottom_raw_dotplots.png",
+      "source_kind": "local",
+      "source_commit": "local figure revision 2026-10-09 from 2b1c622",
+      "target": "表格图片\\E012_病例通路\\原始材料\\20261009_校版预览\\slot_top_bottom_raw_dotplots.png",
+      "sha256": "94e6bc7c5637027e7eb8ff2982efab608454721836acfa3f7120489b0dd7de7d"
+    },
+    {
+      "experiment": "E012",
+      "source": "C:\\Users\\栋栋\\.codex\\visualizations\\2026\\10\\08\\01a11aaf-3037-70b3-9649-30f9bfa9cf94\\dct-paper-2b1c622\\redesign_20261009\\slot_top_bottom_raw_dotplots.svg",
+      "source_kind": "local",
+      "source_commit": "local figure revision 2026-10-09 from 2b1c622",
+      "target": "表格图片\\E012_病例通路\\原始材料\\20261009_校版预览\\slot_top_bottom_raw_dotplots.svg",
+      "sha256": "f5d950af73cbb82a68e581242aff6d5a4ee34fb1183c8d45242d72bdfdb33803"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_slotspe_20261007_v2/blca_a9kp_transport/transport_association.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\blca_a9kp_transport\\transport_association.json",
+      "sha256": "477151d262617f86fbfb5f5ab9dabc4afdb8cbd982fd8c6c7e2d4dce8462119b"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_slotspe_20261007_v2/blca_a9kp_transport/transport_association.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\blca_a9kp_transport\\transport_association.pdf",
+      "sha256": "41f56107759e81144b8524a8fa45f18161335625d301aa7be0724cc3c4bfeec0"
+    },
+    {
+      "experiment": "E012",
+      "source": "paper/figures/v313_slotspe_20261007_v2/blca_a9kp_transport/transport_association.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E012_病例通路\\原始材料\\blca_a9kp_transport\\transport_association.png",
+      "sha256": "7259fa4a2d7b4602de33bd8cd1d18c16874633f29f4a51d6a3ca72a48e472620"
+    }
+  ]
+}

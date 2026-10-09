@@ -1,0 +1,344 @@
+[
+  {
+    "source": "results\\proof_experiment_A.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\proof_experiment_A.json",
+    "sha256": "2ae2f7e03a9d54ca0089bc474e249f3add839cbf8cdc630038f98eb39f9ff5df",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\proof_experiment_B.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\proof_experiment_B.json",
+    "sha256": "de5f0b69fc0f5b8d9caaaffb0a2cbf2a09ce29dc26e1ba327635d6747b33d964",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\proof_experiment_C.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\proof_experiment_C.json",
+    "sha256": "d3246a3a46cf5b4a297819e59c9a1f1ce8687a5eb9d568b3324b743fb63ed3a2",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\audit_comparison\\v311_fixed_vs_v310_intervention_report.md",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\audit_comparison\\v311_fixed_vs_v310_intervention_report.md",
+    "sha256": "a049737d53637010b7dacd5eb1fc35d24cef0e174af2b8dd37fbfb0dfebb5668",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\e4_v311_fixed_audit\\e4_v311_fixed_fold0.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold0.csv",
+    "sha256": "941997d15acb6ab089fda9a09cca72e68b84f92e395746da7eb08b066deae006",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\e4_v311_fixed_audit\\e4_v311_fixed_fold0.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold0.json",
+    "sha256": "dbe1ceadf2438e8bc5e8d034c3c748ae6787c6dcb675e96f57a118256d7fe27e",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\e4_v311_fixed_audit\\e4_v311_fixed_fold1.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold1.csv",
+    "sha256": "35dba8765817fb624523eb8b1754d780b544263b5c8a678027fe275afbf4216a",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\e4_v311_fixed_audit\\e4_v311_fixed_fold1.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold1.json",
+    "sha256": "1b443dee8aca41b78e8f2d28cb1205ec378313904f44ca96f82b01626a29a522",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\e4_v311_fixed_audit\\e4_v311_fixed_fold2.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold2.csv",
+    "sha256": "14dc04b0c734f0c25728576942bdd41868cd171c09b1757ea0a670dd791aeac5",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\e4_v311_fixed_audit\\e4_v311_fixed_fold2.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold2.json",
+    "sha256": "68347d503bd4efe69af609ec7d57eb3a0cc374e0130df96641e66a06dc46150a",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\e4_v311_fixed_audit\\e4_v311_fixed_fold3.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold3.csv",
+    "sha256": "673d36b459bb2f83eff0212bb30033d6cc0a410b5bc62dd7273a7b81088b3260",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\e4_v311_fixed_audit\\e4_v311_fixed_fold3.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold3.json",
+    "sha256": "d086c4df5c7b15f552b46ce86f54eee0e66b0a81bee0860485f297ed328f2c2c",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\e4_v311_fixed_audit\\e4_v311_fixed_fold4.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold4.csv",
+    "sha256": "8ef3ab95e9c79119bb9b1dc5b8a830513d44fbfbd1b26beaee5aef36dd30a695",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\e4_v311_fixed_audit\\e4_v311_fixed_fold4.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold4.json",
+    "sha256": "937762d9893788f9ace499989ae6c566ecb2ec765089c9a66ad07ff1ba1c3c7c",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\e4_v311_fixed_audit\\e4_v311_fixed_summary.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\e4_v311_fixed_audit\\e4_v311_fixed_summary.csv",
+    "sha256": "aab5936e7165ba69a8b9a2d9c349e2de3c229b9ce0dbe018ead4e980eb78768b",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\proof_D_visualization\\proof_D_metrics.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\proof_D_visualization\\proof_D_metrics.json",
+    "sha256": "cab8b025d7561b7160ef953bd9b844ac308c536a4e2ce7baf60bf946119e5f9e",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\proof_D_visualization\\proof_D_report.md",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\proof_D_visualization\\proof_D_report.md",
+    "sha256": "75021d0f0a4eefb712c18c2092d9fd7aaa0e89626f46928fc8d54ea865751494",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\v311_fixed_proof\\v311_fixed_proof_report.md",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\v311_fixed_proof\\v311_fixed_proof_report.md",
+    "sha256": "0d4bc63c52fe3ad5ddeafd9524e00d1687669680800a6c34dea5327622c052ae",
+    "role": "local_record"
+  },
+  {
+    "source": "results\\v311_fixed_proof\\v311_fixed_vs_unfixed_comparison.md",
+    "target": "维护资料\\本地结果总快照_20261009\\results\\v311_fixed_proof\\v311_fixed_vs_unfixed_comparison.md",
+    "sha256": "f86b74f518b6b67cbfa935bd0990556b591989fe6487a847f76e7aa08cf061b6",
+    "role": "local_record"
+  },
+  {
+    "source": "results_fixed_anchors\\audit_fixed_fold0_summary.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results_fixed_anchors\\audit_fixed_fold0_summary.json",
+    "sha256": "b5ca39ebb1771db8b48ff8554230503a3a128c0b16158acadaed4b6989cf9810",
+    "role": "local_record"
+  },
+  {
+    "source": "results_fixed_anchors\\audit_fixed_fold1.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\results_fixed_anchors\\audit_fixed_fold1.csv",
+    "sha256": "fc1c3efcc98b23dc43ec1e91a31e3eee48aa77bdaa7aede5536308606b39346f",
+    "role": "local_record"
+  },
+  {
+    "source": "results_fixed_anchors\\audit_fixed_fold1_summary.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results_fixed_anchors\\audit_fixed_fold1_summary.json",
+    "sha256": "e23737a8ee48484e6b598f413f7a6fa8ebaff075c1dd53cc5c9b5d3040333904",
+    "role": "local_record"
+  },
+  {
+    "source": "results_fixed_anchors\\audit_fixed_fold2.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\results_fixed_anchors\\audit_fixed_fold2.csv",
+    "sha256": "8a123307a9272407e3890dd7d25276dfac52ea21d89850faba3460fe919a072e",
+    "role": "local_record"
+  },
+  {
+    "source": "results_fixed_anchors\\audit_fixed_fold2_summary.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results_fixed_anchors\\audit_fixed_fold2_summary.json",
+    "sha256": "456ffac24646886a67583809fec10fad91c37a373a5ca207fd6b8dbf050b8acc",
+    "role": "local_record"
+  },
+  {
+    "source": "results_fixed_anchors\\audit_fixed_fold3.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\results_fixed_anchors\\audit_fixed_fold3.csv",
+    "sha256": "d774f19ff38174dbd5f7a9c14fa95e35ca4c8155e480dae907265cfff300deed",
+    "role": "local_record"
+  },
+  {
+    "source": "results_fixed_anchors\\audit_fixed_fold3_summary.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results_fixed_anchors\\audit_fixed_fold3_summary.json",
+    "sha256": "e10dc81d5ed4aba4d2af957259b6c29c86505bdfc762510316edf7383eff4d60",
+    "role": "local_record"
+  },
+  {
+    "source": "results_fixed_anchors\\audit_fixed_fold4.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\results_fixed_anchors\\audit_fixed_fold4.csv",
+    "sha256": "738fb58918fe8f6ee23d63a7a63b18ede64f9ec9eeca0212a98dcf372a92651d",
+    "role": "local_record"
+  },
+  {
+    "source": "results_fixed_anchors\\audit_fixed_fold4_summary.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results_fixed_anchors\\audit_fixed_fold4_summary.json",
+    "sha256": "c07a7c801693faab3725a4b612ae0c635b9c3b49fbac65b144803cbd7ee6e134",
+    "role": "local_record"
+  },
+  {
+    "source": "results_fixed_anchors\\audit_original_fold0_summary.json",
+    "target": "维护资料\\本地结果总快照_20261009\\results_fixed_anchors\\audit_original_fold0_summary.json",
+    "sha256": "d06c66c1811812923ffa0d3bd9f3a89a0c9d9b6e925c364ab6b04151c48daef3",
+    "role": "local_record"
+  },
+  {
+    "source": "results_fixed_anchors\\blca\\.gitignore",
+    "target": "维护资料\\本地结果总快照_20261009\\results_fixed_anchors\\blca\\.gitignore",
+    "sha256": "7f879ef6a644f6d8e7fe26b9f251714bb0c28a953e0a6a6c324b8b8cf8802560",
+    "role": "local_record"
+  },
+  {
+    "source": "audit_results\\AUDIT_REPORT.md",
+    "target": "维护资料\\本地结果总快照_20261009\\audit_results\\AUDIT_REPORT.md",
+    "sha256": "bb3b11a15c4fa0125da9c974f76d7cb93ca67fb59a419926ea3b6b046580ae54",
+    "role": "local_record"
+  },
+  {
+    "source": "audit_results\\AUDIT_SUMMARY.md",
+    "target": "维护资料\\本地结果总快照_20261009\\audit_results\\AUDIT_SUMMARY.md",
+    "sha256": "3642a46ed71577a5a405dd9a6513b84a0ef36cc6f59847c5c99126747766f374",
+    "role": "local_record"
+  },
+  {
+    "source": "audit_results\\blca_fold0_audit_summary.json",
+    "target": "维护资料\\本地结果总快照_20261009\\audit_results\\blca_fold0_audit_summary.json",
+    "sha256": "490ecd9a9f0a9b8c450e630f1dc5641e30150706fe337c3c71fbdaa1d792f21f",
+    "role": "local_record"
+  },
+  {
+    "source": "experiments\\PROTOCOL.md",
+    "target": "维护资料\\本地结果总快照_20261009\\experiments\\PROTOCOL.md",
+    "sha256": "fbaff8cbf100dbf0a805c099fee6671349e789cd98579cb76ac44708172ce7bb",
+    "role": "local_record"
+  },
+  {
+    "source": "experiments\\REGISTRY.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\experiments\\REGISTRY.csv",
+    "sha256": "c8c8a5c61959421d457f50e2c1e2b7c1af3ea505240ec9f0d6be6428091404ec",
+    "role": "local_record"
+  },
+  {
+    "source": "experiments\\RESULTS.md",
+    "target": "维护资料\\本地结果总快照_20261009\\experiments\\RESULTS.md",
+    "sha256": "e91c3c57cba1157182467dd1685f97fd35ad7b5d6cb93f4709330e752954b2d6",
+    "role": "local_record"
+  },
+  {
+    "source": "experiments\\SLOTSPE_BASELINE_REFERENCE.md",
+    "target": "维护资料\\本地结果总快照_20261009\\experiments\\SLOTSPE_BASELINE_REFERENCE.md",
+    "sha256": "a2889e531130c961fe53a87ffedbe4195686c55f3963e96d461b9e5b6e372efb",
+    "role": "local_record"
+  },
+  {
+    "source": "experiments\\candidate_evidence\\DIRECTION_LOSS_2FOLD_LEGACY_VAL.md",
+    "target": "维护资料\\本地结果总快照_20261009\\experiments\\candidate_evidence\\DIRECTION_LOSS_2FOLD_LEGACY_VAL.md",
+    "sha256": "5dbb4aacdb5869882e566130e885bdd7f91e5ba22d95d12f6257cdf9b5cc17b3",
+    "role": "local_record"
+  },
+  {
+    "source": "experiments\\transport_dependency_proof\\__pycache__\\plan.cpython-310.pyc",
+    "target": "维护资料\\本地结果总快照_20261009\\experiments\\transport_dependency_proof\\__pycache__\\plan.cpython-310.pyc",
+    "sha256": "c1c56730f3a20515d8ceeed070c221beeef5c1e005537e4ca72a65c855f3b899",
+    "role": "generated_cache"
+  },
+  {
+    "source": "experiments\\transport_dependency_proof\\__pycache__\\__init__.cpython-310.pyc",
+    "target": "维护资料\\本地结果总快照_20261009\\experiments\\transport_dependency_proof\\__pycache__\\__init__.cpython-310.pyc",
+    "sha256": "3688dc7719daa00f70103badc5cfc29ca84c3cbb8c24015a240c7a557257cf2a",
+    "role": "generated_cache"
+  },
+  {
+    "source": "paper_outputs\\all_cancer_audits.json",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\all_cancer_audits.json",
+    "sha256": "2176ff49195ed9398bb684582e306d7204fc902df2ee72c3dca5cbb334c83d1f",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\DCR_AUDIT_REVISED.md",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\DCR_AUDIT_REVISED.md",
+    "sha256": "05dd4c3bc0b7103f83074583485b778d011d315203340322da0c7d103f47d77d",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\figure3_dose_response_partial.json",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\figure3_dose_response_partial.json",
+    "sha256": "7291038332affd7bf7cb753836782892655ca2bcbece633f81c4215a16a7a4d0",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\figure3_partial_data.json",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\figure3_partial_data.json",
+    "sha256": "7291038332affd7bf7cb753836782892655ca2bcbece633f81c4215a16a7a4d0",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\null_hypothesis_summary.json",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\null_hypothesis_summary.json",
+    "sha256": "488f1bc24bb97550a81b22516b5f577c7f7719649d4d324418f2d69fa51eebed",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\ot_contribution_blca_fold0.json",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\ot_contribution_blca_fold0.json",
+    "sha256": "dddd5531f6d7c5eafd22f86286fdbff7e961dc6af2faf068f78dd849a8358934",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\ot_contribution_blca_fold1.json",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\ot_contribution_blca_fold1.json",
+    "sha256": "465dd55f1c61a3a9d5ffc26902318d570826336f974fbb3b9544ac4eb0bc5052",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\ot_contribution_summary.md",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\ot_contribution_summary.md",
+    "sha256": "4b1c2de281a46907f80c728712f5ec9c4895e34cdcfa61db58ee1f346b7564cf",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\PAPER_COMPLETION_REPORT.md",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\PAPER_COMPLETION_REPORT.md",
+    "sha256": "c0b3926829a54eec852442b1080347cc2b3a1acae6daebc2fb54f1e6a5d908a2",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\run_summary.json",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\run_summary.json",
+    "sha256": "a8c2f906659865d5236c1409ed09a1e4d113d569f62903dddf94182d55895f3b",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\statistical_test_results.json",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\statistical_test_results.json",
+    "sha256": "3b2741947a03f0983cde8ee10d77300f92ac30be715816481cc12adebf618530",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\table4_audit_summary.md",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\table4_audit_summary.md",
+    "sha256": "c7902ec5efd48a9651061c96923bd594190966b35f6f37ba575cb61b758bfb87",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\km_curves\\kaplan_meier_report.txt",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\km_curves\\kaplan_meier_report.txt",
+    "sha256": "1f72a7962bddbe9f6959733a6415150b25777d0a1c3e365eec58f4d63884e449",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\km_curves\\pairwise_logrank_tests.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\km_curves\\pairwise_logrank_tests.csv",
+    "sha256": "6362f04c9ccc66831f7af50b2639383d2313c7a2e734573e0be10b3a9f7dc5e0",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\km_curves\\risk_stratification_summary.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\km_curves\\risk_stratification_summary.csv",
+    "sha256": "375099415855d81bcc678b1a7da188462658c6e060610fd2a0b4197a8b12939b",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\km_curves\\variant_comparison.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\km_curves\\variant_comparison.csv",
+    "sha256": "6efe714043c811ae5aa89f681b08d5980d00dfdd929b38d68bc335ab33876d61",
+    "role": "local_record"
+  },
+  {
+    "source": "paper_outputs\\km_curves_multi_cancer\\km_summary.csv",
+    "target": "维护资料\\本地结果总快照_20261009\\paper_outputs\\km_curves_multi_cancer\\km_summary.csv",
+    "sha256": "51505fe39cef2f13b584266bea4d286ccaeca96d5fa819d632e3cd54b128ca0a",
+    "role": "local_record"
+  }
+]

@@ -1,0 +1,143 @@
+{
+  "id": "E015",
+  "folder": "E015_十队列成本",
+  "title": "Full 十队列实测成本分布",
+  "kind": "完整模型的跨队列 profile",
+  "status": "50 折汇总记录已保存",
+  "purpose": "记录固定输入规模下 Full 在十队列的评估前向开销。",
+  "setting": "与 E014 同 GPU、精度和输入规模；每队列五折宏平均，仅 Full，不含 Direct 或外部方法。",
+  "conclusion": "十队列峰值 allocated 显存约 180.3–181.4 MiB，延迟约 479.5–499.5 ms，C-index 约 0.6300–0.8224。",
+  "pending": "这是十队列单方法成本分布，不证明优于外部方法。前向范围可能包含辅助重建，不等于完整病理预处理与部署流程；不同癌种的成绩差不能直接作难度因果解释。",
+  "sources": [
+    "paper/figures/v313_tradeoff_real_20261008/tradeoff_ten_cohort_full_only/efficiency_per_cohort.json"
+  ],
+  "scripts": [
+    "scripts/plot_v313_tradeoff_per_cohort.py",
+    "scripts/run_v313_additional_evidence.py",
+    "survot_rank/evidence/additional.py"
+  ],
+  "tables": [
+    {
+      "title": "十队列 Full profile",
+      "headers": [
+        "队列",
+        "C-index",
+        "峰值 allocated 显存 MiB",
+        "延迟 ms",
+        "参数量 M"
+      ],
+      "rows": [
+        [
+          "BLCA",
+          "0.7238",
+          "181.40",
+          "491.47",
+          "32.428"
+        ],
+        [
+          "BRCA",
+          "0.6787",
+          "181.40",
+          "487.70",
+          "32.427"
+        ],
+        [
+          "COADREAD",
+          "0.7364",
+          "180.57",
+          "480.16",
+          "32.214"
+        ],
+        [
+          "HNSC",
+          "0.6582",
+          "180.95",
+          "486.32",
+          "32.311"
+        ],
+        [
+          "KIRC",
+          "0.8224",
+          "181.39",
+          "485.85",
+          "32.427"
+        ],
+        [
+          "LUAD",
+          "0.6858",
+          "181.39",
+          "480.68",
+          "32.427"
+        ],
+        [
+          "LUSC",
+          "0.6300",
+          "181.39",
+          "499.50",
+          "32.427"
+        ],
+        [
+          "SKCM",
+          "0.6654",
+          "181.39",
+          "487.36",
+          "32.427"
+        ],
+        [
+          "STAD",
+          "0.6360",
+          "180.27",
+          "481.48",
+          "32.135"
+        ],
+        [
+          "UCEC",
+          "0.7928",
+          "180.57",
+          "479.82",
+          "32.213"
+        ]
+      ]
+    }
+  ],
+  "figures": [
+    {
+      "path": "表格图片\\E015_十队列成本\\原始材料\\tradeoff_ten_cohort_full_only\\efficiency_per_cohort.png",
+      "caption": "同一协议下的十队列 Full 分布，每个点是一队列五折汇总。"
+    }
+  ],
+  "assets": [
+    {
+      "experiment": "E015",
+      "source": "paper/figures/v313_tradeoff_real_20261008/tradeoff_ten_cohort_full_only/efficiency_per_cohort.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E015_十队列成本\\原始材料\\tradeoff_ten_cohort_full_only\\efficiency_per_cohort.json",
+      "sha256": "106d478119a36c48119db1b520673554f5a2f8e33f7a499c351e58e592e78350"
+    },
+    {
+      "experiment": "E015",
+      "source": "paper/figures/v313_tradeoff_real_20261008/tradeoff_ten_cohort_full_only/efficiency_per_cohort.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E015_十队列成本\\原始材料\\tradeoff_ten_cohort_full_only\\efficiency_per_cohort.pdf",
+      "sha256": "aad9da9a307cabc1f974ec074381f352902db421c0455523c002f677ee999227"
+    },
+    {
+      "experiment": "E015",
+      "source": "paper/figures/v313_tradeoff_real_20261008/tradeoff_ten_cohort_full_only/efficiency_per_cohort.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E015_十队列成本\\原始材料\\tradeoff_ten_cohort_full_only\\efficiency_per_cohort.png",
+      "sha256": "891090160cdc82c2cb8adc86d4d3949f59442281ea900dd73d59ab357933c7e3"
+    },
+    {
+      "experiment": "E015",
+      "source": "paper/figures/v313_tradeoff_real_20261008/tradeoff_ten_cohort_full_only/efficiency_per_cohort.svg",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E015_十队列成本\\原始材料\\tradeoff_ten_cohort_full_only\\efficiency_per_cohort.svg",
+      "sha256": "34f49eeae64677c4801721a67d116defe84c40af93fa34f3fa96bd7612aa4325"
+    }
+  ]
+}

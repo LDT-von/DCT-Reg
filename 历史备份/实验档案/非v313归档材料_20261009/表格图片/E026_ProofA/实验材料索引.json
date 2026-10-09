@@ -1,0 +1,65 @@
+{
+  "id": "E026",
+  "folder": "E026_ProofA",
+  "title": "Proof A 版本和特征配方训练记录",
+  "kind": "补录实验或审计",
+  "status": "结构化 JSON 有五折与短程记录",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "v3.11 UNI 完整五折、UNI2-h 一轮 smoke，以及 v3.10 UNI2-h 不完整运行。",
+  "conclusion": "v3.11 UNI 五折最佳均值 0.7174；其余仅 smoke 或短程，不能作统一预算的版本优劣判断。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "results/proof_experiment_A.json"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/proof_experiments/proof_A_recipe_compare.py"
+  ],
+  "tables": [
+    {
+      "title": "配方覆盖和历史最佳值",
+      "headers": [
+        "配方",
+        "折数",
+        "训练轮数范围",
+        "报告最佳均值"
+      ],
+      "rows": [
+        [
+          "v3.11 BLCA UNI (NLL+IPCW+per-slot+div)",
+          "5",
+          "30–30",
+          "0.7174"
+        ],
+        [
+          "v3.11 BLCA UNI2-h (early 1ep smoke)",
+          "1",
+          "1–1",
+          "0.5616"
+        ],
+        [
+          "v3.10 BLCA UNI2-h frozen (NLL+IPCW)",
+          "1",
+          "11–11",
+          "0.6194"
+        ],
+        [
+          "v3.10 BLCA UNI2-h (NLL+IPCW)",
+          "2",
+          "5–29",
+          "0.6171"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E026",
+      "source": "results/proof_experiment_A.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E026_ProofA\\原始材料\\results\\proof_experiment_A.json",
+      "sha256": "2ae2f7e03a9d54ca0089bc474e249f3add839cbf8cdc630038f98eb39f9ff5df"
+    }
+  ]
+}

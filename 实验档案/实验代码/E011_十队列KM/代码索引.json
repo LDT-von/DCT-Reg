@@ -1,0 +1,25 @@
+{
+  "experiment": "E011",
+  "title": "十队列高低风险 KM 分层",
+  "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+  "shared_model": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/model.py",
+  "entries": [
+    {
+      "path": "scripts/plot_fig5_km_curves.py",
+      "present": true,
+      "sha256": "f9fc14d5c4f5bfa14cc95a65cf7099f30289218aa3488b9aee71dcef5a680c51"
+    },
+    {
+      "path": "scripts/rerun_v313_export_with_km.py",
+      "present": true,
+      "sha256": "d6c3c492f29c3a360701abbd5d59ea315678ce5dc31748f6d0571d2160ee86b5"
+    },
+    {
+      "path": "survot_rank/evidence/km_oof.py",
+      "present": true,
+      "sha256": "819e23ea589870a7dfd1aedfe82606c9ab41b342d1b01a4a6e970ff3d915757e"
+    }
+  ],
+  "shared_snapshot": "../共享代码快照_2b1c622",
+  "execution_note": "仅作源代码溯源，整理阶段没有执行训练、推理或导出作业。以原工程环境与历史 overrides 复现。"
+}

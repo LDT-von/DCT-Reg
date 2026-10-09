@@ -1,0 +1,6 @@
+﻿Metric,Baseline,Improved,Factor
+Min temporal variation,0.0059,0.3845,65.4×
+Mean temporal variation,0.1343,0.3987,3.0×
+Max temporal variation,0.2539,0.4156,1.6×
+Temporal contrast loss,0.0527,0.0000,∞
+Mean spatial variation,0.2153,0.1052,0.5×

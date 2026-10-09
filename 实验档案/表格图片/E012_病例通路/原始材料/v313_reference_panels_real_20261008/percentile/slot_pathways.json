@@ -1,0 +1,317 @@
+{
+  "case_id": "TCGA-2F-A9KP",
+  "run": {
+    "id": "exp6_blca_f1_s3",
+    "arm": "exp6",
+    "cancer": "blca",
+    "fold": 1,
+    "seed": 3,
+    "protocol": "legacy_val",
+    "source_commit": "0ed9d9d46f27b3b1973581fb5e278860ee2d2e9d",
+    "config": "/data1/DCT-Reg/configs/dct_v313_uni2h.yaml",
+    "overrides": [
+      "study=blca",
+      "which_splits=5fold_uni2h",
+      "dct_v313_cross_mode=transport",
+      "dct_v313_plan_mode=learned",
+      "dct_v313_recon_weighting=per_branch"
+    ],
+    "curve": "/data1/DCT-Reg/results/dct_v313_blca_uni2h/blca/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_blca_uni2h/epoch_curve_fold1.csv",
+    "predictions": "/data1/DCT-Reg/results/dct_v313_blca_uni2h/blca/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_blca_uni2h/split_1_results.pkl",
+    "checkpoint": "/data1/DCT-Reg/results/dct_v313_blca_uni2h/blca/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_blca_uni2h/model_best_s1.pth",
+    "split_csv": "/data1/dataset_splits_summary/uni2h/blca/fold_1.csv"
+  },
+  "source": {
+    "export_sha256": "8fdea665a741b063af929dfd3b4b119266c33db5817b028d97a5a201e84f12c6",
+    "case_sha256": "9bae9c2e5a602c98890e9fb7f6c3eee521502f456be21b19a2a63d266a5c443b",
+    "patients_sha256": "79e6f76a511fe3dcab83ab7403eefd90b5609624a018408b716ca55bbf7bb108"
+  },
+  "time_months": 11.966992378234863,
+  "censor": 0,
+  "risk": -1.4703383445739746,
+  "risk_direction": "higher_is_worse",
+  "attention": "final pooling plus shared-prototype rollout",
+  "note": "Descriptive slot associations; attention/OT is not causal risk attribution",
+  "panels": [
+    {
+      "slot": 0,
+      "pathways": [
+        {
+          "pathway": "PDE3B_signalling",
+          "attention": 0.0032141688279807568,
+          "selection": "top"
+        },
+        {
+          "pathway": "Fatty_acid__triacylglycerol__and_ketone_body_metabolism",
+          "attention": 0.0032127860467880964,
+          "selection": "top"
+        },
+        {
+          "pathway": "NGF-independant_TRKA_activation",
+          "attention": 0.0032077617943286896,
+          "selection": "top"
+        },
+        {
+          "pathway": "Axonal_growth_stimulation",
+          "attention": 0.0025604090187698603,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "HALLMARK_PEROXISOME",
+          "attention": 0.0025933338329195976,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "HALLMARK_PROTEIN_SECRETION",
+          "attention": 0.002596213947981596,
+          "selection": "bottom"
+        }
+      ]
+    },
+    {
+      "slot": 1,
+      "pathways": [
+        {
+          "pathway": "Beta_oxidation_of_lauroyl-CoA_to_decanoyl-CoA-CoA",
+          "attention": 0.0031546044629067183,
+          "selection": "top"
+        },
+        {
+          "pathway": "pelp1_modulation_of_estrogen_receptor_activity",
+          "attention": 0.0031536302994936705,
+          "selection": "top"
+        },
+        {
+          "pathway": "Glucocorticoid_biosynthesis",
+          "attention": 0.003149726428091526,
+          "selection": "top"
+        },
+        {
+          "pathway": "Astrocytic_Glutamate-Glutamine_Uptake_And_Metabolism",
+          "attention": 0.002837962470948696,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "GRB2/SOS_provides_linkage_to_MAPK_signaling_for_Intergrins",
+          "attention": 0.002856452250853181,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "Regulation_of_Signaling_by_NODAL",
+          "attention": 0.002865415997803211,
+          "selection": "bottom"
+        }
+      ]
+    },
+    {
+      "slot": 2,
+      "pathways": [
+        {
+          "pathway": "Mitochondrial_ABC_transporters",
+          "attention": 0.0031529595144093037,
+          "selection": "top"
+        },
+        {
+          "pathway": "Biosynthesis_of_the_N-glycan_precursor_(dolichol_lipid-linked_oligosaccharide__LLO)_and_transfer_to_a_nascent_protein",
+          "attention": 0.0031513895373791456,
+          "selection": "top"
+        },
+        {
+          "pathway": "Sulfur_amino_acid_metabolism",
+          "attention": 0.0031468262895941734,
+          "selection": "top"
+        },
+        {
+          "pathway": "Cam-PDE_1_activation",
+          "attention": 0.0028932099230587482,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "Activation_of_CaMK_IV",
+          "attention": 0.0028949419502168894,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "neuroregulin_receptor_degredation_protein-1_controls_erbb3_receptor_recycling",
+          "attention": 0.0028990781866014004,
+          "selection": "bottom"
+        }
+      ]
+    },
+    {
+      "slot": 3,
+      "pathways": [
+        {
+          "pathway": "HALLMARK_XENOBIOTIC_METABOLISM",
+          "attention": 0.003418655600398779,
+          "selection": "top"
+        },
+        {
+          "pathway": "Androgen_biosynthesis",
+          "attention": 0.003402011003345251,
+          "selection": "top"
+        },
+        {
+          "pathway": "Sulfur_amino_acid_metabolism",
+          "attention": 0.0034011281095445156,
+          "selection": "top"
+        },
+        {
+          "pathway": "Transport_of_fatty_acids",
+          "attention": 0.0027112734969705343,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "Alpha-oxidation_of_phytanate",
+          "attention": 0.0027203503996133804,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "Insulin_effects_increased_synthesis_of_Xylulose-5-Phosphate",
+          "attention": 0.002730925800278783,
+          "selection": "bottom"
+        }
+      ]
+    },
+    {
+      "slot": 4,
+      "pathways": [
+        {
+          "pathway": "Sema4D_induced_cell_migration_and_growth-cone_collapse",
+          "attention": 0.0033659362234175205,
+          "selection": "top"
+        },
+        {
+          "pathway": "Beta_oxidation_of_myristoyl-CoA_to_lauroyl-CoA",
+          "attention": 0.0033620097674429417,
+          "selection": "top"
+        },
+        {
+          "pathway": "Synthesis_of_bile_acids_and_bile_salts_via_7alpha-hydroxycholesterol",
+          "attention": 0.0033613410778343678,
+          "selection": "top"
+        },
+        {
+          "pathway": "Axonal_growth_stimulation",
+          "attention": 0.002411347348242998,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "Ceramide_signalling",
+          "attention": 0.00245995307341218,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "Hexose_transport",
+          "attention": 0.002470114966854453,
+          "selection": "bottom"
+        }
+      ]
+    },
+    {
+      "slot": 5,
+      "pathways": [
+        {
+          "pathway": "Passive_Transport_by_Aquaporins",
+          "attention": 0.00329021830111742,
+          "selection": "top"
+        },
+        {
+          "pathway": "Androgen_biosynthesis",
+          "attention": 0.003287931904196739,
+          "selection": "top"
+        },
+        {
+          "pathway": "Sema4D_induced_cell_migration_and_growth-cone_collapse",
+          "attention": 0.003286976832896471,
+          "selection": "top"
+        },
+        {
+          "pathway": "Regulation_of_Signaling_by_NODAL",
+          "attention": 0.0028330599889159203,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "Activation_of_CaMK_IV",
+          "attention": 0.0028354283422231674,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "IRAK2_mediated_activation_of_TAK1_complex_upon_TLR7/8_or_9_stimulation",
+          "attention": 0.0028386989142745733,
+          "selection": "bottom"
+        }
+      ]
+    },
+    {
+      "slot": 6,
+      "pathways": [
+        {
+          "pathway": "Formation_of_transcription-coupled_NER_(TC-NER)_repair_complex",
+          "attention": 0.003283348400145769,
+          "selection": "top"
+        },
+        {
+          "pathway": "L1CAM_interactions",
+          "attention": 0.0032821735367178917,
+          "selection": "top"
+        },
+        {
+          "pathway": "NGF-independant_TRKA_activation",
+          "attention": 0.0032819141633808613,
+          "selection": "top"
+        },
+        {
+          "pathway": "Axonal_growth_stimulation",
+          "attention": 0.002374486532062292,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "HALLMARK_PEROXISOME",
+          "attention": 0.0024263584055006504,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "HALLMARK_PROTEIN_SECRETION",
+          "attention": 0.0024292715825140476,
+          "selection": "bottom"
+        }
+      ]
+    },
+    {
+      "slot": 7,
+      "pathways": [
+        {
+          "pathway": "Passive_Transport_by_Aquaporins",
+          "attention": 0.0033579724840819836,
+          "selection": "top"
+        },
+        {
+          "pathway": "Sema4D_induced_cell_migration_and_growth-cone_collapse",
+          "attention": 0.003344776574522257,
+          "selection": "top"
+        },
+        {
+          "pathway": "Neurotransmitter_Clearance_In_The_Synaptic_Cleft",
+          "attention": 0.0033441674895584583,
+          "selection": "top"
+        },
+        {
+          "pathway": "Astrocytic_Glutamate-Glutamine_Uptake_And_Metabolism",
+          "attention": 0.0027809112798422575,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "Regulation_of_Signaling_by_NODAL",
+          "attention": 0.0028004341293126345,
+          "selection": "bottom"
+        },
+        {
+          "pathway": "GRB2/SOS_provides_linkage_to_MAPK_signaling_for_Intergrins",
+          "attention": 0.0028089212719351053,
+          "selection": "bottom"
+        }
+      ]
+    }
+  ]
+}

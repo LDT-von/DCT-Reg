@@ -1,0 +1,11 @@
+﻿材料,设备,模式,步骤
+v314_after.json,cpu,见配置,见配置
+v314_before.json,cpu,见配置,见配置
+v314_dimension_check.json,cuda,masked,5
+v314_dimension_distance.json,cuda,masked,10
+v314_dimension_scaled.json,cuda,masked,10
+v314_final_gpu_shape.json,cuda,masked,30
+v314_final_masked.json,cpu,masked,30
+v314_full_control.json,cpu,full,30
+v314_hybrid_control.json,cpu,hybrid,30
+v314_off_control.json,cpu,off,30

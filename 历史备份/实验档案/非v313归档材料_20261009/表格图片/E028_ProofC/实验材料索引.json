@@ -1,0 +1,77 @@
+{
+  "id": "E028",
+  "folder": "E028_ProofC",
+  "title": "Proof C IPCW 训练轨迹",
+  "kind": "补录实验或审计",
+  "status": "五折及短程比较 JSON 已保存",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "比较前五轮和后五轮 IPCW 目标；同时记录最佳验证 C-index。",
+  "conclusion": "v3.11 目标下降报告均值 0.2761，最佳验证均值 0.7174。目标下降不等于相对对照的性能提升。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "results/proof_experiment_C.json"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/proof_experiments/proof_C_ipcw_rank.py"
+  ],
+  "tables": [
+    {
+      "title": "v3.11 IPCW 目标轨迹",
+      "headers": [
+        "Fold",
+        "前五轮均值",
+        "后五轮均值",
+        "下降",
+        "最佳 val C-index"
+      ],
+      "rows": [
+        [
+          "2",
+          "0.3736",
+          "0.1016",
+          "0.272",
+          "0.6837"
+        ],
+        [
+          "4",
+          "0.3604",
+          "0.0817",
+          "0.2787",
+          "0.7589"
+        ],
+        [
+          "3",
+          "0.3516",
+          "0.0718",
+          "0.2799",
+          "0.7027"
+        ],
+        [
+          "1",
+          "0.3691",
+          "0.0699",
+          "0.2992",
+          "0.7403"
+        ],
+        [
+          "0",
+          "0.371",
+          "0.1202",
+          "0.2507",
+          "0.7013"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E028",
+      "source": "results/proof_experiment_C.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E028_ProofC\\原始材料\\results\\proof_experiment_C.json",
+      "sha256": "d3246a3a46cf5b4a297819e59c9a1f1ce8687a5eb9d568b3324b743fb63ed3a2"
+    }
+  ]
+}

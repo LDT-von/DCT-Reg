@@ -1,0 +1,13 @@
+{
+  "id": "E027",
+  "entries": [
+    {
+      "requested": "scripts/_archive_v310_v311/proof_experiments/proof_B_variance_constraint_FIXED.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\proof_experiments\\proof_B_variance_constraint_FIXED.py",
+      "sha256": "791ffd140309dbe171f866207f2cd89fb0c7d6b808a114e68db8a40085dcd131",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

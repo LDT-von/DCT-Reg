@@ -1,0 +1,80 @@
+{
+  "id": "E019",
+  "folder": "E019_v310跨癌",
+  "title": "v3.10 五癌种历史主结果与 KIRC 补折",
+  "kind": "补录实验或审计",
+  "status": "历史报告记录 25 折 外层证据未完成",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "旧 UNI 及 50 epoch 配方；不是 v3.13 UNI2-h 十队列。",
+  "conclusion": "KIRC 五折为 0.8270，旧两折 0.8579 已作废。五癌种均值约 0.6964；原登记外层测试仍 pending。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "experiments/RESULTS.md",
+    "CRITICAL_EXPERIMENTS_MISMATCH.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/run_dct_v310_final_cross_cancer.py",
+    "scripts/_archive_v310_v311/kirc_refill_5fold.py"
+  ],
+  "tables": [
+    {
+      "title": "五癌种历史报告",
+      "headers": [
+        "癌种",
+        "折数",
+        "C-index"
+      ],
+      "rows": [
+        [
+          "BLCA",
+          "5",
+          "0.7208 ± 0.0162"
+        ],
+        [
+          "HNSC",
+          "5",
+          "0.6471 ± 0.0713"
+        ],
+        [
+          "KIRC",
+          "5",
+          "0.8270 ± 0.0341"
+        ],
+        [
+          "LUSC",
+          "5",
+          "0.6313 ± 0.0545"
+        ],
+        [
+          "SKCM",
+          "5",
+          "0.6556 ± 0.0473"
+        ],
+        [
+          "合计",
+          "25",
+          "0.6964"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E019",
+      "source": "experiments/RESULTS.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E019_v310跨癌\\原始材料\\experiments\\RESULTS.md",
+      "sha256": "e91c3c57cba1157182467dd1685f97fd35ad7b5d6cb93f4709330e752954b2d6"
+    },
+    {
+      "experiment": "E019",
+      "source": "CRITICAL_EXPERIMENTS_MISMATCH.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E019_v310跨癌\\原始材料\\CRITICAL_EXPERIMENTS_MISMATCH.md",
+      "sha256": "b1ef2b05daecb168f38c98640bf0d0120cc55ef3099be770f7a109606b38977f"
+    }
+  ]
+}

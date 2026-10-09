@@ -1,0 +1,27 @@
+{
+  "id": "E039",
+  "entries": [
+    {
+      "requested": "scripts/plot_fig3_from_exports.py",
+      "present": true,
+      "path": "实验代码\\共享代码快照_2b1c622\\scripts\\plot_fig3_from_exports.py",
+      "sha256": "190ca5ba9bc3068654c013cf837fa8f90e4e4d7f28922371acec67485c98963d",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "scripts/plot_fig5_km_curves.py",
+      "present": true,
+      "path": "实验代码\\共享代码快照_2b1c622\\scripts\\plot_fig5_km_curves.py",
+      "sha256": "f9fc14d5c4f5bfa14cc95a65cf7099f30289218aa3488b9aee71dcef5a680c51",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "scripts/prepare_v313_manuscript_panels.py",
+      "present": true,
+      "path": "实验代码\\共享代码快照_2b1c622\\scripts\\prepare_v313_manuscript_panels.py",
+      "sha256": "088fcd9f30d6a0a14ae2ccafa812ce8e4b4305c39474c7c788da07919ef5a3eb",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

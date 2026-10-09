@@ -1,0 +1,65 @@
+{
+  "id": "E032",
+  "folder": "E032_旧E4分布",
+  "title": "Direction 和 IPCW 旧 E4 风险分布",
+  "kind": "补录实验或审计",
+  "status": "仅历史报告 原始 CSV 未找到",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "两种配置各五折，报告风险标准差和锚点距离。",
+  "conclusion": "风险 std 为 0.4526/0.7624；风险分布更窄不等于方向更正确，负风险分数本身也不证明预后改善。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "E4_AUDIT_FINAL_REPORT.md",
+    "ANALYSIS_EXECUTION_SUMMARY.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/run_all_e4_experiments.py",
+    "scripts/_archive_v310_v311/analyze_e4_results.py"
+  ],
+  "tables": [
+    {
+      "title": "历史报告分布摘要",
+      "headers": [
+        "指标",
+        "Direction",
+        "IPCW"
+      ],
+      "rows": [
+        [
+          "平均锚点距离",
+          "2.67 ± 1.52",
+          "2.48 ± 1.17"
+        ],
+        [
+          "平均风险",
+          "-2.97 ± 0.55",
+          "-2.85 ± 0.34"
+        ],
+        [
+          "风险标准差均值",
+          "0.4526",
+          "0.7624"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E032",
+      "source": "E4_AUDIT_FINAL_REPORT.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E032_旧E4分布\\原始材料\\E4_AUDIT_FINAL_REPORT.md",
+      "sha256": "f9ca35021128735fa94c9d90ded3b6b456193bd0122319ff005919e515c92fa7"
+    },
+    {
+      "experiment": "E032",
+      "source": "ANALYSIS_EXECUTION_SUMMARY.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E032_旧E4分布\\原始材料\\ANALYSIS_EXECUTION_SUMMARY.md",
+      "sha256": "c0b0eb8013e495ceb3d3c155957ae55e8982902fdac268872734f486fcadf6f9"
+    }
+  ]
+}

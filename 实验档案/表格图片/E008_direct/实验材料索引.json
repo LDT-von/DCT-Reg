@@ -1,0 +1,112 @@
+{
+  "id": "E008",
+  "folder": "E008_direct",
+  "title": "Direct 重建输入对照",
+  "kind": "重训机制对照",
+  "status": "服务器审计记录通过",
+  "purpose": "检验辅助重建读取运输对齐信息的作用。",
+  "setting": "BLCA/KIRC 各五折，seed=3，legacy_val；self/cross 有效系数各为 0.05。Direct 保留预测 OT，仅将 cross 输入改为原始病理槽。",
+  "conclusion": "Full 相对 Direct 在 BLCA/KIRC 分别提高约 0.0209/0.0193；逐折提高比例为 3/5 与 4/5。",
+  "pending": "审计来自已提交服务器记录，本次整理不重跑模型。Full 与控制臂的完整患者、结局、配置配对核对仍应保留。Independent 同时改变两个位置，不能把差值只归因于重建。",
+  "sources": [
+    "results/v313_evidence_v2/controls.json",
+    "results/v313_evidence_v2/controls_audit.json"
+  ],
+  "scripts": [
+    "scripts/prepare_v313_evidence.py",
+    "scripts/run_v313_additional_evidence.py",
+    "survot_rank/evidence/v313.py",
+    "survot_rank/evidence/additional.py",
+    "results/v313_evidence_v2/controls_plan_configs/direct_blca.yaml",
+    "results/v313_evidence_v2/controls_plan_configs/direct_kirc.yaml"
+  ],
+  "tables": [
+    {
+      "title": "重训控制臂与 Full 对照",
+      "headers": [
+        "队列",
+        "控制臂 C-index 均值 ± 标准差",
+        "Full 减控制臂",
+        "Full 较高折数"
+      ],
+      "rows": [
+        [
+          "BLCA",
+          "0.7029 ± 0.0474",
+          "+0.0209",
+          "3/5"
+        ],
+        [
+          "KIRC",
+          "0.8030 ± 0.0302",
+          "+0.0193",
+          "4/5"
+        ]
+      ]
+    },
+    {
+      "title": "控制臂逐折分数与最佳 epoch",
+      "headers": [
+        "队列",
+        "Fold 0",
+        "Fold 1",
+        "Fold 2",
+        "Fold 3",
+        "Fold 4"
+      ],
+      "rows": [
+        [
+          "BLCA",
+          "0.6500 (4)",
+          "0.7082 (14)",
+          "0.6988 (4)",
+          "0.7779 (8)",
+          "0.6799 (0)"
+        ],
+        [
+          "KIRC",
+          "0.7750 (8)",
+          "0.8541 (10)",
+          "0.8018 (13)",
+          "0.7943 (0)",
+          "0.7900 (2)"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E008",
+      "source": "results/v313_evidence_v2/controls.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E008_direct\\原始材料\\controls.json",
+      "sha256": "8b7d71f0b2c3868b03c620a208d463e34f1d04b3200d63718a27183b8bd3cdb6"
+    },
+    {
+      "experiment": "E008",
+      "source": "results/v313_evidence_v2/controls_audit.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E008_direct\\原始材料\\controls_audit.json",
+      "sha256": "05829ecf48bac52da04056765aab524705e7b30800ed75fc6c551e0883c5be14"
+    },
+    {
+      "experiment": "E008",
+      "source": "results/v313_evidence_v2/controls_plan_configs/direct_blca.yaml",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E008_direct\\原始材料\\direct_blca.yaml",
+      "sha256": "5dc793be22a963966fa45c21b49e1095034b53c1053dc397a585748d8ef753ba"
+    },
+    {
+      "experiment": "E008",
+      "source": "results/v313_evidence_v2/controls_plan_configs/direct_kirc.yaml",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E008_direct\\原始材料\\direct_kirc.yaml",
+      "sha256": "1c48c0c5ae8e9d989a3ac58a942bc40efe05e34ff8b779468a318e3dc2eb1f74"
+    }
+  ]
+}

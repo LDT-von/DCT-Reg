@@ -1,0 +1,71 @@
+{
+  "id": "E027",
+  "folder": "E027_ProofB",
+  "title": "Proof B 分模态槽方差诊断",
+  "kind": "补录实验或审计",
+  "status": "五折 JSON 已保存",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "按 WSI 和 omic 分别计算槽方差；历史阈值区间 0.005 至 0.05。",
+  "conclusion": "WSI 五折均未达到报告定义的区间，omic 两折达到；不把最终通路权重熵当作相同槽方差指标。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "results/proof_experiment_B.json"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/proof_experiments/proof_B_variance_constraint_FIXED.py"
+  ],
+  "tables": [
+    {
+      "title": "逐折槽方差",
+      "headers": [
+        "Fold",
+        "WSI 平均方差",
+        "Omic 平均方差",
+        "两模态通过"
+      ],
+      "rows": [
+        [
+          "0",
+          "0.00031",
+          "0.01214",
+          "False"
+        ],
+        [
+          "1",
+          "4e-05",
+          "0.00098",
+          "False"
+        ],
+        [
+          "2",
+          "0.00249",
+          "8e-05",
+          "False"
+        ],
+        [
+          "3",
+          "0.00132",
+          "0.00029",
+          "False"
+        ],
+        [
+          "4",
+          "1e-05",
+          "0.00697",
+          "False"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E027",
+      "source": "results/proof_experiment_B.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E027_ProofB\\原始材料\\results\\proof_experiment_B.json",
+      "sha256": "de5f0b69fc0f5b8d9caaaffb0a2cbf2a09ce29dc26e1ba327635d6747b33d964"
+    }
+  ]
+}

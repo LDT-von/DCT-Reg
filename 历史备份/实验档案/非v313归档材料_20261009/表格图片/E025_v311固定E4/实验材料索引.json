@@ -1,0 +1,177 @@
+{
+  "id": "E025",
+  "folder": "E025_v311固定E4",
+  "title": "v3.11 Fixed 五折嵌入干预审计",
+  "kind": "补录实验或审计",
+  "status": "逐患者 CSV 和折级 JSON 已保存",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "使用 stage embedding 构建干预；模型内部嵌入操作。",
+  "conclusion": "五折 mr_mean 均值约 0.6129。记录该实现返回的指标，不把 0.5 自动解释为随机基线，也不作临床因果或显著性宣称。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "results/e4_v311_fixed_audit/e4_v311_fixed_fold0.csv",
+    "results/e4_v311_fixed_audit/e4_v311_fixed_fold0.json",
+    "results/e4_v311_fixed_audit/e4_v311_fixed_fold1.csv",
+    "results/e4_v311_fixed_audit/e4_v311_fixed_fold1.json",
+    "results/e4_v311_fixed_audit/e4_v311_fixed_fold2.csv",
+    "results/e4_v311_fixed_audit/e4_v311_fixed_fold2.json",
+    "results/e4_v311_fixed_audit/e4_v311_fixed_fold3.csv",
+    "results/e4_v311_fixed_audit/e4_v311_fixed_fold3.json",
+    "results/e4_v311_fixed_audit/e4_v311_fixed_fold4.csv",
+    "results/e4_v311_fixed_audit/e4_v311_fixed_fold4.json",
+    "results/e4_v311_fixed_audit/e4_v311_fixed_summary.csv",
+    "results/audit_comparison/v311_fixed_vs_v310_intervention_report.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/e4_v311_fixed_audit.py",
+    "scripts/_archive_v310_v311/make_e4_audit_report.py"
+  ],
+  "tables": [
+    {
+      "title": "逐折嵌入干预摘要",
+      "headers": [
+        "Fold",
+        "n",
+        "mr_low",
+        "mr_high",
+        "mr_mean"
+      ],
+      "rows": [
+        [
+          "0",
+          "77",
+          "0.4935",
+          "0.5065",
+          "0.5000"
+        ],
+        [
+          "1",
+          "75",
+          "0.4133",
+          "0.3733",
+          "0.3933"
+        ],
+        [
+          "2",
+          "76",
+          "0.7105",
+          "0.7895",
+          "0.7500"
+        ],
+        [
+          "3",
+          "76",
+          "0.6053",
+          "0.6316",
+          "0.6184"
+        ],
+        [
+          "4",
+          "76",
+          "0.7763",
+          "0.8289",
+          "0.8026"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E025",
+      "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold0.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold0.csv",
+      "sha256": "941997d15acb6ab089fda9a09cca72e68b84f92e395746da7eb08b066deae006"
+    },
+    {
+      "experiment": "E025",
+      "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold0.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold0.json",
+      "sha256": "dbe1ceadf2438e8bc5e8d034c3c748ae6787c6dcb675e96f57a118256d7fe27e"
+    },
+    {
+      "experiment": "E025",
+      "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold1.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold1.csv",
+      "sha256": "35dba8765817fb624523eb8b1754d780b544263b5c8a678027fe275afbf4216a"
+    },
+    {
+      "experiment": "E025",
+      "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold1.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold1.json",
+      "sha256": "1b443dee8aca41b78e8f2d28cb1205ec378313904f44ca96f82b01626a29a522"
+    },
+    {
+      "experiment": "E025",
+      "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold2.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold2.csv",
+      "sha256": "14dc04b0c734f0c25728576942bdd41868cd171c09b1757ea0a670dd791aeac5"
+    },
+    {
+      "experiment": "E025",
+      "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold2.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold2.json",
+      "sha256": "68347d503bd4efe69af609ec7d57eb3a0cc374e0130df96641e66a06dc46150a"
+    },
+    {
+      "experiment": "E025",
+      "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold3.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold3.csv",
+      "sha256": "673d36b459bb2f83eff0212bb30033d6cc0a410b5bc62dd7273a7b81088b3260"
+    },
+    {
+      "experiment": "E025",
+      "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold3.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold3.json",
+      "sha256": "d086c4df5c7b15f552b46ce86f54eee0e66b0a81bee0860485f297ed328f2c2c"
+    },
+    {
+      "experiment": "E025",
+      "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold4.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold4.csv",
+      "sha256": "8ef3ab95e9c79119bb9b1dc5b8a830513d44fbfbd1b26beaee5aef36dd30a695"
+    },
+    {
+      "experiment": "E025",
+      "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold4.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold4.json",
+      "sha256": "937762d9893788f9ace499989ae6c566ecb2ec765089c9a66ad07ff1ba1c3c7c"
+    },
+    {
+      "experiment": "E025",
+      "source": "results/e4_v311_fixed_audit/e4_v311_fixed_summary.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_summary.csv",
+      "sha256": "aab5936e7165ba69a8b9a2d9c349e2de3c229b9ce0dbe018ead4e980eb78768b"
+    },
+    {
+      "experiment": "E025",
+      "source": "results/audit_comparison/v311_fixed_vs_v310_intervention_report.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\audit_comparison\\v311_fixed_vs_v310_intervention_report.md",
+      "sha256": "a049737d53637010b7dacd5eb1fc35d24cef0e174af2b8dd37fbfb0dfebb5668"
+    }
+  ]
+}

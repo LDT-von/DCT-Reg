@@ -29,3 +29,7 @@ paper/tables/v313_ot_uni2h_comparison/*.html text eol=lf
 paper/tables/v313_ot_uni2h_comparison/*.json text eol=lf
 paper/V313_OT_UNI2H_COMPARISON_INPUT.json text eol=lf
 paper/V313_OT_UNI2H_MATCHED_INPUT.json text eol=lf
+
+# Archive source hashes and recovery copies require byte-identical checkouts.
+"实验档案/**" -text
+"历史备份/**" -text

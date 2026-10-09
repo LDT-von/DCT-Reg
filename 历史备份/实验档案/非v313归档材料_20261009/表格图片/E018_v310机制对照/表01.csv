@@ -1,0 +1,6 @@
+﻿实验,BLCA,LUSC,UCEC,Folds
+Full Model,0.7175,-,-,5/5
+Cross-Fold Frozen,0.5523,0.5266,0.5364,"BLCA:5, 其他:1"
+Permuted Reference,0.5281,0.4955,0.5353,各3/5
+Fixed Coupling,0.5497,0.5086,0.4981,各3/5
+Noisy Anchors,0.5286,0.4731,0.4820,各3/5

@@ -1,0 +1,41 @@
+{
+  "id": "E042",
+  "entries": [
+    {
+      "requested": "configs/dct_v316_slot_mi_decomposition.yaml",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\configs\\dct_v316_slot_mi_decomposition.yaml",
+      "sha256": "dc2d43a0e1b6b5eec47a5ae603a190c36f338c1ee8b01922d2692214c9cfffab",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "survot_rank/research/methods/dct_v316_slot_mi_interaction/model.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\survot_rank\\research\\methods\\dct_v316_slot_mi_interaction\\model.py",
+      "sha256": "e6d1338ba2c5dc81359d0d0edab84ac1639da3769fb60e287f9af02ab6372f24",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "survot_rank/research/methods/dct_v316_slot_mi_interaction/dct_v316_model.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\survot_rank\\research\\methods\\dct_v316_slot_mi_interaction\\dct_v316_model.py",
+      "sha256": "9893cc00416adc7dc6b3bd8b1bd733f68723e2ed3889f1b507e3366f52987fd9",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "tests/test_dct_v316_slot_mi.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\tests\\test_dct_v316_slot_mi.py",
+      "sha256": "7fc7f02e69ea7f5be753eaaf14cf52304345d3af9d0bf410e4d967fcdf8082ee",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "tests/test_dct_v316_standalone.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\tests\\test_dct_v316_standalone.py",
+      "sha256": "e480884991710204f2d1e18937655eec7ce9d0a462de83fe8f97e214be9bb2ca",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

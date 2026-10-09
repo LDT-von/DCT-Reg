@@ -1,0 +1,98 @@
+{
+  "expected_cancers": [
+    "blca",
+    "brca",
+    "coadread",
+    "hnsc",
+    "kirc",
+    "luad",
+    "lusc",
+    "skcm",
+    "stad",
+    "ucec"
+  ],
+  "completed_cancers": [
+    "blca",
+    "brca",
+    "coadread",
+    "hnsc",
+    "kirc",
+    "luad",
+    "lusc",
+    "skcm",
+    "stad",
+    "ucec"
+  ],
+  "complete": true,
+  "overview_images": [
+    "figure5_ten_cancers_part1.png",
+    "figure5_ten_cancers_part2.png"
+  ],
+  "patients": {
+    "blca": 380,
+    "brca": 775,
+    "coadread": 553,
+    "hnsc": 437,
+    "kirc": 488,
+    "luad": 449,
+    "lusc": 454,
+    "skcm": 388,
+    "stad": 349,
+    "ucec": 487
+  },
+  "panel_order": [
+    "blca",
+    "brca",
+    "coadread",
+    "hnsc",
+    "kirc",
+    "luad",
+    "lusc",
+    "skcm",
+    "stad",
+    "ucec"
+  ],
+  "grouping": "per-fold training-risk median, then pool validation labels",
+  "source_jsons": {
+    "blca": {
+      "path": "/data1/DCT-Reg/paper/figures/fig5_ten_cancers/km_blca_exp6_oof.json",
+      "sha256": "c9eb7e978d317b38b0f525061bf351043744fbf0931188f85dd1bff0fe880105"
+    },
+    "brca": {
+      "path": "/data1/DCT-Reg/paper/figures/fig5_ten_cancers/km_brca_exp6_oof.json",
+      "sha256": "400cb2f086cecea15fc95139126eb098630572d229fd54329374feaed0d251f6"
+    },
+    "coadread": {
+      "path": "/data1/DCT-Reg/paper/figures/fig5_ten_cancers/km_coadread_exp6_oof.json",
+      "sha256": "06fcd7e2d8a712060932b148e0948acf7dfff959985429597d5344b20a783121"
+    },
+    "hnsc": {
+      "path": "/data1/DCT-Reg/paper/figures/fig5_ten_cancers/km_hnsc_exp6_oof.json",
+      "sha256": "2db3d83dabfdc002e1237ee04b09589553979027fb2cb2c28ab0c5a603297149"
+    },
+    "kirc": {
+      "path": "/data1/DCT-Reg/paper/figures/fig5_ten_cancers/km_kirc_exp6_oof.json",
+      "sha256": "325d62dda14728428652ec63b30fdfbe2a79324010123a1c30956f1893131d0a"
+    },
+    "luad": {
+      "path": "/data1/DCT-Reg/paper/figures/fig5_ten_cancers/km_luad_exp6_oof.json",
+      "sha256": "91f3d940ed98c65ddeb5f0ecbc80f483ae202ee9e0bb2236d1ff6d381abb5eb7"
+    },
+    "lusc": {
+      "path": "/data1/DCT-Reg/paper/figures/fig5_ten_cancers/km_lusc_exp6_oof.json",
+      "sha256": "8f1745a8fa38350ddd22468457281ec628945ca6c7801b79b6fbbfef8d5fe1e2"
+    },
+    "skcm": {
+      "path": "/data1/DCT-Reg/paper/figures/fig5_ten_cancers/km_skcm_exp6_oof.json",
+      "sha256": "2d1663544bbcfee15995fa45156347020808b1bc81fa1dd042fd49692f3a194f"
+    },
+    "stad": {
+      "path": "/data1/DCT-Reg/paper/figures/fig5_ten_cancers/km_stad_exp6_oof.json",
+      "sha256": "b140fea5f6fcfb8434bd7aa3f77cfc5b8c4acc4c41b0ca3f8a85037ec6dee514"
+    },
+    "ucec": {
+      "path": "/data1/DCT-Reg/paper/figures/fig5_ten_cancers/km_ucec_exp6_oof.json",
+      "sha256": "54972e6064cae3de8cfa9940293445dcd27e10e8175dc6e3594c1c8cfecc4f7e"
+    }
+  }
+}

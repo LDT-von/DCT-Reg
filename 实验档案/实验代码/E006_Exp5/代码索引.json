@@ -1,0 +1,25 @@
+{
+  "experiment": "E006",
+  "title": "消融实验 Exp5 仅加入运输跨模态重建",
+  "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+  "shared_model": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/model.py",
+  "entries": [
+    {
+      "path": "scripts/run_ablation_loss_components.py",
+      "present": true,
+      "sha256": "7be4b59c007699568e4f3e41cb229b0d178be9bb372a2e0b963e5a2d869295a0"
+    },
+    {
+      "path": "survot_rank/training/train_runner.py",
+      "present": true,
+      "sha256": "b9eb91dc66ee23f4b51049cf94b7ed414b20b4a69f9817f45227e25037a73e46"
+    },
+    {
+      "path": "configs/dct_v313_uni2h.yaml",
+      "present": true,
+      "sha256": "f129b547e74d107ad057f35f2a579232c2493e0f2df49efb4fe6f3b62bbff987"
+    }
+  ],
+  "shared_snapshot": "../共享代码快照_2b1c622",
+  "execution_note": "仅作源代码溯源，整理阶段没有执行训练、推理或导出作业。以原工程环境与历史 overrides 复现。"
+}

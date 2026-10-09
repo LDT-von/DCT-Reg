@@ -1,0 +1,20 @@
+{
+  "id": "E043",
+  "entries": [
+    {
+      "requested": "scripts/_archive_v310_v311/train_transport_fix_minimal.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\train_transport_fix_minimal.py",
+      "sha256": "5346b4e1bda9601bfea4d19d9f5585349a4d2aaf9456c54bad2ceacb7238efdf",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "scripts/_archive_v310_v311/validate_transport_improvements.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\validate_transport_improvements.py",
+      "sha256": "64d151a54429d2727878cdf86ab47dcccab4a621d2a15d4853bf02bb6e0f8412",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

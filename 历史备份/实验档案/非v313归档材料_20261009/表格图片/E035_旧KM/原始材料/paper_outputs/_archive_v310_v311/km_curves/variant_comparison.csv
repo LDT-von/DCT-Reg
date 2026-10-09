@@ -1,0 +1,4 @@
+Variant,N Samples,N Events,Log-rank p-value,Discriminative
+Full Model,380,128,2.1611045960379132e-05,✓✓✓
+Direction Only,380,128,0.006275646819138954,✓✓
+IPCW Only,380,128,0.003197619907673016,✓✓

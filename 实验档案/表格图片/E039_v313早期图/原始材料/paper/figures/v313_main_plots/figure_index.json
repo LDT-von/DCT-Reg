@@ -1,0 +1,14 @@
+{
+  "figures": [
+    {
+      "name": "scores_blca_s3",
+      "note": "Mean ± sample SD; five fold dots. Historical reconstruction coefficients and native baseline recipes may differ; this overview is descriptive."
+    },
+    {
+      "name": "scores_kirc_s3",
+      "note": "Mean ± sample SD; five fold dots. Historical reconstruction coefficients and native baseline recipes may differ; this overview is descriptive."
+    }
+  ],
+  "skipped": [],
+  "note": "All scores are best-validation legacy_val results, not outer-test scores. Fold dots are descriptive; no independent-fold significance claim."
+}

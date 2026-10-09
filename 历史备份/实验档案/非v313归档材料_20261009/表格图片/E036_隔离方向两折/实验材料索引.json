@@ -1,0 +1,77 @@
+{
+  "id": "E036",
+  "folder": "E036_隔离方向两折",
+  "title": "六癌种 Direction OFF 和 ON 两折报告",
+  "kind": "补录实验或审计",
+  "status": "明确隔离 不进入论文结果",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "SurvOT-Rank 271466d；legacy folds2、3；冻结类强制方向权重与 OFF 声明冲突。",
+  "conclusion": "原分数原样保留，仅用于追查历史，不认定为合法 OFF/ON 比较。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "experiments/candidate_evidence/DIRECTION_LOSS_2FOLD_LEGACY_VAL.md"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/run_dct_v310_experiments.py"
+  ],
+  "tables": [
+    {
+      "title": "原报告数值",
+      "headers": [
+        "Cancer",
+        "reported d=0.00",
+        "reported d=0.05",
+        "reported delta"
+      ],
+      "rows": [
+        [
+          "BLCA",
+          "0.6756",
+          "0.7281",
+          "+0.0525"
+        ],
+        [
+          "UCEC",
+          "0.8095",
+          "0.8050",
+          "-0.0046"
+        ],
+        [
+          "KIRC",
+          "0.8069",
+          "0.8009",
+          "-0.0060"
+        ],
+        [
+          "SKCM",
+          "0.7141",
+          "0.7035",
+          "-0.0106"
+        ],
+        [
+          "HNSC",
+          "0.6780",
+          "0.6480",
+          "-0.0300"
+        ],
+        [
+          "LUSC",
+          "0.6361",
+          "0.6617",
+          "+0.0256"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E036",
+      "source": "experiments/candidate_evidence/DIRECTION_LOSS_2FOLD_LEGACY_VAL.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E036_隔离方向两折\\原始材料\\experiments\\candidate_evidence\\DIRECTION_LOSS_2FOLD_LEGACY_VAL.md",
+      "sha256": "b36848425820129117433ed78f93f79751ae5c1a7cf581f06f1861891a5654fa"
+    }
+  ]
+}

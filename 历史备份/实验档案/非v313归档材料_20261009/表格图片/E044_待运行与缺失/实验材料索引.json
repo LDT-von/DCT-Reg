@@ -1,0 +1,132 @@
+{
+  "id": "E044",
+  "folder": "E044_待运行与缺失",
+  "title": "待运行计划和未找到原始产物清单",
+  "kind": "补录实验或审计",
+  "status": "计划或材料待补 不计完成训练",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "外层测试、外部泛化、正式匹配基线、risk ordering、双倍三倍重建与 reader 控制等。",
+  "conclusion": "计划必须保存，但未找到实际运行工件时不填分数、不计完成次数。服务器 /data1/DCT-Reg/results 本次未直接扫描。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "experiments/REGISTRY.csv",
+    "experiments/PROTOCOL.md",
+    "实验清单_最终版.md",
+    "还需要运行什么实验.md",
+    "还需要运行什么实验_简洁版.md",
+    "REMAINING_5FOLD_EXPERIMENTS.md",
+    "FINAL_EXPERIMENTS_TODO.md",
+    "COMPLETE_STATUS_SUMMARY.md"
+  ],
+  "scripts": [
+    "dct_v3_risk_ordering.py",
+    "scripts/_archive_v310_v311/ablate_reader.py",
+    "scripts/_archive_v310_v311/compute_calibration_and_dca.py",
+    "scripts/_archive_v310_v311/rerun_dct_v313_triple_w.sh",
+    "scripts/_archive_v310_v311/rerun_dct_v313_disable_both.sh"
+  ],
+  "tables": [
+    {
+      "title": "尚不能登记为完成的方向",
+      "headers": [
+        "方向",
+        "本次找到的材料",
+        "当前状态"
+      ],
+      "rows": [
+        [
+          "外层验证与外部泛化",
+          "REGISTRY 与 PROTOCOL",
+          "未找到完整证据"
+        ],
+        [
+          "risk ordering",
+          "本地候选代码",
+          "未找到训练结果"
+        ],
+        [
+          "重建权重变体 reader 控制",
+          "历史脚本",
+          "对应运行结果未同步"
+        ],
+        [
+          "校准和决策曲线",
+          "历史代码与删除状态记录",
+          "原始指标未找到"
+        ],
+        [
+          "实验服务器全量清单",
+          "/data1/DCT-Reg/results",
+          "未直接连接扫描"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E044",
+      "source": "experiments/REGISTRY.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E044_待运行与缺失\\原始材料\\experiments\\REGISTRY.csv",
+      "sha256": "c8c8a5c61959421d457f50e2c1e2b7c1af3ea505240ec9f0d6be6428091404ec"
+    },
+    {
+      "experiment": "E044",
+      "source": "experiments/PROTOCOL.md",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E044_待运行与缺失\\原始材料\\experiments\\PROTOCOL.md",
+      "sha256": "fbaff8cbf100dbf0a805c099fee6671349e789cd98579cb76ac44708172ce7bb"
+    },
+    {
+      "experiment": "E044",
+      "source": "实验清单_最终版.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E044_待运行与缺失\\原始材料\\实验清单_最终版.md",
+      "sha256": "95c23a3c933e6c6e9a2ada015a30d69dc788f7e47d8005b5319f2cc632b43537"
+    },
+    {
+      "experiment": "E044",
+      "source": "还需要运行什么实验.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E044_待运行与缺失\\原始材料\\还需要运行什么实验.md",
+      "sha256": "55db7fc2cdd8632902723adbb6c6040ebc847c9cd470f317bb251a03f91f5da5"
+    },
+    {
+      "experiment": "E044",
+      "source": "还需要运行什么实验_简洁版.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E044_待运行与缺失\\原始材料\\还需要运行什么实验_简洁版.md",
+      "sha256": "41b45ceeebd54472443c72a37b43385acb84b41780e444ca6b87aff366b53f6c"
+    },
+    {
+      "experiment": "E044",
+      "source": "REMAINING_5FOLD_EXPERIMENTS.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E044_待运行与缺失\\原始材料\\REMAINING_5FOLD_EXPERIMENTS.md",
+      "sha256": "e800184ebd9fac9cb977b5cd3b32c8fa4de0d2cd76aec77aea217e65fdcc80c6"
+    },
+    {
+      "experiment": "E044",
+      "source": "FINAL_EXPERIMENTS_TODO.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E044_待运行与缺失\\原始材料\\FINAL_EXPERIMENTS_TODO.md",
+      "sha256": "5a740427f24d0056f9b0b043867a50feb65d306239a4cfe1fbd09fc5a9cfe95a"
+    },
+    {
+      "experiment": "E044",
+      "source": "COMPLETE_STATUS_SUMMARY.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E044_待运行与缺失\\原始材料\\COMPLETE_STATUS_SUMMARY.md",
+      "sha256": "908086efaa81d5a6fbb98444661425e6e3375074c61d8d23876bf0f37775a250"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+﻿配方,折数,训练轮数范围,报告最佳均值
+v3.11 BLCA UNI (NLL+IPCW+per-slot+div),5,30–30,0.7174
+v3.11 BLCA UNI2-h (early 1ep smoke),1,1–1,0.5616
+v3.10 BLCA UNI2-h frozen (NLL+IPCW),1,11–11,0.6194
+v3.10 BLCA UNI2-h (NLL+IPCW),2,5–29,0.6171

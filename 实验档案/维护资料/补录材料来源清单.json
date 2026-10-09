@@ -1,0 +1,1908 @@
+[
+  {
+    "experiment": "E017",
+    "source": "EXPERIMENT_DATA_SUMMARY.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E017_v310目标消融\\原始材料\\EXPERIMENT_DATA_SUMMARY.md",
+    "sha256": "e0da03ffde98a9505117c0f6780811132bda3f97e0bc3c11cd6962b621ec9a83"
+  },
+  {
+    "experiment": "E017",
+    "source": "DCT_v310_Ablation_Results_COMPLETE.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E017_v310目标消融\\原始材料\\DCT_v310_Ablation_Results_COMPLETE.md",
+    "sha256": "9f3753c88bca47418d61c079f26b4896ca78041d9f18d0ddce2b99564efaadd4"
+  },
+  {
+    "experiment": "E017",
+    "source": "VERIFIED_RESULTS_2026_09_05.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E017_v310目标消融\\原始材料\\VERIFIED_RESULTS_2026_09_05.md",
+    "sha256": "33411a8f990fa4f6e51ef46be609dab3707a89a7b2268027b6f9576a34e3d36b"
+  },
+  {
+    "experiment": "E018",
+    "source": "EXPERIMENT_DATA_SUMMARY.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E018_v310机制对照\\原始材料\\EXPERIMENT_DATA_SUMMARY.md",
+    "sha256": "e0da03ffde98a9505117c0f6780811132bda3f97e0bc3c11cd6962b621ec9a83"
+  },
+  {
+    "experiment": "E018",
+    "source": "DCT_v310_Experiments_Report.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E018_v310机制对照\\原始材料\\DCT_v310_Experiments_Report.md",
+    "sha256": "ca0322aec987f580391759e45741ca6186b9098d27b0bf6f348ae850121ed4c3"
+  },
+  {
+    "experiment": "E019",
+    "source": "experiments/RESULTS.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E019_v310跨癌\\原始材料\\experiments\\RESULTS.md",
+    "sha256": "e91c3c57cba1157182467dd1685f97fd35ad7b5d6cb93f4709330e752954b2d6"
+  },
+  {
+    "experiment": "E019",
+    "source": "CRITICAL_EXPERIMENTS_MISMATCH.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E019_v310跨癌\\原始材料\\CRITICAL_EXPERIMENTS_MISMATCH.md",
+    "sha256": "b1ef2b05daecb168f38c98640bf0d0120cc55ef3099be770f7a109606b38977f"
+  },
+  {
+    "experiment": "E020",
+    "source": "V32_TGSR_EXPERIMENT_RESULTS.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E020_TGSR反馈\\原始材料\\V32_TGSR_EXPERIMENT_RESULTS.md",
+    "sha256": "626da80d17e63fdb5feed961ce7ea8b50fe907f3790da15a911d27cf96578bb0"
+  },
+  {
+    "experiment": "E021",
+    "source": "TGSR_BEST_EPOCH_RESULTS.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E021_TGSR目标\\原始材料\\TGSR_BEST_EPOCH_RESULTS.md",
+    "sha256": "6b7f3eff28f413c4819db78f14c5c2fed80d99744d1afec204405c8658e68904"
+  },
+  {
+    "experiment": "E021",
+    "source": "TGSR_FINAL_VERDICT.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E021_TGSR目标\\原始材料\\TGSR_FINAL_VERDICT.md",
+    "sha256": "f94f35e98c57ae83b0fc81e26d09fb2e3af5be1f748e3f6da41c7c52049c13d8"
+  },
+  {
+    "experiment": "E022",
+    "source": "ANCHOR_EXPERIMENTS_REPORT_20260907.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E022_锚点诊断\\原始材料\\ANCHOR_EXPERIMENTS_REPORT_20260907.md",
+    "sha256": "5b861f7d9c18803c4655f53fb65e10c5819622ce98644c4436c2e68f5ba3a0a0"
+  },
+  {
+    "experiment": "E022",
+    "source": "ANCHOR_DIAGNOSIS_SUMMARY_CN.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E022_锚点诊断\\原始材料\\ANCHOR_DIAGNOSIS_SUMMARY_CN.md",
+    "sha256": "fc6615899208fc5f68ce10ec3ad53422b721ab2f60db2687106a826809a9d016"
+  },
+  {
+    "experiment": "E023",
+    "source": "COMPLETE_STATUS_SUMMARY.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E023_固定锚点训练\\原始材料\\COMPLETE_STATUS_SUMMARY.md",
+    "sha256": "908086efaa81d5a6fbb98444661425e6e3375074c61d8d23876bf0f37775a250"
+  },
+  {
+    "experiment": "E023",
+    "source": "FIXED_ANCHORS_EXECUTION_SUMMARY.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E023_固定锚点训练\\原始材料\\FIXED_ANCHORS_EXECUTION_SUMMARY.md",
+    "sha256": "cd7a4f64b7bf0f8df2b789c8ea3d7902ef0c094aa153e53233335e50cbbe72d9"
+  },
+  {
+    "experiment": "E023",
+    "source": "README_FIXED_ANCHORS_EXPERIMENT.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E023_固定锚点训练\\原始材料\\README_FIXED_ANCHORS_EXPERIMENT.md",
+    "sha256": "8e3f5d8ec6d98a32367c5069cba58d1cf7cf4546fbeb0a0e6a15fc589891bfdf"
+  },
+  {
+    "experiment": "E024",
+    "source": "results_fixed_anchors/audit_fixed_fold0_summary.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold0_summary.json",
+    "sha256": "b5ca39ebb1771db8b48ff8554230503a3a128c0b16158acadaed4b6989cf9810"
+  },
+  {
+    "experiment": "E024",
+    "source": "results_fixed_anchors/audit_fixed_fold1.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold1.csv",
+    "sha256": "fc1c3efcc98b23dc43ec1e91a31e3eee48aa77bdaa7aede5536308606b39346f"
+  },
+  {
+    "experiment": "E024",
+    "source": "results_fixed_anchors/audit_fixed_fold1_summary.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold1_summary.json",
+    "sha256": "e23737a8ee48484e6b598f413f7a6fa8ebaff075c1dd53cc5c9b5d3040333904"
+  },
+  {
+    "experiment": "E024",
+    "source": "results_fixed_anchors/audit_fixed_fold2.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold2.csv",
+    "sha256": "8a123307a9272407e3890dd7d25276dfac52ea21d89850faba3460fe919a072e"
+  },
+  {
+    "experiment": "E024",
+    "source": "results_fixed_anchors/audit_fixed_fold2_summary.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold2_summary.json",
+    "sha256": "456ffac24646886a67583809fec10fad91c37a373a5ca207fd6b8dbf050b8acc"
+  },
+  {
+    "experiment": "E024",
+    "source": "results_fixed_anchors/audit_fixed_fold3.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold3.csv",
+    "sha256": "d774f19ff38174dbd5f7a9c14fa95e35ca4c8155e480dae907265cfff300deed"
+  },
+  {
+    "experiment": "E024",
+    "source": "results_fixed_anchors/audit_fixed_fold3_summary.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold3_summary.json",
+    "sha256": "e10dc81d5ed4aba4d2af957259b6c29c86505bdfc762510316edf7383eff4d60"
+  },
+  {
+    "experiment": "E024",
+    "source": "results_fixed_anchors/audit_fixed_fold4.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold4.csv",
+    "sha256": "738fb58918fe8f6ee23d63a7a63b18ede64f9ec9eeca0212a98dcf372a92651d"
+  },
+  {
+    "experiment": "E024",
+    "source": "results_fixed_anchors/audit_fixed_fold4_summary.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold4_summary.json",
+    "sha256": "c07a7c801693faab3725a4b612ae0c635b9c3b49fbac65b144803cbd7ee6e134"
+  },
+  {
+    "experiment": "E024",
+    "source": "results_fixed_anchors/audit_original_fold0_summary.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_original_fold0_summary.json",
+    "sha256": "d06c66c1811812923ffa0d3bd9f3a89a0c9d9b6e925c364ab6b04151c48daef3"
+  },
+  {
+    "experiment": "E024",
+    "source": "results_fixed_anchors/blca/.gitignore",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\blca\\.gitignore",
+    "sha256": "7f879ef6a644f6d8e7fe26b9f251714bb0c28a953e0a6a6c324b8b8cf8802560"
+  },
+  {
+    "experiment": "E025",
+    "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold0.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold0.csv",
+    "sha256": "941997d15acb6ab089fda9a09cca72e68b84f92e395746da7eb08b066deae006"
+  },
+  {
+    "experiment": "E025",
+    "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold0.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold0.json",
+    "sha256": "dbe1ceadf2438e8bc5e8d034c3c748ae6787c6dcb675e96f57a118256d7fe27e"
+  },
+  {
+    "experiment": "E025",
+    "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold1.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold1.csv",
+    "sha256": "35dba8765817fb624523eb8b1754d780b544263b5c8a678027fe275afbf4216a"
+  },
+  {
+    "experiment": "E025",
+    "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold1.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold1.json",
+    "sha256": "1b443dee8aca41b78e8f2d28cb1205ec378313904f44ca96f82b01626a29a522"
+  },
+  {
+    "experiment": "E025",
+    "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold2.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold2.csv",
+    "sha256": "14dc04b0c734f0c25728576942bdd41868cd171c09b1757ea0a670dd791aeac5"
+  },
+  {
+    "experiment": "E025",
+    "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold2.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold2.json",
+    "sha256": "68347d503bd4efe69af609ec7d57eb3a0cc374e0130df96641e66a06dc46150a"
+  },
+  {
+    "experiment": "E025",
+    "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold3.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold3.csv",
+    "sha256": "673d36b459bb2f83eff0212bb30033d6cc0a410b5bc62dd7273a7b81088b3260"
+  },
+  {
+    "experiment": "E025",
+    "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold3.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold3.json",
+    "sha256": "d086c4df5c7b15f552b46ce86f54eee0e66b0a81bee0860485f297ed328f2c2c"
+  },
+  {
+    "experiment": "E025",
+    "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold4.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold4.csv",
+    "sha256": "8ef3ab95e9c79119bb9b1dc5b8a830513d44fbfbd1b26beaee5aef36dd30a695"
+  },
+  {
+    "experiment": "E025",
+    "source": "results/e4_v311_fixed_audit/e4_v311_fixed_fold4.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_fold4.json",
+    "sha256": "937762d9893788f9ace499989ae6c566ecb2ec765089c9a66ad07ff1ba1c3c7c"
+  },
+  {
+    "experiment": "E025",
+    "source": "results/e4_v311_fixed_audit/e4_v311_fixed_summary.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\e4_v311_fixed_audit\\e4_v311_fixed_summary.csv",
+    "sha256": "aab5936e7165ba69a8b9a2d9c349e2de3c229b9ce0dbe018ead4e980eb78768b"
+  },
+  {
+    "experiment": "E025",
+    "source": "results/audit_comparison/v311_fixed_vs_v310_intervention_report.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E025_v311固定E4\\原始材料\\results\\audit_comparison\\v311_fixed_vs_v310_intervention_report.md",
+    "sha256": "a049737d53637010b7dacd5eb1fc35d24cef0e174af2b8dd37fbfb0dfebb5668"
+  },
+  {
+    "experiment": "E026",
+    "source": "results/proof_experiment_A.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E026_ProofA\\原始材料\\results\\proof_experiment_A.json",
+    "sha256": "2ae2f7e03a9d54ca0089bc474e249f3add839cbf8cdc630038f98eb39f9ff5df"
+  },
+  {
+    "experiment": "E027",
+    "source": "results/proof_experiment_B.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E027_ProofB\\原始材料\\results\\proof_experiment_B.json",
+    "sha256": "de5f0b69fc0f5b8d9caaaffb0a2cbf2a09ce29dc26e1ba327635d6747b33d964"
+  },
+  {
+    "experiment": "E028",
+    "source": "results/proof_experiment_C.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E028_ProofC\\原始材料\\results\\proof_experiment_C.json",
+    "sha256": "d3246a3a46cf5b4a297819e59c9a1f1ce8687a5eb9d568b3324b743fb63ed3a2"
+  },
+  {
+    "experiment": "E029",
+    "source": "results/proof_D_visualization/proof_D_metrics.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E029_ProofD\\原始材料\\results\\proof_D_visualization\\proof_D_metrics.json",
+    "sha256": "cab8b025d7561b7160ef953bd9b844ac308c536a4e2ce7baf60bf946119e5f9e"
+  },
+  {
+    "experiment": "E029",
+    "source": "results/proof_D_visualization/proof_D_report.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E029_ProofD\\原始材料\\results\\proof_D_visualization\\proof_D_report.md",
+    "sha256": "75021d0f0a4eefb712c18c2092d9fd7aaa0e89626f46928fc8d54ea865751494"
+  },
+  {
+    "experiment": "E030",
+    "source": "results/v311_fixed_proof/v311_fixed_proof_report.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E030_v311槽比较\\原始材料\\results\\v311_fixed_proof\\v311_fixed_proof_report.md",
+    "sha256": "0d4bc63c52fe3ad5ddeafd9524e00d1687669680800a6c34dea5327622c052ae"
+  },
+  {
+    "experiment": "E030",
+    "source": "results/v311_fixed_proof/v311_fixed_vs_unfixed_comparison.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E030_v311槽比较\\原始材料\\results\\v311_fixed_proof\\v311_fixed_vs_unfixed_comparison.md",
+    "sha256": "f86b74f518b6b67cbfa935bd0990556b591989fe6487a847f76e7aa08cf061b6"
+  },
+  {
+    "experiment": "E031",
+    "source": "paper_outputs/_archive_v310_v311/all_cancer_audits.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E031_旧方向与零假设\\原始材料\\paper_outputs\\_archive_v310_v311\\all_cancer_audits.json",
+    "sha256": "2176ff49195ed9398bb684582e306d7204fc902df2ee72c3dca5cbb334c83d1f"
+  },
+  {
+    "experiment": "E031",
+    "source": "paper_outputs/_archive_v310_v311/null_hypothesis_summary.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E031_旧方向与零假设\\原始材料\\paper_outputs\\_archive_v310_v311\\null_hypothesis_summary.json",
+    "sha256": "488f1bc24bb97550a81b22516b5f577c7f7719649d4d324418f2d69fa51eebed"
+  },
+  {
+    "experiment": "E031",
+    "source": "paper_outputs/_archive_v310_v311/figure3_dose_response_partial.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E031_旧方向与零假设\\原始材料\\paper_outputs\\_archive_v310_v311\\figure3_dose_response_partial.json",
+    "sha256": "7291038332affd7bf7cb753836782892655ca2bcbece633f81c4215a16a7a4d0"
+  },
+  {
+    "experiment": "E031",
+    "source": "paper_outputs/_archive_v310_v311/DCR_AUDIT_REVISED.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E031_旧方向与零假设\\原始材料\\paper_outputs\\_archive_v310_v311\\DCR_AUDIT_REVISED.md",
+    "sha256": "05dd4c3bc0b7103f83074583485b778d011d315203340322da0c7d103f47d77d"
+  },
+  {
+    "experiment": "E031",
+    "source": "proof_experiments_validation_report.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E031_旧方向与零假设\\原始材料\\proof_experiments_validation_report.md",
+    "sha256": "63910c0f9f1086ec6cc0a477c2b3555df960a4886273b6bfaf6339428d573b09"
+  },
+  {
+    "experiment": "E031",
+    "source": "AUDIT_BEST_EPOCH_RESULTS.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E031_旧方向与零假设\\原始材料\\AUDIT_BEST_EPOCH_RESULTS.md",
+    "sha256": "3be444b7ff7178f34f5b65c89a158d27a1afcda21990f85f6d7a966f0858d211"
+  },
+  {
+    "experiment": "E032",
+    "source": "E4_AUDIT_FINAL_REPORT.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E032_旧E4分布\\原始材料\\E4_AUDIT_FINAL_REPORT.md",
+    "sha256": "f9ca35021128735fa94c9d90ded3b6b456193bd0122319ff005919e515c92fa7"
+  },
+  {
+    "experiment": "E032",
+    "source": "ANALYSIS_EXECUTION_SUMMARY.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E032_旧E4分布\\原始材料\\ANALYSIS_EXECUTION_SUMMARY.md",
+    "sha256": "c0b0eb8013e495ceb3d3c155957ae55e8982902fdac268872734f486fcadf6f9"
+  },
+  {
+    "experiment": "E033",
+    "source": "paper_outputs/_archive_v310_v311/ot_contribution_blca_fold0.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E033_旧OT替换\\原始材料\\paper_outputs\\_archive_v310_v311\\ot_contribution_blca_fold0.json",
+    "sha256": "dddd5531f6d7c5eafd22f86286fdbff7e961dc6af2faf068f78dd849a8358934"
+  },
+  {
+    "experiment": "E033",
+    "source": "paper_outputs/_archive_v310_v311/ot_contribution_blca_fold1.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E033_旧OT替换\\原始材料\\paper_outputs\\_archive_v310_v311\\ot_contribution_blca_fold1.json",
+    "sha256": "465dd55f1c61a3a9d5ffc26902318d570826336f974fbb3b9544ac4eb0bc5052"
+  },
+  {
+    "experiment": "E033",
+    "source": "paper_outputs/_archive_v310_v311/ot_contribution_summary.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E033_旧OT替换\\原始材料\\paper_outputs\\_archive_v310_v311\\ot_contribution_summary.md",
+    "sha256": "4b1c2de281a46907f80c728712f5ec9c4895e34cdcfa61db58ee1f346b7564cf"
+  },
+  {
+    "experiment": "E034",
+    "source": "paper_outputs/_archive_v310_v311/statistical_test_results.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E034_旧统计检验\\原始材料\\paper_outputs\\_archive_v310_v311\\statistical_test_results.json",
+    "sha256": "3b2741947a03f0983cde8ee10d77300f92ac30be715816481cc12adebf618530"
+  },
+  {
+    "experiment": "E034",
+    "source": "STATISTICAL_ANALYSIS_COMPLETE_REPORT.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E034_旧统计检验\\原始材料\\STATISTICAL_ANALYSIS_COMPLETE_REPORT.md",
+    "sha256": "5d1266355b095392da2dde01ab1060afeafa6251127bddfc304a2fa4cf84e48e"
+  },
+  {
+    "experiment": "E035",
+    "source": "paper_outputs/_archive_v310_v311/km_curves/kaplan_meier_report.txt",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E035_旧KM\\原始材料\\paper_outputs\\_archive_v310_v311\\km_curves\\kaplan_meier_report.txt",
+    "sha256": "1f72a7962bddbe9f6959733a6415150b25777d0a1c3e365eec58f4d63884e449"
+  },
+  {
+    "experiment": "E035",
+    "source": "paper_outputs/_archive_v310_v311/km_curves/pairwise_logrank_tests.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E035_旧KM\\原始材料\\paper_outputs\\_archive_v310_v311\\km_curves\\pairwise_logrank_tests.csv",
+    "sha256": "6362f04c9ccc66831f7af50b2639383d2313c7a2e734573e0be10b3a9f7dc5e0"
+  },
+  {
+    "experiment": "E035",
+    "source": "paper_outputs/_archive_v310_v311/km_curves/risk_stratification_summary.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E035_旧KM\\原始材料\\paper_outputs\\_archive_v310_v311\\km_curves\\risk_stratification_summary.csv",
+    "sha256": "375099415855d81bcc678b1a7da188462658c6e060610fd2a0b4197a8b12939b"
+  },
+  {
+    "experiment": "E035",
+    "source": "paper_outputs/_archive_v310_v311/km_curves/variant_comparison.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E035_旧KM\\原始材料\\paper_outputs\\_archive_v310_v311\\km_curves\\variant_comparison.csv",
+    "sha256": "6efe714043c811ae5aa89f681b08d5980d00dfdd929b38d68bc335ab33876d61"
+  },
+  {
+    "experiment": "E035",
+    "source": "paper_outputs/_archive_v310_v311/km_curves_multi_cancer/km_summary.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E035_旧KM\\原始材料\\paper_outputs\\_archive_v310_v311\\km_curves_multi_cancer\\km_summary.csv",
+    "sha256": "51505fe39cef2f13b584266bea4d286ccaeca96d5fa819d632e3cd54b128ca0a"
+  },
+  {
+    "experiment": "E036",
+    "source": "experiments/candidate_evidence/DIRECTION_LOSS_2FOLD_LEGACY_VAL.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E036_隔离方向两折\\原始材料\\experiments\\candidate_evidence\\DIRECTION_LOSS_2FOLD_LEGACY_VAL.md",
+    "sha256": "b36848425820129117433ed78f93f79751ae5c1a7cf581f06f1861891a5654fa"
+  },
+  {
+    "experiment": "E037",
+    "source": "paper/history/retracted_transport_controls_20261005/README.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E037_撤回运输对照\\原始材料\\paper\\history\\retracted_transport_controls_20261005\\README.md",
+    "sha256": "557588af44819e10ce65a79249082764995b489269815f0b3163e1c9cf59ac69"
+  },
+  {
+    "experiment": "E037",
+    "source": "paper/history/retracted_transport_controls_20261005/v313_transport_controls.png",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E037_撤回运输对照\\原始材料\\paper\\history\\retracted_transport_controls_20261005\\v313_transport_controls.png",
+    "sha256": "8f6c2fd52d2adb6ca9dfb3132920e92dea1e218935361ed793ada2aab760cf34"
+  },
+  {
+    "experiment": "E037",
+    "source": "paper/history/retracted_transport_controls_20261005/DCT_v313_初稿.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E037_撤回运输对照\\原始材料\\paper\\history\\retracted_transport_controls_20261005\\DCT_v313_初稿.md",
+    "sha256": "05077c64f421a8d71c4f852023cfaca289ee50871de4f5a21ae475422545c431"
+  },
+  {
+    "experiment": "E037",
+    "source": "paper/history/retracted_transport_controls_20261005/DCT_v313_初稿.docx",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E037_撤回运输对照\\原始材料\\paper\\history\\retracted_transport_controls_20261005\\DCT_v313_初稿.docx",
+    "sha256": "b88f8acb3bf0e6e54e6db931f8cd2f1e80380877ab779fd8c584a256c7efb740"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold0/case_TCGA-4Z-AA86.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold0\\case_TCGA-4Z-AA86.png",
+    "sha256": "2cbb2da206b5f0bf10922db44b279833bb8123b8517743768acfc821ce5c3584"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold0/case_TCGA-BL-A5ZZ.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold0\\case_TCGA-BL-A5ZZ.png",
+    "sha256": "897847130672432d9534f9918baa860fc58171e8aca5bea66f399d94a36803c0"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold0/case_TCGA-BT-A20O.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold0\\case_TCGA-BT-A20O.png",
+    "sha256": "10f699ff296d2551fd0ae8b55ee6ab33f60a02a9fc7ffb9a10bee9e612b9e81f"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold1/case_TCGA-2F-A9KP.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold1\\case_TCGA-2F-A9KP.png",
+    "sha256": "8a1a08e1b3d35e6120025799c3e2c6fa4151e25eb4ed4b340051e61b1affb7fc"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold1/case_TCGA-2F-A9KW.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold1\\case_TCGA-2F-A9KW.png",
+    "sha256": "852547d33d2fa69f3118e0ffeb91796f8ae45df93eeefe73d0acd4d69ead3909"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold1/case_TCGA-4Z-AA7Q.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold1\\case_TCGA-4Z-AA7Q.png",
+    "sha256": "1907f26cd5e10902f90628144b9bc52f306b2a7f34e32f07c80dccf429c314f9"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold2/case_TCGA-2F-A9KQ.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold2\\case_TCGA-2F-A9KQ.png",
+    "sha256": "17ea4b99f7e5c3e293cd58dd4c1df5eee2ec0c5c9d1cc927253ec304878a9195"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold2/case_TCGA-2F-A9KR.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold2\\case_TCGA-2F-A9KR.png",
+    "sha256": "59b8abb7d06ca1af22a2e408c9b749fa5a85bf5fbeec863adc105505d6077a7c"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold2/case_TCGA-2F-A9KT.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold2\\case_TCGA-2F-A9KT.png",
+    "sha256": "612b9a723ad0bd77466efe0d8a6b0d352abdd3a5cfe6510358f7269bec4fc12e"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold3/case_TCGA-4Z-AA7W.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold3\\case_TCGA-4Z-AA7W.png",
+    "sha256": "7e39059dc854d3649ed5acd34d016aa57460768272440cb683293e8aa7bfc5b8"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold3/case_TCGA-4Z-AA81.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold3\\case_TCGA-4Z-AA81.png",
+    "sha256": "69660f41ec842d3c80ec494edb29f8d3291e2a51f38f1c2657ea92087d059024"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold3/case_TCGA-4Z-AA82.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold3\\case_TCGA-4Z-AA82.png",
+    "sha256": "bcf1244060a1376216a1a1a798ba34d504cbbc34bb27a93f31f3a7add729cead"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold4/case_TCGA-2F-A9KO.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold4\\case_TCGA-2F-A9KO.png",
+    "sha256": "544fc78bee1e1e703db0440b073aa3e23bd9af3f8568a8a8c43b34ff1b131b44"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold4/case_TCGA-4Z-AA7N.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold4\\case_TCGA-4Z-AA7N.png",
+    "sha256": "a50efa8530c1fe6ecd6d246cc11d5733b1b9fc1fd16ad15d6d1fb6b07e6a9eea"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/blca_fold4/case_TCGA-4Z-AA7O.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\blca_fold4\\case_TCGA-4Z-AA7O.png",
+    "sha256": "4d251d4823e739c48f684b83b7c549707a2fe533f1818b32e4a2c70f098fa2ff"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold0/case_TCGA-A3-3317.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold0\\case_TCGA-A3-3317.png",
+    "sha256": "73924fe3e7c380fc4d6b694bf0146f954beff2c290f0b3a2ccad0d8384b7fd92"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold0/case_TCGA-A3-3324.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold0\\case_TCGA-A3-3324.png",
+    "sha256": "6bfb95411f87f0560e5a2c16f45c8b1b3541ee6ff209efa7d421d0317e112ca2"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold0/case_TCGA-A3-3325.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold0\\case_TCGA-A3-3325.png",
+    "sha256": "f5127136221139acafc395c59a87d02d586155398818edcf4150c2ad745f8eff"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold1/case_TCGA-6D-AA2E.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold1\\case_TCGA-6D-AA2E.png",
+    "sha256": "093ed00137205cb6c76a164a107dd8e40021837dd5deda1825e49b2c82cff735"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold1/case_TCGA-A3-3306.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold1\\case_TCGA-A3-3306.png",
+    "sha256": "848ba1fe08e2b25b618ce5bcb8b9f0297c90f249fc265381828649bf309e2b2e"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold1/case_TCGA-A3-3331.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold1\\case_TCGA-A3-3331.png",
+    "sha256": "3e97f1bb2230a0c4d91bd0b09ed7f497d21154af8116ce8f6882dd37af4953f9"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold2/case_TCGA-3Z-A93Z.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold2\\case_TCGA-3Z-A93Z.png",
+    "sha256": "9b1c40a1da40d57c2a17c3b6bd4fb83831d20a4b6fbcef4c911aac67fcec9673"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold2/case_TCGA-A3-3308.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold2\\case_TCGA-A3-3308.png",
+    "sha256": "7792c70eebd19ab5e6ee011cf48f165bf91ab74b139bec3272098134a8361851"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold2/case_TCGA-A3-3322.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold2\\case_TCGA-A3-3322.png",
+    "sha256": "e2cfa31224d030a120577f469fc20745eb22bf27cff60bdfa8ce65ce794664e7"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold3/case_TCGA-A3-3316.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold3\\case_TCGA-A3-3316.png",
+    "sha256": "ea254e8f897e006290f83214ce128775891452fafd0b32a9ebb98f0b545ccafd"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold3/case_TCGA-A3-3319.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold3\\case_TCGA-A3-3319.png",
+    "sha256": "04ade8ede90a1c433bc6a68b0659469186bcf7d1dda5ea230eb1df10e8d364e9"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold3/case_TCGA-A3-3323.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold3\\case_TCGA-A3-3323.png",
+    "sha256": "67cb7c59ed4ce7e1964b3a404fea9d2708a82274628bbcb1ace7103e0344bf8b"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold4/case_TCGA-A3-3307.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold4\\case_TCGA-A3-3307.png",
+    "sha256": "63a70dfb163efe29c642314820c9d1362e89c7fcdc553895a026644cc3cb66d3"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold4/case_TCGA-A3-3311.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold4\\case_TCGA-A3-3311.png",
+    "sha256": "83c759355992a42ec0029db12cf4a622b46e69beb8953f53045964ce67365938"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation/kirc_fold4/case_TCGA-A3-3313.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation\\kirc_fold4\\case_TCGA-A3-3313.png",
+    "sha256": "a35839f7bdd8d00032115da9d7b28a56e3ef1cdc7c5ede47c3f05dfc173cb707"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_direct_fold3/case_TCGA-4Z-AA7W.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_direct_fold3\\case_TCGA-4Z-AA7W.png",
+    "sha256": "e14c63814f8ef944cb3139789f71c76f33839229d6f5b9cf7b183e6841c242f4"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_direct_fold3/case_TCGA-4Z-AA81.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_direct_fold3\\case_TCGA-4Z-AA81.png",
+    "sha256": "43828db61bec24f31296eff00e41daf4a39a189cc3dc536af5a09bd9f996d02c"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_direct_fold4/case_TCGA-2F-A9KO.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_direct_fold4\\case_TCGA-2F-A9KO.png",
+    "sha256": "11291dcb97c77ecce59acd0b96855a86c0949e3944cd4aaeedd1f8627adac29c"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_direct_fold4/case_TCGA-4Z-AA7N.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_direct_fold4\\case_TCGA-4Z-AA7N.png",
+    "sha256": "aa4284b79d5b10ac16a0daf11ca7d29abf14c8d33d7ff594a8264f720bed00fe"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_exp6_fold0/case_TCGA-4Z-AA86.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold0\\case_TCGA-4Z-AA86.png",
+    "sha256": "22717678de21561fa953bf9fdc4841ef0b2f5dd88e32660433eed9e9054146f3"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_exp6_fold0/case_TCGA-BL-A5ZZ.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold0\\case_TCGA-BL-A5ZZ.png",
+    "sha256": "ddc3aef0307d1052981d37c9eb499ff8950ad5ad9688f88af3869a0724a1fff8"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_exp6_fold1/case_TCGA-2F-A9KP.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold1\\case_TCGA-2F-A9KP.png",
+    "sha256": "dc46b07cf9f82d47e551eda9c8ec2963360586e7a3f621a47bf8d716e612df15"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_exp6_fold1/case_TCGA-2F-A9KW.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold1\\case_TCGA-2F-A9KW.png",
+    "sha256": "b7729e5fb2bb91ffc66c0d4d94e6f12f13ac27f1acc09d6c483a65d3b8ebbce6"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_exp6_fold2/case_TCGA-2F-A9KQ.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold2\\case_TCGA-2F-A9KQ.png",
+    "sha256": "b507cfa7563f871a22e4c6efa8a16b13bca829d1004775aa78c0ad3e60eede35"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_exp6_fold2/case_TCGA-2F-A9KR.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold2\\case_TCGA-2F-A9KR.png",
+    "sha256": "90cd20078f8aad350c985206083896f9a53b56ef93cc9681e90c4a6f2658d56f"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_exp6_fold3/case_TCGA-4Z-AA7W.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold3\\case_TCGA-4Z-AA7W.png",
+    "sha256": "5154814fcd5ed422c18f6a11c64d6018482995739ce0f55ee3d49917983dc94e"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_exp6_fold3/case_TCGA-4Z-AA81.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold3\\case_TCGA-4Z-AA81.png",
+    "sha256": "9c5454f726991d8f9d126303ab6562bb78515af2ed916c8b5132701b84e97248"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_exp6_fold4/case_TCGA-2F-A9KO.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold4\\case_TCGA-2F-A9KO.png",
+    "sha256": "9f7648195a50ba3dc61e8024eb74938134e6f4fda12e5d58df0a2bfc71370ea0"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_exp6_fold4/case_TCGA-4Z-AA7N.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_exp6_fold4\\case_TCGA-4Z-AA7N.png",
+    "sha256": "081a894c2dcec8f62bb9acc56550898e0abfaec056dfaf2c4d980371d6677c82"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_independent_fold2/case_TCGA-2F-A9KQ.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_independent_fold2\\case_TCGA-2F-A9KQ.png",
+    "sha256": "65a3137ac33cf20f82679db1344dfcc0cd17a966aaf73c3c3bbe59b923fcc9e7"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/blca_independent_fold2/case_TCGA-2F-A9KR.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\blca_independent_fold2\\case_TCGA-2F-A9KR.png",
+    "sha256": "f439ec789d1f91d0ab5e307fb02ac5b5242ca0716ccb64b6d9bafd956b939634"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_direct_fold4/case_TCGA-A3-3307.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_direct_fold4\\case_TCGA-A3-3307.png",
+    "sha256": "b4b5b9692dca531d7a1395f925d69191969635088acb7c7b7a4743493f356088"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_direct_fold4/case_TCGA-A3-3311.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_direct_fold4\\case_TCGA-A3-3311.png",
+    "sha256": "26f61b04b8c2c713e0c2dd427e6e7ad7ae2f73857edb6fba1d6453f2fa481e35"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold0/case_TCGA-A3-3317.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold0\\case_TCGA-A3-3317.png",
+    "sha256": "3702bc4983de92cd791d505d4491eba587a2760ed00e051107f92a6180fdb389"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold0/case_TCGA-A3-3324.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold0\\case_TCGA-A3-3324.png",
+    "sha256": "4a8edb6f5e765f0bc195af8f30613fe0e97341570774defb458254696f353289"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold1/case_TCGA-6D-AA2E.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold1\\case_TCGA-6D-AA2E.png",
+    "sha256": "43f215ad29fdc6a65a384bb83ea3d0c98018250a32a1a29f083a721734265f4e"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold1/case_TCGA-A3-3306.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold1\\case_TCGA-A3-3306.png",
+    "sha256": "ec9f4090e168b69a3f0872af50a38f7c973dc6fb738644c4194339f76e7186fc"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold2/case_TCGA-3Z-A93Z.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold2\\case_TCGA-3Z-A93Z.png",
+    "sha256": "3efba83f424bbca543ac972c3cc8a87f47114ed215630b752def1ce14ffe05ea"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold2/case_TCGA-A3-3308.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold2\\case_TCGA-A3-3308.png",
+    "sha256": "f1eeb3270b6f41d9ddc5ca5f3907a24af9c44d84ca76d105cf27c49b07c9c032"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold3/case_TCGA-A3-3316.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold3\\case_TCGA-A3-3316.png",
+    "sha256": "a19062fb4b18bc9db3de650c56b433978652cfc2cba6cda32de69ceac0070e06"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold3/case_TCGA-A3-3319.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold3\\case_TCGA-A3-3319.png",
+    "sha256": "1f3d01f7884d2260600f0ceffc9dfc42c8b9cbd332d301d3ce54fcc3beea58c7"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold4/case_TCGA-A3-3307.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold4\\case_TCGA-A3-3307.png",
+    "sha256": "01694fac488084ad06ed04b270ba5d3cbc1fa56a6e011d7d3fa3c432cc037b53"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_exp6_fold4/case_TCGA-A3-3311.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_exp6_fold4\\case_TCGA-A3-3311.png",
+    "sha256": "2f7ea674c2d980c6aa52b10c73ed4b3e4d478bcecd102050725899683fb9ed88"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_independent_fold1/case_TCGA-6D-AA2E.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold1\\case_TCGA-6D-AA2E.png",
+    "sha256": "3fcc92bfcad584637bba27b5238bfbe41f308cd6602a1c4925a8f455bb51fe2d"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_independent_fold1/case_TCGA-A3-3306.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold1\\case_TCGA-A3-3306.png",
+    "sha256": "8738ecd339d6b0741b7dee0a01b685c20259488bd056cb7bfeafaf31fd204a32"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_independent_fold2/case_TCGA-3Z-A93Z.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold2\\case_TCGA-3Z-A93Z.png",
+    "sha256": "06f19c81989673cd2272e1fa5cc6d30888889b6ccbea1d16fdd749a2f5cf14c8"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_independent_fold2/case_TCGA-A3-3308.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold2\\case_TCGA-A3-3308.png",
+    "sha256": "1fb2ccce7c45584437d45381cbe6adbf27dff8307484d1e5425c0f66da75ed01"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_independent_fold3/case_TCGA-A3-3316.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold3\\case_TCGA-A3-3316.png",
+    "sha256": "238f692a3fe8ebb0fdb6ddeb6a42d299af4f18f5c9f8ae7a54b58d7fc59d14e4"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_independent_fold3/case_TCGA-A3-3319.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold3\\case_TCGA-A3-3319.png",
+    "sha256": "d103e005b231429d304dc3e7932e34c9953ef5718cdc16888fc6af91858eb8db"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_independent_fold4/case_TCGA-A3-3307.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold4\\case_TCGA-A3-3307.png",
+    "sha256": "b3e6e7a9aba32839cfe9cb015160b480c29eb955e69705fff7cb50085b76a91b"
+  },
+  {
+    "experiment": "E038",
+    "source": "paper/figures/case_interpretation_v2/kirc_independent_fold4/case_TCGA-A3-3311.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E038_v313多病例\\原始材料\\paper\\figures\\case_interpretation_v2\\kirc_independent_fold4\\case_TCGA-A3-3311.png",
+    "sha256": "27588383a602a226e25f307ae0f6dc7ee2b41506b9e48b98c08e37c8bd869f1f"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/km_blca_pvalues.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\km_blca_pvalues.json",
+    "sha256": "799ae622601104477ef3962b413fe36e0c942415b677b3bdd54934d7435ffaea"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/km_kirc_pvalues.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\km_kirc_pvalues.json",
+    "sha256": "8c5107a4181be3dfea4bc22fe736b612cc728c5ad6dca5a3e5d638b5b58f1c1c"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/fig3_risk_delta_heatmap.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\fig3_risk_delta_heatmap.png",
+    "sha256": "2d97b3e5f2a9e429cc8b652f625d2029b2bb7be9371edaa8eba74a485d172a8d"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/cohort_pathway_stats.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\cohort_pathway_stats.json",
+    "sha256": "d088af41f60bb48bd6118a04027ca0a971378baa7c07ac9cc25938d4e6cc9b6d"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/cohort_pathway_heatmap_stats.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\cohort_pathway_heatmap_stats.json",
+    "sha256": "c65d65c3c6536a300b4dbac6f213e996126cadae83fb8985242a6ecb46e443fd"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/km_blca_per_fold.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\km_blca_per_fold.png",
+    "sha256": "b8d3338cade96d0be6c78fd4a27af3f102a5992e34316c8915d417f4bf479726"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/km_kirc_per_fold.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\km_kirc_per_fold.png",
+    "sha256": "91836f4a53be9bf8239b6b98dfc37401ddbef405976a9557f8f41649e6cc5229"
+  },
+  {
+    "experiment": "E039",
+    "source": "results/multi_cancer_summary_v313.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\results\\multi_cancer_summary_v313.json",
+    "sha256": "2973b9c7b06f1d146fd49d01c445a6247b41c4f6ca19c2042f98d5457f0abadf"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/v313_main_plots/audit.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\v313_main_plots\\audit.json",
+    "sha256": "05829ecf48bac52da04056765aab524705e7b30800ed75fc6c551e0883c5be14"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/v313_main_plots/fig3_sweep_summary.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\v313_main_plots\\fig3_sweep_summary.json",
+    "sha256": "2f3e9b5ffb79877118f0bf2c5e621d3d991779d1f614e4082f92b84027a61e17"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/v313_main_plots/figure_index.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\v313_main_plots\\figure_index.json",
+    "sha256": "dc8de7f80db29e8d6a3ebd078483b0f15b0ef7232c0bfc3f3eb156b4d86924a1"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/v313_main_plots/scores.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\v313_main_plots\\scores.csv",
+    "sha256": "8b017e8392cdeedf120a81a479c0231eef128be350740d67ff2e91a8a06c4d74"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/v313_main_plots/scores_blca_s3.pdf",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\v313_main_plots\\scores_blca_s3.pdf",
+    "sha256": "72cd68f5034a176e5b4e2147b61889c53f5e5eb50384da2069d7b8b5c3b640da"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/v313_main_plots/scores_blca_s3.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\v313_main_plots\\scores_blca_s3.png",
+    "sha256": "586fb0efef2ceef76ccd4c13ac432c295bc48c4d8b8927c12db9e741c6b72bdd"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/v313_main_plots/scores_kirc_s3.pdf",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\v313_main_plots\\scores_kirc_s3.pdf",
+    "sha256": "97550d8e094e5c541228d430fb263f69967c8aceeab381e76529665986d74856"
+  },
+  {
+    "experiment": "E039",
+    "source": "paper/figures/v313_main_plots/scores_kirc_s3.png",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E039_v313早期图\\原始材料\\paper\\figures\\v313_main_plots\\scores_kirc_s3.png",
+    "sha256": "9da9f26f904d494d8a62254d035ca173e7c26732d062e6cd7ca18ee0ede49b8c"
+  },
+  {
+    "experiment": "E040",
+    "source": "audit_results/v314_after.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_after.json",
+    "sha256": "331464a0ac4c1dd658d0984e5165b16b3a30aa2db6ff85c69e918f3153ebe7ee"
+  },
+  {
+    "experiment": "E040",
+    "source": "audit_results/v314_before.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_before.json",
+    "sha256": "419390df25364eb3c82fe129dea9d803e83a6316b6a8a53f582ddba5a65f4d5c"
+  },
+  {
+    "experiment": "E040",
+    "source": "audit_results/v314_dimension_check.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_dimension_check.json",
+    "sha256": "0e8a0c0c3c206ecead859b627319094f2b582e4a12ff74c854273c1599448f35"
+  },
+  {
+    "experiment": "E040",
+    "source": "audit_results/v314_dimension_distance.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_dimension_distance.json",
+    "sha256": "c66408b6ec650b0eb0318583b7c79c1c2602177e45555949af92028c74a980d0"
+  },
+  {
+    "experiment": "E040",
+    "source": "audit_results/v314_dimension_scaled.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_dimension_scaled.json",
+    "sha256": "5ec74acfac622eedc92118a60a412e93b585cd0dd7ae862985e69da64b48e373"
+  },
+  {
+    "experiment": "E040",
+    "source": "audit_results/v314_final_gpu_shape.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_final_gpu_shape.json",
+    "sha256": "60a17e508789c9749990b84419c9decddf4007b803d27d8f9f2629eae999dba9"
+  },
+  {
+    "experiment": "E040",
+    "source": "audit_results/v314_final_masked.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_final_masked.json",
+    "sha256": "d5b61639eebd8a8f3b716ef6fcc3218d3938c692676daaa22925feee6c7b0b1e"
+  },
+  {
+    "experiment": "E040",
+    "source": "audit_results/v314_full_control.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_full_control.json",
+    "sha256": "ded15cadf520b4cbbfd4ee5f2104175f466c32128da6fe04be02fd774568c6e4"
+  },
+  {
+    "experiment": "E040",
+    "source": "audit_results/v314_hybrid_control.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_hybrid_control.json",
+    "sha256": "9c02188c0e15ce9838f3b6cde9d1039aa30565258ea318a47032f8c85f6fbb63"
+  },
+  {
+    "experiment": "E040",
+    "source": "audit_results/v314_off_control.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E040_v314结构审计\\原始材料\\audit_results\\v314_off_control.json",
+    "sha256": "dca6215c3c6929db7276cd05733b53b8c1e176bbd48b390f8f3a9ff019c840ee"
+  },
+  {
+    "experiment": "E040",
+    "source": "docs/DCT_V314_DEBUG_REPORT.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E040_v314结构审计\\原始材料\\docs\\DCT_V314_DEBUG_REPORT.md",
+    "sha256": "124ee1e12e18b6d4e2fb34f11e8d703d6c1a0861cfab1690d3daa96dbffbb4b8"
+  },
+  {
+    "experiment": "E040",
+    "source": "docs/DCT_V314_MASKED_TRANSPORT_RECONSTRUCTION_PLAN.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E040_v314结构审计\\原始材料\\docs\\DCT_V314_MASKED_TRANSPORT_RECONSTRUCTION_PLAN.md",
+    "sha256": "6b0e7762cf3988cb0292c2e263f022243ab9b0e71fa00204bab9ad0f31aa5746"
+  },
+  {
+    "experiment": "E041",
+    "source": "audit_results/v315_cpu.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E041_v315结构与排序\\原始材料\\audit_results\\v315_cpu.json",
+    "sha256": "eb2edd6afea8ee856d28ea44393a3e9e881da729dacaacb09b1c3b8af9e4fcb1"
+  },
+  {
+    "experiment": "E041",
+    "source": "audit_results/v315_gpu.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E041_v315结构与排序\\原始材料\\audit_results\\v315_gpu.json",
+    "sha256": "ea0da0b1c91763726dc4a85728a2037d7fea91631dced3784faff94e842a97f6"
+  },
+  {
+    "experiment": "E041",
+    "source": "audit_results/v315_independent.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E041_v315结构与排序\\原始材料\\audit_results\\v315_independent.json",
+    "sha256": "75c797a09fcab18b4b0438fd28f085c53cacb9e05cc482366e69c5c0f391acfb"
+  },
+  {
+    "experiment": "E041",
+    "source": "docs/DCT_V315_BASELINE.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E041_v315结构与排序\\原始材料\\docs\\DCT_V315_BASELINE.md",
+    "sha256": "ed953c2ec85fc5ebdee37a7cb82210d0eb06a1d50a13533b8eea7def0e6b4382"
+  },
+  {
+    "experiment": "E041",
+    "source": "docs/DCT_V315_PLAN.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E041_v315结构与排序\\原始材料\\docs\\DCT_V315_PLAN.md",
+    "sha256": "aa9047933fbdc1cc72025f52e6af769de042f40d777e56f983a395bd45c50569"
+  },
+  {
+    "experiment": "E043",
+    "source": "transport_fix_results.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E043_运输修复演示\\原始材料\\transport_fix_results.md",
+    "sha256": "1093a5d58f70c119522f644f780ed5017b67b4b98ca199867ff2db5fc241c970"
+  },
+  {
+    "experiment": "E043",
+    "source": "transport_fix_proposal.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E043_运输修复演示\\原始材料\\transport_fix_proposal.md",
+    "sha256": "b17a8ca34054a58fd542acda33f4b03a92f82a96ed9439aa3498d35009e3de83"
+  },
+  {
+    "experiment": "E044",
+    "source": "experiments/REGISTRY.csv",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E044_待运行与缺失\\原始材料\\experiments\\REGISTRY.csv",
+    "sha256": "c8c8a5c61959421d457f50e2c1e2b7c1af3ea505240ec9f0d6be6428091404ec"
+  },
+  {
+    "experiment": "E044",
+    "source": "experiments/PROTOCOL.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E044_待运行与缺失\\原始材料\\experiments\\PROTOCOL.md",
+    "sha256": "fbaff8cbf100dbf0a805c099fee6671349e789cd98579cb76ac44708172ce7bb"
+  },
+  {
+    "experiment": "E044",
+    "source": "实验清单_最终版.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E044_待运行与缺失\\原始材料\\实验清单_最终版.md",
+    "sha256": "95c23a3c933e6c6e9a2ada015a30d69dc788f7e47d8005b5319f2cc632b43537"
+  },
+  {
+    "experiment": "E044",
+    "source": "还需要运行什么实验.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E044_待运行与缺失\\原始材料\\还需要运行什么实验.md",
+    "sha256": "55db7fc2cdd8632902723adbb6c6040ebc847c9cd470f317bb251a03f91f5da5"
+  },
+  {
+    "experiment": "E044",
+    "source": "还需要运行什么实验_简洁版.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E044_待运行与缺失\\原始材料\\还需要运行什么实验_简洁版.md",
+    "sha256": "41b45ceeebd54472443c72a37b43385acb84b41780e444ca6b87aff366b53f6c"
+  },
+  {
+    "experiment": "E044",
+    "source": "REMAINING_5FOLD_EXPERIMENTS.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E044_待运行与缺失\\原始材料\\REMAINING_5FOLD_EXPERIMENTS.md",
+    "sha256": "e800184ebd9fac9cb977b5cd3b32c8fa4de0d2cd76aec77aea217e65fdcc80c6"
+  },
+  {
+    "experiment": "E044",
+    "source": "FINAL_EXPERIMENTS_TODO.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E044_待运行与缺失\\原始材料\\FINAL_EXPERIMENTS_TODO.md",
+    "sha256": "5a740427f24d0056f9b0b043867a50feb65d306239a4cfe1fbd09fc5a9cfe95a"
+  },
+  {
+    "experiment": "E044",
+    "source": "COMPLETE_STATUS_SUMMARY.md",
+    "source_kind": "local_worktree_snapshot",
+    "source_commit": null,
+    "target": "表格图片\\E044_待运行与缺失\\原始材料\\COMPLETE_STATUS_SUMMARY.md",
+    "sha256": "908086efaa81d5a6fbb98444661425e6e3375074c61d8d23876bf0f37775a250"
+  },
+  {
+    "experiment": "E031",
+    "source": "audit_results/AUDIT_REPORT.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E031_旧方向与零假设\\原始材料\\audit_results\\AUDIT_REPORT.md",
+    "sha256": "bb3b11a15c4fa0125da9c974f76d7cb93ca67fb59a419926ea3b6b046580ae54"
+  },
+  {
+    "experiment": "E031",
+    "source": "audit_results/AUDIT_SUMMARY.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E031_旧方向与零假设\\原始材料\\audit_results\\AUDIT_SUMMARY.md",
+    "sha256": "3642a46ed71577a5a405dd9a6513b84a0ef36cc6f59847c5c99126747766f374"
+  },
+  {
+    "experiment": "E031",
+    "source": "audit_results/blca_fold0_audit_summary.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E031_旧方向与零假设\\原始材料\\audit_results\\blca_fold0_audit_summary.json",
+    "sha256": "490ecd9a9f0a9b8c450e630f1dc5641e30150706fe337c3c71fbdaa1d792f21f"
+  },
+  {
+    "experiment": "E031",
+    "source": "paper_outputs/_archive_v310_v311/figure3_partial_data.json",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E031_旧方向与零假设\\原始材料\\paper_outputs\\_archive_v310_v311\\figure3_partial_data.json",
+    "sha256": "7291038332affd7bf7cb753836782892655ca2bcbece633f81c4215a16a7a4d0"
+  },
+  {
+    "experiment": "E031",
+    "source": "paper_outputs/_archive_v310_v311/PAPER_COMPLETION_REPORT.md",
+    "source_kind": "git_snapshot",
+    "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+    "target": "表格图片\\E031_旧方向与零假设\\原始材料\\paper_outputs\\_archive_v310_v311\\PAPER_COMPLETION_REPORT.md",
+    "sha256": "c0b3926829a54eec852442b1080347cc2b3a1acae6daebc2fb54f1e6a5d908a2"
+  },
+  {
+    "source": "ABLATION_EXPERIMENTS_RUNNING.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\ABLATION_EXPERIMENTS_RUNNING.md",
+    "sha256": "79b5a807af4224c7a30123ebc0355cec544e46f2e4a9c64d1c67bc7ed569349c"
+  },
+  {
+    "source": "ablation_full_model_performance_issue.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\ablation_full_model_performance_issue.md",
+    "sha256": "ebf915e9bedde5946b776ac956ab335f6f065d5d8e7c4955030567fa6363da3d"
+  },
+  {
+    "source": "ablation_study_summary.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\ablation_study_summary.md",
+    "sha256": "3295455056c02e85de2388c3b99fd836b7e1367ac352b8f12d31a12d98f7333d"
+  },
+  {
+    "source": "Additional_Experiments_Recommendation.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\Additional_Experiments_Recommendation.md",
+    "sha256": "ee270e7d2b6458110b8c61bbf6d9c98cbaf9a7aa3da622852a4fe9346c5acd17"
+  },
+  {
+    "source": "ANALYSIS_EXECUTION_SUMMARY.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\ANALYSIS_EXECUTION_SUMMARY.md",
+    "sha256": "c0b0eb8013e495ceb3d3c155957ae55e8982902fdac268872734f486fcadf6f9"
+  },
+  {
+    "source": "ANCHOR_DIAGNOSIS_SUMMARY_CN.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\ANCHOR_DIAGNOSIS_SUMMARY_CN.md",
+    "sha256": "fc6615899208fc5f68ce10ec3ad53422b721ab2f60db2687106a826809a9d016"
+  },
+  {
+    "source": "ANCHOR_EXPERIMENTS_REPORT_20260907.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\ANCHOR_EXPERIMENTS_REPORT_20260907.md",
+    "sha256": "5b861f7d9c18803c4655f53fb65e10c5819622ce98644c4436c2e68f5ba3a0a0"
+  },
+  {
+    "source": "AUDIT_BEST_EPOCH_RESULTS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\AUDIT_BEST_EPOCH_RESULTS.md",
+    "sha256": "3be444b7ff7178f34f5b65c89a158d27a1afcda21990f85f6d7a966f0858d211"
+  },
+  {
+    "source": "AUDIT_EXECUTION_PLAN.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\AUDIT_EXECUTION_PLAN.md",
+    "sha256": "b24e8bd33bb4783a0129b210a7433653027af011304adcde3da72e0bc04a1490"
+  },
+  {
+    "source": "COMPLETE_STATUS_SUMMARY.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\COMPLETE_STATUS_SUMMARY.md",
+    "sha256": "908086efaa81d5a6fbb98444661425e6e3375074c61d8d23876bf0f37775a250"
+  },
+  {
+    "source": "Core_Idea_Proof_Experiments.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\Core_Idea_Proof_Experiments.md",
+    "sha256": "a3fc66dc5f38d652b71ba6f312403b765bbde38d93c3ca7905666c0c7895a671"
+  },
+  {
+    "source": "CORE_IDEA_VERIFICATION_STATUS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\CORE_IDEA_VERIFICATION_STATUS.md",
+    "sha256": "34d040f9dffc008731c5023876478f52331233e4ffa0f10a508ce212409c65cc"
+  },
+  {
+    "source": "CRITICAL_EXPERIMENTS_MISMATCH.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\CRITICAL_EXPERIMENTS_MISMATCH.md",
+    "sha256": "b1ef2b05daecb168f38c98640bf0d0120cc55ef3099be770f7a109606b38977f"
+  },
+  {
+    "source": "CRITICAL_ISSUES_TO_RESOLVE.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\CRITICAL_ISSUES_TO_RESOLVE.md",
+    "sha256": "91e22473c72920d28a61e05662816010706ec5112340c585c3c78ec74c1437e0"
+  },
+  {
+    "source": "CURRENT_STATUS_AND_NEXT_STEPS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\CURRENT_STATUS_AND_NEXT_STEPS.md",
+    "sha256": "7b8f5fcc249a39b7dfd51232b5be3f9ed7b46b7704155f3f76b54521c15566e6"
+  },
+  {
+    "source": "DCT_EVOLUTION_ROADMAP.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\DCT_EVOLUTION_ROADMAP.md",
+    "sha256": "1a440a6d5444cb67da5f24ec809250d3063c65b4b6e4b16cda41051c2ba64281"
+  },
+  {
+    "source": "DCT_v310_Ablation_Results.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\DCT_v310_Ablation_Results.md",
+    "sha256": "048df7a3e317f27ac1e160cb0fbc1810555b66dbee18703b41c21cc83310e607"
+  },
+  {
+    "source": "DCT_v310_Ablation_Results_COMPLETE.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\DCT_v310_Ablation_Results_COMPLETE.md",
+    "sha256": "9f3753c88bca47418d61c079f26b4896ca78041d9f18d0ddce2b99564efaadd4"
+  },
+  {
+    "source": "DCT_V310_AUDIT_COMPLETE_SUMMARY.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\DCT_V310_AUDIT_COMPLETE_SUMMARY.md",
+    "sha256": "eeb90bc45477f0e59c8c7e7f35b9070cc70625bb006e1492b655faea45d3942c"
+  },
+  {
+    "source": "DCT_v310_Experiments_Report.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\DCT_v310_Experiments_Report.md",
+    "sha256": "ca0322aec987f580391759e45741ca6186b9098d27b0bf6f348ae850121ed4c3"
+  },
+  {
+    "source": "DECISION_POINT_NEXT_EXPERIMENTS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\DECISION_POINT_NEXT_EXPERIMENTS.md",
+    "sha256": "116c1e6a5c1e430b13da8aff9bbbfcdae99a0b225870ffe16b05e936afc8ef8f"
+  },
+  {
+    "source": "diagnostics_v3_retune.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\diagnostics_v3_retune.md",
+    "sha256": "abfef5e99ae27c88ef572f2eee534d558f490e135d9505c1008f5fc176701451"
+  },
+  {
+    "source": "E4_AUDIT_EXECUTION_LOG.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\E4_AUDIT_EXECUTION_LOG.md",
+    "sha256": "455f69d0ac3c0a5c343da7a6ef2c2da4b47098550cc413378c8085c29061bd62"
+  },
+  {
+    "source": "E4_AUDIT_FINAL_REPORT.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\E4_AUDIT_FINAL_REPORT.md",
+    "sha256": "f9ca35021128735fa94c9d90ded3b6b456193bd0122319ff005919e515c92fa7"
+  },
+  {
+    "source": "E4_EXPERIMENTS_ACTION_PLAN.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\E4_EXPERIMENTS_ACTION_PLAN.md",
+    "sha256": "4a276c942e0ff1c187e73b3ce9e67f2f166c45ae298f57321fde624015666a58"
+  },
+  {
+    "source": "E4_EXPERIMENTS_COMPLETE.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\E4_EXPERIMENTS_COMPLETE.md",
+    "sha256": "b646b7625b0f305be170fbfab263e72be5df5aaea87a035bfcb62132335821b5"
+  },
+  {
+    "source": "E4_EXPERIMENTS_READY.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\E4_EXPERIMENTS_READY.md",
+    "sha256": "b04e8f2ad6126125d349efb02af8585612bff0db43ea516c3eb8c38e89a27e8d"
+  },
+  {
+    "source": "E4_FULL_ANALYSIS_CRITICAL_FINDINGS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\E4_FULL_ANALYSIS_CRITICAL_FINDINGS.md",
+    "sha256": "c8ef6588b2fbbfb5bbdd8beee0308fca700a20449b18df29b74f1abc17566f00"
+  },
+  {
+    "source": "E4_READY_FINAL.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\E4_READY_FINAL.md",
+    "sha256": "aaf91647199001987300d8ecc313f6a40afbf6f6e15b91dded62ac36709bcbcf"
+  },
+  {
+    "source": "E4_READY_TO_RUN.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\E4_READY_TO_RUN.md",
+    "sha256": "0835bba8d3bfbd92fd06cc00310b3c6d5ebf53982e13087cc09d47171fca69c2"
+  },
+  {
+    "source": "EVIDENCE_STATUS_REPORT.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\EVIDENCE_STATUS_REPORT.md",
+    "sha256": "990fc9e678f3b7326893645d34b882417e8983ae2fb140ead98a2a3b6398efbb"
+  },
+  {
+    "source": "EXECUTE_NOW.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\EXECUTE_NOW.md",
+    "sha256": "4c98607a31f2320986e7e79b88dd0adc57a37190a70bacb5c6a36030408822ae"
+  },
+  {
+    "source": "EXECUTION_COMPLETE.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\EXECUTION_COMPLETE.md",
+    "sha256": "1da0d016eaab1d47aa2a44ebd0be470516ebbeae069a3b3b3c24ee6f5bd18fee"
+  },
+  {
+    "source": "EXPERIMENT_CONCLUSIVE_RESULTS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\EXPERIMENT_CONCLUSIVE_RESULTS.md",
+    "sha256": "5139cab37a94fd6978236eb4dd64c0cbecb8d02cd3449b05f12b74d2092acac8"
+  },
+  {
+    "source": "EXPERIMENT_DATA_SUMMARY.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\EXPERIMENT_DATA_SUMMARY.md",
+    "sha256": "e0da03ffde98a9505117c0f6780811132bda3f97e0bc3c11cd6962b621ec9a83"
+  },
+  {
+    "source": "EXPERIMENT_FINAL_RESULTS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\EXPERIMENT_FINAL_RESULTS.md",
+    "sha256": "7c77b626b8e343a686a88d8f2744d14e6d46285819f3ade169b47a53083fd4f5"
+  },
+  {
+    "source": "EXPERIMENT_PLAN.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\EXPERIMENT_PLAN.md",
+    "sha256": "20b20356edb00743485929a2174ef4500af98a8bbbe2b57f423a244ae4b9aa11"
+  },
+  {
+    "source": "EXPERIMENT_STATUS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\EXPERIMENT_STATUS.md",
+    "sha256": "98def810d0ce8526aa0649482ec6b3838f15e94540a12773392a4de110afef38"
+  },
+  {
+    "source": "EXPERIMENTS_PROGRESS_FINAL.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\EXPERIMENTS_PROGRESS_FINAL.md",
+    "sha256": "9bd0e643decdce467467e245afa507f0b07ec36949c0a4de99961883c6c51876"
+  },
+  {
+    "source": "EXPERIMENTS_READY_TO_RUN.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\EXPERIMENTS_READY_TO_RUN.md",
+    "sha256": "507c954278d64d68340dce0bdfae510ec2b6b4dca1be430fb17e7f7931780090"
+  },
+  {
+    "source": "FINAL_EXPERIMENTS_TODO.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\FINAL_EXPERIMENTS_TODO.md",
+    "sha256": "5a740427f24d0056f9b0b043867a50feb65d306239a4cfe1fbd09fc5a9cfe95a"
+  },
+  {
+    "source": "fix_transport_mechanism_master_plan.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\fix_transport_mechanism_master_plan.md",
+    "sha256": "fe800d8693bd04d6757a93b683b1c71a1dbb812487bfdfb612c886ed663efdbb"
+  },
+  {
+    "source": "FIXED_ANCHORS_EXECUTION_SUMMARY.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\FIXED_ANCHORS_EXECUTION_SUMMARY.md",
+    "sha256": "cd7a4f64b7bf0f8df2b789c8ea3d7902ef0c094aa153e53233335e50cbbe72d9"
+  },
+  {
+    "source": "FIXED_ANCHORS_PROGRESS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\FIXED_ANCHORS_PROGRESS.md",
+    "sha256": "e1a9fb371104e1c98cb7cbc1d9c649c22ea60fb075c8d1cd93fb6ccda6874fd5"
+  },
+  {
+    "source": "IMMEDIATE_ACTION_PLAN.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\IMMEDIATE_ACTION_PLAN.md",
+    "sha256": "939ff043d28217b7791e782973fee5ba510022d2eb81eb0dc61f1abf04177948"
+  },
+  {
+    "source": "model_architecture_deep_analysis.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\model_architecture_deep_analysis.md",
+    "sha256": "a19451ab473e57bb8ecf2e5844b62ef3bbea791915164805dac6706c91ef1d68"
+  },
+  {
+    "source": "MULTI_CANCER_PERFORMANCE_REPORT.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\MULTI_CANCER_PERFORMANCE_REPORT.md",
+    "sha256": "e7635fc994cecf279d100b712fd9a8de5be9fc08ea91af3e0e6277c18b234ab0"
+  },
+  {
+    "source": "NEXT_EXPERIMENTS_REQUIRED.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\NEXT_EXPERIMENTS_REQUIRED.md",
+    "sha256": "412343c842803e46e94774bafe9a9cac29f741df9dc34b17deb082678f464165"
+  },
+  {
+    "source": "NEXT_STEPS_SUMMARY.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\NEXT_STEPS_SUMMARY.md",
+    "sha256": "4f33c2229f08f8c26b3c54a45d2c1b52f1ef11d946bc7204c6529073a43fa778"
+  },
+  {
+    "source": "OUTER_CINDEX_EXPLANATION.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\OUTER_CINDEX_EXPLANATION.md",
+    "sha256": "995a08b16de132d757b3b462d756dc7fe4e5bf5085c51c206512761fd0dbeac1"
+  },
+  {
+    "source": "PAPER_UPDATE_LOG.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\PAPER_UPDATE_LOG.md",
+    "sha256": "be3fa6815471924258f8c2d8b2bec8d1b1155b69770d39beac9a81ef1933087e"
+  },
+  {
+    "source": "PAPER_WRITING_PROMPT.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\PAPER_WRITING_PROMPT.md",
+    "sha256": "9b7da8860751337b640432c5f215a3d9491986a1849fc5e123095911635d394f"
+  },
+  {
+    "source": "PROJECT_STATUS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\PROJECT_STATUS.md",
+    "sha256": "40352e6dcb1fd1c59c9cf8f54e0dc7a922e0dd869d6099746c6d8bf10a42d591"
+  },
+  {
+    "source": "PROOF_EXPERIMENTS_PLAN.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\PROOF_EXPERIMENTS_PLAN.md",
+    "sha256": "046a8b594ad5f0f25337f221131bdd00c873de71e00b36fdc3ab5415a8166b8b"
+  },
+  {
+    "source": "PROOF_EXPERIMENTS_PROGRESS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\PROOF_EXPERIMENTS_PROGRESS.md",
+    "sha256": "1ac20b7cbfbfe4631287fd96cbda45659eb4a77fb7d4d697806150ff12a89895"
+  },
+  {
+    "source": "proof_experiments_summary.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\proof_experiments_summary.md",
+    "sha256": "b929156ebe1a0b47d884840745cd78e4bc319098e02e53bd4ec7ff17c2e52edf"
+  },
+  {
+    "source": "proof_experiments_validation_report.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\proof_experiments_validation_report.md",
+    "sha256": "63910c0f9f1086ec6cc0a477c2b3555df960a4886273b6bfaf6339428d573b09"
+  },
+  {
+    "source": "PROOF_RESULTS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\PROOF_RESULTS.md",
+    "sha256": "742ecd3200ff1d6a54de255a47db187d113c18cea846510493ae7b1d315b6f72"
+  },
+  {
+    "source": "QUICK_STATUS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\QUICK_STATUS.md",
+    "sha256": "b61c16b435d0c826908f6937166dcfbe26a75cc3dabb46ec015357c0cb902ffe"
+  },
+  {
+    "source": "README.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\README.md",
+    "sha256": "8332d67da875c42915901abd415bcc5029264e459e0b39bac7ee317abf0ac17a"
+  },
+  {
+    "source": "README_AUDIT_FIX.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\README_AUDIT_FIX.md",
+    "sha256": "a2b6a65950620a0fde0476253c8b21f24da150e6b301a684db52720fece38f20"
+  },
+  {
+    "source": "README_EXPERIMENTS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\README_EXPERIMENTS.md",
+    "sha256": "6d6606e0d5d8f857e4dc0f5c1c77cf000f04806a27c8079dca375d0eef475259"
+  },
+  {
+    "source": "README_FIXED_ANCHORS_EXPERIMENT.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\README_FIXED_ANCHORS_EXPERIMENT.md",
+    "sha256": "8e3f5d8ec6d98a32367c5069cba58d1cf7cf4546fbeb0a0e6a15fc589891bfdf"
+  },
+  {
+    "source": "REMAINING_5FOLD_EXPERIMENTS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\REMAINING_5FOLD_EXPERIMENTS.md",
+    "sha256": "e800184ebd9fac9cb977b5cd3b32c8fa4de0d2cd76aec77aea217e65fdcc80c6"
+  },
+  {
+    "source": "REVISED_AUDIT_STRATEGY.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\REVISED_AUDIT_STRATEGY.md",
+    "sha256": "336eb3804ca6a9939a583580f14c724ebb769f636102ab5c9df69a92a6dc8850"
+  },
+  {
+    "source": "SMOKING_GUN_FOUND.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\SMOKING_GUN_FOUND.md",
+    "sha256": "4ba0f08fba115150511cf62a5c83e732299c547e0bf86be023597785cba01023"
+  },
+  {
+    "source": "SOLUTION_AUDIT_EXPERIMENT_FIX.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\SOLUTION_AUDIT_EXPERIMENT_FIX.md",
+    "sha256": "d6a91141a9e687889d2727ee482e5cd56957c4f4d15f5648833d90c4fa3359fe"
+  },
+  {
+    "source": "SOLUTION_IMPLEMENTED.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\SOLUTION_IMPLEMENTED.md",
+    "sha256": "689714946c5e93b15b2e80befc6287e1a40618fc22e5c2ed41f2356b46288832"
+  },
+  {
+    "source": "STATISTICAL_ANALYSIS_COMPLETE_REPORT.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\STATISTICAL_ANALYSIS_COMPLETE_REPORT.md",
+    "sha256": "5d1266355b095392da2dde01ab1060afeafa6251127bddfc304a2fa4cf84e48e"
+  },
+  {
+    "source": "STATUS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\STATUS.md",
+    "sha256": "4de8629a5cdf00abdf25f05c3cac474a659e5cb221a6461f07a7277d066271ce"
+  },
+  {
+    "source": "TASK_COMPLETE.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\TASK_COMPLETE.md",
+    "sha256": "7d374af3f757f4f1268baa2aef6835ba7b072de66a3e13776dfd78ea2225a205"
+  },
+  {
+    "source": "TASK_COMPLETE_STATISTICAL_ANALYSIS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\TASK_COMPLETE_STATISTICAL_ANALYSIS.md",
+    "sha256": "e5b7840de29364bc7b6342d954e0b22f898de28ddd1382758de62c154c5af7f7"
+  },
+  {
+    "source": "TASK_COMPLETION_SUMMARY.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\TASK_COMPLETION_SUMMARY.md",
+    "sha256": "69afdb7a2b25d537bfef4e2a6130b28982967231f8c72a639f1d7def96418dbf"
+  },
+  {
+    "source": "TASK_COMPLETION_SUMMARY_CN.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\TASK_COMPLETION_SUMMARY_CN.md",
+    "sha256": "5951d58bc2c99b4a4609d6daa1d832b7487112818eac889206874d6d5f71b7a9"
+  },
+  {
+    "source": "TGSR_BEST_EPOCH_RESULTS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\TGSR_BEST_EPOCH_RESULTS.md",
+    "sha256": "6b7f3eff28f413c4819db78f14c5c2fed80d99744d1afec204405c8658e68904"
+  },
+  {
+    "source": "TGSR_DECISION_ANALYSIS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\TGSR_DECISION_ANALYSIS.md",
+    "sha256": "e2edebf82d98d2d6313bdbea6d87954c0641b99dc63087d0bcb72283bbf7bddc"
+  },
+  {
+    "source": "TGSR_FINAL_VERDICT.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\TGSR_FINAL_VERDICT.md",
+    "sha256": "f94f35e98c57ae83b0fc81e26d09fb2e3af5be1f748e3f6da41c7c52049c13d8"
+  },
+  {
+    "source": "TGSR_NEXT_EXPERIMENTS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\TGSR_NEXT_EXPERIMENTS.md",
+    "sha256": "6fbc4e7ed3becd58a2acf6a80f55671b8483262d44be5a2ec66bf758e3846fba"
+  },
+  {
+    "source": "TGSR_OPTIMIZATION_STATUS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\TGSR_OPTIMIZATION_STATUS.md",
+    "sha256": "126d236b0afb7273847784f8d1c457d73fb89475c8c0ec8f22d91fd7a49220ca"
+  },
+  {
+    "source": "THREE_MODEL_COMPARISON.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\THREE_MODEL_COMPARISON.md",
+    "sha256": "fb8bc8370273ffa906693d8ae1847db7253d4554500073d5dc86fea53093258f"
+  },
+  {
+    "source": "TRAINING_PROGRESS_UPDATE.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\TRAINING_PROGRESS_UPDATE.md",
+    "sha256": "473935de556995f07038eb9fc6452d6194f945737328f3e5e83d914d37e69f06"
+  },
+  {
+    "source": "transport_fix_proposal.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\transport_fix_proposal.md",
+    "sha256": "b17a8ca34054a58fd542acda33f4b03a92f82a96ed9439aa3498d35009e3de83"
+  },
+  {
+    "source": "transport_fix_results.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\transport_fix_results.md",
+    "sha256": "1093a5d58f70c119522f644f780ed5017b67b4b98ca199867ff2db5fc241c970"
+  },
+  {
+    "source": "V32_TGSR_EXPERIMENT_RESULTS.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\V32_TGSR_EXPERIMENT_RESULTS.md",
+    "sha256": "626da80d17e63fdb5feed961ce7ea8b50fe907f3790da15a911d27cf96578bb0"
+  },
+  {
+    "source": "VERIFIED_RESULTS_2026_09_05.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\VERIFIED_RESULTS_2026_09_05.md",
+    "sha256": "33411a8f990fa4f6e51ef46be609dab3707a89a7b2268027b6f9576a34e3d36b"
+  },
+  {
+    "source": "WHAT_TO_RUN_NEXT.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\WHAT_TO_RUN_NEXT.md",
+    "sha256": "252c2f7b0d9c315dd00b78e99d76f7cc4b7b2fb73e5883bbd6702eaa5f2a271b"
+  },
+  {
+    "source": "WORK_COMPLETED_SUMMARY.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\WORK_COMPLETED_SUMMARY.md",
+    "sha256": "70c7e419058326865169eb56a4dc56a10e09141d79add98193310e20243923c4"
+  },
+  {
+    "source": "实验清单_最终版.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\实验清单_最终版.md",
+    "sha256": "95c23a3c933e6c6e9a2ada015a30d69dc788f7e47d8005b5319f2cc632b43537"
+  },
+  {
+    "source": "还需要运行什么实验.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\还需要运行什么实验.md",
+    "sha256": "55db7fc2cdd8632902723adbb6c6040ebc847c9cd470f317bb251a03f91f5da5"
+  },
+  {
+    "source": "还需要运行什么实验_简洁版.md",
+    "target": "维护资料\\历史报告总库_工作区快照\\还需要运行什么实验_简洁版.md",
+    "sha256": "41b45ceeebd54472443c72a37b43385acb84b41780e444ca6b87aff366b53f6c"
+  }
+]

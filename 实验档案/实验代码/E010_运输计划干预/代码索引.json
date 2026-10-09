@@ -1,0 +1,35 @@
+{
+  "experiment": "E010",
+  "title": "固定 Full 模型的运输计划替换",
+  "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+  "shared_model": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/model.py",
+  "entries": [
+    {
+      "path": "scripts/plot_v313_manuscript_sweep.py",
+      "present": true,
+      "sha256": "8855dad4644dcc8fc8859d5d6f2b5c2008c19458b6e9a0f5eed09d84da4f5c19"
+    },
+    {
+      "path": "scripts/plot_fig3_from_exports.py",
+      "present": true,
+      "sha256": "190ca5ba9bc3068654c013cf837fa8f90e4e4d7f28922371acec67485c98963d"
+    },
+    {
+      "path": "scripts/plot_fig3_transport_sweep.py",
+      "present": true,
+      "sha256": "67a3d4700a8c69dc186549c6e2b69b5166adf8e53e3e06c401b52a3aeb769423"
+    },
+    {
+      "path": "scripts/prepare_v313_evidence.py",
+      "present": true,
+      "sha256": "324f163181921f730c46da320987a70a5d6409fa8737d155525bec51f647a4f1"
+    },
+    {
+      "path": "survot_rank/evidence/v313.py",
+      "present": true,
+      "sha256": "ab8a2154179d540a1d0a789a39ea574e7e5c0259a76b5a5d9b0a681544bdbb6c"
+    }
+  ],
+  "shared_snapshot": "../共享代码快照_2b1c622",
+  "execution_note": "仅作源代码溯源，整理阶段没有执行训练、推理或导出作业。以原工程环境与历史 overrides 复现。"
+}

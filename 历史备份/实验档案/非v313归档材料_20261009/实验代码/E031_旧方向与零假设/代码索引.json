@@ -1,0 +1,20 @@
+{
+  "id": "E031",
+  "entries": [
+    {
+      "requested": "scripts/_archive_v310_v311/audit_dct_reg.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\audit_dct_reg.py",
+      "sha256": "14195c0c53670d1b43b61f9576361c3415127103a76ce31bd433c5cceeb4161e",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "scripts/_archive_v310_v311/generate_figure3_all_cancers.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\generate_figure3_all_cancers.py",
+      "sha256": "ec09aac2ed935b1caf1c39c4d4c92871960acc4f164b4b4b952dc4da70a322a8",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

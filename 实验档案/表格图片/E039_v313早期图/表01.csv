@@ -1,0 +1,5 @@
+﻿类型,来源,使用状态
+逐折 KM,BLCA KIRC pvalues 与 per_fold PNG,旧版 留存
+计划风险差值,fig3_risk_delta_heatmap.png,需核对数值来源
+早期整合图,v313_main_plots,部分被整合版替代
+十癌种均值 JSON,multi_cancer_summary_v313.json,E007 同批结果 不是新训练

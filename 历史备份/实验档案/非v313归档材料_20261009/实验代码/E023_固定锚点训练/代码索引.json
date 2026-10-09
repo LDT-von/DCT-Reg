@@ -1,0 +1,17 @@
+{
+  "id": "E023",
+  "entries": [
+    {
+      "requested": "scripts/_archive_v310_v311/run_fixed_anchor_experiments.py",
+      "present": false
+    },
+    {
+      "requested": "scripts/_archive_v310_v311/train_fixed_5fold.sh",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\train_fixed_5fold.sh",
+      "sha256": "80dfbe5e0fbd1101042d11e3419600d933b2b0736b9ba6040f4a82f4b5d25fa2",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

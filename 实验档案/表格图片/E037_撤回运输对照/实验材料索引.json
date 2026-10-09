@@ -1,0 +1,75 @@
+{
+  "id": "E037",
+  "folder": "E037_撤回运输对照",
+  "title": "v3.13 旧运输对照撤回档案",
+  "kind": "补录实验或审计",
+  "status": "已撤回 禁止作为结果引用",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "2026-10-05 旧稿和比较图；折级重复问题与历史批次溯源未解决。",
+  "conclusion": "旧记录永久保留并标记撤回；不沿用旧图或旧控制臂数值。E008/E009 为后续重新审计的独立记录。",
+  "pending": "历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "paper/history/retracted_transport_controls_20261005/README.md",
+    "paper/history/retracted_transport_controls_20261005/v313_transport_controls.png",
+    "paper/history/retracted_transport_controls_20261005/DCT_v313_初稿.md",
+    "paper/history/retracted_transport_controls_20261005/DCT_v313_初稿.docx"
+  ],
+  "scripts": [],
+  "tables": [
+    {
+      "title": "撤回状态",
+      "headers": [
+        "材料",
+        "处理",
+        "后续证据"
+      ],
+      "rows": [
+        [
+          "旧运输比较图及旧稿",
+          "保留 禁止引用",
+          "后续 controls_audit.json 单独登记"
+        ],
+        [
+          "服务器旧结果目录",
+          "保留 未清空",
+          "未完成全量独立溯源"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E037",
+      "source": "paper/history/retracted_transport_controls_20261005/README.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E037_撤回运输对照\\原始材料\\paper\\history\\retracted_transport_controls_20261005\\README.md",
+      "sha256": "557588af44819e10ce65a79249082764995b489269815f0b3163e1c9cf59ac69"
+    },
+    {
+      "experiment": "E037",
+      "source": "paper/history/retracted_transport_controls_20261005/v313_transport_controls.png",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E037_撤回运输对照\\原始材料\\paper\\history\\retracted_transport_controls_20261005\\v313_transport_controls.png",
+      "sha256": "8f6c2fd52d2adb6ca9dfb3132920e92dea1e218935361ed793ada2aab760cf34"
+    },
+    {
+      "experiment": "E037",
+      "source": "paper/history/retracted_transport_controls_20261005/DCT_v313_初稿.md",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E037_撤回运输对照\\原始材料\\paper\\history\\retracted_transport_controls_20261005\\DCT_v313_初稿.md",
+      "sha256": "05077c64f421a8d71c4f852023cfaca289ee50871de4f5a21ae475422545c431"
+    },
+    {
+      "experiment": "E037",
+      "source": "paper/history/retracted_transport_controls_20261005/DCT_v313_初稿.docx",
+      "source_kind": "local_worktree_snapshot",
+      "source_commit": null,
+      "target": "表格图片\\E037_撤回运输对照\\原始材料\\paper\\history\\retracted_transport_controls_20261005\\DCT_v313_初稿.docx",
+      "sha256": "b88f8acb3bf0e6e54e6db931f8cd2f1e80380877ab779fd8c584a256c7efb740"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "E019",
+  "entries": [
+    {
+      "requested": "scripts/_archive_v310_v311/run_dct_v310_final_cross_cancer.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\run_dct_v310_final_cross_cancer.py",
+      "sha256": "5ad82c6876936d1a0d62a82d441fa26552aa0c333127c5b83e8746fd1612f8ca",
+      "source_kind": "git_snapshot"
+    },
+    {
+      "requested": "scripts/_archive_v310_v311/kirc_refill_5fold.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\kirc_refill_5fold.py",
+      "sha256": "476f563e74c19e312cd4808496060367712597f125e65f32f9b6dba3938d699e",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

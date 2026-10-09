@@ -1,0 +1,107 @@
+# DCT-Reg v3.10
+
+**Deep Counterfactual Transformers for Survival Prediction**
+
+DCT 是一个多模态生存预测框架，通过**语义对齐的多模态融合**和**训练折引导的干预解释**实现高精度预测与可解释性。
+
+> **性能优先，可解释性次之**：DCT 首先是一个高精度的生存预测模型，其次才是一个可审计其内部决策机制的模型。OT 结构是实现预测和解释的技术手段，而非核心叙事。
+
+---
+
+## 核心贡献
+
+### 1. 生存预测性能（超越 SlotSPE）
+
+在五个 TCGA 队列的五折交叉验证中，DCT 达到平均 **C-index 0.703**，优于 SlotSPE 的 0.697：
+
+| 癌种 | DCT C-index | SlotSPE C-index | 差值 |
+|------|-------------|-----------------|------|
+| BLCA | **0.721 ± 0.016** | 0.708 | +0.013 |
+| HNSC | **0.647 ± 0.071** | 0.642 | +0.005 |
+| KIRC | **0.858 ± 0.012** | 0.815 | +0.043 |
+| LUSC | 0.631 ± 0.055 | **0.634** | -0.003 |
+| SKCM | 0.656 ± 0.047 | **0.688** | -0.032 |
+| **平均** | **0.703** | 0.697 | **+0.006** |
+
+### 2. 可解释性：干预驱动的决策审计
+
+DCT 不只输出风险分数，还能回答**"模型为什么认为这个患者是高风险？"**
+
+通过在模型内部的**代价空间**构造训练折引导的干预，审计模型对不同风险方向的响应：
+
+- **低风险锚点干预**：如果模型将某患者标记为高风险，模拟"将患者推向低风险方向"后，风险应该下降
+- **高风险锚点干预**：反之亦然
+- **剂量响应曲线**：沿干预强度路径检查风险是否单调响应
+
+这使得医生可以看到模型决策是否与训练数据中学到的预后模式一致。
+
+### 3. 多模态语义对齐
+
+DCT 通过**共享语义坐标**和**多几何运输**对齐病理切片与分子通路：
+
+- **共享原型字典**：WSI patch 和通路共享 $K=8$ 个语义坐标，建立跨模态对应
+- **三几何融合**：余弦、欧氏、正点积三种距离度量独立保留
+- **阶段条件代价**：生存时间分段（4阶段）引入预后先验
+
+---
+
+## 方法亮点
+
+### 训练目标（冻结配方）
+
+$$\mathcal L = \mathcal L_{\text{NLL}} + 0.10 \cdot \mathcal L_{\text{IPCW-rank}} + 0.05 \cdot \mathcal L_{\text{direction}}$$
+
+- **NLL**：离散时间生存负对数似然
+- **IPCW-rank**：删失感知的成对排序损失（Uno风格）
+- **direction**：方向一致性损失，约束低/高风险干预后风险响应方向正确
+
+### 干预解释机制
+
+```
+输入 → 语义对齐 → 运输计划 → 事件编码 → 风险预测
+                              ↑
+                    [代价干预 + 重新求解 Sinkhorn]
+                              ↓
+                         决策审计
+```
+
+---
+
+## 新候选：模型 v3.30 闭环预后传输
+
+v3.30 实现"跨模态 OT → 置信度门控 → 重读取原始 token → 重聚合 slot → 运输风险头"的闭环，并提供 `baseline / self_update / ot_feedback / confidence_gate / prognostic_rank` 五组匹配对照。它目前只有代码与结构验证，尚无真实数据性能结论。
+
+- [v3.30 方法边界、消融设计与运行说明](docs/DCT_V330_CLOSED_LOOP.md)
+
+```bash
+python scripts/run_dct_v330_experiments.py plan
+python scripts/run_dct_v330_experiments.py smoke
+python scripts/run_dct_v330_experiments.py run
+```
+
+## 新候选：模型 v3.2 TGSR
+
+TGSR (Training fold Guided Survival Risk) 研究方向。
+
+---
+
+## 版本清单（8 个 DCT 变体 + 5 个父基类）
+
+`survot_rank/research/methods/catalog.py` 注册的"DCT 模型类"共 **8 个**，外加 `methods/` 下 5 个被它们继承、但**不能单独当版本用**的父基类（详见 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)）。
+
+### 8 个 catalog 版本
+
+| Key | 真实名称 | 状态 | 目录 | 角色 |
+|---|---|---|---|---|
+| `dct_v310_directional_regularized_transport` | **DCT v3.10** | **primary（冻结论文方法）** | `methods/` | C-index 0.703 就是它；公式 NLL + 0.10·IPCW + 0.05·direction |
+| `dct_transport_intervention_consistency` | DCT v3.8 | legacy | `methods/legacy/ablation/` | v3.10 的父类（direction / dose / reconfiguration 损失的原出处） |
+| `dct_risk_ordering_transport` | DCT Risk Ordering Transport | legacy | `methods/legacy/ablation/` | 早期 risk-ordering 实验 |
+| `dct_v310_fixed_anchors` | DCT v3.10 Fixed Anchors | legacy | `methods/legacy/ablation/` | v3.10 的固定锚点对照（验证锚点质量影响） |
+| `dct_v32_tgsr_objective_study` | DCT v3.2 TGSR 目标研究 | legacy | `methods/legacy/ablation/` | TGSR 的 NLL/IPCW/direction/full 四目标对照 |
+| `dct_v32_transport_guided_slot_reaggregation` | DCT v3.2 运输引导槽重聚合 | legacy | `methods/legacy/ablation/` | TGSR 的 4 臂结构对照（baseline/self_update/attention_feedback/ot_feedback） |
+| `dct_v330_closed_loop_prognostic_transport` | DCT v3.30 闭环预后传输 | legacy | `methods/legacy/ablation/` | 5 臂闭环（baseline/self_update/ot_feedback/confidence_gate/prognostic_rank） |
+| `dct_v311_slot_interpretable` | DCT v3.11 槽级可解释 | experimental | `methods/legacy/experimental/` | per-slot NLL + 多样性约束；关掉 direction 损失 |
+
+### 5 个父基类（实现依赖，不算独立版本）
+
+`OTEventHazardV2` → `RankGuidedEventTransport` → `StagewisePrognosticTransport` → `FaithfulEvidenceTransport` → `DistributionalCounterfactualTransport` → `DCTTransportInterventionConsistency` → `DCTV310DirectionalRegularizedTransport`（这条继承链上的前 5 个仅供 v3.10 / v3.11 / v3.30 等继承复用，不能单独当论文方法）。

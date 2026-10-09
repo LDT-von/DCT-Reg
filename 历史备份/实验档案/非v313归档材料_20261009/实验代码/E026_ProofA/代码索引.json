@@ -1,0 +1,13 @@
+{
+  "id": "E026",
+  "entries": [
+    {
+      "requested": "scripts/_archive_v310_v311/proof_experiments/proof_A_recipe_compare.py",
+      "present": true,
+      "path": "实验代码\\补录代码快照_2b1c622\\scripts\\_archive_v310_v311\\proof_experiments\\proof_A_recipe_compare.py",
+      "sha256": "828020d21cdb4a5936b42f9ec463641a95f6c06158012b1caae8db28affcdaca",
+      "source_kind": "git_snapshot"
+    }
+  ],
+  "notice": "归档时源代码与历史运行源码不一定相同。按原始产物内 source_sha256 和历史配置核对；本次未执行模型。"
+}

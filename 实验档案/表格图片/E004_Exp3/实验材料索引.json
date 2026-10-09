@@ -1,0 +1,91 @@
+{
+  "id": "E004",
+  "folder": "E004_Exp3",
+  "title": "Exp3 增加槽多样性",
+  "kind": "训练目标消融",
+  "status": "已有五折记录",
+  "purpose": "检验增加槽多样性在同架构中的结果。",
+  "setting": "共同五折开发协议，seed=3；有效系数为 IPCW 0.10，逐槽 NLL 0.05，多样性 0.10，self 0，cross 0。重建系数为 ramp 达到上限后的有效值。",
+  "conclusion": "相对 Exp2，两个队列均值均提高；相对 Exp0，KIRC 仍低于基线。这是当前单 seed 配方的观察。",
+  "pending": "补齐历史原始配置与患者预测的对应；不得用当前脚本默认值替代历史权重。Exp4/Exp5 与 Full 的单支权重不同，尚不能据此证明严格协同效应。",
+  "sources": [
+    "paper/figures/v313_manuscript_integrated/source_values.json",
+    "paper/DCT_v313_初稿.md §4.4 与附录 A"
+  ],
+  "scripts": [
+    "scripts/run_ablation_loss_components.py",
+    "survot_rank/training/train_runner.py",
+    "configs/dct_v313_uni2h.yaml"
+  ],
+  "tables": [
+    {
+      "title": "当前消融均值与基线差",
+      "headers": [
+        "队列",
+        "五折均值 ± 样本标准差",
+        "相对 Exp0"
+      ],
+      "rows": [
+        [
+          "BLCA",
+          "0.7205 ± 0.0403",
+          "+0.0204"
+        ],
+        [
+          "KIRC",
+          "0.8049 ± 0.0416",
+          "-0.0071"
+        ]
+      ]
+    },
+    {
+      "title": "逐折分数与最佳 epoch",
+      "headers": [
+        "队列",
+        "Fold 0",
+        "Fold 1",
+        "Fold 2",
+        "Fold 3",
+        "Fold 4"
+      ],
+      "rows": [
+        [
+          "BLCA",
+          "0.6576（2）",
+          "0.7030（15）",
+          "0.7399（5）",
+          "0.7524（16）",
+          "0.7496（3）"
+        ],
+        [
+          "KIRC",
+          "0.8203（5）",
+          "0.8703（20）",
+          "0.7698（3）",
+          "0.7905（2）",
+          "0.7738（7）"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E004",
+      "source": "paper/figures/v313_manuscript_integrated/source_values.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E004_Exp3\\原始材料\\source_values.json",
+      "sha256": "a4bec4aedb279d0be721e70a3d27fcb528c7c62c0cff6ce84f61248702fce134"
+    },
+    {
+      "experiment": "E004",
+      "source": "paper/figures/v313_manuscript_integrated/fig2_loss_ablation.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E004_Exp3\\原始材料\\fig2_loss_ablation.png",
+      "sha256": "f58a23f59dfc82bb6b4ce85a122760822ba102d73681af28c69dc51646d9a63c"
+    }
+  ],
+  "note": "括号内为最佳 epoch；本表保留历史四位记录。均值和样本标准差按对应四位折值计算。"
+}

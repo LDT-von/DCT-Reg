@@ -1,0 +1,168 @@
+{
+  "id": "E024",
+  "folder": "E024_固定锚点审计",
+  "title": "固定锚点五折风险响应审计",
+  "kind": "补录实验或审计",
+  "status": "五折 JSON 与四折 CSV 已保存",
+  "purpose": "保留该项实验的名称、结果与证据状态。",
+  "setting": "alpha 扫描；原始 fold0 仅摘要，fold1至4 CSV。",
+  "conclusion": "更新后的摘要按响应容差 1e-8 记录所有固定锚点折风险变化为零、响应率为零。不能沿用旧报告双方向 100% 的非严格单调判据。",
+  "pending": "fold0 原始 CSV 未同步；保存的旧 CSV 中 true_event 出现非 0/1 数值，字段对应关系需复核，不能直接用于生存分析。历史运行配置、划分、checkpoint 和患者身份尚需核对；数值不合并进 v3.13 主表。",
+  "sources": [
+    "results_fixed_anchors/audit_fixed_fold0_summary.json",
+    "results_fixed_anchors/audit_fixed_fold1.csv",
+    "results_fixed_anchors/audit_fixed_fold1_summary.json",
+    "results_fixed_anchors/audit_fixed_fold2.csv",
+    "results_fixed_anchors/audit_fixed_fold2_summary.json",
+    "results_fixed_anchors/audit_fixed_fold3.csv",
+    "results_fixed_anchors/audit_fixed_fold3_summary.json",
+    "results_fixed_anchors/audit_fixed_fold4.csv",
+    "results_fixed_anchors/audit_fixed_fold4_summary.json",
+    "results_fixed_anchors/audit_original_fold0_summary.json",
+    "results_fixed_anchors/blca/.gitignore"
+  ],
+  "scripts": [
+    "scripts/_archive_v310_v311/audit_fixed_anchors_batch.py",
+    "scripts/_archive_v310_v311/e4_audit_adapted.py"
+  ],
+  "tables": [
+    {
+      "title": "固定锚点响应摘要",
+      "headers": [
+        "Fold",
+        "患者数",
+        "Low 响应率",
+        "High 响应率",
+        "Low 平均风险差"
+      ],
+      "rows": [
+        [
+          "0",
+          "76",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "1",
+          "76",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "2",
+          "76",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "3",
+          "76",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "4",
+          "76",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E024",
+      "source": "results_fixed_anchors/audit_fixed_fold0_summary.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold0_summary.json",
+      "sha256": "b5ca39ebb1771db8b48ff8554230503a3a128c0b16158acadaed4b6989cf9810"
+    },
+    {
+      "experiment": "E024",
+      "source": "results_fixed_anchors/audit_fixed_fold1.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold1.csv",
+      "sha256": "fc1c3efcc98b23dc43ec1e91a31e3eee48aa77bdaa7aede5536308606b39346f"
+    },
+    {
+      "experiment": "E024",
+      "source": "results_fixed_anchors/audit_fixed_fold1_summary.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold1_summary.json",
+      "sha256": "e23737a8ee48484e6b598f413f7a6fa8ebaff075c1dd53cc5c9b5d3040333904"
+    },
+    {
+      "experiment": "E024",
+      "source": "results_fixed_anchors/audit_fixed_fold2.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold2.csv",
+      "sha256": "8a123307a9272407e3890dd7d25276dfac52ea21d89850faba3460fe919a072e"
+    },
+    {
+      "experiment": "E024",
+      "source": "results_fixed_anchors/audit_fixed_fold2_summary.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold2_summary.json",
+      "sha256": "456ffac24646886a67583809fec10fad91c37a373a5ca207fd6b8dbf050b8acc"
+    },
+    {
+      "experiment": "E024",
+      "source": "results_fixed_anchors/audit_fixed_fold3.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold3.csv",
+      "sha256": "d774f19ff38174dbd5f7a9c14fa95e35ca4c8155e480dae907265cfff300deed"
+    },
+    {
+      "experiment": "E024",
+      "source": "results_fixed_anchors/audit_fixed_fold3_summary.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold3_summary.json",
+      "sha256": "e10dc81d5ed4aba4d2af957259b6c29c86505bdfc762510316edf7383eff4d60"
+    },
+    {
+      "experiment": "E024",
+      "source": "results_fixed_anchors/audit_fixed_fold4.csv",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold4.csv",
+      "sha256": "738fb58918fe8f6ee23d63a7a63b18ede64f9ec9eeca0212a98dcf372a92651d"
+    },
+    {
+      "experiment": "E024",
+      "source": "results_fixed_anchors/audit_fixed_fold4_summary.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_fixed_fold4_summary.json",
+      "sha256": "c07a7c801693faab3725a4b612ae0c635b9c3b49fbac65b144803cbd7ee6e134"
+    },
+    {
+      "experiment": "E024",
+      "source": "results_fixed_anchors/audit_original_fold0_summary.json",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\audit_original_fold0_summary.json",
+      "sha256": "d06c66c1811812923ffa0d3bd9f3a89a0c9d9b6e925c364ab6b04151c48daef3"
+    },
+    {
+      "experiment": "E024",
+      "source": "results_fixed_anchors/blca/.gitignore",
+      "source_kind": "git_snapshot",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E024_固定锚点审计\\原始材料\\results_fixed_anchors\\blca\\.gitignore",
+      "sha256": "7f879ef6a644f6d8e7fe26b9f251714bb0c28a953e0a6a6c324b8b8cf8802560"
+    }
+  ]
+}

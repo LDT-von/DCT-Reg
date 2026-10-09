@@ -1,0 +1,457 @@
+{
+  "id": "E016",
+  "folder": "E016_公开结果参照",
+  "title": "外部方法公开报告值参照",
+  "kind": "文献结果整理",
+  "status": "公开表已汇总 同条件复现未完成",
+  "purpose": "保存现论文外部参照的来源、数值和比较边界。",
+  "setting": "21 个外部方法与 DCT；十队列公开均值按癌种名称对齐。不同论文的编码器、纳入患者、划分与 checkpoint 选择不同。",
+  "conclusion": "183 个可对齐的外部队列均值已汇总；公开参照可以帮助定位报告值，不作为当前同条件 SOTA 证据。",
+  "pending": "MCAT、MOTCat、CMTA、LD-CVAE 等外部方法同条件 checkpoint/profile 仍缺。ProtoPathway 的 OS 结果不混入 DSS 排名。",
+  "sources": [
+    "paper/V313_OT_UNI2H_COMPARISON_INPUT.json"
+  ],
+  "scripts": [
+    "scripts/build_v313_comparison_table.py",
+    "scripts/build_v313_literature_comparison.py"
+  ],
+  "tables": [
+    {
+      "title": "公开参照均值 BLCA BRCA COADREAD HNSC KIRC",
+      "headers": [
+        "方法",
+        "BLCA",
+        "BRCA",
+        "COADREAD",
+        "HNSC",
+        "KIRC"
+      ],
+      "rows": [
+        [
+          "MLP",
+          "0.677",
+          "0.644",
+          "0.661",
+          "0.584",
+          "0.750"
+        ],
+        [
+          "SNN",
+          "0.694",
+          "0.645",
+          "0.664",
+          "0.597",
+          "0.754"
+        ],
+        [
+          "SNNTrans",
+          "0.699",
+          "0.657",
+          "0.710",
+          "0.605",
+          "0.747"
+        ],
+        [
+          "ABMIL",
+          "0.663",
+          "0.656",
+          "0.715",
+          "0.664",
+          "0.782"
+        ],
+        [
+          "TransMIL",
+          "0.647",
+          "0.647",
+          "0.723",
+          "0.644",
+          "0.767"
+        ],
+        [
+          "CLAM-SB",
+          "0.645",
+          "0.696",
+          "0.742",
+          "0.649",
+          "0.784"
+        ],
+        [
+          "CLAM-MB",
+          "0.657",
+          "0.715",
+          "0.721",
+          "0.636",
+          "0.782"
+        ],
+        [
+          "Porpoise",
+          "0.690",
+          "0.651",
+          "0.699",
+          "0.599",
+          "0.788"
+        ],
+        [
+          "MCAT",
+          "0.688",
+          "0.709",
+          "0.737",
+          "0.622",
+          "0.795"
+        ],
+        [
+          "MOTCat",
+          "0.700",
+          "0.717",
+          "0.742",
+          "0.627",
+          "0.799"
+        ],
+        [
+          "CMTA",
+          "0.702",
+          "0.731",
+          "0.720",
+          "0.619",
+          "0.794"
+        ],
+        [
+          "SurvPath",
+          "0.666",
+          "0.728",
+          "0.727",
+          "0.611",
+          "0.787"
+        ],
+        [
+          "PIBD",
+          "0.693",
+          "0.662",
+          "0.716",
+          "0.627",
+          "0.772"
+        ],
+        [
+          "MMP",
+          "0.686",
+          "0.714",
+          "0.686",
+          "0.580",
+          "0.770"
+        ],
+        [
+          "LD-CVAE",
+          "0.635",
+          "0.705",
+          "0.753",
+          "0.635",
+          "0.792"
+        ],
+        [
+          "ILRA",
+          "0.661",
+          "0.664",
+          "0.615",
+          "0.526",
+          "NR"
+        ],
+        [
+          "R2T-MIL",
+          "0.601",
+          "0.662",
+          "0.684",
+          "0.617",
+          "NR"
+        ],
+        [
+          "Patch-GCN",
+          "0.616",
+          "0.702",
+          "0.667",
+          "0.602",
+          "NR"
+        ],
+        [
+          "OTSurv",
+          "0.637",
+          "0.621",
+          "NR",
+          "NR",
+          "0.750"
+        ],
+        [
+          "TTA",
+          "0.662",
+          "0.726",
+          "NR",
+          "NR",
+          "0.778"
+        ],
+        [
+          "STEPH",
+          "0.641",
+          "0.741",
+          "0.707",
+          "0.657",
+          "NR"
+        ],
+        [
+          "DCT v3.13",
+          "0.724",
+          "0.679",
+          "0.736",
+          "0.658",
+          "0.822"
+        ]
+      ]
+    },
+    {
+      "title": "公开参照均值 LUAD LUSC SKCM STAD UCEC",
+      "headers": [
+        "方法",
+        "LUAD",
+        "LUSC",
+        "SKCM",
+        "STAD",
+        "UCEC"
+      ],
+      "rows": [
+        [
+          "MLP",
+          "0.634",
+          "0.584",
+          "0.652",
+          "0.615",
+          "0.731"
+        ],
+        [
+          "SNN",
+          "0.652",
+          "0.548",
+          "0.673",
+          "0.585",
+          "0.753"
+        ],
+        [
+          "SNNTrans",
+          "0.648",
+          "0.555",
+          "0.684",
+          "0.593",
+          "0.724"
+        ],
+        [
+          "ABMIL",
+          "0.645",
+          "0.593",
+          "0.668",
+          "0.642",
+          "0.779"
+        ],
+        [
+          "TransMIL",
+          "0.655",
+          "0.582",
+          "0.632",
+          "0.656",
+          "0.759"
+        ],
+        [
+          "CLAM-SB",
+          "0.639",
+          "0.584",
+          "0.643",
+          "0.637",
+          "0.757"
+        ],
+        [
+          "CLAM-MB",
+          "0.632",
+          "0.608",
+          "0.640",
+          "0.641",
+          "0.788"
+        ],
+        [
+          "Porpoise",
+          "0.647",
+          "0.597",
+          "0.682",
+          "0.619",
+          "0.788"
+        ],
+        [
+          "MCAT",
+          "0.659",
+          "0.583",
+          "0.667",
+          "0.639",
+          "0.802"
+        ],
+        [
+          "MOTCat",
+          "0.663",
+          "0.573",
+          "0.688",
+          "0.642",
+          "0.773"
+        ],
+        [
+          "CMTA",
+          "0.662",
+          "0.599",
+          "0.681",
+          "0.639",
+          "0.764"
+        ],
+        [
+          "SurvPath",
+          "0.661",
+          "0.577",
+          "0.666",
+          "0.647",
+          "0.751"
+        ],
+        [
+          "PIBD",
+          "0.634",
+          "0.575",
+          "0.649",
+          "0.644",
+          "0.783"
+        ],
+        [
+          "MMP",
+          "0.634",
+          "0.580",
+          "0.682",
+          "0.602",
+          "0.755"
+        ],
+        [
+          "LD-CVAE",
+          "0.651",
+          "0.620",
+          "0.682",
+          "0.653",
+          "0.788"
+        ],
+        [
+          "ILRA",
+          "NR",
+          "NR",
+          "0.559",
+          "NR",
+          "0.744"
+        ],
+        [
+          "R2T-MIL",
+          "NR",
+          "NR",
+          "0.538",
+          "NR",
+          "0.725"
+        ],
+        [
+          "Patch-GCN",
+          "NR",
+          "NR",
+          "0.577",
+          "NR",
+          "0.737"
+        ],
+        [
+          "OTSurv",
+          "0.638",
+          "NR",
+          "NR",
+          "0.565",
+          "NR"
+        ],
+        [
+          "TTA",
+          "NR",
+          "NR",
+          "NR",
+          "0.613",
+          "NR"
+        ],
+        [
+          "STEPH",
+          "NR",
+          "NR",
+          "0.595",
+          "NR",
+          "0.783"
+        ],
+        [
+          "DCT v3.13",
+          "0.686",
+          "0.630",
+          "0.665",
+          "0.636",
+          "0.793"
+        ]
+      ]
+    }
+  ],
+  "figures": [],
+  "assets": [
+    {
+      "experiment": "E016",
+      "source": "paper/V313_OT_UNI2H_COMPARISON_INPUT.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E016_公开结果参照\\原始材料\\V313_OT_UNI2H_COMPARISON_INPUT.json",
+      "sha256": "cf5730f5ac55389350e4a0a0327690174f02800374422909e6be9ec7b787fae0"
+    },
+    {
+      "experiment": "E016",
+      "source": "paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.docx",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E016_公开结果参照\\原始材料\\v313_ot_uni2h_comparison\\table_v313_ot_uni2h_reference.docx",
+      "sha256": "51399b6cfe45a19eeb6a145055eb25e8ab78b1e6e7ca0738bc8287d61e46641d"
+    },
+    {
+      "experiment": "E016",
+      "source": "paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.html",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E016_公开结果参照\\原始材料\\v313_ot_uni2h_comparison\\table_v313_ot_uni2h_reference.html",
+      "sha256": "ca71846e11b4f16312102cbf209a2a49c5eebf4cd6a161ed2a1663e1afc98c4d"
+    },
+    {
+      "experiment": "E016",
+      "source": "paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E016_公开结果参照\\原始材料\\v313_ot_uni2h_comparison\\table_v313_ot_uni2h_reference.json",
+      "sha256": "3a60d4e7658cdf7dcd6681683731449438da06eddbf1ab9e80ab9398c8338ea6"
+    },
+    {
+      "experiment": "E016",
+      "source": "paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E016_公开结果参照\\原始材料\\v313_ot_uni2h_comparison\\table_v313_ot_uni2h_reference.pdf",
+      "sha256": "6d7323441d6ef9c1e722537327fc0cee768e31652a44c8d4eb2336887682c3c0"
+    },
+    {
+      "experiment": "E016",
+      "source": "paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E016_公开结果参照\\原始材料\\v313_ot_uni2h_comparison\\table_v313_ot_uni2h_reference.png",
+      "sha256": "cae82a88bb55a630d7847e39790a9159cf2da0a772b1bdea531a2dacef985a7f"
+    },
+    {
+      "experiment": "E016",
+      "source": "paper/tables/v313_ot_uni2h_comparison/table_v313_ot_uni2h_reference.svg",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E016_公开结果参照\\原始材料\\v313_ot_uni2h_comparison\\table_v313_ot_uni2h_reference.svg",
+      "sha256": "2d8834e4f006c97f9b3c6c1e8a147db1afa2f06902e9ad0338f17ae747f39a7e"
+    }
+  ]
+}

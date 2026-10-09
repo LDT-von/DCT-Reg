@@ -1,0 +1,245 @@
+{
+  "id": "E013",
+  "folder": "E013_队列通路",
+  "title": "BLCA 和 KIRC 队列通路权重差值",
+  "kind": "已有预测的队列分析",
+  "status": "两队列矩阵与图已保存",
+  "purpose": "按预测风险组观察通路最终聚合权重的描述性差异。",
+  "setting": "折内验证风险 midrank 百分位分 Q1–Q4；先对每位患者八槽等权平均，再按通路名对齐。图显示组均值减四组均值的等权平均。",
+  "conclusion": "BLCA 380 人、入选 29 条通路；KIRC 488 人、入选 33 条通路。绝对组间偏离较小，颜色不同不能替代数值大小。",
+  "pending": "两队列使用不同色标范围。通路由验证 attention 选取，不能把图解释为表达量、因果风险贡献或性能提升的机制证明。",
+  "sources": [
+    "paper/figures/v313_manuscript_integrated/manifest.json",
+    "paper/figures/v313_slotspe_20261007_v2/blca_cohort/cohort_top_pathways.json",
+    "paper/figures/v313_slotspe_20261007_v2/kirc_cohort/cohort_top_pathways.json"
+  ],
+  "scripts": [
+    "scripts/plot_v313_slotspe_style.py",
+    "scripts/prepare_v313_manuscript_panels.py",
+    "survot_rank/evidence/slotspe_style.py"
+  ],
+  "tables": [
+    {
+      "title": "队列分组与差值范围",
+      "headers": [
+        "队列",
+        "患者数",
+        "Q1 至 Q4 人数",
+        "入选通路",
+        "最大绝对差"
+      ],
+      "rows": [
+        [
+          "BLCA",
+          "380",
+          "95 / 95 / 95 / 95",
+          "29",
+          "3.607e-05"
+        ],
+        [
+          "KIRC",
+          "488",
+          "120 / 123 / 122 / 123",
+          "33",
+          "1.446e-04"
+        ]
+      ]
+    }
+  ],
+  "figures": [
+    {
+      "path": "表格图片\\E013_队列通路\\原始材料\\fig7_attention_difference_blca.png",
+      "caption": "BLCA 的绝对组均值差图。请读取色标数值，不按颜色深浅跨队列比较。"
+    },
+    {
+      "path": "表格图片\\E013_队列通路\\原始材料\\fig7_attention_difference_kirc.png",
+      "caption": "KIRC 的绝对组均值差图。请读取色标数值，不按颜色深浅跨队列比较。"
+    }
+  ],
+  "assets": [
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_slotspe_20261007_v2/blca_cohort/cohort_top_pathways.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\blca_cohort\\cohort_top_pathways.json",
+      "sha256": "46a91a0cdc224dcf130fe2d0c6782f2b7c9d5cd06a9bc1223b3b15a8aca24a06"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_slotspe_20261007_v2/blca_cohort/cohort_top_pathways.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\blca_cohort\\cohort_top_pathways.pdf",
+      "sha256": "e4d03bfee727ffc4ccbbf93493ff46776d85d11d68f3f126c36f8c48486a446f"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_slotspe_20261007_v2/blca_cohort/cohort_top_pathways.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\blca_cohort\\cohort_top_pathways.png",
+      "sha256": "42863aeb7cb4e0ee76c2999af04bbd259c67cbfed6b627b7915de04ba1808bf3"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_slotspe_20261007_v2/blca_cohort/pathway_group_means.csv",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\blca_cohort\\pathway_group_means.csv",
+      "sha256": "cde717abbd2b9481a5a8e0b18eace773134f5d8b57909cbe2d2bd4c47ca5345c"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_slotspe_20261007_v2/blca_cohort/patient_groups.csv",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\blca_cohort\\patient_groups.csv",
+      "sha256": "6dec5943ae8918481dd8f63c2ac9981427269f6deffdc02fddb529c1f7a0cc6f"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_manuscript_integrated/fig7_attention_difference_blca.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\fig7_attention_difference_blca.png",
+      "sha256": "280a388bffcb12f9318af5eef129916cec4fea9747c205e076276c005d42ee2b"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_manuscript_integrated/fig7_attention_difference_blca.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\fig7_attention_difference_blca.pdf",
+      "sha256": "98a927e5b0ebb05908f641140d70b9fbaffb26af513ce67aa9c457a61fe0c65d"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_manuscript_integrated/fig7_attention_difference_blca.svg",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\fig7_attention_difference_blca.svg",
+      "sha256": "70435fe951e7c303e0e6b2869351b5bac7cfbb5e4d40fcb49b2473f3b5053136"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_manuscript_integrated/figS3_raw_attention_blca.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\figS3_raw_attention_blca.png",
+      "sha256": "def5e4b1ae250c2748a5289c0acf37de51bd64102921083293dd5ee33a62d71b"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_manuscript_integrated/figS3_raw_attention_blca.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\figS3_raw_attention_blca.pdf",
+      "sha256": "058da6ec915bae46f79f8c6df6d281c99ae587ab7d1c88689bf58d08d8dcd7ba"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_manuscript_integrated/figS3_raw_attention_blca.svg",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\figS3_raw_attention_blca.svg",
+      "sha256": "a41eafa06e675f3bdc65d0352db49efae5b44c4224503cfbbddd0244d62a02b6"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_slotspe_20261007_v2/kirc_cohort/cohort_top_pathways.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\kirc_cohort\\cohort_top_pathways.json",
+      "sha256": "a54679735585bf5044e03d2dac702f906a8b17202fbbf91bcdf0b78d71133567"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_slotspe_20261007_v2/kirc_cohort/cohort_top_pathways.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\kirc_cohort\\cohort_top_pathways.pdf",
+      "sha256": "caa33b5f85cb088c65644d6ad53ce955aec5d6d062cbc1695b9b80b21c8c01dd"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_slotspe_20261007_v2/kirc_cohort/cohort_top_pathways.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\kirc_cohort\\cohort_top_pathways.png",
+      "sha256": "6da31ca29918247a55cd21e8c544f61d771830956658acbfbe1949c23e080562"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_slotspe_20261007_v2/kirc_cohort/pathway_group_means.csv",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\kirc_cohort\\pathway_group_means.csv",
+      "sha256": "033fbabf809f3f097a9882c721df75bcb9914705c4fbead29a163c3d22440698"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_slotspe_20261007_v2/kirc_cohort/patient_groups.csv",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\kirc_cohort\\patient_groups.csv",
+      "sha256": "346e4285680fdb01a36d6eccc441e82b05ccf2e0e121141e667179ea54c26ca0"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_manuscript_integrated/fig7_attention_difference_kirc.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\fig7_attention_difference_kirc.png",
+      "sha256": "b3015812a936d74410f6c7fa39c783600ac3e2332f2c0eb14a2149cce662acef"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_manuscript_integrated/fig7_attention_difference_kirc.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\fig7_attention_difference_kirc.pdf",
+      "sha256": "b92a7ba29cda7e1ffb0a072826c5bd82ad5d68780c59669f22845a9f418558a8"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_manuscript_integrated/fig7_attention_difference_kirc.svg",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\fig7_attention_difference_kirc.svg",
+      "sha256": "051e81bce3ba52f3be86917d773c13c45627338f3a776221d1722475b62361c3"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_manuscript_integrated/figS3_raw_attention_kirc.png",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\figS3_raw_attention_kirc.png",
+      "sha256": "7d1bd77c622f45333e9993c8e0a68096c5828344cb37420a4803626ddb15cfe8"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_manuscript_integrated/figS3_raw_attention_kirc.pdf",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\figS3_raw_attention_kirc.pdf",
+      "sha256": "7eef5e0dbe52b0713fa269f9ee070c1a1fcf3aea4c7848dd86fb0c93acf119c5"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_manuscript_integrated/figS3_raw_attention_kirc.svg",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\figS3_raw_attention_kirc.svg",
+      "sha256": "37471dc8eed9ffc82b686713c85b84ba3ed8e7b7c6421b026a8721c086eb1787"
+    },
+    {
+      "experiment": "E013",
+      "source": "paper/figures/v313_manuscript_integrated/manifest.json",
+      "source_kind": "commit",
+      "source_commit": "2b1c622f418c619dc20f973ddeb839ff12d30d88",
+      "target": "表格图片\\E013_队列通路\\原始材料\\manifest.json",
+      "sha256": "715264785cdb6da4346236f9e90a57c8dca697be9341754a2e4c0ec5c5383cda"
+    }
+  ]
+}
