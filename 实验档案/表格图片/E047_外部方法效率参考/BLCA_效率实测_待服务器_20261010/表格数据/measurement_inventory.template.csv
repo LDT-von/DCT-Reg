@@ -1,0 +1,10 @@
+﻿method_id,label,year,blca_reported_mean,peak_allocated_mib,runtime_sec,weights_kind,status
+dct_v313,DCT v3.13,2026,0.72382,,,,pending_server_measurement
+mcat,MCAT,2021,0.688,,,,pending_server_measurement
+motcat,MOTCat,2023,0.7,,,,pending_server_measurement
+cmta,CMTA,2023,0.702,,,,pending_server_measurement
+survpath,SurvPath,2024,0.666,,,,pending_server_measurement
+pibd,PIBD,2024,0.693,,,,pending_server_measurement
+mmp,MMP,2024,0.686,,,,pending_server_measurement
+porpoise,Porpoise,2022,0.69,,,,pending_server_measurement
+ld_cvae,LD-CVAE,2025,0.635,,,,pending_server_measurement

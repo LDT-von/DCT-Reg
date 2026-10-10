@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "comparison_mode": "reported_BLCA_score_vs_measured_standardized_cost",
+  "cancer": "BLCA",
+  "endpoint": "DSS",
+  "n_replicates": 3,
+  "warmup": 5,
+  "repeats": 30,
+  "seed": 3,
+  "device": "cuda:0",
+  "patches": 2048,
+  "feature_dim": 1536,
+  "batch_size": 1,
+  "precision": "float32",
+  "feature_encoder": "UNI2-h",
+  "timing_scope": "native_full_eval_forward_from_preloaded_features",
+  "common_omics_policy": "same raw BLCA expression; each official tokenization; record grouping and actual dimensions",
+  "cases": [
+    {
+      "fold": 0,
+      "case_id": null,
+      "common_wsi_sha256": null,
+      "common_omics_sha256": null
+    },
+    {
+      "fold": 1,
+      "case_id": null,
+      "common_wsi_sha256": null,
+      "common_omics_sha256": null
+    },
+    {
+      "fold": 2,
+      "case_id": null,
+      "common_wsi_sha256": null,
+      "common_omics_sha256": null
+    },
+    {
+      "fold": 3,
+      "case_id": null,
+      "common_wsi_sha256": null,
+      "common_omics_sha256": null
+    },
+    {
+      "fold": 4,
+      "case_id": null,
+      "common_wsi_sha256": null,
+      "common_omics_sha256": null
+    }
+  ],
+  "methods": [
+    {
+      "id": "dct_v313",
+      "label": "DCT v3.13",
+      "year": 2026,
+      "reported_blca_mean": 0.72382,
+      "score_encoder": "UNI2-h",
+      "score_protocol": "DSS; UNI2-h; 5-fold best validation legacy_val; author summary not held-out test",
+      "score_source_url": "",
+      "score_source_locator": "manuscript Table 1; saved author fold summary",
+      "ours": true,
+      "repo_url": "local DCT-Reg repository",
+      "source_commit": null
+    },
+    {
+      "id": "mcat",
+      "label": "MCAT",
+      "year": 2021,
+      "reported_blca_mean": 0.688,
+      "score_encoder": "UNI",
+      "score_protocol": "{\"endpoint\": \"DSS\", \"histology_encoder\": \"UNI\", \"folds\": 5, \"max_epochs\": 30, \"batch_size\": 32, \"training_patches\": 4096, \"inference_patches\": \"all\"}",
+      "score_source_url": "https://arxiv.org/abs/2512.01116",
+      "score_source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "ours": false,
+      "repo_url": "https://github.com/mahmoodlab/MCAT",
+      "source_commit": "b9cca63be83c67de7f95308d54a58f80b78b0da1"
+    },
+    {
+      "id": "motcat",
+      "label": "MOTCat",
+      "year": 2023,
+      "reported_blca_mean": 0.7,
+      "score_encoder": "UNI",
+      "score_protocol": "{\"endpoint\": \"DSS\", \"histology_encoder\": \"UNI\", \"folds\": 5, \"max_epochs\": 30, \"batch_size\": 32, \"training_patches\": 4096, \"inference_patches\": \"all\"}",
+      "score_source_url": "https://arxiv.org/abs/2512.01116",
+      "score_source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "ours": false,
+      "repo_url": "https://github.com/Innse/MOTCat",
+      "source_commit": "0da379f73d92c096122df139a9410d08b096e6c1"
+    },
+    {
+      "id": "cmta",
+      "label": "CMTA",
+      "year": 2023,
+      "reported_blca_mean": 0.702,
+      "score_encoder": "UNI",
+      "score_protocol": "{\"endpoint\": \"DSS\", \"histology_encoder\": \"UNI\", \"folds\": 5, \"max_epochs\": 30, \"batch_size\": 32, \"training_patches\": 4096, \"inference_patches\": \"all\"}",
+      "score_source_url": "https://arxiv.org/abs/2512.01116",
+      "score_source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "ours": false,
+      "repo_url": "https://github.com/FT-ZHOU-ZZZ/CMTA",
+      "source_commit": "31340f6c74575668de35ee6c5d761467f11089e2"
+    },
+    {
+      "id": "survpath",
+      "label": "SurvPath",
+      "year": 2024,
+      "reported_blca_mean": 0.666,
+      "score_encoder": "UNI",
+      "score_protocol": "{\"endpoint\": \"DSS\", \"histology_encoder\": \"UNI\", \"folds\": 5, \"max_epochs\": 30, \"batch_size\": 32, \"training_patches\": 4096, \"inference_patches\": \"all\"}",
+      "score_source_url": "https://arxiv.org/abs/2512.01116",
+      "score_source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "ours": false,
+      "repo_url": "https://github.com/mahmoodlab/SurvPath",
+      "source_commit": "3f73ddd6705ec67d643020c5bb04fb13f9f382cc"
+    },
+    {
+      "id": "pibd",
+      "label": "PIBD",
+      "year": 2024,
+      "reported_blca_mean": 0.693,
+      "score_encoder": "UNI",
+      "score_protocol": "{\"endpoint\": \"DSS\", \"histology_encoder\": \"UNI\", \"folds\": 5, \"max_epochs\": 30, \"batch_size\": 32, \"training_patches\": 4096, \"inference_patches\": \"all\"}",
+      "score_source_url": "https://arxiv.org/abs/2512.01116",
+      "score_source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "ours": false,
+      "repo_url": "https://github.com/zylbuaa/PIBD",
+      "source_commit": "bd5bd94e6f8d48e7679c6e68209a3a65c9e56a78"
+    },
+    {
+      "id": "mmp",
+      "label": "MMP",
+      "year": 2024,
+      "reported_blca_mean": 0.686,
+      "score_encoder": "UNI",
+      "score_protocol": "{\"endpoint\": \"DSS\", \"histology_encoder\": \"UNI\", \"folds\": 5, \"max_epochs\": 30, \"batch_size\": 32, \"training_patches\": 4096, \"inference_patches\": \"all\"}",
+      "score_source_url": "https://arxiv.org/abs/2512.01116",
+      "score_source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "ours": false,
+      "repo_url": "https://github.com/mahmoodlab/MMP",
+      "source_commit": "1fd75e37592f7ab47b787f737733ba3c5a7e714c"
+    },
+    {
+      "id": "porpoise",
+      "label": "Porpoise",
+      "year": 2022,
+      "reported_blca_mean": 0.69,
+      "score_encoder": "UNI",
+      "score_protocol": "{\"endpoint\": \"DSS\", \"histology_encoder\": \"UNI\", \"folds\": 5, \"max_epochs\": 30, \"batch_size\": 32, \"training_patches\": 4096, \"inference_patches\": \"all\"}",
+      "score_source_url": "https://arxiv.org/abs/2512.01116",
+      "score_source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "ours": false,
+      "repo_url": "https://github.com/mahmoodlab/PORPOISE",
+      "source_commit": "3390dc40e15995ba852d7a561faf0e996cf20501"
+    },
+    {
+      "id": "ld_cvae",
+      "label": "LD-CVAE",
+      "year": 2025,
+      "reported_blca_mean": 0.635,
+      "score_encoder": "UNI",
+      "score_protocol": "{\"endpoint\": \"DSS\", \"histology_encoder\": \"UNI\", \"folds\": 5, \"max_epochs\": 30, \"batch_size\": 32, \"training_patches\": 4096, \"inference_patches\": \"all\"}",
+      "score_source_url": "https://arxiv.org/abs/2512.01116",
+      "score_source_locator": "SlotSPE Table 1; source-author reproduction; dispersion Table 4",
+      "ours": false,
+      "repo_url": "https://github.com/JJ-ZHOU-Code/RobustMultiModel",
+      "source_commit": "df8c50d94179a63edf3d9017641295a268ce9148"
+    }
+  ],
+  "allow_random_init_for_cost_only": true,
+  "no_training": true,
+  "score_snapshot_file": "blca_scores_frozen.csv",
+  "score_snapshot_sha256": "a90d0d1cf8358f0822b37488554c9d75c3af7561303326bf863863b0d793b090"
+}

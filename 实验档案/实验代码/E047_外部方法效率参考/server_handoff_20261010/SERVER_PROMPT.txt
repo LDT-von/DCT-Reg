@@ -1,0 +1,31 @@
+你在 DCT-Reg 服务器工作。任务只做 DCT v3.13 的 BLCA“性能—推理显存 / 性能—推理耗时”双散点图，参照用户的两面板图；不要再画均值排名图或差值柱图，它们重复表2。先读本交接包 README、benchmark_spec.example.json、adapter_contract.md，以及本仓库 AGENTS.md。
+
+目标方法：DCT、MCAT、MOTCat、CMTA、SurvPath、PIBD、MMP、Porpoise、LD-CVAE（年份依冻结文件）。不包括SlotSPE，不用Direct充作外部方法，不挑低分方法来保证DCT领先。不预设DCT显存最低/时间最短；星形点放真实坐标。纵轴只用BLCA DSS。
+
+授权范围：下载固定官方源码、核对已有数据/配置/权重、实现薄输入适配、无梯度前向微基准和绘图；禁止训练、特征提取、伪造测量、覆盖旧材料。GPU任务只执行上述前向；缺训练权重不自动训练。原始病例不进入Git或交接压缩包。
+
+1. 清点与冻结：优先找服务器已有九方法BLCA checkpoint/预测/源码，确认它们是否同患者划分、UNI2-h、DSS。DCT主表是legacy_val 5折mean0.72382；E046 Full0.6848是另一次outer_test训练，不得混入。旧BLCA Full/Direct profile路径提示在 paper/inputs/v313_tradeoff_real_20261008/tradeoff_input.json；先验证路径/哈希，不声称完整扫描所有服务器。先写 inventory.csv：方法、repo commit、checkpoint、输入维数、分组、预测协议、可运行/缺项、修复记录。不要只因找不到权重就结束：成本测量可用随机初始化完整模型，见第4项。
+
+2. 官方源码：fetch_official_repos.py可下载8个固定commit的完整官方仓库；本包含之前18个模型/说明文件及其hash供核对，但不把它们当完整安装包。代码下载不等于显存/耗时测量。保留作者许可证。依赖在独立环境，能保持共同PyTorch/CUDA版本就保持；不兼容时登记，不能将不同环境数据混进一个正式点集。先修依赖/维数接口，不省略关键计算图。
+
+3. 固定输入：copy benchmark_spec.example.json为benchmark_spec.real.json，填DCT实际源码commit（工作树脏则快照adapter和模型文件sha并说明）。从DCT主表BLCA五折各取验证ID字典序首位，训练/验证身份核对后冻结2048个真实patch索引和UNI2-h float32 [1,2048,1536]。病例不足2048时登记并共同采用经说明的重复填充规则，不对不同方法抽不同patch；共同原始表达文件另存并hash。填写case_id、WSI张量指纹、原始组学文件sha。每方法按原生组学分组转换同一表达，并写实际分组/维数。不将DCT的329通路当所有方法通用输入。需要拟合的标准化/原型仅用训练折参考。
+
+4. 证据分两条，不能混称：
+A. 如果已有同条件权重和完整五折逐患者预测：优先使用仓库 configs/v313_efficiency_tradeoff.example.json / survot_rank.evidence.reference_panels.validate_tradeoff 的严格通道，从原始预测重算BLCA C-index，关联同checkpoint并核验患者/结局/划分。这可以生成同条件实测性能—成本图；新横坐标须同机重测，不能沿用另一GPU旧值。本包plot_measured_tradeoff.py不是A通道的准确率审核器。
+B. 没有同条件外部权重：默认可执行“公开BLCA均值＋统一完整模型前向成本”参考图，不训练。纵轴使用冻结9行 blca_scores_frozen.csv（源码年份/成绩与表2固定，不能改高值）；横轴用同GPU、真实共同输入的完整官方eval前向实测。随机初始化仅用于成本，不能评C-index、不能说复现论文性能；报告weights_kind=random_init、维数改动、OT迭代/随机分支等对成本的影响。此图标题/图注明确reported performance versus measured standardized inference cost，跨来源分数与新成本并非同条件联合评估。B通道优先统一权重类型以便解释，DCT旧训练权重/外部随机权重若混合，须在逐点表中显式列出并说明原生自适应分支的限制。若当前输入/依赖/原型资料无法可靠构造，补齐能补的，最终写blocked_methods，不能捏造点。
+
+5. 统一测量：实现各官方model薄适配器，遵循adapter_contract.md。完整特征到生存输出的native eval+no_grad（包括原生默认解释/重建路径），不运行额外alpha sweep，不只计部分融合头，不提前计算模型专属压缩而漏计。排除公共WSI编码和文件IO；预载CPU，转入当前病例的GPU输入。FP32、batch1、2048patch、1536维、TF32 off、cuDNN benchmark off/deterministic on；同一GPU型号UUID、PyTorch/CUDA/cuDNN。每方法三个独立进程replicate0/1/2，每进程5病例、warmup5、repeats30，每次前后CUDA同步。共9x3=27进程、135病例测量；不需训练360折。方法原生具有自适应迭代/随机采样的，锁定推理设置并记录，random-init迭代成本可能不代表训练权重。一次只有当前方法驻留GPU，确认共享GPU没有其他负载，记录nvidia-smi与环境。
+
+运行示例（从解压后文件夹，参数由实际路径填写；每次开一个新的Python进程）：
+python benchmark_native.py --spec benchmark_spec.real.json --adapter adapters/mcat.py --method mcat --replicate 0 --output /新的结果根/profiles/mcat_r0.json
+可先用run_benchmarks.py默认仅打印计划；全部9个实际适配器备齐后，执行：
+python run_benchmarks.py --spec benchmark_spec.real.json --adapters adapters --output-dir /全新结果目录 --execute
+它按固定种子打乱方法顺序、依次启动27个独立进程，保存顺序与日志；失败立即停止，不覆盖结果。
+九个方法与replicate0/1/2依次运行。全部profile进入一个专用profiles目录，报错日志另存不要伪装成测量json。必须有原始30次耗时、峰值allocated MiB、reserved MiB、病例与指纹、checkpoint/源码/adapter哈希。不得把参数数目/FLOPs或nvidia-smi峰值估算成时延/allocated数。
+
+6. B通道绘图：
+python plot_measured_tradeoff.py --spec benchmark_spec.real.json --profiles /新的结果根/profiles --output /新的结果根/图表 --validate-only
+python plot_measured_tradeoff.py --spec benchmark_spec.real.json --profiles /新的结果根/profiles --output /新的结果根/图表
+缺27记录/不同环境/输入指纹不一致就拒绝。左图x=5病例峰值total allocated MiB均值，再3进程均值；右图x=5病例各30次同步耗时中位数均值，再3进程均值，单位sec/patient；y=冻结BLCA均值。DCT橙色星形，其他方法各自颜色形状，标方法名/年份，图例放曲线外，无遮挡；两个panel同y轴范围，x轴数据决定，不设置有利于DCT的范围。服务器务必100%查看最终PNG，必要时仅调整注释位置，不改数据。返回PNG/PDF/SVG、逐点CSV、raw profiles、audit JSON、运行日志、环境/依赖、所有适配器和维数补丁。
+
+7. 归档：代码落到实验档案/实验代码/E047_外部方法效率参考/，图/表/原始记录分开放到实验档案/表格图片/E047_外部方法效率参考/BLCA_效率实测_新的日期时间/。保留之前COADREAD、BLCA均值/差值图，但后者用户已拒绝，不作为目标交付。不要自动改主档Word或删除旧材料；拿到真实图后再备份并替换论文§4.9图10/11，消除重复分数图。先返回实测图供用户查看，push需用户授权。最终说明A/B通道、完成/缺项方法、真实横纵轴来源、是否模型前向/训练、DCT位置与限制，别把成本图当模块机制证明。

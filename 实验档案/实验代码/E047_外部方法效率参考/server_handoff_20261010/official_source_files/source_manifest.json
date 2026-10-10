@@ -1,0 +1,128 @@
+[
+  {
+    "method": "MCAT",
+    "commit": "b9cca63be83c67de7f95308d54a58f80b78b0da1",
+    "path": "LICENSE",
+    "url": "https://raw.githubusercontent.com/mahmoodlab/MCAT/b9cca63be83c67de7f95308d54a58f80b78b0da1/LICENSE",
+    "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+  },
+  {
+    "method": "MCAT",
+    "commit": "b9cca63be83c67de7f95308d54a58f80b78b0da1",
+    "path": "models/model_coattn.py",
+    "url": "https://raw.githubusercontent.com/mahmoodlab/MCAT/b9cca63be83c67de7f95308d54a58f80b78b0da1/models/model_coattn.py",
+    "sha256": "cf3f6df6049005c6fc6c88cad0314098dfedcc322a82efd31cd221e61e99aa2a"
+  },
+  {
+    "method": "MCAT",
+    "commit": "b9cca63be83c67de7f95308d54a58f80b78b0da1",
+    "path": "models/model_genomic.py",
+    "url": "https://raw.githubusercontent.com/mahmoodlab/MCAT/b9cca63be83c67de7f95308d54a58f80b78b0da1/models/model_genomic.py",
+    "sha256": "483bdc9c2900cb9757c3aae7cac321b1bf0a7f2f0e1029caabadd9aba94378de"
+  },
+  {
+    "method": "MCAT",
+    "commit": "b9cca63be83c67de7f95308d54a58f80b78b0da1",
+    "path": "models/model_utils.py",
+    "url": "https://raw.githubusercontent.com/mahmoodlab/MCAT/b9cca63be83c67de7f95308d54a58f80b78b0da1/models/model_utils.py",
+    "sha256": "e5a95ecb6bc41b93a39310d7e9594f69514d98f6a3c4e642c86778d0c430dcb2"
+  },
+  {
+    "method": "MCAT",
+    "commit": "b9cca63be83c67de7f95308d54a58f80b78b0da1",
+    "path": "docs/README.md",
+    "url": "https://raw.githubusercontent.com/mahmoodlab/MCAT/b9cca63be83c67de7f95308d54a58f80b78b0da1/docs/README.md",
+    "sha256": "ea3a4009696244731f86b3be336e76ba93861a85c2d1064e8c8295d95ed6a868"
+  },
+  {
+    "method": "MOTCat",
+    "commit": "0da379f73d92c096122df139a9410d08b096e6c1",
+    "path": "README.md",
+    "url": "https://raw.githubusercontent.com/Innse/MOTCat/0da379f73d92c096122df139a9410d08b096e6c1/README.md",
+    "sha256": "f9b1990d17fc8faa3a9fef3ef5bf05de505ae5a7c3bbf191445eb52f5d7e6bf3"
+  },
+  {
+    "method": "MOTCat",
+    "commit": "0da379f73d92c096122df139a9410d08b096e6c1",
+    "path": "models/model_motcat.py",
+    "url": "https://raw.githubusercontent.com/Innse/MOTCat/0da379f73d92c096122df139a9410d08b096e6c1/models/model_motcat.py",
+    "sha256": "a26d44cc6c30e0fdcffc01d2453150c2134565fc388214ed6be5193f2752969f"
+  },
+  {
+    "method": "MOTCat",
+    "commit": "0da379f73d92c096122df139a9410d08b096e6c1",
+    "path": "models/model_coattn.py",
+    "url": "https://raw.githubusercontent.com/Innse/MOTCat/0da379f73d92c096122df139a9410d08b096e6c1/models/model_coattn.py",
+    "sha256": "5497ce2e4a087564aba1b7e2d18424ad9a10bb481e3dafc859003aceae8470e5"
+  },
+  {
+    "method": "MOTCat",
+    "commit": "0da379f73d92c096122df139a9410d08b096e6c1",
+    "path": "models/model_utils.py",
+    "url": "https://raw.githubusercontent.com/Innse/MOTCat/0da379f73d92c096122df139a9410d08b096e6c1/models/model_utils.py",
+    "sha256": "e5a95ecb6bc41b93a39310d7e9594f69514d98f6a3c4e642c86778d0c430dcb2"
+  },
+  {
+    "method": "CMTA",
+    "commit": "31340f6c74575668de35ee6c5d761467f11089e2",
+    "path": "README.md",
+    "url": "https://raw.githubusercontent.com/FT-ZHOU-ZZZ/CMTA/31340f6c74575668de35ee6c5d761467f11089e2/README.md",
+    "sha256": "189657670d7bf2a1a3b327bb5a10a5390169e094c6d063c880b6e1a2a5a5c67e"
+  },
+  {
+    "method": "CMTA",
+    "commit": "31340f6c74575668de35ee6c5d761467f11089e2",
+    "path": "models/cmta/network.py",
+    "url": "https://raw.githubusercontent.com/FT-ZHOU-ZZZ/CMTA/31340f6c74575668de35ee6c5d761467f11089e2/models/cmta/network.py",
+    "sha256": "1c05a4442681979b183619993821e5f2f72ad302f41d67611a51c5a1afe00308"
+  },
+  {
+    "method": "CMTA",
+    "commit": "31340f6c74575668de35ee6c5d761467f11089e2",
+    "path": "models/cmta/engine.py",
+    "url": "https://raw.githubusercontent.com/FT-ZHOU-ZZZ/CMTA/31340f6c74575668de35ee6c5d761467f11089e2/models/cmta/engine.py",
+    "sha256": "82d43576729743533113c57bef803f4a1263c1a9c3c83af3d3774fe5cfdfa79e"
+  },
+  {
+    "method": "LD-CVAE",
+    "commit": "df8c50d94179a63edf3d9017641295a268ce9148",
+    "path": "README.md",
+    "url": "https://raw.githubusercontent.com/JJ-ZHOU-Code/RobustMultiModel/df8c50d94179a63edf3d9017641295a268ce9148/README.md",
+    "sha256": "a40e9555e3738437d4676dd45f99a30f99c884f64ff2d7ac59ba83c7d4adf4b7"
+  },
+  {
+    "method": "LD-CVAE",
+    "commit": "df8c50d94179a63edf3d9017641295a268ce9148",
+    "path": "models/model_ldvae.py",
+    "url": "https://raw.githubusercontent.com/JJ-ZHOU-Code/RobustMultiModel/df8c50d94179a63edf3d9017641295a268ce9148/models/model_ldvae.py",
+    "sha256": "aa22a367fbf42e467c852a6ba6d6f516e84f7e8b503528da967c203ed6c56842"
+  },
+  {
+    "method": "LD-CVAE",
+    "commit": "df8c50d94179a63edf3d9017641295a268ce9148",
+    "path": "models/model_coattn.py",
+    "url": "https://raw.githubusercontent.com/JJ-ZHOU-Code/RobustMultiModel/df8c50d94179a63edf3d9017641295a268ce9148/models/model_coattn.py",
+    "sha256": "9cf1371c4d80c460cc7ce0a748869302e1111d7bb7c884a7163e555079e9063a"
+  },
+  {
+    "method": "LD-CVAE",
+    "commit": "df8c50d94179a63edf3d9017641295a268ce9148",
+    "path": "models/model_transformer.py",
+    "url": "https://raw.githubusercontent.com/JJ-ZHOU-Code/RobustMultiModel/df8c50d94179a63edf3d9017641295a268ce9148/models/model_transformer.py",
+    "sha256": "65c7d1202d8884aa21b9a02f7a1659fac679ec0d50a39360dc6b14a53ee223a1"
+  },
+  {
+    "method": "LD-CVAE",
+    "commit": "df8c50d94179a63edf3d9017641295a268ce9148",
+    "path": "models/nys_transformer.py",
+    "url": "https://raw.githubusercontent.com/JJ-ZHOU-Code/RobustMultiModel/df8c50d94179a63edf3d9017641295a268ce9148/models/nys_transformer.py",
+    "sha256": "6f0b29b9ff394c760018b76fa0dacd3c8e1848899a48a87a5782f7e413186050"
+  },
+  {
+    "method": "LD-CVAE",
+    "commit": "df8c50d94179a63edf3d9017641295a268ce9148",
+    "path": "models/layers/cross_attention.py",
+    "url": "https://raw.githubusercontent.com/JJ-ZHOU-Code/RobustMultiModel/df8c50d94179a63edf3d9017641295a268ce9148/models/layers/cross_attention.py",
+    "sha256": "51a97691c7849705efe6b6e17c970a829756c24278deccdd7f4c38a2afb21ba2"
+  }
+]
