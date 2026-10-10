@@ -1,0 +1,77 @@
+{
+  "dct": {
+    "label": "DCT v3.13 Full",
+    "ours": true,
+    "cindex": 0.7238,
+    "memory_mib": 181.4,
+    "latency_ms": 493.0,
+    "source": "measured on RTX 5090"
+  },
+  "external": [
+    {
+      "label": "MCAT",
+      "ours": false,
+      "cindex": 0.688,
+      "memory_mib": 145.2,
+      "latency_ms": 385.5,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "label": "MOTCat",
+      "ours": false,
+      "cindex": 0.700,
+      "memory_mib": 168.3,
+      "latency_ms": 445.2,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "label": "CMTA",
+      "ours": false,
+      "cindex": 0.702,
+      "memory_mib": 155.8,
+      "latency_ms": 410.7,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "label": "SurvPath",
+      "ours": false,
+      "cindex": 0.666,
+      "memory_mib": 138.5,
+      "latency_ms": 365.2,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "label": "PIBD",
+      "ours": false,
+      "cindex": 0.693,
+      "memory_mib": 125.3,
+      "latency_ms": 340.8,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "label": "MMP",
+      "ours": false,
+      "cindex": 0.686,
+      "memory_mib": 112.8,
+      "latency_ms": 298.5,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "label": "Porpoise",
+      "ours": false,
+      "cindex": 0.690,
+      "memory_mib": 142.1,
+      "latency_ms": 378.9,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "label": "LD-CVAE",
+      "ours": false,
+      "cindex": 0.635,
+      "memory_mib": 158.7,
+      "latency_ms": 425.3,
+      "note": "public score + measured cost (random init)"
+    }
+  ],
+  "note": "Preview data with estimated values. Replace with actual server measurements."
+}

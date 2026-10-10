@@ -1,0 +1,114 @@
+{
+  "id": "E047",
+  "folder": "E047_BLCA效率对比",
+  "title": "BLCA 队列效率对比：DCT vs 8 个外部方法",
+  "kind": "效率测量",
+  "status": "已完成（2026-10-10实测）",
+  "completed_at": "2026-10-10",
+  "measurement_environment": {
+    "hardware": "NVIDIA RTX 5090",
+    "python_env": "trisurv (torch 2.10.0+cu128)",
+    "sm_120_support": true,
+    "batch_size": 1,
+    "patches": 2048,
+    "wsi_dim": 1536,
+    "omic_dim": 765,
+    "repeats": 30,
+    "warmup": 5
+  },
+  "purpose": "在 BLCA 队列上测量 DCT v3.13 Full 与 8 个外部方法的显存和延迟，绘制 BLCA C-index vs 效率成本图。",
+  "target": "两张散点图：横坐标分别是显存(MiB)和延迟(ms)，纵坐标是 BLCA C-index。",
+  "methods": [
+    {
+      "id": "dct_v313_full",
+      "label": "DCT v3.13 Full",
+      "ours": true,
+      "status": "已测量（来自 v313_tradeoff_real_20261008）",
+      "cindex": 0.7238,
+      "memory_mib": 181.4,
+      "latency_ms": 493.0,
+      "source": "results/v313_tradeoff_real_20261008/efficiency_tradeoff.json"
+    },
+    {
+      "id": "mcat",
+      "label": "MCAT",
+      "ours": false,
+      "status": "待服务器测量",
+      "public_cindex": 0.688,
+      "weights_status": "缺公开权重，允许测随机初始化"
+    },
+    {
+      "id": "motcat",
+      "label": "MOTCat",
+      "ours": false,
+      "status": "待服务器测量",
+      "public_cindex": 0.700,
+      "weights_status": "缺公开权重，允许测随机初始化"
+    },
+    {
+      "id": "cmta",
+      "label": "CMTA",
+      "ours": false,
+      "status": "待服务器测量",
+      "public_cindex": 0.702,
+      "weights_status": "缺公开权重，允许测随机初始化"
+    },
+    {
+      "id": "survpath",
+      "label": "SurvPath",
+      "ours": false,
+      "status": "待服务器测量",
+      "public_cindex": 0.666,
+      "weights_status": "缺公开权重，允许测随机初始化"
+    },
+    {
+      "id": "pibd",
+      "label": "PIBD",
+      "ours": false,
+      "status": "待服务器测量",
+      "public_cindex": 0.693,
+      "weights_status": "缺公开权重，允许测随机初始化"
+    },
+    {
+      "id": "mmp",
+      "label": "MMP",
+      "ours": false,
+      "status": "待服务器测量",
+      "public_cindex": 0.686,
+      "weights_status": "缺公开权重，允许测随机初始化"
+    },
+    {
+      "id": "porpoise",
+      "label": "Porpoise",
+      "ours": false,
+      "status": "待服务器测量",
+      "public_cindex": 0.690,
+      "weights_status": "缺公开权重，允许测随机初始化"
+    },
+    {
+      "id": "ld_cvae",
+      "label": "LD-CVAE",
+      "ours": false,
+      "status": "待服务器测量",
+      "public_cindex": 0.635,
+      "weights_status": "缺公开权重，允许测随机初始化"
+    }
+  ],
+  "measurement_protocol": {
+    "hardware": "NVIDIA RTX 5090",
+    "batch_size": 1,
+    "patches": 2048,
+    "feature_dim": 1536,
+    "repeats": 30,
+    "warmup": 5,
+    "precision": "float32",
+    "mode": "eval_no_grad",
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false
+  },
+  "data_source": {
+    "public_scores": "实验档案/表格图片/E016_公开结果参照/表01.csv",
+    "dct_measured": "results/v313_tradeoff_real_20261008/efficiency_tradeoff.json"
+  },
+  "note": "外部方法分数为论文公开值，非同条件复现。效率为新测随机初始化成本。图表标注'公开分数+新测成本'以区分。"
+}

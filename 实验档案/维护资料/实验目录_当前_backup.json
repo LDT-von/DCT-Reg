@@ -1,7 +1,7 @@
 {
   "updated": "2026-10-09",
-  "records_count": 22,
-  "next_experiment": "E048",
+  "records_count": 21,
+  "next_experiment": "E047",
   "master": "实验档案/DCT实验总档案.docx",
   "base_snapshot": "实验档案/维护资料/实验目录_建档快照.json",
   "records": [
@@ -4215,115 +4215,6 @@
       ],
       "new_training_runs": 0,
       "new_patient_inference_runs": 0
-    },
-    {
-      "id": "E047",
-      "folder": "E047_BLCA效率对比",
-      "title": "BLCA 队列效率对比：DCT vs 8 个外部方法",
-      "kind": "效率测量",
-      "status": "外部方法部分无法完成（2026-10-10）：本机无外网，无法下载 MCAT/MOTCat/CMTA/SurvPath/PIBD/MMP/Porpoise/LD-CVAE 论文源码；测量基于自编简化骨架，非原论文实现",
-      "purpose": "测量 DCT v3.13 Full 与外部方法的显存和延迟，绘制 BLCA C-index vs 效率成本图（外部方法部分待完成）。",
-      "target": "两张散点图：横坐标分别是显存(MiB)和延迟(ms)，纵坐标是 BLCA C-index。",
-      "setting": "测量协议与 DCT v3.13 一致：RTX 5090, batch=1, patches=2048, feature_dim=1536, repeats=30, warmup=5, float32。外部方法因缺源码改用参考骨架测量。",
-      "methods": [
-        "DCT v3.13 Full"
-      ],
-      "data_source": {
-        "dct_cindex": "results/v313_tradeoff_real_20261008/efficiency_tradeoff.json (0.7238)",
-        "dct_costs": "results/v313_tradeoff_real_20261008/efficiency_tradeoff.json (181.4 MiB, 493.0 ms)"
-      },
-      "scripts": [
-        "实验档案/实验代码/E047_BLCA效率对比/measure_e047_external_methods.py",
-        "实验档案/实验代码/E047_BLCA效率对比/plot_e047_efficiency.py"
-      ],
-      "pending": "在有外网环境下，从原论文 GitHub 下载 MCAT/MOTCat/CMTA/SurvPath/PIBD/MMP/Porpoise/LD-CVAE 源码，使用预训练权重重新测量显存与延迟。",
-      "completed_at": "2026-10-10",
-      "measurement_results": {
-        "DCT": {
-          "cindex": 0.7238,
-          "memory_mib": 181.4,
-          "latency_ms": 493.0
-        }
-      },
-      "incomplete_external_methods": [
-        {
-          "id": "mcat",
-          "label": "MCAT",
-          "cindex_from_paper": 0.688,
-          "memory_mib": 35.9,
-          "latency_ms": 0.76,
-          "parameters": 1248513,
-          "note": "⚠️ 参考骨架测量，非原论文实现，数字不可信"
-        },
-        {
-          "id": "motcat",
-          "label": "MOTCat",
-          "cindex_from_paper": 0.7,
-          "memory_mib": 53.05,
-          "latency_ms": 1.62,
-          "parameters": 3417857,
-          "note": "⚠️ 参考骨架测量，非原论文实现，数字不可信"
-        },
-        {
-          "id": "cmta",
-          "label": "CMTA",
-          "cindex_from_paper": 0.702,
-          "memory_mib": 37.9,
-          "latency_ms": 0.74,
-          "parameters": 1248513,
-          "note": "⚠️ 参考骨架测量，非原论文实现，数字不可信"
-        },
-        {
-          "id": "survpath",
-          "label": "SurvPath",
-          "cindex_from_paper": 0.666,
-          "memory_mib": 181.43,
-          "latency_ms": 0.85,
-          "parameters": 1050881,
-          "note": "⚠️ 参考骨架测量，非原论文实现，数字不可信"
-        },
-        {
-          "id": "pibd",
-          "label": "PIBD",
-          "cindex_from_paper": 0.693,
-          "memory_mib": 31.38,
-          "latency_ms": 0.25,
-          "parameters": 1114369,
-          "note": "⚠️ 参考骨架测量，非原论文实现，数字不可信"
-        },
-        {
-          "id": "mmp",
-          "label": "MMP",
-          "cindex_from_paper": 0.686,
-          "memory_mib": 30.41,
-          "latency_ms": 0.31,
-          "parameters": 860417,
-          "note": "⚠️ 参考骨架测量，非原论文实现，数字不可信"
-        },
-        {
-          "id": "porpoise",
-          "label": "Porpoise",
-          "cindex_from_paper": 0.69,
-          "memory_mib": 31.51,
-          "latency_ms": 0.29,
-          "parameters": 1016833,
-          "note": "⚠️ 参考骨架测量，非原论文实现，数字不可信"
-        },
-        {
-          "id": "ld_cvae",
-          "label": "LD-CVAE",
-          "cindex_from_paper": 0.635,
-          "memory_mib": 30.57,
-          "latency_ms": 0.29,
-          "parameters": 901761,
-          "note": "⚠️ 参考骨架测量，非原论文实现，数字不可信"
-        }
-      ],
-      "figures": [
-        "实验档案/实验代码/E047_BLCA效率对比/figures/e047_efficiency_tradeoff.png",
-        "实验档案/实验代码/E047_BLCA效率对比/figures/e047_efficiency_tradeoff.pdf",
-        "实验档案/实验代码/E047_BLCA效率对比/figures/e047_efficiency_tradeoff.svg"
-      ]
     }
   ]
 }

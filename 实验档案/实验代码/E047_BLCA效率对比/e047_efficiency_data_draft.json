@@ -1,0 +1,79 @@
+{
+  "dct": {
+    "label": "DCT v3.13 Full",
+    "ours": true,
+    "cindex": 0.7238,
+    "memory_mib": 181.4,
+    "latency_ms": 493.0,
+    "source": "measured on RTX 5090 (results/v313_tradeoff_real_20261008)"
+  },
+  "external": [
+    {
+      "label": "MCAT",
+      "ours": false,
+      "cindex": 0.688,
+      "memory_mib": null,
+      "latency_ms": null,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "label": "MOTCat",
+      "ours": false,
+      "cindex": 0.700,
+      "memory_mib": null,
+      "latency_ms": null,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "label": "CMTA",
+      "ours": false,
+      "cindex": 0.702,
+      "memory_mib": null,
+      "latency_ms": null,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "label": "SurvPath",
+      "ours": false,
+      "cindex": 0.666,
+      "memory_mib": null,
+      "latency_ms": null,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "label": "PIBD",
+      "ours": false,
+      "cindex": 0.693,
+      "memory_mib": null,
+      "latency_ms": null,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "label": "MMP",
+      "ours": false,
+      "cindex": 0.686,
+      "memory_mib": null,
+      "latency_ms": null,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "label": "Porpoise",
+      "ours": false,
+      "cindex": 0.690,
+      "memory_mib": null,
+      "latency_ms": null,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "label": "LD-CVAE",
+      "ours": false,
+      "cindex": 0.635,
+      "memory_mib": null,
+      "latency_ms": null,
+      "note": "public score + measured cost (random init)"
+    }
+  ],
+  "status": "PENDING_SERVER_MEASUREMENTS",
+  "public_scores_source": "paper/V313_OT_UNI2H_COMPARISON_INPUT.json",
+  "dct_measured_source": "results/v313_tradeoff_real_20261008/efficiency_tradeoff.json"
+}

@@ -1,0 +1,106 @@
+{
+  "dct": {
+    "label": "DCT v3.13 Full",
+    "ours": true,
+    "cindex": 0.7238,
+    "memory_mib": 181.4,
+    "latency_ms": 493.0,
+    "source": "measured on RTX 5090 (results/v313_tradeoff_real_20261008)"
+  },
+  "external": [
+    {
+      "id": "mcat",
+      "label": "MCAT",
+      "ours": false,
+      "cindex": 0.688,
+      "memory_mib": 35.90,
+      "latency_ms": 0.76,
+      "parameters": 1248513,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "id": "motcat",
+      "label": "MOTCat",
+      "ours": false,
+      "cindex": 0.700,
+      "memory_mib": 53.05,
+      "latency_ms": 1.62,
+      "parameters": 3417857,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "id": "cmta",
+      "label": "CMTA",
+      "ours": false,
+      "cindex": 0.702,
+      "memory_mib": 37.90,
+      "latency_ms": 0.74,
+      "parameters": 1248513,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "id": "survpath",
+      "label": "SurvPath",
+      "ours": false,
+      "cindex": 0.666,
+      "memory_mib": 181.43,
+      "latency_ms": 0.85,
+      "parameters": 1050881,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "id": "pibd",
+      "label": "PIBD",
+      "ours": false,
+      "cindex": 0.693,
+      "memory_mib": 31.38,
+      "latency_ms": 0.25,
+      "parameters": 1114369,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "id": "mmp",
+      "label": "MMP",
+      "ours": false,
+      "cindex": 0.686,
+      "memory_mib": 30.41,
+      "latency_ms": 0.31,
+      "parameters": 860417,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "id": "porpoise",
+      "label": "Porpoise",
+      "ours": false,
+      "cindex": 0.690,
+      "memory_mib": 31.51,
+      "latency_ms": 0.29,
+      "parameters": 1016833,
+      "note": "public score + measured cost (random init)"
+    },
+    {
+      "id": "ld_cvae",
+      "label": "LD-CVAE",
+      "ours": false,
+      "cindex": 0.635,
+      "memory_mib": 30.57,
+      "latency_ms": 0.29,
+      "parameters": 901761,
+      "note": "public score + measured cost (random init)"
+    }
+  ],
+  "measurement_info": {
+    "hardware": "NVIDIA GeForce RTX 5090",
+    "torch_version": "2.10.0+cu128",
+    "batch_size": 1,
+    "patches": 2048,
+    "wsi_dim": 1536,
+    "omic_dim": 765,
+    "repeats": 30,
+    "warmup": 5,
+    "precision": "float32",
+    "measured_at": "2026-10-10",
+    "note": "DCT costs from v313_tradeoff_real_20261008. External costs measured with random init weights."
+  },
+  "public_scores_source": "实验档案/表格图片/E016_公开结果参照/表01.csv"
+}
