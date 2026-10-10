@@ -40,5 +40,7 @@
   "old_materials_deleted_or_moved": false,
   "local_model_state": "Working v313 model/extended_args remain the pre-WSI-reconstruction version; upstream optional WSI code is preserved in Git baseline and backup. Local source difference stays uncommitted.",
   "local_uncommitted_materials_published": false,
-  "status": "prepared_for_verified_push"
+  "status": "synchronized_and_remote_ref_verified",
+  "synchronization_merge_commit": "bb3ee5853224d050265436cbf16637a8395b42c5",
+  "remote_ref_verified_equal": true
 }
