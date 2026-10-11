@@ -1,6 +1,6 @@
 {
-  "updated": "2026-10-09",
-  "records_count": 22,
+  "updated": "2026-10-11",
+  "records_count": 23,
   "next_experiment": "E048",
   "master": "实验档案/DCT实验总档案.docx",
   "base_snapshot": "实验档案/维护资料/实验目录_建档快照.json",
@@ -4199,22 +4199,36 @@
       "folder": "E046_WSI自重建消融",
       "title": "v313 可选 WSI 自重建：增量与固定预算对照",
       "kind": "候选辅助分支训练消融",
-      "status": "代码与合成检查就绪；真实训练未运行",
+      "status": "代码就绪 + 真实训练完成：BLCA 5×3 真实 C-index 记录于 实验档案/表格图片/E046_WSI自重建消融/ (outer_test 协议) + 实验档案/表格图片/E046b_Full_replay_legacy_val/ (legacy_val 协议，与 v3.13 EXP6 同口径)",
       "purpose": "检验 WSI 自重建是否改善槽表征与生存预测，区分新增分支与增加系数预算的收益。",
       "setting": "Full、WSI additive、WSI fixed_total；共同UNI2-h配置；默认outer_test，5折与固定seed；建议3/13/23。",
-      "conclusion": "仅验证实现、梯度、掩码、系数与兼容性；尚不能宣称真实性能提高。",
-      "pending": "服务器训练、患者/配置匹配、逐折与多seed配对结果；Word主档未修改，真实结果后备份更新。",
+      "conclusion": "outer_test 协议：wsi_additive 0.7048 > wsi_fixed_total 0.6945 > full 0.6848（mean 5 折）；legacy_val 协议（与 v3.13 EXP6 同口径）：wsi_additive 0.7148 ≈ E046b full_replay 0.7164 ≈ EXP6 0.7238（5 折配对 95%CI 均跨 0，无显著效应）。三层证据：①代码漂移 0ed9d9d4→e403fd0 不可区分；②WSI 自重建 lambda=0.05 vs 0 在 BLCA legacy_val 协议下不可区分；③总效应不可区分。",
+      "pending": "KIRC 5 折 legacy_val 同协议复刻 + multi-seed 配对 (建议 3/13/23) + outer_test 协议 wsi_fixed_total 补跑。",
       "scripts": [
         "实验档案/实验代码/E046_WSI自重建消融/run_wsi_reconstruction_ablation.py",
         "实验档案/实验代码/E046_WSI自重建消融/SERVER_PROMPT.txt"
       ],
-      "figures": [],
-      "tables": [],
-      "sources": [
-        "实验档案/实验代码/E046_WSI自重建消融/README.md"
+      "figures": [
+        "实验档案/表格图片/E046_WSI自重建消融/e046_blca_paired_bar.png",
+        "实验档案/表格图片/E046_WSI自重建消融/e046_blca_paired_pairs.png",
+        "实验档案/表格图片/E046_WSI自重建消融/e046_blca_train_curves.png"
       ],
-      "new_training_runs": 0,
-      "new_patient_inference_runs": 0
+      "tables": [
+        "实验档案/表格图片/E046_WSI自重建消融/e046_blca_paired_summary.csv",
+        "实验档案/表格图片/E046_WSI自重建消融/results_blca_5x3.md",
+        "实验档案/表格图片/E046b_Full_replay_legacy_val/e046b_blca_3arm_5fold_summary.csv"
+      ],
+      "sources": [
+        "实验档案/实验代码/E046_WSI自重建消融/README.md",
+        "实验档案/表格图片/E046b_Full_replay_legacy_val/README.md"
+      ],
+      "new_training_runs": 9,
+      "new_patient_inference_runs": 0,
+      "completed_at": "2026-10-10",
+      "protocols_run": [
+        "outer_test (5fold_uni2h_outer_test_seed3, 5×3 arms)",
+        "legacy_val (5fold_uni2h, 5 arms wsi_additive + 5 arms E046b full_replay)"
+      ]
     },
     {
       "id": "E047",
@@ -4324,6 +4338,79 @@
         "实验档案/实验代码/E047_BLCA效率对比/figures/e047_efficiency_tradeoff.pdf",
         "实验档案/实验代码/E047_BLCA效率对比/figures/e047_efficiency_tradeoff.svg"
       ]
+    },
+    {
+      "id": "E046b",
+      "folder": "E046b_Full_replay_legacy_val",
+      "title": "v313 Full-replay legacy_val 复刻 EXP6 + 严格 WSI 自重建增量对照",
+      "kind": "Full-replay 复刻 + WSI 重建增量严格同协议对照",
+      "status": "5/5 折全部完成，cindex=0.7164 ± 0.0476，95%CI=±0.0417；与 EXP6 0.7238 ± 0.0467 配对 95%CI=±0.0198 跨 0。",
+      "purpose": "用 e403fd0 复刻 EXP6 (0ed9d9d4) 在 legacy_val 协议下的 5 折 C-index，与 E046 wsi_additive 同代码同协议同 seed 直接对比，分离「代码漂移」与「WSI 重建效应」两层混杂变量。",
+      "setting": "legacy_val 协议，5fold_uni2h/blca 划分，seed3，30 epoch，wsi_weight=0 强制关闭。代码 e403fd0，训练 fingerprint 8 .py 跨 4 commit hash 一致。",
+      "conclusion": "E046b (e403fd0, wsi=0) mean=0.7164, EXP6 (0ed9d9d4) mean=0.7238, Δ=−0.0075 95%CI=±0.0198 跨 0 → 代码从 0ed9d9d4 到 e403fd0 在 legacy_val 协议下 BLCA 5 折不可区分。WSI 自重建 lambda=0.05 vs 0 (E046 wsi_additive vs E046b) Δ=−0.0015 95%CI=±0.0207 跨 0 → WSI 自重建效应在 BLCA legacy_val 协议 5 折 1 seed 下不可观测。",
+      "pending": "KIRC 5 折 legacy_val 同协议复刻 + multi-seed 配对 (3/13/23)。",
+      "scripts": [
+        "/tmp/e046b_driver/run_fold1to4.py",
+        "实验档案/实验代码/E046_WSI自重建消融/run_wsi_reconstruction_ablation.py"
+      ],
+      "figures": [],
+      "tables": [
+        "实验档案/表格图片/E046b_Full_replay_legacy_val/e046b_blca_3arm_5fold_summary.csv"
+      ],
+      "sources": [
+        "实验档案/表格图片/E046b_Full_replay_legacy_val/README.md",
+        "results/v313_evidence_v2/e046b_legacy_val_full_replay_blca_20261010/plan.json",
+        "results/v313_evidence_v2/e046b_legacy_val_full_replay_blca_20261010/plan.json.fingerprint_note (in plan.fingerprint_note field)",
+        "results/dct_v313_ablation_Exp6_full/blca/.../epoch_curve_fold{0..4}.csv",
+        "results/v313_evidence_v2/e046b_legacy_val_full_replay_blca_20261010/legacy_val/full/blca/fold{0..4}/seed3/.../epoch_curve_fold{0..4}.csv",
+        "results/v313_evidence_v2/e046_legacy_val_wsi_additive_blca_20261010/legacy_val/wsi_additive/blca/fold{0..4}/seed3/.../epoch_curve_fold{0..4}.csv"
+      ],
+      "new_training_runs": 5,
+      "new_patient_inference_runs": 0,
+      "completed_at": "2026-10-11",
+      "protocols_run": [
+        "legacy_val (5fold_uni2h, 5 folds × 1 arm)"
+      ],
+      "key_deltas": {
+        "code_drift_e046b_minus_exp6": {
+          "mean": -0.0075,
+          "std": 0.0226,
+          "ci95": 0.0198
+        },
+        "wsi_effect_wsiadd_minus_e046b": {
+          "mean": -0.0015,
+          "std": 0.0237,
+          "ci95": 0.0207
+        },
+        "total_wsiadd_minus_exp6": {
+          "mean": -0.009,
+          "std": 0.0253,
+          "ci95": 0.0222
+        }
+      },
+      "data_attribution": {
+        "exp6_per_fold": [
+          0.6576,
+          0.6953,
+          0.7465,
+          0.7744,
+          0.7453
+        ],
+        "e046b_per_fold": [
+          0.6585,
+          0.6961,
+          0.6988,
+          0.7788,
+          0.7496
+        ],
+        "wsiadd_per_fold": [
+          0.6661,
+          0.7116,
+          0.7119,
+          0.7366,
+          0.7479
+        ]
+      }
     }
   ]
 }
