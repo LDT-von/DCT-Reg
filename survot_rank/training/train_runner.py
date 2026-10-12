@@ -136,7 +136,7 @@ def ensure_min_free_space(path, min_free_gb, context):
 # ============================================================
 # 妯″瀷涓庝紭鍖栧櫒鍒濆鍖?# ============================================================
 
-def init_model_for_method(args, dataset_factory):
+def init_model_for_method(args, dataset_factory, *, write_audit=True):
     """
     Build the selected SurvOT-Rank method.
     """
@@ -160,6 +160,11 @@ def init_model_for_method(args, dataset_factory):
         omic_names=args.omic_names,
         pathway_names=args.pathway_names,
     )
+
+    if write_audit and getattr(model, "_v313_revision", "legacy") == "repaired":
+        from survot_rank.research.methods.legacy.experimental.dct_v313_transport_reconstruction.provenance import write_implementation_audit
+        audit_path = write_implementation_audit(model, args)
+        print(f"[init] effective v3.13 implementation audit: {audit_path}")
 
     if torch.cuda.is_available():
         model = model.to(torch.device('cuda'))
@@ -617,7 +622,10 @@ def evaluate_outer_test(args, dataset_factory, fold, model_state_path, log_file)
 
     # Build the model on the same constructor used for training, then load
     # the inner-train best checkpoint.
-    model = init_model_for_method(args, dataset_factory)
+    if getattr(args, "dct_v313_revision", "legacy") == "repaired":
+        model = init_model_for_method(args, dataset_factory, write_audit=False)
+    else:
+        model = init_model_for_method(args, dataset_factory)
     state_dict = torch.load(model_state_path, map_location="cpu")
     model.load_state_dict(state_dict)
 
@@ -916,6 +924,9 @@ def train_one_fold(args, dataset_factory, fold, log_file):
 # 涓诲叆鍙?# ============================================================
 
 def run(args):
+    if getattr(args, "dct_v313_revision", "legacy") == "repaired":
+        from survot_rank.research.methods.legacy.experimental.dct_v313_transport_reconstruction.provenance import claim_repaired_results_root
+        claim_repaired_results_root(args)
     # 0. 鍏ㄥ眬绉嶅瓙澶嶄綅 (淇: --seed 涔嬪墠娌＄敤, 涓ゆ璁粌涓嶅彲澶嶇幇)
     seed = getattr(args, 'seed', 3)
     set_global_seed(seed)

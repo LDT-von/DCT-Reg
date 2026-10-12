@@ -77,9 +77,45 @@ class MultiHeadSlotAttention(Module):
         self.last_token_assignment = None
         self.last_pooling_attention = None
 
-    def forward(self, inputs, num_slots: int | None = None):
+    def forward(
+        self,
+        inputs,
+        num_slots: int | None = None,
+        *,
+        token_mask: Optional[Tensor] = None,
+    ):
+        """Extract slots, optionally excluding invalid input tokens.
+
+        ``token_mask`` must be a boolean tensor of shape ``[B, N]`` with
+        ``True`` for valid tokens.  Boolean masks are moved to the input device.
+        Patients without any valid token return graph-connected zero slots.
+        Omitting the mask preserves the historical computation and RNG use.
+        """
         b, _, _, device, dtype = *inputs.shape, inputs.device, inputs.dtype
         n_s = num_slots if num_slots is not None else self.num_slots
+
+        if token_mask is not None:
+            if not isinstance(token_mask, Tensor):
+                raise TypeError("token_mask must be a torch.Tensor with dtype torch.bool")
+            if token_mask.dtype != torch.bool:
+                raise TypeError("token_mask must have dtype torch.bool (True means valid)")
+            if tuple(token_mask.shape) != tuple(inputs.shape[:2]):
+                raise ValueError(
+                    "token_mask must have shape [batch, tokens] matching inputs; "
+                    f"got {tuple(token_mask.shape)} for inputs {tuple(inputs.shape)}"
+                )
+            try:
+                token_mask = token_mask.to(device=device)
+            except (RuntimeError, NotImplementedError) as error:
+                raise ValueError(
+                    f"token_mask could not be moved from {token_mask.device} "
+                    f"to the inputs device {device}"
+                ) from error
+            # Sanitizing before LayerNorm prevents even NaN padding from
+            # contaminating projections or their backward pass.
+            inputs = inputs.masked_fill(~token_mask.unsqueeze(-1), 0.0)
+            valid_attention = token_mask[:, None, None, :]
+            has_valid_tokens = token_mask.any(dim=-1)
 
         if n_s > self.num_slots:
             raise ValueError(
@@ -109,7 +145,22 @@ class MultiHeadSlotAttention(Module):
 
             dots = einsum("... i d, ... j d -> ... i j", q, k) * self.scale
             token_assignment = dots.softmax(dim=-2)
-            attn = F.normalize(token_assignment + self.eps, p=1, dim=-1)
+            if token_mask is None:
+                attn = F.normalize(token_assignment + self.eps, p=1, dim=-1)
+            else:
+                token_assignment = token_assignment.masked_fill(~valid_attention, 0.0)
+                # Mask the epsilon term too: padding must receive exactly zero
+                # pooling weight, including for patients with no valid tokens.
+                pooling_weights = (token_assignment + self.eps).masked_fill(
+                    ~valid_attention, 0.0
+                )
+                # F.normalize's default epsilon underflows in float16; using
+                # a representable lower bound also keeps empty-row gradients
+                # finite under mixed precision.
+                normalization_eps = max(1e-12, torch.finfo(pooling_weights.dtype).tiny)
+                attn = F.normalize(
+                    pooling_weights, p=1, dim=-1, eps=normalization_eps
+                )
 
             updates = einsum("... j d, ... i j -> ... i d", v, attn)
             updates = self.combine_heads(self.merge_heads(updates))
@@ -120,10 +171,15 @@ class MultiHeadSlotAttention(Module):
             (slots,) = unpack(slots, packed_shape, "* d")
             slots = slots + self.mlp(self.norm_pre_ff(slots))
 
+        if token_mask is not None:
+            # Keep the graph for batches containing no observations; GRU/MLP
+            # biases and sampled initialization must not create fake evidence.
+            slots = slots.masked_fill(~has_valid_tokens[:, None, None], 0.0)
+
         if self.capture_attention:
             # [B, slots, tokens].  ``token_assignment`` sums to one over slots
-            # for every input token; ``attn`` sums to one over tokens for every
-            # slot and is the exact pooling weight used by the final update.
+            # for every valid input token; ``attn`` sums to one over valid
+            # tokens for each nonempty patient and is zero for empty patients.
             self.last_token_assignment = token_assignment.mean(dim=1).detach()
             self.last_pooling_attention = attn.mean(dim=1).detach()
         else:

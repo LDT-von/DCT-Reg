@@ -27,6 +27,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from survot_rank.research.methods.legacy.experimental.dct_v313_transport_reconstruction.wsi_reconstruction import WSISlotReconstructionDecoder
+from survot_rank.research.methods.legacy.experimental.dct_v313_transport_reconstruction.diversity import repaired_slot_diversity_loss
 
 from survot_rank.research.methods.legacy.experimental.dct_v311_slot_interpretable.model import (
     DCTV311SlotInterpretable,
@@ -117,6 +118,10 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
     )
 
     def __init__(self, args, omic_input_dim=None, omic_names=None, pathway_names=None):
+        self._v313_revision = str(getattr(args, "dct_v313_revision", "legacy")).lower()
+        self._v313_explicit_config_keys = set(getattr(args, "_dct_user_overrides", ()))
+        if self._v313_revision not in {"legacy", "repaired"}:
+            raise ValueError("dct_v313_revision must be legacy or repaired")
         if str(getattr(args, "rna_format", "Pathways")) != "Pathways":
             raise ValueError(
                 "DCT v3.13 reconstructs pathway tokens and requires rna_format='Pathways'"
@@ -128,6 +133,10 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             for name, value in self.FROZEN_ARGUMENTS.items()
             if name not in getattr(args, "_dct_user_overrides", set())
         }
+        if self._v313_revision == "repaired" and "dct_v311_lambda_slot_diversity" in v313_frozen:
+            # The repaired recipe agrees with its declared 0.10 default.
+            # Explicit configuration values still take precedence.
+            v313_frozen["dct_v311_lambda_slot_diversity"] = self.SLOT_DIVERSITY_WEIGHT
         for name, value in v313_frozen.items():
             setattr(args, name, value)
         # Ablation hooks: allow callers to override reconstruction knobs
@@ -178,6 +187,8 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
                 f"{weighting_mode!r}"
             )
         self._recon_weighting_mode = weighting_mode
+        if self._v313_revision == "repaired" and weighting_mode != "per_branch":
+            raise ValueError("repaired v3.13 requires dct_v313_recon_weighting=per_branch")
         self._wsi_reconstruction_requested = float(
             getattr(args, "dct_v313_lambda_wsi_reconstruction", 0.0)
         )
@@ -195,9 +206,36 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             raise ValueError("dct_v313_wsi_reconstruction_chunk_size must be positive")
         if self._wsi_reconstruction_requested > 0 and weighting_mode != "per_branch":
             raise ValueError("WSI reconstruction requires dct_v313_recon_weighting=per_branch")
+        if self._v313_revision == "repaired":
+            # Parent constructors must not restore the inherited 0.02 value.
+            args._dct_user_overrides = set(getattr(args, "_dct_user_overrides", ())) | {
+                "dct_v311_lambda_slot_diversity"
+            }
         super().__init__(args, omic_input_dim, omic_names, pathway_names)
 
         dim = int(self.wsi_projection_dim)
+        if self._v313_revision == "repaired":
+            def resolved(name, default):
+                value = getattr(args, name, default)
+                value = float(default if value is None else value)
+                if not math.isfinite(value) or value < 0:
+                    raise ValueError(name + " must be finite and nonnegative")
+                return value
+            recon_weight = resolved("dct_v313_lambda_reconstruction", self.RECONSTRUCTION_WEIGHT)
+            self_fraction = resolved("dct_v313_reconstruction_self_fraction", self.RECONSTRUCTION_SELF_FRACTION)
+            cross_fraction = resolved("dct_v313_reconstruction_cross_fraction", self.RECONSTRUCTION_CROSS_FRACTION)
+            if not math.isclose(self_fraction + cross_fraction, 1.0):
+                raise ValueError("repaired reconstruction self/cross fractions must sum to one")
+            ramp_start = resolved("dct_v313_reconstruction_ramp_start", self.RECONSTRUCTION_RAMP_START)
+            ramp_epochs = resolved("dct_v313_reconstruction_ramp_epochs", self.RECONSTRUCTION_RAMP_EPOCHS)
+            if not ramp_start.is_integer() or not ramp_epochs.is_integer():
+                raise ValueError("reconstruction ramp start/epochs must be nonnegative integers")
+        else:
+            recon_weight = self.RECONSTRUCTION_WEIGHT
+            self_fraction = self.RECONSTRUCTION_SELF_FRACTION
+            cross_fraction = self.RECONSTRUCTION_CROSS_FRACTION
+            ramp_start = self.RECONSTRUCTION_RAMP_START
+            ramp_epochs = self.RECONSTRUCTION_RAMP_EPOCHS
         # ------------------------------------------------------------------
         # Effective per-branch reconstruction coefficients.
         #
@@ -269,12 +307,12 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             self_branch_coef = (
                 0.0
                 if self._ablation_disable_self
-                else self.RECONSTRUCTION_WEIGHT * self.RECONSTRUCTION_SELF_FRACTION
+                else recon_weight * self_fraction
             )
             cross_branch_coef = (
                 0.0
                 if self._ablation_disable_cross
-                else self.RECONSTRUCTION_WEIGHT * self.RECONSTRUCTION_CROSS_FRACTION
+                else recon_weight * cross_fraction
             )
 
         wsi_branch_coef = self._wsi_reconstruction_requested
@@ -298,13 +336,13 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             self_branch_coef + cross_branch_coef + wsi_branch_coef
         )
         self.dct_v313_reconstruction_self_fraction = (
-            0.0 if self._ablation_disable_self else self.RECONSTRUCTION_SELF_FRACTION
+            0.0 if self._ablation_disable_self else self_fraction
         )
         self.dct_v313_reconstruction_cross_fraction = (
-            0.0 if self._ablation_disable_cross else self.RECONSTRUCTION_CROSS_FRACTION
+            0.0 if self._ablation_disable_cross else cross_fraction
         )
-        self.dct_v313_reconstruction_ramp_start = self.RECONSTRUCTION_RAMP_START
-        self.dct_v313_reconstruction_ramp_epochs = self.RECONSTRUCTION_RAMP_EPOCHS
+        self.dct_v313_reconstruction_ramp_start = int(ramp_start)
+        self.dct_v313_reconstruction_ramp_epochs = int(ramp_epochs)
         heads = self._compatible_num_heads(dim, int(getattr(args, "otehv2_heads", 4)))
         self.pathway_reconstruction_decoder = OmicsTokenReconstructionDecoder(
             dim=dim,
@@ -323,6 +361,7 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
         self._last_reconstruction_self = 0.0
         self._last_reconstruction_cross = 0.0
         self._last_reconstruction_total = 0.0
+        self.last_diversity_diagnostics = {}
         self._last_reconstruction_ramp = 0.0
         # Honour ablation flags for per-slot NLL and diversity too (added Sep 29 2026
         # after discovering v3.13 hard-coded PER_SLOT_NLL_WEIGHT in aux_loss, which
@@ -449,6 +488,12 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             "cross_mode": self._cross_mode,
             "plan_mode": self._plan_mode,
         }
+        if self._v313_revision == "repaired":
+            coefficients.update(
+                revision="repaired",
+                wsi=float(self.dct_v313_reconstruction_wsi_coef),
+                cross_conditioning="paired_wsi_and_omics" if self._cross_mode == "transport" else "wsi_slots",
+            )
         if self.dct_v313_reconstruction_wsi_coef > 0:
             coefficients.update(
                 wsi=float(self.dct_v313_reconstruction_wsi_coef),
@@ -461,10 +506,95 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             )
         return coefficients
 
+    def implementation_audit(self):
+        """Describe the active computation, rather than configuration comments.
+
+        Reconstruction targets are encoded features. Neither low reconstruction
+        error nor separated slot states establishes biological slot identities.
+        """
+        return {
+            "revision": self._v313_revision,
+            "objective_weights": self.objective_weights_effective(),
+            "reconstruction": self.effective_recon_coefficients(),
+            "reconstruction_ramp": {
+                "start": self.dct_v313_reconstruction_ramp_start,
+                "epochs": self.dct_v313_reconstruction_ramp_epochs,
+            },
+            "input_padding_mask": self._v313_revision == "repaired",
+            "diversity_reduction": "mean_pair_hinge_per_patient" if self._v313_revision == "repaired" else "legacy_mean_distance_hinge",
+            "exact_collapse_gradient_guarantee": False,
+            "biological_slot_identity_proven": False,
+            "missing_omics_recovery_proven": False,
+        }
+
+    def _wsi_valid_patch_mask(self, kwargs):
+        """Use explicit patch ownership when supplied, otherwise infer zero padding."""
+        raw = kwargs["x_wsi"]
+        if raw.ndim != 3:
+            raise ValueError("x_wsi must have shape [B, N, D]")
+        explicit = kwargs.get("wsi_patch_mask")
+        if explicit is None:
+            valid = raw.detach().ne(0).any(dim=-1)
+        else:
+            valid = torch.as_tensor(explicit, device=raw.device)
+            if valid.dtype != torch.bool or valid.shape != raw.shape[:2]:
+                raise ValueError("wsi_patch_mask must be boolean [B, N], True=valid")
+        def patient_flag(name, default):
+            value = kwargs.get(name, default)
+            if value is None:
+                value = default
+            flag = torch.as_tensor(value, device=raw.device, dtype=torch.bool)
+            if flag.numel() == 1:
+                return flag.reshape(1).expand(raw.size(0))
+            if flag.shape != (raw.size(0),):
+                raise ValueError(name + " must be a scalar or boolean [B]")
+            return flag
+        available = patient_flag("wsi_available", True)
+        missing = patient_flag("wsi_missing", False)
+        return valid & (available & ~missing).unsqueeze(-1)
+
+    def _encode_transport_slots(self, x_wsi_proj, x_omics, kwargs):
+        if self._v313_revision == "legacy":
+            return super()._encode_transport_slots(x_wsi_proj, x_omics, kwargs)
+        valid = kwargs.get("_v313_valid_wsi_patches")
+        if valid is None:
+            valid = self._wsi_valid_patch_mask(kwargs)
+        local_wsi = self.slot_attention_wsi(x_wsi_proj, token_mask=valid)
+        local_omic = self.slot_attention_omic(x_omics)
+        sw, aw = self._semantic_slots(local_wsi, self.shared_wsi_prototypes)
+        so, ao = self._semantic_slots(local_omic, self.shared_omic_prototypes)
+        return sw, so, aw, ao
+
+    def slot_diversity_loss(self, slots_wsi, slots_omic):
+        if self._v313_revision == "legacy":
+            return super().slot_diversity_loss(slots_wsi, slots_omic)
+        def configured(name, default):
+            value = getattr(self.args, name, None)
+            return default if value is None else float(value)
+        loss, diagnostics = repaired_slot_diversity_loss(
+            slots_wsi, slots_omic,
+            torch.sigmoid(self.per_slot_hazard_wsi(slots_wsi)),
+            torch.sigmoid(self.per_slot_hazard_omic(slots_omic)),
+            variance_min=configured("dct_v311_variance_min", self.VARIANCE_MIN),
+            variance_max=configured("dct_v311_variance_max", self.VARIANCE_MAX),
+            target_pair_dist=configured("dct_v311_target_pair_dist", 1.0),
+            pair_weight=configured("dct_v311_lambda_pair_dist", self.PAIR_DIST_WEIGHT),
+        )
+        self.last_diversity_diagnostics = diagnostics
+        for modality in ("wsi", "omic"):
+            stats = diagnostics[modality]
+            setattr(self, "_last_slot_variance_" + modality, stats["hazard_variance"])
+            setattr(self, "_last_slot_pair_dist_" + modality, stats["mean_pair_distance_sq"] ** 0.5)
+        self._last_slot_variance = 0.5 * (
+            diagnostics["wsi"]["hazard_variance"] + diagnostics["omic"]["hazard_variance"]
+        )
+        self._last_slot_diversity = float(loss.detach())
+        return loss
+
     @classmethod
     def key_contributions(cls) -> list[str]:
         return [
-            "Transport-aware WSI-to-omics reconstruction through factual Sinkhorn plans",
+            "Paired cross-modal pathway reconstruction through factual Sinkhorn plans",
             "Omics semantic-slot self-reconstruction at pathway-token resolution",
             "Per-slot survival supervision with modality-specific diversity constraints",
             "IPCW-aware patient-risk ranking",
@@ -699,6 +829,10 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
         """Optional WSI self reconstruction; raw zero rows indicate padding."""
         if self.wsi_reconstruction_decoder is None:
             return slots_wsi.new_zeros(())
+        if self._v313_revision == "repaired":
+            return self.wsi_reconstruction_decoder.reconstruction_loss(
+                slots_wsi, x_wsi_proj, self._wsi_valid_patch_mask(kwargs),
+            )
         raw = kwargs["x_wsi"]
         valid = raw.detach().ne(0).any(dim=-1)
         explicit = kwargs.get("wsi_patch_mask")
@@ -719,6 +853,20 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
         )
 
     def forward(self, **kwargs):
+        if self._v313_revision == "repaired":
+            self.last_diversity_diagnostics = {}
+            self._last_slot_variance = 0.0
+            self._last_slot_variance_wsi = 0.0
+            self._last_slot_variance_omic = 0.0
+            self._last_slot_pair_dist_wsi = 0.0
+            self._last_slot_pair_dist_omic = 0.0
+        if self._v313_revision == "repaired":
+            valid = self._wsi_valid_patch_mask(kwargs)
+            # Mask before the MLP as well as before slot pooling: otherwise
+            # invalid NaNs can contaminate parameter gradients through 0 * NaN.
+            kwargs = dict(kwargs)
+            kwargs["_v313_valid_wsi_patches"] = valid
+            kwargs["x_wsi"] = kwargs["x_wsi"].masked_fill(~valid.unsqueeze(-1), 0.0)
         if not self.training:
             return super().forward(**kwargs)
 
@@ -866,4 +1014,11 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
                     self.dct_v313_reconstruction_wsi_coef
                 ),
             )
+        if self._v313_revision == "repaired":
+            for modality in ("wsi", "omic"):
+                self.last_training_losses.update({
+                    "v313_diversity_" + modality + "_" + name: factual_costs.new_tensor(value)
+                    for name, value in self.last_diversity_diagnostics.get(modality, {}).items()
+                })
+            self.last_training_losses["v313_valid_wsi_patch_mean"] = valid.sum(-1).float().mean().detach()
         return factual_logits, aux_loss

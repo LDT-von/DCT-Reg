@@ -789,6 +789,14 @@ def build_base_parser() -> argparse.ArgumentParser:
         help="Optional WSI slot-to-patch feature self-reconstruction weight; 0 preserves Full.",
     )
     parser.add_argument(
+        "--dct_v313_revision", choices=["legacy", "repaired"], default="legacy",
+        help="Legacy historical computation, or the explicit v3.13 diversity/config/padding repair.",
+    )
+    parser.add_argument("--dct_v313_reconstruction_self_fraction", type=float, default=0.5)
+    parser.add_argument("--dct_v313_reconstruction_cross_fraction", type=float, default=0.5)
+    parser.add_argument("--dct_v313_reconstruction_ramp_start", type=int, default=2)
+    parser.add_argument("--dct_v313_reconstruction_ramp_epochs", type=int, default=5)
+    parser.add_argument(
         "--dct_v313_wsi_reconstruction_budget", default="additive",
         choices=["additive", "fixed_total"],
         help="Add WSI weight, or rescale all reconstruction coefficients to the original active budget.",

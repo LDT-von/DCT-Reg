@@ -52,6 +52,8 @@ def configure_arm(args, arm):
 
 class E048Control(DCTV313TransportReconstruction):
     def __init__(self, args, arm, omic_input_dim=None, omic_names=None, pathway_names=None):
+        if getattr(args, "dct_v313_revision", "legacy") != "legacy":
+            raise ValueError("E048 v1 is a legacy two-reconstruction recipe; use the repaired three-branch ablation plan")
         configure_arm(args, arm)
         super().__init__(args, omic_input_dim, omic_names, pathway_names)
         self.arm = arm

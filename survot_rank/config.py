@@ -13,6 +13,7 @@ from .project import resolve_project_path
 
 PATH_KEYS = {"data_path", "results_dir"}
 ABS_OR_EXTERNAL_PATH_KEYS = {"data_root_dir"}
+METADATA_KEYS = {"name", "description", "notes", "_dct_user_overrides"}
 BOOLEAN_VALUE_KEYS = {
     "dct_v383_center_slots",
     "dct_v39_center_slots",
@@ -51,18 +52,26 @@ def flatten_config(config: dict[str, Any]) -> dict[str, Any]:
     """
     flat: dict[str, Any] = {}
     for key, value in config.items():
-        if key in {"name", "description", "notes", "_dct_user_overrides"}:
+        if key in METADATA_KEYS:
             continue
         if isinstance(value, dict):
-            flat.update(value)
+            flat.update({name: item for name, item in value.items() if name not in METADATA_KEYS})
         else:
             flat[key] = value
     return flat
 
 
 def apply_overrides(config: dict[str, Any], overrides: list[str]) -> dict[str, Any]:
+    """Apply explicit CLI values and record constructor override provenance.
+
+    Historical recipes intentionally keep their existing frozen-argument
+    behavior: only ``--set`` keys count as explicit.  A repaired v3.13 recipe
+    also treats values actually present in its YAML sections as explicit.
+    Parser defaults are never added to this list.
+    """
     merged = deepcopy(config)
     user_keys = []
+    override_values = {}
     for item in overrides:
         if "=" not in item:
             raise ValueError(f"Override must use key=value format: {item}")
@@ -70,10 +79,20 @@ def apply_overrides(config: dict[str, Any], overrides: list[str]) -> dict[str, A
         value = yaml.safe_load(raw_value)
         merged[key] = value
         user_keys.append(key)
-    # Track which keys the caller explicitly supplied via --set, so that
-    # model constructors can detect "user-supplied" attributes and avoid
-    # silently overwriting them with their FROZEN_ARGUMENTS.  Stored under
-    # a reserved key that is stripped by flatten_config().
+        override_values[key] = value
+    effective = flatten_config(merged)
+    # Evaluate the revision after CLI overrides even when a top-level YAML
+    # value originally occurs before a section containing the same key.
+    effective.update(override_values)
+    if effective.get("dct_v313_revision", "legacy") == "repaired":
+        # Flattening visits sections in insertion order.  Reinsert explicit
+        # top-level overrides last, so a later YAML section cannot shadow them.
+        for key, value in override_values.items():
+            merged.pop(key, None)
+            merged[key] = value
+        user_keys = list(flatten_config(merged))
+    # Reserved metadata is never a model parameter or a CLI flag.
+    user_keys = [key for key in user_keys if key not in METADATA_KEYS]
     merged["_dct_user_overrides"] = user_keys
     return merged
 
