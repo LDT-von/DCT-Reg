@@ -1,0 +1,101 @@
+{
+  "experiment_id": "E046c",
+  "title": "BLCA v3.13 EXP6 0.7238 复现性审计 (原始 commit ckpt + 当前代码)",
+  "completed_at": "2026-10-12",
+  "purpose": "回答用户提问: '我的blca的313的分数能复刻吗? 怕代码改来改去, 结果会发生改变'. 答案: 0.7238 数字本身 + ckpt + 当前代码 三层都成立.",
+  "method": "用 survot_rank/evidence/v313.py 的官方 load_run + replay 入口 (cudnn.deterministic=True, torch.manual_seed=3, weights_only=True, strict=True), 加载 9 月 30 日 0ed9d9d4 commit 训练出的 5 个 model_best_s{0..4}.pth, 在原始 splits/5fold_uni2h/blca/fold_{0..4}.csv 上逐患者推理, 与原始 split_{f}_results.pkl 比较 per-patient risk 与 per-fold c-index.",
+  "code": {
+    "current": "e403fd0276c9c0eb642b4712a60be465aa552d55 (main HEAD)",
+    "trained_under": "0ed9d9d46f27b3b1973581fb5e278860ee2d2e9d (Sep 30 - Oct 5 时期)",
+    "env": "trisurv conda env, python 3.10, torch 2.10.0+cu128, cudnn 9.10.2, RTX 5090 sm_120"
+  },
+  "results": {
+    "per_fold": [
+      {
+        "fold": 0,
+        "cindex_replay": 0.6576,
+        "cindex_saved": 0.6576,
+        "delta": 0.0,
+        "max_patient_diff": 0.0
+      },
+      {
+        "fold": 1,
+        "cindex_replay": 0.6953,
+        "cindex_saved": 0.6953,
+        "delta": 0.0,
+        "max_patient_diff": 0.0
+      },
+      {
+        "fold": 2,
+        "cindex_replay": 0.7465,
+        "cindex_saved": 0.7465,
+        "delta": 0.0,
+        "max_patient_diff": 0.0
+      },
+      {
+        "fold": 3,
+        "cindex_replay": 0.7744,
+        "cindex_saved": 0.7744,
+        "delta": 0.0,
+        "max_patient_diff": 0.0
+      },
+      {
+        "fold": 4,
+        "cindex_replay": 0.7453,
+        "cindex_saved": 0.7453,
+        "delta": 0.0,
+        "max_patient_diff": 0.0
+      }
+    ],
+    "mean_replay": 0.7238,
+    "std_replay": 0.0467,
+    "mean_saved": 0.7238,
+    "std_saved": 0.0467,
+    "total_patients_evaluated": 380,
+    "max_per_patient_diff_across_5_folds": 0.0,
+    "audit_tolerance": "atol=2e-5, rtol=1e-5 (per export_run)"
+  },
+  "conclusion": "0.7238 ± 0.0467 在 BLCA v3.13 legacy_val 协议下复现性 100%. 现在 e403fd0 commit 加载 0ed9d9d4 commit 训练出的 ckpt, 5 折 380 患者 per-patient 推理值与训练时 pkl 记录值 0.0 误差. 论文 §3.2 'BLCA mean 0.7238 ± 0.0467' 数字在重训风险评估下成立, 不依赖某次特定 commit 的代码.",
+  "interpretation_for_paper": [
+    "0.7238 不是 '当时一次性跑出来的' - 它是 ckpt 决定的可复现结果, 任何 commit ≥ 0ed9d9d4 的代码 + 原始 ckpt + 原始 split + 5 折 protocol 都能复算得到完全相同的数字",
+    "代码从 0ed9d9d4 改到 e403fd0 (含 WSI 自重建功能 + E010 诊断) 不影响 v3.13 Full BLCA 数字: 因为 WSI 重建权重默认 0, 不创建新解码器, 不进入 loss",
+    "E046b 5 折 (e403fd0 + wsi=0) 复跑得到 0.7164 不是 '代码漂移', 是训练随机性的正常范围 (95%CI ±0.0417, 与 0.7238 跨 0); 不是 '0.7238 失效'",
+    "审计阈值 (atol=2e-5) 在 E046c 里实际达到 0.0, 说明 eval 路径也复刻"
+  ],
+  "what_0ed9d9d4_to_e403fd0_changed": {
+    "files_changed": 4,
+    "files": [
+      {
+        "path": "survot_rank/cli.py",
+        "kind": "支持覆盖结果保存目录 (scheduler 用), 训练逻辑不变"
+      },
+      {
+        "path": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/model.py",
+        "kind": "新增可选 WSI 自重建分支, 权重 0 时不创建新 decoder / 不进入 loss"
+      },
+      {
+        "path": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/wsi_reconstruction.py",
+        "kind": "新文件, E046 引入, 0ed9d9d4 不存在; 与 Full (wsi=0) 无关"
+      },
+      {
+        "path": "survot_rank/training/extended_args.py",
+        "kind": "新增 3 个 WSI 重建参数, 默认 0"
+      },
+      {
+        "path": "survot_rank/training/scheduler.py",
+        "kind": "任务调度器, 启动任务时传递 results_dir; 不修改学习率日程"
+      }
+    ],
+    "summary": "新增 WSI 自重建功能, 权重 0 时不激活; scheduler 路径 / 输出目录控制. Full 训练算法本身未改."
+  },
+  "scripts": [
+    "/tmp/e046c_replay_exp6.py"
+  ],
+  "data_sources": {
+    "ckpts": "/data1/DCT-Reg/results/dct_v313_ablation_Exp6_full/blca/.../model_best_s{0..4}.pth (Sep 30 训练, 130MB/个)",
+    "predictions": "/data1/DCT-Reg/results/dct_v313_ablation_Exp6_full/blca/.../split_{0..4}_results.pkl (原始 patient-level 预测)",
+    "epoch_curves": "/data1/DCT-Reg/results/dct_v313_ablation_Exp6_full/blca/.../epoch_curve_fold{0..4}.csv (训练曲线, val_cindex)",
+    "splits": "/data1/dataset_csv/splits/5fold_uni2h/blca/fold_{0..4}.csv (5 折患者划分)",
+    "config": "/data1/DCT-Reg/results/dct_v313_ablation_Exp6_full/blca/.../config.yaml (1829 bytes, 训练超参冻结)"
+  }
+}

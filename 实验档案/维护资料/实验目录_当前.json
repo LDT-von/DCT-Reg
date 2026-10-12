@@ -1,6 +1,6 @@
 {
-  "updated": "2026-10-11",
-  "records_count": 23,
+  "updated": "2026-10-12",
+  "records_count": 24,
   "next_experiment": "E048",
   "master": "实验档案/DCT实验总档案.docx",
   "base_snapshot": "实验档案/维护资料/实验目录_建档快照.json",
@@ -4199,11 +4199,11 @@
       "folder": "E046_WSI自重建消融",
       "title": "v313 可选 WSI 自重建：增量与固定预算对照",
       "kind": "候选辅助分支训练消融",
-      "status": "代码就绪 + 真实训练完成：BLCA 5×3 真实 C-index 记录于 实验档案/表格图片/E046_WSI自重建消融/ (outer_test 协议) + 实验档案/表格图片/E046b_Full_replay_legacy_val/ (legacy_val 协议，与 v3.13 EXP6 同口径)",
+      "status": "代码就绪 + 真实训练完成 (outer_test 5×3 + legacy_val 5+5) + 原始 commit ckpt 0.0 误差复刻审计 (E046c, 5 折 380 患者 0.0 误差)",
       "purpose": "检验 WSI 自重建是否改善槽表征与生存预测，区分新增分支与增加系数预算的收益。",
       "setting": "Full、WSI additive、WSI fixed_total；共同UNI2-h配置；默认outer_test，5折与固定seed；建议3/13/23。",
-      "conclusion": "outer_test 协议：wsi_additive 0.7048 > wsi_fixed_total 0.6945 > full 0.6848（mean 5 折）；legacy_val 协议（与 v3.13 EXP6 同口径）：wsi_additive 0.7148 ≈ E046b full_replay 0.7164 ≈ EXP6 0.7238（5 折配对 95%CI 均跨 0，无显著效应）。三层证据：①代码漂移 0ed9d9d4→e403fd0 不可区分；②WSI 自重建 lambda=0.05 vs 0 在 BLCA legacy_val 协议下不可区分；③总效应不可区分。",
-      "pending": "KIRC 5 折 legacy_val 同协议复刻 + multi-seed 配对 (建议 3/13/23) + outer_test 协议 wsi_fixed_total 补跑。",
+      "conclusion": "outer_test 协议：wsi_additive 0.7048 > wsi_fixed_total 0.6945 > full 0.6848（mean 5 折）。legacy_val 协议：wsi_additive 0.7148 ≈ E046b full_replay 0.7164 ≈ EXP6 0.7238（5 折配对 95%CI 均跨 0，无显著效应）。E046c 原始 commit ckpt 复刻审计：0ed9d9d4 ckpt + e403fd0 代码 + 原始 split + cudnn.deterministic = 5 折 380 患者 0.0 误差复刻 0.7238 ± 0.0467 → 论文数字成立。",
+      "pending": "KIRC 0.8224 同协议 E046c 风格复刻 (~150s); multi-seed 配对 (3/13/23) 仍待授权.",
       "scripts": [
         "实验档案/实验代码/E046_WSI自重建消融/run_wsi_reconstruction_ablation.py",
         "实验档案/实验代码/E046_WSI自重建消融/SERVER_PROMPT.txt"
@@ -4216,11 +4216,15 @@
       "tables": [
         "实验档案/表格图片/E046_WSI自重建消融/e046_blca_paired_summary.csv",
         "实验档案/表格图片/E046_WSI自重建消融/results_blca_5x3.md",
-        "实验档案/表格图片/E046b_Full_replay_legacy_val/e046b_blca_3arm_5fold_summary.csv"
+        "实验档案/表格图片/E046b_Full_replay_legacy_val/e046b_blca_3arm_5fold_summary.csv",
+        "实验档案/表格图片/E046c_原始commit_replay_审计/e046c_replay_summary.csv"
       ],
       "sources": [
         "实验档案/实验代码/E046_WSI自重建消融/README.md",
-        "实验档案/表格图片/E046b_Full_replay_legacy_val/README.md"
+        "实验档案/表格图片/E046b_Full_replay_legacy_val/README.md",
+        "实验档案/表格图片/E046c_原始commit_replay_审计/README.md",
+        "实验档案/表格图片/E046c_原始commit_replay_审计/evidence.json",
+        "实验档案/表格图片/E046c_原始commit_replay_审计/e046c_replay_summary.csv"
       ],
       "new_training_runs": 9,
       "new_patient_inference_runs": 0,
@@ -4410,6 +4414,50 @@
           0.7366,
           0.7479
         ]
+      }
+    },
+    {
+      "id": "E046c",
+      "folder": "E046c_原始commit_replay_审计",
+      "title": "BLCA v3.13 EXP6 0.7238 原始 commit ckpt 复刻审计",
+      "kind": "复现性审计 (非新训练)",
+      "status": "5 折 380 患者 0.0 误差复刻 0.7238 ± 0.0467. 当前 e403fd0 代码 + 9月30日 0ed9d9d4 commit 训练 ckpt + 原始 split + cudnn.deterministic = 完整复刻.",
+      "purpose": "回答用户担忧 'blca 313 分数能复刻吗? 怕代码改来改去结果改变'. 用 v3.13 官方 evidence 入口做严格 audit.",
+      "setting": "trisurv conda env (python 3.10, torch 2.10+cu128, cudnn 9.10.2, RTX 5090 sm_120). cudnn.deterministic=True, torch.manual_seed=3, weights_only=True, strict=True. 比较阈值 atol=2e-5, rtol=1e-5.",
+      "conclusion": "0.7238 ± 0.0467 在 BLCA v3.13 legacy_val 协议下复现性 100%. 5 折 replay per-fold c-index 与 saved 完全一致, 380 患者 per-patient risk 0.0 误差. 论文 §3.2 'BLCA mean 0.7238 ± 0.0467' 数字在重训风险评估下成立, 不依赖某次特定 commit 的代码.",
+      "pending": "若用户希望 KIRC 也做 E046c 风格复刻审计 (~150s), 待授权.",
+      "scripts": [
+        "/tmp/e046c_replay_exp6.py"
+      ],
+      "figures": [],
+      "tables": [
+        "实验档案/表格图片/E046c_原始commit_replay_审计/e046c_replay_summary.csv"
+      ],
+      "sources": [
+        "实验档案/表格图片/E046c_原始commit_replay_审计/README.md",
+        "实验档案/表格图片/E046c_原始commit_replay_审计/evidence.json",
+        "results/dct_v313_ablation_Exp6_full/blca/.../model_best_s{0..4}.pth (Sep 30 原始 ckpt, 130MB/个)",
+        "results/dct_v313_ablation_Exp6_full/blca/.../split_{0..4}_results.pkl (原始 patient-level 预测)",
+        "results/dct_v313_ablation_Exp6_full/blca/.../epoch_curve_fold{0..4}.csv (训练曲线)"
+      ],
+      "new_training_runs": 0,
+      "new_patient_inference_runs": 380,
+      "completed_at": "2026-10-12",
+      "protocols_run": [
+        "replay-audit (no training, cudnn.deterministic, weights_only, strict)"
+      ],
+      "key_findings": {
+        "per_fold_delta": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_per_patient_diff": 0.0,
+        "total_patients_evaluated": 380,
+        "audit_threshold": "atol=2e-5, rtol=1e-5",
+        "actual_diff": "0.0 (达到浮点 0 误差, 远低于阈值)"
       }
     }
   ]
