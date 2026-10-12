@@ -88,51 +88,18 @@ def actual_labels(dataset, factory, path, partition):
 
 
 def _mcat_omic_sizes_from_factory(factory):
-    """Derive MCAT's six-group omic_sizes from the dataset factory.
-
-    If the factory exposes omic_names as a list of groups, use those lengths.
-    Otherwise fall back to omic_input_dim (flat gene vector) divided into six
-    equal-ish groups.
-    """
-    if hasattr(factory, "omic_sizes") and factory.omic_sizes:
-        # Already grouped: use the existing groups, then collapse to six.
-        groups = factory.omic_sizes
-        n = len(groups)
-        if n == 6:
-            return list(groups)
-        # Merge/split into six groups while preserving total width
-        total = sum(groups)
-        sizes = []
-        base = total / 6
-        for i in range(6):
-            if i < n:
-                sizes.append(groups[i])
-            else:
-                sizes.append(int(base) if i < 5 else total - sum(sizes))
-        # If we have fewer than 6, redistribute; if more, take first 6
-        while len(sizes) < 6:
-            sizes.append(1)
-        sizes = sizes[:6]
-        # Redistribute so sum matches original
-        diff = sum(groups) - sum(sizes[:len(groups)])
-        if diff > 0:
-            sizes[0] += diff
-        return sizes[:6]
-    if hasattr(factory, "omic_input_dim"):
-        dim = factory.omic_input_dim
-        base = dim // 6
-        remainder = dim % 6
-        return [base + (1 if i < remainder else 0) for i in range(6)]
-    raise ValueError("Cannot derive MCAT omic_sizes: factory has neither omic_sizes nor omic_input_dim")
+    """MCAT must receive the six actual signature groups, never fabricated sizes."""
+    sizes = getattr(factory, "omic_sizes", None)
+    if not isinstance(sizes, (list, tuple)) or len(sizes) != 6 or any(int(x) <= 0 for x in sizes):
+        raise ValueError("MCAT requires exactly six nonempty Pathways groups; use signature=six")
+    return [int(x) for x in sizes]
 
 
 def _survpath_omic_sizes_from_factory(factory):
     """Return SurvPath omic_sizes from the dataset factory."""
     if hasattr(factory, "omic_sizes") and factory.omic_sizes:
         return list(factory.omic_sizes)
-    if hasattr(factory, "omic_input_dim"):
-        return [factory.omic_input_dim]
-    raise ValueError("Cannot derive SurvPath omic_sizes: factory has neither omic_sizes nor omic_input_dim")
+    raise ValueError("SurvPath requires actual Pathways group sizes")
 
 
 class StrictLoader:
@@ -229,10 +196,21 @@ def prepare_args(options):
     parsed._dct_user_overrides = set(flat) | set(managed)
     parsed.survot_method = "dct_v313_transport_reconstruction"
     parsed.newslot_method = parsed.survot_method
+    # This experiment trains native MCAT/SurvPath adapters, not the repaired
+    # DCT model; E049 writes its own provenance receipt below.
+    parsed.dct_v313_revision = "legacy"
     parsed.evaluation_protocol = options.protocol
+    parsed.study = options.study
+    parsed.data_path = options.data_path
+    parsed.which_splits = options.split_set
+    parsed.rna_format = "Pathways"
+    parsed.signature = "six" if options.baseline == "mcat" else "combine"
+    parsed.batch_size = 1
+    parsed.event_stratified_batches = False
+    parsed.event_sampling_fraction = 0.0
     parsed.k_start, parsed.k_end = options.fold, options.fold + 1
     parsed.seed = options.seed
-    parsed.gpu = options.gpu
+    parsed.gpu = 0  # CUDA_VISIBLE_DEVICES maps the selected physical GPU to cuda:0.
     parsed.results_dir = str(Path(options.output_dir).resolve() / "artifacts")
     parsed.specific_simple = f"E049_{options.baseline}_{options.arm}_{options.protocol}_seed{options.seed}"
     parsed.on_missing_wsi = "error"
@@ -240,6 +218,10 @@ def prepare_args(options):
         raise ValueError("E049 completion requires positive epochs")
     if getattr(parsed, "early_stop_patience", 0):
         raise ValueError("E049 v1 requires early_stop_patience=0")
+    if getattr(parsed, "max_smoke_batches", 0):
+        raise ValueError("E049 completion does not accept a truncated smoke run")
+    if parsed.bag_loss != "nll_surv":
+        raise ValueError("E049 native bridge currently supports nll_surv only")
     return parsed, config
 
 
@@ -286,13 +268,14 @@ def execute_task(options):
         if any(left & right for right in sets[i+1:]):
             raise ValueError("Patient leakage between split partitions")
 
-    source_paths = sorted((ROOT / "survot_rank").rglob("*.py"))
-    task_id = (f"{options.protocol}/{options.baseline}/{options.arm}/"
+    source_paths = sorted((ROOT / "survot_rank").rglob("*.py")) + sorted(HERE.glob("*.py"))
+    task_id = (f"{options.protocol}/{options.study}/{options.baseline}/{options.arm}/"
                f"fold{options.fold}/seed{options.seed}")
     task = {
         "schema_version": 1,
         "task_id": task_id,
         "baseline": options.baseline,
+        "study": options.study,
         "arm": options.arm,
         "fold": options.fold,
         "seed": options.seed,
@@ -347,11 +330,12 @@ def execute_task(options):
 
     # ----- Build the adapter -----
     # We need the factory to get omic_sizes, so build after first get_split
-    model_module = load_sibling("model")
-    verification = load_sibling("summarize")
+    model_module = load_sibling("runner_bridge")
+    verification = load_sibling("evidence")
 
     original_evaluate = runner.evaluate
     original_outer = runner.evaluate_outer_test
+    original_get_model = runner.get_model
     interrupted = False
     audit_seen = None
 
@@ -361,13 +345,15 @@ def execute_task(options):
             raise RuntimeError("get_split must be called before model construction")
         omic_sizes = _omic_sizes_captured
 
-        model = build_native_adapter_for_arm(
+        adapter = build_native_adapter_for_arm(
             baseline=options.baseline,
             omic_sizes=omic_sizes,
             arm=options.arm,
             num_classes=getattr(args, "num_classes", 4),
         )
-        model = model.to(options.gpu)
+        model = model_module.NativeRunnerBridge(adapter, options.baseline, omic_sizes)
+        import torch
+        model = model.to(torch.device("cuda:0" if torch.cuda.is_available() else "cpu"))
 
         audit = {
             "baseline": options.baseline,
@@ -517,7 +503,7 @@ def execute_task(options):
             })
         raise
     finally:
-        runner.get_model = original_get_split  # revert
+        runner.get_model = original_get_model
         runner.get_split = original_get_split
         runner.evaluate = original_evaluate
         runner.evaluate_outer_test = original_outer
@@ -532,6 +518,9 @@ def main(argv=None):
     parser.add_argument("--config", required=True)
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--protocol", choices=("legacy_val", "outer_test"), required=True)
+    parser.add_argument("--study", required=True)
+    parser.add_argument("--split-set", required=True)
+    parser.add_argument("--data-path", required=True)
     parser.add_argument("--fold", type=int, required=True)
     parser.add_argument("--seed", type=int, required=True)
     parser.add_argument("--gpu", default="0")

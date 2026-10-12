@@ -29,6 +29,7 @@ ARM_NAMES = tuple(arm for arm, *_ in ARM_DEFINITIONS)
 
 # Named arm groups for --group selection
 ARM_GROUPS: dict[str, tuple[str, ...]] = {
+    "paired": ("native", "learned_three_decoders"),
     "coupling": ("native", "independent", "learned"),
     "reconstruction": ("independent", "learned", "independent_three_decoders", "learned_three_decoders"),
     "shared": ("learned_three_decoders", "learned_shared_decoders"),
@@ -166,6 +167,7 @@ def build_tasks(
     *, arms: list[str], baselines: list[str], folds: list[int], seeds: list[int],
     gpus: list[int], batch_dir: Path, data_path: Path, split_set: str,
     protocol: str, python_executable: str, worker_path: Path, require_splits: bool,
+    study: str = "blca",
 ) -> list[dict[str, Any]]:
     if protocol not in PROTOCOLS:
         raise PlanError(f"Unknown protocol: {protocol}.")
@@ -181,8 +183,9 @@ def build_tasks(
         raise PlanError("Arms and baselines must not contain duplicates.")
     for baseline in baselines:
         safe_name(baseline, label="baseline")
+    safe_name(study, label="study")
     fingerprints: dict[tuple[str, int], dict[str, Any]] = {}
-    for study, fold in product(baselines, folds):
+    for fold in folds:
         source = split_path(data_path, split_set, study, fold)
         try:
             fingerprints[(study, fold)] = validate_split(source, protocol)
@@ -195,17 +198,14 @@ def build_tasks(
             }
     tasks = []
     for index, (baseline, fold, seed, arm) in enumerate(product(baselines, folds, seeds, arms)):
-        task_id = f"{protocol}/{baseline}/{arm}/{study}/fold{fold}/seed{seed}"
-        task_dir = batch_dir / f"{protocol}/{baseline}/{arm}/{study}/fold{fold}/seed{seed}"
-        # Normalize: use first baseline as study proxy since both use same patient cohort
-        # In practice, each baseline may target a different study; task dir uses baseline name
-        # For task_id uniqueness, use baseline as the "study" placeholder
-        task_id = f"{protocol}/{baseline}/{arm}/fold{fold}/seed{seed}"
-        fingerprint = fingerprints.get((baseline, fold)) or fingerprints.get((baselines[0], fold))
+        task_id = f"{protocol}/{study}/{baseline}/{arm}/fold{fold}/seed{seed}"
+        task_dir = batch_dir / protocol / study / baseline / arm / f"fold{fold}" / f"seed{seed}"
+        fingerprint = fingerprints[(study, fold)]
         config_path = task_dir / "config.yaml"
         tasks.append({
             "task_id": task_id,
             "baseline": baseline,
+            "study": study,
             "arm": arm,
             "fold": fold,
             "seed": seed,
@@ -221,6 +221,8 @@ def build_tasks(
                 python_executable, str(worker_path), "--baseline", baseline,
                 "--arm", arm, "--config", str(config_path),
                 "--output-dir", str(task_dir), "--protocol", protocol,
+                "--study", study, "--split-set", split_set,
+                "--data-path", str(data_path),
                 "--fold", str(fold), "--seed", str(seed), "--gpu", str(gpus[index % len(gpus)]),
             ],
         })

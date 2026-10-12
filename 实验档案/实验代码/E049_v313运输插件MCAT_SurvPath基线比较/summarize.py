@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 from collections import defaultdict
 from pathlib import Path
 import sys
@@ -51,6 +52,7 @@ def read_batch(batch_dir: Path):
     if not completions:
         raise FileNotFoundError(f"No completion.json found under {batch_dir}")
     rows = []
+    completed_ids = set()
     for path in completions:
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
@@ -63,20 +65,32 @@ def read_batch(batch_dir: Path):
             continue
         # Parse task_id: {protocol}/{baseline}/{arm}/fold{fold}/seed{seed}
         task_id = data.get("task_id", "")
+        if task_id in completed_ids:
+            raise ValueError(f"Duplicate completed task_id: {task_id}")
+        completed_ids.add(task_id)
         parts = task_id.split("/")
         if len(parts) < 4:
             parts = [data.get("protocol", ""), data.get("baseline", ""),
                      data.get("arm", ""), str(data.get("fold", ""))]
-        protocol = parts[0] or data.get("protocol", "")
-        baseline = parts[1] or data.get("baseline", "")
-        arm = parts[2] or data.get("arm", "")
-        fold = int(data.get("fold", parts[3].replace("fold", "") if len(parts) > 3 else -1))
-        seed = int(data.get("seed", parts[4].replace("seed", "") if len(parts) > 4 else 0))
+        protocol = data.get("protocol") or parts[0]
+        study = data.get("study") or (parts[1] if len(parts) == 6 else "unknown")
+        baseline = data.get("baseline") or parts[-4]
+        arm = data.get("arm") or parts[-3]
+        fold = int(data.get("fold", parts[-2].replace("fold", "")))
+        seed = int(data.get("seed", parts[-1].replace("seed", "")))
         score = float(data.get("score", float("nan")))
-        rows.append(dict(baseline=baseline, arm=arm, fold=fold, seed=seed,
+        if not math.isfinite(score) or not 0.0 <= score <= 1.0:
+            raise ValueError(f"Invalid C-index in {path}: {score}")
+        rows.append(dict(study=study, baseline=baseline, arm=arm, fold=fold, seed=seed,
                          protocol=protocol, score=score))
-    if not rows:
-        return rows  # empty list — return silently for partial-batch summary
+    plan_path = batch_dir / "plan.json"
+    if plan_path.is_file():
+        plan = json.loads(plan_path.read_text(encoding="utf-8"))
+        planned_ids = {task["task_id"] for task in plan["tasks"]}
+        missing = planned_ids - completed_ids
+        unexpected = completed_ids - planned_ids
+        if missing or unexpected:
+            raise ValueError(f"Batch is incomplete or mismatched: missing={len(missing)}, unexpected={len(unexpected)}")
     return rows
 
 
@@ -99,31 +113,14 @@ def wilcoxon_paired(a, b):
     if len(a) != len(b) or len(a) < 5:
         return float("nan"), None
     diffs = [ai - bi for ai, bi in zip(a, b)]
-    nonzero = [(i, d) for i, d in enumerate(diffs) if d != 0]
-    total_n = len(diffs)
-    if total_n < 5:
-        return float("nan"), total_n
-    if not nonzero:
-        return 1.0, total_n  # identical series
-    n = len(nonzero)
-    # scipy-free fallback: sign test (two-sided binomial)
-    pos = sum(1 for _, d in nonzero if d > 0)
+    if not any(d != 0 for d in diffs):
+        return 1.0, len(diffs)
     try:
-        from scipy.stats import binomtest
-        res = binomtest(pos, n, 0.5, alternative="two-sided")
-        return float(res.pvalue), n
+        from scipy.stats import wilcoxon
+        res = wilcoxon(diffs, zero_method="wilcox", alternative="two-sided", method="auto")
+        return float(res.pvalue), len(diffs)
     except ImportError:
-        # Approximate with normal approximation if scipy unavailable
-        # Under H0: pos ~ Bin(n, 0.5), mean=n/2, var=n/4
-        from math import sqrt
-        z = (pos - n / 2) / sqrt(n / 4)
-        # Standard normal two-sided p-value approximation
-        try:
-            from scipy.stats import norm as _norm
-            p = 2 * float(1 - _norm.cdf(abs(z)))
-            return float(p), n
-        except ImportError:
-            return float("nan"), n
+        return float("nan"), len(diffs)
 
 
 def fmt_row(baseline, arm, scores, indent="  "):
@@ -131,27 +128,39 @@ def fmt_row(baseline, arm, scores, indent="  "):
     return f"{indent}{baseline:<12}{arm:<35} {mu:.4f} ± {sd:.4f}  (n={len(scores)})"
 
 
-def fmt_comparison_table(comparisons, grouped, baselines):
+def fmt_comparison_table(comparisons, rows, baselines):
     lines = ["", "=" * 90, "PAIRED COMPARISONS (Wilcoxon signed-rank, same seed, same folds)", "=" * 90]
     lines.append(STATISTICAL_H0_MESSAGE)
     lines.append("")
-    header = f"{'Comparison':<30} {'Baseline':<12} {'N folds':<8} {'Delta mean':>12} {'p-value':>12} {'Sig':<8} {'Question'}"
+    header = f"{'Comparison':<30} {'Baseline':<12} {'N folds':<8} {'Delta B-A':>12} {'p-value':>12} {'Sig':<8} {'Question'}"
     lines.append(header)
     lines.append("-" * 100)
+    indexed = {}
+    for row in rows:
+        key = (row["study"], row["protocol"], row["baseline"],
+               row["arm"], row["fold"], row["seed"])
+        if key in indexed:
+            raise ValueError(f"Duplicate completion for {key}")
+        indexed[key] = row["score"]
+    strata = sorted({(row["study"], row["protocol"], row["baseline"]) for row in rows})
     for label, arm_a, arm_b, question in comparisons:
-        for baseline in baselines:
-            key_a = (baseline, arm_a)
-            key_b = (baseline, arm_b)
-            scores_a = grouped.get(key_a, [])
-            scores_b = grouped.get(key_b, [])
-            if not scores_a or not scores_b:
+        for study, protocol, baseline in strata:
+            left = {(fold, seed): score for (s, p, b, arm, fold, seed), score in indexed.items()
+                    if (s, p, b, arm) == (study, protocol, baseline, arm_a)}
+            right = {(fold, seed): score for (s, p, b, arm, fold, seed), score in indexed.items()
+                     if (s, p, b, arm) == (study, protocol, baseline, arm_b)}
+            if not left or not right:
                 continue
-            if len(scores_a) != len(scores_b):
+            if set(left) != set(right):
+                lines.append(f"INCOMPLETE {study}/{protocol}/{baseline}/{label}: unmatched fold/seed")
                 continue
+            pairs = sorted(left)
+            scores_a = [left[pair] for pair in pairs]
+            scores_b = [right[pair] for pair in pairs]
             p, n = wilcoxon_paired(scores_a, scores_b)
-            delta = mean_std([ai - bi for ai, bi in zip(scores_a, scores_b)])[0]
+            delta = mean_std([bi - ai for ai, bi in zip(scores_a, scores_b)])[0]
             sig = ("*" * sum(1 for thr in [0.05, 0.01, 0.001] if p < thr)) if p == p and p < 0.05 else ("ns" if p == p else "?")
-            lines.append(f"{label:<30} {baseline:<12} {n:<8} {delta:>+12.4f} {p:>12.4f} {sig:<8} {question}")
+            lines.append(f"{label:<30} {baseline:<12} {n:<8} {delta:>+12.4f} {p:>12.4f} {sig:<8} {study}/{protocol}: {question}")
     return "\n".join(lines)
 
 
@@ -184,7 +193,10 @@ def main(argv=None):
     protocols = sorted(set(r["protocol"] for r in rows))
     arms = sorted(set(r["arm"] for r in rows))
 
-    grouped = group_by(rows, "baseline", "arm")
+    rows.sort(key=lambda r: (r["study"], r["protocol"], r["baseline"],
+                             r["arm"], r["seed"], r["fold"]))
+    grouped = group_by(rows, "study", "protocol", "baseline", "arm")
+    strata = sorted({(r["study"], r["protocol"], r["baseline"]) for r in rows})
 
     # ---- Build summary ----
     sections = []
@@ -201,10 +213,10 @@ def main(argv=None):
         "RAW SCORES (individual fold C-indices)",
         "-" * 90,
     ]))
-    for baseline in baselines:
-        sections.append(f"\n--- {baseline} ---")
+    for study, protocol, baseline in strata:
+        sections.append(f"\n--- {study}/{protocol}/{baseline} ---")
         for arm in ALL_ARMS:
-            key = (baseline, arm)
+            key = (study, protocol, baseline, arm)
             scores = grouped.get(key, [])
             if scores:
                 fold_str = ", ".join(f"{s:.4f}" for s in scores)
@@ -217,17 +229,17 @@ def main(argv=None):
     sections.append("=" * 90)
     sections.append(f"{'Baseline':<12} {'Arm':<35} {'C-index':>12}  {'n':<6}")
     sections.append("-" * 70)
-    for baseline in baselines:
+    for study, protocol, baseline in strata:
         for arm in ALL_ARMS:
-            key = (baseline, arm)
+            key = (study, protocol, baseline, arm)
             scores = grouped.get(key, [])
             if scores:
                 mu, sd = mean_std(scores)
-                sections.append(f"{baseline:<12} {arm:<35} {mu:>8.4f} ± {sd:.4f}  {len(scores):<6}")
+                sections.append(f"{study}/{protocol}/{baseline:<12} {arm:<35} {mu:>8.4f} ± {sd:.4f}  {len(scores):<6}")
 
     # Section 3: Comparison table
     if not args.no_statistics:
-        sections.append(fmt_comparison_table(COMPARISONS, grouped, baselines))
+        sections.append(fmt_comparison_table(COMPARISONS, rows, baselines))
 
     # Section 4: Key findings template
     sections.append("\n" + "=" * 90)

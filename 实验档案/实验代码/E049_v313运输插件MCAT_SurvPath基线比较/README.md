@@ -1,14 +1,12 @@
 # E049：DCT v3.13 运输插件 MCAT / SurvPath 基线接入与对比
 
-本实验目录用于回答两个问题：
-1. **实用性**：完整插件（Learned OT + 重建）是否优于对应原生基线？
-2. **收益归因**：在保持相同边际和模块容量的条件下，Learned OT 是否优于 Independent（独立耦合）？
+本轮先只回答一个问题：在 **BLCA** 上，完整插件（Learned OT + 三个独立重建解码器）能否改善同一原生基线？默认只比较 `native` 与 `learned_three_decoders`。运输本身的收益归因需要后续另跑 `independent` 等消融臂。
 
 DCT 内部已有的 v3.13 结果可以作为来源证据，但不能代替这一步。
 
 ## 实验臂设计
 
-每种基线（MCAT / SurvPath）均有以下 6 臂：
+代码支持以下 6 臂，但默认只运行第一行和第五行：
 
 | 臂名 | 插件 | 重建 | 作用 |
 |---|---|---|---|
@@ -29,33 +27,36 @@ Independent 和 Learned OT 共享所有可学习参数，只改变运输计划�
 
 ## 配对比较原则
 
-所有同基线、同臂的 5 折 × seed 比较均使用**配对差值**，不使用不同患者集的均值之差。
+所有同基线、同折、同 seed 的原模型与插件比较均使用**配对差值**，不使用不同患者集的均值之差。
 不同 seed 分别报告；不要将五折视为独立外部队列。
+汇总表的差值定义为“完整插件 − 原模型”，正值表示插件更好。仅五折的双侧 Wilcoxon 检验只能作为探索性描述，重点看逐折差值和平均差值。
 
 ## 训练配方
 
 - 默认同基线内部各臂共享：患者划分、终点、时间分箱、优化器（AdamW，lr=0.0005）、训练轮数（30 epoch）、checkpoint 选择规则（val C-index 最大选最优）
-- MCAT 原生损失：事件分层 NLL；SurvPath 原生损失：负对数似然
-- 插件辅助损失接在原生损失之后：`total_loss = native_loss + aux_loss`
+- 本轮两种基线均使用仓库训练器的离散时间 `NLLSurvLoss`；MCAT 输出 hazard 后转换为 logit 再送入该损失。它是**同一基线内两臂匹配**的比较，不声称复现官方论文的完整训练配方。
+- 插件辅助损失接在同一生存损失之后：`total_loss = survival_loss + aux_loss`。评估时不计算重建辅助项。
 - MCAT：六组基因分组；SurvPath：来自数据的实际通路数
-- 两种基线的原生训练器分别独立实现，不混用损失函数
+- 两种基线都以单患者为单位训练；同一基线的两臂使用同样的优化器、终点、划分和选模规则。
 
 ## 运行方式
 
 ```bash
-# 生成实验计划（需填入真实 omic_sizes）
-python scripts/prepare_transport_plugin_experiments.py \
-    --baseline both \
-    --omic-sizes 712,1359,102,1762,178,100 \
-    --output /data1/DCT-Reg/results/e049_transport_plugin \
-    --include-shared
+# 在本目录执行，先核实服务器上的划分文件和数据路径。
+# 默认 BLCA × MCAT/SurvPath × native/完整插件 × 5 折 × 1 seed = 20 个训练任务。
+python run_experiments.py --batch-dir /data1/DCT-Reg/results/e049_blca --dry-run \
+    --split-set 5fold_uni2h_outer_test_seed3
 
-# 调度全部任务
-python run_experiments.py --batch-dir results/e049 --group all --protocol outer_test
+# 确认计划后，使用一个新的空 batch-dir 执行；任务逐个运行，失败即停止。
+python run_experiments.py --batch-dir /data1/DCT-Reg/results/e049_blca_run --execute \
+    --split-set 5fold_uni2h_outer_test_seed3
 
-# 汇总结果
-python summarize.py --batch-dir results/e049
+# 如果先只检查 fold 0：额外加 --folds 0，得到 4 个训练任务。
+# 若只比较 MCAT：额外加 --baseline mcat，五折共 10 个训练任务。
+python summarize.py /data1/DCT-Reg/results/e049_blca_run
 ```
+
+不要对同一非空 `batch-dir` 重复执行。正式运行前，检查 `data/splits/<split-set>/blca/fold_0.csv` 的真实位置；`--data-path` 可覆盖配置中的 `/data1/dataset_csv`。清单生成默认**不会训练**，只有 `--execute` 会启动。
 
 ## 限制
 
