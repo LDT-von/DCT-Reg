@@ -1,11 +1,15 @@
 """DCT v3.13: transport-aware pathway reconstruction.
 
-The factual prediction path is the frozen DCT v3.11 slot-interpretable path.
-During training, v3.13 adds two equally weighted reconstruction objectives:
+Reconstruction decoder sharing does not change the factual prediction path.
+During training, v3.13 uses these auxiliary reconstruction objectives:
 
 * omics semantic slots reconstruct the encoded pathway tokens;
 * WSI slots are transported into omics slot coordinates by the factual,
   stage-wise, multi-geometry Sinkhorn plans and reconstruct the same targets.
+* when enabled, WSI slots reconstruct valid projected patch features.
+
+The repaired recipe can use independent self/cross pathway decoders. These
+heads affect training gradients but are never called for survival inference.
 
 The reconstruction target is stop-gradient.  The event gate used to combine
 stages is detached so the auxiliary objective cannot repurpose the survival
@@ -16,6 +20,7 @@ semantic slots, and both modality encoders.
 from __future__ import annotations
 
 import json
+import copy
 import math
 import os
 import sys
@@ -122,6 +127,11 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
         self._v313_explicit_config_keys = set(getattr(args, "_dct_user_overrides", ()))
         if self._v313_revision not in {"legacy", "repaired"}:
             raise ValueError("dct_v313_revision must be legacy or repaired")
+        self._omics_decoder_mode = str(getattr(args, "dct_v313_omics_decoder_mode", "shared")).lower()
+        if self._omics_decoder_mode not in {"shared", "separate"}:
+            raise ValueError("dct_v313_omics_decoder_mode must be shared or separate")
+        if self._omics_decoder_mode == "separate" and self._v313_revision != "repaired":
+            raise ValueError("separate pathway decoders require dct_v313_revision=repaired")
         if str(getattr(args, "rna_format", "Pathways")) != "Pathways":
             raise ValueError(
                 "DCT v3.13 reconstructs pathway tokens and requires rna_format='Pathways'"
@@ -349,6 +359,14 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             num_pathways=int(self.num_pathways),
             num_heads=heads,
         )
+        self.cross_pathway_reconstruction_decoder = None
+        if self._omics_decoder_mode == "separate":
+            # Equal starting weights make the sharing comparison fair. A deep
+            # copy has independent parameter storage and consumes no RNG, so
+            # all prediction and WSI decoder initialization remains identical.
+            self.cross_pathway_reconstruction_decoder = copy.deepcopy(
+                self.pathway_reconstruction_decoder
+            )
         # Disabled means no module, no new parameters, and no extra RNG draws.
         # Instantiate after existing modules to preserve shared initial weights.
         self.wsi_reconstruction_decoder = None
@@ -491,6 +509,7 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
         if self._v313_revision == "repaired":
             coefficients.update(
                 revision="repaired",
+                omics_decoder_mode=self._omics_decoder_mode,
                 wsi=float(self.dct_v313_reconstruction_wsi_coef),
                 cross_conditioning="paired_wsi_and_omics" if self._cross_mode == "transport" else "wsi_slots",
             )
@@ -506,6 +525,19 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             )
         return coefficients
 
+    def reconstruction_decoder_layout(self):
+        """Registered head layout; a zero-weight branch can retain its head."""
+        return {
+            "omics_decoder_mode": self._omics_decoder_mode,
+            "self": "pathway_reconstruction_decoder",
+            "cross": "cross_pathway_reconstruction_decoder" if self._omics_decoder_mode == "separate" else "pathway_reconstruction_decoder",
+            "wsi": "wsi_reconstruction_decoder" if self.wsi_reconstruction_decoder is not None else None,
+            "decoder_count": 1 + int(self.cross_pathway_reconstruction_decoder is not None) + int(self.wsi_reconstruction_decoder is not None),
+            "cross_initialization": "independent_copy_of_self" if self._omics_decoder_mode == "separate" else "shared_parameters",
+            "used_in_survival_inference": False,
+            "auxiliary_gradients_update_backbone": True,
+        }
+
     def implementation_audit(self):
         """Describe the active computation, rather than configuration comments.
 
@@ -516,6 +548,7 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
             "revision": self._v313_revision,
             "objective_weights": self.objective_weights_effective(),
             "reconstruction": self.effective_recon_coefficients(),
+            "reconstruction_decoders": self.reconstruction_decoder_layout(),
             "reconstruction_ramp": {
                 "start": self.dct_v313_reconstruction_ramp_start,
                 "epochs": self.dct_v313_reconstruction_ramp_epochs,
@@ -809,7 +842,12 @@ class DCTV313TransportReconstruction(DCTV311SlotInterpretable):
                 transported_wsi, _ = self._transport_wsi_to_omic(
                     slots_wsi, factual_plans, factual_gate
                 )
-            cross_prediction = self.pathway_reconstruction_decoder(transported_wsi)
+            cross_decoder = (
+                self.cross_pathway_reconstruction_decoder
+                if self._omics_decoder_mode == "separate"
+                else self.pathway_reconstruction_decoder
+            )
+            cross_prediction = cross_decoder(transported_wsi)
             cross_loss = self._reconstruction_distance(
                 cross_prediction, target, available
             )

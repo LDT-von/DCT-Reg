@@ -4,14 +4,14 @@
 
 ## 正式使用入口
 
-本轮按用户决定保留 WSI 自重建。修正版使用 `configs/dct_v313_full_wsi_repaired.yaml`，其中 `dct_v313_revision: repaired` 明确区分计算版本。旧配置缺省为 `legacy`；原始 v3.11 文件及历史结果不修改。历史 0.7238 不能作为修正版分数。
+本轮按用户决定保留 WSI 自重建，并增加三独立解码器候选 `configs/dct_v313_full_wsi_three_decoders.yaml`。其中 `dct_v313_revision: repaired` 明确区分计算版本，`dct_v313_omics_decoder_mode: separate` 区分组学解码器共享方式。之前的 `configs/dct_v313_full_wsi_repaired.yaml` 保留为共享组学解码器对照。旧配置缺省为 `legacy`；原始 v3.11 文件及历史结果不修改。历史 0.7238 不能作为修正版分数。
 
 修正版 Full 的最大系数：IPCW rank 0.10、每槽 NLL 0.05、多样性 0.10；组学自重建 0.05、跨模态重建 0.05、WSI 自重建 0.05。三项重建共同使用 `clip((epoch-2)/5, 0, 1)`，采用 additive 策略。0.15 是系数之和，不代表梯度大小相同。删除一个重建分支时，其余分支保留原系数。
 
 正式训练由用户启动，例如：
 
 ```bash
-python -m survot_rank.cli train --config configs/dct_v313_full_wsi_repaired.yaml --set results_dir=./results/v313_repaired_full_run1
+python -m survot_rank.cli train --config configs/dct_v313_full_wsi_three_decoders.yaml --set results_dir=./results/v313_three_decoders_full_run1
 ```
 
 配置沿用 BLCA UNI2-h 数据路径、划分和 30 epoch 预算，启动前按服务器真实路径调整。默认 `legacy_val` 是验证集选择结果；独立测试需要真实 outer-test 划分和明确的评估协议，不能只改标签。
@@ -48,7 +48,7 @@ python scripts/prepare_v313_repaired_ablation.py --results-root ./results/v313_r
 python scripts/prepare_v313_repaired_ablation.py --results-root ./results/v313_repaired_ablation_run1 --out ./prepared_v313_repaired_run1
 ```
 
-支持 Full、去组学自重建、去跨模态重建、去 WSI 重建、去全部重建、Direct、Independent、去多样性、去每槽 NLL。准备器只生成配置，用户分别启动所选项。所有项沿用相同患者划分、种子、训练预算和重建 ramp；剩余损失系数保持不变。
+默认基于三解码器 Full，支持 Full、共享组学解码器对照（`shared_decoder`）、去组学自重建、去跨模态重建、去 WSI 重建、去全部重建、Direct、Independent、去多样性、去每槽 NLL。准备器只生成配置，用户分别启动所选项。所有项沿用相同患者划分、种子、训练预算和重建 ramp；剩余损失系数保持不变。显式使用旧共享配置作为 base 时，默认只生成原有九项，拒绝无意义的再次共享对照。
 
 仅基因、仅病理的 E048 v1 对照保留为历史方案；若要与修正版 Full 比较，需要另行采用与修正版一致的单模态训练目标，不能把旧单模态结果直接搬到新表。
 
@@ -57,3 +57,15 @@ python scripts/prepare_v313_repaired_ablation.py --results-root ./results/v313_r
 针对性测试覆盖 batch 重复后的损失与梯度、重复槽加离群槽、完全/近乎塌缩、显式零参数、不同 padding 值及梯度、全空掩码、半精度、参数覆盖、三项损失求和、审计文件保护与输出目录保护。合成测试只验证实现性质，不证明性能提升。旧配置及旧预测路径另做回归。
 
 2026-10-12 验证：在以远端 `687adad` 为基础的隔离目录运行上述修复测试、原有 v3.13 重建/运输测试、outer-test 协议测试及 E048 测试，结果为 **253 passed**。消融准备器的默认计划模式也正常返回，未创建结果目录或启动训练。
+
+## 三独立解码器追加实现
+
+用户追加授权将组学自重建与跨模态重建的解码器拆开。`pathway_reconstruction_decoder` 负责组学自重建，`cross_pathway_reconstruction_decoder` 负责跨模态重建，`wsi_reconstruction_decoder` 负责 WSI 自重建。三者参数独立。跨模态解码器初始权重复制自组学解码器，随后分别更新；复制不会消耗额外随机数，确保主干、WSI 头和实验 RNG 起点与共享对照一致。
+
+这些是训练辅助分支：解码器生成重建表示，距离函数将其转换为损失。它们没有接入生存预测的推理路径，但重建损失会反向更新编码器、槽表示与运输相关参数，因此重新训练后的生存预测可能改变。主模型结构不变不等于训练不受影响。完整 checkpoint 包含新增辅助头，参数量和文件大小增加，加载时必须匹配 shared/separate 配置；严格加载不自动丢弃或补造头参数。
+
+共享/独立开关只改变组学重建参数是否共享，不改变预测主干、三个重建系数、距离函数或预热。删除一条重建分支只关闭对应损失，不改变另一分支的系数。运行时审计记录实际解码器分工与数量；零权重分支可能仍保留未使用的头，数量表示已创建模块数。
+
+新增针对性测试验证参数存储独立、共同初始权重与随机数状态一致、自重建/跨模态重建各自的梯度连通性、辅助损失向主干反传、推理不调用重建头、完整 checkpoint 模式匹配，以及 Full 与 shared_decoder 配置仅在头共享方式上不同。源码检查与合成测试不能证明三解码器优于共享版本；该结论仍需用户启动匹配实验。
+
+三解码器追加验证：以 `5c3ff85` 为基础的隔离目录中，新测试与原有修复、重建、运输、outer-test 和 E048 测试合计 **267 passed**。仅运行合成测试与配置计划，没有启动正式训练。

@@ -797,6 +797,10 @@ def build_base_parser() -> argparse.ArgumentParser:
     parser.add_argument("--dct_v313_reconstruction_ramp_start", type=int, default=2)
     parser.add_argument("--dct_v313_reconstruction_ramp_epochs", type=int, default=5)
     parser.add_argument(
+        "--dct_v313_omics_decoder_mode", choices=["shared", "separate"], default="shared",
+        help="Share one pathway reconstruction head, or use two independent training heads in the repaired recipe.",
+    )
+    parser.add_argument(
         "--dct_v313_wsi_reconstruction_budget", default="additive",
         choices=["additive", "fixed_total"],
         help="Add WSI weight, or rescale all reconstruction coefficients to the original active budget.",
