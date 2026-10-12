@@ -1,0 +1,40 @@
+{
+  "schema": "dct_transport_plugin_delivery_checks_v1",
+  "date": "2026-10-12",
+  "base_commit": "530f87b2a7a60f3c74364179d759d1d6b562eb5e",
+  "delivery_branch": "codex/v313-transport-plugin",
+  "implementation_status": "native_mcat_and_survpath_adapters_ready",
+  "formal_patient_training_started": false,
+  "patient_inference_started": false,
+  "measured_performance_results": null,
+  "checks": {
+    "command": "python -m pytest tests/test_transport_plugin_core.py tests/test_transport_plugin_reconstruction.py tests/test_transport_plugin_adapters.py tests/test_transport_plugin_native.py tests/test_transport_plugin_experiment_plan.py -q",
+    "passed": 121,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 32.08,
+    "scope": "synthetic tensor correctness, pinned official native model interfaces, checkpoint configuration, source integrity and plan-only protocol generation",
+    "runtime": "Python 3.10, PyTorch 2.6.0+cu124, CPU and RTX 3060 Laptop CUDA",
+    "warnings": "24 PyTorch notices that norm_first disables nested tensor optimization"
+  },
+  "official_source_subset": {
+    "verified_files": 21,
+    "mcat_commit": "b9cca63be83c67de7f95308d54a58f80b78b0da1",
+    "survpath_commit": "3f73ddd6705ec67d643020c5bb04fb13f9f382cc",
+    "pretrained_weights_included": false,
+    "patient_data_included": false
+  },
+  "reconstruction": {
+    "mode": "separate",
+    "self_weight": 0.05,
+    "cross_weight": 0.05,
+    "wsi_weight": 0.05,
+    "eval_executes_auxiliary_decoders": false
+  },
+  "required_next_evidence": [
+    "learned versus independent coupling under matched training without auxiliary losses",
+    "learned versus independent coupling with identical three reconstruction heads",
+    "paired fold and seed comparisons within MCAT and within SurvPath",
+    "measured training and inference time, memory and model size"
+  ]
+}

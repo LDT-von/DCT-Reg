@@ -1,0 +1,172 @@
+{
+  "schema": "dct_transport_plugin_sources_v1",
+  "repositories": {
+    "mcat": {
+      "directory": "MCAT",
+      "repository_url": "https://github.com/mahmoodlab/MCAT",
+      "commit": "b9cca63be83c67de7f95308d54a58f80b78b0da1",
+      "files": [
+        {
+          "path": "LICENSE",
+          "bytes": 35149,
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+          "git_blob_sha1": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+          "mode": "100644"
+        },
+        {
+          "path": "docs/README.md",
+          "bytes": 8087,
+          "sha256": "ea3a4009696244731f86b3be336e76ba93861a85c2d1064e8c8295d95ed6a868",
+          "git_blob_sha1": "9e2335926c41a559c714411507b82f7ed29b7ed4",
+          "mode": "100755"
+        },
+        {
+          "path": "models/model_coattn.py",
+          "bytes": 29823,
+          "sha256": "cf3f6df6049005c6fc6c88cad0314098dfedcc322a82efd31cd221e61e99aa2a",
+          "git_blob_sha1": "26c032ee74957fffa02f3f08453cce343496894e",
+          "mode": "100644"
+        },
+        {
+          "path": "models/model_genomic.py",
+          "bytes": 1767,
+          "sha256": "483bdc9c2900cb9757c3aae7cac321b1bf0a7f2f0e1029caabadd9aba94378de",
+          "git_blob_sha1": "c80c745759a157cb8c97116494872187bb19e289",
+          "mode": "100755"
+        },
+        {
+          "path": "models/model_set_mil.py",
+          "bytes": 11839,
+          "sha256": "90ef9b2fc96c327e7e4d034c67752350b6f7afaee7fbf6fd0972fa58803e8603",
+          "git_blob_sha1": "3f7171f36ed06222ba76795c8b84b6daa70faeb0",
+          "mode": "100644"
+        },
+        {
+          "path": "models/model_utils.py",
+          "bytes": 5864,
+          "sha256": "e5a95ecb6bc41b93a39310d7e9594f69514d98f6a3c4e642c86778d0c430dcb2",
+          "git_blob_sha1": "5f78ad8b1590622579e10ddecdcd447ed347fdc7",
+          "mode": "100644"
+        }
+      ],
+      "license_files": [
+        "LICENSE"
+      ],
+      "license_note": "Retained upstream license files."
+    },
+    "survpath": {
+      "directory": "SurvPath",
+      "repository_url": "https://github.com/mahmoodlab/SurvPath",
+      "commit": "3f73ddd6705ec67d643020c5bb04fb13f9f382cc",
+      "files": [
+        {
+          "path": "README.md",
+          "bytes": 6150,
+          "sha256": "5d2e36f51b70b3ba6379158580d5228130933804f835e0379774c2b9d36a2309",
+          "git_blob_sha1": "5839777ffb8caa831a029142fd7e5378ce2282ee",
+          "mode": "100644"
+        },
+        {
+          "path": "models/__init__.py",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "100755"
+        },
+        {
+          "path": "models/layers/__init__.py",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "mode": "100755"
+        },
+        {
+          "path": "models/layers/cross_attention.py",
+          "bytes": 4683,
+          "sha256": "51a97691c7849705efe6b6e17c970a829756c24278deccdd7f4c38a2afb21ba2",
+          "git_blob_sha1": "b84048fe846e927b07ff78de4c36aa7368857fbc",
+          "mode": "100755"
+        },
+        {
+          "path": "models/model_ABMIL.py",
+          "bytes": 7807,
+          "sha256": "76455ad75ddfc7d47ed22f39da62e786dcab81650e780e00ebcea0e66eca6835",
+          "git_blob_sha1": "134c15fbb963b739edb8a48f6b7fd5d3e8d7d21c",
+          "mode": "100755"
+        },
+        {
+          "path": "models/model_DeepMISL.py",
+          "bytes": 14719,
+          "sha256": "ace8601f72cca675607dfc3bebd99cadb3a4b27b06e2ad381bcf2332cb474a18",
+          "git_blob_sha1": "50a687add90966dd782be2222243d357027dcaf9",
+          "mode": "100755"
+        },
+        {
+          "path": "models/model_MCATPathways.py",
+          "bytes": 30209,
+          "sha256": "fb33f0c4f72e571ff08920bdcf2044b545db1ffa444d59480124b36094d32363",
+          "git_blob_sha1": "a4344add420abb3aa555151c17b088e8636db173",
+          "mode": "100755"
+        },
+        {
+          "path": "models/model_MLPOmics.py",
+          "bytes": 1601,
+          "sha256": "5bcf9409dec4362a76a768bd09097a340adeb65ee9822af439f3266313b56a78",
+          "git_blob_sha1": "675f36bd9a65e092635e3fd080d12283b470d55e",
+          "mode": "100755"
+        },
+        {
+          "path": "models/model_MLPWSI.py",
+          "bytes": 3109,
+          "sha256": "06fc6df05365b06261a4b5082d0fc15e3a705668f0a56f39b3a6b1a0896aaca9",
+          "git_blob_sha1": "0512e08bd2551c87e11b7d8cf3535709c129eea3",
+          "mode": "100755"
+        },
+        {
+          "path": "models/model_MaskedOmics.py",
+          "bytes": 3142,
+          "sha256": "05afa2a00f3a2267cd457eda147f18a29d4160cfc5be9284ec1ef908846b42f4",
+          "git_blob_sha1": "14b9bb04ae14865cf4e7db126a8d21597846b463",
+          "mode": "100755"
+        },
+        {
+          "path": "models/model_SNNOmics.py",
+          "bytes": 2391,
+          "sha256": "571703d8fe08cc99d71b6ab40a8be4fe3c740864c1ee733d10fca49e6d921449",
+          "git_blob_sha1": "4d76782d68442a9fcb058a731aecd3c4b8cc85ff",
+          "mode": "100755"
+        },
+        {
+          "path": "models/model_SurvPath.py",
+          "bytes": 14507,
+          "sha256": "f4cfe9a80d80e81072a73f7dfcdb6fe4353c7fde825afbb6defab64c0d689fe0",
+          "git_blob_sha1": "52c128162ce8383923a4718c3ccefdf411ecff38",
+          "mode": "100644"
+        },
+        {
+          "path": "models/model_SurvPath_with_nystrom.py",
+          "bytes": 14539,
+          "sha256": "f4a82801a62c3338a3214769d0eaf3e1bd075fd91b9bfae5247e7bda01f2ef77",
+          "git_blob_sha1": "a505ea185774d1df41915ba54b94b8beccdbc4d6",
+          "mode": "100644"
+        },
+        {
+          "path": "models/model_TMIL.py",
+          "bytes": 6466,
+          "sha256": "20be2c4091a1805f938719253b66f8cf6f59e2ea029085c5acdc6f298735f446",
+          "git_blob_sha1": "93cd99890a28762a093e589d2f395515ad5613a2",
+          "mode": "100755"
+        },
+        {
+          "path": "models/model_utils.py",
+          "bytes": 5861,
+          "sha256": "ba19f50db10b743e5d53f73ecd99146c610011bd847a02c0794b6d5327b0d0b2",
+          "git_blob_sha1": "2cf40a4ac2f1ab3591e5c985c26e0ae6dcc0e5be",
+          "mode": "100755"
+        }
+      ],
+      "license_files": [],
+      "license_note": "No standalone license file was present in this pinned upstream snapshot."
+    }
+  }
+}

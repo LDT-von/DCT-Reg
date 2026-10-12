@@ -1,0 +1,34 @@
+# omic_sizes must come from the real pathway grouping and stable pathway order.
+# Run SurvPath and MCAT in separate processes: both upstream packages use models.
+backbone_name: survpath
+wsi_input_dim: 1536
+fusion: concat
+enabled: true
+num_classes: 4
+plugin_config:
+  wsi_dim: 256
+  omics_dim: 256
+  dim: 256
+  wsi_slots: 8
+  omics_slots: 8
+  stages: 4
+  heads: 4
+  event_layers: 2
+  slot_init_mode: deterministic
+  geometries: [cosine, euclidean, positive_dot]
+  plan_mode: learned
+  residual_init: 0.0
+  eps: 0.05
+  eps_start: 0.10
+  eps_anneal_epochs: 12
+  sinkhorn_iters: 50
+  projection_iters: 10000
+  projection_tol: 0.0001
+reconstruction_config:
+  mode: separate
+  self_weight: 0.05
+  cross_weight: 0.05
+  wsi_weight: 0.05
+  ramp_start: 2
+  ramp_epochs: 5
+  wsi_chunk_size: 256
