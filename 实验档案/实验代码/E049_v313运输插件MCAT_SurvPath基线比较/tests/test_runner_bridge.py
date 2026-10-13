@@ -52,8 +52,8 @@ def test_bridge_rejects_wrong_batch_and_group_width():
         bridge(x_wsi=torch.ones(2, 4, 1536), x_omic1=torch.ones(2, 3))
     with pytest.raises(ValueError, match="x_omic1"):
         bridge(x_wsi=torch.ones(1, 4, 1536), x_omic1=torch.ones(1, 4))
-    with pytest.raises(ValueError, match="zero-padded"):
-        bridge(x_wsi=torch.zeros(1, 4, 1536), x_omic1=torch.ones(1, 3))
+    with pytest.raises(ValueError, match="Empty WSI bag"):
+        bridge(x_wsi=torch.zeros(1, 0, 1536), x_omic1=torch.ones(1, 3))
 
 
 def test_existing_trainer_input_is_translated_to_native_contract():

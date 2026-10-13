@@ -28,8 +28,8 @@ class NativeRunnerBridge(nn.Module):
             raise ValueError("Native MCAT/SurvPath requires both observed modalities")
         if not isinstance(x_wsi, Tensor) or x_wsi.ndim != 3 or x_wsi.shape[0] != 1:
             raise ValueError("Native MCAT/SurvPath requires one WSI bag [1,N,D] per call")
-        if x_wsi.shape[1] == 0 or bool((x_wsi == 0).all(dim=-1).any()):
-            raise ValueError("Empty or zero-padded WSI tokens cannot enter the native adapter")
+        if x_wsi.shape[1] == 0:
+            raise ValueError("Empty WSI bag cannot enter the native adapter")
         if len(omics) != len(self.omic_sizes):
             raise ValueError(f"Expected {len(self.omic_sizes)} omic groups, got {sorted(omics)}")
         native = {"x_path": x_wsi.squeeze(0) if self.baseline == "mcat" else x_wsi,
