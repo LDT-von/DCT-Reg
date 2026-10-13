@@ -1001,7 +1001,8 @@ def run(args):
         if metrics is not None:
             all_metrics.append((fold, *metrics))
         if outer_test_metrics is not None:
-            all_outer_test_metrics.append((fold, *outer_test_metrics))
+            _outer = outer_test_metrics
+            all_outer_test_metrics.append((fold, _outer[1], _outer[2], _outer[3], _outer[4], _outer[5], _outer[6]))
         # 淇濆瓨 final 缁撴灉
         if results is not None:
             safe_pickle_dump(results, os.path.join(args.results_dir, f"split_{fold}_results_final.pkl"))
