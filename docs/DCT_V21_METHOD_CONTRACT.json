@@ -77,11 +77,13 @@
     "patient_training_executed": false,
     "patient_inference_executed": false,
     "measured_performance": null,
-    "pushed": false,
+    "pushed": true,
     "debug_report": "docs/DCT_V21_DEBUG_20261013.json",
     "debug_checks_passed": 165,
     "new_v21_checks_passed": 46,
     "v2_and_v313_regression_checks_passed": 119,
-    "local_code_ready": true
+    "local_code_ready": true,
+    "code_commit": "76f8f25acef8d58ed9405dc9897da0c351bf59bf",
+    "release_record": "docs/DCT_V21_RELEASE_20261013.json"
   }
 }

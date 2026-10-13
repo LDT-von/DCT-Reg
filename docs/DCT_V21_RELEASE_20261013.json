@@ -4,8 +4,8 @@
   "remote": "https://github.com/LDT-von/DCT-Reg.git",
   "branch": "main",
   "base_commit": "1931074f7923cd00a8a03cca79478aa94ccf9dd7",
-  "status": "isolated_checkout_validated_ready_for_push",
-  "pushed": false,
+  "status": "pushed_patient_unvalidated",
+  "pushed": true,
   "snapshot": "E:\\DCT-Reg\\docs\\history\\v21_publish_snapshot_20261013_214850",
   "publish_files": [
     "survot_rank/research/methods/dct_v21/__init__.py",
@@ -33,7 +33,7 @@
     "survot_rank/research/methods/dct_v21/objectives.py": "542c9829e4560cff9169b92fa584be4df4a50dc83b4ed31ddfea4841f95b52db",
     "configs/dct_v21_blca_uni2h.yaml": "f22124e8ad89aec393fd4bdded690fce5b117761425138bfa15bf3e89aa6bc3c",
     "tests/test_dct_v21_mechanisms.py": "59aaebc4e457deda2eecda5a15031734d3c217e8bc4e75e3b4ef9fffa6626f7d",
-    "docs/DCT_V21_METHOD_CONTRACT.json": "9c1068f75d0eba5fedb44bcb37c4ac3553074f59a9484d999e0d4e4784451bc8",
+    "docs/DCT_V21_METHOD_CONTRACT.json": "44de30c9fe36c8ef71fc62bc332518d86baec41d6f862c0c03dc1bbbea2f1c03",
     "docs/DCT_V21_DEBUG_20261013.json": "c21ac16c11a3d869af2acaa5ee3bb0e676bbb16d20fb6ab7e95ee6b891227967",
     "tests/audit_v21_math_20261013/audit_symmetry_math.py": "af8e8fc7a9b8a1931104f5cf1048a2e5b36c09c675a294eb16026813476f0de8",
     "tests/audit_v21_math_20261013/symmetry_math_results.json": "daae14f8c4b51ae875031a55f6239b9679ece6ef35c3cffb39d6b4e57d09c82a",
@@ -42,7 +42,7 @@
     "survot_rank/research/methods/catalog.py": "5dd5aeef54fda2690ee7ade45d9e23492a42a27f0a7a7572dc2997b7f6b235ad",
     "survot_rank/training/extended_args.py": "e6736804b1bf8d9efd4c826547d92eeebd26948b8e80ea8ab789a9aa508c4595",
     "survot_rank/training/train_runner.py": "c6a2d0e94875d4826f6b0a033bfe269ebddef2a29969d7ed1fda83e06044858b",
-    "AGENTS.md": "f36efccd4e247fa4d1a799c402eb56d35d4e651134b96bbcc72ac0c2148142f4"
+    "AGENTS.md": "acd21a859e2a43742ebed68ef09d6353f06ef191dd2fba986fcedb001baabcff"
   },
   "validation": {
     "passed": 165,
@@ -68,5 +68,8 @@
     "Positive auxiliary probe gain does not ensure deployed transport gain remains nonzero.",
     "Budget control is within each frozen auxiliary comparison, not across the entire training trajectory.",
     "Patient benefit, matching-specific benefit and plug-in practicality require matched real-patient experiments."
-  ]
+  ],
+  "code_commit": "76f8f25acef8d58ed9405dc9897da0c351bf59bf",
+  "verified_remote_code_commit": "76f8f25acef8d58ed9405dc9897da0c351bf59bf",
+  "code_url": "https://github.com/LDT-von/DCT-Reg/commit/76f8f25acef8d58ed9405dc9897da0c351bf59bf"
 }
