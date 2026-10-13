@@ -23,6 +23,10 @@ BOOLEAN_VALUE_KEYS = {
     "dct_v313_disable_self_reconstruction",
     "dct_v313_disable_cross_reconstruction",
 }
+# Only these new DCT v2 flags use argparse.BooleanOptionalAction. Preserve
+# explicit false values and emit their negative flag without changing legacy
+# store_true/value-boolean serialization.
+BOOLEAN_OPTIONAL_KEYS = {"dct_v2_mass_aware", "dct_v2_local_gating"}
 
 
 def load_config(path: str | Path) -> dict[str, Any]:
@@ -101,14 +105,16 @@ def config_to_argv(config: dict[str, Any]) -> list[str]:
     flat = flatten_config(config)
     argv: list[str] = []
     for key, value in flat.items():
-        if value is None or (value is False and key not in BOOLEAN_VALUE_KEYS):
+        if value is None or (value is False and key not in BOOLEAN_VALUE_KEYS | BOOLEAN_OPTIONAL_KEYS):
             continue
         if key in PATH_KEYS:
             value = resolve_project_path(value)
         elif key in ABS_OR_EXTERNAL_PATH_KEYS and str(value).startswith("."):
             value = resolve_project_path(value)
         flag = f"--{key}"
-        if isinstance(value, bool) and key in BOOLEAN_VALUE_KEYS:
+        if isinstance(value, bool) and key in BOOLEAN_OPTIONAL_KEYS:
+            argv.append(flag if value else f"--no-{key}")
+        elif isinstance(value, bool) and key in BOOLEAN_VALUE_KEYS:
             argv.extend([flag, str(value).lower()])
         elif value is True:
             argv.append(flag)

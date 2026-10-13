@@ -1,0 +1,88 @@
+{
+  "schema": "dct_v2_standalone_release_review_v1",
+  "date": "2026-10-13",
+  "scope": "independent DCT v2, six losses, no reconstruction or external host",
+  "base_commit": "2631b09063a52c0f2a2ec1a919961c153af4acca",
+  "target": "origin/main",
+  "status": "validated_for_push",
+  "checks": {
+    "passed": 119,
+    "standalone": 85,
+    "v313_regression": 34,
+    "exit_code": 0,
+    "seconds": 9.36,
+    "warnings": 63,
+    "warning_kind": "PyTorch nested-tensor optimization eligibility",
+    "command": "python -B -m pytest -q -p no:cacheprovider tests/test_dct_v2_standalone.py tests/test_dct_v2_config_integration.py tests/test_dct_v2_runtime_matrix.py tests/test_dct_v313_transport_reconstruction.py tests/test_v313_repaired_config.py tests/test_v313_three_reconstruction_decoders.py"
+  },
+  "review": {
+    "independent_read_only_review": "no blocking correctness finding",
+    "stress_matrix_cases": 24,
+    "cases_included_in_pytest_total": true
+  },
+  "clean_checkout_validation": true,
+  "cli_train_help_verified": true,
+  "model_logit_api_verified": true,
+  "existing_v313_models_not_modified": true,
+  "remote_existing_experiment_records_preserved": true,
+  "shared_trainer_delta": "only three lines in init_loss_function; older branches unchanged",
+  "dependency_normalized_sha256": {
+    "survot_rank/research/components/slot_attention.py": {
+      "local": "accb02aef9c8427123b4789403bc67dba171a23376114b364ad029ba62a9e77b",
+      "publish": "accb02aef9c8427123b4789403bc67dba171a23376114b364ad029ba62a9e77b"
+    },
+    "survot_rank/research/components/omics_encoder.py": {
+      "local": "8342b4b6b76d49a59b402e6ae7e92ee73255a94cb971bb07acd92e8364a6e3d4",
+      "publish": "8342b4b6b76d49a59b402e6ae7e92ee73255a94cb971bb07acd92e8364a6e3d4"
+    },
+    "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/diversity.py": {
+      "local": "27625209069ba6381f0b4ca7ed469d14eef75a12bf16dc6bb3ec20539ab6daf0",
+      "publish": "27625209069ba6381f0b4ca7ed469d14eef75a12bf16dc6bb3ec20539ab6daf0"
+    }
+  },
+  "source_normalized_sha256": {
+    "configs/dct_v2_blca_uni2h.yaml": "f2aeb8851e33eae1beb2379b9dc46e6e9c6fdb13e351dece60e0f45726dc0908",
+    "survot_rank/config.py": "cc0a945d52c13325009743970ead17f9db35b991da91fb07e1fd31e733d3fd33",
+    "survot_rank/research/methods/catalog.py": "e9564934c01716fb0ce70d7dc1d1ac227f6064926e0a0c66fb5324fc16c7744d",
+    "survot_rank/research/methods/dct_v2/__init__.py": "3c01ba782848817771d35966efc420d406235d7bb9f46db3f927f9397193f2aa",
+    "survot_rank/research/methods/dct_v2/config.py": "055c4a1293ae9e6c02a7bf06caf3f573b553b9b3b3747ceb36268d4f8a38d6a1",
+    "survot_rank/research/methods/dct_v2/losses.py": "c23fab443514eaef693266c604f52c43a3f4259a5c0637fd63efdeb1d5fc60f1",
+    "survot_rank/research/methods/dct_v2/model.py": "d66b530390bd4bc03cf44d78442a77a5a430e357b6b482f0885a7aebff2a0749",
+    "survot_rank/research/methods/dct_v2/transport.py": "16917421c90381260d4b1fd6fca8fb9984b982f9257ecf6c20b5c92b5357f886",
+    "survot_rank/training/extended_args.py": "4d01b5a004344bff0f3c3515da3fb38636ac6793995fb9705ece01adf2a38237",
+    "survot_rank/training/train_runner.py": "7a60db65cb318af6ae72db9d0d50006c75d9bf84d9134b99f812b8d152bf2792",
+    "tests/test_dct_v2_config_integration.py": "1d9202ed5406745918ea4a75611ae47894378645158a6676ff13dd2e2e2ec1d1",
+    "tests/test_dct_v2_runtime_matrix.py": "e750dee1fd9a27a3e5f7b07f82e5c4d6fd18017303df71c0441224ea397c8c03",
+    "tests/test_dct_v2_standalone.py": "c40937bbe1261a59073ac949f84c486fd08640accb596fe4f7234c0b77a5603c"
+  },
+  "release_paths": [
+    "AGENTS.md",
+    "configs/dct_v2_blca_uni2h.yaml",
+    "docs/DCT_V2_DELIVERY_CHECKS_20261013.json",
+    "docs/DCT_V2_METHOD_CONTRACT.json",
+    "docs/DCT_V2_RELEASE_REVIEW_20261013.json",
+    "docs/DCT_V2_STANDALONE.md",
+    "survot_rank/config.py",
+    "survot_rank/research/methods/catalog.py",
+    "survot_rank/research/methods/dct_v2/__init__.py",
+    "survot_rank/research/methods/dct_v2/config.py",
+    "survot_rank/research/methods/dct_v2/losses.py",
+    "survot_rank/research/methods/dct_v2/model.py",
+    "survot_rank/research/methods/dct_v2/transport.py",
+    "survot_rank/training/extended_args.py",
+    "survot_rank/training/train_runner.py",
+    "tests/test_dct_v2_config_integration.py",
+    "tests/test_dct_v2_runtime_matrix.py",
+    "tests/test_dct_v2_standalone.py"
+  ],
+  "patient_training_executed": false,
+  "patient_inference_executed": false,
+  "measured_performance": null,
+  "evidence_boundaries": [
+    "synthetic checks do not prove patient performance",
+    "relation hinge does not guarantee positive matching advantage",
+    "native deficit is a transport-budget quantity",
+    "exact slot collapse can still have zero diversity gradient"
+  ],
+  "post_test_changes": "EOF whitespace only in three files; AST unchanged; source digests refreshed"
+}

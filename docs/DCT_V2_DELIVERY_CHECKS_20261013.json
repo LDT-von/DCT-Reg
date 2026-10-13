@@ -1,0 +1,77 @@
+{
+  "schema": "dct_v2_standalone_delivery_audit_v1",
+  "date": "2026-10-13",
+  "requested_scope": "independent DCT v2, exactly six additive training terms",
+  "checks": {
+    "command": "python -B -m pytest -q -p no:cacheprovider tests/test_dct_v2_standalone.py tests/test_dct_v2_config_integration.py tests/test_dct_v313_transport_reconstruction.py tests/test_v313_repaired_config.py tests/test_v313_three_reconstruction_decoders.py",
+    "passed": 95,
+    "independent_v2": 61,
+    "v313_regression": 34,
+    "exit_code": 0,
+    "duration_seconds": 9.95,
+    "warnings": 39,
+    "warning_kind": "PyTorch transformer nested-tensor optimization eligibility"
+  },
+  "checked_behaviors": [
+    "six-term exact sum",
+    "stable cumulative NLL and one sigmoid",
+    "train-only censor KM left limit",
+    "rank-memory exclusion/reset",
+    "cost-only fixed-actual-marginal relation gradient",
+    "native auxiliary gradients on original slots/shared head",
+    "zero transport retains exact native prediction",
+    "absolute cost offset reduces UOT mass",
+    "padding and pathway masks",
+    "bf16 autocast finite backward",
+    "independent control no hypothetical topology loss",
+    "checkpoint schema/config/censor reference roundtrip",
+    "factory and shared criterion integration",
+    "old v313 regression"
+  ],
+  "historical_suite_limitation": {
+    "test": "tests/test_dct_v310_directional_regularized_transport.py",
+    "result": "collection fails before tests; pre-existing root import scripts.run_dct_v310_experiments refers to already archived script",
+    "original_command_exit_code": 1,
+    "old_test_not_modified": true
+  },
+  "protected_old_source_count": 41,
+  "protected_old_sources_unchanged": true,
+  "shared_trainer_changed_functions": [
+    "init_loss_function"
+  ],
+  "shared_integration_files": [
+    "catalog.py",
+    "extended_args.py",
+    "train_runner.py:init_loss_function",
+    "config.py:v2-only BooleanOptionalAction"
+  ],
+  "main_output": "raw logits; primary NLL supplied by shared trainer, sum/B once",
+  "no_external_host_network": true,
+  "no_reconstruction_decoder": true,
+  "patient_training_executed": false,
+  "patient_inference_executed": false,
+  "measured_c_index": null,
+  "committed_or_pushed": false,
+  "backup_dirs": [
+    "docs/history/20261013_before_dct_v2_standalone_contract",
+    "docs/history/20261013_before_dct_v2_standalone_integration",
+    "docs/history/20261013_before_dct_v2_standalone"
+  ],
+  "source_sha256": {
+    "survot_rank/research/methods/dct_v2/config.py": "055c4a1293ae9e6c02a7bf06caf3f573b553b9b3b3747ceb36268d4f8a38d6a1",
+    "survot_rank/research/methods/dct_v2/losses.py": "c23fab443514eaef693266c604f52c43a3f4259a5c0637fd63efdeb1d5fc60f1",
+    "survot_rank/research/methods/dct_v2/model.py": "d66b530390bd4bc03cf44d78442a77a5a430e357b6b482f0885a7aebff2a0749",
+    "survot_rank/research/methods/dct_v2/transport.py": "8d654df1c3dbf6fbd818f923188ef9a76498eed268ffe7ebb58e1a22f013f850",
+    "survot_rank/research/methods/dct_v2/__init__.py": "3c01ba782848817771d35966efc420d406235d7bb9f46db3f927f9397193f2aa",
+    "survot_rank/research/methods/catalog.py": "667f812b4a34e40e685a34152a270fad9cca4fa3a4f68b05afdf603b83dbf210",
+    "survot_rank/training/extended_args.py": "4d01b5a004344bff0f3c3515da3fb38636ac6793995fb9705ece01adf2a38237",
+    "survot_rank/training/train_runner.py": "1704059da3fd70124e996a11932b2384647b9faf2e2306c06e13ba68d4972981",
+    "survot_rank/config.py": "7453efbde02ff93d753f01beec85b4a8f4ac06a41605bcb59c4b5e3de88306e6",
+    "configs/dct_v2_blca_uni2h.yaml": "f2aeb8851e33eae1beb2379b9dc46e6e9c6fdb13e351dece60e0f45726dc0908",
+    "tests/test_dct_v2_standalone.py": "1fd65b4221af54d6a3b1fe44368947dc9c9b044fb3207385d90ca40d4b59861e",
+    "tests/test_dct_v2_config_integration.py": "31fabebd51bd0b9d62384bc087939e95943a86e87fcc717a1f301b181985ceb1",
+    "docs/DCT_V2_STANDALONE.md": "6d73fcb5dfe3e7da93a9c2a19ce5accde0ddeb0e719056eb42c82c4b85723ff8",
+    "docs/DCT_V2_METHOD_CONTRACT.json": "659b99b3de1b2df564b2acf152c11826335a0489c4612df746b33d90bc0f1425"
+  },
+  "snapshot_scope": "initial local delivery snapshot; latest clean-checkout release validation is in DCT_V2_RELEASE_REVIEW_20261013.json"
+}
