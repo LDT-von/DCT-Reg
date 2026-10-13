@@ -1,0 +1,35 @@
+{
+  "status": "metadata_checks_passed_no_training",
+  "planned_new_tasks": 30,
+  "planned_baseline_tasks": 0,
+  "cancers": [
+    "brca",
+    "coadread",
+    "ucec",
+    "hnsc",
+    "skcm",
+    "stad"
+  ],
+  "folds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "seed": 3,
+  "protocol": "legacy_val",
+  "split": "5fold_uni2h",
+  "drift_cases_rejected": 4,
+  "default_plan_launched_training": false,
+  "torch_imported": false,
+  "models_executed": false,
+  "files": {
+    "baseline_frozen.json": "dacaa7ea7358cf5ad5bb29855b1ed6f2e2a63b1b05fb94c09ee9559680da1d6e",
+    "README.md": "acb68d593ff8ff9193a8b17e8e166f7d6dde569e555c89154619a936d4c72728",
+    "run_three_decoders_six_cancers.py": "506bf0b3260f1d6bcb4a12568f1360ed9c328edf18b74a2b65671d231bc212a7",
+    "SERVER_PROMPT.txt": "04e1905801e1c22a94de8cff9f6cd75c2fe89ccc2a688eef4f6ed96383f4ad56",
+    "summarize_six_cancers.py": "f519b4fce79fa59869c3b3be0bdc277d800fab4b3d13d981a41f31c0c7699fc4"
+  },
+  "summary_rejects_missing_checkpoint_or_prediction": true
+}

@@ -1,0 +1,4 @@
+只训练新版独立三解码器：BRCA、COADREAD、UCEC、HNSC、SKCM、STAD各五折，共30折，seed3。原版不用跑，禁止扩大为两臂/三臂任务。
+先读取本目录README和baseline_frozen.json，核对已有原版配置与患者划分来源；固定legacy_val、5fold_uni2h、UNI2-h、30epoch、batch8。保留全部旧材料。
+先打印run_three_decoders_six_cancers.py的计划，确认只有30个three_decoders任务，无原版任务，再按用户授权执行--execute。遇数据/划分不一致先记录，不用测试集调参、不自行重跑原版。
+训练后读取完整30epoch各折曲线按既有口径取val_cindex最大值；汇总六癌种均值与逐折Δ，保留hash/日志/配置/预测/checkpoint。仅作为版本对照，不称独立测试或纯解码器因果证明。

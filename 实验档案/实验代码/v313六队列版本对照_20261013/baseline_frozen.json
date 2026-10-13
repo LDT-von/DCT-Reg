@@ -1,0 +1,85 @@
+{
+  "schema": "v313_frozen_six_cohort_baseline_v1",
+  "source": "paper/V313_TEN_CANCER_REPORTED_COMPARISON_INPUT.json",
+  "source_sha256": "d8aeeeb7f50e0ad85ecda8b1c1a1e6043e74119db2136444ec8170c18141c27a",
+  "supporting_record": "results/v313_evidence_v2/HANDOFF_20261006.md",
+  "protocol": "legacy_val",
+  "metric": "each fold maximum val_cindex within 30 epochs",
+  "encoder": "UNI2-h",
+  "which_splits": "5fold_uni2h",
+  "seed": 3,
+  "max_epochs": 30,
+  "batch_size": 8,
+  "num_patches": 2048,
+  "endpoint": "DSS",
+  "baseline_training_requested": false,
+  "raw_server_artifacts_reaudited": false,
+  "rows": {
+    "BRCA": {
+      "folds": [
+        0.7925,
+        0.6948,
+        0.5748,
+        0.6504,
+        0.6809
+      ],
+      "mean": 0.67868,
+      "sample_sd": 0.07875688541327673
+    },
+    "COADREAD": {
+      "folds": [
+        0.7742,
+        0.7365,
+        0.757,
+        0.7448,
+        0.6695
+      ],
+      "mean": 0.7364,
+      "sample_sd": 0.039998062453073906
+    },
+    "UCEC": {
+      "folds": [
+        0.806,
+        0.8532,
+        0.7654,
+        0.7511,
+        0.7884
+      ],
+      "mean": 0.79282,
+      "sample_sd": 0.039785072577538425
+    },
+    "HNSC": {
+      "folds": [
+        0.6963,
+        0.6118,
+        0.599,
+        0.645,
+        0.7389
+      ],
+      "mean": 0.6582,
+      "sample_sd": 0.05872805973297603
+    },
+    "SKCM": {
+      "folds": [
+        0.6442,
+        0.6199,
+        0.6706,
+        0.6434,
+        0.7488
+      ],
+      "mean": 0.66538,
+      "sample_sd": 0.049965708240752485
+    },
+    "STAD": {
+      "folds": [
+        0.6835,
+        0.6471,
+        0.5645,
+        0.6691,
+        0.6161
+      ],
+      "mean": 0.63606,
+      "sample_sd": 0.047390167756613824
+    }
+  }
+}
