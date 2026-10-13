@@ -4,7 +4,7 @@
   "scope": "independent DCT v2, six losses, no reconstruction or external host",
   "base_commit": "2631b09063a52c0f2a2ec1a919961c153af4acca",
   "target": "origin/main",
-  "status": "validated_for_push",
+  "status": "pushed_verified",
   "checks": {
     "passed": 119,
     "standalone": 85,
@@ -84,5 +84,16 @@
     "native deficit is a transport-budget quantity",
     "exact slot collapse can still have zero diversity gradient"
   ],
-  "post_test_changes": "EOF whitespace only in three files; AST unchanged; source digests refreshed"
+  "post_test_changes": "EOF whitespace only in three files; AST unchanged; source digests refreshed",
+  "source_commit": "6a414a93ca7fa9865cf4a31c8bf5169bf10ab9a1",
+  "remote_verification": {
+    "remote_ref": "6a414a93ca7fa9865cf4a31c8bf5169bf10ab9a1",
+    "publish_head": "6a414a93ca7fa9865cf4a31c8bf5169bf10ab9a1",
+    "tracking_ref": "6a414a93ca7fa9865cf4a31c8bf5169bf10ab9a1",
+    "release_paths_verified": 18,
+    "source_digests_verified": true,
+    "unrelated_primary_files_preserved": 31,
+    "primary_head_and_index_preserved": true,
+    "target": "origin/main"
+  }
 }

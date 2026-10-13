@@ -44,12 +44,15 @@
     "patient_training_executed": false,
     "patient_inference_executed": false,
     "measured_performance": null,
-    "committed_or_pushed": false,
+    "committed_or_pushed": true,
     "audit": "docs/DCT_V2_RELEASE_REVIEW_20261013.json",
     "git_delivery": {
-      "status": "validated_for_push",
+      "status": "pushed_verified",
+      "source_commit": "6a414a93ca7fa9865cf4a31c8bf5169bf10ab9a1",
+      "target": "origin/main",
       "remote_base": "2631b09063a52c0f2a2ec1a919961c153af4acca",
-      "target": "origin/main"
+      "remote_ref_at_source_verification": "6a414a93ca7fa9865cf4a31c8bf5169bf10ab9a1",
+      "verified_release_paths": 18
     }
   },
   "boundaries": [
