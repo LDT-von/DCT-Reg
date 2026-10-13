@@ -251,10 +251,11 @@ def execute_task(options):
     import pandas as pd
     output = Path(options.output_dir).resolve()
     output.mkdir(parents=True, exist_ok=True)
-    allowed = {"config.yaml"}
+    allowed = {"config.yaml", "train.log"}
     existing = {item.name for item in output.iterdir()}
-    if existing - allowed:
-        raise FileExistsError(f"Refusing existing task artifacts: {sorted(existing - allowed)}")
+    leftover = existing - allowed
+    if leftover:
+        raise FileExistsError(f"Refusing existing task artifacts: {sorted(leftover)}")
 
     if "CUDA_VISIBLE_DEVICES" not in os.environ:
         os.environ["CUDA_VISIBLE_DEVICES"] = options.gpu
