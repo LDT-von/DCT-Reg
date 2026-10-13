@@ -1,0 +1,92 @@
+{
+  "schema": "dct_v21_local_debug_delivery_v1",
+  "created_at": "2026-10-13T20:54:38.037284+08:00",
+  "scope": "isolated independent DCT v2.1; same encoders, slots, transport and existing heads; six training terms",
+  "model_key": "dct_v21",
+  "alias": "dct_v2_1",
+  "checkpoint_schema": "dct_v21_standalone_v1",
+  "status": "local_implemented_debug_passed_not_pushed_patient_unvalidated",
+  "model_param_names_and_count_equal_to_v2_for_identical_config": true,
+  "new_neural_modules": false,
+  "reconstruction": false,
+  "checks": {
+    "passed": 165,
+    "new_v21": 46,
+    "older_v2_and_v313": 119,
+    "exit_code": 0,
+    "seconds": 21.43,
+    "warnings": 77,
+    "warning_kind": "PyTorch nested-tensor optimization eligibility",
+    "command_argv": [
+      "python",
+      "-B",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "tests/test_dct_v21_mechanisms.py",
+      "tests/test_dct_v2_standalone.py",
+      "tests/test_dct_v2_config_integration.py",
+      "tests/test_dct_v2_runtime_matrix.py",
+      "tests/test_dct_v313_transport_reconstruction.py",
+      "tests/test_v313_repaired_config.py",
+      "tests/test_v313_three_reconstruction_decoders.py"
+    ]
+  },
+  "independent_math_audit": "tests/audit_v21_math_20261013/symmetry_math_results.json",
+  "actual_factory_and_trainer_checks": "docs/history/20261013_before_dct_v21_integration/runtime_integration_checks.json",
+  "mechanism_witnesses": {
+    "uniform_budget_risk_response": {
+      "slots_logits": [
+        -1,
+        1
+      ],
+      "diagonal": 0.5800256583859739,
+      "antidiagonal": -0.5800256583859739,
+      "independent": 0,
+      "actual_mass": 1,
+      "claim": "same actual marginals but distinct matching responses; analytic witness checked against implementation"
+    },
+    "quality_scale": "residual scales linearly with actual mass; no additional local ratio or total mass multiplier",
+    "zero_deployment_gain": "fixed positive auxiliary probe retains cost-only gradient on nondegenerate slots; actual deployed gain remains free",
+    "equal_plan_comparison": "softplus derivative in gap is 1/2 at equality; tested nonzero projected cost gradient",
+    "exact_slot_collision": "true L2-margin selected generalized gradient is nonzero and bounded; direct slot update lowers loss",
+    "upstream_collision": "identical prototypes with nondegenerate tokens receive separating gradient; identical tokens are retained as a counterexample to universal escape",
+    "degenerate_support": "zero/tiny mass or single supported row/column imposes zero relation penalty",
+    "freeze_and_recovery": "only cost network receives relation gradient, actual budgets and heads are fixed; mixed train/eval flags restored after deliberate solver failure"
+  },
+  "v2_source_files_unchanged": {
+    "survot_rank/research/methods/dct_v2/__init__.py": "3c01ba782848817771d35966efc420d406235d7bb9f46db3f927f9397193f2aa",
+    "survot_rank/research/methods/dct_v2/config.py": "055c4a1293ae9e6c02a7bf06caf3f573b553b9b3b3747ceb36268d4f8a38d6a1",
+    "survot_rank/research/methods/dct_v2/losses.py": "c23fab443514eaef693266c604f52c43a3f4259a5c0637fd63efdeb1d5fc60f1",
+    "survot_rank/research/methods/dct_v2/model.py": "d66b530390bd4bc03cf44d78442a77a5a430e357b6b482f0885a7aebff2a0749",
+    "survot_rank/research/methods/dct_v2/transport.py": "16917421c90381260d4b1fd6fca8fb9984b982f9257ecf6c20b5c92b5357f886"
+  },
+  "v2_and_v313_diversity_dependency_unchanged": true,
+  "shared_integration_backups": "docs/history/20261013_before_dct_v21_integration/",
+  "agents_contract_backup": "docs/history/20261013_before_dct_v21_contract/AGENTS.md",
+  "source_sha256": {
+    "survot_rank/research/methods/dct_v21/__init__.py": "b6c642532706f2e0b3c91f2c8c19f3b5d4e6270392bfb3845a8bf0faca9248dc",
+    "survot_rank/research/methods/dct_v21/config.py": "55acd4d81552365882bc14e1bb9a09e565853d95c4f9656beddcbd3441b2ad81",
+    "survot_rank/research/methods/dct_v21/model.py": "ebcbe13a7ef2bab2f6a4ed6ba36846ae30a0e108f0326e6eab8aaeeeaeb58503",
+    "survot_rank/research/methods/dct_v21/objectives.py": "542c9829e4560cff9169b92fa584be4df4a50dc83b4ed31ddfea4841f95b52db",
+    "tests/test_dct_v21_mechanisms.py": "59aaebc4e457deda2eecda5a15031734d3c217e8bc4e75e3b4ef9fffa6626f7d",
+    "configs/dct_v21_blca_uni2h.yaml": "f22124e8ad89aec393fd4bdded690fce5b117761425138bfa15bf3e89aa6bc3c",
+    "docs/DCT_V21_METHOD_CONTRACT.json": "07a16433bfceca1a25e7c5754c49374501d88aa932fdf488eb1c699e710096a5"
+  },
+  "fix_applied_during_debug": "new model relative imports failed dynamic factory; corrected only new model to absolute imports and verified actual construction",
+  "pushed": false,
+  "patient_training_executed": false,
+  "patient_inference_executed": false,
+  "measured_c_index": null,
+  "limitations": [
+    "Repairs specific mechanical degeneracies, not a proof of patient improvement or globally novel mathematics.",
+    "Auxiliary probe is not deployed prediction; it does not guarantee deployed transport gain remains nonzero.",
+    "Centered risk coactivation cannot distinguish all couplings and vanishes with constant response on one modality.",
+    "Chosen exact-collision generalized gradient can still be blocked by an upstream zero or identical Jacobian.",
+    "Budgets are frozen within each auxiliary comparison, not causally fixed across the whole optimization trajectory."
+  ],
+  "user_run_command": "python -m survot_rank.cli train --config configs/dct_v21_blca_uni2h.yaml --set results_dir=/data1/DCT-Reg/results/dct_v21/blca_full_run1",
+  "user_run_boundary": "Run only after copying the local new version to the server and verifying existing derived outer-test splits and feature paths; command not executed by this audit."
+}

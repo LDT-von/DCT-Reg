@@ -1,0 +1,87 @@
+{
+  "schema": "dct_v21_standalone_contract_v1",
+  "as_of": "2026-10-13",
+  "version": "dct_v21",
+  "display_version": "DCT v2.1",
+  "alias": "dct_v2_1",
+  "authorization": "用户要求解决 v2 三个机制局限；沿用任何模型改动另建版本的要求。",
+  "canonical_question": "在只有患者级病理—组学配对、缺少局部对应标注且两模态可能只部分对应的条件下，如何学习服务生存预测的跨模态匹配，并保留未交换的原生信息？",
+  "canonical_idea": "保留 DCT 自有编码、语义槽、分阶段多几何 KL-UOT 和原生预测路径；用已有两模态每槽生存头计算实际计划相对同实际边际独立计划的风险共激活增量，保留实际运输量。关系项在固定实际预算、冻结读取参数和固定正探针增益下进行平滑生存损失比较。特征槽多样性采用真实欧氏距离 hinge，并在精确碰撞处选择确定的合法次梯度。",
+  "source": "survot_rank/research/methods/dct_v21/",
+  "configuration": "configs/dct_v21_blca_uni2h.yaml",
+  "checkpoint_schema": "dct_v21_standalone_v1",
+  "base_version_retained": "dct_v2_standalone_v1",
+  "loss_terms": [
+    "global_nll",
+    "ipcw_rank",
+    "per_slot_nll",
+    "slot_diversity",
+    "relation",
+    "native"
+  ],
+  "initial_weights": {
+    "global_nll": 1.0,
+    "ipcw_rank": 0.1,
+    "per_slot_nll": 0.05,
+    "slot_diversity": 0.1,
+    "relation": 0.05,
+    "native": 0.05
+  },
+  "reconstruction_branches": false,
+  "external_survival_host": false,
+  "new_neural_modules": false,
+  "new_trainable_parameters": false,
+  "definitions": {
+    "same_budget_independent": "Q=r c^T/m, where r=T1, c=T^T1, m=sum(T); explicit zero plan at m=0",
+    "local_readout": "R_t=sum_ij (T_ij-Q_ij)*tanh(z_w_i,t)*tanh(z_o_j,t), per geometry then mean; no additional q_row/q_col or mass multipliers",
+    "main_prediction": "existing event head on native + tanh(gain)*mass*event features; add tanh(gain)*stage-weighted R to raw logits",
+    "relation": "mean_i sg(w_i)*temperature*softplus((NLL_i(P;g_probe)-sg(NLL_i(Q;g_probe)))/temperature); w_i is detached actual mass on geometries with matching freedom",
+    "relation_defaults": {
+      "temperature": 0.05,
+      "probe_gain": 0.1,
+      "positive_margin": 0
+    },
+    "separation": "mean_pairs relu(d_min-||s_i-s_j||_2); ordinary norm derivative at nonzero differences; exact-collision norm subgradient chosen using fixed distinct slot codes",
+    "diversity": "hazard variance band + existing pair_weight times collision-safe feature separation",
+    "no_forward_anchor": "fixed codes only select the exact-collision backward direction and never enter forward representations or loss values"
+  },
+  "ablations": {
+    "dct_v21_local_readout": [
+      "centered_pair",
+      "legacy_mean",
+      "none"
+    ],
+    "dct_v21_relation_objective": [
+      "contrast_probe",
+      "legacy_hinge"
+    ],
+    "dct_v21_diversity_objective": [
+      "collision_distance",
+      "legacy_squared"
+    ],
+    "same_budget_matching": "use dct_v2_plan_mode=independent and dct_v2_lambda_relation=0 in both retrained arms; relation contribution is tested separately"
+  },
+  "boundaries": [
+    "修正三个明确的机械性退化不等于保证患者提分或生物学对应正确。",
+    "centered pair读取可区分部分同边际拓扑，不能区分所有计划；一侧风险响应恒定或单行/列支持时没有该项信号。",
+    "共激活是已有生存头的响应统计，不是原型或病理-通路关系的生物学真实性证明。",
+    "固定正增益是辅助探针，不是部署增益；不能宣称实际运输分支必然被使用。",
+    "冻结预算只隔离本次辅助比较的预算梯度；更新成本后下一次事实运输的预算仍可能改变，不宣称跨训练因果隔离。",
+    "精确碰撞次梯度消除损失对特征槽的零梯度，但上游退化雅可比或完全相同输入仍可阻断逃离，不能保证全局防坍缩。",
+    "零点次梯度是可复现的对称性破缺约定，不赋予槽索引生物学含义；不在零点声称通过普通有限差分gradcheck。",
+    "标准KL-UOT、协方差统计、softplus排序与范数次梯度是已有数学工具；本版本不宣称这些工具首次提出。",
+    "v2和v3.13源码/历史配置/结果保留；v2.1不能沿用0.7238或任何历史分数。",
+    "真实患者训练仍由用户启动；本轮只进行数学、模拟输入、接口和回归检查。"
+  ],
+  "evidence": {
+    "patient_training_executed": false,
+    "patient_inference_executed": false,
+    "measured_performance": null,
+    "pushed": false,
+    "debug_report": "docs/DCT_V21_DEBUG_20261013.json",
+    "debug_checks_passed": 165,
+    "new_v21_checks_passed": 46,
+    "v2_and_v313_regression_checks_passed": 119,
+    "local_code_ready": true
+  }
+}

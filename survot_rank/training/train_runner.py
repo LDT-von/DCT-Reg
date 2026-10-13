@@ -176,7 +176,7 @@ def init_model_for_method(args, dataset_factory, *, write_audit=True):
 def init_loss_function(args):
     if args.bag_loss == 'nll_surv':
         method = getattr(args, "survot_method", None) or getattr(args, "newslot_method", None)
-        if method in {"dct_v2", "dct_v2_standalone"}:
+        if method in {"dct_v2", "dct_v2_standalone", "dct_v21", "dct_v2_1"}:
             from survot_rank.research.methods.dct_v2.losses import StableNLLSurvLoss
             return StableNLLSurvLoss(alpha=args.alpha_surv)
         if method in {"dct_v315", "dct_v315_residual_transport"}:

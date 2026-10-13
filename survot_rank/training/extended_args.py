@@ -90,6 +90,12 @@ def build_base_parser() -> argparse.ArgumentParser:
     parser.add_argument("--dct_v2_projection_iters", type=int, default=1000)
     parser.add_argument("--dct_v2_projection_tolerance", type=float, default=1e-6)
     parser.add_argument("--dct_v2_min_plan_mass", type=float, default=1e-8)
+    # Independent v2.1 keeps the v2 recipe and exposes three mechanism controls.
+    parser.add_argument("--dct_v21_local_readout", choices=["centered_pair", "legacy_mean", "none"], default="centered_pair")
+    parser.add_argument("--dct_v21_relation_objective", choices=["contrast_probe", "legacy_hinge"], default="contrast_probe")
+    parser.add_argument("--dct_v21_relation_temperature", type=float, default=0.05)
+    parser.add_argument("--dct_v21_relation_probe_gain", type=float, default=0.10)
+    parser.add_argument("--dct_v21_diversity_objective", choices=["collision_distance", "legacy_squared"], default="collision_distance")
     # v3.11 / v3.13 ablation knobs (read by dct_v311_slot_interpretable model via getattr).
     parser.add_argument("--dct_v311_lambda_slot_nll", type=float, default=0.05)
     parser.add_argument("--dct_v311_lambda_slot_diversity", type=float, default=0.10)

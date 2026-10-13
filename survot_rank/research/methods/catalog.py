@@ -84,6 +84,15 @@ METHOD_SPECS = (
         aliases=("dct_v2_standalone",),
     ),
     MethodSpec(
+        "dct_v21",
+        "DCT v2.1 Standalone Partial-Correspondence Transport [CANDIDATE]",
+        "dct",
+        "candidate",
+        "dct_v21",
+        "DCTV21",
+        aliases=("dct_v2_1",),
+    ),
+    MethodSpec(
         PRIMARY_METHOD,
         "DCT v3.10 Directionally Regularized Transport (DCT-Reg)",
         "dct",
