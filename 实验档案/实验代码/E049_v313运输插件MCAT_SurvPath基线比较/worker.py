@@ -243,6 +243,13 @@ def common_recipe(args, baseline, arm):
     def numpy_value(value):
         if type(value).__module__.startswith("numpy") and hasattr(value, "tolist"):
             return value.tolist()
+        import torch
+        if isinstance(value, torch.device):
+            return str(value)
+        if isinstance(value, (set, frozenset, tuple)):
+            return list(value)
+        if hasattr(value, "__class__") and value.__class__.__name__ == "PosixPath":
+            return str(value)
         raise TypeError(f"Unserializable recipe argument: {type(value).__name__}")
     return json.loads(json.dumps(result, allow_nan=False, default=numpy_value))
 
