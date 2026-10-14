@@ -101,5 +101,88 @@
 ## F. AGENTS.md 保护红线（操作前再次确认）
 
 - 任何删除 / 移动 / 覆盖档案前必须得到用户对**具体材料名**的明确授权。
-- 主档已登记：E045–E050。新实验从 **E051** 起编号，不复用。
+- 主档已登记：E045–E050。下一项实验从 **E051** 起编号，不复用。
 - 失败 / 撤回 / 旧图版本保留状态和来源。
+
+---
+
+## E051 计划：BLCA 诊断 + 运输×重建因子分解（2026-10-14 下午用户确认）
+
+### 背景
+
+E049（BLCA 4 臂 20 任务）结果：MCAT native 0.6686，MCAT learned_three_decoders 0.6662（−0.0024），SurvPath native 0.6209，SurvPath learned_three_decoders 0.6267（+0.0058）。插件在 MCAT 上中性，在 SurvPath 上弱正，但插件组**同时含运输和三重建**，无法拆分各自贡献。E049 native 臂实为 transport=ON / reconstruction=OFF，非真基线。内部参考线：+0.01 有投入价值，+0.02 跨癌种骨干稳定出现才更有说服力。正式判断看**同患者配对分数差及不确定性**（参 PMC4314453）。
+
+### 阶段 1：BLCA 诊断（用户接管）
+
+**目标**：确认 (a) 补零是否影响训练，(b) 训练后运输写回是否真正起作用。
+
+- 脚本：`实验档案/实验代码/E049_v313运输插件MCAT_SurvPath基线比较/evidence.py`（服务器端，等效于 Windows 的 `audit_readonly.py`）
+- 运行位置：内网（服务器）
+- 判定：
+  - 补零影响输入 → 修复后**两臂一起重跑**原生与插件组
+  - 补零不影响 → 不为该修复单独重复旧实验
+
+### 阶段 2：BLCA 因子分解（2×2 factorial）
+
+**目标**：拆解"运输本身"和"三重建辅助训练"的贡献。
+
+**因子设计**：
+
+| Arm ID | transport | reconstruction | 对应配置键 | 描述 |
+|---|---|---|---|---|
+| A | OFF | OFF | `cross_mode=direct`, `reconstruction=false` | **真基线**：无运输、无重建 |
+| B | ON | OFF | `cross_mode=transport`, `reconstruction=false` | 运输仅（当前 E049 native ≈ B，但 native 用的是 transport=ON/recon=OFF，verify 后用） |
+| C | OFF | ON | `cross_mode=direct`, `reconstruction=true` | 重建仅（关闭运输后三重建，看重建独立贡献） |
+| D | ON | ON | `cross_mode=transport`, `reconstruction=true` | 运输+重建（当前 E049 learned_three_decoders） |
+
+- backbone：MCAT、SurvPath（各 4 arm × 5 fold × seed3 = **40 task**）
+- 协议：outer_test，划分 `5fold_uni2h_outer_test_seed3`，选择规则 `best-validation (legacy_val)`
+- 参数选择在训练/验证折内完成，外层测试折仅用于最终评价
+- MCAT native arm = Arm B（`cross_mode=transport`），来自 E049 数据可复用；Arm A（真基线）需要新训练
+- SurvPath 同理
+
+**关键比较**：
+- B − A = 运输主效应（控制重建）
+- C − A = 重建主效应（控制运输）
+- D − C = 运输在有重建时的增量（条件效应）
+- D − B = 重建在有运输时的增量（条件效应）
+- D − A = 总效应
+
+**提分参考线**：
+- +0.01：值得继续投入
+- +0.02 × 多个癌种 × 多个骨干：更有说服力
+- 正式判断基于**同患者配对分数差及不确定性**（非 fold 均值的独立比较）
+
+### 阶段 3：扩癌种（BLCA 因子分解稳定后）
+
+- 选 2–3 个预先选定、数据完整的癌种
+- 仍用 MCAT + SurvPath、相同划分与选择规则
+- 每个癌种看配对差值
+- 不做 10 癌种扫全量，优先质量而非数量
+- 跨癌种参考：不同癌种 C-index 受病例构成影响，**绝对分数不可横比**，只看同患者差值方向
+
+### 阶段 4：结构不同的第三骨干（条件触发）
+
+- 前提：跨癌种出现稳定收益（+0.01+，多个骨干一致）
+- 目的：验证"换骨干仍有效"
+- 现在不增加，避免放大任务量、仍回答不了运输是否带来收益
+
+### 现有资产（可复用）
+
+- E049 20 task 产物（`results/e049_blca/outer_test/blca/{mcat,survpath}/{native,learned_three_decoders}/fold{0..4}/seed3/`）：含 `completion.json`、`outer_test_predictions.pkl`、`label_audit.json`、`model_audit.json`、`model_best_s*.pth`（~46 MB）、`epoch_curve_fold*.csv`（本地）
+- `实验档案/实验代码/E049_v313运输插件MCAT_SurvPath基线比较/evidence.py`：只读诊断入口，已在 git
+- `paper/V313_TEN_CANCER_REPORTED_COMPARISON_INPUT.json`：原始论文 BLCA 指标（MCAT 0.688 ± 0.024，SurvPath 0.666 ± 0.034，DCT v3.13 0.724 ± 0.047，仅作跨协议参考）
+- `survot_rank/plugins/transport/plugin.py` + `adapters.py`：已通过 64 项检查，commit 26a6fff
+
+### 配置键参考
+
+| 参数 | 值 | 说明 |
+|---|---|---|
+| `dct_v313_cross_mode` | `transport` | 启用 DCT 运输 |
+| `dct_v313_cross_mode` | `direct` | 关闭运输（真基线） |
+| `dct_v313_reconstruction` | `true` / `false` | 启用/关闭三重建分支 |
+| `dct_v313_omics_decoder_mode` | `separate` | 三解码器（separate / shared） |
+
+### AGENTS.md 修改历史
+
+- 2026-10-14 下午：E049 完成 BLCA outer_test 20 task；用户判断模块化代码层面成立，提分未成立；建立 E051 计划，阶段 1 诊断由用户接管。
