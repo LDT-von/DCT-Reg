@@ -246,6 +246,47 @@ def _padding(tasks: list[dict]) -> dict:
     }
 
 
+def _source_manifest(task: dict) -> dict[str, str]:
+    """Compare repository-relative source names without printing server paths."""
+    manifest = {}
+    for entry in task["source_files"]:
+        parts = Path(entry["path"]).parts
+        for marker in ("survot_rank", "实验档案"):
+            if marker in parts:
+                name = "/".join(parts[parts.index(marker):])
+                break
+        else:
+            name = Path(entry["path"]).name
+        if name in manifest:
+            raise ValueError("Duplicate source name in task receipt")
+        manifest[name] = entry["sha256"]
+    return manifest
+
+
+def _pair_differences(native: dict, plugin: dict) -> dict:
+    """Name mismatched receipt fields; never include patient labels or values."""
+    differences = {}
+    for field in ("split_file", "config_file"):
+        if native[field]["sha256"] != plugin[field]["sha256"]:
+            differences[field + "_sha256"] = True
+    if native.get("training_label_audit") != plugin.get("training_label_audit"):
+        differences["training_label_audit"] = True
+    native_recipe, plugin_recipe = dict(native["recipe"]), dict(plugin["recipe"])
+    native_recipe.pop("e049_arm", None)
+    plugin_recipe.pop("e049_arm", None)
+    recipe_keys = sorted(key for key in native_recipe.keys() | plugin_recipe.keys()
+                         if native_recipe.get(key) != plugin_recipe.get(key))
+    if recipe_keys:
+        differences["recipe_keys"] = recipe_keys
+    native_sources, plugin_sources = _source_manifest(native), _source_manifest(plugin)
+    source_names = sorted(name for name in native_sources.keys() | plugin_sources.keys()
+                          if native_sources.get(name) != plugin_sources.get(name))
+    if source_names:
+        differences["source_files"] = {"count": len(source_names),
+                                       "examples": source_names[:20]}
+    return differences
+
+
 def audit(batch_dir: Path) -> dict:
     records, tasks, errors = [], [], []
     for path in sorted(batch_dir.rglob("completion.json")):
@@ -270,7 +311,7 @@ def audit(batch_dir: Path) -> dict:
                        "missing": len(expected - set(actual)),
                        "unexpected": len(set(actual) - expected),
                        "duplicates": len(actual) - len(set(actual))})
-    pairs = []
+    pairs, unverified_pairs = [], []
     grouped = {}
     for row, task in zip(records, tasks):
         arms = grouped.setdefault((row["baseline"], row["fold"], row["seed"]), {})
@@ -281,22 +322,16 @@ def audit(batch_dir: Path) -> dict:
         if {"native", "learned_three_decoders"} <= arms.keys():
             native, native_task = arms["native"]
             plugin, plugin_task = arms["learned_three_decoders"]
-            native_recipe = dict(native_task["recipe"])
-            plugin_recipe = dict(plugin_task["recipe"])
-            native_recipe.pop("e049_arm", None)
-            plugin_recipe.pop("e049_arm", None)
-            if (native_task["split_file"]["sha256"] != plugin_task["split_file"]["sha256"]
-                    or native_task["config_file"]["sha256"] != plugin_task["config_file"]["sha256"]
-                    or {(entry["path"], entry["sha256"])
-                        for entry in native_task["source_files"]}
-                    != {(entry["path"], entry["sha256"])
-                        for entry in plugin_task["source_files"]}
-                    or native_task.get("training_label_audit") != plugin_task.get("training_label_audit")
-                    or native_recipe != plugin_recipe):
-                errors.append({"error": f"Paired recipe/split mismatch: {baseline} fold{fold} seed{seed}"})
+            delta = plugin["outer_test_cindex"] - native["outer_test_cindex"]
+            differences = _pair_differences(native_task, plugin_task)
+            if differences:
+                errors.append({"error": f"Paired recipe/split mismatch: {baseline} fold{fold} seed{seed}",
+                               "differences": differences})
+                unverified_pairs.append({"baseline": baseline, "fold": fold, "seed": seed,
+                                         "raw_delta": delta, "differences": differences})
                 continue
             pairs.append({"baseline": baseline, "fold": fold, "seed": seed,
-                          "delta": plugin["outer_test_cindex"] - native["outer_test_cindex"]})
+                          "delta": delta})
     if len(pairs) != 10:
         errors.append({"error": f"Expected 10 native/full pairs; found {len(pairs)}"})
     mean_deltas = {}
@@ -313,7 +348,8 @@ def audit(batch_dir: Path) -> dict:
                        "error_type": type(error).__name__})
     return {"schema": "e049_plugin_readonly_audit_v1",
             "metric": "Harrell C-index (censor=0 denotes event)", "tasks": records,
-            "paired_deltas": pairs, "mean_deltas": mean_deltas,
+            "paired_deltas": pairs, "unverified_pair_deltas": unverified_pairs,
+            "mean_deltas": mean_deltas,
             "padding": padding, "errors": errors}
 
 

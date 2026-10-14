@@ -151,7 +151,28 @@ def test_pair_rejects_different_source_snapshot(tmp_path, monkeypatch):
             task["source_files"][0]["sha256"] = "changed-source"
     result = audit(tmp_path)
     assert len(result["paired_deltas"]) == 9
-    assert any("Paired recipe/split mismatch" in error["error"] for error in result["errors"])
+    mismatch = next(error for error in result["errors"]
+                    if "Paired recipe/split mismatch: mcat fold0" in error["error"])
+    assert mismatch["differences"]["source_files"] == {
+        "count": 1, "examples": ["worker.py"]}
+    assert len(result["unverified_pair_deltas"]) == 1
+    unverified = result["unverified_pair_deltas"][0]
+    assert (unverified["baseline"], unverified["fold"], unverified["seed"]) == ("mcat", 0, 3)
+    assert round(unverified["raw_delta"], 4) == 0.01
+    assert unverified["differences"] == mismatch["differences"]
+
+
+def test_pair_reports_exact_recipe_and_split_mismatch_fields(tmp_path, monkeypatch):
+    tasks = _synthetic_batch(tmp_path, monkeypatch)
+    for path, (_, task) in tasks.items():
+        if path.parts[-4:-2] == ("mcat", "learned_three_decoders") and path.parts[-2] == "fold0":
+            task["recipe"]["max_epochs"] = 20
+            task["split_file"]["sha256"] = "other-split"
+    result = audit(tmp_path)
+    mismatch = next(error for error in result["errors"]
+                    if "Paired recipe/split mismatch: mcat fold0" in error["error"])
+    assert mismatch["differences"] == {
+        "split_file_sha256": True, "recipe_keys": ["max_epochs"]}
 
 
 def test_task_errors_do_not_echo_patient_ids(tmp_path, monkeypatch):
