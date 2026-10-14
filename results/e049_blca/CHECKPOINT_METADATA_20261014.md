@@ -14,34 +14,34 @@ Files NOT pushed (kept local):
 
 ---
 ## 1. Per-task summary (20 tasks)
-| task_id | completion_score | n_patients | label_audit_sha | checkpoint_sha | prediction_sha | ckpt_size_MB | ckpt_sha256 |
-|---|---|---|---|---|---|---|---|
-| `e049_blca_outer_test/mcat/native/fold0/seed3` | 0.6466 | 76 | n/a | n/a | n/a | 37.6 | 7132d94a0c83 |
-| `e049_blca_outer_test/mcat/native/fold1/seed3` | 0.6378 | 76 | n/a | n/a | n/a | 37.6 | 7b29ca8ed86f |
-| `e049_blca_outer_test/mcat/native/fold2/seed3` | 0.5996 | 76 | n/a | n/a | n/a | 37.6 | e716dd178363 |
-| `e049_blca_outer_test/mcat/native/fold3/seed3` | 0.7147 | 76 | n/a | n/a | n/a | 37.6 | c2d60baab2b6 |
-| `e049_blca_outer_test/mcat/native/fold4/seed3` | 0.7444 | 76 | n/a | n/a | n/a | 37.6 | d9b5144265c0 |
-| `e049_blca_outer_test/mcat/learned_three_decoders/fold0/seed3` | 0.6500 | 76 | n/a | n/a | n/a | 43.9 | 4a54c026626c |
-| `e049_blca_outer_test/mcat/learned_three_decoders/fold1/seed3` | 0.6300 | 76 | n/a | n/a | n/a | 43.9 | 81b645b3060b |
-| `e049_blca_outer_test/mcat/learned_three_decoders/fold2/seed3` | 0.6052 | 76 | n/a | n/a | n/a | 43.9 | 5f7ffdfe630c |
-| `e049_blca_outer_test/mcat/learned_three_decoders/fold3/seed3` | 0.6962 | 76 | n/a | n/a | n/a | 43.9 | 005ad4415d88 |
-| `e049_blca_outer_test/mcat/learned_three_decoders/fold4/seed3` | 0.7496 | 76 | n/a | n/a | n/a | 43.9 | efed166a55f8 |
-| `e049_blca_outer_test/survpath/native/fold0/seed3` | 0.5786 | 76 | n/a | n/a | n/a | 115.1 | dfa3d9ed47c5 |
-| `e049_blca_outer_test/survpath/native/fold1/seed3` | 0.5700 | 76 | n/a | n/a | n/a | 115.1 | ff6954e3185c |
-| `e049_blca_outer_test/survpath/native/fold2/seed3` | 0.6043 | 76 | n/a | n/a | n/a | 115.1 | ec74589a18fa |
-| `e049_blca_outer_test/survpath/native/fold3/seed3` | 0.6936 | 76 | n/a | n/a | n/a | 115.1 | 23762448364d |
-| `e049_blca_outer_test/survpath/native/fold4/seed3` | 0.6581 | 76 | n/a | n/a | n/a | 115.1 | 88b84398176a |
-| `e049_blca_outer_test/survpath/learned_three_decoders/fold0/seed3` | 0.6075 | 76 | n/a | n/a | n/a | 122.0 | 46a744f62464 |
-| `e049_blca_outer_test/survpath/learned_three_decoders/fold1/seed3` | 0.5639 | 76 | n/a | n/a | n/a | 122.0 | 08d9131567d5 |
-| `e049_blca_outer_test/survpath/learned_three_decoders/fold2/seed3` | 0.6165 | 76 | n/a | n/a | n/a | 122.0 | 5d62ed4836f1 |
-| `e049_blca_outer_test/survpath/learned_three_decoders/fold3/seed3` | 0.7164 | 76 | n/a | n/a | n/a | 122.0 | d230cca46fa2 |
-| `e049_blca_outer_test/survpath/learned_three_decoders/fold4/seed3` | 0.6291 | 76 | n/a | n/a | n/a | 122.0 | c4ea1a54e267 |
+| task_id | completion_score | n_patients | ckpt_size_MB | ckpt_sha256_prefix |
+|---|---:|---:|---:|---|
+| `e049_blca_outer_test/mcat/native/fold0/seed3` | 0.6466 | 76 | 37.6 | 7132d94a0c83 |
+| `e049_blca_outer_test/mcat/native/fold1/seed3` | 0.6378 | 76 | 37.6 | 7b29ca8ed86f |
+| `e049_blca_outer_test/mcat/native/fold2/seed3` | 0.5996 | 76 | 37.6 | e716dd178363 |
+| `e049_blca_outer_test/mcat/native/fold3/seed3` | 0.7147 | 76 | 37.6 | c2d60baab2b6 |
+| `e049_blca_outer_test/mcat/native/fold4/seed3` | 0.7444 | 76 | 37.6 | d9b5144265c0 |
+| `e049_blca_outer_test/mcat/learned_three_decoders/fold0/seed3` | 0.6500 | 76 | 43.9 | 4a54c026626c |
+| `e049_blca_outer_test/mcat/learned_three_decoders/fold1/seed3` | 0.6300 | 76 | 43.9 | 81b645b3060b |
+| `e049_blca_outer_test/mcat/learned_three_decoders/fold2/seed3` | 0.6052 | 76 | 43.9 | 5f7ffdfe630c |
+| `e049_blca_outer_test/mcat/learned_three_decoders/fold3/seed3` | 0.6962 | 76 | 43.9 | 005ad4415d88 |
+| `e049_blca_outer_test/mcat/learned_three_decoders/fold4/seed3` | 0.7496 | 76 | 43.9 | efed166a55f8 |
+| `e049_blca_outer_test/survpath/native/fold0/seed3` | 0.5786 | 76 | 115.1 | dfa3d9ed47c5 |
+| `e049_blca_outer_test/survpath/native/fold1/seed3` | 0.5700 | 76 | 115.1 | ff6954e3185c |
+| `e049_blca_outer_test/survpath/native/fold2/seed3` | 0.6043 | 76 | 115.1 | ec74589a18fa |
+| `e049_blca_outer_test/survpath/native/fold3/seed3` | 0.6936 | 76 | 115.1 | 23762448364d |
+| `e049_blca_outer_test/survpath/native/fold4/seed3` | 0.6581 | 76 | 115.1 | 88b84398176a |
+| `e049_blca_outer_test/survpath/learned_three_decoders/fold0/seed3` | 0.6075 | 76 | 122.0 | 46a744f62464 |
+| `e049_blca_outer_test/survpath/learned_three_decoders/fold1/seed3` | 0.5639 | 76 | 122.0 | 08d9131567d5 |
+| `e049_blca_outer_test/survpath/learned_three_decoders/fold2/seed3` | 0.6165 | 76 | 122.0 | 5d62ed4836f1 |
+| `e049_blca_outer_test/survpath/learned_three_decoders/fold3/seed3` | 0.7164 | 76 | 122.0 | d230cca46fa2 |
+| `e049_blca_outer_test/survpath/learned_three_decoders/fold4/seed3` | 0.6291 | 76 | 122.0 | c4ea1a54e267 |
 
-> The `*_sha` columns come from `completion.json` (declared at training time). The `ckpt_sha256` column is recomputed at handoff time and should match `checkpoint_sha256`. Any mismatch indicates the file was modified after training.
+> The table shows the handoff report's checkpoint SHA-256 prefixes. The complete checkpoint and other artifact hashes are recorded in each `completion.json`; only the committed prediction hashes have been independently checked on this machine. The checkpoint files remain on the intranet server.
 
 ---
-## 2. Checkpoint state_dict signature (plugin activation proof)
-For each (baseline, arm) we compare `fold0/seed3/model_best_s0.pth` state_dicts to confirm the `learned_three_decoders` arm actually instantiates and trains a 3-decoder plugin.
+## 2. Checkpoint state_dict signature (server handoff report)
+The following fold0 checkpoint comparisons were reported on the intranet server. The checkpoint files were not committed and have not been independently checked on this machine.
 
 ### MCAT: native vs learned_three_decoders (fold0)
 - native keys: **239**, plugin keys: **285**, plugin-only (new): **46**
@@ -51,7 +51,7 @@ For each (baseline, arm) we compare `fold0/seed3/model_best_s0.pth` state_dicts 
   - `self_decoder` × 15 keys (e.g. adapter.plugin.reconstruction.self_decoder.cross_attention.in_proj_bias shape=(768,))
   - `wsi_decoder` × 15 keys (e.g. adapter.plugin.reconstruction.wsi_decoder.cross_attention.in_proj_bias shape=(768,))
 - shared key max L2 delta: **5.013** (`adapter.backbone.sig_networks.4.0.0.weight` shape=(256, 1404))
-- top-3 most-divergent shared keys (proves native & plugin train separately, not data leak):
+- top-3 most-divergent shared keys (weight differences alone do not test data leakage):
   - L2=5.013  `adapter.backbone.sig_networks.4.0.0.weight` shape=(256, 1404)
   - L2=3.690  `adapter.backbone.omic_transformer.layers.0.self_attn.in_proj_weight` shape=(768, 256)
   - L2=3.484  `adapter.backbone.coattn.in_proj_weight` shape=(768, 256)
@@ -64,14 +64,14 @@ For each (baseline, arm) we compare `fold0/seed3/model_best_s0.pth` state_dicts 
   - `self_decoder` × 15 keys (e.g. adapter.plugin.reconstruction.self_decoder.cross_attention.in_proj_bias shape=(768,))
   - `wsi_decoder` × 15 keys (e.g. adapter.plugin.reconstruction.wsi_decoder.cross_attention.in_proj_bias shape=(768,))
 - shared key max L2 delta: **2.728** (`adapter.plugin.core.slot_attention_wsi.gru.weight_ih` shape=(768, 256))
-- top-3 most-divergent shared keys (proves native & plugin train separately, not data leak):
+- top-3 most-divergent shared keys (weight differences alone do not test data leakage):
   - L2=2.728  `adapter.plugin.core.slot_attention_wsi.gru.weight_ih` shape=(768, 256)
   - L2=2.544  `adapter.plugin.core.slot_attention_wsi.to_v.weight` shape=(512, 256)
   - L2=2.518  `adapter.plugin.core.slot_attention_wsi.combine_heads.weight` shape=(256, 512)
 
 ---
 ## 3. model_audit.json summary (declared plugin config per task)
-All 20 tasks report identical plugin descriptor except `decoder_mode=separate` vs N/A.
+Within each baseline and arm, the server handoff reports the same model configuration across all five folds.
 
 | task_dir | omic_sizes | wsi_input_dim | enabled | plan_mode | reconstruction | decoder_mode | params_total | params_trainable |
 |---|---|---|---|---|---|---|---|---|
@@ -107,20 +107,17 @@ All 20 tasks report identical plugin descriptor except `decoder_mode=separate` v
 | fold3 (outer_test) | 76 | 0.342 | 16.73 | 0.66 | 112.44 |
 | fold4 (outer_test) | 76 | 0.329 | 17.00 | 0.56 | 130.88 |
 
-> All 5 folds use the same outer_test split: **380 unique patients**. Censoring indicator `censor=1.0` means event observed (death), `censor=0.0` means right-censored.
-> In the table above `event_rate = 1 - mean(censor)` would be inverted; the values shown are the raw `censor=0` rate (right-censored proportion). Recheck by `jq '.patients | to_entries | map(.value.censor) | add/length' label_audit.json`.
+> The five outer-test folds are disjoint and contain **380 unique patients** in total. Here `censor=0.0` means an observed event and `censor=1.0` means right-censored; the displayed `event_rate` is the fraction with `censor=0`.
 
 ---
 ## 5. outer_test_predictions.pkl structure (one per task)
 Each pkl is a `dict[patient_id → {risk: float, censor: float, time: float, logits: ndarray(4)}]`.
-This is the **raw, naive-cindex** prediction (sksurv `concordance_index_censored(censor, time, risk)`).
-The `completion.json.score` is the **IPCW cindex** (censoring-aware; the task's official metric).
-To recompute naive cindex from pkl: `python -c "import pickle, numpy as np; from sksurv.metrics import concordance_index_censored; d=pickle.load(open('pkl','rb')); r=np.array([d[k]['risk'] for k in d]); t=np.array([d[k]['time'] for k in d]); c=np.array([d[k]['censor'] for k in d],dtype=bool); print(concordance_index_censored(c,t,r)[0])"`.
+`completion.json.score` is the **ordinary Harrell C-index**. Recompute it with `event = (censor == 0)` and `concordance_index_censored(event, time, risk)`; the event indicator must be inverted from the saved censorship flag. The repository's `evidence.py` uses a restricted prediction reader and independently reproduced all 20 scores exactly from the committed files.
 
-Example: MCAT/native fold0 declares 0.6466 (IPCW); pkl-based naive cindex = 0.4827 (sksurv, no IPCW correction). The gap is expected for ~28% censoring.
+For MCAT/native fold0, the correct result is **0.6466**. The earlier **0.4827** came from passing `censor` directly as the event indicator and reversing event/censor status. IPCW is a separate metric that requires the training-fold survival reference; these prediction files alone do not establish it.
 
 ---
-## 6. Cross-task IPCW cindex recap (the table from AGENTS.md)
+## 6. Cross-task ordinary Harrell C-index recap (the table from AGENTS.md)
 ```
 Baseline          | Arm                       | F0    F1    F2    F3    F4    MEAN
 MCAT              | native                    | 0.6466 0.6378 0.5996 0.7147 0.7444 0.6686

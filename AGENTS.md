@@ -26,9 +26,9 @@
 
 ## E049 进度更新（2026-10-14）：BLCA outer_test 20 任务已实测完成
 
-**范围**：E049 v313六队列版本对照首批仅 1 队列 = BLCA × 2 arm × 5 fold × seed3 = 20 任务。其它 5 队列（BRCA/LUAD/COADREAD/KIRC/STAD）尚未启动，原 30 任务计划仍冻结。
+**范围**：此节记录 BLCA 的 MCAT/SurvPath 插件对照：2 个基线 × 2 个 arm × 5 折 × seed3 = 20 任务。它与上文同编号的“v3.13 六队列版本对照”是不同实验包；编号存在冲突，更正前以目录路径区分，不合并两者结果。
 
-**结果（IPCW cindex，每 fold outer_test 76 患者）**：
+**结果（普通 Harrell C-index，每 fold outer_test 76 患者；不是 IPCW）**：
 
 | Baseline | Arm | F0 | F1 | F2 | F3 | F4 | MEAN |
 |---|---|---|---|---|---|---|---|
@@ -39,17 +39,11 @@
 
 **关键观察**：
 - MCAT 整体优于 SurvPath（0.667 vs 0.624，差 ~0.043）。
-- `learned_three_decoders` 在 MCAT 上**未带来增益**（0.6662 vs 0.6686，差 −0.0024，**非显著**），WSI 特征重构插件在 MCAT 已能学习 WSI 模式时冗余。
-- `learned_three_decoders` 在 SurvPath 上 +0.0058 极弱增益。
+- `learned_three_decoders` 在 MCAT 上的五折均值低于 native（0.6662 vs 0.6686，差 −0.0024）；尚无充分证据说明原因或统计显著性。
+- `learned_three_decoders` 在 SurvPath 上的五折均值高于 native 0.0058；增益较小，不能单凭此表归因于运输机制。
 - 最佳单配置：MCAT native fold4 = **0.7444**。
 
-**已验证的产物完整度**（20/20 task 全部 `status=complete`）：
-- `completion.json` 含 `score`、`prediction_patient_count=76`、`label_audit/checkpoint/prediction` 三个 SHA256（防篡改）。
-- `outer_test_predictions.pkl`（76 患者 × `{risk, censor, time, logits}` 4-key dict），可重算任意 cindex 变种（naive / IPCW / Uno's / Harrell）。
-- `label_audit.json` 76 位患者 time/censor/source_time 三元组。
-- `model_audit.json`：`omic_sizes=[81,302,497,418,1404,422]`、`wsi_input_dim=1536`、`enabled=true`、`plan_mode=learned`、`reconstruction=true/false`、`decoder_mode=separate`。
-- `model_best_s{fold}.pth`（~46 MB），plugin-only keys 在 `learned_three_decoders` 臂下多 46 个（`adapter.plugin.reconstruction.{self_decoder,cross_decoder,wsi_decoder}.*`），shared keys L2 差异 < 6（两实验独立训练，非数据泄漏）。
-- 4 个 orchestrator 修复 commit 已 push 到 main（详见下一节）。
+**当前核验边界**：Git 中有 20/20 份 `status=complete` 收据与对应预测；20 份预测 SHA256 均匹配，按保存预测重算的普通 Harrell C-index 与 `completion.score` 完全一致。每折四组的患者和标签一致，五折互不重叠，共 380 人。`task.json`、`label_audit.json`、训练曲线与 checkpoint 仍在内网服务器，尚未在本地独立核验；运输写回强度、补零比例和完整训练状态待服务器只读诊断。IPCW 需要训练集生存参考，不能仅从这些预测文件重算。
 
 **原始位置**：`/data1/DCT-Reg/results/e049_blca/outer_test/blca/{mcat,survpath}/{native,learned_three_decoders}/fold{0..4}/seed3/`
 

@@ -311,7 +311,8 @@ def audit(batch_dir: Path) -> dict:
         padding = None
         errors.append({"error": "padding_metadata_audit_failed",
                        "error_type": type(error).__name__})
-    return {"schema": "e049_plugin_readonly_audit_v1", "tasks": records,
+    return {"schema": "e049_plugin_readonly_audit_v1",
+            "metric": "Harrell C-index (censor=0 denotes event)", "tasks": records,
             "paired_deltas": pairs, "mean_deltas": mean_deltas,
             "padding": padding, "errors": errors}
 
