@@ -30,6 +30,15 @@ class NativeRunnerBridge(nn.Module):
             raise ValueError("Native MCAT/SurvPath requires one WSI bag [1,N,D] per call")
         if x_wsi.shape[1] == 0:
             raise ValueError("Empty WSI bag cannot enter the native adapter")
+        # SurvivalDataset right-pads short WSI bags with all-zero patch rows.
+        # These native hosts do not mask attention or pooling, so remove only
+        # that trailing suffix before either the native or plugin arm encodes it.
+        # Interior zero rows are retained: they cannot be identified as padding.
+        observed = x_wsi[0].ne(0).any(dim=-1)
+        if not bool(observed.any()):
+            raise ValueError("WSI bag has no observed patch tokens")
+        observed_length = int(torch.nonzero(observed, as_tuple=False)[-1, 0].item()) + 1
+        x_wsi = x_wsi[:, :observed_length]
         if len(omics) != len(self.omic_sizes):
             raise ValueError(f"Expected {len(self.omic_sizes)} omic groups, got {sorted(omics)}")
         native = {"x_path": x_wsi.squeeze(0) if self.baseline == "mcat" else x_wsi,

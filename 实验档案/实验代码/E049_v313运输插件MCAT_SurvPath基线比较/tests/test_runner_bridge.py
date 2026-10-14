@@ -54,6 +54,22 @@ def test_bridge_rejects_wrong_batch_and_group_width():
         bridge(x_wsi=torch.ones(1, 4, 1536), x_omic1=torch.ones(1, 4))
     with pytest.raises(ValueError, match="Empty WSI bag"):
         bridge(x_wsi=torch.zeros(1, 0, 1536), x_omic1=torch.ones(1, 3))
+    with pytest.raises(ValueError, match="no observed patch tokens"):
+        bridge(x_wsi=torch.zeros(1, 4, 1536), x_omic1=torch.ones(1, 3))
+
+
+@pytest.mark.parametrize("baseline", ["mcat", "survpath"])
+def test_bridge_trims_only_dataset_padding_before_both_arms(baseline):
+    adapter = FakeAdapter(baseline)
+    bridge = NativeRunnerBridge(adapter, baseline, [3])
+    observed = torch.ones(1, 3, 1536)
+    observed[:, 1] = 0  # An interior all-zero feature is not right padding.
+    padded = torch.cat((observed, torch.zeros(1, 2, 1536)), dim=1)
+    bridge(x_wsi=padded, x_omic1=torch.ones(1, 3))
+    expected = observed.squeeze(0) if baseline == "mcat" else observed
+    assert torch.equal(adapter.seen["x_path"], expected)
+    bridge(x_wsi=observed, x_omic1=torch.ones(1, 3))
+    assert torch.equal(adapter.seen["x_path"], expected)
 
 
 def test_existing_trainer_input_is_translated_to_native_contract():
