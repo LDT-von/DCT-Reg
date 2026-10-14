@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "task_id": "outer_test/blca/survpath/native/fold0/seed3",
+  "baseline": "survpath",
+  "arm": "native",
+  "protocol": "outer_test",
+  "metric": "cindex",
+  "score": 0.578589634664401,
+  "training_complete": true,
+  "completed_epochs": 30,
+  "max_epochs": 30,
+  "evaluation_partition": "outer_test",
+  "prediction_patient_count": 76,
+  "prediction_artifact": {
+    "path": "outer_test_predictions.pkl",
+    "sha256": "e341d1d929522349e3310d32a7a3345e53426d388408555fc912c61704cf084f",
+    "role": "outer_test"
+  },
+  "label_audit_artifact": {
+    "path": "label_audit.json",
+    "sha256": "5ab3437eecf259e58bc9924abf97435ef656e1a8e4ce4f53c75ab335b8ef0623"
+  },
+  "checkpoint_artifact": {
+    "path": "artifacts/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b1_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_E049_survpath_native_outer_test_seed3/model_best_s0.pth",
+    "sha256": "dfa3d9ed47c56e60474d32e8ed81b52b127fc9e57b1eeca8f36802c66fe37154"
+  },
+  "artifacts": [
+    {
+      "path": "outer_test_predictions.pkl",
+      "sha256": "e341d1d929522349e3310d32a7a3345e53426d388408555fc912c61704cf084f",
+      "role": "outer_test"
+    },
+    {
+      "path": "label_audit.json",
+      "sha256": "5ab3437eecf259e58bc9924abf97435ef656e1a8e4ce4f53c75ab335b8ef0623"
+    },
+    {
+      "path": "artifacts/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b1_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_E049_survpath_native_outer_test_seed3/model_best_s0.pth",
+      "sha256": "dfa3d9ed47c56e60474d32e8ed81b52b127fc9e57b1eeca8f36802c66fe37154"
+    },
+    {
+      "path": "artifacts/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b1_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_E049_survpath_native_outer_test_seed3/epoch_curve_fold0.csv",
+      "sha256": "c7d1c241bea01d056ed9c87569ac3fb67351a1f20c2817e1af899ce9b827ea7e"
+    },
+    {
+      "path": "model_audit.json",
+      "sha256": "b25c5190d606c6b7c434f46d33f8be4da35ea0464c46585e3798a9f755412458"
+    }
+  ]
+}

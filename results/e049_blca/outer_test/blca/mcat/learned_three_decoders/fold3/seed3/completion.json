@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "task_id": "outer_test/blca/mcat/learned_three_decoders/fold3/seed3",
+  "baseline": "mcat",
+  "arm": "learned_three_decoders",
+  "protocol": "outer_test",
+  "metric": "cindex",
+  "score": 0.6962247585601404,
+  "training_complete": true,
+  "completed_epochs": 30,
+  "max_epochs": 30,
+  "evaluation_partition": "outer_test",
+  "prediction_patient_count": 76,
+  "prediction_artifact": {
+    "path": "outer_test_predictions.pkl",
+    "sha256": "aaea21649e6cf5724d744b404b6a492bc55a4c6faf070fe6317fb8a316f42ed8",
+    "role": "outer_test"
+  },
+  "label_audit_artifact": {
+    "path": "label_audit.json",
+    "sha256": "6d85477470637c8240959216eb7504dad775e2ca29ed4096659bfb6b316b5dcc"
+  },
+  "checkpoint_artifact": {
+    "path": "artifacts/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b1_survival_months_dss_Dim_256_e_30_g_Pathways_sig_six_seed3_rW_8_rG_8_sp_E049_mcat_learned_three_decoders_outer_test_seed3/model_best_s3.pth",
+    "sha256": "005ad4415d882ddab0045e326092f4074eea48914eb623ef61da97f4c800b90b"
+  },
+  "artifacts": [
+    {
+      "path": "outer_test_predictions.pkl",
+      "sha256": "aaea21649e6cf5724d744b404b6a492bc55a4c6faf070fe6317fb8a316f42ed8",
+      "role": "outer_test"
+    },
+    {
+      "path": "label_audit.json",
+      "sha256": "6d85477470637c8240959216eb7504dad775e2ca29ed4096659bfb6b316b5dcc"
+    },
+    {
+      "path": "artifacts/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b1_survival_months_dss_Dim_256_e_30_g_Pathways_sig_six_seed3_rW_8_rG_8_sp_E049_mcat_learned_three_decoders_outer_test_seed3/model_best_s3.pth",
+      "sha256": "005ad4415d882ddab0045e326092f4074eea48914eb623ef61da97f4c800b90b"
+    },
+    {
+      "path": "artifacts/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b1_survival_months_dss_Dim_256_e_30_g_Pathways_sig_six_seed3_rW_8_rG_8_sp_E049_mcat_learned_three_decoders_outer_test_seed3/epoch_curve_fold3.csv",
+      "sha256": "617ec38ddb95da155cdfef2b693c4d87ab1f33f85f388da4891846fc0205af2f"
+    },
+    {
+      "path": "model_audit.json",
+      "sha256": "8084b76e84c6cd1f46ef83a46d37d9e31e927b204dd56284a29fdc90b6784314"
+    }
+  ]
+}
