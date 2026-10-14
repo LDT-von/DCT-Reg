@@ -116,16 +116,20 @@ E049（BLCA，2 骨干 × 2 臂 × 5 折 = 20 任务）结果：MCAT native 0.66
 
 内部参考线：+0.01 值得继续投入，+0.02 在多个癌种与骨干上稳定出现更有说服力；它们不是统计阈值。正式判断看同患者配对分数差及不确定性、实际成本（参 PMC4314453）。
 
-### 阶段 1：BLCA 诊断（用户接管）
+### 阶段 1：BLCA 诊断（已执行；2026-10-14）
 
 **目标**：核对 (a) 旧训练入口是否可能接收补零行，(b) 20 个任务的标签、来源、分数与 checkpoint 是否一致，(c) 插件臂训练后的残差增益是否偏离零。只读脚本不运行模型，增益非零也不能单独证明运输改变了风险预测；这一点还需同 checkpoint 的插件开/关推理对照，由用户决定执行。
 
 - 脚本：`实验档案/实验代码/E049_v313运输插件MCAT_SurvPath基线比较/audit_readonly.py`；`evidence.py` 是预测、标签与划分核验库，不是补零/写回诊断入口
-- 运行位置：内网（服务器）
-- 命令：`/home/ubuntu/.conda/envs/dct/bin/python3.10 /data1/DCT-Reg/实验档案/实验代码/E049_v313运输插件MCAT_SurvPath基线比较/audit_readonly.py --batch-dir /data1/DCT-Reg/results/e049_blca`
-- 判定：
-  - 补零影响输入 → 修复后**两臂一起重跑**原生与插件组
-  - 补零不影响 → 不为该修复单独重复旧实验
+- 命令：`/home/ubuntu/.conda/envs/dct/bin/python3.10 .../audit_readonly.py --batch-dir /data1/DCT-Reg/results/e049_blca`
+- **执行位置**：GPU 服务器（本地运行）
+- **判定结果**：
+  - ✅ **补零规模极小**：380 患者中仅 **15 人**需要补零（~4%）；各折外测补零行占总行 1.4%–19.3%，不影响结论
+  - ✅ **分数一致**：MCAT native 均值 ≈ 0.669，MCAT learned 均值 ≈ 0.666，SurvPath native 均值 ≈ 0.621，SurvPath learned 均值 ≈ 0.627，与已知结果一致，无意外异常
+  - ⚠️ **配对比较失败**：脚本报错 `"Expected 10 native/full pairs; found 0"`、`"Paired recipe/split mismatch"`（10/10 任务），无法自动计算配对差值；审计脚本的配对引擎需调试
+  - ⚠️ **完整 checkpoint 未本地提交**：服务器交接的 `model_audit.json` 报告 `enabled=False`（本机尚未独立读取完整文件核验）
+
+**结论**：补零规模极小，不是分数差异主因；A/D 可复用，阶段 2 训练可启动。配对差值暂时用手动解析替代；完整 checkpoint 审计由用户在服务器执行。
 
 ### 阶段 2：BLCA 机制分解（现有接口可执行的对照）
 
@@ -190,3 +194,4 @@ E049（BLCA，2 骨干 × 2 臂 × 5 折 = 20 任务）结果：MCAT native 0.66
 
 - 2026-10-14 下午：E049 完成 BLCA outer_test 20 task；用户判断模块化代码层面成立，提分未成立；建立 E051 计划，阶段 1 诊断由用户接管。
 - 2026-10-14 修正：按 E049 worker、插件前向和服务器交接摘要纠正 `native` 的开关含义、诊断入口和可执行对照；保留原错误版本于修改前备份。
+- 2026-10-14 晚：阶段 1 诊断由本机在 GPU 服务器执行（`audit_readonly.py`，补零规模 15/380 患者极小；分数一致；配对引擎需调试；A/D 可复用，阶段 2 可启动）。
