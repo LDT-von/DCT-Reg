@@ -1,0 +1,69 @@
+{
+  "schema": "dct_v2_standalone_contract_v1",
+  "as_of": "2026-10-13",
+  "authorization": "用户明确要求实现独立 DCT v2，并指定六项损失。最新清单取代独立版保留三重构的旧指令。",
+  "version": "dct_v2",
+  "alias": "dct_v2_standalone",
+  "kind": "independent_dct_survival_model",
+  "canonical_question": "在只有患者级病理—组学配对、缺少局部对应标注且两模态可能只部分对应的条件下，如何学习服务生存预测的跨模态匹配，并保留未交换的原生信息？",
+  "canonical_idea": "DCT 自身编码两模态并形成语义槽，用分阶段、多几何的有界成本与 KL 放松运输学习部分对应；以实际匹配量及局部质量比例控制运输事件残差，将其加入原生槽汇总，用 DCT 自己的共享生存头预测。固定实际边际的关系损失监督匹配，缺额加权的原生生存损失监督未经运输的读取。",
+  "architecture": [
+    "DCT WSI MLP 与各通路 SNN 编码器",
+    "两模态各自的 Slot Attention 与跨患者原型坐标",
+    "潜在阶段、多几何有界成本、证据参考边际和 KL 放松 UOT",
+    "原生槽汇总加实际质量控制的运输事件与局部跨模态残差",
+    "DCT 自身的共享 event_hazard 头、阶段加权 logits"
+  ],
+  "source": "survot_rank/research/methods/dct_v2/",
+  "config": "configs/dct_v2_blca_uni2h.yaml",
+  "guide": "docs/DCT_V2_STANDALONE.md",
+  "main_output": "raw logits [B,C]; shared trainer applies sigmoid once for hazards and risk",
+  "loss_terms": [
+    "global_nll",
+    "ipcw_rank",
+    "per_slot_nll",
+    "slot_diversity",
+    "relation",
+    "native"
+  ],
+  "initial_weights": {
+    "global_nll": 1.0,
+    "ipcw_rank": 0.1,
+    "per_slot_nll": 0.05,
+    "slot_diversity": 0.1,
+    "relation": 0.05,
+    "native": 0.05
+  },
+  "relation_schedule": "zero-based e=0..2:0; e=3..7:0.01,0.02,0.03,0.04,0.05; thereafter0.05",
+  "reconstruction_branches": false,
+  "external_survival_host": false,
+  "evidence": {
+    "synthetic_and_integration_checks_passed": 85,
+    "v313_regression_checks_passed": 34,
+    "total_checks_passed": 119,
+    "patient_training_executed": false,
+    "patient_inference_executed": false,
+    "measured_performance": null,
+    "committed_or_pushed": true,
+    "audit": "docs/DCT_V2_RELEASE_REVIEW_20261013.json",
+    "git_delivery": {
+      "status": "pushed_verified",
+      "source_commit": "6a414a93ca7fa9865cf4a31c8bf5169bf10ab9a1",
+      "target": "origin/main",
+      "remote_base": "2631b09063a52c0f2a2ec1a919961c153af4acca",
+      "remote_ref_at_source_verification": "6a414a93ca7fa9865cf4a31c8bf5169bf10ab9a1",
+      "verified_release_paths": 18
+    }
+  },
+  "boundaries": [
+    "独立 DCT v2 与保留的 transport_plugin_v2 是两个实现。提及当前 v2 时默认指本契约，除非明确点名插件。",
+    "v3.13 历史模型、配置、结果和已有插件均保留；新模型分数不能沿用历史 0.7238。",
+    "IPCW KM 只从本折训练患者拟合；风险记忆在 epoch 间清空、评估时不更新。",
+    "关系损失固定实际行列边际、总质量、槽、阶段权重、质量门控和生存读取参数；辅助梯度只作用于成本网络。",
+    "关系项逐患者比较固定边际学习计划与独立计划。独立计划模式下关系项为零；匹配贡献训练对照建议两臂都关闭该项。",
+    "原生项权重是停止梯度的正边际缺额，不是生物学私有信息比例，也不等于简单的 1-total_mass。",
+    "修正多样性按患者与逐槽对计算；完全相同槽仍可能有正损失零梯度，不宣称已保证逃离精确坍缩。",
+    "允许少交换和固定边际关系监督不保证预测增益或避免所有全局退化；需要匹配协议的患者实验。",
+    "真实患者任务由用户启动。当前检查支持代码行为与梯度路径，不能代替患者预测结果。"
+  ]
+}

@@ -1,0 +1,209 @@
+{
+  "scope": "independent mathematical witness; no DCT architecture or patient execution",
+  "exact_collapse_step_cases": [
+    {
+      "dtype": "torch.float16",
+      "k": 2,
+      "d": 2,
+      "before": 1.0,
+      "after": 0.8998726010322571,
+      "min_slot_grad": 0.9998931884765625,
+      "net_force": 0.0,
+      "finite": true
+    },
+    {
+      "dtype": "torch.float16",
+      "k": 4,
+      "d": 8,
+      "before": 1.0,
+      "after": 0.9668543934822083,
+      "min_slot_grad": 0.4082222878932953,
+      "net_force": 0.0001220703125,
+      "finite": true
+    },
+    {
+      "dtype": "torch.float16",
+      "k": 6,
+      "d": 4,
+      "before": 1.0,
+      "after": 0.9814780950546265,
+      "min_slot_grad": 0.248779296875,
+      "net_force": 0.0,
+      "finite": true
+    },
+    {
+      "dtype": "torch.float16",
+      "k": 32,
+      "d": 16,
+      "before": 1.0,
+      "after": 0.997309148311615,
+      "min_slot_grad": 0.0410262756049633,
+      "net_force": 0.0,
+      "finite": true
+    },
+    {
+      "dtype": "torch.float32",
+      "k": 2,
+      "d": 2,
+      "before": 1.0,
+      "after": 0.8999999761581421,
+      "min_slot_grad": 0.9999999403953552,
+      "net_force": 0.0,
+      "finite": true
+    },
+    {
+      "dtype": "torch.float32",
+      "k": 4,
+      "d": 8,
+      "before": 1.0,
+      "after": 0.9666666984558105,
+      "min_slot_grad": 0.40824827551841736,
+      "net_force": 1.4901161193847656e-08,
+      "finite": true
+    },
+    {
+      "dtype": "torch.float32",
+      "k": 6,
+      "d": 4,
+      "before": 1.0,
+      "after": 0.9814289808273315,
+      "min_slot_grad": 0.24880340695381165,
+      "net_force": 1.666000468656264e-08,
+      "finite": true
+    },
+    {
+      "dtype": "torch.float32",
+      "k": 32,
+      "d": 16,
+      "before": 1.0,
+      "after": 0.997305154800415,
+      "min_slot_grad": 0.04103923961520195,
+      "net_force": 1.1780402288468106e-08,
+      "finite": true
+    },
+    {
+      "dtype": "torch.float64",
+      "k": 2,
+      "d": 2,
+      "before": 1.0,
+      "after": 0.9,
+      "min_slot_grad": 0.9999999403953552,
+      "net_force": 0.0,
+      "finite": true
+    },
+    {
+      "dtype": "torch.float64",
+      "k": 4,
+      "d": 8,
+      "before": 1.0,
+      "after": 0.9666666666666667,
+      "min_slot_grad": 0.40824827551841736,
+      "net_force": 4.163336342344337e-17,
+      "finite": true
+    },
+    {
+      "dtype": "torch.float64",
+      "k": 6,
+      "d": 4,
+      "before": 1.0,
+      "after": 0.9814290623596327,
+      "min_slot_grad": 0.24880339205265045,
+      "net_force": 6.206335383118183e-17,
+      "finite": true
+    },
+    {
+      "dtype": "torch.float64",
+      "k": 32,
+      "d": 16,
+      "before": 1.0,
+      "after": 0.9973052480343919,
+      "min_slot_grad": 0.04103924706578255,
+      "net_force": 1.2738115944464653e-16,
+      "finite": true
+    }
+  ],
+  "old_squared_hinge_exact_collapse_gradient": 0.0,
+  "gradcheck_away_from_cusps": true,
+  "exact_cusp_gradcheck": "intentionally not asserted: there is no classical derivative",
+  "near_zero_cases": [
+    {
+      "input_dtype": "torch.float16",
+      "requested_value": 0.0001,
+      "represented_zero": false,
+      "length": 0.00010001659393310547,
+      "selected_direction": [
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "input_dtype": "torch.float16",
+      "requested_value": 1e-08,
+      "represented_zero": true,
+      "length": 0.0,
+      "selected_direction": [
+        [
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "input_dtype": "torch.float32",
+      "requested_value": 1e-07,
+      "represented_zero": false,
+      "length": 1.0000000116860974e-07,
+      "selected_direction": [
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "input_dtype": "torch.float32",
+      "requested_value": 1e-40,
+      "represented_zero": false,
+      "length": 9.99994610111476e-41,
+      "selected_direction": [
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "input_dtype": "torch.float64",
+      "requested_value": 1e-100,
+      "represented_zero": false,
+      "length": 1e-100,
+      "selected_direction": [
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "anchored_nonlinear_topology_witness": {
+    "diagonal": 0.0,
+    "antidiagonal": -0.5,
+    "mass": 1.0,
+    "rows": [
+      0.5,
+      0.5
+    ],
+    "cols": [
+      0.5,
+      0.5
+    ]
+  },
+  "caveats": [
+    "A direct slot step is not a guarantee through an arbitrary model Jacobian.",
+    "Fixed codes select a backward direction only at exact collisions.",
+    "Distinct representations do not establish biological semantics.",
+    "An anchored nonlinear readout can retain topology; arbitrary odd nonlinearities may still cancel."
+  ]
+}

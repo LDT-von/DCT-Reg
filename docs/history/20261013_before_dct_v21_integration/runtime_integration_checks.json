@@ -1,0 +1,19 @@
+{
+  "config_all_fields_json_roundtrip": "passed",
+  "config_fields": 63,
+  "factory_canonical_and_alias": "passed",
+  "criterion_canonical_and_alias": "passed",
+  "default_yaml_forward": "passed",
+  "default_logits_shape": [
+    2,
+    4
+  ],
+  "small_cli_forward_and_exact_batch_mean": "passed",
+  "small_logits_shape": [
+    2,
+    3
+  ],
+  "relative_import_problem": "fixed in new model only; verified via actual factory",
+  "real_patient_task_executed": false,
+  "backward_executed": false
+}
