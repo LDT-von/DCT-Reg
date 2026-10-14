@@ -106,47 +106,50 @@
 
 ---
 
-## E051 计划：BLCA 诊断 + 运输×重建因子分解（2026-10-14 下午用户确认）
+## E051 计划：BLCA 诊断 + 插件机制分解（2026-10-14；当日修正）
 
 ### 背景
 
-E049（BLCA 4 臂 20 任务）结果：MCAT native 0.6686，MCAT learned_three_decoders 0.6662（−0.0024），SurvPath native 0.6209，SurvPath learned_three_decoders 0.6267（+0.0058）。插件在 MCAT 上中性，在 SurvPath 上弱正，但插件组**同时含运输和三重建**，无法拆分各自贡献。E049 native 臂实为 transport=ON / reconstruction=OFF，非真基线。内部参考线：+0.01 有投入价值，+0.02 跨癌种骨干稳定出现才更有说服力。正式判断看**同患者配对分数差及不确定性**（参 PMC4314453）。
+E049（BLCA，2 骨干 × 2 臂 × 5 折 = 20 任务）结果：MCAT native 0.6686，MCAT learned_three_decoders 0.6662（−0.0024），SurvPath native 0.6209，SurvPath learned_three_decoders 0.6267（+0.0058）。完整插件臂**同时含学习运输写回和三重建**，这组差值不能拆分各自贡献。
+
+**重要口径修正**：E049 `native` 在 `worker.py` / `model.py` 中是 `enabled=False, reconstruction=False`；`build_native_adapter()` 将该开关交给插件，插件前向直接返回原特征。因此它是功能上的无插件基线，不是运输仅臂。服务器交接的 `model_audit.json` 摘要也报告 `enabled=False`（完整文件未提交，本机尚未独立复核）。共享 YAML 的 `dct_v313_cross_mode=transport` 属于独立 DCT v3.13 模型配置；E049 worker 用自身的适配器构造器替换 `runner.get_model`，不能根据该 YAML 键推断 MCAT/SurvPath 插件是否开启。
+
+内部参考线：+0.01 值得继续投入，+0.02 在多个癌种与骨干上稳定出现更有说服力；它们不是统计阈值。正式判断看同患者配对分数差及不确定性、实际成本（参 PMC4314453）。
 
 ### 阶段 1：BLCA 诊断（用户接管）
 
-**目标**：确认 (a) 补零是否影响训练，(b) 训练后运输写回是否真正起作用。
+**目标**：核对 (a) 旧训练入口是否可能接收补零行，(b) 20 个任务的标签、来源、分数与 checkpoint 是否一致，(c) 插件臂训练后的残差增益是否偏离零。只读脚本不运行模型，增益非零也不能单独证明运输改变了风险预测；这一点还需同 checkpoint 的插件开/关推理对照，由用户决定执行。
 
-- 脚本：`实验档案/实验代码/E049_v313运输插件MCAT_SurvPath基线比较/evidence.py`（服务器端，等效于 Windows 的 `audit_readonly.py`）
+- 脚本：`实验档案/实验代码/E049_v313运输插件MCAT_SurvPath基线比较/audit_readonly.py`；`evidence.py` 是预测、标签与划分核验库，不是补零/写回诊断入口
 - 运行位置：内网（服务器）
+- 命令：`/home/ubuntu/.conda/envs/dct/bin/python3.10 /data1/DCT-Reg/实验档案/实验代码/E049_v313运输插件MCAT_SurvPath基线比较/audit_readonly.py --batch-dir /data1/DCT-Reg/results/e049_blca`
 - 判定：
   - 补零影响输入 → 修复后**两臂一起重跑**原生与插件组
   - 补零不影响 → 不为该修复单独重复旧实验
 
-### 阶段 2：BLCA 因子分解（2×2 factorial）
+### 阶段 2：BLCA 机制分解（现有接口可执行的对照）
 
-**目标**：拆解"运输本身"和"三重建辅助训练"的贡献。
+**目标**：拆解插件运输写回、学习匹配与三重建辅助训练的贡献。是否复用 E049 旧结果由阶段 1 的补零、源码与 checkpoint 审计决定。
 
-**因子设计**：
+**臂设计**（均由 E049 worker 的 `arm` 决定，不能用独立 DCT 的 `cross_mode` 替代）：
 
-| Arm ID | transport | reconstruction | 对应配置键 | 描述 |
-|---|---|---|---|---|
-| A | OFF | OFF | `cross_mode=direct`, `reconstruction=false` | **真基线**：无运输、无重建 |
-| B | ON | OFF | `cross_mode=transport`, `reconstruction=false` | 运输仅（当前 E049 native ≈ B，但 native 用的是 transport=ON/recon=OFF，verify 后用） |
-| C | OFF | ON | `cross_mode=direct`, `reconstruction=true` | 重建仅（关闭运输后三重建，看重建独立贡献） |
-| D | ON | ON | `cross_mode=transport`, `reconstruction=true` | 运输+重建（当前 E049 learned_three_decoders） |
+| Arm | 插件开关 / 计划 | 三重建 | 来源与解释 |
+|---|---|---|---|
+| A `native` | `enabled=False` | 关闭 | E049 已训练；功能上的无插件基线 |
+| B `learned` | `enabled=True, plan_mode=learned` | 关闭 | 需新训练；学习运输与残差写回 |
+| I `independent` | `enabled=True, plan_mode=independent` | 关闭 | 需新训练；同接口独立计划对照 |
+| D `learned_three_decoders` | `enabled=True, plan_mode=learned` | 开启 | E049 已训练；学习运输写回 + 三重建 |
 
-- backbone：MCAT、SurvPath（各 4 arm × 5 fold × seed3 = **40 task**）
-- 协议：outer_test，划分 `5fold_uni2h_outer_test_seed3`，选择规则 `best-validation (legacy_val)`
+- backbone：MCAT、SurvPath；若 A/D 可复用，新增 B/I 共 **20 次训练**，四臂合计 40 条结果；若补零或来源审计不通过，受影响的旧臂须按修正代码重训，不能宣称可复用
+- 协议：`outer_test`，划分 `5fold_uni2h_outer_test_seed3`，每折用内部验证选 checkpoint；`legacy_val` 是另一协议，不是这里的选择规则名称
 - 参数选择在训练/验证折内完成，外层测试折仅用于最终评价
-- MCAT native arm = Arm B（`cross_mode=transport`），来自 E049 数据可复用；Arm A（真基线）需要新训练
-- SurvPath 同理
+- 当前插件 `enabled=False` 会在重建前直接返回，而跨模态重建使用运输后的 WSI memory；所以“运输关、三重建开”的 C 臂**不能仅改配置得到**。若要严格 2×2 因子设计，须先定义并实现直接重建对照、测试其与其他臂的匹配条件，再另行登记；当前不把 C 写成可运行或已验证实验。
 
 **关键比较**：
-- B − A = 运输主效应（控制重建）
-- C − A = 重建主效应（控制运输）
-- D − C = 运输在有重建时的增量（条件效应）
-- D − B = 重建在有运输时的增量（条件效应）
-- D − A = 总效应
+- B − A = 学习运输插件（含槽、计划、残差写回）的整体效应，不单独归因于 OT 匹配
+- B − I = 相同插件接口下学习计划相对独立计划的增量，用于检验匹配贡献
+- D − B = 在学习运输开启条件下，增加三重建辅助训练的增量
+- D − A = 完整插件相对无插件基线的总效应
 
 **提分参考线**：
 - +0.01：值得继续投入
@@ -169,20 +172,21 @@ E049（BLCA 4 臂 20 任务）结果：MCAT native 0.6686，MCAT learned_three_d
 
 ### 现有资产（可复用）
 
-- E049 20 task 产物（`results/e049_blca/outer_test/blca/{mcat,survpath}/{native,learned_three_decoders}/fold{0..4}/seed3/`）：含 `completion.json`、`outer_test_predictions.pkl`、`label_audit.json`、`model_audit.json`、`model_best_s*.pth`（~46 MB）、`epoch_curve_fold*.csv`（本地）
-- `实验档案/实验代码/E049_v313运输插件MCAT_SurvPath基线比较/evidence.py`：只读诊断入口，已在 git
+- E049 20 task 产物（`results/e049_blca/outer_test/blca/{mcat,survpath}/{native,learned_three_decoders}/fold{0..4}/seed3/`）：Git 已提交 `completion.json` 与 `outer_test_predictions.pkl`；`label_audit.json`、`model_audit.json`、checkpoint 与训练曲线仍在内网服务器，需在那里核验
+- `实验档案/实验代码/E049_v313运输插件MCAT_SurvPath基线比较/audit_readonly.py`：服务器本地只读诊断入口，已在 git；`evidence.py` 为其调用的证据核验库
 - `paper/V313_TEN_CANCER_REPORTED_COMPARISON_INPUT.json`：原始论文 BLCA 指标（MCAT 0.688 ± 0.024，SurvPath 0.666 ± 0.034，DCT v3.13 0.724 ± 0.047，仅作跨协议参考）
 - `survot_rank/plugins/transport/plugin.py` + `adapters.py`：已通过 64 项检查，commit 26a6fff
 
-### 配置键参考
+### E049 控制入口参考
 
 | 参数 | 值 | 说明 |
 |---|---|---|
-| `dct_v313_cross_mode` | `transport` | 启用 DCT 运输 |
-| `dct_v313_cross_mode` | `direct` | 关闭运输（真基线） |
-| `dct_v313_reconstruction` | `true` / `false` | 启用/关闭三重建分支 |
-| `dct_v313_omics_decoder_mode` | `separate` | 三解码器（separate / shared） |
+| `--arm` | `native` / `learned` / `independent` / `learned_three_decoders` | worker 按臂映射插件开关、计划与重建配置 |
+| `enabled` | `False` / `True` | 插件前向是否运行；`native=False` |
+| `reconstruction_config` | `None` / 三解码器配置 | 训练辅助分支；评估时不调用 |
+| `dct_v313_cross_mode` | 独立 DCT 模型参数 | 不控制 E049 MCAT/SurvPath 插件开关 |
 
 ### AGENTS.md 修改历史
 
 - 2026-10-14 下午：E049 完成 BLCA outer_test 20 task；用户判断模块化代码层面成立，提分未成立；建立 E051 计划，阶段 1 诊断由用户接管。
+- 2026-10-14 修正：按 E049 worker、插件前向和服务器交接摘要纠正 `native` 的开关含义、诊断入口和可执行对照；保留原错误版本于修改前备份。
