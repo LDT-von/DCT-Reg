@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "task_id": "outer_test/blca/mcat/native/fold2/seed3",
+  "baseline": "mcat",
+  "arm": "native",
+  "protocol": "outer_test",
+  "metric": "cindex",
+  "score": 0.5996258185219832,
+  "training_complete": true,
+  "completed_epochs": 30,
+  "max_epochs": 30,
+  "evaluation_partition": "outer_test",
+  "prediction_patient_count": 76,
+  "prediction_artifact": {
+    "path": "outer_test_predictions.pkl",
+    "sha256": "39eb6ac1e6d4303519981142a9d138b1e8e4e8975cd9bd9807f18f61ffe596c7",
+    "role": "outer_test"
+  },
+  "label_audit_artifact": {
+    "path": "label_audit.json",
+    "sha256": "bc95abe6041af094cbcc2fe1fcb53c1181de627c1ca8dc0977e3e6e44d52d729"
+  },
+  "checkpoint_artifact": {
+    "path": "artifacts/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b1_survival_months_dss_Dim_256_e_30_g_Pathways_sig_six_seed3_rW_8_rG_8_sp_E049_mcat_native_outer_test_seed3/model_best_s2.pth",
+    "sha256": "e716dd178363e76681cb3e8a985ce3213974de6549db30bfc98b95af473c1969"
+  },
+  "artifacts": [
+    {
+      "path": "outer_test_predictions.pkl",
+      "sha256": "39eb6ac1e6d4303519981142a9d138b1e8e4e8975cd9bd9807f18f61ffe596c7",
+      "role": "outer_test"
+    },
+    {
+      "path": "label_audit.json",
+      "sha256": "bc95abe6041af094cbcc2fe1fcb53c1181de627c1ca8dc0977e3e6e44d52d729"
+    },
+    {
+      "path": "artifacts/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b1_survival_months_dss_Dim_256_e_30_g_Pathways_sig_six_seed3_rW_8_rG_8_sp_E049_mcat_native_outer_test_seed3/model_best_s2.pth",
+      "sha256": "e716dd178363e76681cb3e8a985ce3213974de6549db30bfc98b95af473c1969"
+    },
+    {
+      "path": "artifacts/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b1_survival_months_dss_Dim_256_e_30_g_Pathways_sig_six_seed3_rW_8_rG_8_sp_E049_mcat_native_outer_test_seed3/epoch_curve_fold2.csv",
+      "sha256": "c00d4f3796f3ceb3c86865db7062047050395d1f3dcb84484e17d1d6210cba47"
+    },
+    {
+      "path": "model_audit.json",
+      "sha256": "4d1499a748bf357b09a7489f8d1c5819c197d34037d8cf1b5726108ed2f69eed"
+    }
+  ]
+}

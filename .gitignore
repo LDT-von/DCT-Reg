@@ -51,6 +51,12 @@ checkpoints/
 !results/e4_v311_fixed_audit/**
 !results/audit_comparison/
 
+# Exception: E049 BLCA outer_test handoff (2026-10-14) — completion.json + predictions.pkl only
+# Pushes 20 task metadata so external reviewer can reproduce cindex from raw predictions.
+# .pth checkpoints (1.6 GB total) stay local — described in MD only.
+!results/e049_blca/outer_test/**/completion.json
+!results/e049_blca/outer_test/**/outer_test_predictions.pkl
+
 # Logs
 *.log
 logs/
