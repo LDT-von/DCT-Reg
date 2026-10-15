@@ -1,7 +1,7 @@
 ﻿cancer,original_mean,new_mean,delta,status,protocol
-BRCA,0.67868,,,new_version_not_run,legacy_val
-COADREAD,0.7364,,,new_version_not_run,legacy_val
-UCEC,0.79282,,,new_version_not_run,legacy_val
-HNSC,0.6582,,,new_version_not_run,legacy_val
-SKCM,0.66538,,,new_version_not_run,legacy_val
-STAD,0.63606,,,new_version_not_run,legacy_val
+BRCA,0.67868,0.6936,0.0149,measured_30fold,legacy_val
+COADREAD,0.7364,0.7465,0.0101,measured_30fold,legacy_val
+UCEC,0.79282,0.8003,0.0075,measured_30fold,legacy_val
+HNSC,0.6582,0.6384,-0.0198,measured_30fold,legacy_val
+SKCM,0.66538,0.6607,-0.0047,measured_30fold,legacy_val
+STAD,0.63606,0.6132,-0.0228,measured_30fold,legacy_val
