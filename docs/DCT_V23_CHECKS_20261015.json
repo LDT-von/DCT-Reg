@@ -1,0 +1,160 @@
+{
+  "schema": "dct_v23_focused_verification_v1",
+  "verified_on": "2026-10-15",
+  "version": "dct_v23",
+  "patient_jobs_started": false,
+  "pytest": {
+    "passed": 199,
+    "failed": 0,
+    "warnings": 55,
+    "seconds": 12.53,
+    "tests": [
+      "tests/test_dct_v23_model.py",
+      "tests/test_dct_v23_calibration.py",
+      "tests/test_dct_v23_config_integration.py",
+      "tests/test_dct_v22_candidate.py",
+      "tests/test_dct_v22_trainer_monitoring.py",
+      "tests/test_dct_v22_config_integration.py",
+      "tests/test_saved_training_curve_audit.py",
+      "tests/test_dct_v21_mechanisms.py",
+      "tests/test_dct_v2_config_integration.py"
+    ],
+    "command": "python -B -m pytest -q -p no:cacheprovider tests/test_dct_v23_model.py tests/test_dct_v23_calibration.py tests/test_dct_v23_config_integration.py tests/test_dct_v22_candidate.py tests/test_dct_v22_trainer_monitoring.py tests/test_dct_v22_config_integration.py tests/test_saved_training_curve_audit.py tests/test_dct_v21_mechanisms.py tests/test_dct_v2_config_integration.py",
+    "warning_kind": "Existing PyTorch Transformer nested-tensor optimization warnings",
+    "scope": "Synthetic model/gradient/OOF/real-trainer-interface checks; no patient performance"
+  },
+  "checks": [
+    "Raw hidden-value intervention leaves masked encodings, slots, costs, marginals and recon predictions unchanged",
+    "Global masks cover shared-gene pathway copies consistently",
+    "Fixed expression targets and outer-train-only normalization",
+    "OOF query exclusion, teacher-fit-only normalization and explicit provenance rejection",
+    "Negative recovery gains retained; cost calibration gradients restricted to existing stage_pair_cost",
+    "Shared native/conditional decoder and same-realized-marginal Q mechanism audit",
+    "AMP finite behavior, checkpoint reload, off-mode v22 RNG and prediction equivalence",
+    "Identified synthetic batches reach actual training/evaluation; post-filter patient IDs stay aligned",
+    "Synthetic prepare_one_fold to JSON to loader; no validation WSI access",
+    "CLI calibration --help and candidate model registration",
+    "Eight Python implementation files compile; scoped shared-source diff whitespace check passes"
+  ],
+  "protected_old_sources": {
+    "count": 18,
+    "changed": 0,
+    "hashes": [
+      {
+        "path": "survot_rank/research/methods/dct_v22/__init__.py",
+        "sha256": "93FCDA004F154363BC5D9F01245C134E518B7260A4D1F713D1ED65B989976D7A",
+        "sha256_after": "93fcda004f154363bc5d9f01245c134e518b7260a4d1f713d1ed65b989976d7a"
+      },
+      {
+        "path": "survot_rank/research/methods/dct_v22/model.py",
+        "sha256": "9EE3CDB895187D91B532F1A52FF8A057A639D5780CF553E0D045481078937FB8",
+        "sha256_after": "9ee3cdb895187d91b532f1a52ff8a057a639d5780cf553e0d045481078937fb8"
+      },
+      {
+        "path": "survot_rank/research/methods/dct_v22/diagnostics.py",
+        "sha256": "867546F4D3BC00C6A805860307168F20A4899347713CC8659480E7D7797FA288",
+        "sha256_after": "867546f4d3bc00c6a805860307168f20a4899347713cc8659480e7d7797fa288"
+      },
+      {
+        "path": "survot_rank/research/methods/dct_v22/config.py",
+        "sha256": "9E2C7DE10CFAA2A65DDE7D610160231CB1A11E7B1ACFAB21BFD2D387C763E8E4",
+        "sha256_after": "9e2c7de10cfaa2a65dde7d610160231cb1a11e7b1acfab21bfd2d387c763e8e4"
+      },
+      {
+        "path": "survot_rank/research/methods/dct_v2/model.py",
+        "sha256": "D66B530390BD4BC03CF44D78442A77A5A430E357B6B482F0885A7AEBFF2A0749",
+        "sha256_after": "d66b530390bd4bc03cf44d78442a77a5a430e357b6b482f0885a7aebff2a0749"
+      },
+      {
+        "path": "survot_rank/research/methods/dct_v2/losses.py",
+        "sha256": "C23FAB443514EAEF693266C604F52C43A3F4259A5C0637FD63EFDEB1D5FC60F1",
+        "sha256_after": "c23fab443514eaef693266c604f52c43a3f4259a5c0637fd63efdeb1d5fc60f1"
+      },
+      {
+        "path": "survot_rank/research/methods/dct_v2/config.py",
+        "sha256": "055C4A1293AE9E6C02A7BF06CAF3F573B553B9B3B3747CEB36268D4F8A38D6A1",
+        "sha256_after": "055c4a1293ae9e6c02a7bf06caf3f573b553b9b3b3747ceb36268d4f8a38d6a1"
+      },
+      {
+        "path": "survot_rank/research/methods/dct_v2/transport.py",
+        "sha256": "FD88FB12561FB850F6E1C45B2D1CDF28D7F0DA73D29CD3CE486A8494044FD449",
+        "sha256_after": "fd88fb12561fb850f6e1c45b2d1cdf28d7f0da73d29cd3ce486a8494044fd449"
+      },
+      {
+        "path": "survot_rank/research/methods/dct_v2/__init__.py",
+        "sha256": "3C01BA782848817771D35966EFC420D406235D7BB9F46DB3F927F9397193F2AA",
+        "sha256_after": "3c01ba782848817771d35966efc420d406235d7bb9f46db3f927f9397193f2aa"
+      },
+      {
+        "path": "survot_rank/research/methods/dct_v21/model.py",
+        "sha256": "EBCBE13A7EF2BAB2F6A4ED6BA36846AE30A0E108F0326E6EAB8AAEEEAEB58503",
+        "sha256_after": "ebcbe13a7ef2bab2f6a4ed6ba36846ae30a0e108f0326e6eab8aaeeeaeb58503"
+      },
+      {
+        "path": "survot_rank/research/methods/dct_v21/config.py",
+        "sha256": "55ACD4D81552365882BC14E1BB9A09E565853D95C4F9656BEDDCBD3441B2AD81",
+        "sha256_after": "55acd4d81552365882bc14e1bb9a09e565853d95c4f9656beddcbd3441b2ad81"
+      },
+      {
+        "path": "survot_rank/research/methods/dct_v21/objectives.py",
+        "sha256": "542C9829E4560CFF9169B92FA584BE4DF4A50DC83B4ED31DDFEA4841F95B52DB",
+        "sha256_after": "542c9829e4560cff9169b92fa584be4df4a50dc83b4ed31ddfea4841f95b52db"
+      },
+      {
+        "path": "survot_rank/research/methods/dct_v21/__init__.py",
+        "sha256": "B6C642532706F2E0B3C91F2C8C19F3B5D4E6270392BFB3845A8BF0FACA9248DC",
+        "sha256_after": "b6c642532706f2e0b3c91f2c8c19f3b5d4e6270392bfb3845a8bf0faca9248dc"
+      },
+      {
+        "path": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/provenance.py",
+        "sha256": "C15D2284327639EED5580F1B61D6CF62EF32567A200BEB5F9955389450C1D070",
+        "sha256_after": "c15d2284327639eed5580f1b61d6cf62ef32567a200beb5f9955389450c1d070"
+      },
+      {
+        "path": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/model.py",
+        "sha256": "FB4A59E56F7F8AA4387728BCF6FD5E86AAF5B5744C05BA2FC75F8DA9AD33A5D0",
+        "sha256_after": "fb4a59e56f7f8aa4387728bcf6fd5e86aaf5b5744c05ba2fc75f8da9ad33a5d0"
+      },
+      {
+        "path": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/diversity.py",
+        "sha256": "27625209069BA6381F0B4CA7ED469D14EEF75A12BF16DC6BB3EC20539AB6DAF0",
+        "sha256_after": "27625209069ba6381f0b4ca7ed469d14eef75a12bf16dc6bb3ec20539ab6daf0"
+      },
+      {
+        "path": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/wsi_reconstruction.py",
+        "sha256": "F3A6C554852259775D60A725C754A9E823B64ED9C2CF77E3DB16D1C90130DDB6",
+        "sha256_after": "f3a6c554852259775d60a725c754a9e823b64ed9c2cf77e3db16d1c90130ddb6"
+      },
+      {
+        "path": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/__init__.py",
+        "sha256": "F6A97A1A612F88E131FBFC604627556541C11B4C0CFCA805AC45CCE093FAB457",
+        "sha256_after": "f6a97a1a612f88e131fbfc604627556541c11b4c0cfca805ac45cce093fab457"
+      }
+    ]
+  },
+  "visual_qa": {
+    "docx_pages": 7,
+    "architecture_pdf_pages": 1,
+    "all_pages_visually_inspected": true,
+    "method": "Background Word PDF export and pypdfium2 page inspection; diagram PNG and vector PDF inspection"
+  },
+  "patient_evidence": {
+    "calibration_generated": false,
+    "training": false,
+    "inference": false,
+    "c_index": null,
+    "overfitting_resolved": "unverified"
+  },
+  "remote_main_rebase_validation": {
+    "base_commit": "0dbd30d99133a983e739e78dd31b1aaf6e72de78",
+    "test_command": "python -B -m pytest -q -p no:cacheprovider tests/test_dct_v23_model.py tests/test_dct_v23_calibration.py tests/test_dct_v23_config_integration.py tests/test_dct_v22_candidate.py tests/test_dct_v22_trainer_monitoring.py tests/test_dct_v22_config_integration.py tests/test_saved_training_curve_audit.py tests/test_dct_v21_mechanisms.py tests/test_dct_v2_config_integration.py",
+    "passed": 199,
+    "failed": 0,
+    "warnings": 55,
+    "seconds": 12.86,
+    "warnings_kind": "PyTorch Transformer nested-tensor optimization eligibility",
+    "installer_preflight": "v2.2 then v2.3 applied on a clean Windows worktree; rerun detected already-applied integration",
+    "crlf_lf_matching": "verified for pre-existing v2 config and v2.1 test files with semantically identical Windows CRLF content",
+    "patient_jobs_started": false
+  }
+}

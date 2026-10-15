@@ -1,0 +1,64 @@
+{
+  "schema": "dct_v22_overfit_candidate_contract_v1",
+  "as_of": "2026-10-14",
+  "version": "dct_v22",
+  "alias": "dct_v2_2",
+  "status": "implementation_ready_patient_unvalidated",
+  "authorization": "用户要求解决独立 v2.1 的过拟合；实现另建候选，保留历史模型和实验。",
+  "canonical_question": "在只有患者级病理—组学配对、缺少局部对应标注且两模态可能只部分对应的条件下，如何学习服务生存预测的跨模态匹配，并保留未交换的原生信息？",
+  "scope": "针对现有编码器容量和正则化的修复候选；不将未验证的槽坍缩当作已确认根因。",
+  "source": "survot_rank/research/methods/dct_v22/",
+  "inherited_method": "独立 DCT v2.1 的语义槽、分阶段多几何 UOT、原生读取、共激活读取和六项损失。",
+  "loss_terms": ["global_nll", "ipcw_rank", "per_slot_nll", "slot_diversity", "relation", "native"],
+  "new_predictive_branches": false,
+  "reconstruction_branches": false,
+  "checkpoint_schema": "dct_v22_standalone_v1",
+  "capacity_candidate": {
+    "common_dim": 128,
+    "wsi_projection": "1536 -> 256 -> 128",
+    "wsi_projection_parameters": 426368,
+    "v21_wsi_projection_parameters": 2754304,
+    "reduced_omics_width": true,
+    "total_real_cohort_parameter_count_measured": false
+  },
+  "regularization_candidate": {"dropout": 0.30, "wsi_dropout": 0.30, "lr": 0.0001, "adamw_weight_decay": 0.005},
+  "configurations": {
+    "control": "configs/dct_v22_blca_legacy_val_control.yaml",
+    "capacity": "configs/dct_v22_blca_legacy_val_capacity.yaml",
+    "regularized": "configs/dct_v22_blca_legacy_val_regularized.yaml"
+  },
+  "experiment_plan": {
+    "identifier": "E051 candidate, training not started",
+    "protocol": "legacy_val",
+    "split": "5fold_uni2h",
+    "seed": 3,
+    "max_epochs": 30,
+    "early_stop_patience_primary_comparison": 0,
+    "selection": "strict earliest maximum validation C-index, existing trainer rule",
+    "practical_optional_early_stop": {"patience": 8, "warmup": 12, "min_delta": 0.0},
+    "output_isolation": "/data1/DCT-Reg/实验档案/结果/E051_v22_20261014/<arm>"
+  },
+  "monitoring": {
+    "training_stream": "主 NLL、辅助总损失和完整目标分别记录；过程 C-index 不当作固定权重的泛化比较。",
+    "train_eval": "可选每轮在当前固定权重和评估模式下，读取训练患者的验证式 patch 子采样，和验证主 NLL/C-index 同口径比较；保留训练集患者身份、随机状态及 IPCW 参考。",
+    "slots": "患者内真实距离、余弦相似度、范数、风险响应方差、tanh 饱和率；缺失模态不纳入平均。",
+    "matching": "实际质量、同实际边际独立计划差异、局部读取强度、部署增益、逐患者 gap 绝对均值。",
+    "gradient": "可选定期测原始 relation loss 对成本网络的梯度范数；不写 .grad、不增加损失，不代表主预测运输贡献。"
+  },
+  "e050_evidence": {
+    "artifact_commit": "3c5328b827516919feab8f0cc01f926503e6636f",
+    "training_source_commit": "76f8f25acef8d58ed9405dc9897da0c351bf59bf",
+    "available_csv": "验证 C-index 五折列及汇总；未包含原始训练和辅助指标。",
+    "limitations": ["19 个标准差条目超出舍入容差。", "reference_deficit 是运输缺额而非训练损失。", "多样性惩罚下降不能证明槽坍缩。", "patience=5 的逐轮模拟会错过 fold2 epoch9 峰值。"]
+  },
+  "boundaries": [
+    "候选实现和模拟检查不能证明过拟合已经消失或患者提分。",
+    "三个配置分别检查原机制控制、容量调整和一组正则化调整；不能把组合的收益归因到单个参数。",
+    "legacy_val 的验证集参与选择和调参，不能将所得分数写成独立测试证据。",
+    "早停能减少后期训练，不能保证所有未来峰值都被保留；主比较保持完整30轮。",
+    "训练集评估额外增加一次无梯度前向，可通过 dct_v22_evaluate_train=false 关闭。",
+    "v2、v2.1、v3.13 及 E050 源材料保留；模型改动只在新候选发生。",
+    "真实患者训练和推理由用户启动。"
+  ],
+  "evidence": {"patient_training_executed": false, "patient_inference_executed": false, "measured_performance": null, "pushed": false, "checks_passed": 126, "checks": "docs/DCT_V22_CHECKS_20261014.json"}
+}

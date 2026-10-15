@@ -12,7 +12,7 @@ from .project import resolve_project_path
 
 
 PATH_KEYS = {"data_path", "results_dir"}
-ABS_OR_EXTERNAL_PATH_KEYS = {"data_root_dir"}
+ABS_OR_EXTERNAL_PATH_KEYS = {"data_root_dir", "dct_v23_calibration_dir"}
 METADATA_KEYS = {"name", "description", "notes", "_dct_user_overrides"}
 BOOLEAN_VALUE_KEYS = {
     "dct_v383_center_slots",
@@ -26,7 +26,7 @@ BOOLEAN_VALUE_KEYS = {
 # Only these new DCT v2 flags use argparse.BooleanOptionalAction. Preserve
 # explicit false values and emit their negative flag without changing legacy
 # store_true/value-boolean serialization.
-BOOLEAN_OPTIONAL_KEYS = {"dct_v2_mass_aware", "dct_v2_local_gating"}
+BOOLEAN_OPTIONAL_KEYS = {"dct_v2_mass_aware", "dct_v2_local_gating", "dct_v22_evaluate_train"}
 
 
 def load_config(path: str | Path) -> dict[str, Any]:

@@ -1,0 +1,333 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1100" viewBox="0 0 1800 1100">
+<rect width="100%" height="100%" fill="white"/>
+<text x="900" y="40" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#222222" text-anchor="middle" font-weight="bold">DCT v2.3</text>
+<rect x="35" y="181" width="153" height="153" rx="2" fill="#f6e9f0" stroke="#222222" stroke-width="1.8"/>
+<circle cx="168.8568089695026" cy="318.06178002907893" r="3.677300032145738" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="46.3053411388671" cy="231.41042860005723" r="2.13755502991575" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="61.59089706840987" cy="215.9196162678045" r="2.3337207216190388" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="127.72167368553167" cy="311.72382983076227" r="1.3176992778280545" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="111.26251830807722" cy="192.64324005101307" r="2.882997447271848" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="92.46450857113696" cy="197.7698615026445" r="3.3493070684815125" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="93.82926267250042" cy="213.21063312764352" r="1.6481358476892536" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="92.97698999454464" cy="292.5711926528767" r="2.1060514443046205" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="81.97198540845389" cy="321.5744385305255" r="2.7189567704290774" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="67.98028505532734" cy="255.2163648212873" r="3.374471853243967" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="130.72109285059534" cy="214.57394415785203" r="1.5356198519524935" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="134.9047712768832" cy="260.209117467754" r="2.746893699041781" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="57.31156672931633" cy="195.25597789646213" r="1.826693384500457" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="81.8784274368698" cy="269.6450450990994" r="1.327137798882736" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="117.19109094251918" cy="310.7628038151088" r="2.364184704772982" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="78.88650072505317" cy="204.46217625329683" r="3.35142720012502" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="151.33593845260378" cy="256.5569214681801" r="1.9847863736483236" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="168.03032880736436" cy="270.0139243792518" r="3.8363993402503738" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="104.65730926860775" cy="194.56018956414738" r="2.8925533462216704" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="47.15397822817343" cy="299.29104090080006" r="3.061616078303812" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="152.6701043320723" cy="318.0917957252108" r="2.615788369133455" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="145.11693905688804" cy="236.72924464311996" r="3.9231734601012125" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="110.23061460329126" cy="194.99411400588903" r="1.7929504915913446" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="70.54706256030617" cy="316.0330474895468" r="3.851361057809974" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="56.37328744659548" cy="265.10589973189644" r="2.9485094287174927" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="117.39252542949122" cy="299.7337723688498" r="1.759187059849749" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="66.26564155233987" cy="191.59016683722652" r="3.285771869334047" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="164.4643973034022" cy="299.8570526561637" r="3.6855449814425287" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="153.41464532691236" cy="199.39264337389244" r="3.881840329538724" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="144.67562797805118" cy="263.6827750493525" r="2.2753248827818724" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="148.17486430078998" cy="265.20723501088366" r="2.6498124834488936" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="58.640246506157766" cy="275.21720337714" r="1.9975069157391676" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="142.38018035718932" cy="248.11146839356087" r="1.4959783096205748" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="54.60767867128371" cy="265.87287320161806" r="2.6254447500475813" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="163.73495059247693" cy="319.2785619836162" r="3.3986054312347234" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="80.73598662415272" cy="235.65290302722806" r="1.0709404226899357" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="145.13910225851652" cy="244.23700636241384" r="3.380743421937387" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="67.37733312229298" cy="250.6587393260609" r="2.267650714994038" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="100.6957915533103" cy="227.43050355332804" r="2.7920147036539675" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="141.26015295865062" cy="213.98232870569157" r="2.5973022125168415" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="165.33172168711002" cy="201.66273218078254" r="3.6298483400540587" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="94.94157520598182" cy="192.41004996675625" r="2.3704997883380994" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="83.3696010631898" cy="233.15259676422158" r="2.0481405140029723" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="80.94803129553692" cy="315.57368353808215" r="1.4813391801912386" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="100.64052650130745" cy="300.2266800043484" r="2.433276379613247" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="163.25795830406298" cy="262.7377389188069" r="3.073076108599186" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="73.32992127226257" cy="225.62490029920286" r="3.5568118798643806" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="94.09185474293332" cy="273.76242181262063" r="3.96932002427271" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="120.41363076050833" cy="249.68809609133555" r="3.574853152864637" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="149.67929588158705" cy="205.0269807012852" r="3.287275485305801" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="129.61424038097545" cy="195.7617494830925" r="3.421527268282472" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="71.0572746463355" cy="266.31016459158644" r="2.86606446290242" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="68.3464921017437" cy="258.7233049677527" r="2.832521580445225" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="83.56389623224412" cy="200.5673502708637" r="3.745509811410497" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="125.67648634245353" cy="195.53707917620162" r="1.3608006517250328" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="68.65130964729474" cy="192.578487458613" r="2.832993716365852" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="169.84859794978166" cy="229.7616073734925" r="3.6899761269032396" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="120.92183663929262" cy="294.04545360364284" r="3.4648840586037686" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="146.57870692639602" cy="203.8254322791545" r="1.0879804819991445" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="56.48602678332093" cy="305.6874183857849" r="1.6182686902648262" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="177.92814533979654" cy="292.2661005232583" r="1.6674446359279689" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="159.9703526030017" cy="248.86558562189924" r="2.085717026851743" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="73.62196842244525" cy="265.72254836512934" r="3.224077663835078" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="163.67434249117213" cy="322.49354100982225" r="3.947120755275059" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="92.14120275016933" cy="322.567598964934" r="1.9310922659417686" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="110.35836003969429" cy="237.28611821503227" r="1.6310558935615198" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="116.23739148557206" cy="218.42479081929795" r="2.2204232831902346" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="49.491059851773706" cy="289.3521179459599" r="2.417580473935752" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="123.56017591573935" cy="245.9393690487986" r="1.7377993901475601" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="48.73399632089824" cy="229.99275677008112" r="3.455446217353428" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="154.93388769470982" cy="267.70805818783043" r="3.9025574926208972" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="165.30354504372303" cy="275.22534584799774" r="3.4413978444401208" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="168.042660962208" cy="322.47415993873733" r="2.9828632646770643" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="176.45239971922254" cy="251.61432667394592" r="1.0094713358153742" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="95.63044541604442" cy="197.710327055346" r="1.1023854260447337" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="91.28393883696562" cy="317.307477593256" r="3.015083388435948" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="161.97590130446758" cy="287.09383985227555" r="1.4307851777006706" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="145.41224976174783" cy="299.56533863734256" r="2.392548327352814" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="169.2590440521086" cy="247.1715692720294" r="3.059470112895405" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="151.8162652387273" cy="205.84437253912515" r="1.0531981010037" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="125.86893756059608" cy="261.7637343119733" r="1.5919643085882274" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="149.69038828479486" cy="232.14430899364385" r="3.111187576152269" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="110.5933482211275" cy="263.7037814153426" r="3.3722331496005054" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="89.65420012907501" cy="289.7643442302988" r="1.6606004936329093" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="120.91340879587219" cy="311.65719524680026" r="1.459196017607774" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="149.39159687514402" cy="208.85483805129337" r="3.779839145669051" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="168.3262762719013" cy="320.9010413947087" r="1.3324120854276447" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="54.70937243813781" cy="200.97450289776467" r="3.3861239187524323" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="108.37713518157801" cy="316.4180254586816" r="1.1058836321167207" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="80.72925012949541" cy="267.33548519719" r="3.977374329458895" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="44.927004502702985" cy="314.1925502691828" r="3.761513838208468" fill="#ddbad2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="142.78979575952894" cy="199.5653732396072" r="3.4605983376134946" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="156.78038326159992" cy="255.97729055779934" r="3.2093154414594958" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="79.09762292146097" cy="315.0784102827721" r="2.80023822507613" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="146.48761151844894" cy="266.8554951800018" r="2.715941974996205" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="129.90891243828926" cy="208.81511736398915" r="3.3905391472720767" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="131.20065011686467" cy="316.9675154177746" r="2.673205857814139" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="45.13082654931891" cy="257.04454892161345" r="2.3694852812476914" fill="#b489c2" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="134.52753423857467" cy="272.61298183094175" r="3.496957357968181" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<circle cx="85.46699576501506" cy="303.56566021150905" r="1.3449123459218129" fill="#cf85aa" stroke="#c89bbc" stroke-width="0.25"/>
+<text x="111" y="364" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#222222" text-anchor="middle" font-weight="normal">Whole slide</text>
+<text x="111" y="389" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#222222" text-anchor="middle" font-weight="normal">image</text>
+<rect x="228" y="179" width="28" height="28" rx="0" fill="#e1a7bf" stroke="#222222" stroke-width="1"/>
+<rect x="228" y="212" width="28" height="28" rx="0" fill="#d998b5" stroke="#222222" stroke-width="1"/>
+<rect x="228" y="245" width="28" height="28" rx="0" fill="#e6b6cb" stroke="#222222" stroke-width="1"/>
+<rect x="228" y="278" width="28" height="28" rx="0" fill="#bf9ab8" stroke="#222222" stroke-width="1"/>
+<rect x="228" y="311" width="28" height="28" rx="0" fill="#e0b2c6" stroke="#222222" stroke-width="1"/>
+<text x="242" y="382" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#222222" text-anchor="middle" font-weight="normal">Patch features</text>
+<text x="242" y="406" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#222222" text-anchor="middle" font-weight="normal">UNI2-h</text>
+<polyline points="188,257 218,257" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="218,257 208.91034250325114,261.16870802429213 208.91034250325114,252.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<rect x="290" y="182" width="130" height="150" rx="10" fill="#f4c3d4" stroke="#222222" stroke-width="1.8"/>
+<text x="355.0" y="250.16666666666666" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#222222" text-anchor="middle" font-weight="normal">WSI</text>
+<text x="355.0" y="279.16666666666663" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#222222" text-anchor="middle" font-weight="normal">projection</text>
+<polyline points="259,257 286,257" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="286,257 276.9103425032512,261.16870802429213 276.9103425032512,252.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<rect x="456" y="191" width="19" height="20" rx="0" fill="#f4c3d4" stroke="#222222" stroke-width="1"/>
+<rect x="456" y="220" width="19" height="20" rx="0" fill="#f4c3d4" stroke="#222222" stroke-width="1"/>
+<rect x="456" y="249" width="19" height="20" rx="0" fill="#f4c3d4" stroke="#222222" stroke-width="1"/>
+<rect x="456" y="278" width="19" height="20" rx="0" fill="#f4c3d4" stroke="#222222" stroke-width="1"/>
+<rect x="456" y="307" width="19" height="20" rx="0" fill="#f4c3d4" stroke="#222222" stroke-width="1"/>
+<polyline points="420,257 450,257" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="450,257 440.9103425032512,261.16870802429213 440.9103425032512,252.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<rect x="512" y="182" width="136" height="150" rx="10" fill="#dec4ea" stroke="#222222" stroke-width="1.8"/>
+<text x="580.0" y="237.66666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">Slot Attention</text>
+<text x="580.0" y="263.66666666666663" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">Prototype</text>
+<text x="580.0" y="289.66666666666663" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">coordinates</text>
+<polyline points="476,257 508,257" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="508,257 498.9103425032512,261.16870802429213 498.9103425032512,252.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<rect x="680" y="171" width="45" height="178" rx="7" fill="white" stroke="#777777" stroke-width="1" stroke-dasharray="4 4"/>
+<rect x="687" y="181" width="31" height="23" rx="1" fill="#d4e2ef" stroke="#555555" stroke-width="1"/>
+<rect x="687" y="209" width="31" height="23" rx="1" fill="#e9b7d1" stroke="#555555" stroke-width="1"/>
+<rect x="687" y="237" width="31" height="23" rx="1" fill="#f5d899" stroke="#555555" stroke-width="1"/>
+<rect x="687" y="265" width="31" height="23" rx="1" fill="#b9d6b0" stroke="#555555" stroke-width="1"/>
+<rect x="687" y="293" width="31" height="23" rx="1" fill="#d3c2e5" stroke="#555555" stroke-width="1"/>
+<rect x="687" y="321" width="31" height="23" rx="1" fill="#bedada" stroke="#555555" stroke-width="1"/>
+<text x="701" y="377" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#222222" text-anchor="middle" font-weight="normal">WSI slots</text>
+<polyline points="648,257 676,257" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="676,257 666.9103425032512,261.16870802429213 666.9103425032512,252.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<circle cx="111" cy="538" r="73" fill="#f4f7f1" stroke="#222222" stroke-width="1.5"/>
+<rect x="63" y="507" width="37" height="23" rx="0" fill="#d5e7c9" stroke="#222222" stroke-width="0.8"/>
+<text x="81" y="524" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#222222" text-anchor="middle" font-weight="normal">G1</text>
+<rect x="120" y="490" width="37" height="23" rx="0" fill="#d5e7c9" stroke="#222222" stroke-width="0.8"/>
+<text x="138" y="507" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#222222" text-anchor="middle" font-weight="normal">G2</text>
+<rect x="82" y="551" width="37" height="23" rx="0" fill="#d5e7c9" stroke="#222222" stroke-width="0.8"/>
+<text x="100" y="568" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#222222" text-anchor="middle" font-weight="normal">G3</text>
+<rect x="132" y="552" width="37" height="23" rx="0" fill="#d5e7c9" stroke="#222222" stroke-width="0.8"/>
+<text x="150" y="569" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#222222" text-anchor="middle" font-weight="normal">G4</text>
+<rect x="96" y="590" width="37" height="23" rx="0" fill="#d5e7c9" stroke="#222222" stroke-width="0.8"/>
+<text x="114" y="607" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#222222" text-anchor="middle" font-weight="normal">G5</text>
+<text x="111" y="642" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#222222" text-anchor="middle" font-weight="normal">Paired omics</text>
+<rect x="218" y="465" width="13" height="19" rx="0" fill="#b9d6b0" stroke="#222222" stroke-width="0.8"/>
+<rect x="232" y="465" width="13" height="19" rx="0" fill="#b9d6b0" stroke="#222222" stroke-width="0.8"/>
+<rect x="246" y="465" width="13" height="19" rx="0" fill="#b9d6b0" stroke="#222222" stroke-width="0.8"/>
+<rect x="218" y="497" width="13" height="19" rx="0" fill="#d6e4c9" stroke="#222222" stroke-width="0.8"/>
+<rect x="232" y="497" width="13" height="19" rx="0" fill="#d6e4c9" stroke="#222222" stroke-width="0.8"/>
+<rect x="246" y="497" width="13" height="19" rx="0" fill="#d6e4c9" stroke="#222222" stroke-width="0.8"/>
+<rect x="218" y="529" width="13" height="19" rx="0" fill="#edd58e" stroke="#222222" stroke-width="0.8"/>
+<rect x="232" y="529" width="13" height="19" rx="0" fill="#edd58e" stroke="#222222" stroke-width="0.8"/>
+<rect x="246" y="529" width="13" height="19" rx="0" fill="#edd58e" stroke="#222222" stroke-width="0.8"/>
+<rect x="218" y="561" width="13" height="19" rx="0" fill="#b9d6b0" stroke="#222222" stroke-width="0.8"/>
+<rect x="232" y="561" width="13" height="19" rx="0" fill="#b9d6b0" stroke="#222222" stroke-width="0.8"/>
+<rect x="246" y="561" width="13" height="19" rx="0" fill="#b9d6b0" stroke="#222222" stroke-width="0.8"/>
+<rect x="218" y="593" width="13" height="19" rx="0" fill="#d6e4c9" stroke="#222222" stroke-width="0.8"/>
+<rect x="232" y="593" width="13" height="19" rx="0" fill="#d6e4c9" stroke="#222222" stroke-width="0.8"/>
+<rect x="246" y="593" width="13" height="19" rx="0" fill="#d6e4c9" stroke="#222222" stroke-width="0.8"/>
+<text x="242" y="661" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#222222" text-anchor="middle" font-weight="normal">Pathway groups</text>
+<polyline points="188,538 209,538" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="209,538 199.91034250325114,542.1687080242921 199.91034250325114,533.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<rect x="290" y="463" width="130" height="150" rx="10" fill="#d5e7c9" stroke="#222222" stroke-width="1.8"/>
+<text x="355.0" y="531.1666666666666" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#222222" text-anchor="middle" font-weight="normal">Pathway</text>
+<text x="355.0" y="560.1666666666666" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#222222" text-anchor="middle" font-weight="normal">encoders</text>
+<polyline points="260,538 286,538" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="286,538 276.9103425032512,542.1687080242921 276.9103425032512,533.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<rect x="456" y="472" width="19" height="20" rx="0" fill="#d5e7c9" stroke="#222222" stroke-width="1"/>
+<rect x="456" y="501" width="19" height="20" rx="0" fill="#d5e7c9" stroke="#222222" stroke-width="1"/>
+<rect x="456" y="530" width="19" height="20" rx="0" fill="#d5e7c9" stroke="#222222" stroke-width="1"/>
+<rect x="456" y="559" width="19" height="20" rx="0" fill="#d5e7c9" stroke="#222222" stroke-width="1"/>
+<rect x="456" y="588" width="19" height="20" rx="0" fill="#d5e7c9" stroke="#222222" stroke-width="1"/>
+<polyline points="420,538 450,538" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="450,538 440.9103425032512,542.1687080242921 440.9103425032512,533.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<rect x="512" y="463" width="136" height="150" rx="10" fill="#dec4ea" stroke="#222222" stroke-width="1.8"/>
+<text x="580.0" y="518.6666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">Slot Attention</text>
+<text x="580.0" y="544.6666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">Prototype</text>
+<text x="580.0" y="570.6666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">coordinates</text>
+<polyline points="476,538 508,538" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="508,538 498.9103425032512,542.1687080242921 498.9103425032512,533.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<rect x="680" y="452" width="45" height="178" rx="7" fill="white" stroke="#777777" stroke-width="1" stroke-dasharray="4 4"/>
+<rect x="687" y="462" width="31" height="23" rx="1" fill="#d4e2ef" stroke="#555555" stroke-width="1"/>
+<rect x="687" y="490" width="31" height="23" rx="1" fill="#e9b7d1" stroke="#555555" stroke-width="1"/>
+<rect x="687" y="518" width="31" height="23" rx="1" fill="#f5d899" stroke="#555555" stroke-width="1"/>
+<rect x="687" y="546" width="31" height="23" rx="1" fill="#b9d6b0" stroke="#555555" stroke-width="1"/>
+<rect x="687" y="574" width="31" height="23" rx="1" fill="#d3c2e5" stroke="#555555" stroke-width="1"/>
+<rect x="687" y="602" width="31" height="23" rx="1" fill="#bedada" stroke="#555555" stroke-width="1"/>
+<text x="701" y="658" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#222222" text-anchor="middle" font-weight="normal">Omics slots</text>
+<polyline points="648,538 676,538" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="676,538 666.9103425032512,542.1687080242921 666.9103425032512,533.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<rect x="777" y="327" width="156" height="148" rx="10" fill="#efe5f4" stroke="#222222" stroke-width="1.8"/>
+<text x="855.0" y="381.0" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="middle" font-weight="normal">Pair features</text>
+<text x="855.0" y="408.0" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="middle" font-weight="normal">+ latent</text>
+<text x="855.0" y="435.0" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="middle" font-weight="normal">stages</text>
+<polyline points="725,257 752,257 752,370 773,370" fill="none" stroke="#f4c3d4" stroke-width="2.5" stroke-linejoin="round"/>
+<polygon points="773,370 763.9103425032512,374.16870802429213 763.9103425032512,365.83129197570787" fill="#f4c3d4" stroke="#f4c3d4" stroke-width="0"/>
+<polyline points="725,538 752,538 752,432 773,432" fill="none" stroke="#7ca467" stroke-width="2.5" stroke-linejoin="round"/>
+<polygon points="773,432 763.9103425032512,436.16870802429213 763.9103425032512,427.83129197570787" fill="#7ca467" stroke="#7ca467" stroke-width="0"/>
+<rect x="987" y="292" width="178" height="214" rx="10" fill="#d9e8f3" stroke="#222222" stroke-width="1.8"/>
+<text x="1076" y="327" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="middle" font-weight="normal">Cost + budgets</text>
+<text x="1076" y="365" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="middle" font-weight="normal">KL-relaxed UOT</text>
+<polyline points="933,401 983,401" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="983,401 973.9103425032512,405.16870802429213 973.9103425032512,396.83129197570787" fill="#222222" stroke="#222222" stroke-width="0"/>
+<rect x="1012" y="398" width="23" height="17" rx="0" fill="#7786ff" stroke="white" stroke-width="0.5"/>
+<rect x="1035" y="398" width="23" height="17" rx="0" fill="#e2f1ff" stroke="white" stroke-width="0.5"/>
+<rect x="1058" y="398" width="23" height="17" rx="0" fill="#f4ffff" stroke="white" stroke-width="0.5"/>
+<rect x="1081" y="398" width="23" height="17" rx="0" fill="#f9ffff" stroke="white" stroke-width="0.5"/>
+<rect x="1012" y="415" width="23" height="17" rx="0" fill="#e3f2ff" stroke="white" stroke-width="0.5"/>
+<rect x="1035" y="415" width="23" height="17" rx="0" fill="#8d9cff" stroke="white" stroke-width="0.5"/>
+<rect x="1058" y="415" width="23" height="17" rx="0" fill="#d9e8ff" stroke="white" stroke-width="0.5"/>
+<rect x="1081" y="415" width="23" height="17" rx="0" fill="#f8ffff" stroke="white" stroke-width="0.5"/>
+<rect x="1012" y="432" width="23" height="17" rx="0" fill="#f9ffff" stroke="white" stroke-width="0.5"/>
+<rect x="1035" y="432" width="23" height="17" rx="0" fill="#f3ffff" stroke="white" stroke-width="0.5"/>
+<rect x="1058" y="432" width="23" height="17" rx="0" fill="#b7c6ff" stroke="white" stroke-width="0.5"/>
+<rect x="1081" y="432" width="23" height="17" rx="0" fill="#d7e6ff" stroke="white" stroke-width="0.5"/>
+<rect x="1012" y="449" width="23" height="17" rx="0" fill="#f8ffff" stroke="white" stroke-width="0.5"/>
+<rect x="1035" y="449" width="23" height="17" rx="0" fill="#e8f7ff" stroke="white" stroke-width="0.5"/>
+<rect x="1058" y="449" width="23" height="17" rx="0" fill="#dbeaff" stroke="white" stroke-width="0.5"/>
+<rect x="1081" y="449" width="23" height="17" rx="0" fill="#9aa9ff" stroke="white" stroke-width="0.5"/>
+<text x="1130" y="439" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#222222" text-anchor="middle" font-weight="normal">T</text>
+<rect x="1225" y="311" width="161" height="177" rx="10" fill="#e3eef5" stroke="#222222" stroke-width="1.8"/>
+<text x="1305.5" y="379.5" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="middle" font-weight="normal">Mass-gated</text>
+<text x="1305.5" y="406.5" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="middle" font-weight="normal">transport</text>
+<text x="1305.5" y="433.5" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="middle" font-weight="normal">risk readout</text>
+<polyline points="1165,401 1221,401" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="1221,401 1211.910342503251,405.16870802429213 1211.910342503251,396.83129197570787" fill="#222222" stroke="#222222" stroke-width="0"/>
+<rect x="1454" y="312" width="121" height="177" rx="10" fill="#f2f2f2" stroke="#222222" stroke-width="1.8"/>
+<text x="1514.5" y="381.1666666666667" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">Native +</text>
+<text x="1514.5" y="407.1666666666667" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">transport</text>
+<text x="1514.5" y="433.1666666666667" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">fusion</text>
+<polyline points="1386,401 1450,401" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="1450,401 1440.910342503251,405.16870802429213 1440.910342503251,396.83129197570787" fill="#222222" stroke="#222222" stroke-width="0"/>
+<rect x="1628" y="322" width="132" height="158" rx="10" fill="#fff0c9" stroke="#222222" stroke-width="1.8"/>
+<text x="1694.0" y="394.1666666666667" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#222222" text-anchor="middle" font-weight="normal">Survival</text>
+<text x="1694.0" y="423.1666666666667" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#222222" text-anchor="middle" font-weight="normal">head</text>
+<polyline points="1575,401 1624,401" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="1624,401 1614.910342503251,405.16870802429213 1614.910342503251,396.83129197570787" fill="#222222" stroke="#222222" stroke-width="0"/>
+<circle cx="801" cy="146" r="22" fill="white" stroke="#222222" stroke-width="1.5"/>
+<text x="801" y="154" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#222222" text-anchor="middle" font-weight="normal">P</text>
+<polyline points="706,164 706,146 775,146" fill="none" stroke="#f4c3d4" stroke-width="2.5" stroke-linejoin="round"/>
+<polygon points="775,146 765.9103425032512,150.1687080242921 765.9103425032512,141.8312919757079" fill="#f4c3d4" stroke="#f4c3d4" stroke-width="0"/>
+<polyline points="823,146 1514,146 1514,308" fill="none" stroke="#f4c3d4" stroke-width="2.5" stroke-linejoin="round"/>
+<polygon points="1514,308 1509.831291975708,298.9103425032512 1518.168708024292,298.9103425032512" fill="#f4c3d4" stroke="#f4c3d4" stroke-width="0"/>
+<text x="1105" y="130" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#9a4a6a" text-anchor="middle" font-weight="normal">Native WSI summary</text>
+<circle cx="801" cy="653" r="22" fill="white" stroke="#222222" stroke-width="1.5"/>
+<text x="801" y="661" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#222222" text-anchor="middle" font-weight="normal">P</text>
+<polyline points="725,538 747,538 747,653 775,653" fill="none" stroke="#7ca467" stroke-width="2.5" stroke-linejoin="round"/>
+<polygon points="775,653 765.9103425032512,657.1687080242921 765.9103425032512,648.8312919757079" fill="#7ca467" stroke="#7ca467" stroke-width="0"/>
+<polyline points="823,653 1514,653 1514,493" fill="none" stroke="#7ca467" stroke-width="2.5" stroke-linejoin="round"/>
+<polygon points="1514,493 1518.168708024292,502.0896574967488 1509.831291975708,502.0896574967488" fill="#7ca467" stroke="#7ca467" stroke-width="0"/>
+<text x="1102" y="640" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#4c7240" text-anchor="middle" font-weight="normal">Native omics summary</text>
+<rect x="1010" y="568" width="17" height="17" rx="0" fill="#f4c3d4" stroke="#222222" stroke-width="0.8"/>
+<text x="1034" y="582" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#222222" text-anchor="start" font-weight="normal">WSI token</text>
+<rect x="1158" y="568" width="17" height="17" rx="0" fill="#d5e7c9" stroke="#222222" stroke-width="0.8"/>
+<text x="1182" y="582" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#222222" text-anchor="start" font-weight="normal">Pathway token</text>
+<rect x="1342" y="568" width="17" height="17" rx="0" fill="#dec4ea" stroke="#222222" stroke-width="0.8"/>
+<text x="1366" y="582" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#222222" text-anchor="start" font-weight="normal">Slots</text>
+<rect x="35" y="717" width="1725" height="322" rx="14" fill="white" stroke="#777777" stroke-width="1.7" stroke-dasharray="9 7"/>
+<text x="65" y="748" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="start" font-weight="bold">Training only</text>
+<rect x="61" y="800" width="143" height="139" rx="10" fill="#d5e7c9" stroke="#222222" stroke-width="1.8"/>
+<text x="132.5" y="863.0" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="middle" font-weight="normal">Raw gene</text>
+<text x="132.5" y="890.0" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="middle" font-weight="normal">inputs</text>
+<rect x="243" y="799" width="150" height="140" rx="10" fill="#edf4e7" stroke="#222222" stroke-width="1.8"/>
+<text x="318.0" y="862.5" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="middle" font-weight="normal">Global gene</text>
+<text x="318.0" y="889.5" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="middle" font-weight="normal">mask</text>
+<polyline points="204,868 239,868" fill="none" stroke="#7ca467" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="239,868 229.91034250325114,872.1687080242921 229.91034250325114,863.8312919757079" fill="#7ca467" stroke="#7ca467" stroke-width="0"/>
+<rect x="438" y="799" width="169" height="140" rx="10" fill="#ebe3f4" stroke="#222222" stroke-width="1.8"/>
+<text x="522.5" y="849.6666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">Masked view</text>
+<text x="522.5" y="875.6666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">same encoders</text>
+<text x="522.5" y="901.6666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">and UOT</text>
+<polyline points="393,868 434,868" fill="none" stroke="#7ca467" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="434,868 424.9103425032512,872.1687080242921 424.9103425032512,863.8312919757079" fill="#7ca467" stroke="#7ca467" stroke-width="0"/>
+<rect x="654" y="779" width="151" height="57" rx="10" fill="#edf4e7" stroke="#222222" stroke-width="1.8"/>
+<text x="729.5" y="814.1666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">Native</text>
+<rect x="654" y="849" width="151" height="57" rx="10" fill="#d9e8f3" stroke="#222222" stroke-width="1.8"/>
+<text x="729.5" y="884.1666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">Learned T</text>
+<rect x="654" y="919" width="151" height="57" rx="10" fill="#f0f0f0" stroke="#222222" stroke-width="1.8"/>
+<text x="729.5" y="953.8333333333334" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#222222" text-anchor="middle" font-weight="normal">Q diagnostic</text>
+<polyline points="607,868 630,868 630,807 650,807" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="650,807 640.9103425032512,811.1687080242921 640.9103425032512,802.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<polyline points="630,868 650,878" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="650,878 640.0056602738985,877.6635873972822 643.7342660821648,870.2063757807495" fill="#222222" stroke="#222222" stroke-width="0"/>
+<polyline points="630,868 630,947 650,947" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round" stroke-dasharray="6 5"/>
+<polygon points="650,947 640.9103425032512,951.1687080242921 640.9103425032512,942.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<rect x="850" y="800" width="149" height="140" rx="10" fill="#fff0c9" stroke="#222222" stroke-width="1.8"/>
+<text x="924.5" y="850.6666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">Shared trunk</text>
+<text x="924.5" y="876.6666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">+ pathway</text>
+<text x="924.5" y="902.6666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">gene heads</text>
+<polyline points="805,807 827,807 827,869 846,869" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="846,869 836.9103425032512,873.1687080242921 836.9103425032512,864.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<polyline points="805,878 827,878 827,869 846,869" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="846,869 836.9103425032512,873.1687080242921 836.9103425032512,864.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<polyline points="805,947 827,947 827,869 846,869" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round" stroke-dasharray="6 5"/>
+<polygon points="846,869 836.9103425032512,873.1687080242921 836.9103425032512,864.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<rect x="1050" y="800" width="155" height="140" rx="10" fill="#ecf3e7" stroke="#222222" stroke-width="1.8"/>
+<text x="1127.5" y="863.6666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">Masked gene</text>
+<text x="1127.5" y="889.6666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">reconstruction</text>
+<polyline points="999,869 1046,869" fill="none" stroke="#222222" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="1046,869 1036.910342503251,873.1687080242921 1036.910342503251,864.8312919757079" fill="#222222" stroke="#222222" stroke-width="0"/>
+<polyline points="132,939 132,1008 1128,1008 1128,944" fill="none" stroke="#7ca467" stroke-width="1.7" stroke-linejoin="round" stroke-dasharray="6 5"/>
+<polygon points="1128,944 1132.168708024292,953.0896574967488 1123.831291975708,953.0896574967488" fill="#7ca467" stroke="#7ca467" stroke-width="0"/>
+<text x="626" y="1000" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#5a7251" text-anchor="middle" font-weight="normal">Held-out values are targets only</text>
+<rect x="1268" y="784" width="177" height="81" rx="10" fill="#f4e7ec" stroke="#222222" stroke-width="1.8"/>
+<text x="1356.5" y="818.0" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="middle" font-weight="normal">Held-patient</text>
+<text x="1356.5" y="845.0" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#222222" text-anchor="middle" font-weight="normal">OOF gains</text>
+<rect x="1268" y="898" width="177" height="60" rx="10" fill="#f7f2f5" stroke="#222222" stroke-width="1.8"/>
+<text x="1356.5" y="922.3333333333334" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#222222" text-anchor="middle" font-weight="normal">RNA + WSI mean</text>
+<text x="1356.5" y="944.3333333333334" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#222222" text-anchor="middle" font-weight="normal">Ridge teachers</text>
+<polyline points="1356,898 1356,869" fill="none" stroke="#bf4b4b" stroke-width="1.7" stroke-linejoin="round" stroke-dasharray="6 5"/>
+<polygon points="1356,869 1360.168708024292,878.0896574967488 1351.831291975708,878.0896574967488" fill="#bf4b4b" stroke="#bf4b4b" stroke-width="0"/>
+<rect x="1500" y="784" width="222" height="81" rx="10" fill="#edf1f7" stroke="#222222" stroke-width="1.8"/>
+<text x="1611.0" y="818.1666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">Stage-cost</text>
+<text x="1611.0" y="844.1666666666666" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#222222" text-anchor="middle" font-weight="normal">calibration</text>
+<polyline points="1445,824 1496,824" fill="none" stroke="#bf4b4b" stroke-width="2" stroke-linejoin="round" stroke-dasharray="6 5"/>
+<polygon points="1496,824 1486.910342503251,828.1687080242921 1486.910342503251,819.8312919757079" fill="#bf4b4b" stroke="#bf4b4b" stroke-width="0"/>
+<polyline points="1611,784 1778,784 1778,226 1076,226 1076,288" fill="none" stroke="#bf4b4b" stroke-width="2" stroke-linejoin="round" stroke-dasharray="6 5"/>
+<polygon points="1076,288 1071.831291975708,278.9103425032512 1080.168708024292,278.9103425032512" fill="#bf4b4b" stroke="#bf4b4b" stroke-width="0"/>
+<text x="1500" y="930" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#646464" text-anchor="start" font-weight="normal">Solid: model information flow</text>
+<text x="1500" y="952" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#646464" text-anchor="start" font-weight="normal">Dashed: supervision / audit</text>
+<text x="1500" y="974" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#646464" text-anchor="start" font-weight="normal">P: mean pooling</text>
+</svg>

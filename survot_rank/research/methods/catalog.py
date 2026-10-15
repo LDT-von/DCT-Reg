@@ -75,6 +75,24 @@ class MethodSpec:
 
 METHOD_SPECS = (
     MethodSpec(
+        "dct_v23",
+        "DCT v2.3 Masked Reconstruction and Recovery Gain Calibration [CANDIDATE]",
+        "dct",
+        "candidate",
+        "dct_v23",
+        "DCTV23",
+        aliases=("dct_v2_3",),
+    ),
+    MethodSpec(
+        "dct_v22",
+        "DCT v2.2 Capacity and Regularization Candidate [CANDIDATE]",
+        "dct",
+        "candidate",
+        "dct_v22",
+        "DCTV22",
+        aliases=("dct_v2_2",),
+    ),
+    MethodSpec(
         "dct_v2",
         "DCT v2 Standalone Partial-Correspondence Transport [CANDIDATE]",
         "dct",

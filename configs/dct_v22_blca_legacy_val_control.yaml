@@ -1,0 +1,103 @@
+name: E051_dct_v22_blca_legacy_val_control
+description: Ready-to-run v2.2 control candidate, not a measured improvement. Uses
+  the E050 legacy_val patients/splits, six objectives and all v2.1 mechanisms. Full
+  30-epoch trajectories; best validation checkpoint remains selected by the trainer.
+data:
+  study: blca
+  data_root_dir: /data1/TCGA-UNI2-h-features
+  data_path: /data1/dataset_csv
+  rna_format: Pathways
+  label_col: survival_months_dss
+  signature: combine
+  n_classes: 4
+  num_patches: 2048
+  encoding_dim: 1536
+split:
+  k_start: 0
+  k_end: 5
+train:
+  survot_method: dct_v22
+  specific_simple: E051_dct_v22_blca_legacy_val_control
+  results_dir: /data1/DCT-Reg/实验档案/结果/E051_v22_20261014/control
+  max_epochs: 30
+  batch_size: 8
+  warmup_epochs: 0
+  grad_clip_norm: 1.0
+  seed: 3
+  lr: 0.0005
+  opt: adamW
+  reg: 0.0005
+  scheduler: cosine
+  gpu: 1
+  num_workers: 4
+  bag_loss: nll_surv
+  alpha_surv: 0.0
+  min_free_space_gb: 2.0
+  fit_bins_on_train: true
+  binning_mode: global_qcut
+  event_stratified_batches: true
+  event_sampling_fraction: 0.0
+  evaluation_protocol: legacy_val
+  early_stop_patience: 0
+  dct_v22_evaluate_train: true
+slot:
+  slot_num_wsi: 8
+  slot_num_omics: 8
+  slot_iters: 3
+  temperature: 0.01
+  topk_ratio: 0.25
+  top_k_method: parallel_topk_st
+model:
+  wsi_encoder: uni2-h
+  wsi_projection_dim: 256
+  dct_slot_init_mode: deterministic
+  dct_num_stages: 4
+  otehv2_heads: 4
+  otehv2_layers: 2
+  otehv2_dropout: 0.15
+  otehv2_eps: 0.05
+  rg_eps_start: 0.1
+  rg_eps_anneal: 12
+  dct_evidence_cost_weight: 0.0
+  dct_evidence_mass_floor: 0.05
+  dct_evidence_marginal_strength: 1.0
+  dct_coordinate_temperature: 0.3
+  dct_v2_transport_mode: uot
+  dct_v2_plan_mode: learned
+  dct_v2_tau_wsi: 0.5
+  dct_v2_tau_omics: 0.5
+  dct_v2_uot_iters: 200
+  dct_v2_uot_tolerance: 1.0e-07
+  dct_v2_mass_aware: true
+  dct_v2_local_gating: true
+  dct_v2_residual_init: 0.1
+  dct_v2_projection_iters: 1000
+  dct_v2_projection_tolerance: 1.0e-06
+  dct_v2_min_plan_mass: 1.0e-08
+  dct_v2_lambda_ipcw_rank: 0.1
+  dct_v2_lambda_slot_nll: 0.05
+  dct_v2_lambda_diversity: 0.1
+  dct_v2_lambda_relation: 0.05
+  dct_v2_lambda_native: 0.05
+  dct_v2_relation_warmup_epochs: 3
+  dct_v2_relation_ramp_epochs: 5
+  dct_v2_relation_tolerance: 0.0
+  dct_v2_ipcw_rank_margin: 0.02
+  dct_v2_ipcw_rank_temperature: 0.5
+  dct_v2_ipcw_max_weight: 10.0
+  dct_v2_ipcw_memory_size: 64
+  dct_v2_variance_min: 0.001
+  dct_v2_variance_max: 0.05
+  dct_v2_target_pair_dist: 1.0
+  dct_v2_pair_weight: 0.5
+  dct_v21_local_readout: centered_pair
+  dct_v21_relation_objective: contrast_probe
+  dct_v21_relation_temperature: 0.05
+  dct_v21_relation_probe_gain: 0.1
+  dct_v21_diversity_objective: collision_distance
+  dct_v22_relation_gradient_interval: 0
+  dct_v22_wsi_hidden_dim: 1536
+  dct_v22_wsi_dropout: 0.0
+split_setup:
+  which_splits: 5fold_uni2h
+  on_missing_wsi: error

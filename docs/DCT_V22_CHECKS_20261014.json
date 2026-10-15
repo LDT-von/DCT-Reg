@@ -1,0 +1,15 @@
+{
+  "schema": "dct_v22_checks_v1",
+  "date": "2026-10-14",
+  "passed": 126,
+  "new_checks": 72,
+  "older_regression_checks": 54,
+  "seconds": 18.97,
+  "scope": "CPU synthetic model behavior, factory/config integration, monitoring aggregation and pure saved-CSV arithmetic",
+  "command": "python -B -m pytest -q -p no:cacheprovider tests/test_dct_v22_candidate.py tests/test_dct_v22_trainer_monitoring.py tests/test_dct_v22_config_integration.py tests/test_saved_training_curve_audit.py tests/test_dct_v21_mechanisms.py tests/test_dct_v2_config_integration.py",
+  "patient_training_executed": false,
+  "patient_inference_executed": false,
+  "measured_performance": null,
+  "gpu_numerical_behavior_tested": false,
+  "claims": ["Control arm agrees with v2.1 weights, losses, predictions and random state under the tested synthetic recipe.", "WSI projection parameter reduction and dropout placement verified.", "New checkpoint recipe and schema isolation verified.", "Patient-mask weighted monitoring and sampled relation-gradient aggregation verified.", "CSV audit avoids retrospective early-stopping leakage and reports missing mechanism evidence."]
+}

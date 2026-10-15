@@ -1,0 +1,100 @@
+{
+  "schema": "dct_v23_recovery_gain_candidate_contract_v1",
+  "as_of": "2026-10-14",
+  "version": "dct_v23",
+  "alias": "dct_v2_3",
+  "display_version": "DCT v2.3",
+  "status": "implementation_ready_patient_unvalidated",
+  "authorization": "用户明确要求实现新的重构候选，完成检查，交付参考风格的架构图及独立模块说明文档。该授权允许增加训练专用重构组件，不要求启动患者任务。",
+  "canonical_question": "在患者级病理与组学配对、局部对应未知且两模态可能只部分对应时，怎样学习服务生存预测的选择性运输，并保留原生信息？",
+  "canonical_idea": "保留独立 DCT 的两模态槽、阶段多几何 KL-UOT 和生存读取。训练时严格隐藏真实基因，重构其原始表达值；在训练患者内部留患者估计病理相对于可见组学的恢复收益，以该收益校准既有运输成本。",
+  "source": "survot_rank/research/methods/dct_v23/",
+  "base": "dct_v22 with dct_v21 mechanism repairs",
+  "previous_versions_preserved": [
+    "dct_v2",
+    "dct_v21",
+    "dct_v22",
+    "dct_v313_transport_reconstruction"
+  ],
+  "checkpoint_schema": "dct_v23_standalone_v1",
+  "inference_architecture": [
+    "现有小容量 WSI MLP 与通路 SNN",
+    "两套 Slot Attention 与共有原型坐标",
+    "阶段多几何有界成本与 KL-UOT",
+    "原生汇总与实际质量控制的运输残差及风险共激活",
+    "已有共享生存头输出 raw logits"
+  ],
+  "training_additions": [
+    "跨通路副本同步的全局原始基因遮盖",
+    "轻量原生及运输条件重构解码，固定原始基因目标",
+    "训练患者内部交叉拟合的有符号通路恢复收益",
+    "以收益校准既有有界绝对阶段成本"
+  ],
+  "modes": {
+    "off": "六项继承目标，无重构或收益校准",
+    "masked_plain": "六项继承目标加一项真实遮盖重构",
+    "gain_calibrated": "六项继承目标加真实遮盖重构与 OOF 恢复收益校准，共八项"
+  },
+  "loss_terms": [
+    "global_nll",
+    "ipcw_rank",
+    "per_slot_nll",
+    "slot_diversity",
+    "relation",
+    "native",
+    "raw_gene_reconstruction",
+    "recovery_gain_calibration"
+  ],
+  "recipe": {
+    "common_dim": 128,
+    "wsi_hidden_dim": 256,
+    "dropout": 0.3,
+    "mask_ratio": 0.3,
+    "reconstruction_weight": 0.05,
+    "calibration_weight": 0.02,
+    "reconstruction_hidden_dim": 64,
+    "calibration_warmup_epochs": 3,
+    "gain_scale": 0.1,
+    "inheritance": "继承目标、阶段数和槽数保持同条件配置；这些数值均为待验证的初始配方。"
+  },
+  "target_contract": {
+    "identity": "dataset_factory 中真实 geneID，按通路首次出现排序，跨通路重复基因共享遮盖状态",
+    "mask_position": "先遮盖原始基因，再复制到各通路、编码、生成查询、成本和边际；不复用完整输入缓存",
+    "reference": "仅本折训练患者的原始表达均值与标准差",
+    "reconstruction": "固定隐藏位置的真实表达误差；不是可随编码器改变的 embedding 目标",
+    "prediction_boundary": "生存主路径使用正常患者输入；隐藏任务是训练辅助，不把临床缺组学补全改为主研究问题"
+  },
+  "calibration_contract": {
+    "supervision_granularity": "patient by pathway signed recovery gain; not local pair correspondence labels",
+    "teachers": "固定原始输入坐标上的小容量回归基准；原生可见组学与条件可见组学加固定病理特征汇总",
+    "patient_exclusion": "评分患者不在相应教师拟合患者集合；教师预处理统计仅从教师训练患者拟合",
+    "gain_sign": "native masked error minus conditional masked error; negative values retained",
+    "mapping": "只用可见通路表示将通路收益映射到接收槽，映射停止梯度",
+    "cost_target": "收益通过 sigmoid(-gain/gain_scale) 映射为既有有界成本目标；不添加新的 OT 求解器",
+    "gradient": "校准不通过目标、编码器或解码器反传，只监督指定的现有成本参数",
+    "runtime": "标签只在对应训练患者的辅助目标中查询，验证测试和部署不查询收益表"
+  },
+  "controls": {
+    "configurations": [
+      "configs/dct_v23_blca_legacy_val_control.yaml",
+      "configs/dct_v23_blca_legacy_val_masked_plain.yaml",
+      "configs/dct_v23_blca_legacy_val_gain_calibrated.yaml"
+    ],
+    "protocol": "E052 candidate; BLCA 5fold_uni2h legacy_val seed3 30 epochs; candidate performance unmeasured",
+    "allocation": "all arms same encoder capacity, optimization and inherited objectives",
+    "matching_audit": "same-realized-marginal independent coupling remains a mechanism control; not asserted as new mathematics"
+  },
+  "novelty_audit": "docs/research/reconstruction_novelty_20261014/novelty_audit.json",
+  "boundaries": [
+    "遮盖重构、原始组学恢复、OT 跨重构、交叉拟合及弃配成本都有先例，组合的新颖性尚未确认。",
+    "冻结 Q 的平滑重构差额只重加权成本梯度，不声称创造新的优化方向。",
+    "KL-UOT 不保证实际边际低于参考边际，不能把差额当非负原生信息比例。",
+    "通路收益只监督恢复效用，不提供病理局部与基因的真实对应或因果证明。",
+    "辅助任务恢复更准，不等于生存泛化提高；实际质量不保证对校准目标单调。",
+    "患者任务由用户启动；接口和合成梯度检查不能代替患者结果。"
+  ],
+  "patient_training_executed": false,
+  "patient_inference_executed": false,
+  "measured_c_index": null,
+  "verified_on": "2026-10-15"
+}

@@ -96,6 +96,20 @@ def build_base_parser() -> argparse.ArgumentParser:
     parser.add_argument("--dct_v21_relation_temperature", type=float, default=0.05)
     parser.add_argument("--dct_v21_relation_probe_gain", type=float, default=0.10)
     parser.add_argument("--dct_v21_diversity_objective", choices=["collision_distance", "legacy_squared"], default="collision_distance")
+    # v2.2 changes existing encoder capacity/regularization and adds monitoring.
+    parser.add_argument("--dct_v22_wsi_hidden_dim", type=int, default=256)
+    parser.add_argument("--dct_v22_wsi_dropout", type=float, default=0.30)
+    parser.add_argument("--dct_v22_relation_gradient_interval", type=int, default=0)
+    parser.add_argument("--dct_v22_evaluate_train", action=argparse.BooleanOptionalAction, default=True)
+    # v2.3 adds training-only raw-gene reconstruction and verified OOF gains.
+    parser.add_argument("--dct_v23_reconstruction_mode", choices=["off", "masked_plain", "gain_calibrated"], default="gain_calibrated")
+    parser.add_argument("--dct_v23_mask_ratio", type=float, default=0.30)
+    parser.add_argument("--dct_v23_lambda_reconstruction", type=float, default=0.05)
+    parser.add_argument("--dct_v23_lambda_calibration", type=float, default=0.02)
+    parser.add_argument("--dct_v23_recon_hidden_dim", type=int, default=64)
+    parser.add_argument("--dct_v23_calibration_warmup_epochs", type=int, default=3)
+    parser.add_argument("--dct_v23_gain_scale", type=float, default=0.10)
+    parser.add_argument("--dct_v23_calibration_dir", type=str, default="")
     # v3.11 / v3.13 ablation knobs (read by dct_v311_slot_interpretable model via getattr).
     parser.add_argument("--dct_v311_lambda_slot_nll", type=float, default=0.05)
     parser.add_argument("--dct_v311_lambda_slot_diversity", type=float, default=0.10)

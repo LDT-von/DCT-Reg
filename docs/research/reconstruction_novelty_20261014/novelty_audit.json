@@ -1,0 +1,187 @@
+{
+  "schema": "dct_reconstruction_novelty_audit_v1",
+  "date": "2026-10-14",
+  "status": "research_candidate_not_method_release",
+  "user_request": "扩大核实重构方向的新颖性，并思考最有研究价值的设计。",
+  "scope": "英文关键词扩展检索、主要先例正文和作者公开代码核查、独立数学审查；不是全领域穷尽证明。",
+  "patient_jobs_executed": false,
+  "model_code_modified": false,
+  "novelty_guaranteed": false,
+  "performance_improvement_measured": false,
+  "decision": {
+    "previous_candidate": "严格遮盖真实基因，同实际边际 learned P 与 independent Q 比较重构误差。",
+    "revision": "保留同预算比较作为机制审计与训练消融；不再将减去被冻结 Q 的误差包装成新的优化方向。",
+    "preferred_research_candidate": "严格遮盖下估计能够跨患者外推的条件恢复收益，用该收益校准现有运输成本或参与量，保留原生路径及真实重构目标。",
+    "candidate_novelty_scope": "收益的可靠估计、对现有 DCT 选择性运输的校准、匹配与交换量的独立证据链。数学工具和单个组件已有先例，组合的新颖性尚未确认。",
+    "not_ready_to_claim": ["全领域首次", "新的 OT 数学", "一定提分", "已经解决过拟合", "识别真实局部生物学对应"]
+  },
+  "primary_sources": [
+    {
+      "name": "SlotSPE",
+      "url": "https://arxiv.org/html/2512.01116v2",
+      "verification": "方法正文及附录 B.3/B.5",
+      "already_present": "两模态自重构和跨模态通路 embedding 重构；三项重构不是当前项目主要原创。",
+      "target_boundary": "组学目标是 pathway embedding；病理自重构 query 依赖原始 patch feature。"
+    },
+    {
+      "name": "MORPHEUS",
+      "url": "https://arxiv.org/html/2508.00969v2",
+      "verification": "方法 3.2-3.6、下游生存分析 4.3",
+      "already_present": "遮盖组学 token，以可见组学与病理补全，decoder 映回原始组学特征空间，masked-only MAE，生存下游。",
+      "difference_boundary": "在通路编码后遮盖 token；所读方法没有 OT 路由。全局原始基因同步遮盖优先作为防泄漏要求，不能单独夸为主要创新。"
+    },
+    {
+      "name": "LUCID-SAE",
+      "url": "https://arxiv.org/html/2602.07311",
+      "verification": "方法 3.1-3.3",
+      "already_present": "共享/私有 sparse codes，OT 细粒度匹配，复用计划的重心映射做跨模态重构。",
+      "difference_boundary": "运输支持的重构以及保留模态特有信息的大方向已有。"
+    },
+    {
+      "name": "MCSP-OTMR",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0957417426027314",
+      "doi": "10.1016/j.eswa.2026.133823",
+      "verification": "出版社公开摘要/引言，以及自称官方的作者仓库；未取得论文完整方法公式。",
+      "repository": "https://github.com/AI4MyBUPT/MMOTR",
+      "repository_commit": "2890f987a110936608780692f9c6ab12c256b913",
+      "code_sources": [
+        "https://github.com/AI4MyBUPT/MMOTR/blob/2890f987a110936608780692f9c6ab12c256b913/models/model_OT.py#L48",
+        "https://github.com/AI4MyBUPT/MMOTR/blob/2890f987a110936608780692f9c6ab12c256b913/models/model_coattn.py#L139",
+        "https://github.com/AI4MyBUPT/MMOTR/blob/2890f987a110936608780692f9c6ab12c256b913/trainer/coattn_trainer.py#L138"
+      ],
+      "already_present": "癌症生存任务中的 UOT 跨模态重构和缺组学补全。所读代码用完整编码组学参与运输，重构停止梯度的组学 embedding，另学病理到计划的 flow_fiter。",
+      "difference_boundary": "所读代码未见同实际边际独立耦合的重构收益项；不能据此宣称未读全文绝对没有。",
+      "date_boundary": "Crossref 卷期日期为 2027-01，DOI 登记为 2026-08-03，published-online 字段缺失；二者都不直接等于首次公开日期。"
+    },
+    {
+      "name": "Statistical Matching via Schrödinger Bridge beyond Conditional Independence",
+      "url": "https://arxiv.org/html/2606.22770",
+      "first_arxiv_date": "2026-06-22",
+      "verification": "2.1、2.3、3.1、附录",
+      "already_present": "给定固定边际，从条件独立乘积耦合出发恢复依赖，双向补全，相对独立基线的预测增益及条件充分性。",
+      "difference_boundary": "不是患者内部原始基因遮盖及 actual-UOT 边际的 cost-only decoder 比较，但固定边际/优于独立/帮助补全的宽泛表述不能作为首次。"
+    },
+    {
+      "name": "Take It or Leave It: Intent-Controlled Partial Optimal Transport",
+      "url": "https://arxiv.org/html/2605.20030",
+      "first_arxiv_date": "2026-05-19",
+      "verification": "3.1-3.3、5、附录",
+      "already_present": "逐点 unmatched 成本、局部接受阈值、dummy/slack 退路；讨论学习拒绝成本。",
+      "difference_boundary": "令 cross 重构误差为配对成本、native 误差为拒绝成本，是已有局部拒绝成本 OT 的应用实例，不能称新优化框架。"
+    },
+    {
+      "name": "Understanding and Generalizing Contrastive Learning from the Inverse Optimal Transport Perspective",
+      "url": "https://proceedings.mlr.press/v202/shi23j.html",
+      "verification": "ICML 2023 正文 3.1-3.4",
+      "already_present": "可微熵 OT 双层学习表示/匹配，已知配对监督成本。",
+      "difference_boundary": "训练成本使关系具有任务价值的宽泛框架已有；正文不是重构方案。"
+    },
+    {
+      "name": "The Monge Gap",
+      "url": "https://proceedings.mlr.press/v202/uscidda23a.html",
+      "verification": "ICML 2023 Definition 3.1、3.1-3.2",
+      "already_present": "当前映射成本相对同边际最优耦合成本的差额正则。",
+      "difference_boundary": "比较对象并非独立耦合，亦非 masked decoder；同边际比较另一匹配方案的宽泛想法已有。"
+    },
+    {
+      "name": "C2MAOT",
+      "url": "https://papers.miccai.org/miccai-2025/paper/2322_paper.pdf",
+      "verification": "MICCAI 2025 正文 2.2-2.3，前一轮已读",
+      "already_present": "PET/CT 互补遮盖重构加逐层 Wasserstein 对齐。",
+      "difference_boundary": "OT 主要为额外分布对齐，其重构拼接两编码器特征，未按同预算两个计划隔离路由贡献。"
+    },
+    {
+      "name": "CMTA",
+      "url": "https://arxiv.org/html/2309.12855",
+      "verification": "3.4-3.6，公式 9-20",
+      "already_present": "完整两模态的双向 latent translation，生成 pooled latent 与 detach native latent 的 L1 监督。",
+      "difference_boundary": "不是严格遮盖真实基因的恢复；detach native 目标已有。"
+    },
+    {
+      "name": "PathOmics",
+      "url": "https://arxiv.org/html/2307.11952",
+      "verification": "2，公式 4",
+      "already_present": "病理/组学 pooled embedding MSE 对齐与预训练。",
+      "difference_boundary": "所读方法没有 reconstruction decoder，不应误列为真正的遮盖重构先例。"
+    },
+    {
+      "name": "Residual-Conditioned Optimal Transport",
+      "url": "https://arxiv.org/abs/2405.02843",
+      "verification": "作者摘要，ICML 2024",
+      "already_present": "transport residual 指导图像恢复的成本和映射。",
+      "difference_boundary": "残差定义与本候选不同；残差指导 OT 的宽泛表述仍不能当新概念。"
+    },
+    {
+      "name": "Double/Debiased Machine Learning",
+      "url": "https://arxiv.org/abs/1608.00060",
+      "verification": "经典 cross-fitting 参考",
+      "already_present": "交叉拟合是成熟统计工具。",
+      "difference_boundary": "借用分离拟合与评分的原则，不使 DCT 自动具有正交、无偏或因果保证。"
+    }
+  ],
+  "independent_algebra_review": [
+    {
+      "claim": "冻结 Q、decoder、表示与边际时，softplus 重构差额没有新增成本优化方向。",
+      "formula": "L=temperature*softplus((LP-sg(LQ))/temperature); grad_theta L=sigmoid((LP-LQ)/temperature)*grad_theta LP",
+      "implication": "只改变每患者权重。必须加 absolute-only fixed-budget reconstruction 消融，不把减去 Q 当主要数学原创。",
+      "evidence_type": "条件下的代数推导，非患者实验"
+    },
+    {
+      "claim": "固定列边际时，减去 native 风险不给配对增加信息。",
+      "formula": "sum_ij Pij*(E0j-Eij)=sum_j cj*E0j-sum_ij Pij*Eij",
+      "implication": "第一项为常数；native 参照主要给可变交换量一个效用零点。",
+      "evidence_type": "代数恒等式"
+    },
+    {
+      "claim": "质量加权全局池化可消除匹配依赖。",
+      "formula": "sum_j cj*((P^T H)_j/cj)=sum_i ri*Hi",
+      "implication": "decoder 要保留逐目标/局部路由，否则同边际 P/Q 完全一样。",
+      "evidence_type": "代数恒等式"
+    },
+    {
+      "claim": "KL-UOT 的实际列质量可以超过参考质量。",
+      "implication": "不能直接把 reference_mass-actual_mass 当非负 native 重构比例。若需要概率/混合解释，要定义有界混合或显式未交换选项；其数学亦有先例。",
+      "evidence_type": "优化约束检查"
+    }
+  ],
+  "preferred_candidate_requirements": [
+    "全局遮盖原始基因先于所有通路副本、编码、成本、边际和 query；不能复用完整目标的缓存。",
+    "target 为训练折统计标准化的真实表达值，不是随编码器变化的 latent target。",
+    "基准是可见组学的 native 补全；病理仅经明确运输路径参与 conditional 补全。",
+    "收益可负；不强迫所有患者或通路都因病理而改善。",
+    "用 outer-training 内部患者留出/交叉拟合来估计收益。换一个 mask 不能代替留患者，EMA 也不能。",
+    "校准现有 cost/参与量时要区分 actual mixed-plan 的真实误差与逐边误差代理；二者一般不等价。",
+    "同实际边际 independent Q 为审计对照；固定边际 probe 必须真的固定 P 的梯度边际，而不仅 detach Q。",
+    "重构恢复的信息是否有预后价值，必须另以患者生存指标验证。",
+    "不新增 diffusion、循环、大量私有分支或梯度对齐来制造模块数量。"
+  ],
+  "validation_ladder": [
+    "首先检查目标输入隔离、逐目标匹配敏感性、真实 marginal equality 和 cost 梯度，不当作患者性能。",
+    "未见患者的 native/paired donor/covariate-matched other-patient donor 重构比较，观察真实条件收益。",
+    "固定 checkpoint、表示、decoder、实际边际，比 learned P 与 Q/合法同边际扰动。同步重排集合槽并重算运输只是合法置换，不是破坏对应。",
+    "对无重构、普通严格遮盖重构、收益校准候选做同特征、同患者划分、同预算、同模型选择规则的重新训练对照。",
+    "固定预算差额与 absolute-only fixed-budget reconstruction 的消融，识别重加权之外是否有额外收益。",
+    "先验证重构与生存两项收益，再拓展多 seed/癌种；不反复查看 outer test 决定方法。"
+  ],
+  "search_query_families": [
+    "optimal transport reconstruction independent coupling / product coupling / same marginals",
+    "fixed-marginal / marginal-preserving / reference plan reconstruction",
+    "counterfactual reconstruction transport matching",
+    "inverse optimal transport reconstruction contrastive",
+    "transport copula reconstruction / predictive statistical matching",
+    "masked reconstruction optimal transport negative or shuffled coupling",
+    "reconstruction gain / benefit / regret optimal transport",
+    "unbalanced or partial optimal transport utility / task-aware / rejection cost / no-exchange",
+    "optimal transport cross-fitting / cross-fitted reconstruction benefit",
+    "pathology omics survival masked or cross-modal reconstruction OT",
+    "MCSP-OTMR exact DOI / PII / title / author / arXiv / public code",
+    "Monge Gap / Intent-Controlled Partial Optimal Transport / Statistical Matching Schrödinger Bridge"
+  ],
+  "remaining_uncertainties": [
+    "并未穷尽所有数据库、未公开稿件或非英文资料；检索未命中不能证明首次。",
+    "MCSP-OTMR 完整论文公式未获取；作者公开代码不代替对全文所有变体的审查。",
+    "跨拟合收益如何映射到稳定的目标坐标、潜在槽和有界现有成本，还需要具体设计；本记录不是可执行模型契约。",
+    "患者 bulk RNA 重构不识别真实局部病理-基因对应，也不提供因果证明。",
+    "没有患者结果，无法证明过拟合修复、重构改善或生存提分。"
+  ]
+}

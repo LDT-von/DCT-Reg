@@ -1,0 +1,91 @@
+{
+  "schema": "dct_v23_local_delivery_record_v1",
+  "verified_on": "2026-10-15",
+  "status": "implementation_and_artifacts_ready_patient_unvalidated",
+  "checks_record": "docs/DCT_V23_CHECKS_20261015.json",
+  "patient_jobs_started": false,
+  "bundle": {
+    "path": "standalone/dct_v23_delivery_20261015.zip",
+    "sha256": "eaa8abf5f6a09c225de4d5dd80336c40d50da86df92063da931a92c47b035665",
+    "bytes": 767580,
+    "payload_files": 51,
+    "archive_crc_and_payload_hashes_verified": true
+  },
+  "installation_checks": {
+    "runs": [
+      {
+        "project": "E:\\DCT-Reg\\.review\\dct_v23_install_validation_20261015\\starting_before_v22",
+        "patient_jobs_started": false,
+        "new_files_needed": 39,
+        "integration_already_applied": false,
+        "status": "check_passed_no_changes"
+      },
+      {
+        "project": "E:\\DCT-Reg\\.review\\dct_v23_install_validation_20261015\\starting_before_v22",
+        "patient_jobs_started": false,
+        "new_files_needed": 39,
+        "integration_already_applied": false,
+        "status": "installed",
+        "backup": "E:\\DCT-Reg\\.review\\dct_v23_install_validation_20261015\\starting_before_v22\\docs\\history\\dct_v23_install_20261015_000747_674548"
+      },
+      {
+        "project": "E:\\DCT-Reg\\.review\\dct_v23_install_validation_20261015\\starting_before_v22",
+        "patient_jobs_started": false,
+        "new_files_needed": 0,
+        "integration_already_applied": true,
+        "status": "check_passed_no_changes"
+      },
+      {
+        "project": "E:\\DCT-Reg\\.review\\dct_v23_install_validation_20261015\\starting_before_v23",
+        "patient_jobs_started": false,
+        "new_files_needed": 39,
+        "integration_already_applied": false,
+        "status": "check_passed_no_changes"
+      },
+      {
+        "project": "E:\\DCT-Reg\\.review\\dct_v23_install_validation_20261015\\starting_before_v23",
+        "patient_jobs_started": false,
+        "new_files_needed": 39,
+        "integration_already_applied": false,
+        "status": "installed",
+        "backup": "E:\\DCT-Reg\\.review\\dct_v23_install_validation_20261015\\starting_before_v23\\docs\\history\\dct_v23_install_20261015_000749_689451"
+      },
+      {
+        "project": "E:\\DCT-Reg\\.review\\dct_v23_install_validation_20261015\\starting_before_v23",
+        "patient_jobs_started": false,
+        "new_files_needed": 0,
+        "integration_already_applied": true,
+        "status": "check_passed_no_changes"
+      },
+      {
+        "project": "E:\\DCT-Reg",
+        "patient_jobs_started": false,
+        "new_files_needed": 0,
+        "integration_already_applied": true,
+        "status": "check_passed_no_changes"
+      }
+    ],
+    "conflicting_new_file_preserved": true,
+    "shared_sources_preserved_on_rejection": true,
+    "old_source_sentinel_preserved": true
+  },
+  "artifacts": [
+    {
+      "path": "docs/DCT_v23_方法与模块说明.docx",
+      "sha256": "9baf0963cc68a61c8e390fdd7164fcc95821dd228e2cf00185ebe83fd99f1b25"
+    },
+    {
+      "path": "docs/figures/dct_v23_architecture_20261014.pdf",
+      "sha256": "76cb4e8bc41182fcaf36286d0a4f686847b00c0a0378927e8c6195150736c683"
+    },
+    {
+      "path": "docs/figures/dct_v23_architecture_20261014.png",
+      "sha256": "47c0aa108a4f4d68d3c0c11ddda93db0caf781bf27f90e91fe1e7391d6e581dc"
+    },
+    {
+      "path": "docs/figures/dct_v23_architecture_20261014.svg",
+      "sha256": "25d497137460487bdb6d3323b5d674bcd0de9c2e00cc4689ab08bcb5b0a6a32f"
+    }
+  ],
+  "verified_on_remote_main_base": "0dbd30d99133a983e739e78dd31b1aaf6e72de78"
+}

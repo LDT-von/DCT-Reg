@@ -1,0 +1,57 @@
+{
+  "schema": "dct_cleanup_summary_v1",
+  "date": "2026-10-15",
+  "scope": "DCT-Reg temporary generated files and duplicate extracted packages",
+  "removed_files": 1942,
+  "removed_bytes": 190733970,
+  "removed_mib": 181.9,
+  "categories": [
+    {
+      "category": "Python/pytest缓存",
+      "files": 1315,
+      "bytes": 31472022
+    },
+    {
+      "category": "其他可再生成产物",
+      "files": 5,
+      "bytes": 45988
+    },
+    {
+      "category": "合成安装校验副本",
+      "files": 100,
+      "bytes": 2716264
+    },
+    {
+      "category": "文档视觉检查预览",
+      "files": 448,
+      "bytes": 154830847
+    },
+    {
+      "category": "架构图预览",
+      "files": 1,
+      "bytes": 301484
+    },
+    {
+      "category": "重复解压交付包",
+      "files": 73,
+      "bytes": 1367365
+    }
+  ],
+  "protected_source_hashes_unchanged_at_cleanup": 478,
+  "tracked_working_tree_unchanged_at_cleanup": true,
+  "experiment_data_results_logs_predictions_and_checkpoints_deleted": false,
+  "retained_latest_artifacts": [
+    "DCT v2.2 candidate package",
+    "DCT v2.3 candidate package",
+    "DCT v2.3 method note",
+    "DCT v2.3 architecture SVG/PNG/PDF"
+  ],
+  "verification": {
+    "post_cleanup_v2_v23_config_checks_passed": 5,
+    "v22_archive_crc_valid": true,
+    "v23_archive_crc_valid": true,
+    "v23_remote_main_regression_checks_passed": 199,
+    "patient_calibration_training_or_inference_started": false
+  },
+  "detailed_local_inventory": "See the workstation cleanup report; this shared summary intentionally omits transient local file paths."
+}

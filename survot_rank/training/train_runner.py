@@ -10,6 +10,7 @@ import pickle
 import traceback
 import shutil
 import warnings
+import copy
 warnings.filterwarnings("ignore")
 
 import numpy as np
@@ -176,7 +177,7 @@ def init_model_for_method(args, dataset_factory, *, write_audit=True):
 def init_loss_function(args):
     if args.bag_loss == 'nll_surv':
         method = getattr(args, "survot_method", None) or getattr(args, "newslot_method", None)
-        if method in {"dct_v2", "dct_v2_standalone", "dct_v21", "dct_v2_1"}:
+        if method in {"dct_v2", "dct_v2_standalone", "dct_v21", "dct_v2_1", "dct_v22", "dct_v2_2", "dct_v23", "dct_v2_3"}:
             from survot_rank.research.methods.dct_v2.losses import StableNLLSurvLoss
             return StableNLLSurvLoss(alpha=args.alpha_surv)
         if method in {"dct_v315", "dct_v315_residual_transport"}:
@@ -322,6 +323,18 @@ def get_split(args, dataset_factory, fold):
             on_missing_wsi=on_missing_wsi,
         )
 
+    collate_pathways = _collate_pathways
+    if _v23_enabled(args):
+        if args.rna_format != "Pathways":
+            raise ValueError("DCT v2.3 requires raw-gene Pathways inputs")
+        _configure_v23_training_data(args, dataset_factory, train_data, split_df, split_path)
+        from survot_rank.research.methods.dct_v23.calibration import (
+            PatientIdentifiedDataset, collate_identified_pathways,
+        )
+        train_data = PatientIdentifiedDataset(train_data)
+        test_data = PatientIdentifiedDataset(test_data)
+        collate_pathways = collate_identified_pathways
+
     # 鍚敤澶氳繘绋嬫暟鎹姞杞藉拰椤甸攣瀹氬唴瀛樹互鍔犻€?GPU 璁粌
     num_workers = getattr(args, 'num_workers', 4)
     pin_memory = True
@@ -367,18 +380,18 @@ def get_split(args, dataset_factory, fold):
         if train_batch_sampler is not None:
             train_loader = torch.utils.data.DataLoader(
                 train_data, batch_sampler=train_batch_sampler, num_workers=num_workers,
-                collate_fn=_collate_pathways, pin_memory=pin_memory,
+                collate_fn=collate_pathways, pin_memory=pin_memory,
             )
         else:
             train_loader = torch.utils.data.DataLoader(
                 train_data, batch_size=args.batch_size, shuffle=train_sampler is None,
                 sampler=train_sampler, num_workers=num_workers,
-                drop_last=True, collate_fn=_collate_pathways, pin_memory=pin_memory,
+                drop_last=True, collate_fn=collate_pathways, pin_memory=pin_memory,
                 generator=torch.Generator().manual_seed(getattr(args, 'seed', 3))
             )
         test_loader = torch.utils.data.DataLoader(
             test_data, batch_size=1, shuffle=False, num_workers=num_workers,
-            collate_fn=_collate_pathways, pin_memory=pin_memory
+            collate_fn=collate_pathways, pin_memory=pin_memory
         )
     else:
         if train_batch_sampler is not None:
@@ -424,6 +437,192 @@ def compose_batch_objective(loss_surv, auxiliary_loss, batch_size):
     return loss_surv / int(batch_size) + auxiliary_loss
 
 
+def _v22_monitoring_enabled(args):
+    """Keep the candidate's expanded CSV schema out of historical methods."""
+    return getattr(args, "survot_method", None) in {"dct_v22", "dct_v2_2", "dct_v23", "dct_v2_3"}
+
+
+def _v23_enabled(args):
+    return getattr(args, "survot_method", None) in {"dct_v23", "dct_v2_3"}
+
+
+def _configure_v23_training_data(args, factory, train_data, split_df, split_path):
+    """Fit raw-gene statistics and bind teacher artifacts to this training fold."""
+    import hashlib
+    from pathlib import Path
+    from survot_rank.research.methods.dct_v23.calibration import training_reference, load_calibration, raw_expression_matrix
+    train_ids = train_data.label_df["case id"].astype(str).tolist()
+    train_column = "inner_train" if getattr(args, "evaluation_protocol", "legacy_val") == "outer_test" else "train"
+    declared = split_df[train_column].dropna().astype(str).tolist()
+    if len(declared) != len(set(declared)) or set(declared) != set(train_ids):
+        raise ValueError("DCT v2.3 requires exact declared training-patient coverage")
+    excluded_columns = ("inner_val", "outer_test") if train_column == "inner_train" else ("val",)
+    excluded = {str(x) for col in excluded_columns for x in split_df[col].dropna()}
+    if set(train_ids) & excluded:
+        raise ValueError("DCT v2.3 training and evaluation patients overlap")
+    reference = training_reference(factory, train_ids)
+    for name in ("pathway_gene_ids", "gene_ids", "raw_gene_mean", "raw_gene_std", "train_patient_ids"):
+        setattr(args, f"dct_v23_{name}", reference[name])
+    args._dct_v23_gain_payload = None
+    if getattr(args, "dct_v23_reconstruction_mode", "off") == "gain_calibrated":
+        directory = getattr(args, "dct_v23_calibration_dir", None)
+        if not directory:
+            raise ValueError("gain_calibrated requires a prepared calibration directory")
+        path = Path(directory) / f"fold_{train_data.fold}.json"
+        args._dct_v23_gain_payload = load_calibration(path, patient_ids=train_ids, excluded_ids=excluded,
+            pathway_gene_ids=reference["pathway_gene_ids"], raw_expression_sha256=reference["raw_expression_sha256"],
+            split_sha256=hashlib.sha256(Path(split_path).read_bytes()).hexdigest(),
+            encoding_dim=args.encoding_dim, wsi_encoder=getattr(args, "wsi_encoder", "uni"),
+            raw_expression=raw_expression_matrix(factory, train_ids, reference["gene_ids"]))
+
+
+def _forward_training_batch(args, model, data, device, *, test=False):
+    if _v23_enabled(args):
+        from survot_rank.research.methods.dct_v23.calibration import process_identified_batch
+        return process_identified_batch(args, model, data, device, test=test)
+    return _process_data_and_forward(args, model, data, device, test=test)
+
+
+class _PatientWeightedMonitoring:
+    """Aggregate detached batch means over the patients actually represented.
+
+    Modality-specific statistics use the model's valid-patient counts; missing
+    modalities must not dilute their averages. Counts are summed, not averaged.
+    A missing/non-finite observation is excluded, never silently replaced by 0.
+    """
+
+    _count_keys = {
+        "wsi_monitor_patient_count", "omics_monitor_patient_count",
+        "transport_monitor_patient_count",
+        "relation_cost_gradient_sample_count",
+    }
+    _transport_keys = {
+        "plan_independence_l1_normalized", "local_readout_norm",
+    }
+
+    def __init__(self):
+        self.sums = {}
+        self.weights = {}
+        self.counts = {}
+
+    @staticmethod
+    def _number(value):
+        if isinstance(value, torch.Tensor):
+            if value.numel() != 1:
+                return None
+            value = value.detach().item()
+        try:
+            result = float(value)
+        except (TypeError, ValueError):
+            return None
+        return result if np.isfinite(result) else None
+
+    def add(self, metrics, batch_samples, *, excluded=(), metric_weights=None):
+        values = {
+            key: self._number(value) for key, value in (metrics or {}).items()
+            if key not in excluded
+        }
+        for key, value in values.items():
+            if value is None:
+                continue
+            if key in self._count_keys:
+                if value >= 0:
+                    self.counts[key] = self.counts.get(key, 0.0) + value
+                continue
+            count_key = None
+            if key.startswith("wsi_"):
+                count_key = "wsi_monitor_patient_count"
+            elif key.startswith("omics_"):
+                count_key = "omics_monitor_patient_count"
+            elif key.startswith("transport_") or key in self._transport_keys:
+                count_key = "transport_monitor_patient_count"
+            weight = values.get(count_key) if count_key is not None else float(batch_samples)
+            if metric_weights is not None and key in metric_weights:
+                weight = self._number(metric_weights[key])
+            # Without an explicit modality count, that modality's mean cannot
+            # be interpreted reliably in a partially observed batch.
+            if weight is None or weight <= 0:
+                continue
+            self.sums[key] = self.sums.get(key, 0.0) + value * weight
+            self.weights[key] = self.weights.get(key, 0.0) + weight
+
+    def means(self):
+        result = {
+            key: value / self.weights[key] for key, value in self.sums.items()
+        }
+        result.update(self.counts)
+        return result
+
+
+def _build_v22_train_evaluation_loader(args, train_data):
+    """Visit current training patients once using the validation bag policy.
+
+    A shallow copy preserves its training-patient label frame; changing only
+    split_key selects the existing evenly spaced patch policy without loading
+    validation patients. The original dataset/sampler is untouched. A private
+    generator prevents DataLoader iterator creation consuming the training RNG.
+    """
+    evaluation_data = copy.copy(train_data)
+    collate = _collate_pathways if args.rna_format in ("Pathways", "RankedGenes") else None
+    if _v23_enabled(args):
+        from survot_rank.research.methods.dct_v23.calibration import PatientIdentifiedDataset, collate_identified_pathways
+        if not isinstance(train_data, PatientIdentifiedDataset):
+            raise ValueError("DCT v2.3 training snapshots require identified datasets")
+        evaluation_source = copy.copy(train_data.dataset)
+        evaluation_source.split_key = "val"
+        evaluation_data = PatientIdentifiedDataset(evaluation_source)
+        collate = collate_identified_pathways
+    elif isinstance(evaluation_data, SurvivalDataset):
+        evaluation_data.split_key = "val"
+    return torch.utils.data.DataLoader(
+        evaluation_data, batch_size=1, shuffle=False, drop_last=False,
+        num_workers=int(getattr(args, "num_workers", 0)),
+        collate_fn=collate,
+        pin_memory=torch.cuda.is_available(),
+        generator=torch.Generator().manual_seed(int(getattr(args, "seed", 3))),
+    )
+
+
+def _validate_v22_evaluation_loader(loader):
+    """The legacy batch payload has no case IDs after collate drops samples.
+
+    Sequential batch=1 makes each surviving output's source index recoverable.
+    Other sampling/batching policies need explicit returned case IDs, which the
+    current dataset interface does not provide; reject them instead of guessing.
+    """
+    if (getattr(loader, "batch_size", None) != 1
+            or not isinstance(getattr(loader, "sampler", None), torch.utils.data.SequentialSampler)
+            or bool(getattr(loader, "drop_last", False))):
+        raise ValueError(
+            "DCT v2.2 evaluation requires a sequential batch_size=1 loader "
+            "with drop_last=False to preserve patient IDs after skipped samples"
+        )
+
+
+def _evaluate_v22_train_snapshot(args, dataset_factory, model, loader, loss_fn, survival_train):
+    """Freeze one checkpoint in eval mode; never configure references or rank memory."""
+    import random
+    modes = [(module, module.training) for module in model.modules()]
+    rng_python = random.getstate()
+    rng_numpy = np.random.get_state()
+    rng_torch = torch.get_rng_state()
+    rng_cuda = torch.cuda.get_rng_state_all() if torch.cuda.is_available() and torch.cuda.is_initialized() else None
+    try:
+        result = evaluate(args, dataset_factory, model, loader, loss_fn, survival_train)
+        metrics = dict(getattr(model, "last_evaluation_monitoring_metrics", {}))
+        metrics["cindex"] = result[1]
+        return metrics
+    finally:
+        # Preserve mixed module flags as well as the top-level flag.
+        for module, training in modes:
+            module.training = training
+        random.setstate(rng_python)
+        np.random.set_state(rng_numpy)
+        torch.set_rng_state(rng_torch)
+        if rng_cuda is not None:
+            torch.cuda.set_rng_state_all(rng_cuda)
+
+
 def train_one_epoch(args, epoch, model, loader, optimizer, scheduler, loss_fn, log_file):
     from tqdm import tqdm
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -434,6 +633,8 @@ def train_one_epoch(args, epoch, model, loader, optimizer, scheduler, loss_fn, l
     seen_samples = 0
     method_diagnostic_sums = {}
     method_diagnostic_batches = 0
+    v22_monitoring = _v22_monitoring_enabled(args)
+    monitoring = _PatientWeightedMonitoring() if v22_monitoring else None
     all_risk_scores, all_censorships, all_event_times = [], [], []
 
     # 梯度累积：batch=4 时通过累积 grad_accum_steps 个 micro-batch 再更新，
@@ -455,7 +656,10 @@ def train_one_epoch(args, epoch, model, loader, optimizer, scheduler, loss_fn, l
             # Collate function dropped every sample (all corrupt/missing).
             # Skip and continue to the next batch.
             continue
-        out, y_disc, event_time, c = _process_data_and_forward(args, model, data, device)
+        if v22_monitoring:
+            model.last_monitoring_metrics = {}
+            model.last_monitoring_metric_weights = {}
+        out, y_disc, event_time, c = _forward_training_batch(args, model, data, device)
         logits, slot_loss = out
 
         for name, value in getattr(model, "last_training_losses", {}).items():
@@ -472,6 +676,22 @@ def train_one_epoch(args, epoch, model, loader, optimizer, scheduler, loss_fn, l
             slot_loss,
             y_disc.shape[0],
         )
+        if v22_monitoring:
+            batch_samples = int(y_disc.shape[0])
+            model_monitoring = getattr(model, "last_monitoring_metrics", {})
+            # Sampled probe gradients also appear in last_training_losses.
+            # The model's per-key sample weights are authoritative for these;
+            # adding both streams would double count them with different B.
+            monitoring.add(getattr(model, "last_training_losses", {}), batch_samples,
+                           excluded=model_monitoring.keys())
+            monitoring.add(model_monitoring, batch_samples,
+                           excluded={"global_nll", "auxiliary_total"},
+                           metric_weights=getattr(model, "last_monitoring_metric_weights", {}))
+            monitoring.add({
+                "optimization_main_nll": loss_surv.detach() / batch_samples,
+                "optimization_auxiliary_total": slot_loss,
+                "optimization_total_objective": batch_objective.detach(),
+            }, batch_samples)
         loss = batch_objective / accumulation_steps
         loss.backward()
         if hasattr(model, "dct_lambda_listwise"):
@@ -557,6 +777,10 @@ def train_one_epoch(args, epoch, model, loader, optimizer, scheduler, loss_fn, l
         name: value / max(method_diagnostic_batches, 1)
         for name, value in method_diagnostic_sums.items()
     }
+    if v22_monitoring:
+        diagnostics = monitoring.means()
+        diagnostics["optimization_cindex"] = float(c_index)
+        diagnostics["optimization_patient_count"] = seen_samples
     def _fmt(value):
         # Use higher precision for tiny metrics (variances can be ~1e-4)
         if abs(value) < 0.001:
@@ -605,11 +829,16 @@ def evaluate_outer_test(args, dataset_factory, fold, model_state_path, log_file)
         dataset_factory, wsi_path, 'outer_test', fold, args.encoding_dim,
         on_missing_wsi=on_missing_wsi,
     )
+    outer_test_collate = _collate_pathways
+    if _v23_enabled(args):
+        from survot_rank.research.methods.dct_v23.calibration import PatientIdentifiedDataset, collate_identified_pathways
+        outer_test_data = PatientIdentifiedDataset(outer_test_data)
+        outer_test_collate = collate_identified_pathways
     if args.rna_format == "Pathways" or args.rna_format == "RankedGenes":
         outer_test_loader = torch.utils.data.DataLoader(
             outer_test_data, batch_size=1, shuffle=False,
             num_workers=getattr(args, 'num_workers', 4), pin_memory=True,
-            collate_fn=_collate_pathways,
+            collate_fn=outer_test_collate,
         )
     else:
         outer_test_loader = torch.utils.data.DataLoader(
@@ -686,6 +915,12 @@ def evaluate(args, dataset_factory, model, loader, loss_fn, survival_train=None)
     model.eval()
 
     total_loss = 0.0
+    v22_monitoring = _v22_monitoring_enabled(args)
+    monitoring = _PatientWeightedMonitoring() if v22_monitoring else None
+    seen_samples = 0
+    if v22_monitoring:
+        model.last_evaluation_monitoring_metrics = {}
+        _validate_v22_evaluation_loader(loader)
     all_risk_scores, all_risk_by_bin, all_censorships, all_event_times = [], [], [], []
     all_logits, all_case_ids = [], []
     case_ids = loader.dataset.label_df["case id"]
@@ -695,7 +930,10 @@ def evaluate(args, dataset_factory, model, loader, loss_fn, survival_train=None)
         for batch_idx, data in enumerate(loader):
             if data is None:
                 continue
-            out, y_disc, event_time, c = _process_data_and_forward(args, model, data, device, test=True)
+            if v22_monitoring:
+                model.last_monitoring_metrics = {}
+                model.last_monitoring_metric_weights = {}
+            out, y_disc, event_time, c = _forward_training_batch(args, model, data, device, test=True)
             logits, _ = out
 
             if args.bag_loss == "cox_surv":
@@ -706,6 +944,12 @@ def evaluate(args, dataset_factory, model, loader, loss_fn, survival_train=None)
                 raise ValueError(f"Loss not impl: {args.bag_loss}")
 
             total_loss += loss.item()
+            batch_samples = int(y_disc.shape[0])
+            if v22_monitoring:
+                seen_samples += batch_samples
+                monitoring.add(getattr(model, "last_monitoring_metrics", {}), batch_samples,
+                               excluded={"global_nll", "auxiliary_total"},
+                               metric_weights=getattr(model, "last_monitoring_metric_weights", {}))
             risk, risk_by_bin = _calculate_risk(logits)
             all_risk_by_bin.append(risk_by_bin)
             all_risk_scores, all_censorships, all_event_times = _update_arrays(
@@ -713,10 +957,27 @@ def evaluate(args, dataset_factory, model, loader, loss_fn, survival_train=None)
                 event_time, c, risk, data
             )
             all_logits.append(logits.detach().cpu().numpy())
-            all_case_ids.append(case_ids.values[count])
-            count += 1
+            if _v23_enabled(args):
+                if len(data["patient_ids"]) != batch_samples:
+                    raise ValueError("DCT v2.3 batch patient IDs do not match surviving samples")
+                all_case_ids.extend(data["patient_ids"])
+            elif v22_monitoring:
+                all_case_ids.append(case_ids.values[batch_idx])
+            else:
+                all_case_ids.append(case_ids.values[count])
+                count += 1
 
-    total_loss /= max(len(loader.dataset), 1)
+    if v22_monitoring:
+        if seen_samples == 0:
+            raise ValueError("DCT v2.2 evaluation processed no patients")
+        total_loss /= seen_samples
+        model.last_evaluation_monitoring_metrics = monitoring.means()
+        model.last_evaluation_monitoring_metrics.update({
+            "main_nll": total_loss,
+            "patient_count": seen_samples,
+        })
+    else:
+        total_loss /= max(len(loader.dataset), 1)
     all_risk_scores = np.concatenate(all_risk_scores, axis=0)
     all_censorships = np.concatenate(all_censorships, axis=0)
     all_event_times = np.concatenate(all_event_times, axis=0)
@@ -757,6 +1018,9 @@ def train_one_fold(args, dataset_factory, fold, log_file):
     args.cur_fold = fold
 
     train_data, val_data, train_loader, val_loader = get_split(args, dataset_factory, fold)
+    train_evaluation_loader = None
+    if _v22_monitoring_enabled(args) and bool(getattr(args, "dct_v22_evaluate_train", True)):
+        train_evaluation_loader = _build_v22_train_evaluation_loader(args, train_data)
     train_events = int((train_data.label_df[dataset_factory.censorship_var] < 0.5).sum())
     val_events = int((val_data.label_df[dataset_factory.censorship_var] < 0.5).sum())
     train_bins = train_data.label_df["label"].value_counts().sort_index().to_dict()
@@ -770,6 +1034,8 @@ def train_one_fold(args, dataset_factory, fold, log_file):
         f"event_sampling_fraction={float(getattr(args, 'event_sampling_fraction', 0.0) or 0.0):.3f}",
     )
     model = init_model_for_method(args, dataset_factory)
+    if _v23_enabled(args) and args._dct_v23_gain_payload is not None:
+        model.bind_gain_targets(*args._dct_v23_gain_payload)
     if hasattr(model, "configure_train_reference"):
         # DCT v3 fits stage edges and censoring weights strictly from this fold's
         # training cases before validation is ever seen.
@@ -824,6 +1090,12 @@ def train_one_fold(args, dataset_factory, fold, log_file):
             results, val_c, val_c_ipcw, val_BS, val_IBS, val_iauc, val_loss = evaluate(
                 args, dataset_factory, model, val_loader, loss_fn, survival_train
             )
+            val_monitoring = dict(getattr(model, "last_evaluation_monitoring_metrics", {})) if _v22_monitoring_enabled(args) else {}
+            train_evaluation_monitoring = {}
+            if train_evaluation_loader is not None:
+                train_evaluation_monitoring = _evaluate_v22_train_snapshot(
+                    args, dataset_factory, model, train_evaluation_loader, loss_fn, survival_train
+                )
             msg = (f"[Epoch {epoch}] val cindex={val_c:.4f} ipcw={val_c_ipcw:.4f} "
                    f"IBS={val_IBS:.4f} iauc={val_iauc:.4f}")
             print(msg)
@@ -837,6 +1109,8 @@ def train_one_fold(args, dataset_factory, fold, log_file):
                 'val_iauc': val_iauc,
                 'val_loss': val_loss,
                 **{f'train_{name}': value for name, value in train_diagnostics.items()},
+                **{f'val_{name}': value for name, value in val_monitoring.items()},
+                **{f'train_eval_{name}': value for name, value in train_evaluation_monitoring.items()},
             })
             ensure_min_free_space(args.results_dir, args.min_free_space_gb, f"Fold {fold} epoch {epoch} before write")
             # 姣忎釜 epoch 閮借鐩栧啓涓€娆?csv (閬垮厤宕╂簝涓㈠け鏇茬嚎)
