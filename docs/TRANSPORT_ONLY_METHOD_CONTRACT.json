@@ -1,0 +1,123 @@
+{
+  "schema": "dct_transport_only_contract_v1",
+  "as_of": "2026-10-19",
+  "request": "先在SlotSPE插入运输机制，再在SurvPath、PIBD、MMP、LD-CVAE、TTA尝试；不携带DCT的生存损失及其他辅助损失。",
+  "implementation": "survot_rank/plugins/transport_only/",
+  "launcher": "scripts/run_transport_only.py",
+  "guide": "docs/运输机制插拔_使用与检查_20261018.txt",
+  "priority_order": [
+    "slotspe",
+    "survpath",
+    "pibd",
+    "mmp",
+    "ld_cvae",
+    "tta"
+  ],
+  "objective": "L_total = L_host_original",
+  "dct_added_losses": [],
+  "host_owned_parts_retained": [
+    "原编码器与token/槽/原型生成",
+    "原融合层、聚合与生存预测头",
+    "原生存损失及原本已有的辅助损失",
+    "原数据划分、优化器、预算与模型选择协议"
+  ],
+  "mechanism_scope": {
+    "reused": [
+      "DCT现有多几何阶段成本",
+      "证据边际",
+      "平衡Sinkhorn求解器",
+      "可选KL-UOT求解器"
+    ],
+    "bridge": "运输重心结果残差写回宿主特征；阶段与几何直接平均，不添加DCT事件读取器。",
+    "native_slots": "SlotSPE/PIBD/MMP/TTA使用已有槽或原型，不另建DCT槽注意力。",
+    "long_encoded_tokens": "SurvPath和LD-CVAE的长token序列以可微原型汇总控制运输矩阵大小，更新后恢复原token数量。该汇总是接入选择，不等同于原生DCT完整前向。",
+    "excluded": [
+      "DCT生存预测头",
+      "DCT额外生存损失",
+      "DCT三重构",
+      "relation目标",
+      "native反事实目标",
+      "IPCW rank",
+      "per-slot NLL",
+      "slot diversity",
+      "恢复收益教师与校准损失",
+      "DCT事件Transformer"
+    ],
+    "not_full_native_method": "此插件是运输成本、求解和特征桥接的抽取；不称为完整DCT-B或完整DCT-RG的原生实现。",
+    "solver_dependency": "transport_only/solver.py独立复用v1基础，精确抽取所需bounded成本与KL-UOT；不导入历史v2及其损失。"
+  },
+  "hosts": {
+    "slotspe": {
+      "target": "cross_attention",
+      "where": "两模态已有槽进入原跨模态Transformer之前；宿主单模态/重构支路保留",
+      "source": "third_party/SlotSPE/models/SlotSPE.py",
+      "source_note": "仓库内SlotSPE快照；本轮不重新证明其上游原始性"
+    },
+    "survpath": {
+      "target": "identity",
+      "where": "编码后、原cross_attender前的omics-first拼接token",
+      "official": "https://github.com/mahmoodlab/SurvPath"
+    },
+    "pibd": {
+      "target": "PID",
+      "where": "PIB选择的两模态token进入PID前，PoE及原辅助目标保留",
+      "official": "https://github.com/zylbuaa/PIBD"
+    },
+    "mmp": {
+      "target": "identity",
+      "native_arm": "coattn",
+      "where": "原型投影后、原融合前",
+      "rejected_arm": "coattn_mot已有OT，本轮不叠加另一套OT",
+      "official": "https://github.com/mahmoodlab/MMP"
+    },
+    "ld_cvae": {
+      "target": "Robust_MCAT.coattn",
+      "where": "宿主选择真实或生成组学后，仅在跨注意力q/k/v输入处插入",
+      "variant_boundary": "本轮只支持Robust_MCAT宿主，不自动覆盖Robust_SurvPath",
+      "official": "https://github.com/JJ-ZHOU-Code/RobustMultiModel"
+    },
+    "tta": {
+      "target": "label_coattn",
+      "native_arm": "双模态fusion_type=coattn",
+      "where": "原Together/ Apart产生两模态原型token之后、融合之前",
+      "boundary": "保留宿主原有token到共享原型OT；增加的是模态间token运输，未替换Together求解器。",
+      "official": "https://github.com/Y-Research-SBU/TTA",
+      "paper": "https://arxiv.org/abs/2511.18089",
+      "identity": "Together, Then Apart，预印本2025，官方仓库当前标注ECCV2026；不是test-time adaptation"
+    }
+  },
+  "comparison_arms": {
+    "native": "未安装插件的原宿主",
+    "bypass": "安装相同参数但关闭运输的接口检查臂",
+    "independent": "保留两侧边际的独立混合；UOT保留实际运输边际与总质量",
+    "learned": "学习的运输耦合"
+  },
+  "execution": {
+    "attachment_before_optimizer": true,
+    "native_training_recipe_unchanged_by_launcher": true,
+    "launcher_default_epsilon": "固定0.05；不伪称已自动取得各宿主epoch",
+    "manual_epoch_annealing": "可手工在原epoch循环中调用attachment.set_epoch(epoch)",
+    "state_dict_restore": "同一宿主和配置先attach，再加载新增插件参数的state_dict",
+    "patient_jobs": "用户启动；本轮仅合成输入和接口检查"
+  },
+  "evidence": {
+    "check_report": "docs/TRANSPORT_ONLY_PUBLISH_CHECKS_20261019.json",
+    "patient_training_executed_this_delivery": false,
+    "patient_inference_executed_this_delivery": false,
+    "measured_patient_performance": null,
+    "upstream_full_training_recipe_reproduced": false,
+    "historical_local_check_report": "docs/TRANSPORT_ONLY_CHECKS_20261018.json"
+  },
+  "history": {
+    "retained": [
+      "survot_rank/plugins/transport/",
+      "E049历史实验",
+      "所有原生DCT模型与结果",
+      "远端既有实验记录和代码保持"
+    ],
+    "interpretation": "旧插件的完整辅助损失实验不能当作本轮纯运输插拔的实验或分数；原生DCT损失不因本轮改动而撤除。",
+    "retained_locally_not_published": [
+      "survot_rank/plugins/transport_v2/"
+    ]
+  }
+}

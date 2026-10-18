@@ -1,3 +1,12 @@
+## 当前纯运输插拔范围 2026年10月18日
+
+- 用户最新要求：先在SlotSPE尝试运输机制插拔，再扩展SurvPath、PIBD、MMP、LD-CVAE、TTA。当前插件入口是 `docs/TRANSPORT_ONLY_METHOD_CONTRACT.json`，代码为 `survot_rank/plugins/transport_only/`。
+- 插件只更新特征，`L_total = L_host_original`；不带DCT生存损失、预测头、重构、relation、native反事实或收益校准目标。宿主本来已有的生存和辅助损失保留。
+- 历史 `transport` 及E049完整辅助训练保留，未发布的 `transport_v2` 原材料保留在原研究目录；它们不能作为本轮纯运输结果；原生DCT-B、DCT-RG训练方案不因此改变。
+- SlotSPE直接复用已有槽。MMP本轮支持coattn臂；LD-CVAE支持Robust_MCAT；TTA是Together, Then Apart，支持双模态coattn臂。具体接入与限制看新契约。
+- 合成前向/梯度和接口检查不等于患者性能；患者任务仍由用户启动。发布前远端入口备份位于 `docs/history/transport_only_publish_20261019/`。
+- 发布时运输求解部分独立放入 `transport_only/solver.py`，不依赖或发布历史 `transport_v2` 及其损失配方。
+
 # v313 实验资料保护与主档维护
 
 主档只记录v3.13相关实验。用户已明确授权本轮清理非v3.13归档实验与代码；该授权不是对后续清理的永久授权。

@@ -1,5 +1,13 @@
 # DCT-Reg v3.10
 
+## 当前纯运输插拔入口（2026-10-19）
+
+先在SlotSPE验证运输机制，再扩展SurvPath、PIBD、MMP、LD-CVAE、TTA。只更新宿主特征，`L_total = L_host_original`，不添加DCT生存头或辅助损失。原生DCT研究路线和历史实验保留。
+
+- [纯运输契约](docs/TRANSPORT_ONLY_METHOD_CONTRACT.json)与[使用说明](docs/运输机制插拔_使用与检查_20261018.txt)
+- [原生训练启动器](scripts/run_transport_only.py)：保留原宿主参数与损失，患者任务由用户启动
+- [发布核验](docs/TRANSPORT_ONLY_PUBLISH_CHECKS_20261019.json)：接口、原模型合成输入与远端核验分别登记
+
 **Deep Counterfactual Transformers for Survival Prediction**
 
 DCT 是一个多模态生存预测框架，通过**语义对齐的多模态融合**和**训练折引导的干预解释**实现高精度预测与可解释性。

@@ -1,0 +1,61 @@
+运输机制插拔：先 SlotSPE，再扩展到图片中的五个宿主
+初稿：2026-10-18；隔离发布更新：2026-10-19
+
+本轮纠正的是插件范围。只插入运输成本、求解和特征交换，不携带DCT的生存头、生存损失、重构、关系或恢复收益损失。
+总损失始终是 L_host_original。SlotSPE本来就有的slot decoder和重构损失、PIBD本来就有的IB/MI目标、LD-CVAE本来就有的生成器目标都保留。保留宿主损失不等于加入DCT损失。
+
+一、实际接入
+SlotSPE：原槽 → 运输 → 原cross_attention；原单模态和重构支路保留。直接使用已有槽，禁止通过较小slot_budget再次压缩。
+SurvPath：编码后的两模态token → 运输更新 → 原融合和生存头。
+PIBD：PIB选出的token → 运输 → 原PID；PoE与其余宿主行为保留。
+MMP：支持原coattn臂，已有原型 → 运输 → 原融合；拒绝向coattn_mot臂重复叠加OT。
+LD-CVAE：支持Robust_MCAT。原宿主先选真实/生成组学，再在coattn输入插入；不改生成器与重构目标。Robust_SurvPath不在本轮已交付支持范围。
+TTA：Together, Then Apart，支持双模态coattn臂。在Together/Apart后的原型token间运输，保留它原有的token到原型OT。没有声称替换了Together步骤。
+
+二、在原宿主训练代码中接入（推荐，先做SlotSPE）
+在宿主model构造后、optimizer构造前：
+
+    from survot_rank.plugins.transport_only.hosts import attach_transport
+    attachment = attach_transport(model, "slotspe", {
+        "transport_mode": "balanced", "eps": 0.05, "eps_start": 0.05
+    })
+    optimizer = 原来的optimizer(model.parameters(), 原来的参数)
+
+继续执行原来的forward与loss计算，不调用任何DCT loss函数，不额外加aux_loss。
+每轮需要退火时调用attachment.set_epoch(epoch)，并显式设置eps_start和eps；默认启动器固定温度。
+关闭：attachment.set_enabled(False)。更换运输对照：attachment.mechanism.set_plan_mode("independent")。
+移除：attachment.remove()，并重新构造optimizer。保存使用原生state_dict；恢复时先以相同配置attach再加载。
+
+三、不改宿主训练文件的启动器
+scripts/run_transport_only.py在独立进程内的宿主构造阶段安装接口，宿主数据、头和损失仍由原训练器处理。
+首先检查命令，不运行训练（下例以仓库内SlotSPE快照为源）：
+
+    python scripts/run_transport_only.py --host slotspe --arm learned --source-root third_party/SlotSPE --mechanism-config configs/transport_only_balanced.json --dry-run -- --study blca --seed 3
+
+正式运行由用户执行：去掉--dry-run，增加--record <新的绝对记录文件路径>，在最后的 -- 之后传入你原来已经核验的数据、划分、特征维度、训练预算等全部SlotSPE参数。不同臂的原生--results_dir必须分别设置，不能共用或覆盖已有结果。
+这里没有编造服务器数据路径，也没有替你启动患者任务。
+
+其他宿主只更换--host及对应--source-root，仍需要该宿主完整源码和原有依赖：
+    survpath  -> 原官方SurvPath根目录，原入口main.py
+    pibd      -> 原官方PIBD根目录，原入口main.py
+    mmp       -> 原官方MMP根目录（含src/），原入口training.main_survival，model_mm_type选择coattn
+    ld_cvae   -> 原官方RobustMultiModel根目录，原入口main.py，model_type选择mcat，原generator参数照旧
+    tta       -> TTA根目录中包含src/的那一级，原入口training.main_survival，双模态且fusion_type为coattn
+启动器不会自动安装宿主依赖，也不改宿主CLI参数。选错宿主分支、没有构造目标类或从未调用接入点时会报错，不把它登记为接通。
+
+四、实验顺序与归因
+先在SlotSPE做native和learned两臂，核验同特征、患者划分、种子、预算和模型选择；再做independent臂检验匹配结构是否有作用。bypass只检查接口关闭能恢复原输出。
+后续逐一扩到SurvPath、PIBD、MMP、LD-CVAE、TTA。每个宿主内部比较自己的原版与加运输版。
+不同模型的公开分数不能填入这次配对结果表。历史E049含额外辅助训练的结果也不能改名冒充纯运输结果。
+
+五、本轮证据范围
+历史本地检查：docs/TRANSPORT_ONLY_CHECKS_20261018.json。
+本次发布检查：docs/TRANSPORT_ONLY_PUBLISH_CHECKS_20261019.json。
+检查采用仓库中现存的各宿主源码及小型随机张量；不读取患者数据，不是完整论文配方复现，不提供C-index结论。
+MMP官方env.yaml固定POT==0.9.4，本轮仅将其装到.review/transport-only-deps-20261018隔离检查目录；未更改全局Python环境。该目录不属于模型交付依赖路径。
+旧插件、原生DCT版本、历史实验与checkpoint均保留。本次在最新远端基础上隔离发布；具体提交和推送以发布核验记录为准，原研究目录不直接合并覆盖。
+
+六、第三方来源与重复检查
+启动器的--source-root指向完整原宿主源码。运行合成原模型检查时，测试默认查找仓库内原快照；若快照位于另一个DCT-Reg资料根目录，设置环境变量DCT_TRANSPORT_ONLY_SOURCE_ROOT到该资料根目录。缺少某份源代码时会明确跳过对应native检查，不把接口fixture通过当作原模型通过。
+本次发布测试使用E:\DCT-Reg中的已核验原源码快照作为资料，验证的是隔离工作树内的新插件；不把这些绝对路径写成服务器路径。普通使用者无需该测试变量，只需给启动器正确的--source-root。
+运输求解器独立在transport_only/solver.py中，不依赖尚未发布的旧transport_v2包。发布前以旧v2为参考核对所抽取成本、边际、计划与梯度；该参考只供测试，不会进入插件运行依赖。

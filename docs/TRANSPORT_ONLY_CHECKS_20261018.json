@@ -1,0 +1,92 @@
+{
+  "schema": "dct_transport_only_checks_v1",
+  "as_of": "2026-10-18",
+  "status": "code_and_synthetic_contracts_passed_patient_unvalidated",
+  "command": "D:\\python\\python.exe -m pytest tests/test_transport_only_mechanism.py tests/test_transport_only_hosts.py tests/test_transport_only_launcher.py tests/test_transport_plugin_v2_task_losses.py -q -rs --junitxml=.review/transport_only_20261018_tests.xml",
+  "passed": 69,
+  "failed": 0,
+  "skipped": 0,
+  "new_transport_only_checks": 35,
+  "historical_v2_loss_import_regression_checks": 34,
+  "seconds": 182.262,
+  "counts_by_test_module": {
+    "tests.test_transport_only_mechanism": 16,
+    "tests.test_transport_only_hosts": 13,
+    "tests.test_transport_only_launcher": 6,
+    "tests.test_transport_plugin_v2_task_losses": 34
+  },
+  "junit": ".review/transport_only_20261018_tests.xml",
+  "native_sources": {
+    "slotspe": {
+      "source": "third_party/SlotSPE/models/SlotSPE.py",
+      "sha256": "0928641f2f7d4df5878036ca10152a94d2e33f81dd71c0947e382be5ab01e642",
+      "synthetic_native_forward_backward": "passed"
+    },
+    "survpath": {
+      "source": "third_party/E047_official_code_20261011_v1/SurvPath/models/model_SurvPath.py",
+      "sha256": "f4cfe9a80d80e81072a73f7dfcdb6fe4353c7fde825afbb6defab64c0d689fe0",
+      "synthetic_native_forward_backward": "passed",
+      "upstream_commit": "3f73ddd6705ec67d643020c5bb04fb13f9f382cc",
+      "matches_saved_source_inventory": true
+    },
+    "pibd": {
+      "source": "third_party/E047_official_code_20261011_v1/PIBD/models/model_PIBD.py",
+      "sha256": "8912a5649bd7df982dd9f78a96f0fd03698f1b9e7345bf16c0217be88a716ef6",
+      "synthetic_native_forward_backward": "passed",
+      "upstream_commit": "bd5bd94e6f8d48e7679c6e68209a3a65c9e56a78",
+      "matches_saved_source_inventory": true
+    },
+    "mmp": {
+      "source": "third_party/E047_official_code_20261011_v1/MMP/src/mil_models/model_multimodal.py",
+      "sha256": "f09aaf6bbac42d4b05db34bbec4ee27ecf4b914046a4d25abf5aa39b1dce3065",
+      "synthetic_native_forward_backward": "passed",
+      "upstream_commit": "1fd75e37592f7ab47b787f737733ba3c5a7e714c",
+      "matches_saved_source_inventory": true
+    },
+    "ld_cvae": {
+      "source": "third_party/E047_official_code_20261011_v1/LD-CVAE/models/model_coattn.py",
+      "sha256": "9cf1371c4d80c460cc7ce0a748869302e1111d7bb7c884a7163e555079e9063a",
+      "synthetic_native_forward_backward": "passed",
+      "upstream_commit": "df8c50d94179a63edf3d9017641295a268ce9148",
+      "matches_saved_source_inventory": true
+    },
+    "tta": {
+      "source": "third_party/three_paper_sources_20261013/nearest_prior_art/TTA/TTA/src/mil_models/model_otmil_label.py",
+      "sha256": "4135f05172db4e1d53cfb4543979da56f5665909813472a8ab0b064a901b00c8",
+      "synthetic_native_forward_backward": "passed"
+    }
+  },
+  "scope": [
+    "random synthetic features, no patient data",
+    "native host original forward plus own NLL backward, no DCT auxiliary objectives",
+    "disabled insertion exactly restores native prediction under reset RNG",
+    "fixture launcher checks do not reproduce full upstream training recipes",
+    "native model source hashes for four E047 hosts match saved pinned inventories"
+  ],
+  "loss_owner": "native_host_only",
+  "dct_added_losses": [],
+  "patient_training_executed": false,
+  "patient_inference_executed": false,
+  "patient_performance": null,
+  "full_native_training_recipe_reproduced": false,
+  "global_python_environment_modified": false,
+  "isolated_test_dependency": {
+    "package": "POT",
+    "version": "0.9.4",
+    "path": ".review/transport-only-deps-20261018",
+    "reason": "MMP/env.yaml pin"
+  },
+  "source_files_sha256": {
+    "survot_rank/plugins/transport_only/mechanism.py": "0ca37f83883d230f9eb83544fbbe259083b5d1212e524eb3262ee78960ef3003",
+    "survot_rank/plugins/transport_only/hosts.py": "47c950c3642addee3336c59dec70f72fe244466dbadb86fd3240357b573d8d2e",
+    "survot_rank/plugins/transport_only/__init__.py": "037430037d6e6a3a02bfc7eb2f04d081a5d6ae609549923041524247ae826bda",
+    "survot_rank/plugins/transport_v2/__init__.py": "1bd7166e2aec83e9f75f990cfcf310fead68f494776c72294f1d3b7f4a1ef7c7",
+    "scripts/run_transport_only.py": "8544fa954648a45525b9942350a0096a394189b9b19782eef8529e37a0e79b33",
+    "configs/transport_only_balanced.json": "e65de27caae46c4812935924dd72a8673e1ba66c55898c4fa9efd2c294c62f31",
+    "tests/test_transport_only_mechanism.py": "58486b6b3a604a105dfe89390fd954a16d7043d991daaf86ef3b79544d45a757",
+    "tests/test_transport_only_hosts.py": "4566a1f6ba6e8b86a6e09e2b92f22d274fa58b8b96b037ff258ca88d2e336585",
+    "tests/test_transport_only_launcher.py": "83048d3bdda3ac330c39a18fbb08d7bd812c1d425f457b3b7f0790524b07ed71"
+  },
+  "previous_entries_backup": "docs/history/transport_only_20261018/",
+  "git_commit_or_push_performed": false
+}
