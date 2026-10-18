@@ -1,0 +1,6 @@
+{
+  "transport_mode": "balanced",
+  "eps": 0.05,
+  "eps_start": 0.05,
+  "residual_init": 0.05
+}
