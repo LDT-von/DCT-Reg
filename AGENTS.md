@@ -110,7 +110,7 @@
 ## F. AGENTS.md 保护红线（操作前再次确认）
 
 - 任何删除 / 移动 / 覆盖档案前必须得到用户对**具体材料名**的明确授权。
-- 主档已登记：E045–E050。下一项实验从 **E051** 起编号，不复用。
+- 主档已登记：E045–E051（E051 阶段 2 已实测 20 任务，2026-10-15 完成 / 2026-10-18 入档；详见正文）。下一项实验从 **E052** 起编号，不复用。
 - 失败 / 撤回 / 旧图版本保留状态和来源。
 
 ---
@@ -139,6 +139,8 @@ E049（BLCA，2 骨干 × 2 臂 × 5 折 = 20 任务）结果：MCAT native 0.66
   - ⚠️ **完整 checkpoint 未提交到 Git**：服务器执行的只读脚本逐任务核验了 checkpoint 哈希并读取残差增益，但本机无法独立读取完整文件；`model_audit.json` 报告 native `enabled=False`，脚本未做同 checkpoint 开/关推理
 
 **当前结论**：E049 分数本身已复核；补零对训练和预测的影响、10 对配方/来源差异的原因仍未查清。A/D 能否作为与新 B/I 严格配对的结果**待定**，阶段 2 暂缓启动。先用更新的 `audit_readonly.py` 在服务器只读重查，取得具体差异字段，再决定哪些旧臂可复用、哪些必须同代码重训。此次改动不运行患者数据或模型。
+
+**2026-10-18 状态更新**：用户授权按"现有接口可执行的对照"启动阶段 2，20 任务（MCAT/SurvPath × B/I 臂 × 5 折 × seed3）于 2026-10-15 03:59 全部完成 driver（`results/e051_stage2_blca/`，20/20 OK rc=0）。本机已审 completion.json / 产物 SHA256，统计结果写入下方"## E051 阶段 2 实测结果（2026-10-15；2026-10-18 入档）"章节；A/D 配对审计未过这一点仍成立，B/I 不与 A/D 直接配对比较。
 
 ### 阶段 2：BLCA 机制分解（现有接口可执行的对照）
 
@@ -205,6 +207,68 @@ E049（BLCA，2 骨干 × 2 臂 × 5 折 = 20 任务）结果：MCAT native 0.66
 - 2026-10-14 修正：按 E049 worker、插件前向和服务器交接摘要纠正 `native` 的开关含义、诊断入口和可执行对照；保留原错误版本于修改前备份。
 - 2026-10-14 晚原判断（已撤回）：阶段 1 诊断由本机在 GPU 服务器执行；当时将 15/380 患者称为影响极小，并判断 A/D 可复用、阶段 2 可启动。
 - 2026-10-14 修正：上行是当时的初步判断。10/10 严格配对失败和最高 19.3% 补零行尚不能支持 A/D 可复用；已增加只读配对差异分类，待服务器重查后决定。
+- 2026-10-18：用户授权按 E051 计划"现有接口可执行的对照"启动阶段 2，20 任务实测完成（详见下一节）。阶段 1 配对审计未过的边界保留——B/I 不与 E049 A/D 直接配对比较。
+
+## E051 阶段 2 实测结果（2026-10-15 完成；2026-10-18 入档）
+
+**范围**：2 backbone（MCAT、SurvPath）× 2 新增臂（B `learned` = plan=learned + 关三重建；I `independent` = plan=independent + 关三重建）× 5 折 × seed3 = 20 任务；外测协议 `outer_test`，划分 `5fold_uni2h_outer_test_seed3`，每折 76 患者（共 380 人，5 折互不重叠），普通 Harrell C-index（**非 IPCW**）。
+
+**driver**：`/data1/DCT-Reg/results/e051_stage2_blca/e051_driver.log`，最后一行 `[2026-10-15 03:59:37] === E051 stage 2 driver COMPLETE === elapsed 14h9m`。20 任务全部 `OK rc=0`（含 mcat/learned/fold0 两次启动失败后第三次成功，目录 `driver_attempt.log` 已不在产物中表示成功路径）。
+
+**结果（普通 Harrell C-index，outer_test，BLCA seed3）**：
+
+| Baseline | Plan arm | F0 | F1 | F2 | F3 | F4 | MEAN | SD |
+|---|---|---|---|---|---|---|---|---|
+| MCAT | B `learned` | 0.6517 | 0.6412 | 0.6071 | 0.6971 | 0.7402 | **0.6674** | 0.0518 |
+| MCAT | I `independent` | 0.6313 | 0.6429 | 0.6071 | 0.6971 | 0.7342 | **0.6625** | 0.0519 |
+| SurvPath | B `learned` | 0.6177 | 0.6103 | 0.6155 | 0.7120 | 0.6752 | **0.6461** | 0.0453 |
+| SurvPath | I `independent` | 0.6177 | 0.6112 | 0.6155 | 0.7120 | 0.6752 | **0.6463** | 0.0452 |
+
+**配对 fold 差值（5 折同患者）**：
+
+| 配对 | backbone | mean Δ | SD | 解读 |
+|---|---|---|---|---|
+| B − I（plan 学习 vs 独立，同插件开） | MCAT | +0.0049 | 0.0091 | 方向 B 略优，量级 < 0.01 |
+| B − I | SurvPath | −0.0002 | 0.0004 | 几乎相同（4 折差 0、1 折差 −0.0009） |
+| A vs B（E049 A vs E051 B，**跨包、阶段 1 配对审计未过**） | MCAT | +0.0012 | 0.0102 | 跨包比较，**不能**归因于运输 |
+| A vs B（跨包，**审计未过**） | SurvPath | −0.0252 | 0.0135 | 跨包比较，**不能**归因于运输 |
+| B vs D（E051 B 关三重建 vs E049 D 开三重建） | MCAT | +0.0012 | 0.0073 | 跨包比较，**不能**归因于三重建 |
+| B vs D | SurvPath | +0.0195 | 0.0250 | 跨包比较，**不能**归因于三重建 |
+
+**关键观察**（仅基于 B/I 同包配对；不与 E049 跨包归因）：
+- **MCAT ≻ SurvPath**（5 折同患者，差约 0.02）；B/I 间差异 < 0.01，远未达 E051 计划"提分参考线" +0.01。
+- **plan_mode 学习 vs 独立**在 MCAT 上 +0.0049、在 SurvPath 上 −0.0002，方向不一致、量级 < 0.01，**不主张 plan=learned 优于 plan=independent**。
+- **MCAT B/I 5 折里 F2 完全相同、F3 完全相同**（差异仅在 F0/F1/F4），提示 B/I 多数情况下在同患者配对上几乎不可分。
+- B/I 20 任务在 `completion.json` 记录 30 epoch 全部 `training_complete=true`，30/30 epoch 实际完成（无早停）。
+
+**产物与可审计**：
+- 20 份 `completion.json` 全部 `status=complete`、`score` 与产物 `outer_test_predictions.pkl` 重算一致。
+- 每任务有 76 患者预测，prediction_artifact.sha256 前 16 字符：
+
+  | baseline | arm | F0 | F1 | F2 | F3 | F4 |
+  |---|---|---|---|---|---|---|
+  | mcat | B | e1ea7f4f5c0a9857 | cf3c84f3e6cc1b8d | a28531abe64e4f4c | f2008c7ab6242640 | 074fd9b0f899e9f2 |
+  | mcat | I | 5da9905adc47047e | 684ed09271b152ef | f51f23404d390813 | 3ac40add86c63d05 | 936a8c1e9fb30930 |
+  | survpath | B | 1a7055820671e535 | b92a02c7a83f56ef | fb3af84bf66b7a86 | 737cd4586e1eecce | 7a714a848e7941e7 |
+  | survpath | I | ab3ba096385ce3f6 | c1405087e503bddc | 6aa69ca605dbd5a2 | 40f30c9901af34a1 | adb67c04b0c89ff9 |
+
+- checkpoint_artifact.sha256 前 16 字符随产物目录保留，完整 SHA256 见 `results/e051_stage2_blca/outer_test/blca/{mcat,survpath}/{learned,independent}/fold{0..4}/seed3/completion.json`。
+- driver log 与每任务 `train.log` 保留；补零/写回影响仍**未在服务器端复核**（沿用阶段 1 边界）。
+
+**当前结论（2026-10-18）**：
+- **运输与计划机制对照（plan=learned vs plan=independent）量级 < 0.01，方向不一致**——按 E051 计划"提分参考线" +0.01 衡量，**当前不主张 plan=learned 在 BLCA 上系统优于 plan=independent**。
+- **MCAT ≻ SurvPath** 这点与 E049 A/D 同方向，但不主张新机制。
+- **阶段 2 的拆解目标已达成**（B/I 各自 10 任务、5 折同患者配对差值已统计）；B − I 的 +0.0049 / −0.0002 是计划层差异，不是泛化能力差异。
+- **与 E049 A/D 严格配对的问题仍未解决**（阶段 1 配对审计未过、补零影响未查清）；如要把 A/D 与 B/I 同框比较，需要先在服务器只读重查或按修正代码重训受影响的旧臂。
+- **下一步（用户接管）**：
+  1. 决定是否启动 **E051 阶段 3 扩癌种**——按计划要求"BLCA 因子分解稳定后才扩"，本轮量级未到稳定门槛，**当前不主张扩癌种**。
+  2. 决定是否启动 **E051 阶段 4 第三骨干**——计划要求跨癌种稳定才触发，**当前不触发**。
+  3. 决定是否回查 E049 A/D 配对审计失败的具体差异字段，再决定 E049 旧臂能否进入与 B/I 的同框比较。
+  4. 不为 +0.005 量级改写论文/产品结论；本节数字按"实测、同患者配对、5 折 BLCA seed3"边界记录。
+
+**原始位置**：`/data1/DCT-Reg/results/e051_stage2_blca/outer_test/blca/{mcat,survpath}/{learned,independent}/fold{0..4}/seed3/`
+**driver log**：`/data1/DCT-Reg/results/e051_stage2_blca/e051_driver.log`
+**入档备份**：`/data1/DCT-Reg/实验档案/AGENTS_md_backups/AGENTS.md.bak.20261018_073557_preE051_stage2_record`（sha256 4b5eb471bfed979830bddf171ab53a50070eafdd0772e45bc1aa558d78c79cf7）
 
 ## 独立 v2.2 过拟合修复候选（2026-10-14）
 
