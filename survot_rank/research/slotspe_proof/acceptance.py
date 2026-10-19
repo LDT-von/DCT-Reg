@@ -66,8 +66,15 @@ def audit_return(root, delivery=None):
     if manifest["checks_only"]:
         raise ValueError("Only synthetic/metadata checks were run; no server patient proof accepted")
     prepared = _read(root / "prepared/manifest.json")
-    arms = ["A", "B", "C"] if config.get("experiment") == "attribution_abc" else ["original", "readout_fix"]
-    revised = manifest.get("artifact_contract") == "slotspe_abc_patient_intervention_v2"
+    native = config.get("experiment") == "original_audit"
+    arms = ["original"] if native else (["A", "B", "C"] if config.get("experiment") == "attribution_abc" else ["original", "readout_fix"])
+    revised = manifest.get("artifact_contract") in ("slotspe_abc_patient_intervention_v2", "slotspe_clean_original_v1")
+    if native and delivery:
+        from .queue import REQUIRED_SOURCE
+        for relative in REQUIRED_SOURCE:
+            digest = prepared["source_hashes"].get(relative)
+            if not digest or delivered.get("third_party/SlotSPE/" + relative) != digest:
+                raise ValueError("Clean native source differs from the frozen delivery: " + relative)
     gaps, pairs = [], []
 
     def require_hashed(folder, names):
@@ -144,13 +151,83 @@ def audit_return(root, delivery=None):
                         raise ValueError("Patient slot intervention provenance differs")
                 elif not probe_path.exists():
                     gaps.append(f"fold{fold}/seed{seed}/{arm['arm']}: real patient final-slot intervention absent in legacy package")
-            if "original" in arms:
+                if native:
+                    require_hashed(arm_root, ["native_model_audit.json", "natural_gate_observations.json"])
+                    native_audit = _read(arm_root / "native_model_audit.json")
+                    gates = _read(arm_root / "natural_gate_observations.json")
+                    if (native_audit["patient_ids"] != data["val"] or gates["patient_ids"] != data["val"]
+                            or any(x["checkpoint_sha256"] != arm["checkpoint_sha256"] for x in (native_audit, gates))):
+                        raise ValueError("Native diagnostics patient/checkpoint provenance differs")
+                    if (not all(native_audit["purity"]["checks"].values()) or native_audit["repaired_models_constructed"] is not False
+                            or native_audit["checkpoint_state_unchanged_by_diagnostics"] is not True):
+                        raise ValueError("Native model purity contract failed")
+                    for relative, digest in native_audit["purity"]["source_sha256"].items():
+                        if prepared["source_hashes"].get(relative) != digest:
+                            raise ValueError("Native class source differs from prepared source")
+                    for repeat in range(config["eval_repeats"]):
+                        for modality in ("wsi", "omic"):
+                            rows = [r for r in gates["records"] if r["repeat"] == repeat and r["modality"] == modality]
+                            if [r["patient_id"] for r in rows] != data["val"]:
+                                raise ValueError("Natural gate observation coverage differs")
+                    if len(gates["records"]) != len(data["val"]) * 2 * config["eval_repeats"]:
+                        raise ValueError("Natural gate observation count differs")
+                    if gates["near_zero_count"] != sum(r["near_zero"] for r in gates["records"]):
+                        raise ValueError("Natural gate summary differs")
+                    for row in gates["records"]:
+                        finite = all(value is not None and math.isfinite(value) for value in [row["gate_sum"], *row["gate"], *row["scores"]])
+                        if row["finite"] != finite or (finite and (not math.isclose(sum(row["gate"]), row["gate_sum"], rel_tol=1e-5, abs_tol=1e-7)
+                                or row["near_zero"] != (sum(row["gate"]) < 1e-6))):
+                            raise ValueError("Natural gate vector/summary differs")
+                    baseline = _read(arm_root / "eval_repeats.json")[0]
+                    replay = native_audit["rng_replay"]
+                    if replay["eval_seed"] != baseline["eval_seed"] or len(replay["logits"]) != len(data["val"]):
+                        raise ValueError("RNG replay seed/coverage differs")
+                    if any(len(a) != len(b) for a, b in zip(replay["logits"], baseline["logits"])):
+                        raise ValueError("RNG replay logit shape differs")
+                    replay_error = max(abs(a - b) for x, y in zip(replay["logits"], baseline["logits"]) for a, b in zip(x, y))
+                    if not math.isclose(replay_error, replay["max_logit_difference"], rel_tol=1e-6, abs_tol=1e-10) or replay["within_1e_minus_6"] != (replay_error <= 1e-6):
+                        raise ValueError("RNG replay raw values/summary differs")
+                    padding = native_audit["padding"]["records"]
+                    if sorted((r["patient_id"], r["added_controlled_zero_rows"]) for r in padding) != sorted((pid, count) for pid in data["val"] for count in (16, 64)):
+                        raise ValueError("Controlled padding observation coverage differs")
+                    def risk_from_logits(logits):
+                        survival, total = 1., 0.
+                        for logit in logits:
+                            hazard = 1 / (1 + math.exp(-logit)) if logit >= 0 else math.exp(logit) / (1 + math.exp(logit))
+                            survival *= 1 - hazard
+                            total -= survival
+                        return total
+                    for row in padding:
+                        first, second = row["logits_before"], row["logits_after"]
+                        if len(first) != len(second) or not first or not all(math.isfinite(x) for x in first + second):
+                            raise ValueError("Controlled padding raw logits invalid")
+                        delta = max(abs(a-b) for a, b in zip(first, second))
+                        risk_delta = abs(risk_from_logits(first) - risk_from_logits(second))
+                        if not math.isclose(delta, row["max_logit_difference"], rel_tol=1e-5, abs_tol=1e-7) or not math.isclose(risk_delta, row["risk_abs_difference"], rel_tol=1e-4, abs_tol=1e-5):
+                            raise ValueError("Controlled padding raw values/summary differs")
+                    for record in records:
+                        if any(v != 0 for v in record["selected_slot_max_abs_change"].values()):
+                            raise ValueError("Selected slot changed during self intervention")
+                        delta = max(abs(a-b) for a, b in zip(record["cross_frozen_logits_before"], record["cross_frozen_logits_after"]))
+                        if not math.isclose(delta, record["cross_frozen_fused_logits_max_abs_change"], rel_tol=1e-5, abs_tol=1e-7):
+                            raise ValueError("Self intervention raw logits/summary differs")
+                        for modality in ("wsi", "omic"):
+                            pool_delta = max(abs(a-b) for a,b in zip(record["self_pool_before"][modality], record["self_pool_after"][modality]))
+                            if not math.isclose(pool_delta, record["self_pool_max_abs_change"][modality], rel_tol=1e-5, abs_tol=1e-7):
+                                raise ValueError("Self pool raw values/summary differs")
+                    expected_padding = "observed" if any(r["max_logit_difference"] > native_audit["padding"]["threshold"] for r in padding) else "not_observed"
+                    expected_gate = "observed" if gates["near_zero_count"] else "not_observed"
+                    if native_audit["padding"]["sensitivity"] != expected_padding or gates["near_zero_gate"] != expected_gate:
+                        raise ValueError("Native observation classification differs")
+                    if pair["checks"]["padding_sensitivity"] != expected_padding or pair["checks"]["natural_gate_near_zero"] != expected_gate:
+                        raise ValueError("Native pair observation summary differs")
+            if not native and "original" in arms:
                 same = pair["same_weights_eval_fix"]
                 require_hashed(folder / "same_weights_eval_fix", ["summary.json", "eval_repeats.json", "validation_predictions.csv"])
                 if same["new_optimizer_steps"] != 0 or same["checkpoint_sha256"] != pair["arms"][0]["checkpoint_sha256"]:
                     raise ValueError("Same-weights evaluation provenance differs")
                 prediction_audit(folder / "same_weights_eval_fix", data["val"], data["labels"])
-            else:
+            elif not native:
                 require_hashed(folder, ["matched_state_bc_checks.json"])
                 matched = _read(folder / "matched_state_bc_checks.json")
                 if not all(v for k, v in matched["checks"].items() if k != "C_main_nonzero_each_modality"):
@@ -161,5 +238,5 @@ def audit_return(root, delivery=None):
     return {"status": "artifact_contract_passed", "root": str(root), "verified_hashed_files": len(verified),
         "implementation_matches_delivery": implementation_verified, "config": config, "pairs": pairs,
         "evidence_gaps": gaps, "evidence_scope": "returned_artifact_integrity_and_protocol",
-        "patient_benefit": "requires_paired_result_interpretation", "attribution_conclusion": "not_automatic",
+        "patient_benefit": "not_evaluated_original_only" if native else "requires_paired_result_interpretation", "attribution_conclusion": "not_automatic",
         "limitation": "Artifact integrity does not independently attest remote execution or source data truth; inspect original logs/environment and scientific observations"}

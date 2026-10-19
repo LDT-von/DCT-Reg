@@ -9,6 +9,20 @@ sys.dont_write_bytecode = True
 
 def summarize(config, root, checks_only):
     from .queue import _json, _write
+    if config.get("experiment") == "original_audit":
+        from .patient import summarize as summarize_patients
+        protocol = _json(root / "checks/protocol_checks.json")
+        patient = None if checks_only else summarize_patients(config, root)
+        if patient is not None and patient["status"] != "completed":
+            raise RuntimeError("Native patient audit incomplete")
+        result = {"status": "completed", "task_name": "slotspe_problem_proof", "experiment": "original_audit",
+            "checks_only": checks_only, "transport_added": False, "training_arms": ["original"],
+            "repaired_models_constructed": False, "protocol_dependence": protocol["held_out_label_dependence"],
+            "patients": patient, "scope": "Unmodified native model; diagnostic preparation and controlled interventions disclosed separately",
+            "claims_not_supported": ["Patient improvement", "Correction attribution", "Clinical causality", "Guaranteed problem occurrence"]}
+        _write(root / "proof_summary.json", result, exclusive=True)
+        (root / "proof_summary.txt").write_text("SlotSPE 原版单臂问题检查\n" + json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        return result
     checks = {name: _json(root / "checks" / (name + "_checks.json"))
               for name in ("protocol", "reconstruction", "mechanisms")}
     patient = None

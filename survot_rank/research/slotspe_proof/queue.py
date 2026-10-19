@@ -64,8 +64,8 @@ def normalize_config(values, base=REPO_ROOT):
     if unknown:
         raise ValueError(f"Unknown proof settings: {sorted(unknown)}")
     config = {**DEFAULTS, **values}
-    if config["experiment"] not in ("reproduction", "attribution_abc"):
-        raise ValueError("experiment must be reproduction or attribution_abc")
+    if config["experiment"] not in ("reproduction", "attribution_abc", "original_audit"):
+        raise ValueError("experiment must be reproduction, attribution_abc or original_audit")
     for key in PATH_KEYS:
         value = config.get(key)
         if not isinstance(value, str) or not value.strip():
@@ -103,6 +103,9 @@ def make_plan(config, output_root, checks_only=False):
     stages = [{"id": "protocol", "kind": "protocol"},
               {"id": "reconstruction", "kind": "reconstruction"},
               {"id": "mechanisms", "kind": "mechanisms"}]
+    if config["experiment"] == "original_audit":
+        # This path never constructs a repaired or synthetic substitute model.
+        stages = [{"id": "protocol", "kind": "protocol"}]
     if config["experiment"] == "attribution_abc":
         stages += [{"id": "attribution", "kind": "attribution"}]
     if not checks_only:
@@ -113,18 +116,20 @@ def make_plan(config, output_root, checks_only=False):
     unresolved = sorted({name for key in PATH_KEYS for match in re.findall(r"\$\{([^}]+)\}|\$([A-Za-z_][A-Za-z0-9_]*)", config[key])
                          for name in match if name})
     return {"schema": "slotspe_proof_queue_v1", "task_name": "slotspe_problem_proof",
-        "artifact_contract": "slotspe_abc_patient_intervention_v2",
+        "artifact_contract": ("slotspe_clean_original_v1" if config["experiment"] == "original_audit" else "slotspe_abc_patient_intervention_v2"),
         "config": config, "output_root": str(Path(output_root).resolve()), "checks_only": checks_only,
         "unresolved_environment_variables": unresolved, "stages": stages,
         "training_arms": training_arms(config),
         "training_runs": 0 if checks_only else len(training_arms(config)) * len(config["folds"]) * len(config["seeds"]),
-        "same_weights_eval_controls": 0 if checks_only or config["experiment"] == "attribution_abc" else len(config["folds"]) * len(config["seeds"]),
+        "same_weights_eval_controls": 0 if checks_only or config["experiment"] != "reproduction" else len(config["folds"]) * len(config["seeds"]),
         "checkpoint_selection": "fixed_final_epoch_no_validation_selection",
         "patient_work_executed": False, "transport_added": False,
         "scope": "Independent task for this window; proof controls are not a transport-plugin performance experiment"}
 
 
 def training_arms(config):
+    if config.get("experiment") == "original_audit":
+        return ["original"]
     return ["A", "B", "C"] if config.get("experiment") == "attribution_abc" else ["original", "readout_fix"]
 
 
@@ -210,11 +215,13 @@ def _stage_files(root, stage, config=None):
         folder = root / "pairs" / f"fold_{stage['fold']}" / f"seed_{stage['seed']}"
         required = [folder / "protocol.json", folder / "shared_initial_state.pt", folder / "summary.json"]
         arms = training_arms(config or {})
-        for arm in [*arms, *(["same_weights_eval_fix"] if "original" in arms else [])]:
+        for arm in [*arms, *(["same_weights_eval_fix"] if (config or {}).get("experiment", "reproduction") == "reproduction" else [])]:
             required += [folder / arm / f for f in ("summary.json", "eval_repeats.json", "validation_predictions.csv")]
             if arm != "same_weights_eval_fix":
                 required += [folder / arm / f for f in ("last.pt", "curve.json", "trained_selector_gradients.json")]
                 required += [folder / arm / "patient_slot_intervention.json"]
+                if (config or {}).get("experiment") == "original_audit":
+                    required += [folder / arm / name for name in ("native_model_audit.json", "natural_gate_observations.json")]
         if "B" in arms:
             required += [folder / "matched_state_bc_checks.json"]
         return required
@@ -340,7 +347,7 @@ def main(argv=None):
         p.add_argument("--" + key.replace("_", "-"), type=int)
     p.add_argument("--study")
     p.add_argument("--device")
-    p.add_argument("--experiment", choices=("reproduction", "attribution_abc"))
+    p.add_argument("--experiment", choices=("reproduction", "attribution_abc", "original_audit"))
     p.add_argument("--checks-only", action="store_true", help="Run metadata/synthetic checks without patient training")
     p.add_argument("--resume", action="store_true", help="Verify and skip completed stages in an explicitly named prior output")
     args = p.parse_args(argv)

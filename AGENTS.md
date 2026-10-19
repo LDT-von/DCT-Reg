@@ -1,9 +1,11 @@
-## SlotSPE 独立问题复现与归因（2026-10-19）
+## SlotSPE最高优先级：干净原版单臂检查（2026-10-19）
 
-- 本次入口为 `docs/SLOTSPE_PROOF_TASK.json`、`docs/SlotSPE证明任务_服务器一键运行.txt`，实现为 `survot_rank/research/slotspe_proof/`；不改变其他工作线。
-- 保留 original/readout_fix/eval_fix，另有 A/B/C。B/C仅切换最终self汇总处的选择梯度；选择、辅助训练与梯度、数值处理、评估和训练折分箱共用。
-- 32项合成/接口检查及独立打包检查已完成；患者效果、服务器复现和真实患者末轮槽干预仍待原始产物验收。
-- 已授权的服务器首组复现为fold0/seed3、原版与组合修正版各3轮、256真实patch、20次评估，由服务器AI执行；不索要SSH，不自动扩展训练或安装运输。
+- 当前入口为 `docs/SLOTSPE_PROOF_TASK.json`、`docs/SlotSPE证明任务_服务器一键运行.txt`；新包为 `docs/deliveries/slotspe_clean_original_audit_20261019_v1.zip`。服务器请解压新包到独立目录，以保持原版源码字节与回传验收一致。
+- 本轮仅original：fold0/seed3、3轮、256真实patch、batch8、20次评估；配置 `configs/slotspe_clean_original_server.json`。服务器AI执行，本窗口验收；不索要SSH、不自动扩展预算。
+- 未修改原版模型forward、槽模块、decoder和原生损失。诊断协议使用完整配对病例、固定真实patch与训练折分箱，原版全队列分箱另在副本中核查。
+- 验收逐参数梯度、患者末轮固定选槽且冻结cross的干预、同权重重复预测与同RNG重放、补零敏感性及自然门控。受控补零/分数反例不作为患者发生率；未观察到则记not_observed。
+- 本地实现/合成检查、Git发布、服务器实际运行、患者效果分别登记；没有原始回传不能说服务器已证明。新包和交付记录中的未发布字段是封包时快照，以实际Git提交与发布回执核实发布状态。
+- 原版/修正版和A/B/C实现及历史包保留；B/C仅切换最终self汇总的选择梯度，辅助训练和梯度一致。患者修正归因属于后续阶段，其他研究线不因此改变。
 
 ## 当前纯运输插拔范围 2026年10月18日
 

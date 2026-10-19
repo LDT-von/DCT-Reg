@@ -535,6 +535,9 @@ def run_pair(config, output_root, fold: int, seed: int):
                 torch.cuda.reset_peak_memory_stats(device)
             _rng(seed, torch, np)
             model = build_model(config["source_root"], args, arm).to(device)
+            if config["experiment"] == "original_audit":
+                from .native_audit import model_purity
+                model_purity(model, config["source_root"])
             model.load_state_dict(initial, strict=True)
             if sum(p.numel() for p in model.parameters()) != parameter_count:
                 raise RuntimeError("Control changed model parameter count")
@@ -590,9 +593,23 @@ def run_pair(config, output_root, fold: int, seed: int):
                 "omic_sizes": manifest["omic_sizes"], "encoding_dim": manifest["encoding_dim"],
                 "protocol": protocol, "checkpoint_selection": "fixed_final_epoch"}
             torch.save(checkpoint, out / "last.pt")
-            repeats = [_evaluate(model, root, manifest, fold_data, val_ids, config, device,
-                       seed * 1000000 + 80000 + repeat, torch, np, concordance_index_censored)
-                       for repeat in range(config["eval_repeats"])]
+            observer = None
+            if config["experiment"] == "original_audit":
+                from .native_audit import GateObserver
+                observer = GateObserver(model, val_ids)
+            repeats = []
+            try:
+                for repeat in range(config["eval_repeats"]):
+                    eval_seed = seed * 1000000 + 80000 + repeat
+                    if observer is not None:
+                        observer.begin(repeat, eval_seed)
+                    repeats.append(_evaluate(model, root, manifest, fold_data, val_ids, config, device,
+                        eval_seed, torch, np, concordance_index_censored))
+            finally:
+                if observer is not None:
+                    observer.close()
+            if observer is not None:
+                _dump(out / "natural_gate_observations.json", observer.result(_sha(out / "last.pt")))
             _dump(out / "eval_repeats.json", repeats)
             _write_predictions(out / "validation_predictions.csv", manifest, fold_data, val_ids, repeats)
             gradient = _selector_gradients(model, root, manifest, fold_data, train_ids[:config["batch_size"]],
@@ -614,6 +631,10 @@ def run_pair(config, output_root, fold: int, seed: int):
                 "batches": interventions, "cross_held_fixed": True,
                 "max_self_pool_change": max(row["max_self_pool_change"] for row in interventions),
                 "self_interference": "observed" if any(row["self_interference"] == "observed" for row in interventions) else "not_observed"})
+            if config["experiment"] == "original_audit":
+                from .native_audit import run_final_audit
+                _dump(out / "native_model_audit.json", run_final_audit(model, root, manifest, fold_data,
+                    config, device, seed, repeats, _sha(out / "last.pt")))
             parameter_results = list(gradient["parameters"].values())
             summary = {"fold": fold, "seed": seed, "arm": arm, "epochs": config["epochs"], "optimizer_steps": steps,
                 "checkpoint_sha256": _sha(out / "last.pt"), "parameter_count": parameter_count,
@@ -635,7 +656,7 @@ def run_pair(config, output_root, fold: int, seed: int):
         # This evaluation-only control reads exactly the trained original
         # state, changes no parameters and performs zero optimizer steps.
         eval_summary = None
-        if "original" in arms:
+        if config["experiment"] == "reproduction":
             same_out = pair_root / "same_weights_eval_fix"
             same_out.mkdir()
             same_start = time.perf_counter()
@@ -678,7 +699,12 @@ def run_pair(config, output_root, fold: int, seed: int):
             "counts": fold_data["counts"], "epochs": config["epochs"], "source_unchanged": True,
             "scope": "Paired mechanism evidence; exploratory validation is not a generalization or OT claim",
             "arms": summaries, "same_weights_eval_fix": eval_summary,
-            "checks": ({
+            "checks": ({"original_disconnection": summaries[0]["disconnected_selector_status"],
+                "evaluation_randomness": "observed" if summaries[0]["evaluation_randomness_observed"] else "not_observed",
+                "self_interference": _read(pair_root / "original/patient_slot_intervention.json")["self_interference"],
+                "padding_sensitivity": _read(pair_root / "original/native_model_audit.json")["padding"]["sensitivity"],
+                "natural_gate_near_zero": _read(pair_root / "original/natural_gate_observations.json")["near_zero_gate"]}
+                if config["experiment"] == "original_audit" else {
                 "original_disconnection": summaries[0]["disconnected_selector_status"],
                 "repair_all_selectors_connected": bool(summaries[1]["selector_parameter_count"] and summaries[1]["main_gradient_none_parameter_count"] == 0),
                 "repair_all_selector_gradients_nonzero": bool(summaries[1]["selector_parameter_count"] and summaries[1]["main_gradient_nonzero_parameter_count"] == summaries[1]["selector_parameter_count"]),
@@ -761,7 +787,7 @@ def summarize(config, output_root):
                 for index, row in enumerate(predictions):
                     if any(float(row[f"risk_repeat_{j:02d}"]) != r["risks"][index] for j, r in enumerate(repeats)):
                         raise RuntimeError(f"CSV/JSON patient risks differ: {arm_root}")
-            if "original" in arms and (value["same_weights_eval_fix"]["checkpoint_sha256"] != value["arms"][0]["checkpoint_sha256"] or value["same_weights_eval_fix"]["new_optimizer_steps"] != 0):
+            if config["experiment"] == "reproduction" and (value["same_weights_eval_fix"]["checkpoint_sha256"] != value["arms"][0]["checkpoint_sha256"] or value["same_weights_eval_fix"]["new_optimizer_steps"] != 0):
                 raise RuntimeError(f"Evaluation-only control did not reuse the original weights: {path}")
             complete.append(value)
     result = {"schema_version": SCHEMA_VERSION, "generated_utc": _now(),
@@ -770,7 +796,9 @@ def summarize(config, output_root):
         "counts": manifest["counts"], "results": complete,
         "scope": "Mechanism proof on paired folds/seeds; validation metrics are exploratory; no OT necessity or generalization improvement established",
         "experiment": config["experiment"],
-        "checks": ({"original_disconnection_observed_pairs": sum(x["checks"]["original_disconnection"] == "observed" for x in complete),
+        "checks": ({key + "_observed_pairs": sum(x["checks"][key] == "observed" for x in complete)
+            for key in ("original_disconnection", "evaluation_randomness", "self_interference", "padding_sensitivity", "natural_gate_near_zero")}
+            if config["experiment"] == "original_audit" else {"original_disconnection_observed_pairs": sum(x["checks"]["original_disconnection"] == "observed" for x in complete),
             "original_disconnection_not_observed_pairs": sum(x["checks"]["original_disconnection"] == "not_observed" for x in complete),
             "repair_all_selectors_connected_pairs": sum(x["checks"]["repair_all_selectors_connected"] for x in complete),
             "repair_all_selector_gradients_nonzero_pairs": sum(x["checks"]["repair_all_selector_gradients_nonzero"] for x in complete),

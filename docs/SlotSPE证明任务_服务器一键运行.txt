@@ -1,3 +1,43 @@
+当前最高优先级：干净原版SlotSPE单臂问题复现（SPE-07 / SPE-09，2026-10-19）
+
+本轮先运行original一个训练臂：fold0、seed3、3轮、256真实patch、batch8、末轮同权重重复评估20次。
+交接包：docs/deliveries/slotspe_clean_original_audit_20261019_v1.zip；解压到新目录。
+包中原版源码直接从用户指定桌面仓库逐字节封存，哈希见DELIVERY_MANIFEST.json。
+本轮不构造修正版模型，不启动A/B/C或运输；原模型forward、槽类、decoder类及参数都有原版一致性检查。
+任务包默认配置也已绑定单臂短程任务；没有--run时只打印计划。
+
+服务器AI：使用现成Python环境，先确认数据目录和GPU任务；将SlotSPE作为本轮最高优先级安排，不中断其他已在运行的任务。
+设置SLOTSPE_METADATA_ROOT和SLOTSPE_FEATURES_ROOT为服务器真实目录，PYTHON为现成解释器（需要时）。然后顺序执行：
+
+    bash run_slotspe_proof.sh --config configs/slotspe_clean_original_server.json --doctor
+    bash run_slotspe_proof.sh --config configs/slotspe_clean_original_server.json --plan
+    bash run_slotspe_proof.sh --config configs/slotspe_clean_original_server.json --run
+
+计划必须显示training_arms=[original]、training_runs=1、same_weights_eval_controls=0。
+模型保持原版；病例准备为配对完整输入、固定真实patch和训练折分箱。它是诊断协议，不是原论文完整基准配方。
+原版全队列分箱的验证结局依赖，单独在内存副本中执行原源码函数检查，不把该问题带入可比较训练。
+
+五项检查分别报告：
+1. 最终融合NLL到选槽器的梯度，主/辅助分开，逐参数None/zero/nonzero：trained_selector_gradients.json。
+2. 真实验证患者末轮槽干预：固定keep和selected槽、固定cross，只改变未选槽；保存前后self池化、logits和risk：patient_slot_intervention.json。
+3. 相同权重、患者、patch及顺序重复20次；另同RNG重放：eval_repeats.json、validation_predictions.csv、native_model_audit.json。
+4. 补零敏感性：真实患者缓存的副本上加16/64零行，保存前后logits/risk。人为补零不是实际发生率；病例排除和原有零行数量另报。
+5. 自然输入门控：20次真实验证前向仅旁观原门控、记录所有患者与两模态，是否近零如实报告：natural_gate_observations.json。
+   同时在独立原decoder副本上做合成分数反例，写在native_model_audit.json，不能拿它当患者问题发生率。
+
+原版未观察到某问题就写not_observed；不改阈值、样本或源码强迫失败。错误和失败目录原样保留。
+本窗口已有的数值是本地合成/随机权重证据，见包内docs/research/slotspe_eight_issues_20261019/synthetic_checks.json；服务器证据仍待新批次原始回传。
+
+完整批次返回：
+    python -B scripts/pack_slotspe_return.py --root '/实际结果批次' --output '/新目录/slotspe_clean_return.zip'
+回传ZIP和打印的SHA256；包含末轮checkpoint、配置、manifest、日志、receipts、曲线与所有诊断JSON/CSV，不包含prepared/cache的患者输入张量。
+验收：
+    python -B scripts/audit_slotspe_return.py --root '/解压后的slotspe_server_return' --delivery '/本批次交付ZIP'
+需要原始产物核验后才能说服务器复现。只看C-index或“运行成功”不足以证明这些计算问题。
+
+以下保留历史两臂和A/B/C说明，供后续修正与归因；本轮入口以上述原版单臂为准。
+================================================================
+
 SlotSPE 证明实验：本窗口独立任务（2026-10-19）
 
 用途

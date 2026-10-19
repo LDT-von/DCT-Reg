@@ -1,9 +1,10 @@
-## SlotSPE 问题复现与 A/B/C 归因入口（2026-10-19）
+## SlotSPE 最高优先级：干净原版服务器问题复现（2026-10-19）
 
-- [服务器执行与回传说明](docs/SlotSPE证明任务_服务器一键运行.txt)、[任务契约](docs/SLOTSPE_PROOF_TASK.json)
-- [已核验独立包](docs/deliveries/slotspe_proof_abc_20261019_v2.zip)与[32项合成检查](docs/research/slotspe_abc_20261019/checks.json)
-- 原版/组合修正版先按 fold0、seed3、各3轮、256真实patch、重复评估20次复现；A/B/C另有独立配置，不自动展开患者训练。
-- 末轮患者槽干预导出已实现；服务器原始产物尚待回传，不能据此声称患者效果或归因成立。运输任务与原生DCT方法继续使用各自入口。
+- [新独立任务包](docs/deliveries/slotspe_clean_original_audit_20261019_v1.zip)、[SHA256](docs/deliveries/slotspe_clean_original_audit_20261019_v1.zip.sha256)、[执行与回传说明](docs/SlotSPE证明任务_服务器一键运行.txt)。
+- 服务器AI请解压新包到独立目录，再使用 `configs/slotspe_clean_original_server.json`，按 doctor → plan → run 执行。
+- 只训练原版一臂：fold0、seed3、3轮、256真实patch、batch8、同末轮权重重复评估20次。原版10份文件在包内逐字节封存。
+- [本地原始诊断](docs/research/slotspe_eight_issues_20261019/synthetic_checks.json)与[单臂检查记录](docs/research/slotspe_clean_original_20261019/evidence_and_contract.json)均非服务器患者结果。
+- 当前等待服务器启动回执与原始产物；原两臂及A/B/C包保留用于后续修正归因。其他研究线继续使用各自入口。
 
 # DCT-Reg v3.10
 
