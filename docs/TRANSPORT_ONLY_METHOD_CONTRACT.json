@@ -44,7 +44,9 @@
       "DCT事件Transformer"
     ],
     "not_full_native_method": "此插件是运输成本、求解和特征桥接的抽取；不称为完整DCT-B或完整DCT-RG的原生实现。",
-    "solver_dependency": "transport_only/solver.py独立复用v1基础，精确抽取所需bounded成本与KL-UOT；不导入历史v2及其损失。"
+    "solver_dependency": "transport_only/solver.py独立复用v1基础，精确抽取所需bounded成本与KL-UOT；不导入历史v2及其损失。",
+    "learnability_audit": "docs/research/transport_only_20261019/mechanism_audit.json",
+    "prototype_boundary": "原型仅长token汇总时可学习；SlotSPE已有槽路径不使用原型。阶段编码为固定buffer；成本网络/信息量门/两侧gain经宿主目标学习。"
   },
   "hosts": {
     "slotspe": {
@@ -98,7 +100,7 @@
     "launcher_default_epsilon": "固定0.05；不伪称已自动取得各宿主epoch",
     "manual_epoch_annealing": "可手工在原epoch循环中调用attachment.set_epoch(epoch)",
     "state_dict_restore": "同一宿主和配置先attach，再加载新增插件参数的state_dict",
-    "patient_jobs": "用户启动；本轮仅合成输入和接口检查"
+    "patient_jobs": "用户指定服务器AI执行SlotSPE配对；本窗口只交接/合成debug/验收，未执行患者任务或发送服务器消息。"
   },
   "evidence": {
     "check_report": "docs/TRANSPORT_ONLY_PUBLISH_CHECKS_20261019.json",
@@ -119,5 +121,46 @@
     "retained_locally_not_published": [
       "survot_rank/plugins/transport_v2/"
     ]
+  },
+  "slot_spe_paired_delivery": {
+    "arms": [
+      "native",
+      "learned",
+      "independent"
+    ],
+    "config": "configs/slotspe_transport_compare.json",
+    "launcher": "scripts/run_slotspe_transport_compare.py",
+    "auditor": "scripts/audit_slotspe_transport_compare.py",
+    "guide": "docs/运输插拔_SlotSPE服务器交接_20261019.txt",
+    "folds": [
+      0
+    ],
+    "seeds": [
+      3
+    ],
+    "epochs": 30,
+    "patches": 4096,
+    "batch_size": 8,
+    "selection": "fixed_final_epoch",
+    "eval_repeats": 20,
+    "same_checkpoint_controls": [
+      "independent",
+      "bypass"
+    ],
+    "independent_test": false,
+    "host_version": "未修正third_party/SlotSPE模型，三臂同一源码；统一协议，不声称官方原训练流程复现。",
+    "baseline_audit": "docs/research/transport_only_20261019/baseline_audit.json",
+    "delivery": {
+      "path": "docs/deliveries/slotspe_transport_task_20261019_publish_v2.zip",
+      "sha256": "8c42702141c19f96ca8d8f0d3757cebdd813e4e1fe5936534664dbba98b4ebe3",
+      "files": 39,
+      "patient_data_included": false,
+      "server_execution_verified": false,
+      "message_dispatched_to_server": false
+    },
+    "checks": "docs/research/transport_only_20261019/publication_checks.json",
+    "capacity_boundary": "同名参数不代表同等有效容量；balanced independent无成对成本梯度路径。分训边际可能不同，同checkpoint对照用于固定边际归因。",
+    "runtime_dependency": "transport_only/solver.py plus published transport kernels; no transport_v2 runtime dependency",
+    "standalone_support": "survot_rank/plugins/transport_only/slotspe_support/"
   }
 }

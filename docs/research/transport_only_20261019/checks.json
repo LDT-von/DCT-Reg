@@ -1,0 +1,91 @@
+{
+  "schema": "transport_only_paired_checks_v1",
+  "date": "2026-10-19",
+  "passed": 45,
+  "failed": 0,
+  "skipped": 0,
+  "reports": [
+    {
+      "junit": ".review/slotspe_transport_20261019_tests_r2.xml",
+      "passed": 32,
+      "seconds": 151.364
+    },
+    {
+      "junit": ".review/transport_hosts_20261019_tests.xml",
+      "passed": 13,
+      "seconds": 103.166
+    }
+  ],
+  "scope": [
+    "invented seven-case metadata and random tensors only",
+    "unpacked standalone three-arm execution and independent artifact audit",
+    "tampered patient identities and loss sums rejected",
+    "nonempty output rejected without overwrite",
+    "six native host forward/backward interface regressions",
+    "transport core and launcher regressions"
+  ],
+  "host": "unrepaired_local_SlotSPE_snapshot",
+  "patient_training_executed_this_work": false,
+  "patient_inference_executed_this_work": false,
+  "patient_benefit": null,
+  "delivery": {
+    "path": "docs/deliveries/slotspe_transport_task_20261019.zip",
+    "sha256": "e30dfb566b22d677a8c810751bca3aa59a3dfa6e9f51ac2db7d15d2dac643eb0",
+    "files": 44,
+    "patient_data_included": false,
+    "server_execution_verified": false,
+    "message_dispatched_to_server": false
+  },
+  "first_attempt": {
+    "junit": ".review/slotspe_transport_20261019_tests.xml",
+    "status": "9 passed, 1 harness failure before further tests",
+    "cause": "Windows non-UTF8 traceback in subprocess under a Chinese path; fixed PYTHONIOENCODING in isolated test environment"
+  },
+  "source_files_sha256": {
+    "configs/slotspe_transport_compare.json": "cdb1e497ccdfa6455cac9f2a22d39cb68d9ef3f25d282e57c83b230f6bcf5ef0",
+    "docs/运输插拔_SlotSPE服务器交接_20261019.txt": "a5fa4ce464bff45caa970e8159458eb44006a403008d750d69485aba475504bf",
+    "scripts/audit_slotspe_transport_compare.py": "d3c5213f44be7a2bb190b317877f6eeb820a8c3330e28af1d761efb59e9b57ba",
+    "scripts/build_slotspe_transport_delivery.py": "86acf50a794089b886a4800a7fb5b7570bb67ff9922ce9c9e97e86e5b90c3143",
+    "scripts/run_slotspe_transport_compare.py": "1526ca0d8cc809d037d5905473182d69d2f990164f599f020c70c3cdbc5e8686",
+    "survot_rank/__init__.py": "a6e362dee41b146968aab79e389916c39732c5e7a743a2965c82c177a58c95da",
+    "survot_rank/plugins/__init__.py": "b267cfb0b85682c8e42ea793b9fe543692b3809f2e3def25c528151b173b3fca",
+    "survot_rank/plugins/transport/__init__.py": "b33ac29bed849883aea440482b240c38b341a1ef62559632e41b52c542708190",
+    "survot_rank/plugins/transport/adapters.py": "f57ad39dbcfb65f8bc648d43d817b30c5f9ad5a3fd02cb7a71124aeb17079bb6",
+    "survot_rank/plugins/transport/config.py": "3f43012cd83d2706d4b0520404e6a135905c5f0f9157d4b53bfe38fea662a602",
+    "survot_rank/plugins/transport/core.py": "b964cb9e1cd57440e0bdbdd7d0dce2a85bd6cb548312bcdb98ca5d384ca47968",
+    "survot_rank/plugins/transport/native.py": "3d0dd6116028b79e0330642edbf762a20bbfc70ca2b9e921fa65e8719d896397",
+    "survot_rank/plugins/transport/plugin.py": "86cc063b3a95560fb4692af957354529b3b02e727183c0d01fe2cc046248e7c3",
+    "survot_rank/plugins/transport/reconstruction.py": "4888b7e8bef6aae6f3f201d578355f7c313b849d92b7aa096c4fba5c7366949d",
+    "survot_rank/plugins/transport_only/__init__.py": "037430037d6e6a3a02bfc7eb2f04d081a5d6ae609549923041524247ae826bda",
+    "survot_rank/plugins/transport_only/hosts.py": "47c950c3642addee3336c59dec70f72fe244466dbadb86fd3240357b573d8d2e",
+    "survot_rank/plugins/transport_only/mechanism.py": "0ca37f83883d230f9eb83544fbbe259083b5d1212e524eb3262ee78960ef3003",
+    "survot_rank/plugins/transport_only/slotspe_compare.py": "7de1a41f6efdb09dd3635e3667cc684e06e306c5ca0360d80665365eeeb5dbc9",
+    "survot_rank/plugins/transport_v2/__init__.py": "1bd7166e2aec83e9f75f990cfcf310fead68f494776c72294f1d3b7f4a1ef7c7",
+    "survot_rank/plugins/transport_v2/config.py": "39b91985a08bed521f5bd1467a6478f7a8db7a1dd07b0f0e5370cd962122fa40",
+    "survot_rank/plugins/transport_v2/core.py": "19f55a193bf88a44993c8078b597a11367a7217bdb6b130f8b585b08c0090119",
+    "survot_rank/plugins/transport_v2/losses.py": "ec29dc116da14728cb184138ffcccee0ac4a1004d9f5ce25b3ca1cfd19f637c4",
+    "survot_rank/plugins/transport_v2/native.py": "63a0523d2ff48d3965f400af957f711aa533537055f1c1156d2fd5a599dc1b84",
+    "survot_rank/plugins/transport_v2/plugin.py": "10028b784e8a56b666b33bb2fbcc3a061f2d910ab7411e6f5370eea01bf387c4",
+    "survot_rank/research/__init__.py": "c7db1fd91dec92d38c964ec200e22fc1bada4fd68b37207a09c2293061ebdce5",
+    "survot_rank/research/components/__init__.py": "f319a4ca1e810e6dfc2701a0c84245077c530476fdaf7bdd883538dab6764a61",
+    "survot_rank/research/components/slot_attention.py": "8ebfa58b86cb47a7ccdad36f618546d86e7d13db9aabb2baade79618a3d2e024",
+    "survot_rank/research/slotspe_proof/__init__.py": "bd33358fbbe6ab068c051cd1f4414ca691598d2aa007d5f917bd9e6d332da8aa",
+    "survot_rank/research/slotspe_proof/model.py": "af88877c39c661cef29a9fde32a663457a5636392236daaad4bf1ac98ffd816f",
+    "survot_rank/research/slotspe_proof/patient.py": "8310d3234c579c8a9a4b2c59a5eaa1f399f4929f09dad76e98c5b99462b09604",
+    "tests/test_slotspe_transport_compare.py": "a93612dac9fa03685959898a446b9ff148af36942923c91978d11ff902ee23b6",
+    "third_party/SlotSPE/dataset/dataset_survival.py": "c6ab72f4b805182be95c33aeda4bfa090fcd4815822389470cdc293d9dfd10f4",
+    "third_party/SlotSPE/models/omics_encoder.py": "c14ada7be2799ee4dee0995bea6e7b57ed9faedf934aef7f9e0e5aa6e0c4af96",
+    "third_party/SlotSPE/models/slot_attention.py": "8f6ba40339f1c25e51028fb3c6927a41831fd603427820f9e6606918594b3a4d",
+    "third_party/SlotSPE/models/SlotSPE.py": "0928641f2f7d4df5878036ca10152a94d2e33f81dd71c0947e382be5ab01e642",
+    "third_party/SlotSPE/models/transformer.py": "6f5ae6be95e33fbf6f32616dde405f91e08576b4c0396eae44b51ceb2f0fabde",
+    "third_party/SlotSPE/README.md": "7ab99352c1fbe6df635ceb9d7fb7f6ea39a7fa79d97ef8699e6573af2efad7e2",
+    "third_party/SlotSPE/requirements.txt": "1956c775d75e4ab27e96b5478b10dd88400091b3131a641ab024f616fd8b8697",
+    "third_party/SlotSPE/utils/core_utils.py": "c90148825b73e7b05c3b5a231fb149176378ec45fd8eccd22266f0b3ba2627dc",
+    "third_party/SlotSPE/utils/general_utils.py": "9ca7a6dfd027c6c3eb6377d4a93b36ec986ecc78942d674604ea0dc0d687c414",
+    "third_party/SlotSPE/utils/loss_func.py": "bd5d8af96d82a77ffd8b605c843c7849838b2ff6bf49d9b8562ab57b964e3de0",
+    "third_party/SlotSPE/utils/model_utils.py": "329de6e5c19eded75ea904b55a1642958d82cf15997fba710ef0f7fa242f6082",
+    "third_party/SlotSPE/utils/process_args.py": "422cf15640c965e353d22a028158a33b1c6123239f3fc776ee863c51927d470e",
+    "third_party/SlotSPE/utils/visual_utils.py": "fa3a5b648dfef3daf4f4ec8210c3062f7643c9c00051acb50c1d37cf39772a46"
+  },
+  "publication": "local only; no commit/push and no server dispatch performed"
+}

@@ -1,0 +1,88 @@
+SlotSPE纯运输配对比较：服务器AI交接与验收
+日期：2026年10月19日。只属于运输线，不修改SlotSPE问题归因线或DCT原生方法。
+
+当前结论：有接口与合成证据，没有当前纯运输患者提分证据。
+先完成SlotSPE，不展开其余五宿主训练。服务器是否空闲、任务是否运行未知。
+
+1. 固定宿主与三臂
+本轮选择third_party/SlotSPE未修正快照，三臂均由同一份源码构造original模型。
+native：不安装插件；learned：平衡运输；independent：两侧边际乘积独立混合。
+不采用readout_fix或eval_fix，不改宿主选槽、自注意力、重构、融合和预测头。
+宿主若以后换修正版，应单独冻结版本、重新跑三臂，不能换入旧原版分数。
+此为“原版模型在统一协议下比较”，不声称复现官方原训练流程。
+总目标=宿主主NLL/批内患者数 + 宿主全部auxiliary；lambda_recon_loss=0.01、alpha_surv=0.5。
+保留两单模态decoder NLL、组学自重构、跨模态重构和WSI重构；不加DCT目标。
+
+2. 旧基线审查
+本地.review/slotspe_proof_20261018/patient有原版3轮、256patch、fold0、seed3/17/29诊断。
+它不是本方案30轮4096patch基线。已核对六个关键源码文件：与当前快照仅换行格式不同，
+规范换行后的文本相同；不把字节哈希差异误认为模型差异。预算与输入仍须匹配，不能凭分数复用。
+configs/slotspe_native_blca_uni2h.yaml与matched配置通过SlotSPEReference适配器；recipe与YAML文字需核对。
+native标签不保证实际是同一优化器/batch/alpha。必须核对effective_recipe与原始产物。
+官方论文分数与历史完整插件成绩不接入本次表格。
+目前未发现可直接复用的完整匹配基线；服务器旧目录未直接扫描，不能说不存在。
+若服务器AI找到旧结果，先核对患者集合及缓存/特征、原始RNA/临床/签名、split哈希、源码及实际配置、
+初始化、随机性、损失、优化器、训练步数、30轮4096patch、固定末轮和20次评估，再决定是否复用。
+本包默认三臂新跑，拒绝覆盖或盲目续跑旧目录。
+
+3. 首组协议
+BLCA/DSS，fold0，seed3；30轮、4096真实patch、batch8、1536维UNI2-h。
+Adam lr=5e-4、weight_decay=0，cosine eta_min=1e-6，不早停、不看验证集选权重。
+完整病例共享；缺输入明确排除，不补零。每患者固定抽patch，无放回，三臂共用缓存。
+只从训练折未删失患者拟合四个时间bin。保存排除清单及全部患者ID，排除会改变队列。
+三臂主网络初始权重逐值相同；learned与independent插件初始权重相同；每步随机种子与顺序相同。
+原版仍有随机槽/选槽：每臂末轮共用相同20个评估种子，主指标=20次C-index均值。
+重复预测仅量化固定权重评估随机性，不是20次独立训练或统计显著性证据。
+首组只属验证集探索，不是独立测试、通用提分或OT优于注意力证据。
+
+4. 服务器执行
+解压到一个新目录，不覆盖现有仓库。进入slotspe_transport_task_20261019。
+使用已有具备torch、einops、numpy、pandas、scikit-survival的环境，不静默安装/升级。
+原型组件导入需einops支持pack/unpack。本SlotSPE对比不需要POT。
+设置真实路径（features根目录内应有临床wsi名称对应的.pt特征，RNA必须真实存在）：
+  export OT_METADATA_ROOT=/实际/dataset_csv
+  export OT_FEATURES_ROOT=/实际/UNI2-h-pt
+规划（不读取患者、不创建结果目录）：
+  python -B scripts/run_slotspe_transport_compare.py --config configs/slotspe_transport_compare.json --output /新路径/OT-03_slotspe_fold0_seed3
+先由服务器AI检查可用资源、数据路径及已有任务；不得抢占正在运行的其他任务。
+建议先复制配置为独立smoke配置，只改epochs=1、patches=256、eval_repeats=2，用独立smoke输出检查数据闭环。
+smoke完成并通过验收后再执行原配置。smoke结果不并入正式性能表。
+正式执行（此命令才准备患者数据并训练三臂）：
+  python -B -u scripts/run_slotspe_transport_compare.py --config configs/slotspe_transport_compare.json --output /新路径/OT-03_slotspe_fold0_seed3 --run
+结果验收（只读已有结果，不训练/不推理）：
+  python -B scripts/audit_slotspe_transport_compare.py /新路径/OT-03_slotspe_fold0_seed3
+执行失败返回非零并保存status=failed；保留失败目录，改用新目录，不能用旧状态冒充完成。
+配置若不符合实际输入宽度，先核对特征版本；记录更改，三臂统一，不静默降预算。
+
+5. 必回传产物
+DELIVERY_MANIFEST.json、plan/protocol/status、prepared/manifest.json、shared_initial.pt；
+各臂last.pt、curve.json（主NLL/原辅助/总loss/梯度/训练耗时/步数）、summary.json；
+各臂predictions.csv（患者ID、标签、结局、20次risk和四个logits）；
+learned/independent的transport.csv（逐患者运输量、边际误差、计划熵、偏离独立混合的L1、
+两侧实际残差L2/相对L2、可学习gain）；learned同checkpoint独立混合和bypass预测及指标。
+三臂参数量、额外参数、训练总耗时、CUDA峰值allocated/reserved。耗时包含数据读取与记录开销，
+并受运行顺序和文件缓存影响，验证不计训练耗时；不能把差值直接解释为纯求解器开销。
+数据缓存保留服务器，返回元数据及哈希；验收需要时核对缓存与原始文件，避免无必要传患者特征。
+原始特征只记录路径/尺寸/mtime；所选缓存内容有SHA256，不宣称原始全量特征逐字节核验。
+审计器重算逐次C-index、核对患者/步数/损失加和/哈希/边际及独立性，拒绝缺失、重复、篡改或不完整结果。
+审计通过只说明保存产物相互一致；尚未独立重跑checkpoint预测，真实来源仍须服务器记录和哈希核验。
+
+6. 如何回答运输比普通混合多解决什么
+固定边际a,b时Independent=a b^T，给每个槽同一份对侧加权均值；OT允许不同槽接收不同的对侧组合，
+在相同信息预算下保留成对关系。阶段与几何直接平均，不增加DCT事件读取器。
+只优于native：支持增加信息交换有用，不能归因运输匹配。
+稳定优于independent且同权重去耦合有影响：支持配对结构有贡献，仍不能证明真实生物对应或OT优于注意力。
+分开训练的两臂边际参数会分化；同checkpoint独立混合才固定权重与边际来检查关系依赖。
+Independent虽实例化相同参数，平衡模式的成对成本网络没有有效梯度通路；不能称有效容量完全相同。
+首组后才考虑同协议五折/多种子和容量相称注意力对照。无稳定收益就报告不足，不扩写通用增益。
+
+7. 六宿主边界（本包只执行SlotSPE）
+SlotSPE：已有槽→运输→原cross_attention；self/单模态decoder/重构继续用原槽。
+SurvPath：已编码omics-first拼接token→运输→原cross_attender；长token原型汇总后恢复长度。
+PIBD：PIB选token后、PID前；保留PoE与原目标。
+MMP：只支持multimodal coattn，投影后identity入口；拒绝已有OT的coattn_mot。
+LD-CVAE：只支持Robust_MCAT的coattn，组学真实/生成选择之后q=omics,k=v=WSI；不覆盖Robust_SurvPath。
+TTA：Together, Then Apart双模态fusion_type=coattn，原Together/Apart原型后label_coattn前；保留原Together OT。
+可学习：stage_pair_cost、evidence_gate、两侧tanh残差gain；原型仅长token汇总时有梯度。
+SlotSPE直接槽路径原型不参与；阶段编码是固定buffer，几何公式、Sinkhorn迭代和平均规则没有可学习参数。
+Sinkhorn可微，梯度来自宿主全部原目标；默认evidence_cost_weight=0仍通过边际使用信息量门。

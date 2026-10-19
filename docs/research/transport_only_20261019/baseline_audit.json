@@ -1,0 +1,169 @@
+{
+  "schema": "slotspe_transport_baseline_audit_v1",
+  "date": "2026-10-19",
+  "conclusion": "no_locally_verified_reusable_formal_baseline_for_current_protocol",
+  "server_inventory": "not directly scanned; server AI must audit any proposed reuse",
+  "selected_host": "unrepaired third_party/SlotSPE snapshot, identical in all three arms",
+  "new_protocol": {
+    "folds": [
+      0
+    ],
+    "seeds": [
+      3
+    ],
+    "epochs": 30,
+    "patches": 4096,
+    "batch_size": 8,
+    "selection": "fixed_final_epoch",
+    "eval_repeats": 20
+  },
+  "candidates": [
+    {
+      "source": "实验档案/维护资料/本地结果总快照_20261009/experiments/SLOTSPE_BASELINE_REFERENCE.md",
+      "decision": "external paper references only; not a matched local baseline"
+    },
+    {
+      "source": ".review\\slotspe_proof_20261018\\patient",
+      "protocol": {
+        "seeds": [
+          3,
+          17,
+          29
+        ],
+        "epochs": 3,
+        "batch_size": 8,
+        "lr": 0.0005,
+        "weight_decay": 0.0,
+        "optimizer": "Adam_original_adam_branch_lr_only",
+        "scheduler": "cosine_original_default_eta_min_1e-6",
+        "patches": 256,
+        "arms": [
+          "original",
+          "readout_fix"
+        ],
+        "save": "last_epoch_only_no_validation_selection",
+        "repeated_eval": 20,
+        "torch": "2.6.0+cu124",
+        "python": "D:\\python\\python.exe",
+        "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "source_hashes_before": {
+          "models/SlotSPE.py": "eb5518a7e7dbc0e8e2fb1495c21c379ada36f78ad0c9d0d1f9ce69cb8051687e",
+          "models/slot_attention.py": "200f92f62f74d1387f62834d485cd96dd7adf7d104e75707d4a0a51a021ac109",
+          "models/transformer.py": "9dfed61da662a391ff7a29b3b514e892f1cf8287a0d350ac0afab9d5d4a54985",
+          "models/omics_encoder.py": "3e2231dab47103046922ec40a9bf6945fe936081037a630b72035eee5de0e685",
+          "utils/loss_func.py": "bb52dca9e903dd72d18b694bcdc94452a0bd201f96412937db8706f80924d682",
+          "utils/process_args.py": "b4aca2aa7a38fc46f74f050ef5f314c9ac66d20dc7a0daebf88a4127ffcb296b",
+          "utils/core_utils.py": "d069c889662612395b7680cbdfbd7decd6bd7ed8cbe142cfa4bf4292776c80af",
+          "dataset/dataset_survival.py": "44677851b59ca9b60547d1623c2ff9a3e32a3e9ffb38f67f569e6c0ff3048ea3"
+        },
+        "fixed_model_sha256": "931740c2b871c05aa60d14d4eb6f719abd8ca1a2653f85aadb08a99654899817",
+        "runner_sha256": "eb0d61e2a69bdce06eb349336332420c2c3f6bb0c0c4dedcc2a97c7b2ee0cf98",
+        "manifest_sha256": "ac7921b8a3e1ef290a292c0bc2bbdec575ae07ebbb39fc0fe444e3e5eea85fe3",
+        "started_utc": "2026-10-18T07:28:08.973576+00:00",
+        "differences_from_original_benchmark_protocol": [
+          "one prespecified BLCA fold only, complete observed pathology/RNA cases",
+          "3 epochs (short-course diagnosis), original default 30",
+          "fixed cached 256 patches for both train and validation, original default 4096 train and full validation bag",
+          "batch size 8, original default 32",
+          "shared train-only uncensored quantile labels, original full-cohort equal-width labels removed in both arms",
+          "fixed final epoch, no validation-based best checkpoint or external test"
+        ],
+        "purpose": "Prove implementation mechanisms on trained real-patient checkpoints; no generalization claim",
+        "source_hashes_after": {
+          "models/SlotSPE.py": "eb5518a7e7dbc0e8e2fb1495c21c379ada36f78ad0c9d0d1f9ce69cb8051687e",
+          "models/slot_attention.py": "200f92f62f74d1387f62834d485cd96dd7adf7d104e75707d4a0a51a021ac109",
+          "models/transformer.py": "9dfed61da662a391ff7a29b3b514e892f1cf8287a0d350ac0afab9d5d4a54985",
+          "models/omics_encoder.py": "3e2231dab47103046922ec40a9bf6945fe936081037a630b72035eee5de0e685",
+          "utils/loss_func.py": "bb52dca9e903dd72d18b694bcdc94452a0bd201f96412937db8706f80924d682",
+          "utils/process_args.py": "b4aca2aa7a38fc46f74f050ef5f314c9ac66d20dc7a0daebf88a4127ffcb296b",
+          "utils/core_utils.py": "d069c889662612395b7680cbdfbd7decd6bd7ed8cbe142cfa4bf4292776c80af",
+          "dataset/dataset_survival.py": "44677851b59ca9b60547d1623c2ff9a3e32a3e9ffb38f67f569e6c0ff3048ea3"
+        },
+        "elapsed_training_eval_seconds": 692.113742,
+        "source_unchanged": true
+      },
+      "counts": {
+        "train": 289,
+        "val": 71,
+        "excluded": 21,
+        "overlap": 0
+      },
+      "source_comparison": {
+        "models/SlotSPE.py": {
+          "current_sha256": "0928641f2f7d4df5878036ca10152a94d2e33f81dd71c0947e382be5ab01e642",
+          "old_sha256": "eb5518a7e7dbc0e8e2fb1495c21c379ada36f78ad0c9d0d1f9ce69cb8051687e",
+          "same_bytes": false,
+          "same_text_normalized_newlines": true
+        },
+        "models/slot_attention.py": {
+          "current_sha256": "8f6ba40339f1c25e51028fb3c6927a41831fd603427820f9e6606918594b3a4d",
+          "old_sha256": "200f92f62f74d1387f62834d485cd96dd7adf7d104e75707d4a0a51a021ac109",
+          "same_bytes": false,
+          "same_text_normalized_newlines": true
+        },
+        "models/transformer.py": {
+          "current_sha256": "6f5ae6be95e33fbf6f32616dde405f91e08576b4c0396eae44b51ceb2f0fabde",
+          "old_sha256": "9dfed61da662a391ff7a29b3b514e892f1cf8287a0d350ac0afab9d5d4a54985",
+          "same_bytes": false,
+          "same_text_normalized_newlines": true
+        },
+        "models/omics_encoder.py": {
+          "current_sha256": "c14ada7be2799ee4dee0995bea6e7b57ed9faedf934aef7f9e0e5aa6e0c4af96",
+          "old_sha256": "3e2231dab47103046922ec40a9bf6945fe936081037a630b72035eee5de0e685",
+          "same_bytes": false,
+          "same_text_normalized_newlines": true
+        },
+        "utils/loss_func.py": {
+          "current_sha256": "bd5d8af96d82a77ffd8b605c843c7849838b2ff6bf49d9b8562ab57b964e3de0",
+          "old_sha256": "bb52dca9e903dd72d18b694bcdc94452a0bd201f96412937db8706f80924d682",
+          "same_bytes": false,
+          "same_text_normalized_newlines": true
+        },
+        "dataset/dataset_survival.py": {
+          "current_sha256": "c6ab72f4b805182be95c33aeda4bfa090fcd4815822389470cdc293d9dfd10f4",
+          "old_sha256": "44677851b59ca9b60547d1623c2ff9a3e32a3e9ffb38f67f569e6c0ff3048ea3",
+          "same_bytes": false,
+          "same_text_normalized_newlines": true
+        }
+      },
+      "decision": "Not reusable for formal comparison: 3 epochs and 256 patches differ from 30/4096. Six key source files match after newline normalization; no semantic source difference inferred."
+    },
+    {
+      "source": [
+        "configs/slotspe_native_blca_uni2h.yaml",
+        "configs/slotspe_matched_blca_uni2h.yaml"
+      ],
+      "implementation": "survot_rank/research/methods/slotspe_reference/model.py",
+      "decision": "Configuration/adapter only; no complete matching saved run identified in searched roots. Effective runtime recipe and data provenance required.",
+      "native_recipe": {
+        "batch_size": 32,
+        "optimizer": "Adam",
+        "alpha_surv": 0.5
+      },
+      "matched_recipe": {
+        "batch_size": 8,
+        "optimizer": "AdamW",
+        "alpha_surv": 0.15
+      }
+    },
+    {
+      "source": "Historical E049/E051 full plugin runs",
+      "decision": "different mechanism/loss ownership or unaudited recipe; never current transport-only baseline"
+    }
+  ],
+  "search_scope": [
+    "current results filenames/JSON/CSV",
+    "实验档案/表格图片 JSON/CSV/log",
+    "实验档案/维护资料 snapshots",
+    ".review/slotspe_proof_20261018/patient",
+    "current configs, model adapter and progress contracts"
+  ],
+  "reuse_requires": [
+    "same host/version and active loss math",
+    "same patient IDs/feature cache/content/clinical/RNA/signature/splits",
+    "same train-only binning, patch sampling and seed",
+    "same optimizer/budget/steps/scheduler",
+    "same fixed checkpoint rule/eval seeds/metric provenance",
+    "complete checkpoints/curves/predictions"
+  ]
+}

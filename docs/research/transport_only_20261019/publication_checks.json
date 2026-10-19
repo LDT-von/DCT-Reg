@@ -1,0 +1,88 @@
+{
+  "schema": "transport_only_scoped_publication_checks_v1",
+  "date": "2026-10-19",
+  "base_remote_commit": "065509be0e5ba66d72b1c27c3ed79f38ec67cce9",
+  "passed": 45,
+  "failed": 0,
+  "skipped_in_final_validation": 0,
+  "tests": [
+    {
+      "path": "docs/research/transport_only_20261019/publication_paired_tests.xml",
+      "passed": 32,
+      "seconds": 127.058
+    },
+    {
+      "path": "docs/research/transport_only_20261019/publication_host_sources_tests.xml",
+      "passed": 13,
+      "seconds": 71.345
+    }
+  ],
+  "initial_host_check": {
+    "path": "docs/research/transport_only_20261019/publication_host_tests.xml",
+    "passed": 8,
+    "skipped": 5,
+    "reason": "upstream optional source snapshots absent in isolated checkout; final run explicitly used DCT_TRANSPORT_ONLY_SOURCE_ROOT and passed all 13"
+  },
+  "scope": [
+    "invented metadata/random tensors only; no real patient training or inference",
+    "standalone ZIP unpack/three-arm train/audit with invented inputs",
+    "remote native transport mechanism/solver/host hooks retained unchanged",
+    "reuses minimal original-model import/cache helpers under transport_only/slotspe_support",
+    "no historical transport_v2 package or other-window SlotSPE attribution code in this publication"
+  ],
+  "historical_local_checks": "docs/research/transport_only_20261019/checks.json",
+  "historical_local_note": "Historical source paths/hashes describe the earlier local validation; this report and delivery inventory describe the publication build.",
+  "patient_performance": null,
+  "dct_added_losses": [],
+  "shared_progress_policy": "Only transport sections in the existing remote overview are updated. The local THREE_LINE_PROGRESS.json contains unpublished other-window state and is preserved locally.",
+  "delivery": {
+    "path": "docs/deliveries/slotspe_transport_task_20261019_publish_v2.zip",
+    "sha256": "8c42702141c19f96ca8d8f0d3757cebdd813e4e1fe5936534664dbba98b4ebe3",
+    "files": 39,
+    "patient_data_included": false,
+    "server_execution_verified": false,
+    "message_dispatched_to_server": false
+  },
+  "source_files_sha256": {
+    "configs/slotspe_transport_compare.json": "cdb1e497ccdfa6455cac9f2a22d39cb68d9ef3f25d282e57c83b230f6bcf5ef0",
+    "docs/运输插拔_SlotSPE服务器交接_20261019.txt": "a5fa4ce464bff45caa970e8159458eb44006a403008d750d69485aba475504bf",
+    "scripts/audit_slotspe_transport_compare.py": "d3c5213f44be7a2bb190b317877f6eeb820a8c3330e28af1d761efb59e9b57ba",
+    "scripts/build_slotspe_transport_delivery.py": "76d4e1dd6d39ae3bc8b42289037e6aea504e4f5463a5b419e8dd9f58531f5c4e",
+    "scripts/run_slotspe_transport_compare.py": "1526ca0d8cc809d037d5905473182d69d2f990164f599f020c70c3cdbc5e8686",
+    "survot_rank/__init__.py": "e0dcce6519bede82720b1feaead931727bffbb3beeb48a87ef728d97748bff43",
+    "survot_rank/plugins/__init__.py": "eeaad83265ab909e6ce905c9d44ba3359d22a7a16d0c0b3df8e38192234be60d",
+    "survot_rank/plugins/transport/__init__.py": "f3a90a7bb4e203daf801cc1ce6336abc28e06b254c107f238506b2a4c1328ef7",
+    "survot_rank/plugins/transport/adapters.py": "17bbed9077b79034433b96bfca36e8129d3bef7c4b70fbfdf04a04e388b498e3",
+    "survot_rank/plugins/transport/config.py": "17b1366b9e5456cd17b7b48416bcfb21458a4cc0b043fd0e31e9dcaea1dabbe3",
+    "survot_rank/plugins/transport/core.py": "8a5d0d5d576dc94b2d42cf4de970be3ee880cda78618106dba111943405e88d6",
+    "survot_rank/plugins/transport/native.py": "1235fedbe92ef48b4bc778d96050224835c8b11fd05ab24d4cc21fd3039a2a45",
+    "survot_rank/plugins/transport/plugin.py": "520ff4ae0aa2dc6a29b408eceb47c5908ed858e5c8516c6a4ca3208824637b07",
+    "survot_rank/plugins/transport/reconstruction.py": "990236d336e70b69995cb6013a6be1093bce06234a82c541fe7477e87ae17b00",
+    "survot_rank/plugins/transport_only/__init__.py": "bbdfce3685b03f87057e1c4acbd2d7f8c01e62d6f7e133e032615080a0b20d65",
+    "survot_rank/plugins/transport_only/hosts.py": "072d3ba55680c640b1087e0c3528700fb1d6109e13c3f648208b647bc8e3e59b",
+    "survot_rank/plugins/transport_only/mechanism.py": "b98e2220ce2eac8bbb44866f3279bd55ac6980cc99f461b3f78a4f11dfb075fb",
+    "survot_rank/plugins/transport_only/slotspe_compare.py": "d13ba1ddf35cc925c8652cd0447711511572d1fd58dcabe3b00b7e239b729762",
+    "survot_rank/plugins/transport_only/slotspe_support/__init__.py": "dc6aad706c7ba4356b96ab94d174df01bb7080f2ada8f7ff1741acfe5277f9a2",
+    "survot_rank/plugins/transport_only/slotspe_support/data.py": "ee84af197b58f071f0ae82c5eff3d04b03655d0cd169614a11c6da3d4ec92fd8",
+    "survot_rank/plugins/transport_only/slotspe_support/model.py": "57a0b895583767f52b704c466b11caa30e731e9f3f5b197a5122ca4e6e944372",
+    "survot_rank/plugins/transport_only/solver.py": "e6d7a1fa4ae7ac57747a3a74c199727e3d8dd33e2f5e1a003c47beea8c7537b2",
+    "survot_rank/research/__init__.py": "aeed34fce43c7f7146d99ed9c64593188a332ef0b23327cb5a22813b343b68e2",
+    "survot_rank/research/components/__init__.py": "20e6602fb79d5bf56087b179c3a4ea6f8b1d6bd99f5c6e7791ec2288237c2e12",
+    "survot_rank/research/components/slot_attention.py": "95869659173be6d5262ec8efda810857b4ea508929421364e6005a61281d06ff",
+    "tests/test_slotspe_transport_compare.py": "5d32856f9d579986207c60cf9a4ffba30d76b301a47a87bab507f74daa9eba36",
+    "third_party/SlotSPE/dataset/dataset_survival.py": "c6ab72f4b805182be95c33aeda4bfa090fcd4815822389470cdc293d9dfd10f4",
+    "third_party/SlotSPE/models/omics_encoder.py": "c14ada7be2799ee4dee0995bea6e7b57ed9faedf934aef7f9e0e5aa6e0c4af96",
+    "third_party/SlotSPE/models/slot_attention.py": "8f6ba40339f1c25e51028fb3c6927a41831fd603427820f9e6606918594b3a4d",
+    "third_party/SlotSPE/models/SlotSPE.py": "0928641f2f7d4df5878036ca10152a94d2e33f81dd71c0947e382be5ab01e642",
+    "third_party/SlotSPE/models/transformer.py": "6f5ae6be95e33fbf6f32616dde405f91e08576b4c0396eae44b51ceb2f0fabde",
+    "third_party/SlotSPE/README.md": "7ab99352c1fbe6df635ceb9d7fb7f6ea39a7fa79d97ef8699e6573af2efad7e2",
+    "third_party/SlotSPE/requirements.txt": "1956c775d75e4ab27e96b5478b10dd88400091b3131a641ab024f616fd8b8697",
+    "third_party/SlotSPE/utils/core_utils.py": "c90148825b73e7b05c3b5a231fb149176378ec45fd8eccd22266f0b3ba2627dc",
+    "third_party/SlotSPE/utils/general_utils.py": "9ca7a6dfd027c6c3eb6377d4a93b36ec986ecc78942d674604ea0dc0d687c414",
+    "third_party/SlotSPE/utils/loss_func.py": "bd5d8af96d82a77ffd8b605c843c7849838b2ff6bf49d9b8562ab57b964e3de0",
+    "third_party/SlotSPE/utils/model_utils.py": "329de6e5c19eded75ea904b55a1642958d82cf15997fba710ef0f7fa242f6082",
+    "third_party/SlotSPE/utils/process_args.py": "422cf15640c965e353d22a028158a33b1c6123239f3fc776ee863c51927d470e",
+    "third_party/SlotSPE/utils/visual_utils.py": "fa3a5b648dfef3daf4f4ec8210c3062f7643c9c00051acb50c1d37cf39772a46"
+  },
+  "post_test_change": "Removed one empty line at end of support/data.py; executable statements unchanged"
+}

@@ -32,6 +32,12 @@ SlotSPE、SurvPath、PIBD、MMP、LD-CVAE、TTA已有接入及合成接口检查
 历史MCAT/SurvPath learned与independent结果，在其他窗口被转述为BLCA outer_test：差值约+0.00494和−0.00018。
 该批具体插件版本和损失配方尚需原始配置核实，不能算作当前纯运输交付结果；且缺native对照，不能据此认定插件提分。
 
+已完成SlotSPE旧基线本地核对与原版/学习运输/独立混合三臂交接；旧3轮256patch诊断不复用为30轮4096patch基线。
+首组锁定未修正SlotSPE，fold0/seed3、相同初始权重与输入、固定末轮和20个评估种子。
+代码默认仅规划；由服务器AI核对已有任务与真实输入后执行，未由本窗口启动患者训练。
+交接说明：docs/运输插拔_SlotSPE服务器交接_20261019.txt；执行入口：scripts/run_slotspe_transport_compare.py。
+原型仅长token汇总时参与；SlotSPE直接槽路径学习的是成本、信息量门和两侧残差gain。
+
 二、V2下一步：找到有效机制，并据此收窄问题
 
 先修复完整臂的运行依赖和成功判定：生成每折收益表，核验训练患者范围、配置与产物，再由用户启动缺失训练。

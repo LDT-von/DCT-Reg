@@ -1,0 +1,121 @@
+{
+  "schema": "transport_only_scoped_cleanup_v1",
+  "date": "2026-10-19",
+  "authorization": "用户：好的删掉不需要的文件",
+  "scope": "only completed transport-line one-off helpers and regenerable bytecode caches",
+  "deleted_file_count": 16,
+  "deleted_bytes": 115058.0,
+  "deleted": [
+    {
+      "path": ".review/finalize_transport_line_20261019.py",
+      "bytes": 10441,
+      "sha256": "caae5542dffd7aa3c20b14d40b200ba9fa135596ff785b3e5405e2f9a8ea7790",
+      "reason": "one-off completed maintenance helper; no active references found"
+    },
+    {
+      "path": ".review/record_transport_audit_20261019.py",
+      "bytes": 6171,
+      "sha256": "b5afd14e9d471ba970f323bd96ae25396cdb1d25774c965ebaee7e6a6e5aa8f0",
+      "reason": "one-off completed maintenance helper; no active references found"
+    },
+    {
+      "path": "survot_rank/plugins/transport_only/__pycache__/__init__.cpython-310.pyc",
+      "bytes": 353,
+      "sha256": "25b98a5ce6068fe2ddcbf66cb59623d088de415baabef00ec0f813bfcc4ceadb",
+      "reason": "regenerable cache; matching .py source exists"
+    },
+    {
+      "path": "survot_rank/plugins/transport_only/__pycache__/hosts.cpython-310.pyc",
+      "bytes": 6497,
+      "sha256": "715b4811d3a0118442c0b11833d28abd6268912746e1e47e10d10a9364b169f6",
+      "reason": "regenerable cache; matching .py source exists"
+    },
+    {
+      "path": "survot_rank/plugins/transport_only/__pycache__/mechanism.cpython-310.pyc",
+      "bytes": 11752,
+      "sha256": "f7046490ef009e84b9c129705bea1dedf111f7ab0425085e3b84162d83a3b2c7",
+      "reason": "regenerable cache; matching .py source exists"
+    },
+    {
+      "path": "survot_rank/plugins/transport_v2/__pycache__/__init__.cpython-310.pyc",
+      "bytes": 948,
+      "sha256": "1559925b8adb9e9b21e04f4cf9a89d92f1ad74ef72dd7a72f2a1274aa1daf75a",
+      "reason": "regenerable cache; matching .py source exists"
+    },
+    {
+      "path": "survot_rank/plugins/transport_v2/__pycache__/config.cpython-310.pyc",
+      "bytes": 2540,
+      "sha256": "2df307630640ec5055a46e588493c95bde9c30f47dc2711dc3d6f436134c2bd1",
+      "reason": "regenerable cache; matching .py source exists"
+    },
+    {
+      "path": "survot_rank/plugins/transport_v2/__pycache__/core.cpython-310.pyc",
+      "bytes": 7873,
+      "sha256": "ec081c675948017990e24a260dc935c50e0cf4d81b0195cff2dbd01fc1f0f7f2",
+      "reason": "regenerable cache; matching .py source exists"
+    },
+    {
+      "path": "survot_rank/plugins/transport_v2/__pycache__/plugin.cpython-310.pyc",
+      "bytes": 5552,
+      "sha256": "64a1c9ebeb3d3cd24737525e0bd6773d6e2178bac0766701320149100a83f30f",
+      "reason": "regenerable cache; matching .py source exists"
+    },
+    {
+      "path": "survot_rank/plugins/transport/__pycache__/__init__.cpython-310.pyc",
+      "bytes": 706,
+      "sha256": "db6bcf342a8680a9131cd3d3c61253b1807e5cf730a28ac751e107c3b9169aa6",
+      "reason": "regenerable cache; matching .py source exists"
+    },
+    {
+      "path": "survot_rank/plugins/transport/__pycache__/adapters.cpython-310.pyc",
+      "bytes": 10141,
+      "sha256": "e7aad744e4abe519baff122a9968cb7518ffc08dc7b2ef5310cf83512bbabdec",
+      "reason": "regenerable cache; matching .py source exists"
+    },
+    {
+      "path": "survot_rank/plugins/transport/__pycache__/config.cpython-310.pyc",
+      "bytes": 3454,
+      "sha256": "3ce467f1f791c127d862b8b692cf4845822f799cb7f18d45d52615f77e39a28e",
+      "reason": "regenerable cache; matching .py source exists"
+    },
+    {
+      "path": "survot_rank/plugins/transport/__pycache__/core.cpython-310.pyc",
+      "bytes": 14284,
+      "sha256": "eacef7030bff69ad6cc9875179a0c800704a2923b9f097791c2bbe5042dfff87",
+      "reason": "regenerable cache; matching .py source exists"
+    },
+    {
+      "path": "survot_rank/plugins/transport/__pycache__/native.cpython-310.pyc",
+      "bytes": 12486,
+      "sha256": "1b4d6db1d93ba4fe3069c6b1bb39284af46440926b24f83d4b410af0de205f31",
+      "reason": "regenerable cache; matching .py source exists"
+    },
+    {
+      "path": "survot_rank/plugins/transport/__pycache__/plugin.cpython-310.pyc",
+      "bytes": 5841,
+      "sha256": "a6b99612dc8ca05768370054f6df0f5ca297dc0fc4db3062da4ca3ed596ecd65",
+      "reason": "regenerable cache; matching .py source exists"
+    },
+    {
+      "path": "survot_rank/plugins/transport/__pycache__/reconstruction.cpython-310.pyc",
+      "bytes": 16019,
+      "sha256": "e882ef1593f873bef08a4e8993d2353c8df84a82600b349249c4ba2b0f4daff2",
+      "reason": "regenerable cache; matching .py source exists"
+    }
+  ],
+  "empty_cache_directories_removed": [
+    "survot_rank/plugins/transport_only/__pycache__",
+    "survot_rank/plugins/transport/__pycache__",
+    "survot_rank/plugins/transport_v2/__pycache__"
+  ],
+  "retained": [
+    "formal code and configs",
+    "server delivery zip",
+    "all referenced successful and failed test records",
+    "baseline/mechanism/check evidence",
+    "all history and other-window modifications",
+    ".review/transport_only_publish_20261019"
+  ],
+  "protected_artifact_hashes_unchanged": true,
+  "patient_jobs_started": false
+}

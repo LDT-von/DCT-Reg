@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-19",
+  "class": "DCTTransportMechanism",
+  "sources": [
+    "survot_rank/plugins/transport_only/mechanism.py",
+    "survot_rank/plugins/transport_only/hosts.py",
+    "survot_rank/plugins/transport/core.py",
+    "survot_rank/plugins/transport_v2/core.py",
+    "third_party/SlotSPE/models/SlotSPE.py"
+  ],
+  "learnable": {
+    "stage_pair_cost": "MLP with LayerNorm; learned via host objective",
+    "evidence_gate": "pair/stage MLP -> sigmoid; row/column means -> normalized evidence marginals",
+    "wsi_gain,omics_gain": "scalar parameters, tanh bounded; raw init .05, effective about .04996",
+    "wsi_prototypes,omics_prototypes": "learnable only when token count exceeds slot_budget and pooling is used; inactive for SlotSPE direct slots"
+  },
+  "fixed": [
+    "cosine/euclidean/positive-dot formulas",
+    "linear stage embedding buffer",
+    "Sinkhorn iteration rule; differentiable but no independent solver parameters",
+    "stage and geometry arithmetic average"
+  ],
+  "default": {
+    "transport_mode": "balanced",
+    "cost_mode": "legacy",
+    "stages": 4,
+    "geometries": [
+      "cosine",
+      "euclidean",
+      "positive_dot"
+    ],
+    "evidence_cost_weight": 0,
+    "evidence_gate_still_used": "yes, through marginals",
+    "launcher_epsilon": 0.05
+  },
+  "slotspe_insertion": "pre-hook of original cross_attention; its two incoming full slot tensors are updated; self-attention, decoder and reconstruction branches retain original slots",
+  "no_dct_added_losses": true,
+  "independent": "balanced: a b^T (same reference marginals, total 1); optional UOT uses realized r c^T / m, retaining realized mass",
+  "attribution_boundary": "Across separately trained arms marginal parameters may differ. Same-checkpoint independent evaluation holds learned parameters and input fixed; learned OT marginals match references only within solver tolerance.",
+  "capacity_boundary": "Independent instantiates same nominal parameters but balanced stage-pair cost has no objective path, and native-slot pooling prototypes are inactive. Do not call the effective trainable capacity identical.",
+  "scientific_question": "Does pair-specific correspondence provide value beyond sending the same marginal-weighted opposite-modality mean to every slot?",
+  "answer_now": "patient evidence insufficient; interfaces/synthetic checks do not establish benefit, local correspondence or OT superiority over attention"
+}
