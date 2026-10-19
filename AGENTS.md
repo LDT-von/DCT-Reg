@@ -1,3 +1,10 @@
+## SlotSPE 独立问题复现与归因（2026-10-19）
+
+- 本次入口为 `docs/SLOTSPE_PROOF_TASK.json`、`docs/SlotSPE证明任务_服务器一键运行.txt`，实现为 `survot_rank/research/slotspe_proof/`；不改变其他工作线。
+- 保留 original/readout_fix/eval_fix，另有 A/B/C。B/C仅切换最终self汇总处的选择梯度；选择、辅助训练与梯度、数值处理、评估和训练折分箱共用。
+- 32项合成/接口检查及独立打包检查已完成；患者效果、服务器复现和真实患者末轮槽干预仍待原始产物验收。
+- 已授权的服务器首组复现为fold0/seed3、原版与组合修正版各3轮、256真实patch、20次评估，由服务器AI执行；不索要SSH，不自动扩展训练或安装运输。
+
 ## 当前纯运输插拔范围 2026年10月18日
 
 - 用户最新要求：先在SlotSPE尝试运输机制插拔，再扩展SurvPath、PIBD、MMP、LD-CVAE、TTA。当前插件入口是 `docs/TRANSPORT_ONLY_METHOD_CONTRACT.json`，代码为 `survot_rank/plugins/transport_only/`。
