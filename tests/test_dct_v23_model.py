@@ -286,9 +286,11 @@ def test_checkpoint_restores_fixed_training_reference_and_signed_oof_targets():
 
 
 def test_checkpoint_loss_metadata_matches_active_mode_and_zero_variance_reference_is_safe():
-    assert len(model(reconstruction_mode="off").get_extra_state()["losses"]) == 6
-    assert len(model().get_extra_state()["losses"]) == 7
-    assert len(model(reconstruction_mode="gain_calibrated").get_extra_state()["losses"]) == 8
+    # This fixture explicitly sets all five inherited auxiliary weights to 0.
+    assert model(reconstruction_mode="off").get_extra_state()["losses"] == ["global_nll"]
+    assert model().get_extra_state()["losses"] == ["global_nll", "reconstruction"]
+    assert model(reconstruction_mode="gain_calibrated").get_extra_state()["losses"] == [
+        "global_nll", "reconstruction", "gain_calibration"]
     instance = model()
     instance.configure_reconstruction_reference([["A", "B", "C"], ["C", "D", "E"]],
                                                  [0.] * 5, [0., 1., 1., 1., 1.], ["p0", "p1"])

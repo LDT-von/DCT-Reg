@@ -40,6 +40,8 @@ def prepare_one_fold(config, fold, output_dir, teacher_options):
     split_path = Path(factory.data_path) / "splits" / factory.which_splits / factory.study / f"fold_{fold}.csv"
     split = pd.read_csv(split_path)
     protocol = training.get("evaluation_protocol", "legacy_val")
+    if protocol not in {"legacy_val", "outer_test"}:
+        raise ValueError("Unsupported calibration evaluation protocol")
     train_column = "inner_train" if protocol == "outer_test" else "train"
     excluded_columns = ("inner_val", "outer_test") if protocol == "outer_test" else ("val",)
     for column in (train_column, *excluded_columns):
@@ -65,7 +67,9 @@ def prepare_one_fold(config, fold, output_dir, teacher_options):
         if str(slides) == "nan":
             raise ValueError(f"Calibration requires real paired WSI for {patient_id}")
         features = dataset.load_wsi(str(slides))
-        if features.ndim != 2 or features.shape[0] < 1 or not bool(features.isfinite().all()):
+        if (features.ndim != 2 or features.shape[0] < 1
+                or features.shape[1] != data.get("encoding_dim", 768)
+                or not bool(features.isfinite().all())):
             raise ValueError(f"Invalid stored WSI for {patient_id}")
         pooled.append(features.mean(0).numpy())
         for slide in str(slides).split(", "):

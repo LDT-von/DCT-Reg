@@ -1,0 +1,120 @@
+V2：方法说明、最少配对实验与服务器交接
+日期：2026年10月19日。进度唯一入口仍为 THREE_LINE_PROGRESS.json 与三条研究路线工作总览。
+范围：只维护 DCT-RG/v2.3。旧版是依赖与对照；本文件是操作说明，不是另一份最新进度台账。
+
+一、先把方法分清楚
+
+1. 基本预测网络
+病理 patch 由现有 MLP 编码，原始通路基因由各自 SNN 编码；两侧 Slot Attention 分别压成槽，再在原型坐标中整理。
+这一步提取每个模态的信息，不等于已经跨模态匹配。共享线性生存头输出时间区间的 raw logits。
+
+2. 运输交换
+按阶段、按几何分支计算病理槽与组学槽的成本；KL-UOT 允许实际交换量偏离参考预算。
+运输计划进入已有融合注意力与事件 Transformer，得到阶段事件表示；中心化风险共激活读取补充对配对结构的响应。
+实际运输质量控制交换幅度，再乘可学习残差增益并参与预测。这里仍有注意力，不能说运输全面替代注意力。
+UOT 的边际缺额不是已识别出的“私有信息比例”，计划也不是已知生物学对应。
+
+3. 原生信息通路
+两侧槽各自平均，再按模态可用性平均，得到不依赖运输计划的原生表示。
+默认预测：原生表示 + 有质量约束的运输残差；共用生存头，再加相同残差增益控制的中心化风险共激活项，按阶段权重汇总。
+它是与交换并存的预测通路。native 损失只是对这条通路的额外训练要求，把该损失设零并没有关掉原生通路。
+
+4. 恢复收益训练
+生存主路径仍读完整输入。另一次训练辅助前向先全局遮盖原始基因，所有通路内同一个基因同步遮盖，再重新编码和求运输。
+解码器预测固定原始基因目标；训练患者内部交叉拟合 ridge 教师，估计“只用可见组学”与“加固定病理汇总”的误差差。
+收益 = 原生恢复误差 - 条件恢复误差，负值保留。评分患者必须未进入自己的教师拟合与标准化。
+通路收益经停止梯度的接收槽映射、sigmoid(-gain/scale)，监督已有绝对阶段成本参数。
+解码器、收益表查询仅服务训练；正常验证、测试与部署不查收益表。这不是部署时缺组学补全，也不是局部配对标签。
+
+八项损失并非八个网络模块：
+  主 NLL、IPCW 排序、逐槽 NLL、槽多样性、relation、native、原始基因重构、恢复收益校准。
+off 用前六项，masked_plain 加重构，gain_calibrated 再加校准。该计数是默认完整配方；归因控制会明确关闭部分训练要求。
+
+二、首先解决执行闭环
+
+旧服务器 driver 与原始 25 组已报告完成产物未在本机，不能写“已修好实际服务器脚本”或“已经核验患者成绩”。
+缺文件问题属于前置调用遗漏；工具 scripts/prepare_dct_v23_calibration.py 已存在，生成的是 ridge 教师收益表，不是神经网络校准头。
+本轮新增 scripts/run_dct_v23_workflow.py，用独立源码快照串起生成、来源验收、训练与完成验收。
+生成工具另加协议合法性与真实 WSI 维度检查；旧产物一律保留。
+
+交接包解压到新的目录，禁止覆盖服务器现有 DCT-Reg。用已有环境中的 Python，不安装或更换依赖。
+随包的共享与旧版 Python 只是 v2.3 可执行依赖的快照，不表示对其他工作线作了修改或发布。
+服务器 AI 先保存旧 driver 原文、启动命令、环境、完整输出路径与实际 YAML；逐项查是否有收益表生成调用、是否等它成功、是否只看退出码。
+可在 plan 时用 --legacy-driver /实际/driver.py 把旧脚本原文及 SHA256 保存到新批次；不能凭文件名猜旧脚本是否正确。
+
+三、服务器 AI 可直接执行的步骤
+
+以下命令均在解压后 dct_v23_server_20261019 目录内运行。Python 解释器以服务器实际环境为准。
+RECOVERY 与 CORE 是服务器 AI 为本次任务选择的新绝对目录，必须尚不存在；不得指向旧 E051/E052。
+本机没有执行下述患者读取、教师拟合或训练。
+
+0. 检查包内容（只读源文件）
+  python scripts/run_dct_v23_workflow.py verify
+  python -m pytest tests/test_dct_v23_workflow.py tests/test_training_failure_propagation.py -q
+
+1. 先验收旧结果（只读旧患者产物，报告另存新目录）
+  python scripts/run_dct_v23_workflow.py audit-existing --config /实际保存的/control.yaml --results-dir /实际旧/control目录 --folds 0 1 2 3 4 --output-root /新的/旧control验收目录
+masked_plain 同样验收；v2.2 旧结果另保留，其 checkpoint 不冒充 v2.3。
+验收通过只表示产物完整；还必须逐项核对原始源码、特征、划分、种子、容量、损失、预算和选模规则，才允许复用。
+最佳 epoch 不是停止 epoch；当前无早停的 30 轮要求曲线覆盖 0–29。
+旧臂如果不能追溯源码或条件不匹配，使用本次同一快照重跑；不能把旧 off 与新 full 直接拼成已验证比较。
+
+2. 制定恢复训练批次（不读患者数据，也不启动任务）
+  python scripts/run_dct_v23_workflow.py plan --stage recovery --output-root "$RECOVERY" --folds 0 1 2 3 4 --gpu 0 --data-path /实际/dataset_csv --features-root /实际/TCGA-UNI2-h-features --legacy-driver /实际/driver.py
+如果没有旧 driver 路径，省略 --legacy-driver，并在回传说明其尚缺。
+计划生成三臂同条件 YAML。每折每臂独立输出，默认 seed3、30轮、BLCA/UNI2-h/legacy_val；不复用 E 编号。
+
+3. 先生成、逐折验收收益表（真实患者读取和 ridge 教师拟合，由服务器 AI 执行）
+  python scripts/run_dct_v23_workflow.py calibrate --output-root "$RECOVERY"
+生成 calibration/fold_0.json 至 fold_4.json。已有文件只核对，不覆盖；损坏或来源不符则停止，用新批次重做。
+核对训练患者恰好覆盖、没有验证/测试患者、教师拟合与评分互斥、教师标准化仅用拟合患者、原始表达/划分摘要、WSI来源、维度和负收益。
+inputs.json 固定元数据 CSV 的内容 SHA256 与 WSI 文件的大小/修改时间；不声称已计算全量 WSI 内容 SHA256。
+calibration_binding.json 另固定收益文件内容摘要。验收同时比对checkpoint内部收益标签与收益文件，容许float32保存的舍入差。
+
+4. 训练完整版（前置验收不通过会在启动第一折前停止）
+  python scripts/run_dct_v23_workflow.py run --output-root "$RECOVERY" --arms gain_calibrated
+若旧 off/plain 不可复用，再执行：
+  python scripts/run_dct_v23_workflow.py run --output-root "$RECOVERY" --arms off masked_plain
+旧臂若验收可复用，必须另给匹配证据与逐折差值；新入口不会自动导入旧分数。
+一次失败即停止本队列，写 failure 报告并保留已有产物；重新运行前先查失败，不覆盖原目录。新尝试用新批次。
+
+5. 验收实际回传
+  python scripts/run_dct_v23_workflow.py audit --output-root "$RECOVERY" --arms gain_calibrated
+如果三臂都在本批次运行，则省略 --arms；自动输出同折 off→plain、plain→full 的差值。
+验收要求：实际完整轮数；唯一且能严格加载的 v2.3 checkpoint；配方及训练患者一致；验证预测覆盖全部且仅包含声明患者；logits/risk/结局有限且相符；C-index 复算匹配所选验证峰值。
+源码、配置、CSV内容、WSI文件元数据或收益表来源改变，必须停止验收，重新查明来源。
+
+四、最少核心模块归因
+
+先查看恢复三臂，不再新建版本。现有恢复三臂的默认六项继承训练要求保持一致，回答恢复训练是否有增量。
+随后只先运行 fold0、seed3、30轮的四个控制，全部关闭重构、relation、native 辅助损失，保留主NLL、IPCW排序、逐槽NLL和槽多样性。
+
+  C0 combined：原生 + 学习UOT交换；受控共同参照。
+  C1 native_only：真正关闭运输对最终预测的读取；判断加入交换整体有无帮助。
+  C2 transport_only：真正关闭原生汇总对最终预测的读取；判断原生通路有无额外帮助。
+  C3 independent：从学习UOT计划取同实际行/列边际与总质量，改为独立耦合；判断配对结构是否有用。
+
+三组配对：C0−C1 为交换增量；C0−C2 为原生读取增量；C0−C3 为固定实际边际下拓扑增量。
+四个控制共用编码器、槽数、头、参数布局与初始化、数据、预算和仍启用的辅助目标。活跃梯度路径不同是实验变量，不宣称有效参数容量完全一样。
+native_only 仍计算 core 以保持执行与初始化结构，但 core 的交换不进入最终预测；不能用此控制的耗时估算删掉运输后的部署加速。
+transport_only 在无可用配对时退到共享头偏置，不能把原生回退偷偷接回；先核对完整配对病例。
+relation 在独立控制本就返回零，所以拓扑两臂必须都显式关掉它；native 辅助目标也统一关闭，避免帮被切除的原生通路训练。
+配对比较是跨训练的受控增量；同一 checkpoint 的通路切断只是依赖诊断，不能代替重新训练后的贡献。
+
+  python scripts/run_dct_v23_workflow.py plan --stage core --output-root "$CORE" --folds 0 --gpu 0 --data-path /实际/dataset_csv --features-root /实际/TCGA-UNI2-h-features
+  python scripts/run_dct_v23_workflow.py run --output-root "$CORE"
+  python scripts/run_dct_v23_workflow.py audit --output-root "$CORE"
+
+核心阶段只有4个首轮任务。单折用于定位和验证闭环，不能凭它定最终方法。
+稳定且方向可解释后，再在新批次扩展同折配对；第一轮结果不自动触发五折多种子网格。
+平衡OT/UOT、去共激活、去relation、去native辅助监督、打乱收益信号等均按已有结果决定，不一次铺开。
+若要声称 UOT 必要，再加同条件平衡OT；若要声称优于注意力，另需容量匹配的注意力替代。本轮四臂均不能证明后两个命题。
+
+五、服务器 AI 回传什么
+
+回传包应保留目录结构：SOURCE_MANIFEST.json；原始driver与命令；环境/依赖版本；plan.json、inputs.json、实际YAML；全部calibration表和provenance；日志；逐轮CSV；checkpoint；逐患者pickle预测；reports内成功与失败验收及配对差值。
+另记每臂GPU型号、总时长、峰值显存与生成收益表开销；缺项明写待补，不估造。
+最终验收者在同一源码包中再运行 audit，核对回传路径、hash、患者、划分与实际轮数。
+没有原始结果就写“待验证”。legacy_val 反复用于选模块，只是开发证据；最终收敛后仍需预留测试或独立队列。
+保留差值为负和失败的结果。指标很接近或区间跨零不等于模块等效；五折并非独立样本，不能套独立样本显著性结论。
+最终优先保留跨配对条件稳定帮助预测且值得其成本的部分；当前没有证据预定必须保留恢复收益、运输或原生通路。

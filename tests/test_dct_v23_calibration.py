@@ -269,7 +269,8 @@ def test_training_snapshot_preserves_original_random_patch_policy():
     assert next(iter(loader))["patient_ids"] == ["p0"]
 
 
-def test_complete_preparation_launcher_reads_only_declared_training_patients(monkeypatch, tmp_path):
+@pytest.mark.parametrize("encoding_dim", [3, 4])
+def test_complete_preparation_launcher_reads_only_declared_training_patients(monkeypatch, tmp_path, encoding_dim):
     from scripts.prepare_dct_v23_calibration import prepare_one_fold
     from survot_rank.research.legacy.slotspe_runtime.dataset import dataset_survival as source
     ids = [f"p{i}" for i in range(8)]
@@ -300,11 +301,16 @@ def test_complete_preparation_launcher_reads_only_declared_training_patients(mon
     monkeypatch.setattr(source, "SurvivalDatasetFactory", Factory)
     monkeypatch.setattr(source, "SurvivalDataset", Dataset)
     config = dict(data=dict(study="blca", data_path=str(data_dir), data_root_dir=str(tmp_path),
-        rna_format="Pathways", signature="combine", label_col="survival_months_dss", encoding_dim=3),
+        rna_format="Pathways", signature="combine", label_col="survival_months_dss", encoding_dim=encoding_dim),
         train=dict(evaluation_protocol="legacy_val"), model=dict(wsi_encoder="synthetic"),
         split_setup=dict(which_splits="synthetic"))
-    path = prepare_one_fold(config, 0, tmp_path / "output", dict(inner_folds=2, mask_ratio=.5,
-        mask_rounds=2, native_dim=2, wsi_dim=2, ridge_alpha=1., seed=3))
+    settings = dict(inner_folds=2, mask_ratio=.5, mask_rounds=2, native_dim=2, wsi_dim=2, ridge_alpha=1., seed=3)
+    if encoding_dim == 4:
+        with pytest.raises(ValueError, match="Invalid stored WSI"):
+            prepare_one_fold(config, 0, tmp_path / "output", settings)
+        assert not (tmp_path / "output/fold_0.json").exists()
+        return
+    path = prepare_one_fold(config, 0, tmp_path / "output", settings)
     assert set(loaded) == set(ids) and len(loaded) == len(ids)
     payload = json.loads(path.read_text(encoding="utf-8"))
     load_calibration(path, patient_ids=ids, excluded_ids=["v0", "v1"], pathway_gene_ids=PATHWAYS,

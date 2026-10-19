@@ -1,6 +1,6 @@
 {
   "schema": "dct_v23_recovery_gain_candidate_contract_v1",
-  "as_of": "2026-10-14",
+  "as_of": "2026-10-19",
   "version": "dct_v23",
   "alias": "dct_v2_3",
   "display_version": "DCT v2.3",
@@ -18,11 +18,11 @@
   ],
   "checkpoint_schema": "dct_v23_standalone_v1",
   "inference_architecture": [
-    "现有小容量 WSI MLP 与通路 SNN",
-    "两套 Slot Attention 与共有原型坐标",
-    "阶段多几何有界成本与 KL-UOT",
-    "原生汇总与实际质量控制的运输残差及风险共激活",
-    "已有共享生存头输出 raw logits"
+    "现有小容量WSI MLP与通路SNN",
+    "两套Slot Attention与已有原型坐标",
+    "现有阶段多几何有界成本与KL-UOT",
+    "原生汇总加实际质量控制的运输事件残差；风险共激活关闭",
+    "已有共享生存头输出raw logits"
   ],
   "training_additions": [
     "跨通路副本同步的全局原始基因遮盖",
@@ -31,17 +31,13 @@
     "以收益校准既有有界绝对阶段成本"
   ],
   "modes": {
-    "off": "六项继承目标，无重构或收益校准",
-    "masked_plain": "六项继承目标加一项真实遮盖重构",
-    "gain_calibrated": "六项继承目标加真实遮盖重构与 OOF 恢复收益校准，共八项"
+    "off": "当前精简配方两项：主NLL与槽多样性。",
+    "masked_plain": "当前两项基础目标加原始基因重构，共三项。",
+    "gain_calibrated": "当前两项基础目标加重构和恢复收益校准，共四项；患者效果待验证。"
   },
   "loss_terms": [
     "global_nll",
-    "ipcw_rank",
-    "per_slot_nll",
     "slot_diversity",
-    "relation",
-    "native",
     "raw_gene_reconstruction",
     "recovery_gain_calibration"
   ],
@@ -55,7 +51,12 @@
     "reconstruction_hidden_dim": 64,
     "calibration_warmup_epochs": 3,
     "gain_scale": 0.1,
-    "inheritance": "继承目标、阶段数和槽数保持同条件配置；这些数值均为待验证的初始配方。"
+    "inheritance": "2026-10-19按用户批准的精简方向关闭IPCW排序、逐槽NLL、relation、native和风险共激活；保留原生残差、运输事件读取及待验证恢复辅助。",
+    "ipcw_rank_weight": 0.0,
+    "per_slot_nll_weight": 0.0,
+    "relation_weight": 0.0,
+    "native_weight": 0.0,
+    "local_readout": "none"
   },
   "target_contract": {
     "identity": "dataset_factory 中真实 geneID，按通路首次出现排序，跨通路重复基因共享遮盖状态",
@@ -76,13 +77,12 @@
   },
   "controls": {
     "configurations": [
-      "configs/dct_v23_blca_legacy_val_control.yaml",
-      "configs/dct_v23_blca_legacy_val_masked_plain.yaml",
-      "configs/dct_v23_blca_legacy_val_gain_calibrated.yaml"
+      "configs/dct_rg_blca_legacy_val.yaml"
     ],
-    "protocol": "E052 candidate; BLCA 5fold_uni2h legacy_val seed3 30 epochs; candidate performance unmeasured",
-    "allocation": "all arms same encoder capacity, optimization and inherited objectives",
-    "matching_audit": "same-realized-marginal independent coupling remains a mechanism control; not asserted as new mathematics"
+    "generated_controls": "scripts/run_dct_v23_workflow.py plan recovery/core",
+    "protocol": "DCT-RG/v2.3 simplified_core recipe; BLCA 5fold_uni2h legacy_val seed3 30 epochs; no verified patient score",
+    "allocation": "当前所有新臂关闭四项额外监督及风险共激活；recovery两/三/四项，core保留主NLL与多样性。",
+    "matching_audit": "same-realized-marginal independent coupling; no OT superiority claim"
   },
   "novelty_audit": "docs/research/reconstruction_novelty_20261014/novelty_audit.json",
   "boundaries": [
@@ -96,5 +96,104 @@
   "patient_training_executed": false,
   "patient_inference_executed": false,
   "measured_c_index": null,
-  "verified_on": "2026-10-15"
+  "verified_on": "2026-10-19",
+  "initial_execution_flags_scope": "上方patient_training_executed/patient_inference_executed为2026-10-14发布快照。本轮未启动患者任务；已有off/plain服务器训练转述，原始产物尚未验收，不能据旧false字段说所有臂从未训练。",
+  "current_patient_evidence": {
+    "off_and_masked_plain": "user_reported_results_raw_artifacts_pending",
+    "gain_calibrated": "reported_missing_gain_tables_no_valid_score",
+    "measured_c_index_verified_locally": null,
+    "actual_server_driver_audited": false,
+    "current_objective_recipe": "simplified_core has no verified patient results; previous recipes remain historical"
+  },
+  "v2_workflow": {
+    "entry": "scripts/run_dct_v23_workflow.py",
+    "guide": "docs/V2_方法归因与服务器交接_20261019.txt",
+    "stages": [
+      "plan",
+      "calibrate",
+      "run",
+      "audit",
+      "audit-existing"
+    ],
+    "execution": "患者读取、教师拟合与训练由服务器AI执行；本机只做无患者检查。",
+    "no_new_version": true,
+    "default_model_and_losses": "当前入口禁用四项额外监督，local_readout=none；预测保留原生信息与运输事件残差，旧显式配置维持原路径。",
+    "core_attribution": {
+      "prediction_paths": [
+        "combined",
+        "native_only",
+        "transport_only"
+      ],
+      "topology_control": "combined with same-realized-marginal independent UOT plan",
+      "shared_objectives": "关闭重构、relation与native辅助损失，并按用户要求关闭IPCW排序、逐槽NLL；保留主NLL与槽多样性。",
+      "new_network_parameters": 0,
+      "initial_budget": "fold0 seed3 30 epochs, four arms; no automatic grid expansion",
+      "interpretation": "判断交换、直接原生读取与耦合拓扑的条件增量；不证明UOT或OT优于其他机制。"
+    }
+  },
+  "historical_eight_loss_terms": [
+    "global_nll",
+    "ipcw_rank",
+    "per_slot_nll",
+    "slot_diversity",
+    "relation",
+    "native",
+    "raw_gene_reconstruction",
+    "recovery_gain_calibration"
+  ],
+  "historical_controls": {
+    "configurations": [
+      "configs/dct_v23_blca_legacy_val_control.yaml",
+      "configs/dct_v23_blca_legacy_val_masked_plain.yaml",
+      "configs/dct_v23_blca_legacy_val_gain_calibrated.yaml"
+    ],
+    "protocol": "E052 candidate; BLCA 5fold_uni2h legacy_val seed3 30 epochs; candidate performance unmeasured",
+    "allocation": "all arms same encoder capacity, optimization and inherited objectives",
+    "matching_audit": "same-realized-marginal independent coupling remains a mechanism control; not asserted as new mathematics"
+  },
+  "active_entry": "configs/dct_rg_blca_legacy_val.yaml",
+  "objective_recipe": "dct_rg_simplified_core_20261019",
+  "removed_training_objectives": {
+    "ipcw_rank": "user_requested_disabled",
+    "per_slot_nll": "user_requested_disabled",
+    "historical_support": "旧配置和checkpoint仍支持显式原配方；槽投影保留供多样性和只读诊断，不进入当前最终预测。",
+    "relation": "disabled_after_user_approval",
+    "native": "disabled_after_user_approval"
+  },
+  "pruning_review": {
+    "confirmed_by_source": [
+      "收益目标在供体和阶段方向广播，阶段成本校准含压缩这两个方向差异的方差惩罚。",
+      "native与主预测共享线性头，可构造相反梯度；真实患者上冲突频率未测。",
+      "关闭逐槽NLL后，两侧槽头同时反号使风险共激活不变；多样性中的hazard方差也不变，不能据此声称单槽有唯一风险语义。"
+    ],
+    "module_candidates_for_review": [
+      "融合内部事件Transformer与后续事件Transformer",
+      "多几何运输分支"
+    ],
+    "next_loss_candidates_not_disabled": [],
+    "unchanged_pending_patient_evidence": "本轮不继续调整双层事件Transformer、多几何、重构或收益校准；精简后的患者性能及剩余辅助目标相容性待验证。",
+    "approved_and_disabled": [
+      "native",
+      "relation",
+      "centered_pair_risk_readout"
+    ]
+  },
+  "previous_six_loss_terms": [
+    "global_nll",
+    "slot_diversity",
+    "relation",
+    "native",
+    "raw_gene_reconstruction",
+    "recovery_gain_calibration"
+  ],
+  "removed_prediction_paths": [
+    "centered_pair_risk_coactivation"
+  ],
+  "retained_components": [
+    "native_information_residual",
+    "transport_event_readout",
+    "existing_event_Transformers",
+    "existing_multi_geometry_plans",
+    "training_only_reconstruction_and_gain_calibration"
+  ]
 }

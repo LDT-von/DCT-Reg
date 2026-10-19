@@ -102,6 +102,7 @@ def build_base_parser() -> argparse.ArgumentParser:
     parser.add_argument("--dct_v22_relation_gradient_interval", type=int, default=0)
     parser.add_argument("--dct_v22_evaluate_train", action=argparse.BooleanOptionalAction, default=True)
     # v2.3 adds training-only raw-gene reconstruction and verified OOF gains.
+    parser.add_argument("--dct_v23_prediction_path", choices=["combined", "native_only", "transport_only"], default="combined")
     parser.add_argument("--dct_v23_reconstruction_mode", choices=["off", "masked_plain", "gain_calibrated"], default="gain_calibrated")
     parser.add_argument("--dct_v23_mask_ratio", type=float, default=0.30)
     parser.add_argument("--dct_v23_lambda_reconstruction", type=float, default=0.05)

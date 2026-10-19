@@ -10,8 +10,9 @@ import torch
 from torch.nn import functional as F
 
 from survot_rank.research.methods.dct_v2.model import deterministic_readout
-from survot_rank.research.methods.dct_v2.transport import pair_tokens, realized_independent_plan
+from survot_rank.research.methods.dct_v2.transport import pair_tokens, realized_independent_plan, frozen_call
 from survot_rank.research.methods.dct_v22.model import DCTV22
+from survot_rank.research.methods.dct_v21.objectives import collision_safe_separation
 from survot_rank.research.methods.dct_v23.config import DCTV23Config
 from survot_rank.research.methods.dct_v23.reconstruction import (
     GlobalGeneSchema, RawGeneReconstructionDecoder, sample_global_mask,
@@ -21,7 +22,10 @@ from survot_rank.research.methods.dct_v23.reconstruction import (
 
 
 class DCTV23(DCTV22):
-    """Keep native survival predictions; train recovery on genuinely hidden genes.
+    """Read native plus transported events; train recovery on hidden genes.
+
+    The current recipe disables relation/native supervision and centered-pair
+    risk reading. Explicit historical configurations keep their original path.
 
     Calibrated mode consumes externally cross-fitted patient-by-pathway gains.
     A pathway gain is not a true slot-pair correspondence label. It supervises
@@ -59,6 +63,20 @@ class DCTV23(DCTV22):
         elif omic_names is not None:
             # Metadata alone is not a train-fold normalization reference.
             self.gene_schema = GlobalGeneSchema.build(omic_names, config.omic_sizes)
+
+    def _native_feature(self, state):
+        native = super()._native_feature(state)
+        return torch.zeros_like(native) if self.config.prediction_path == "transport_only" else native
+
+    def _predict(self, state, plans=None, *, frozen=False, quality=None, gain_override=None):
+        # No new parameters or heads. The default delegates byte-for-byte to
+        # the inherited formula. Controls remove an actual prediction path,
+        # rather than merely setting a similarly named loss weight to zero.
+        if self.config.prediction_path == "native_only":
+            native = super()._native_feature(state)
+            logits = frozen_call(self.event_hazard, native) if frozen else self.event_hazard(native)
+            return logits, logits, torch.zeros_like(state.event_tokens)
+        return super()._predict(state, plans, frozen=frozen, quality=quality, gain_override=gain_override)
 
     def configure_reconstruction_reference(self, pathway_gene_ids, raw_gene_mean,
                                            raw_gene_std, train_patient_ids, *, gene_ids=None):
@@ -103,16 +121,50 @@ class DCTV23(DCTV22):
 
     def get_extra_state(self):
         state = super().get_extra_state()
+        weights = self.objective_weights_effective(100000)
+        active = [name for name, weight in weights.items() if weight > 0]
         state.update(schema="dct_v23_standalone_v1", config=self.config.to_dict(),
                      reconstruction=self.config.reconstruction_mode != "off",
                      reconstruction_mode=self.config.reconstruction_mode,
-                     losses=list(self.objective_weights_effective(100000).keys()),
-                     loss_terms=list(self.objective_weights_effective(100000).keys()),
+                     losses=active, loss_terms=active,
+                     configured_loss_weights=weights,
                      pathway_gene_ids=None if self.gene_schema is None else self.gene_schema.pathway_gene_ids,
                      train_patient_ids=self.reconstruction_train_patient_ids,
                      oof_gain_targets=deepcopy(self._gain_targets),
                      oof_gain_provenance=deepcopy(self._gain_provenance))
         return state
+
+    def _slot_objectives(self, state, y, c, ipcw):
+        if self.config.slot_weight > 0:
+            return super()._slot_objectives(state, y, c, ipcw)
+        # Preserve diversity exactly without computing a discarded slot NLL.
+        # These two projections still serve diversity and centered-pair reading.
+        cfg = self.config
+        zero = state.wsi_slots.sum() * 0.
+        if cfg.diversity_weight <= 0:
+            return zero, zero
+        available = (state.wsi_mask.any(-1), state.omics_mask.any(-1))
+        denominator = sum(a.sum() for a in available).clamp_min(1)
+        diversity = zero
+        for name, slots, head, valid in zip(("wsi", "omics"), (state.wsi_slots, state.omics_slots),
+                (self.per_slot_hazard_wsi, self.per_slot_hazard_omic), available):
+            if not bool(valid.any()):
+                continue
+            selected = slots[valid]
+            hazards = torch.sigmoid(head(selected))
+            if cfg.diversity_objective == "legacy_squared":
+                from survot_rank.research.methods.legacy.experimental.dct_v313_transport_reconstruction.diversity import repaired_slot_diversity_loss
+                term, _ = repaired_slot_diversity_loss(selected, selected, hazards, hazards,
+                    variance_min=cfg.variance_min, variance_max=cfg.variance_max,
+                    target_pair_dist=cfg.target_pair_dist, pair_weight=cfg.pair_weight)
+            else:
+                variance = (hazards-hazards.mean(1, keepdim=True)).square().mean((1, 2))
+                band = (F.relu(cfg.variance_min-variance)+F.relu(variance-cfg.variance_max)).mean()
+                separation = collision_safe_separation(selected, cfg.target_pair_dist)
+                term = band + cfg.pair_weight*separation
+                self.last_diversity_diagnostics[name+"_separation"] = separation.detach()
+            diversity = diversity + term*valid.sum()/denominator
+        return zero, diversity
 
     def set_extra_state(self, state):
         if not isinstance(state, dict) or state.get("schema") != "dct_v23_standalone_v1":

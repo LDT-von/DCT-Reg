@@ -7,6 +7,12 @@ from survot_rank.research.methods.dct_v22.config import DCTV22Config
 
 @dataclass(frozen=True)
 class DCTV23Config(DCTV22Config):
+    ipcw_weight: float = 0.
+    slot_weight: float = 0.
+    relation_weight: float = 0.
+    native_weight: float = 0.
+    local_readout: str = "none"
+    prediction_path: str = "combined"
     reconstruction_mode: str = "masked_plain"
     mask_ratio: float = .30
     reconstruction_weight: float = .05
@@ -17,6 +23,11 @@ class DCTV23Config(DCTV22Config):
 
     def __post_init__(self):
         super().__post_init__()
+        if self.prediction_path not in {"combined", "native_only", "transport_only"}:
+            raise ValueError("invalid v2.3 prediction_path")
+        if self.prediction_path != "combined" and (
+                self.reconstruction_mode != "off" or self.relation_weight != 0 or self.native_weight != 0):
+            raise ValueError("path attribution requires reconstruction off and relation/native weights zero")
         if self.reconstruction_mode not in {"off", "masked_plain", "gain_calibrated"}:
             raise ValueError("invalid v2.3 reconstruction_mode")
         for name in ("mask_ratio", "reconstruction_weight", "calibration_weight", "gain_scale"):
@@ -37,8 +48,14 @@ class DCTV23Config(DCTV22Config):
     @classmethod
     def from_args(cls, args):
         values = DCTV22Config.from_args(args).to_dict()
+        for name, key in (("ipcw_weight", "dct_v2_lambda_ipcw_rank"), ("slot_weight", "dct_v2_lambda_slot_nll"),
+                          ("relation_weight", "dct_v2_lambda_relation"), ("native_weight", "dct_v2_lambda_native")):
+            if getattr(args, key, None) is None:
+                values[name] = 0.
+        if getattr(args, "dct_v21_local_readout", None) is None:
+            values["local_readout"] = "none"
         keys = {"reconstruction_weight": "lambda_reconstruction", "calibration_weight": "lambda_calibration"}
-        for name in ("reconstruction_mode", "mask_ratio", "reconstruction_weight", "calibration_weight",
+        for name in ("prediction_path", "reconstruction_mode", "mask_ratio", "reconstruction_weight", "calibration_weight",
                      "recon_hidden_dim", "calibration_warmup_epochs", "gain_scale"):
             value = getattr(args, "dct_v23_" + keys.get(name, name), None)
             if value is not None:

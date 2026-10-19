@@ -1,0 +1,95 @@
+{
+  "schema": "dct_v23_simplified_core_checks_v1",
+  "date": "2026-10-19",
+  "method": "DCT-RG/v2.3",
+  "objective_recipe": "dct_rg_simplified_core_20261019",
+  "disabled_training_objectives": [
+    "ipcw_rank",
+    "per_slot_nll",
+    "relation",
+    "native"
+  ],
+  "disabled_prediction_readout": "centered_pair_risk_coactivation",
+  "retained_prediction": "native feature plus mass-weighted transported event residual; shared survival head; exact native fallback on absent exchange",
+  "active_terms": {
+    "off": [
+      "global_nll",
+      "slot_diversity"
+    ],
+    "masked_plain": [
+      "global_nll",
+      "slot_diversity",
+      "reconstruction"
+    ],
+    "gain_calibrated": [
+      "global_nll",
+      "slot_diversity",
+      "reconstruction",
+      "gain_calibration"
+    ]
+  },
+  "retained_training_only": "masked reconstruction and train-fold OOF recovery calibration; existing receiver-only calibration target unchanged",
+  "not_changed": [
+    "event Transformer architecture",
+    "multi-geometry transport",
+    "slot diversity",
+    "native information path",
+    "historical explicit configurations and checkpoint schema"
+  ],
+  "slot_projection_note": "Slot projection heads still serve diversity and diagnostics; they do not affect current predictions. No claim that all parameter tensors or all slot heads were deleted.",
+  "checks": [
+    {
+      "scope": "V23 model/calibration/workflow/historical compatibility/simplified-core checks",
+      "path": ".review\\v2_simplified_core_20261019\\final_checks.xml",
+      "tests": 143,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "scope": "Extracted delivery workflow and simplified-core checks, repeated subset",
+      "path": ".review\\v2_simplified_core_20261019\\isolated_checks.xml",
+      "tests": 31,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    }
+  ],
+  "delivery": {
+    "path": "docs\\deliveries\\dct_rg_simplified_core_20261019_checked.zip",
+    "sha256": "afa3a30f6309f959f59e048dfedb36c1922c3f24cab9d8d8cba0751b5bf7f1f8",
+    "size_bytes": 504414,
+    "entries": 155,
+    "verified_payload_files": 154,
+    "isolated_verify_core_and_recovery_plans_and_train_help": true
+  },
+  "preservation": {
+    "historical_E052_configs_unchanged": true,
+    "shared_parser_trainer_and_predecessor_models_unchanged": true,
+    "backup": "docs/history/v2_core_simplification_20261019_163007/"
+  },
+  "execution": {
+    "local_patient_data_read": false,
+    "real_teacher_fit": false,
+    "patient_training_started": false,
+    "patient_performance_verified": false,
+    "server_dispatched_or_remote_published": false
+  },
+  "limitations": [
+    "Synthetic checks establish branch removal and retained gradients; no patient performance claim.",
+    "Historical recipes and current simplified recipe are not matched experimental arms.",
+    "Remaining reconstruction/calibration objectives may still differ from survival utility."
+  ],
+  "source_sha256": {
+    "configs/dct_rg_blca_legacy_val.yaml": "ffec2ed081733bef6b31455c493fb15953ee472f05607a3ebf5662a457d0702c",
+    "survot_rank/research/methods/dct_v23/config.py": "a78346222c9cba5f580dee596c9e02c31623eab153c0c7f0e4f38c5da336a77f",
+    "survot_rank/research/methods/dct_v23/model.py": "d19d75e74c1d9db564e3e8f8c965571889e8034276cd70ce8d9a614b5a2d9fd5",
+    "scripts/run_dct_v23_workflow.py": "e25a4f45e760a3c4c2f0f82adcc7d252994241491c5060537029004272c620f3",
+    "scripts/build_dct_v23_workflow_delivery.py": "b8d007e2d6a536cfe349c2ea7867868ed7d95b2be24eebb7fc85d88287908914",
+    "tests/test_dct_v23_simplified_core.py": "04c6059759861ea624c42442ec9c422fef02793980b3936660b84983fad1a2c7",
+    "tests/test_dct_v23_loss_pruning.py": "c9d56145d28031013ab83a84df32cb7fd82d98c44fa19aa4fc46a6491586fdb4",
+    "tests/test_dct_v23_workflow.py": "31e071bb58c61258ebc758c82da0e340dac4848f9478aa6fe7397fd04989f053",
+    "docs/DCT_V23_METHOD_CONTRACT.json": "c7c81c7705afa449ed8ec2da776ec6fa5d633da806ffc6ff0e5dcc5adc5a9b60",
+    "docs/V2_方法归因与服务器交接_20261019.txt": "0ffd30b3387f7182476ce1cb9f3ff1c5f5116ddc3ed487d507d63d7c515b997c"
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "schema": "dct_two_research_lines_v1",
+  "as_of": "2026-10-19",
+  "purpose": "固定两条研究主线的交流名称，区分方法、实现版本、中间对照及外部插件。",
+  "naming_scope": "便于区分的展示名，不声称名称全球唯一；不改变训练标识、目录、checkpoint schema 或任何前向与损失。",
+  "shared_problem_plain": "同一个患者有病理和组学两份检查，但没有告诉模型里面哪些内容应该互相参照。怎样让两份检查有用地配合预测生存？",
+  "observed_data_condition": "患者级配对；没有病理局部与通路的对应标注。",
+  "hypotheses_to_test": [
+    "部分跨模态交换可能不能增加有用信息。",
+    "给关系安排显式约束或恢复效用监督，可能改善患者泛化。"
+  ],
+  "not_established_facts": [
+    "有害匹配是 E050 下降的唯一病因。",
+    "当前方法已识别正确的生物学局部对应。",
+    "两条方法均已形成优于 SlotSPE 的同条件患者性能证据。"
+  ],
+  "methods": [
+    {
+      "name": "DCT-B",
+      "chinese_name": "平衡运输生存模型",
+      "english_description": "Balanced Transport for Multimodal Survival Prediction",
+      "version": "v3.13",
+      "training_method_key": "dct_v313_transport_reconstruction",
+      "native_source": "survot_rank/research/methods/legacy/experimental/dct_v313_transport_reconstruction/",
+      "question_plain": "没有局部配对标签时，怎样安排病理信息与通路信息之间的交换？",
+      "mechanism_plain": "在槽与各自原型坐标上，以潜在阶段和多几何成本组织同时满足两侧预算的运输，构造生存表示并复用运输做通路特征重构。",
+      "candidate_contribution": "具体的原型坐标、阶段、多几何及同计划预测与重构组织方式，而不是槽或重构本身。",
+      "contract": "docs/V313_METHOD_CONTRACT.json",
+      "contract_scope_note": "该历史契约含 MCAT/SurvPath 外部插件描述。外部残差写回与保留宿主预测头只适用于插件，不代替原生 v3.13 的预测路径。",
+      "evidence_note": "已有历史患者实验；分数仍须对应其具体重构配置、特征、划分、训练及选择协议。"
+    },
+    {
+      "name": "DCT-RG",
+      "chinese_name": "恢复收益引导的运输生存模型",
+      "english_description": "Recovery-Gain-Guided Transport for Multimodal Survival Prediction",
+      "version": "v2.3",
+      "training_method_key": "dct_v23",
+      "native_source": "survot_rank/research/methods/dct_v23/",
+      "question_plain": "哪些通路值得接收额外的病理信息，怎样给这种交换提供可检验的帮助信号？",
+      "mechanism_plain": "保留原生预测与 KL 松弛运输；训练时恢复隐藏真实基因，并以训练折内部留患者估计的有符号恢复收益校准既有阶段成本。",
+      "candidate_contribution": "患者外恢复收益如何进入现有运输成本的训练，实际监督粒度为接收侧效用。",
+      "critical_limit": "教师只看全局病理汇总；一个接收槽的目标复制给所有发送槽和阶段，不提供发送槽的对应标签。恢复收益也不等于生存收益。",
+      "contract": "docs/DCT_V23_METHOD_CONTRACT.json",
+      "full_mode": "gain_calibrated",
+      "controls": {
+        "off": "DCT-RG / Control，无重构、无收益校准",
+        "masked_plain": "DCT-RG / Masked，仅普通严格遮盖重构",
+        "gain_calibrated": "DCT-RG / Full，重构加恢复收益校准"
+      },
+      "evidence_note": "已有用户转述的短程/control患者训练进度；完整重构与收益校准的有效性及同条件优势仍需原始患者产物验证，不能沿用交付时的未训练快照代替实时状态。"
+    }
+  ],
+  "intermediate_implementations": {
+    "dct_v2": "独立 UOT、原生路径、关系目标的基础实现，保留用于追溯和对照。",
+    "dct_v21": "读取、关系探针及碰撞距离的机制修正，保留用于追溯和对照。",
+    "dct_v22": "编码器容量、常规正则化及诊断候选，也是 DCT-RG 的直接基类。"
+  },
+  "external_plugins": "transport_plugin 与 transport_plugin_v2 是向 MCAT/SurvPath 等接入的实现，不另外计为本次命名的第三条原生研究主线。",
+  "claim_rule": "相对 SlotSPE 有结构差异不等于全领域首次；槽、自重构、跨重构、UOT、遮盖恢复和交叉拟合各有先例。",
+  "evidence_chain": [
+    "留出患者上，配对病理比仅可见组学提供额外隐藏基因恢复帮助。",
+    "固定实际行列边际、表示和读取后，学习计划相对独立混合有可测收益。",
+    "同容量同协议下，收益校准相对普通遮盖重构改善生存泛化；若只体现参与量作用，就按参与量贡献报告。"
+  ],
+  "v2_active_candidate": {
+    "display_name": "DCT-RG",
+    "implementation": "dct_v23",
+    "version": "v2.3",
+    "full_mode": "gain_calibrated",
+    "selection_status": "one_current_candidate_not_performance_selected_final_method",
+    "legacy_policy": "v2/v2.1/v2.2保留作依赖与对照；不并行发展新版本，不删除继承链。",
+    "plain_parts": [
+      {
+        "part": "基本网络",
+        "purpose": "编码两模态、提取摘要并预测生存",
+        "role": "inherited_foundation"
+      },
+      {
+        "part": "运输",
+        "purpose": "决定两模态怎样交换信息",
+        "usefulness": "awaiting_matched_ablation"
+      },
+      {
+        "part": "原生信息通路",
+        "purpose": "保留两模态各自的信息",
+        "usefulness": "awaiting_matched_ablation"
+      },
+      {
+        "part": "恢复收益训练",
+        "purpose": "遮盖恢复与训练折内部收益指导现有运输成本",
+        "usefulness": "full_arm_not_completed"
+      }
+    ],
+    "loss_note": "当前DCT-RG精简配方的off/plain/full分别两/三/四项损失；四项额外监督和风险共激活已关闭，原生残差与事件读取保留；旧六至八项为历史配方。",
+    "minimal_attribution_order": [
+      "off vs masked_plain：普通遮盖恢复",
+      "masked_plain vs gain_calibrated：恢复收益指导",
+      "再单独控制运输匹配及原生信息通路；前三臂不能回答所有模块贡献"
+    ],
+    "finalization_rule": "按同条件患者归因结果删减工作方案；删模块和改架构前仍核对影响与保留原始材料。"
+  }
+}
