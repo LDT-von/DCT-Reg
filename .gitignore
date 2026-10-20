@@ -97,3 +97,4 @@ transport_diagnosis/
 
 # One-off analysis scripts (not production code)
 _spe09_viz.py
+_p1246_diag.py
