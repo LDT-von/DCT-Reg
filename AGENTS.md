@@ -335,6 +335,36 @@ E049（BLCA，2 骨干 × 2 臂 × 5 折 = 20 任务）结果：MCAT native 0.66
 3. **"The Half-Percent Illusion in Survival Benchmarks"**——聚焦 ② RNG 噪声曲线 + 报数 protocol；
 4. **"Self-Pool Self-Interference in Survival Slot Attention"**——聚焦 ④，但 ④ 当前证据不足以独立成 paper，且与 Locat et al. 2023 撞。
 
+**未经用户直接列出 8 问题目录之前**，此前几次回应只报告了 ① ② ③ ④ ⑤ 五条"实测坐实"发现。**用户原始 8 问题对照表**（`docs/research/slotspe_eight_issues_20261019/核查结论.txt`，2026-10-19）如下：
+
+| 编号 | 问题（P1–P8，原始定义） | SPE-09 fold0 / seed3 实测落地 |
+|---|---|---|
+| P1 | 固定候选槽数（默认 8、TopK=2）不按患者推断激活数量 | **未测**：未构造 token 数 ≤ 8 vs ≥ 64 的对照输入 |
+| P2 | 共享初始化+共享更新 → 槽冗余风险 | **未测**：未算训练后 8 个槽之间的 cosine 距离分布 |
+| P3 | Gumbel-TopK eval 仍采样；单次评估波动大 | **已坐实**：`eval_repeats.json` 20 rep，val C-index ∈ [0.7132, 0.7298]，std=0.0035，单 patient max Δ risk=0.0301 |
+| P4 | 槽置换等变性 → 无固定病理语义 | **未测**：未算 slot 之间 cos 与重命名后预测差 |
+| P5 | loader 无 padding mask；补零 patch 泄漏 | **已坐实**：`native_model_audit.json` 加 16/64 零行 max logit diff=1.1e-2 |
+| P6 | 显式空间多尺度接口缺口（无坐标 / 倍率） | **未测**：未构造 (x,y) 重组 vs 同 patch 同位的对照 |
+| P7 | 最终融合 NLL 到选槽器**直接梯度缺失** | **已坐实**：`trained_selector_gradients.json` 8/8 参数 `main.kind=None`，aux-only |
+| P8 | 不适用原版 SlotSPE（OT 双阶段不在原版） | — |
+
+**含义**：今早给"够一篇论文"的判断**只覆盖 P3、P5、P7 + ④⑤意外发现**；**P1/P2/P4/P6 是结构事实但"患者损害未证"**，升级路径必须先补这 4 项的 patient-level 数字，paper section §3 才能成立。
+
+### 升级路径（修订版）
+
+按"补足患者证据缺口"重排，5 折 × 30 epoch × seed 3 一组跑下来同时采集下列指标：
+
+- **P1 动态槽数 vs 性能**：用 patches ∈ {64, 128, 256, 512}，看 val C-index 是否随 token 数变化（保持 fold/seed/其它配置一致）；
+- **P2 槽间 cos**：末轮 checkpoint 上 50 个 val patient，逐 patient 算 8×8 cos 矩阵，统计 cos>0.95 的槽对占比；
+- **P4 槽置换敏感性**：每个 val patient 跑"模型预测 vs 槽重命名后预测"差，看 max abs diff 实测是否落入合成数据的 1.19e-7；
+- **P6 patch 空间敏感性**：同 patient 同 patches，随机重排 5 次、计算预测 max diff；
+- 同步重做 P3（已有 20 rep 升至 50 rep + 多 fold）、P5（扩到 1024 零行）、P7（确认其它 fold 都是 main.kind=None）；
+- ⑤ 意外发现再加一组 epoch=20 / epoch=50 看 Spearman ρ 何时从 +0.41 翻正。
+
+GPU 估算：5 fold × 30 epoch × 单 backbone（SlotSPE）单卡 ~80 min；外加 P1/P6 不同输入构造不额外花 GPU 时间，只是 forward 多样；总计 ≤ 2 h。
+
+实验启动需要的用户授权：按 AGENTS.md 红线，任何训练启动前必须取得用户对**具体材料 / 配置**的明确授权；当前是**未授权状态**，等用户点头才动 GPU。
+
 ### 已坐实的发现（fold 0 seed 3，3 epoch，256 patch，batch=8）
 
 | # | 问题 | 证据 | 力学 |
