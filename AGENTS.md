@@ -322,4 +322,48 @@ E049（BLCA，2 骨干 × 2 臂 × 5 折 = 20 任务）结果：MCAT native 0.66
 - 实测 val C-index = 0.7223 > 0.5，表面预测"有效"。但同一份数据上 **Spearman ρ = +0.41, p = 2.3e-4**（predicted risk 与 observed time **正**相关）——模型预测的"risk"实际像个"长生存概率"。
 - 机制层面：gate 都开在 0.99–1.0 区间（8 slot 全开、无分化），selector 主梯度全断（8/8 aux-only），加上 3 epoch 欠训，模型尚未把"风险高=事件早"学清楚。
 - **不是 bug**（C-index 仍 > 0.5），是**欠训阶段的预测方向翻转**；30 epoch 后可能正过来。论文引用 val 数字须配方向检验。
-- 可视化：`实验档案/表格图片/SPE09_slotspe_clean_original_20261019/risk_hazard_monotonicity.png`（ρ = +0.41）；其余 6 张图（gate_distribution / eval_repeat_drift / padding_sensitivity / selector_gradient_isolation / self_pool_interference / paper_evidence_landscape）同目录。
+## 论文候选方向：从 SPE-09 实证到一篇诊断性论文（2026-10-20 起）
+
+### 候选论文题目（prompt for user feedback）
+
+**暂定标题**：`Sparse Survival Transformers Report RNG-Noise Deltas: when val C-index is statistically meaningless`
+
+**更具体的题目选择**（按"够不够支撑"排序）：
+
+1. **"Sparse Survival Transformers Don't See Hazard: a Second-Order Autograd Audit"**（最推荐）——聚焦 ① 配 ⑤；用 `torch.autograd` 二阶 hook 把每个 `pred_keep_slot` 参数"主损失连接 vs aux 损失连接"打到 JSON；
+2. **"When Survival C-Index Goes Backwards"**——聚焦 ⑤ Spearman direction test + 报告指南；
+3. **"The Half-Percent Illusion in Survival Benchmarks"**——聚焦 ② RNG 噪声曲线 + 报数 protocol；
+4. **"Self-Pool Self-Interference in Survival Slot Attention"**——聚焦 ④，但 ④ 当前证据不足以独立成 paper，且与 Locat et al. 2023 撞。
+
+### 已坐实的发现（fold 0 seed 3，3 epoch，256 patch，batch=8）
+
+| # | 问题 | 证据 | 力学 |
+|---|---|---|---|
+| ① | selector 与主 NLL 断路 | `trained_selector_gradients.json`：8/8 `pred_keep_slot` 参数 `main.kind=None` | 训练 114 步后，slot 选择完全由 aux 塑形 |
+| ② | 评估散度 | `eval_repeats.json`：同 weight、20 rep，val_C std=0.0035，最大单次差异 0.0166 | RNG 是唯一变量（rng_replay 已证） |
+| ③ | padding / batch 敏感 | `native_model_audit.json` padding 段：`max_logit_difference` 最大 1.1e-2 | batch=8 vs 76/32 量级不一致 → 不可比 |
+| ④ | self-pool 干扰 | `patient_slot_intervention.json`：max_self_pool_change=2.563；controlled probe gate_sum=7.6e-36 | 机制层坍缩路径可复现，但自然数据未触发 |
+| ⑤ | 方向翻转 | 风险 vs time Spearman ρ=+0.41, p=2.3e-4 | 3 epoch 模型未学好 hazard direction |
+
+### 创新点定位
+
+- **新工具**：第二阶 autograd "主损失 connected vs 辅助损失 connected" 报告（①）；"Spearman risk-direction test" 一行检查（⑤）；
+- **新基准**：patient-level survival 的 RNG noise 上界 std=0.0035（②）；
+- **新规则**：报 val C-index 须同时报 ④ + ⑤，否则 fold-mean 差异在 ±0.01 范围内的"提分"皆不可信。
+
+### 不写成 paper 的"边角料"
+
+- ③ padding / batch：方法学 awareness，附录一段；
+- ④ gate collapse 当前证据不足以独立成 paper，自然数据 0/3080 触发——除非能补充"什么训练配置会触发" 的 sweep 实验，否则放附录。
+
+### 下一步动作（待用户拍板）
+
+- 当前**仅 fold 0 seed 3，3 epoch**——pilot 不是 paper。
+- 升级路径（按优先级）：
+ 1. **5 折 × seed 3 × 30 epoch**：`bash run_slotspe_proof.sh --config configs/slotspe_clean_original_server.json --output-root results/slotspe_proof/slotspe_full_blca_5fold_20261020 --folds 0,1,2,3,4 --seed 3 --epochs 30 --run` ——单 GPU 上 ~50 min；
+ 2. **同 seat + SurvPath / MCAT**：把 ②的 RNG 上界 跨 backbone 报出来——估算 ~6 h；
+ 3. **30/50/100 epoch + convergence curve**：补"什么 epoch 之后 direction 翻正" 弯道调研——~3 h。
+
+### 实验启动需要的用户授权
+
+按 AGENTS.md 红线：任何 5 折以上训练启动前必须取得用户对**具体材料 / 配置**的明确授权；当前是**未授权状态**，等用户点头才动 GPU。
