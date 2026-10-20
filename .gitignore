@@ -94,3 +94,6 @@ transport_diagnosis/
 
 # Top-level SlotSPE working copy (third_party/SlotSPE is the tracked one)
 /SlotSPE/
+
+# One-off analysis scripts (not production code)
+_spe09_viz.py
