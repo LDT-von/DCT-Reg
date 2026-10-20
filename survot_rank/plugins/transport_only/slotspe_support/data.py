@@ -230,6 +230,12 @@ def prepare(config, output_root):
         paths = [Path(config["features_root"]) / (s.rstrip(".svs") + ".pt") for s in slide_names]
         if not all(path.is_file() for path in paths):
             return "at_least_one_missing_slide_feature"
+        # Treat zero-byte / corrupted feature files as a hard exclusion; data
+        # was never complete, so record every affected patient and pick them up
+        # through the standard exclusion summary.
+        zero_byte = [path for path in paths if path.stat().st_size == 0]
+        if zero_byte:
+            return "zero_byte_or_truncated_slide_feature"
         chunks, slide_info = [], []
         for path in paths:
             before = path.stat()

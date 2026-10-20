@@ -316,3 +316,10 @@ E049（BLCA，2 骨干 × 2 臂 × 5 折 = 20 任务）结果：MCAT native 0.66
 - **commit message 与实测一致**：26 个文件、新任务包、诊断代码、原始证据和执行说明 → ✓；隔离流程复验通过、远端提交/文件/任务包哈希一致 → ✓（f5370b6 已是远端 HEAD，`git pull --ff-only` 无冲突）。
 - **本机未提交改动**：`survot_rank/research/slotspe_proof/patient.py` 18 行（路径 fallback + 扩 except）。**该改动是给患者做实验的最小必要修复**，让 legacy `.pt` 和 `.h5` 都能进 patient.py 的 prepare 流程；不引入新机制、不改 predictions 形状、不改训练损失。**如不被接受，需先把改动 revert 再设计专门兼容性层**。
 - **未做**：fold 1–4 未跑（任务包只跑 fold 0 seed 3）；`fewer_real_patches_than_configured_no_padding` 排除的具体 patient 未单独诊断；val 评估仅 20 repeats 探索性。
+
+## 意外发现：risk 方向在 3-epoch 模型上反了（SPE-09，2026-10-20）
+
+- 实测 val C-index = 0.7223 > 0.5，表面预测"有效"。但同一份数据上 **Spearman ρ = +0.41, p = 2.3e-4**（predicted risk 与 observed time **正**相关）——模型预测的"risk"实际像个"长生存概率"。
+- 机制层面：gate 都开在 0.99–1.0 区间（8 slot 全开、无分化），selector 主梯度全断（8/8 aux-only），加上 3 epoch 欠训，模型尚未把"风险高=事件早"学清楚。
+- **不是 bug**（C-index 仍 > 0.5），是**欠训阶段的预测方向翻转**；30 epoch 后可能正过来。论文引用 val 数字须配方向检验。
+- 可视化：`实验档案/表格图片/SPE09_slotspe_clean_original_20261019/risk_hazard_monotonicity.png`（ρ = +0.41）；其余 6 张图（gate_distribution / eval_repeat_drift / padding_sensitivity / selector_gradient_isolation / self_pool_interference / paper_evidence_landscape）同目录。
