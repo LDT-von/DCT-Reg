@@ -231,16 +231,33 @@ def prepare(config, output_root):
         # Match the requested original loader's feature filename convention.
         paths = [Path(config["features_root"]) / (s.rstrip(".svs") + ".pt") for s in slide_names]
         if not all(path.is_file() for path in paths):
-            return "at_least_one_missing_slide_feature"
+            # Fall back to UNI2-h .h5 if no .pt files exist (both layouts use
+            # the same slide-name stem; the extension differs).
+            h5_paths = [Path(config["features_root"]) / (s.rstrip(".svs") + ".h5") for s in slide_names]
+            if all(p.is_file() for p in h5_paths):
+                paths = h5_paths
+            else:
+                return "at_least_one_missing_slide_feature"
         chunks, slide_info = [], []
+        is_h5 = paths[0].suffix == ".h5"
         for path in paths:
             before = path.stat()
             try:
-                tensor = torch.load(path, map_location="cpu", weights_only=True, mmap=True)
-            except RuntimeError:
-                # Old torch-save containers do not support mmap; still load a
-                # single patient's slides, never the full cohort.
-                tensor = torch.load(path, map_location="cpu", weights_only=True)
+                if is_h5:
+                    import h5py  # late import keeps the .pt path lean
+                    with h5py.File(path, "r") as hf:
+                        raw = hf["features"][0]  # shape (N, 1536)
+                    tensor = torch.from_numpy(raw)
+                else:
+                    tensor = torch.load(path, map_location="cpu", weights_only=True, mmap=True)
+            except (RuntimeError, EOFError):
+                # Legacy torch zip format or h5 legacy file; retry without mmap/weights_only.
+                if is_h5:
+                    with h5py.File(path, "r") as hf:
+                        raw = hf["features"][0]
+                    tensor = torch.from_numpy(raw)
+                else:
+                    tensor = torch.load(path, map_location="cpu", weights_only=True)
             if not isinstance(tensor, torch.Tensor) or tensor.ndim != 2 or tensor.shape[0] < 1 or tensor.shape[1] < 1:
                 raise ValueError(f"Feature file must contain a nonempty [patch,channel] tensor: {path}")
             if encoding_dim is None:

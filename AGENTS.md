@@ -295,3 +295,24 @@ E049（BLCA，2 骨干 × 2 臂 × 5 折 = 20 任务）结果：MCAT native 0.66
 - 三臂为 `off`、`masked_plain`、`gain_calibrated`，分别激活六、七、八项目标。固定实际边际的独立耦合仍是机制对照，不将减去冻结对照误差包装成新的优化方向。
 - 先例与数学审查保留于 `docs/research/reconstruction_novelty_20261014/novelty_audit.json`。不得宣称全领域首次、必然提高 C-index、已解决过拟合或识别真实生物学私有信息。
 - 本候选图文与检查记录分别交付；结构和合成检查支持代码行为，患者性能另须同条件实验。不要将旧重构模型分数登记为 v2.3 结果。
+
+## 独立干净原版 SlotSPE 启动实测（SPE-09，2026-10-19）
+
+- 用户要求在 f5370b6 commit `feat: deliver clean original SlotSPE server audit` 上跑 `--run`（不是只跑 doctor），由本机起单卡训练，目的是回答论文层 4 个问题：selector 主梯度是否断路、同 weight 评估是否散度、padding 是否改变 logits、self-pool 是否被自己 batch 干扰。
+- 入口是 `survot_rank/research/slotspe_proof/patient.py`，运行命令 `bash run_slotspe_proof.sh --config configs/slotspe_clean_original_server.json --output-root results/slotspe_proof/slotspe_clean_original_blca_run_20261020 --run`。f5370b6 的代码是干净原版：arm=['original']、未加运输、未加 ABC、未替换 decoder，与 commit message 一致。
+- **启动期遇到的 5 个故障（按时间顺序，本机未带 `audit_readonly.py` 那类 read-only wrapper）**：
+ 1. `git pull --ff-only` 把 HEAD 拉到 f5370b6；stash 留 `pre-f5370b6-pickup-20261019-1630` 与 `E051 stage 1 diagnostic` 两份
+ 2. `--doctor` 通过 → 改 `--run`，`prepare` 抛 `No complete-case train patients remain in fold 0`；features_root 选错：默认想 `/data1/TCGA-UNI2-h-features`，但仓 layout 是 `blca/uni2-h/pt_files/{slide}.h5`，patient.py:248 写死 `.pt` 拼接
+ 3. 改 `SLOTSPE_FEATURES_ROOT=/data1/DCT-Reg/data/slotspe_pt_features/blca/pt_files` → 仓根下没有 `.pt`，全 `.pt`
+ 4. 改 `SLOTSPE_FEATURES_ROOT=/data1/DCT-Reg/data/slotspe_pt_features/blca` → 仍 0 train（仓 layout 是 `blca/pt_files/{slide}.pt`，patient.py 不会再加一层）；且 `.pt` 仓里 1/115 是 legacy zip 格式，patient.py:245 `except RuntimeError` 没接 `EOFError`，第 1 名患者（`TCGA-DK-A3IV`，在 train）就把整批崩
+ 5. 改 `survot_rank/research/slotspe_proof/patient.py`：① `.pt` 不在则回落到 `.h5`；② `except RuntimeError` 扩到 `(RuntimeError, EOFError)`，h5 与 legacy 都能进 fallback；改完后 `prepare train=302 val=77 excluded=2`，2 例分别是 `missing_clinical_endpoint_or_wsi_string` 与 `fewer_real_patches_than_configured_no_padding`
+- **4 stage 全部 completed**：`protocol → prepare → fold_0_seed_3 (3 epoch, val 0.742 at epoch 2) → summarize`，driver log 完整，run_identity 哈希在 manifest。
+- **论文 4 个问题的实测答案（BLCA fold0 seed3，3 epoch，256 patch，batch=8，val=77，ADC raw Harrell C-index，非 IPCW）**：
+ 1. **selector 主梯度断路 `observed`**：8/8 selector 参数（`slot_decoder_wsi.pred_keep_slot.{0,2}.{weight,bias}` 与 `slot_decoder_omic.pred_keep_slot.{0,2}.{weight,bias}`）`main.kind=None, connected=False`，但 `aux.kind=nonzero, norm=0.0016..0.0103`；3 个 epoch + 114 个 optimizer step 后 selectors 对主 NLL **完全无梯度通道**
+ 2. **同 weight 评估散度 `observed`**：20 次重复评估（仅 RNG seed 变，无 checkpoint / patch / model 变化）`val_cindex=0.7132..0.7298`，std=0.0035，**单 patient risk 摆动 0.136**；RNG 是唯一变量（`rng_replay.max_logit_difference=0.0` 同 seed 100% 一致）
+ 3. **padding 敏感性 `observed`**：阈值 1e-7；TCGA-2F-A9KO 无自然零行（`original_zero_feature_rows=0`），加 16 行 controlled zero rows → `max_logit_difference=4.14e-3`, `risk_abs_difference=2.45e-4`
+ 4. **self-pool 干扰 `observed`**：`max_self_pool_change=2.563`；controlled gate_sum 实验下 seed 20004 出现 `gate_sum=7.6e-36`（机制层面坍缩可能）；但末轮 trained checkpoint 上自然预测没出现 near_zero gate（`natural_gate_observations: 0/3080`）
+- **3 epoch 训练曲线**：`epoch 1 loss=2.858 val_C=0.7258`, `epoch 2 loss=2.580 val_C=0.7425`, `epoch 3 loss=2.419 val_C=0.7227`。3 epoch 明显欠训，**该 0.7223 ± 0.0035 不是 generalization 数字**，仅为探索性 val 报告。
+- **commit message 与实测一致**：26 个文件、新任务包、诊断代码、原始证据和执行说明 → ✓；隔离流程复验通过、远端提交/文件/任务包哈希一致 → ✓（f5370b6 已是远端 HEAD，`git pull --ff-only` 无冲突）。
+- **本机未提交改动**：`survot_rank/research/slotspe_proof/patient.py` 18 行（路径 fallback + 扩 except）。**该改动是给患者做实验的最小必要修复**，让 legacy `.pt` 和 `.h5` 都能进 patient.py 的 prepare 流程；不引入新机制、不改 predictions 形状、不改训练损失。**如不被接受，需先把改动 revert 再设计专门兼容性层**。
+- **未做**：fold 1–4 未跑（任务包只跑 fold 0 seed 3）；`fewer_real_patches_than_configured_no_padding` 排除的具体 patient 未单独诊断；val 评估仅 20 repeats 探索性。
