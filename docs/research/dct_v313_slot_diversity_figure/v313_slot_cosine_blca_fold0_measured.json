@@ -1,0 +1,1404 @@
+{
+  "summary": {
+    "checkpoint": "/data1/DCT-Reg/results/dct_v313_full_wsi_three_decoders/blca_seed3/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_full_wsi_three_decoders/model_best_s0.pth",
+    "model_class": "DCTV313TransportReconstruction",
+    "fold": 0,
+    "seed": 3,
+    "n_val_total": 76,
+    "n_ok": 76,
+    "n_errors": 0,
+    "cos_threshold": 0.95,
+    "n_pairs_per_patient": 28,
+    "wsi_frac_above_mean": 1.0,
+    "wsi_frac_above_median": 1.0,
+    "wsi_frac_above_min": 1.0,
+    "wsi_frac_above_max": 1.0,
+    "wsi_patients_all_pairs_above": 76,
+    "wsi_max_cosine_mean": 0.9981048420855874,
+    "wsi_max_cosine_min": 0.9980777502059937,
+    "wsi_max_cosine_max": 0.9981279969215393,
+    "wsi_mean_cosine_mean": 0.9916800605623346,
+    "wsi_min_cosine_mean": 0.9809545380504507,
+    "omic_frac_above_mean": 0.9732142945653514,
+    "omic_frac_above_median": 1.0,
+    "omic_frac_above_min": 0.7142857313156128,
+    "omic_frac_above_max": 1.0,
+    "omic_patients_all_pairs_above": 59,
+    "omic_max_cosine_mean": 0.9997183123701497,
+    "omic_max_cosine_min": 0.9976380467414856,
+    "omic_max_cosine_max": 0.9999950528144836,
+    "omic_mean_cosine_mean": 0.9908238908177928,
+    "omic_min_cosine_mean": 0.9728791125510868
+  },
+  "per_patient": [
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917270541191101,
+        "max_cosine": 0.9980919361114502,
+        "min_cosine": 0.9811408519744873,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9996578097343445,
+        "max_cosine": 0.9999703168869019,
+        "min_cosine": 0.999182939529419,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-4Z-AA86",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916992783546448,
+        "max_cosine": 0.9980965256690979,
+        "min_cosine": 0.9810271263122559,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.785714328289032,
+        "mean_cosine": 0.9706635475158691,
+        "max_cosine": 0.9998983144760132,
+        "min_cosine": 0.9114207625389099,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-BL-A5ZZ",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917120933532715,
+        "max_cosine": 0.9980951547622681,
+        "min_cosine": 0.9810659289360046,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.8214285969734192,
+        "mean_cosine": 0.9712120294570923,
+        "max_cosine": 0.99981689453125,
+        "min_cosine": 0.890802264213562,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-BT-A20O",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9915986657142639,
+        "max_cosine": 0.9981276392936707,
+        "min_cosine": 0.9806672930717468,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9995291829109192,
+        "max_cosine": 0.9999641180038452,
+        "min_cosine": 0.9987267255783081,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-BT-A42C",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917320013046265,
+        "max_cosine": 0.9980869889259338,
+        "min_cosine": 0.9811300039291382,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.9285714626312256,
+        "mean_cosine": 0.9779696464538574,
+        "max_cosine": 0.9987659454345703,
+        "min_cosine": 0.9386580586433411,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-C4-A0F0",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916998744010925,
+        "max_cosine": 0.9980894923210144,
+        "min_cosine": 0.9810051918029785,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997429847717285,
+        "max_cosine": 0.9999732971191406,
+        "min_cosine": 0.9995014071464539,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-CF-A47S",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916885495185852,
+        "max_cosine": 0.9980889558792114,
+        "min_cosine": 0.9809582233428955,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997469186782837,
+        "max_cosine": 0.9999759197235107,
+        "min_cosine": 0.9995059967041016,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-CF-A5U8",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916489720344543,
+        "max_cosine": 0.9981032609939575,
+        "min_cosine": 0.9807969927787781,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997327327728271,
+        "max_cosine": 0.9999804496765137,
+        "min_cosine": 0.9993873238563538,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-CF-A5UA",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.991733193397522,
+        "max_cosine": 0.9980862736701965,
+        "min_cosine": 0.981130838394165,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997423887252808,
+        "max_cosine": 0.9999747276306152,
+        "min_cosine": 0.9995222687721252,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-CF-A9FM",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916706681251526,
+        "max_cosine": 0.9981155395507812,
+        "min_cosine": 0.9809341430664062,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997469186782837,
+        "max_cosine": 0.9999791383743286,
+        "min_cosine": 0.9994885325431824,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-DK-A1A5",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916370511054993,
+        "max_cosine": 0.9981222748756409,
+        "min_cosine": 0.9807987809181213,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917863011360168,
+        "max_cosine": 0.9999692440032959,
+        "min_cosine": 0.9789319038391113,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-DK-A1A7",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916759729385376,
+        "max_cosine": 0.9981111884117126,
+        "min_cosine": 0.9809262156486511,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997463822364807,
+        "max_cosine": 0.9999797344207764,
+        "min_cosine": 0.9994799494743347,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-DK-A1AA",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917365908622742,
+        "max_cosine": 0.9980857372283936,
+        "min_cosine": 0.9811537265777588,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9851210117340088,
+        "max_cosine": 0.9995157122612,
+        "min_cosine": 0.9526522755622864,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-DK-A1AB",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916887283325195,
+        "max_cosine": 0.9981110692024231,
+        "min_cosine": 0.9809792041778564,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.9642857313156128,
+        "mean_cosine": 0.9809780120849609,
+        "max_cosine": 0.9990454912185669,
+        "min_cosine": 0.9482423067092896,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-DK-A2HX",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917616844177246,
+        "max_cosine": 0.9980777502059937,
+        "min_cosine": 0.9812417030334473,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9840088486671448,
+        "max_cosine": 0.9997177124023438,
+        "min_cosine": 0.9508286714553833,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-DK-A3WY",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917172193527222,
+        "max_cosine": 0.9981019496917725,
+        "min_cosine": 0.9810686111450195,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.985223114490509,
+        "max_cosine": 0.9997936487197876,
+        "min_cosine": 0.9578237533569336,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-DK-A6AW",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917008876800537,
+        "max_cosine": 0.9981003403663635,
+        "min_cosine": 0.9810253381729126,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9996850490570068,
+        "max_cosine": 0.999970555305481,
+        "min_cosine": 0.9992932677268982,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-DK-A6B1",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916712045669556,
+        "max_cosine": 0.9981139302253723,
+        "min_cosine": 0.9809186458587646,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997388124465942,
+        "max_cosine": 0.9999804496765137,
+        "min_cosine": 0.9994074702262878,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-DK-A6B2",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916955828666687,
+        "max_cosine": 0.9981014728546143,
+        "min_cosine": 0.9810177683830261,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997473955154419,
+        "max_cosine": 0.9999747276306152,
+        "min_cosine": 0.9995151162147522,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-DK-A6B6",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916698336601257,
+        "max_cosine": 0.9981017708778381,
+        "min_cosine": 0.9809244871139526,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9906929731369019,
+        "max_cosine": 0.9998676776885986,
+        "min_cosine": 0.9692161083221436,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-E5-A4TZ",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916677474975586,
+        "max_cosine": 0.9981091618537903,
+        "min_cosine": 0.9808922410011292,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9968938827514648,
+        "max_cosine": 0.9999862313270569,
+        "min_cosine": 0.9916313290596008,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-E7-A6MD",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917256236076355,
+        "max_cosine": 0.9980864524841309,
+        "min_cosine": 0.9811308979988098,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9996840357780457,
+        "max_cosine": 0.9999745488166809,
+        "min_cosine": 0.9992150068283081,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-E7-A6MF",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916791915893555,
+        "max_cosine": 0.9981064796447754,
+        "min_cosine": 0.980943500995636,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997407793998718,
+        "max_cosine": 0.9999744892120361,
+        "min_cosine": 0.9994149208068848,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-E7-A7XN",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917247891426086,
+        "max_cosine": 0.9980873465538025,
+        "min_cosine": 0.9811224341392517,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997392892837524,
+        "max_cosine": 0.9999813437461853,
+        "min_cosine": 0.9994379878044128,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-E7-A97Q",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9915987253189087,
+        "max_cosine": 0.9981150031089783,
+        "min_cosine": 0.9806299209594727,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9863909482955933,
+        "max_cosine": 0.9997056126594543,
+        "min_cosine": 0.9679513573646545,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-FD-A3B5",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916502237319946,
+        "max_cosine": 0.9981151819229126,
+        "min_cosine": 0.9808462262153625,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9888391494750977,
+        "max_cosine": 0.9997627139091492,
+        "min_cosine": 0.9661482572555542,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-FD-A3B8",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916273355484009,
+        "max_cosine": 0.998120129108429,
+        "min_cosine": 0.9807563424110413,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997282028198242,
+        "max_cosine": 0.9999764561653137,
+        "min_cosine": 0.9993691444396973,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-FD-A3NA",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.991642951965332,
+        "max_cosine": 0.998113214969635,
+        "min_cosine": 0.9808384776115417,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9947985410690308,
+        "max_cosine": 0.9999950528144836,
+        "min_cosine": 0.986911952495575,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-FD-A3SJ",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916782975196838,
+        "max_cosine": 0.9981011152267456,
+        "min_cosine": 0.9809534549713135,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.8928571939468384,
+        "mean_cosine": 0.9775406122207642,
+        "max_cosine": 0.9995324611663818,
+        "min_cosine": 0.9140110611915588,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-FD-A3SL",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916902780532837,
+        "max_cosine": 0.9981018304824829,
+        "min_cosine": 0.9809926152229309,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997327327728271,
+        "max_cosine": 0.9999808669090271,
+        "min_cosine": 0.9993643164634705,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-FD-A3SN",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916352033615112,
+        "max_cosine": 0.9981250762939453,
+        "min_cosine": 0.980804443359375,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9935414791107178,
+        "max_cosine": 0.9999828934669495,
+        "min_cosine": 0.9835851192474365,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-FD-A5BS",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9915967583656311,
+        "max_cosine": 0.9981279969215393,
+        "min_cosine": 0.9806545972824097,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9922353625297546,
+        "max_cosine": 0.9998600482940674,
+        "min_cosine": 0.9731659889221191,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-FD-A5BZ",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916623830795288,
+        "max_cosine": 0.9981106519699097,
+        "min_cosine": 0.9809044599533081,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997442364692688,
+        "max_cosine": 0.9999739527702332,
+        "min_cosine": 0.999517023563385,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-FJ-A3ZF",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916352033615112,
+        "max_cosine": 0.9981175661087036,
+        "min_cosine": 0.9807901382446289,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997268915176392,
+        "max_cosine": 0.9999753832817078,
+        "min_cosine": 0.9993478059768677,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-G2-A2EF",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916418194770813,
+        "max_cosine": 0.9981134533882141,
+        "min_cosine": 0.9808095693588257,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.785714328289032,
+        "mean_cosine": 0.9748129844665527,
+        "max_cosine": 0.9976380467414856,
+        "min_cosine": 0.935487687587738,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-G2-A2EJ",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916380047798157,
+        "max_cosine": 0.99811190366745,
+        "min_cosine": 0.9807952642440796,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.8571429252624512,
+        "mean_cosine": 0.9776721000671387,
+        "max_cosine": 0.9999266862869263,
+        "min_cosine": 0.9434013962745667,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-G2-A3IB",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916802048683167,
+        "max_cosine": 0.9981005787849426,
+        "min_cosine": 0.9809477925300598,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9942525029182434,
+        "max_cosine": 0.9991498589515686,
+        "min_cosine": 0.9821658730506897,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-GC-A3BM",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916397929191589,
+        "max_cosine": 0.9981095194816589,
+        "min_cosine": 0.9807908535003662,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9855480194091797,
+        "max_cosine": 0.9997531771659851,
+        "min_cosine": 0.9558597207069397,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-GC-A3I6",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916213154792786,
+        "max_cosine": 0.9981124997138977,
+        "min_cosine": 0.9807029962539673,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9888975024223328,
+        "max_cosine": 0.9990927577018738,
+        "min_cosine": 0.9656249284744263,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-GC-A3RC",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916897416114807,
+        "max_cosine": 0.9980946779251099,
+        "min_cosine": 0.9809603095054626,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9790414571762085,
+        "max_cosine": 0.9998353719711304,
+        "min_cosine": 0.9517292380332947,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-GC-A3WC",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916475415229797,
+        "max_cosine": 0.9981123208999634,
+        "min_cosine": 0.9808046817779541,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.8928571939468384,
+        "mean_cosine": 0.9746453762054443,
+        "max_cosine": 0.9997497200965881,
+        "min_cosine": 0.9192553758621216,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-GC-A3YS",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916950464248657,
+        "max_cosine": 0.9980905055999756,
+        "min_cosine": 0.9810190796852112,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.99534672498703,
+        "max_cosine": 0.999963641166687,
+        "min_cosine": 0.987644374370575,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-GC-A4ZW",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916525483131409,
+        "max_cosine": 0.9981008768081665,
+        "min_cosine": 0.9808222055435181,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997309446334839,
+        "max_cosine": 0.9999793767929077,
+        "min_cosine": 0.9993555545806885,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-GC-A6I1",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916794300079346,
+        "max_cosine": 0.9981119632720947,
+        "min_cosine": 0.9809455871582031,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997198581695557,
+        "max_cosine": 0.9999717473983765,
+        "min_cosine": 0.999361515045166,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-GU-A42P",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916712045669556,
+        "max_cosine": 0.9981104135513306,
+        "min_cosine": 0.9809502959251404,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.9285714626312256,
+        "mean_cosine": 0.9809291362762451,
+        "max_cosine": 0.9996740818023682,
+        "min_cosine": 0.938947319984436,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-GU-A764",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916658997535706,
+        "max_cosine": 0.9981184601783752,
+        "min_cosine": 0.980905294418335,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.8571429252624512,
+        "mean_cosine": 0.9754505157470703,
+        "max_cosine": 0.9996484518051147,
+        "min_cosine": 0.9140713214874268,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-GU-AATO",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916523694992065,
+        "max_cosine": 0.9981078505516052,
+        "min_cosine": 0.9808709621429443,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.8928571939468384,
+        "mean_cosine": 0.981397807598114,
+        "max_cosine": 0.9996784925460815,
+        "min_cosine": 0.9412190318107605,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-GV-A40E",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916402697563171,
+        "max_cosine": 0.9981227517127991,
+        "min_cosine": 0.9808160066604614,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997481107711792,
+        "max_cosine": 0.9999744296073914,
+        "min_cosine": 0.9994959235191345,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-GV-A6ZA",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916899800300598,
+        "max_cosine": 0.9981080293655396,
+        "min_cosine": 0.9809713363647461,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9836746454238892,
+        "max_cosine": 0.9991758465766907,
+        "min_cosine": 0.9571015238761902,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-K4-A3WV",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917165040969849,
+        "max_cosine": 0.9980942010879517,
+        "min_cosine": 0.9810879230499268,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9872840046882629,
+        "max_cosine": 0.9997762441635132,
+        "min_cosine": 0.9523575901985168,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-K4-A4AB",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917210340499878,
+        "max_cosine": 0.9980949759483337,
+        "min_cosine": 0.9810892939567566,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9988598823547363,
+        "max_cosine": 0.9999381899833679,
+        "min_cosine": 0.9966257214546204,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-K4-A54R",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.991684079170227,
+        "max_cosine": 0.9981068968772888,
+        "min_cosine": 0.9809837341308594,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.99421226978302,
+        "max_cosine": 0.9999818801879883,
+        "min_cosine": 0.9855137467384338,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-K4-A5RJ",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917054176330566,
+        "max_cosine": 0.9981004595756531,
+        "min_cosine": 0.9810739755630493,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9909360408782959,
+        "max_cosine": 0.9997708797454834,
+        "min_cosine": 0.9739279747009277,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-K4-AAQO",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916799068450928,
+        "max_cosine": 0.9981002807617188,
+        "min_cosine": 0.9809752106666565,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9855959415435791,
+        "max_cosine": 0.9990606904029846,
+        "min_cosine": 0.9621636867523193,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-PQ-A6FI",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.991704523563385,
+        "max_cosine": 0.9980985522270203,
+        "min_cosine": 0.981073796749115,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9929296374320984,
+        "max_cosine": 0.9998000860214233,
+        "min_cosine": 0.9778792262077332,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-SY-A9G0",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917517304420471,
+        "max_cosine": 0.9980806708335876,
+        "min_cosine": 0.9812185764312744,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9918044209480286,
+        "max_cosine": 0.999961793422699,
+        "min_cosine": 0.9797887802124023,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-UY-A78N",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917030930519104,
+        "max_cosine": 0.9980965256690979,
+        "min_cosine": 0.9810453653335571,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.8928571939468384,
+        "mean_cosine": 0.9807088971138,
+        "max_cosine": 0.9982867240905762,
+        "min_cosine": 0.9274625182151794,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-UY-A8OC",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916852116584778,
+        "max_cosine": 0.9981144070625305,
+        "min_cosine": 0.9809948205947876,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997268915176392,
+        "max_cosine": 0.9999784827232361,
+        "min_cosine": 0.9993605017662048,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-UY-A9PF",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916737079620361,
+        "max_cosine": 0.9981105327606201,
+        "min_cosine": 0.9809595942497253,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997264742851257,
+        "max_cosine": 0.9999773502349854,
+        "min_cosine": 0.9993743896484375,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-XF-A8HC",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916983246803284,
+        "max_cosine": 0.9981054067611694,
+        "min_cosine": 0.9810352325439453,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.9285714626312256,
+        "mean_cosine": 0.9804988503456116,
+        "max_cosine": 0.9996959567070007,
+        "min_cosine": 0.9394271969795227,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-XF-A8HE",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917033314704895,
+        "max_cosine": 0.9981015920639038,
+        "min_cosine": 0.9810415506362915,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997473955154419,
+        "max_cosine": 0.9999823570251465,
+        "min_cosine": 0.9994856715202332,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-XF-A8HI",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916528463363647,
+        "max_cosine": 0.9981197714805603,
+        "min_cosine": 0.9808425903320312,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9996806979179382,
+        "max_cosine": 0.9999688267707825,
+        "min_cosine": 0.9991971850395203,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-XF-A9SK",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916483163833618,
+        "max_cosine": 0.9981210231781006,
+        "min_cosine": 0.9808098077774048,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9836845993995667,
+        "max_cosine": 0.9994670152664185,
+        "min_cosine": 0.9547109603881836,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-XF-A9ST",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917080402374268,
+        "max_cosine": 0.9980975389480591,
+        "min_cosine": 0.981071949005127,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997456669807434,
+        "max_cosine": 0.9999810457229614,
+        "min_cosine": 0.9995007514953613,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-XF-A9T0",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916410446166992,
+        "max_cosine": 0.998120903968811,
+        "min_cosine": 0.9808120727539062,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.9642857313156128,
+        "mean_cosine": 0.982165515422821,
+        "max_cosine": 0.9994652271270752,
+        "min_cosine": 0.9487536549568176,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-XF-A9T3",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916418790817261,
+        "max_cosine": 0.9981200695037842,
+        "min_cosine": 0.9808099865913391,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9881245493888855,
+        "max_cosine": 0.999890148639679,
+        "min_cosine": 0.9683545827865601,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-XF-A9T4",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916625022888184,
+        "max_cosine": 0.9981150031089783,
+        "min_cosine": 0.9808692932128906,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.8928571939468384,
+        "mean_cosine": 0.9776870608329773,
+        "max_cosine": 0.998823881149292,
+        "min_cosine": 0.943170428276062,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-XF-A9T8",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916683435440063,
+        "max_cosine": 0.9981129169464111,
+        "min_cosine": 0.9809542894363403,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9995813965797424,
+        "max_cosine": 0.9999663829803467,
+        "min_cosine": 0.9988380670547485,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-XF-AAMG",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916764497756958,
+        "max_cosine": 0.9981072545051575,
+        "min_cosine": 0.9809683561325073,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9886579513549805,
+        "max_cosine": 0.9993004202842712,
+        "min_cosine": 0.9663841724395752,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-XF-AAN7",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916882514953613,
+        "max_cosine": 0.9981069564819336,
+        "min_cosine": 0.9809889197349548,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.9642857313156128,
+        "mean_cosine": 0.9821631908416748,
+        "max_cosine": 0.9988057613372803,
+        "min_cosine": 0.9406021237373352,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-XF-AAN8",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917548298835754,
+        "max_cosine": 0.9980857372283936,
+        "min_cosine": 0.9812363386154175,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997292757034302,
+        "max_cosine": 0.9999807476997375,
+        "min_cosine": 0.9994286298751831,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-ZF-A9RC",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917027354240417,
+        "max_cosine": 0.998097836971283,
+        "min_cosine": 0.9810436964035034,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9884214401245117,
+        "max_cosine": 0.9992687702178955,
+        "min_cosine": 0.9725868701934814,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-ZF-A9RE",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9916642308235168,
+        "max_cosine": 0.9981086850166321,
+        "min_cosine": 0.9809133410453796,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9972602128982544,
+        "max_cosine": 0.9999273419380188,
+        "min_cosine": 0.9925963878631592,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-ZF-A9RF",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917197227478027,
+        "max_cosine": 0.9980908632278442,
+        "min_cosine": 0.981134295463562,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9997425675392151,
+        "max_cosine": 0.9999749064445496,
+        "min_cosine": 0.9994693398475647,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-ZF-A9RL",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917160272598267,
+        "max_cosine": 0.9980967044830322,
+        "min_cosine": 0.981087327003479,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9937918782234192,
+        "max_cosine": 0.9999913573265076,
+        "min_cosine": 0.9844927191734314,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-ZF-AA52",
+      "status": "ok"
+    },
+    {
+      "wsi": {
+        "frac_above_threshold": 1.0,
+        "mean_cosine": 0.9917275309562683,
+        "max_cosine": 0.9980899691581726,
+        "min_cosine": 0.9811404943466187,
+        "n_pairs": 28
+      },
+      "omic": {
+        "frac_above_threshold": 0.7142857313156128,
+        "mean_cosine": 0.9664731025695801,
+        "max_cosine": 0.9995814561843872,
+        "min_cosine": 0.9159805178642273,
+        "n_pairs": 28
+      },
+      "patient_id": "TCGA-ZF-AA5H",
+      "status": "ok"
+    }
+  ],
+  "errors": []
+}
