@@ -65,6 +65,9 @@ COS_THRESH = 0.95
 # v3.13 slot norm at epoch 29 (batch-level average, not per-slot)
 V313_NORM = 21.87
 
+# v3.13 cosine REAL MEASURED
+V313_COS_JSON = OUT_DIR / "v313_slot_cosine_blca_fold0_measured.json"
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Data loading
@@ -113,24 +116,44 @@ def load_slotspe() -> dict:
     }
 
 
+def load_v313_cosine() -> dict:
+    with open(V313_COS_JSON) as fh:
+        d = json.load(fh)
+    s = d["summary"]
+    return {
+        "n_patients": s["n_ok"],
+        "wsi_max_coses": [r["wsi"]["max_cosine"] for r in d["per_patient"]],
+        "omic_max_coses": [r["omic"]["max_cosine"] for r in d["per_patient"]],
+        "wsi_mean_max_cos": s["wsi_max_cosine_mean"],
+        "wsi_min_max_cos": s["wsi_max_cosine_min"],
+        "wsi_frac_above": s["wsi_frac_above_mean"],
+        "wsi_all_above_n": s["wsi_patients_all_pairs_above"],
+        "omic_mean_max_cos": s["omic_max_cosine_mean"],
+        "omic_min_max_cos": s["omic_max_cosine_min"],
+        "omic_frac_above": s["omic_frac_above_mean"],
+        "omic_all_above_n": s["omic_patients_all_pairs_above"],
+    }
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Main figure
 # ─────────────────────────────────────────────────────────────────────────────
 
 def make_figure(out_png: Path) -> None:
-    v313 = load_v313()
-    spe  = load_slotspe()
-    ep29 = len(v313["epoch"]) - 1
+    v313  = load_v313()
+    spe   = load_slotspe()
+    v313c = load_v313_cosine()   # REAL MEASURED cosine from checkpoint
+    ep29  = len(v313["epoch"]) - 1
 
-    fig = plt.figure(figsize=(16, 11))
+    fig = plt.figure(figsize=(18, 12))
     fig.suptitle(
-        "P2 (slot redundancy): v3.13 vs SlotSPE — measured statistics only\n"
-        "⚠ cosine NOT directly measured for v3.13  |  ⚠ different protocols not directly comparable",
+        "P2 (slot redundancy): v3.13 vs SlotSPE — ALL REAL MEASUREMENTS\n"
+        "v3.13 cosine NOW MEASURED (2026-10-21, 76 patients)  |  ⚠ single checkpoints, different protocols",
         fontsize=13, fontweight="bold", y=0.99,
     )
 
     # ── (a) v3.13: Euclidean distance curves ────────────────────────────────
-    ax = fig.add_subplot(2, 2, 1)
+    ax = fig.add_subplot(2, 3, 1)
     ep = v313["epoch"]
     ax.plot(ep, v313["wsi"]["mean_dist"], "o-", ms=3, lw=1.8,
             color="#0072B2", label="WSI mean")
@@ -160,7 +183,7 @@ def make_figure(out_png: Path) -> None:
     )
 
     # ── (b) SlotSPE: per-patient max cosine histogram ───────────────────────
-    ax = fig.add_subplot(2, 2, 2)
+    ax = fig.add_subplot(2, 3, 2)
     bins = np.linspace(0.95, 1.001, 16)
     ax.hist(spe["max_coses"], bins=bins, color="#D55E00", alpha=0.8,
             edgecolor="white", lw=0.5)
@@ -169,8 +192,8 @@ def make_figure(out_png: Path) -> None:
     ax.set_xlabel("max off-diagonal cosine (per patient)")
     ax.set_ylabel("number of patients")
     ax.set_title(
-        f"(b) SlotSPE: per-patient max off-diagonal cosine\n"
-        f"(77 val patients, 56 pairs each) — REAL MEASURED",
+        f"(b) SlotSPE WSI: per-patient max cosine (77 patients)\n"
+        f"56 off-diagonal pairs; ALL > {COS_THRESH}  — REAL MEASURED",
         fontweight="bold", fontsize=11,
     )
     ax.legend(fontsize=9)
@@ -185,7 +208,7 @@ def make_figure(out_png: Path) -> None:
             bbox=dict(boxstyle="round", fc="white", ec="gray", alpha=0.85))
 
     # ── (c) v3.13: violating pair fraction + pair_term ─────────────────────
-    ax = fig.add_subplot(2, 2, 3)
+    ax = fig.add_subplot(2, 3, 3)
     ax.plot(ep, v313["wsi"]["pair_term"], "o-", ms=3, lw=1.8,
             color="#0072B2", label="WSI pair_term")
     ax.plot(ep, v313["omic"]["pair_term"], "o-", ms=3, lw=1.8,
@@ -198,8 +221,8 @@ def make_figure(out_png: Path) -> None:
     ax.set_ylabel("value (log)")
     ax.set_xlabel("epoch")
     ax.set_title(
-        "(c) v3.13: diversity penalty (solid) + violating pair fraction (dashed)\n"
-        "lower = constraint closer to satisfied; does NOT mean all pairs satisfy",
+        "(c) v3.13: diversity penalty (solid) + violating frac (dashed)\n"
+        "lower = fewer violating pairs; does NOT = no cosine redundancy",
         fontweight="bold", fontsize=11,
     )
     ax.grid(alpha=0.25)
@@ -265,18 +288,61 @@ def make_figure(out_png: Path) -> None:
 
     fig.text(
         0.5, 0.005,
-        "⚠ CRITICAL LIMITATIONS:\n"
-        "  (a–c) are v3.13 only.  (b) is SlotSPE only.  These use DIFFERENT protocols.\n"
-        "  v3.13 cosine: NOT measured.  The lower-bound estimate is UNVERIFIED.\n"
-        "  SlotSPE data: SINGLE checkpoint (fold0/seed3/epoch3).  Not a 5-fold mean.\n"
-        "  Do NOT claim 'v3.13 has the same cosine as SlotSPE' or 'v3.13 has lower cosine'.\n"
-        "  Do NOT claim 'all 56 v3.13 pairs exceed cos > 0.95' — this is unmeasured.",
+        "⚠ LIMITATIONS:\n"
+        "  (a)(c) v3.13: BLCA fold0 seed3 best checkpoint (not 5-fold mean).\n"
+        "  (b) SlotSPE: BLCA fold0 seed3 epoch3 (not 5-fold mean).\n"
+        "  v3.13 cosine NOW MEASURED (2026-10-21) from real checkpoint forward pass.\n"
+        "  v3.13 Euclidean dist improves (0→6.88) but cosine stays near 1.0 — same order as SlotSPE.\n"
+        "  Source: scripts/measure_v313_slot_cosine.py → v313_slot_cosine_blca_fold0_measured.json",
         ha="center", fontsize=9, color="#c0392b",
         style="italic",
         bbox=dict(boxstyle="round", fc="#fff5f5", ec="#c0392b", lw=1.2),
     )
 
-    fig.tight_layout(rect=(0, 0.06, 1, 0.97))
+    # ── (e) v3.13: per-patient max cosine histogram (REAL MEASURED) ────
+    ax = fig.add_subplot(2, 3, 5)
+    bins = np.linspace(0.95, 1.001, 20)
+    ax.hist(v313c["wsi_max_coses"], bins=bins, color="#0072B2", alpha=0.7,
+            label="WSI", edgecolor="white", lw=0.5)
+    ax.axvline(COS_THRESH, color="red", lw=1.5, ls="--",
+               label=f"threshold={COS_THRESH}")
+    ax.set_xlabel("max off-diagonal cosine (per patient)")
+    ax.set_ylabel("number of patients")
+    ax.set_title(
+        "(e) v3.13 WSI: max cosine histogram (76 pts, REAL MEASURED)\n"
+        "WSI: {}/{} all pairs>{:g} | mean={:.4f} | min={:.4f}".format(
+            v313c["wsi_all_above_n"], v313c["n_patients"], COS_THRESH,
+            v313c["wsi_mean_max_cos"], v313c["wsi_min_max_cos"]),
+        fontweight="bold", fontsize=10,
+    )
+    ax.legend(fontsize=8)
+    ax.set_xlim(0.95, 1.002)
+    ax.grid(alpha=0.25)
+
+    # ── (f) Side-by-side: SlotSPE vs v3.13 max cosine (both REAL MEASURED) ──
+    ax = fig.add_subplot(2, 3, 6)
+    labels = ["SlotSPE\nWSI\n(77 pts)", "v3.13\nWSI\n(76 pts)", "v3.13\nOMIC\n(76 pts)"]
+    heights = [spe["mean_max_cos"], v313c["wsi_mean_max_cos"], v313c["omic_mean_max_cos"]]
+    colors = ["#D55E00", "#0072B2", "#CC79A7"]
+    xpos = np.arange(len(labels))
+    bars = ax.bar(xpos, heights, color=colors, alpha=0.8, width=0.5, edgecolor="white")
+    for bar, h in zip(bars, heights):
+        ax.text(bar.get_x() + bar.get_width()/2, h + 0.0001,
+                f"{h:.4f}", ha="center", va="bottom", fontsize=9)
+    ax.set_xticks(xpos)
+    ax.set_xticklabels(labels, fontsize=9)
+    ax.set_ylabel("mean max off-diagonal cosine")
+    ax.set_ylim(0.995, 1.001)
+    ax.set_title(
+        "(f) Mean max cosine: SlotSPE vs v3.13 (both REAL MEASURED)\n"
+        "SlotSPE WSI: 77/77 all pairs>thr | v3.13 WSI: 76/76 all pairs>thr\n"
+        "→ SAME ORDER of cosine redundancy!", fontweight="bold", fontsize=10,
+    )
+    ax.axhline(COS_THRESH, color="red", lw=1.2, ls="--", label=f"thr={COS_THRESH}")
+    ax.legend(fontsize=8)
+    ax.grid(axis="y", alpha=0.25)
+
+    fig.tight_layout(rect=(0, 0.05, 1, 0.97))
     fig.savefig(out_png, dpi=190, facecolor="white")
     fig.savefig(out_png.with_suffix(".pdf"), facecolor="white")
     plt.close(fig)
