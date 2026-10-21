@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "fold": 0,
+  "seed": 3,
+  "status": "completed",
+  "counts": {
+    "train": 302,
+    "val": 77,
+    "excluded": 2,
+    "overlap": 0
+  },
+  "epochs": 3,
+  "source_unchanged": true,
+  "scope": "Paired mechanism evidence; exploratory validation is not a generalization or OT claim",
+  "arms": [
+    {
+      "fold": 0,
+      "seed": 3,
+      "arm": "original",
+      "epochs": 3,
+      "optimizer_steps": 114,
+      "checkpoint_sha256": "1c6daa01969879c40612bc67dd17ab7b9d3ed9e5ea56671e7f8278dd4c30aec5",
+      "parameter_count": 33093390,
+      "same_initial_state_sha256": "109d31ccac93ec39e1e5ffdaaadccaa4a1cb0be051361f227cf52e1095b2ca76",
+      "selector_parameter_count": 8,
+      "main_gradient_none_parameter_count": 8,
+      "main_gradient_connected_parameter_count": 0,
+      "main_gradient_nonzero_parameter_count": 0,
+      "main_gradient_zero_parameter_count": 0,
+      "main_gradient_finite": true,
+      "disconnected_selector_status": "observed",
+      "peak_allocated_cuda_bytes": 1064786432,
+      "peak_memory_scope": "training_and_final_diagnostics",
+      "elapsed_seconds": 136.06800287798978,
+      "repeats": 20,
+      "defined_cindex_repeats": 20,
+      "val_cindex_mean_exploratory": 0.7223454833597466,
+      "val_cindex_std_population": 0.00353836981961428,
+      "val_cindex_min_exploratory": 0.7131537242472267,
+      "val_cindex_max_exploratory": 0.7297939778129953,
+      "patient_risk_std_mean": 0.007265894678631447,
+      "patient_risk_std_max": 0.030086301932403293,
+      "patient_risk_range_max": 0.13613557815551758,
+      "evaluation_randomness_observed": true,
+      "std_computation": "Population std after subtracting first repeat (translation invariant)"
+    }
+  ],
+  "same_weights_eval_fix": null,
+  "checks": {
+    "original_disconnection": "observed",
+    "evaluation_randomness": "observed",
+    "self_interference": "observed",
+    "padding_sensitivity": "observed",
+    "natural_gate_near_zero": "not_observed"
+  },
+  "experiment": "original_audit",
+  "elapsed_seconds": 137.23751960904337
+}

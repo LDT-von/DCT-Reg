@@ -1,0 +1,4 @@
+ab93a333cb1992cce3067727a4e4c241dbc6f8f9eba2d35fec636e3248ecce99  /data1/DCT-Reg/实验档案/结果/SPE09_slotspe_clean_original_20261019/pair_summary.json
+fee29a89c63c339012339a4e0b1bee54b325bf9dc2d5f2a4025010e01b520222  /data1/DCT-Reg/实验档案/结果/SPE09_slotspe_clean_original_20261019/proof_summary.json
+082be58062908cbb2194a6731616d84a208e6c397f889b8747e750829abe90eb  /data1/DCT-Reg/实验档案/结果/SPE09_slotspe_clean_original_20261019/queue_manifest.json
+3caac5abc83eb6594d50e45872fcf04aa9598bee7eba67fd0492ba4d705c8b23  /data1/DCT-Reg/实验档案/结果/SPE09_slotspe_clean_original_20261019/driver.log

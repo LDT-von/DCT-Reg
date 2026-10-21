@@ -105,7 +105,11 @@ requirements.txt` works after torch is set.
 
 ### `CUDA kernel image not available for the device`
 
-**Almost never an SM issue** — sm_120 is in the arch list. Real causes:
+**Two genuinely different causes. Check which one you have — the fix is different.**
+
+#### Cause A (rare, transient): JIT cache pollution or wrong env vars
+
+Real causes:
 
 1. **JIT cache pollution**
    ```bash
@@ -122,6 +126,48 @@ requirements.txt` works after torch is set.
 3. **Stuck process on the GPU** —
    `nvidia-smi`, then `CUDA_VISIBLE_DEVICES=1 python ...` to switch
    cards.
+
+#### Cause B (real, and it has bitten this repo): wrong interpreter
+
+`import torch` succeeds, `torch.cuda.is_available()` returns **True**, and the
+failure only appears at the first kernel launch. This is what a torch build
+without `sm_120` kernels does on this box:
+
+```
+$ python -c "..."                     # the default python on PATH
+torch 2.6.0+cu124
+arch list = ['sm_50','sm_60','sm_70','sm_75','sm_80','sm_86','sm_90']
+# -> RuntimeError: CUDA error: no kernel image is available for execution on the device
+```
+
+The default `python` on PATH is `/data/env/data/env/anaconda/bin/python`, whose
+torch is a **pip install into `~/.local` that does not match this GPU**. It is
+not the project env. The fix is to run the script with a correct interpreter:
+
+```bash
+/home/ubuntu/.conda/envs/trisurv/bin/python your_script.py   # canonical
+/home/ubuntu/.conda/envs/dct/bin/python      your_script.py   # also verified
+```
+
+**Guard rail:** `_gpu_guard.py` (repo root) hard-fails at import time instead of
+silently producing invalid numbers. Use it at the top of any GPU evaluation:
+
+```python
+from _gpu_guard import require_gpu_env
+_ENV = require_gpu_env()   # raises EnvironmentError before any data is loaded
+```
+
+**Why this matters beyond a crash:** measurements taken with the wrong
+interpreter are not obviously wrong — some scripts fail loudly, but any script
+that silently falls back to CPU, or that catches the exception, can emit numbers
+that look fine and are not. On 2026-10-20 this caused one whole diagnostic round
+to be discarded and re-run (see `docs/research/slotspe_p6_addendum_20261020/`).
+
+**Diagnostic to tell A from B:**
+```bash
+python -c "import torch; print(torch.cuda.get_arch_list())"
+```
+If `sm_120` is absent, it is Cause B — no amount of cache clearing will help.
 4. **Wrong environment** — you accidentally activated
    `/home/condabins/trisurb` (which does not exist on this box).
    `echo "$CONDA_PREFIX"` should print `/home/ubuntu/.conda/envs/trisurv`.
@@ -146,6 +192,7 @@ torch ...` from there — that reinstalls the wrong torch.
 | What | Where |
 |------|-------|
 | Env activation (env vars + verifier) | `scripts/dct_reg_env.sh` |
+| Per-script hard guard (raise before data load) | `_gpu_guard.py` (repo root) |
 | Env creation history | `/home/ubuntu/.conda/envs/trisurv/conda-meta/history` |
 | Per-package metadata | `/home/ubuntu/.conda/envs/trisurv/conda-meta/*.json` |
 | Hard-coded python in training scripts | `scripts/run_*.sh`, `scripts/run_*.py` |

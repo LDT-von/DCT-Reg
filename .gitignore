@@ -96,5 +96,21 @@ transport_diagnosis/
 /SlotSPE/
 
 # One-off analysis scripts (not production code)
+# Retained under scripts/slotspe_diagnostics/ as of 2026-10-21
 _spe09_viz.py
 _p1246_diag.py
+_monitor_training.sh
+
+# Experiment archive: trained weights and pickled prediction dumps are too large
+# for git (2.0 GB across 96 files; individual .pth are ~121 MB, over GitHub's
+# 100 MB per-file limit). Everything else -- code, markdown, csv, json, figures --
+# remains tracked.
+实验档案/**/*.pth
+实验档案/**/*.pkl
+实验档案/**/*.pt
+实验档案/**/*.pyc
+实验档案/**/__pycache__/
+实验档案/**/*.npy
+实验档案/**/*.npz
+实验档案/**/*.h5
+实验档案/**/*.parquet

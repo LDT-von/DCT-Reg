@@ -43,7 +43,7 @@ class TransportOnlyConfig:
     eps_anneal_epochs: int = 12
     sinkhorn_iters: int = 50
     projection_iters: int = 10000
-    projection_tol: float = 1e-4
+    projection_tol: float = 1e-3
     tau_wsi: float = .5
     tau_omics: float = .5
     cost_scale: float = 1.
