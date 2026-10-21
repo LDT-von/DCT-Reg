@@ -114,3 +114,12 @@ _monitor_training.sh
 实验档案/**/*.npz
 实验档案/**/*.h5
 实验档案/**/*.parquet
+
+# Transport-only SlotSPE comparison runs: prepared feature caches and trained
+# checkpoints are large (GB scale) and reproducible from the recorded config.
+# The small JSON metadata (config, plan, protocol, status, curve) stays tracked.
+experiments/**/out/prepared/
+experiments/**/out/**/best.pt
+experiments/**/out/**/last.pt
+experiments/**/out/shared_initial.pt
+experiments/**/out/**/*.pkl
