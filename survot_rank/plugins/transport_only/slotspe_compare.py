@@ -49,7 +49,8 @@ def make_plan(config, output):
     mechanism = cfg.pop("mechanism", {})
     if set(cfg) - {"source_root", "metadata_root", "features_root", "study", "label_col",
                    "signature", "folds", "seeds", "epochs", "patches", "batch_size",
-                   "eval_repeats", "encoding_dim", "device", "lr", "torch_threads"}:
+                   "eval_repeats", "encoding_dim", "device", "lr", "torch_threads", "selection",
+                   "experiment", "split_dir", "pad_short_bags"}:
         raise ValueError("Unknown comparison field; losses and host repairs cannot be configured here")
     for key in ("source_root", "metadata_root", "features_root"):
         cfg[key] = os.path.expandvars(str(cfg[key]))
@@ -72,12 +73,18 @@ def make_plan(config, output):
         raise ValueError("This first comparison locks balanced OT; arm owns plan_mode")
     if recipe.host_dim != 256 or recipe.slot_budget != 8 or recipe.eps != recipe.eps_start:
         raise ValueError("SlotSPE uses dim=256, eight native slots, fixed epsilon")
+    selection = cfg.get("selection", "fixed_final_epoch")
+    if selection not in ("fixed_final_epoch", "legacy_val"):
+        raise ValueError("selection must be 'fixed_final_epoch' or 'legacy_val'")
+    split_dir = str(cfg.get("split_dir", "5fold"))
+    if not split_dir or "/" in split_dir or split_dir.startswith("."):
+        raise ValueError("split_dir must be a plain directory name under splits/")
     return {"schema": SCHEMA, "config": cfg, "mechanism": values,
             "output_root": str(Path(output).resolve()), "arms": list(ARMS),
             "host_version": "unrepaired_local_SlotSPE_snapshot",
             "host_source_hashes": _source_hashes(cfg), "code_sha256": code_hashes(),
             "objective": "native_main_NLL_per_patient + native_auxiliary_total",
-            "dct_added_losses": [], "selection": "fixed_final_epoch",
+            "dct_added_losses": [], "selection": selection,
             "metric": "mean_of_repeat_Cindices_on_validation",
             "independent_test": False, "patient_execution_started": False,
             "matching": "same inputs, train-only bins, initialization, order, step/eval RNG, optimizer and budget"}
@@ -184,7 +191,19 @@ def execute(plan):
     from .slotspe_support.model import build_model, make_args
     from .hosts import attach_transport
     root, cfg = Path(plan["output_root"]), plan["config"]
-    if root.exists() and any(root.iterdir()):
+    selection = plan.get("selection", "fixed_final_epoch")
+    # A prepared cache is reusable: the preparation is deterministic and is
+    # re-verified against the current source, metadata and cached tensors.  Any
+    # other content in the output directory means a partial or historical run
+    # and is refused so nothing is overwritten.
+    prepared = root / "prepared/manifest.json"
+    if prepared.is_file():
+        stray = [p for p in root.iterdir() if p.name not in ("prepared",)]
+        if stray:
+            raise FileExistsError(
+                f"Output directory holds results besides the prepared cache: "
+                f"{[p.name for p in stray]}; use a new output directory")
+    elif root.exists() and any(root.iterdir()):
         raise FileExistsError("Use a new output directory; partial and historical results are retained")
     if code_hashes() != plan["code_sha256"] or data._source_hashes(cfg) != plan["host_source_hashes"]:
         raise RuntimeError("Code changed after planning")
@@ -218,7 +237,8 @@ def execute(plan):
             "host_args": vars(args), "torch": str(torch.__version__), "numpy": np.__version__,
             "gpu": torch.cuda.get_device_name(device) if device.type == "cuda" else None,
             "timing_scope": "synchronized train epoch wall time including per-batch telemetry; excludes validation/data preparation",
-            "data_protocol": "complete cases; fixed real patches without padding; train-only uncensored qcut; exploratory validation",
+            "data_protocol": ("complete cases; fixed real patches with zero-padding for short bags when "
+                "pad_short_bags is enabled; train-only uncensored qcut; exploratory validation"),
             "feature_hash_scope": manifest["feature_provenance"], "counts": fold_data["counts"]}
         dump(root / "protocol.json", protocol)
         summaries = {}
@@ -243,6 +263,8 @@ def execute(plan):
             scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, cfg["epochs"], eta_min=1e-6)
             curve, telemetry, steps = [], [], 0
             peak_allocated, peak_reserved = 0, 0
+            best_val_cindex = None
+            best_val_epoch = None
             for epoch in range(cfg["epochs"]):
                 model.train()
                 order = torch.randperm(len(fold_data["train"]), generator=torch.Generator().manual_seed(seed * 1000 + epoch)).tolist()
@@ -283,12 +305,29 @@ def execute(plan):
                     "train_auxiliary_total": float(losses[1] / len(order)), "train_total": float(losses[2] / len(order)),
                     "train_seconds": time.perf_counter() - started, "optimizer_steps": steps,
                     "transport_gradient_norm_sums": grad_sums})
+                if selection == "legacy_val":
+                    val_metrics, _ = evaluate(model, root, manifest, fold_data, cfg, seed, observer,
+                                              [], "train_epoch_val")
+                    curve[-1]["val_cindex_mean"] = val_metrics["cindex_mean"]
+                    if best_val_cindex is None or val_metrics["cindex_mean"] > best_val_cindex:
+                        best_val_cindex = val_metrics["cindex_mean"]
+                        best_val_epoch = epoch + 1
+                        torch.save({"state_dict": copy.deepcopy(model.state_dict()), "arm": arm,
+                                    "protocol": protocol, "epochs": cfg["epochs"],
+                                    "optimizer_steps": steps, "selected_epoch": best_val_epoch,
+                                    "selected_val_cindex": best_val_cindex},
+                                   out / "best.pt")
                 dump(out / "curve.json", curve)
-                print(f"fold={fold} seed={seed} arm={arm} epoch={epoch + 1}/{cfg['epochs']} loss={curve[-1]['train_total']:.6f}", flush=True)
+                print(f"fold={fold} seed={seed} arm={arm} epoch={epoch + 1}/{cfg['epochs']} loss={curve[-1]['train_total']:.6f}"
+                      + (f" val_cindex={val_metrics['cindex_mean']:.4f}" if selection == "legacy_val" else ""), flush=True)
                 scheduler.step()
             checkpoint = {"state_dict": model.state_dict(), "arm": arm, "protocol": protocol,
                           "epochs": cfg["epochs"], "optimizer_steps": steps}
             torch.save(checkpoint, out / "last.pt")
+            if selection == "legacy_val" and best_val_epoch is not None:
+                best_ckpt = torch.load(out / "best.pt", map_location=device)
+                model.load_state_dict(best_ckpt["state_dict"], strict=True)
+                print(f"  {arm}: selected epoch={best_val_epoch} (val_cindex={best_val_cindex:.4f})", flush=True)
             metrics, predictions = evaluate(model, root, manifest, fold_data, cfg, seed, observer, telemetry, "validation")
             _write_csv(out / "predictions.csv", predictions)
             summary = {"arm": arm, **metrics, "checkpoint_sha256": sha(out / "last.pt"),
@@ -297,7 +336,11 @@ def execute(plan):
                 "extra_parameters": sum(p.numel() for p in model.parameters()) - baseline_parameters,
                 "train_seconds": sum(e["train_seconds"] for e in curve),
                 "peak_allocated_bytes": peak_allocated if device.type == "cuda" else None,
-                "peak_reserved_bytes": peak_reserved if device.type == "cuda" else None}
+                "peak_reserved_bytes": peak_reserved if device.type == "cuda" else None,
+                "selection": selection}
+            if selection == "legacy_val" and best_val_epoch is not None:
+                summary["selected_epoch"] = best_val_epoch
+                summary["selected_val_cindex"] = best_val_cindex
             if arm == "learned":
                 # Same weights and RNG: isolates dependence on topology and on the branch.
                 controls = {}

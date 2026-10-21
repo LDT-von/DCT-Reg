@@ -25,7 +25,7 @@ _DEFAULTS = {
     "folds": [0, 1, 2, 3, 4], "seeds": [3, 17, 29], "epochs": 30,
     "patches": 4096, "batch_size": 8, "eval_repeats": 20,
     "encoding_dim": None, "device": "cuda:0", "lr": 5e-4,
-    "experiment": "reproduction",
+    "experiment": "reproduction", "split_dir": "5fold", "pad_short_bags": False,
 }
 _CENSORS = {"survival_months_os": "censorship_os", "survival_months_pfi": "censorship_pfi",
             "survival_months_dss": "censorship_dss", "survival_months_dfs": "censorship_dfs"}
@@ -104,7 +104,7 @@ def _csv_paths(config):
     result = [root / "clinical/all" / f"{study}.csv",
               root / "raw_rna_data_inter" / f"{study}_rna_inter.csv",
               root / "signatures" / signature]
-    result.extend(root / "splits/5fold" / study / f"fold_{fold}.csv" for fold in config["folds"])
+    result.extend(root / "splits" / config["split_dir"] / study / f"fold_{fold}.csv" for fold in config["folds"])
     for path in result:
         if not path.is_file():
             raise FileNotFoundError(f"Required metadata absent (RNA is never substituted): {path}")
@@ -113,7 +113,8 @@ def _csv_paths(config):
 
 def _preparation_config(config):
     return {name: config[name] for name in ("source_root", "metadata_root", "features_root", "study",
-            "label_col", "signature", "folds", "patches", "encoding_dim")}
+            "label_col", "signature", "folds", "patches", "encoding_dim", "split_dir",
+            "pad_short_bags")}
 
 
 def _dataset_module(config):
@@ -227,8 +228,16 @@ def prepare(config, output_root):
         if not slide_names:
             return "missing_slide_identifiers"
         # Match the requested original loader's feature filename convention.
-        paths = [Path(config["features_root"]) / (s.rstrip(".svs") + ".pt") for s in slide_names]
-        if not all(path.is_file() for path in paths):
+        # The slide stem is the identifier without its ".svs" suffix; the
+        # feature root may hold either the ".pt" or the UNI2-h ".h5" layout.
+        stems = [s.removesuffix(".svs") for s in slide_names]
+        paths = None
+        for suffix in (".pt", ".h5", ".hdf5"):
+            candidate = [Path(config["features_root"]) / (stem + suffix) for stem in stems]
+            if all(p.is_file() for p in candidate):
+                paths = candidate
+                break
+        if paths is None:
             return "at_least_one_missing_slide_feature"
         # Treat zero-byte / corrupted feature files as a hard exclusion; data
         # was never complete, so record every affected patient and pick them up
@@ -237,10 +246,21 @@ def prepare(config, output_root):
         if zero_byte:
             return "zero_byte_or_truncated_slide_feature"
         chunks, slide_info = [], []
+        is_h5 = paths[0].suffix in (".h5", ".hdf5")
         for path in paths:
             before = path.stat()
             try:
-                tensor = torch.load(path, map_location="cpu", weights_only=True, mmap=True)
+                if is_h5:
+                    import h5py  # late import keeps the .pt path lean
+                    with h5py.File(path, "r") as handle:
+                        raw = handle["features"][...]
+                    # UNI2-h stores (1, patches, dim); the legacy runtime
+                    # squeezes the leading singleton before validating shape.
+                    tensor = torch.from_numpy(raw)
+                    if tensor.ndim == 3 and tensor.shape[0] == 1:
+                        tensor = tensor.squeeze(0)
+                else:
+                    tensor = torch.load(path, map_location="cpu", weights_only=True, mmap=True)
             except RuntimeError:
                 # Old torch-save containers do not support mmap; still load a
                 # single patient's slides, never the full cohort.
@@ -256,15 +276,24 @@ def prepare(config, output_root):
                 "channels": int(tensor.shape[1]), "size_bytes": before.st_size, "mtime_ns": before.st_mtime_ns})
         sizes = [len(t) for t in chunks]
         total = sum(sizes)
-        if total < config["patches"]:
+        n_samples = min(config["patches"], total)
+        padded = n_samples < config["patches"]
+        if padded and not config["pad_short_bags"]:
             return "fewer_real_patches_than_configured_no_padding"
         sample_seed = int(hashlib.sha256((pid + "_slotspe_paired_proof_v1").encode()).hexdigest()[:8], 16)
-        indices = np.sort(np.random.default_rng(sample_seed).choice(total, config["patches"], replace=False))
+        indices = np.sort(np.random.default_rng(sample_seed).choice(total, n_samples, replace=False))
         cumulative = np.cumsum([0] + sizes)
-        bag = torch.empty((config["patches"], encoding_dim), dtype=torch.float32)
+        # A short bag keeps every real patch and zero-pads the remainder, so the
+        # bag always carries the configured token count (legacy runtime rule).
+        bag = torch.zeros((config["patches"], encoding_dim), dtype=torch.float32)
+        # Sampled patches fill the first n_samples rows; the remaining rows stay
+        # zero.  Sampling is without replacement, so the sample count cannot
+        # exceed the number of real patches.
+        out_pos = np.arange(n_samples)
         for index, tensor in enumerate(chunks):
             selected = (indices >= cumulative[index]) & (indices < cumulative[index + 1])
-            bag[selected] = tensor[indices[selected] - cumulative[index]].float()
+            rows = out_pos[selected]
+            bag[rows] = tensor[indices[selected] - cumulative[index]].float()
         omics = dataset.load_genes(pid)
         if not isinstance(omics, (list, tuple)) or len(omics) != len(factory.omic_sizes):
             raise ValueError("Original Pathways loader returned an unexpected RNA layout")
@@ -287,7 +316,7 @@ def prepare(config, output_root):
         return None
 
     for fold in config["folds"]:
-        split_path = Path(config["metadata_root"]) / "splits/5fold" / config["study"] / f"fold_{fold}.csv"
+        split_path = Path(config["metadata_root"]) / "splits" / config["split_dir"] / config["study"] / f"fold_{fold}.csv"
         split = pd.read_csv(split_path)
         split_ids = {}
         for kind in ("train", "val"):
@@ -304,6 +333,13 @@ def prepare(config, output_root):
                     fold_excluded.append({"patient_id": pid, "split": kind,
                                           "reason": "missing_clinical_endpoint_or_wsi_string"})
             dataset = module.SurvivalDataset(factory, config["features_root"], kind, fold, encoding_dim or 1)
+            # The upstream dataset resolves its own split from a hard-coded
+            # "splits/5fold" path.  The configured split directory is
+            # authoritative here, so the patient set is rebuilt from the
+            # configured CSV while the original loader is still reused for
+            # RNA (dataset.load_genes).
+            dataset.label_df = (factory.clinical_df[factory.clinical_df["case id"].isin(split_ids[kind])]
+                                .reset_index(drop=True))
             retained[kind] = []
             for _, row in dataset.label_df.iterrows():
                 pid = str(row["case id"])
@@ -340,7 +376,9 @@ def prepare(config, output_root):
         "omic_sizes": [int(n) for n in factory.omic_sizes], "encoding_dim": encoding_dim,
         "patches": config["patches"], "folds": folds, "patients": patients,
         "counts": {"unique_complete_case_patients": len(patients), "per_fold": {f: v["counts"] for f, v in folds.items()}},
-        "exclusion_policy": "Complete observed clinical/RNA/all slides, finite selected inputs, at least configured real patches; no zero substitution or padding",
+        "exclusion_policy": ("Complete observed clinical/RNA/all slides and finite selected inputs; "
+            "short bags are zero-padded to the configured token count when pad_short_bags is true, "
+            "otherwise excluded as complete cases"),
         "patch_policy": "Fixed per-patient seeded sampling without replacement, shared by arms, folds, epochs, and evaluations",
         "feature_provenance": "Original feature file path/shape/size/mtime retained; cached tensors content-hashed; full original feature files are not content-hashed",
         "rna_transform": "Requested original Pathways loader, no added normalization",
