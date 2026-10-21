@@ -1,0 +1,22 @@
+{
+  "source_root": "/data1/DCT-Reg/third_party/SlotSPE",
+  "metadata_root": "/data1/dataset_csv",
+  "features_root": "/data1/TCGA-UNI2-h-features/blca/uni2-h/pt_files",
+  "study": "blca",
+  "label_col": "survival_months_dss",
+  "signature": "combine",
+  "split_dir": "5fold_uni2h",
+  "folds": [0],
+  "seeds": [3],
+  "epochs": 30,
+  "patches": 2048,
+  "batch_size": 8,
+  "eval_repeats": 20,
+  "encoding_dim": 1536,
+  "device": "cuda:0",
+  "lr": 0.0005,
+  "torch_threads": 2,
+  "experiment": "reproduction",
+  "selection": "legacy_val",
+  "pad_short_bags": true
+}

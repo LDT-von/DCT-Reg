@@ -1,0 +1,81 @@
+{
+  "schema": "slotspe_transport_comparison_v1",
+  "config": {
+    "study": "blca",
+    "label_col": "survival_months_dss",
+    "signature": "combine",
+    "folds": [
+      0
+    ],
+    "seeds": [
+      3
+    ],
+    "epochs": 30,
+    "patches": 2048,
+    "batch_size": 8,
+    "eval_repeats": 20,
+    "encoding_dim": 1536,
+    "device": "cuda:0",
+    "lr": 0.0005,
+    "experiment": "reproduction",
+    "split_dir": "5fold_uni2h",
+    "pad_short_bags": true,
+    "source_root": "/data1/DCT-Reg/third_party/SlotSPE",
+    "metadata_root": "/data1/dataset_csv",
+    "features_root": "/data1/TCGA-UNI2-h-features/blca/uni2-h/pt_files",
+    "torch_threads": 2,
+    "selection": "legacy_val"
+  },
+  "mechanism": {
+    "transport_mode": "balanced",
+    "eps": 0.05,
+    "eps_start": 0.05
+  },
+  "output_root": "/data1/DCT-Reg/experiments/e048_v313_aligned_blca/out",
+  "arms": [
+    "native",
+    "learned",
+    "independent"
+  ],
+  "host_version": "unrepaired_local_SlotSPE_snapshot",
+  "host_source_hashes": {
+    "dataset/dataset_survival.py": "44677851b59ca9b60547d1623c2ff9a3e32a3e9ffb38f67f569e6c0ff3048ea3",
+    "models/SlotSPE.py": "eb5518a7e7dbc0e8e2fb1495c21c379ada36f78ad0c9d0d1f9ce69cb8051687e",
+    "models/omics_encoder.py": "3e2231dab47103046922ec40a9bf6945fe936081037a630b72035eee5de0e685",
+    "models/slot_attention.py": "200f92f62f74d1387f62834d485cd96dd7adf7d104e75707d4a0a51a021ac109",
+    "models/transformer.py": "9dfed61da662a391ff7a29b3b514e892f1cf8287a0d350ac0afab9d5d4a54985",
+    "utils/core_utils.py": "280f113e71e37d605f33812b44bd6118618c507cec35c07c77eb7ed59c28d0d0",
+    "utils/general_utils.py": "9df960706e54e5045e319b61be5351ee74214640afcf7a03f9ef955c977915bc",
+    "utils/loss_func.py": "bb52dca9e903dd72d18b694bcdc94452a0bd201f96412937db8706f80924d682",
+    "utils/model_utils.py": "364cbd170d368084321fdd79ab9d19c75048a767438aa8679ab42cc798ad195f",
+    "utils/process_args.py": "b4aca2aa7a38fc46f74f050ef5f314c9ac66d20dc7a0daebf88a4127ffcb296b",
+    "utils/visual_utils.py": "7d4998b6772d77e63362e978910f01941b454fbdc15357989e867049c6c1cb40"
+  },
+  "code_sha256": {
+    "survot_rank/plugins/transport_only/__init__.py": "037430037d6e6a3a02bfc7eb2f04d081a5d6ae609549923041524247ae826bda",
+    "survot_rank/plugins/transport_only/external_models.py": "ec534c0bbabdd48e743213b9bbcb45d943740b4a74074df79da97430022c9b1a",
+    "survot_rank/plugins/transport_only/hosts.py": "47c950c3642addee3336c59dec70f72fe244466dbadb86fd3240357b573d8d2e",
+    "survot_rank/plugins/transport_only/mechanism.py": "19df9153f25c12d97bbc92dbd6ade26177a245cd42612a06aaea7fcf0680ea11",
+    "survot_rank/plugins/transport_only/prepare_blca_all_folds.py": "cdf13531f0726829d3f34c9293fb98b84eaadd62116a34ce4b5694b2a8e97cef",
+    "survot_rank/plugins/transport_only/slotspe_compare.py": "c65761093cdfe2c5d65eb22d7e21c334071e2cbb960ee3f12a9ef63f2299de0f",
+    "survot_rank/plugins/transport_only/slotspe_support/__init__.py": "e76db99f3a0bfc87e7a83ec85055e4beb66b36b45e2982e3f19788b7b12cadb6",
+    "survot_rank/plugins/transport_only/slotspe_support/data.py": "c4bfb35ffa728153a81901163a1cf58fe7ed73e604c7952c655fea1a642954d3",
+    "survot_rank/plugins/transport_only/slotspe_support/model.py": "5b35f29c3dff7dc163fa8f48e619ff423acfccc8283371520c292506aa34e7e7",
+    "survot_rank/plugins/transport_only/solver.py": "e141674b35d81ca4a2d4ee5cc6bd6b2148e3656ede00feb96ecbc8fec51ace16",
+    "survot_rank/plugins/transport/__init__.py": "b33ac29bed849883aea440482b240c38b341a1ef62559632e41b52c542708190",
+    "survot_rank/plugins/transport/adapters.py": "f57ad39dbcfb65f8bc648d43d817b30c5f9ad5a3fd02cb7a71124aeb17079bb6",
+    "survot_rank/plugins/transport/config.py": "3f43012cd83d2706d4b0520404e6a135905c5f0f9157d4b53bfe38fea662a602",
+    "survot_rank/plugins/transport/core.py": "b964cb9e1cd57440e0bdbdd7d0dce2a85bd6cb548312bcdb98ca5d384ca47968",
+    "survot_rank/plugins/transport/native.py": "3d0dd6116028b79e0330642edbf762a20bbfc70ca2b9e921fa65e8719d896397",
+    "survot_rank/plugins/transport/plugin.py": "86cc063b3a95560fb4692af957354529b3b02e727183c0d01fe2cc046248e7c3",
+    "survot_rank/plugins/transport/reconstruction.py": "4888b7e8bef6aae6f3f201d578355f7c313b849d92b7aa096c4fba5c7366949d",
+    "survot_rank/research/components/slot_attention.py": "accb02aef9c8427123b4789403bc67dba171a23376114b364ad029ba62a9e77b"
+  },
+  "objective": "native_main_NLL_per_patient + native_auxiliary_total",
+  "dct_added_losses": [],
+  "selection": "legacy_val",
+  "metric": "mean_of_repeat_Cindices_on_validation",
+  "independent_test": false,
+  "patient_execution_started": false,
+  "matching": "same inputs, train-only bins, initialization, order, step/eval RNG, optimizer and budget"
+}
