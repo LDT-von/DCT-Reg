@@ -1,7 +1,7 @@
 {
-  "updated": "2026-10-12",
-  "records_count": 24,
-  "next_experiment": "E048",
+  "updated": "2026-10-21",
+  "records_count": 25,
+  "next_experiment": "E054",
   "master": "实验档案/DCT实验总档案.docx",
   "base_snapshot": "实验档案/维护资料/实验目录_建档快照.json",
   "records": [
@@ -4459,6 +4459,73 @@
         "audit_threshold": "atol=2e-5, rtol=1e-5",
         "actual_diff": "0.0 (达到浮点 0 误差, 远低于阈值)"
       }
+    },
+    {
+      "id": "E053",
+      "folder": "E053_v313同口径_BLCA复刻",
+      "title": "v3.13 同口径 BLCA SlotSPE 三臂复刻",
+      "kind": "同口径复刻 + 三臂对照 + same_weights 机制核验",
+      "status": "完成（单折单 seed 探索性验证）；fold 0 seed 3 三臂各 30 epoch",
+      "purpose": "在与 v3.13 相同的数据口径下用 transport_only 插件跑 native/learned/independent 三臂，与 v3.13 原产物逐轮对照，检验复现链路可信度与 transport 在推理期的实际作用幅度。",
+      "setting": "BLCA, splits/5fold_uni2h/fold_0.csv, seed 3, 30 epoch, num_patches=2048, encoding_dim=1536, lr=5e-4, batch=8, legacy_val 选点, pad_short_bags=true, eval_repeats=5, trisurv conda env (torch 2.10.0+cu128, RTX 5090 sm_120).",
+      "conclusion": "三臂 native 0.6338±0.0047 (ep4), learned 0.6148±0.0176 (ep8), independent 0.6688±0.0108 (ep5)。learned−native=−0.0190, learned−independent=−0.0540。对 v3.13 原始逐轮曲线：v3.13 峰值 0.6576@第3轮/末轮 0.5718，E053 native 峰值 0.6338@第4轮/末轮 0.5514，逐轮平均绝对差 0.0467、pearson r=0.234 —— 量级一致、达峰轮次接近，但非同轨迹。机制：learned 权重下 same_weights 推理对照，transport ON(c-index 0.6148) 与完全 bypass(0.6150) 几乎相同，逐患者风险差 max|Δ|=1.076e-02 仅为 risk 标准差的 0.79%，说明本设置下 transport 作用主要在训练期而非推理期的对应精细度。",
+      "pending": "fold 1–4 与多 seed 扩展（当前仅 fold 0 seed 3）；learned 臂 E046c 风格 cudnn.deterministic 复刻审计；补录 E046/E046b/E046c/E047 到 docx 主档（既有缺口）。",
+      "scripts": [
+        "survot_rank/plugins/transport_only/slotspe_compare.py",
+        "实验档案/实验代码/E053_v313同口径_BLCA复刻/make_figures.py"
+      ],
+      "figures": [
+        "实验档案/表格图片/E053_v313同口径_BLCA复刻/E053_fig1_epoch_curves_vs_v313.png",
+        "实验档案/表格图片/E053_v313同口径_BLCA复刻/E053_fig2_arm_summary.png",
+        "实验档案/表格图片/E053_v313同口径_BLCA复刻/E053_fig3_transport_inference_effect.png"
+      ],
+      "tables": [
+        "实验档案/表格图片/E053_v313同口径_BLCA复刻/E053_结果表.md",
+        "实验档案/表格图片/E053_v313同口径_BLCA复刻/out/paired_summary.json",
+        "实验档案/表格图片/E053_v313同口径_BLCA复刻/out/native/summary.json",
+        "实验档案/表格图片/E053_v313同口径_BLCA复刻/out/learned/summary.json",
+        "实验档案/表格图片/E053_v313同口径_BLCA复刻/out/independent/summary.json",
+        "实验档案/表格图片/E053_v313同口径_BLCA复刻/out/learned/same_weights_controls.json"
+      ],
+      "sources": [
+        "实验档案/实验代码/E053_v313同口径_BLCA复刻/代码索引.json",
+        "实验档案/实验代码/E053_v313同口径_BLCA复刻/README.md",
+        "实验档案/维护资料/E053_产物SHA256.txt",
+        "实验档案/维护资料/E053_续写核验.json",
+        "results/dct_v313_blca_uni2h/blca/blca/SurvOTRank_dct_v313_transport_reconstruction/0.0005_b8_survival_months_dss_Dim_256_e_30_g_Pathways_sig_combine_seed3_rW_8_rG_8_sp_dct_v313_blca_uni2h/epoch_curve_fold0.csv"
+      ],
+      "new_training_runs": 3,
+      "new_patient_inference_runs": 380,
+      "completed_at": "2026-10-21",
+      "protocols_run": [
+        "legacy_val (5fold_uni2h/blca fold 0, seed 3, 3 arms x 30 epoch, eval_repeats=5)"
+      ],
+      "key_findings": {
+        "arm_cindex": {
+          "native": 0.6338147833474936,
+          "learned": 0.6147833474936278,
+          "independent": 0.6688190314358538
+        },
+        "learned_minus_native": -0.019031435853865797,
+        "learned_minus_independent": -0.05403568394222591,
+        "v313_fold0_reference": {
+          "peak": 0.6576040781648258,
+          "peak_round": 3,
+          "last": 0.5717926932880204
+        },
+        "epoch_agreement": {
+          "mean_abs_diff": 0.0467,
+          "pearson_r": 0.234
+        },
+        "transport_inference_effect": {
+          "same_weights_transport_on": 0.6147833474936278,
+          "same_weights_bypass": 0.615,
+          "max_abs_risk_delta": 0.01076,
+          "risk_spread_pct": 0.79
+        },
+        "scope": "one fold/seed exploratory validation; no generalization or superiority claim"
+      },
+      "numbering_note": "本实验早期工作目录名为 experiments/e048_v313_aligned_blca/，但 E048 已被『E048_v313模块与单模态消融』占用（代码包与结果均真实存在），故改号 E053，未重用被占用编号。"
     }
   ]
 }

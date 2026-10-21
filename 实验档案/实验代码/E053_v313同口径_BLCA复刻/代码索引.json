@@ -1,0 +1,39 @@
+{
+  "id": "E053",
+  "title": "v3.13 同口径 BLCA SlotSPE 三臂复刻",
+  "status": "完成（单折单 seed 探索性验证）",
+  "entry": "survot_rank/plugins/transport_only/slotspe_compare.py",
+  "runner": "python -m survot_rank.plugins.transport_only.slotspe_compare --config experiments/e053_v313_aligned_blca/config.json --output experiments/e053_v313_aligned_blca/out --run",
+  "arms": ["native", "learned", "independent"],
+  "same_weights_controls": {
+    "learned_arm": ["independent", "bypass"],
+    "meaning": "同一套 learned 权重下，切换 plan_mode 与是否启用 transport 的推理对照"
+  },
+  "environment": {
+    "python": "/home/ubuntu/.conda/envs/trisurv/bin/python",
+    "torch": "2.10.0+cu128",
+    "reason": "系统 python3 的 torch 不含 sm_120 内核，RTX 5090 上报 no kernel image is available"
+  },
+  "config": "experiments/e053_v313_aligned_blca/config.json",
+  "shared_dependencies": [
+    "survot_rank/plugins/transport_only/slotspe_compare.py",
+    "survot_rank/plugins/transport_only/slotspe_support/data.py",
+    "survot_rank/plugins/transport_only/slotspe_support/model.py",
+    "survot_rank/plugins/transport_only/mechanism.py",
+    "survot_rank/plugins/transport_only/solver.py",
+    "survot_rank/plugins/transport_only/hosts.py",
+    "third_party/SlotSPE"
+  ],
+  "source_sha256_prefix": {
+    "survot_rank/plugins/transport_only/slotspe_compare.py": "c65761093cdfe2c5",
+    "survot_rank/plugins/transport_only/slotspe_support/data.py": "c4bfb35ffa728153",
+    "survot_rank/plugins/transport_only/slotspe_support/model.py": "5b35f29c3dff7dc1",
+    "survot_rank/plugins/transport_only/mechanism.py": "19df9153f25c12d9",
+    "survot_rank/plugins/transport_only/solver.py": "e141674b35d81ca4",
+    "survot_rank/plugins/transport_only/hosts.py": "47c950c3642addee"
+  },
+  "source_commit": "ad07836daf564f0e0e1afe9064b7d1da473810b4",
+  "artifact_directory": "实验档案/表格图片/E053_v313同口径_BLCA复刻",
+  "new_training_runs": 3,
+  "note": "三臂各 1 折 1 seed 30 epoch。eval_repeats=5（不是 v3.13 的 1），v3.13 对照列取自原始 epoch_curve_fold0.csv 的逐轮 val_cindex。numbered E048 曾用于本实验的早期目录名，因 E048 已被『v313模块与单模态消融』占用，本实验改号 E053。"
+}

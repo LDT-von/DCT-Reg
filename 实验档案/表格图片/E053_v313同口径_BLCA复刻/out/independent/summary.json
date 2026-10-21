@@ -1,0 +1,25 @@
+{
+  "arm": "independent",
+  "cindex_mean": 0.6688190314358538,
+  "cindex_by_repeat": [
+    0.6644010195412065,
+    0.659303313508921,
+    0.6576040781648258,
+    0.6771452846219201,
+    0.6856414613423959
+  ],
+  "cindex_repeat_std": 0.010845861272545752,
+  "nll_mean": 1.121779638528824,
+  "patient_count": 76,
+  "checkpoint_sha256": "77e32f5345a88f2c4e355c5a8cdcc2cc19eb9c2e5acf553a756c80b6d7738fbd",
+  "epochs": 30,
+  "optimizer_steps": 1140,
+  "parameters": 33693717,
+  "extra_parameters": 600327,
+  "train_seconds": 779.6028017164208,
+  "peak_allocated_bytes": 2931357184,
+  "peak_reserved_bytes": 3388997632,
+  "selection": "legacy_val",
+  "selected_epoch": 5,
+  "selected_val_cindex": 0.6688190314358538
+}

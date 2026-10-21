@@ -1,0 +1,572 @@
+[
+  {
+    "epoch": 1,
+    "train_main_nll": 1.063127660437634,
+    "train_auxiliary_total": 1.831589179603677,
+    "train_total": 2.894716840041311,
+    "train_seconds": 26.02363636204973,
+    "optimizer_steps": 38,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 1.1624732670607045,
+      "transport_mechanism.omics_gain": 1.552427609305596,
+      "transport_mechanism.evidence_gate.0.weight": 4.456340931824343e-05,
+      "transport_mechanism.evidence_gate.0.bias": 2.263141542968583e-05,
+      "transport_mechanism.evidence_gate.1.weight": 0.0021934587316536636,
+      "transport_mechanism.evidence_gate.1.bias": 3.42238099975134e-05,
+      "transport_mechanism.evidence_gate.3.weight": 0.0008623700452972116,
+      "transport_mechanism.evidence_gate.3.bias": 3.253295037097814e-05
+    },
+    "val_cindex_mean": 0.5916737468139337
+  },
+  {
+    "epoch": 2,
+    "train_main_nll": 0.896381612671049,
+    "train_auxiliary_total": 1.6987978674863513,
+    "train_total": 2.5951794605506096,
+    "train_seconds": 26.025622616987675,
+    "optimizer_steps": 76,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 1.3817721309605986,
+      "transport_mechanism.omics_gain": 1.4157875920645893,
+      "transport_mechanism.evidence_gate.0.weight": 1.0644153888961227e-05,
+      "transport_mechanism.evidence_gate.0.bias": 5.042771308083616e-06,
+      "transport_mechanism.evidence_gate.1.weight": 0.00034932811422550003,
+      "transport_mechanism.evidence_gate.1.bias": 5.862973598169674e-06,
+      "transport_mechanism.evidence_gate.3.weight": 0.0001499213905731267,
+      "transport_mechanism.evidence_gate.3.bias": 1.2496578609688669e-05
+    },
+    "val_cindex_mean": 0.6353440951571793
+  },
+  {
+    "epoch": 3,
+    "train_main_nll": 0.8419892623236305,
+    "train_auxiliary_total": 1.672527700662613,
+    "train_total": 2.5145169825930345,
+    "train_seconds": 25.971913755172864,
+    "optimizer_steps": 114,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 1.1130599789321423,
+      "transport_mechanism.omics_gain": 0.7706959248171188,
+      "transport_mechanism.evidence_gate.0.weight": 4.1992192993944855e-06,
+      "transport_mechanism.evidence_gate.0.bias": 2.1550738869002828e-06,
+      "transport_mechanism.evidence_gate.1.weight": 0.00015579473529214738,
+      "transport_mechanism.evidence_gate.1.bias": 2.588082003818215e-06,
+      "transport_mechanism.evidence_gate.3.weight": 6.712856367130371e-05,
+      "transport_mechanism.evidence_gate.3.bias": 5.056139122494585e-06
+    },
+    "val_cindex_mean": 0.6066270178419712
+  },
+  {
+    "epoch": 4,
+    "train_main_nll": 0.7662993442071112,
+    "train_auxiliary_total": 1.569062634518272,
+    "train_total": 2.335361979509655,
+    "train_seconds": 26.367543342988938,
+    "optimizer_steps": 152,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.5095809378108243,
+      "transport_mechanism.omics_gain": 0.9699213795829564,
+      "transport_mechanism.evidence_gate.0.weight": 5.17127187116273e-06,
+      "transport_mechanism.evidence_gate.0.bias": 2.3073481774105176e-06,
+      "transport_mechanism.evidence_gate.1.weight": 0.00018397231309563722,
+      "transport_mechanism.evidence_gate.1.bias": 2.8631507498211306e-06,
+      "transport_mechanism.evidence_gate.3.weight": 7.609798123553446e-05,
+      "transport_mechanism.evidence_gate.3.bias": 4.938109429253323e-06
+    },
+    "val_cindex_mean": 0.6591333899745115
+  },
+  {
+    "epoch": 5,
+    "train_main_nll": 0.6949576398259715,
+    "train_auxiliary_total": 1.5512907159955878,
+    "train_total": 2.246248358174374,
+    "train_seconds": 25.92178619094193,
+    "optimizer_steps": 190,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.9317070748656988,
+      "transport_mechanism.omics_gain": 1.1266298209084198,
+      "transport_mechanism.evidence_gate.0.weight": 3.3950267365190356e-05,
+      "transport_mechanism.evidence_gate.0.bias": 2.439780192592389e-05,
+      "transport_mechanism.evidence_gate.1.weight": 0.0011733197045735722,
+      "transport_mechanism.evidence_gate.1.bias": 2.445971766790178e-05,
+      "transport_mechanism.evidence_gate.3.weight": 0.0005550649542538366,
+      "transport_mechanism.evidence_gate.3.bias": 5.7199352305262186e-05
+    },
+    "val_cindex_mean": 0.6688190314358538
+  },
+  {
+    "epoch": 6,
+    "train_main_nll": 0.593774969640531,
+    "train_auxiliary_total": 1.3609919422551204,
+    "train_total": 1.9547669103271084,
+    "train_seconds": 25.949659627862275,
+    "optimizer_steps": 228,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.6834179726429284,
+      "transport_mechanism.omics_gain": 1.0733947701810393,
+      "transport_mechanism.evidence_gate.0.weight": 4.405212482572196e-07,
+      "transport_mechanism.evidence_gate.0.bias": 3.4006634991312623e-07,
+      "transport_mechanism.evidence_gate.1.weight": 1.047788281027806e-05,
+      "transport_mechanism.evidence_gate.1.bias": 2.3977790669649224e-07,
+      "transport_mechanism.evidence_gate.3.weight": 8.135686671906228e-06,
+      "transport_mechanism.evidence_gate.3.bias": 5.800015891455068e-07
+    },
+    "val_cindex_mean": 0.6091758708581139
+  },
+  {
+    "epoch": 7,
+    "train_main_nll": 0.5696364703931307,
+    "train_auxiliary_total": 1.3145636037776345,
+    "train_total": 1.8842000647595054,
+    "train_seconds": 25.959332450060174,
+    "optimizer_steps": 266,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.7985270801000297,
+      "transport_mechanism.omics_gain": 1.0330132306553423,
+      "transport_mechanism.evidence_gate.0.weight": 4.262236854568613e-07,
+      "transport_mechanism.evidence_gate.0.bias": 3.1934358313279176e-07,
+      "transport_mechanism.evidence_gate.1.weight": 1.004149747885208e-05,
+      "transport_mechanism.evidence_gate.1.bias": 2.2507239128000123e-07,
+      "transport_mechanism.evidence_gate.3.weight": 7.382432963609631e-06,
+      "transport_mechanism.evidence_gate.3.bias": 5.187833155284594e-07
+    },
+    "val_cindex_mean": 0.6242990654205608
+  },
+  {
+    "epoch": 8,
+    "train_main_nll": 0.5230154148057887,
+    "train_auxiliary_total": 1.3143797559957755,
+    "train_total": 1.8373951543318598,
+    "train_seconds": 25.968646900029853,
+    "optimizer_steps": 304,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.6359240507008508,
+      "transport_mechanism.omics_gain": 1.0131562725873664,
+      "transport_mechanism.evidence_gate.0.weight": 1.5262139059224467e-06,
+      "transport_mechanism.evidence_gate.0.bias": 7.217142776738683e-07,
+      "transport_mechanism.evidence_gate.1.weight": 3.31323321312027e-05,
+      "transport_mechanism.evidence_gate.1.bias": 5.487932492331815e-07,
+      "transport_mechanism.evidence_gate.3.weight": 1.8059482405519134e-05,
+      "transport_mechanism.evidence_gate.3.bias": 1.1521547639836704e-06
+    },
+    "val_cindex_mean": 0.5362786745964316
+  },
+  {
+    "epoch": 9,
+    "train_main_nll": 0.5757938643035135,
+    "train_auxiliary_total": 1.391802988554302,
+    "train_total": 1.967596865014026,
+    "train_seconds": 25.901506309164688,
+    "optimizer_steps": 342,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 1.2373569885385223,
+      "transport_mechanism.omics_gain": 0.8653737098211423,
+      "transport_mechanism.evidence_gate.0.weight": 5.0447656221308534e-06,
+      "transport_mechanism.evidence_gate.0.bias": 1.8126935639323216e-06,
+      "transport_mechanism.evidence_gate.1.weight": 0.00011197539870266837,
+      "transport_mechanism.evidence_gate.1.bias": 1.6041779953984703e-06,
+      "transport_mechanism.evidence_gate.3.weight": 5.5840083529545836e-05,
+      "transport_mechanism.evidence_gate.3.bias": 2.5489911626985773e-06
+    },
+    "val_cindex_mean": 0.5393372982158029
+  },
+  {
+    "epoch": 10,
+    "train_main_nll": 0.5803449251934102,
+    "train_auxiliary_total": 1.5605093052512722,
+    "train_total": 2.1408542284840033,
+    "train_seconds": 25.940641010878608,
+    "optimizer_steps": 380,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.908885723358253,
+      "transport_mechanism.omics_gain": 2.9984764063265175,
+      "transport_mechanism.evidence_gate.0.weight": 6.772182171488339e-06,
+      "transport_mechanism.evidence_gate.0.bias": 4.103446148651102e-06,
+      "transport_mechanism.evidence_gate.1.weight": 0.00013019798882396572,
+      "transport_mechanism.evidence_gate.1.bias": 2.871376785229529e-06,
+      "transport_mechanism.evidence_gate.3.weight": 7.421742112967422e-05,
+      "transport_mechanism.evidence_gate.3.bias": 6.176678831071314e-06
+    },
+    "val_cindex_mean": 0.5587085811384876
+  },
+  {
+    "epoch": 11,
+    "train_main_nll": 0.5484002997216425,
+    "train_auxiliary_total": 1.5034248923000537,
+    "train_total": 2.0518251939823755,
+    "train_seconds": 25.857741015031934,
+    "optimizer_steps": 418,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.9095457745715976,
+      "transport_mechanism.omics_gain": 2.8683244581334293,
+      "transport_mechanism.evidence_gate.0.weight": 1.9255184628974575e-06,
+      "transport_mechanism.evidence_gate.0.bias": 9.741996085388394e-07,
+      "transport_mechanism.evidence_gate.1.weight": 3.740549306030516e-05,
+      "transport_mechanism.evidence_gate.1.bias": 7.149897858216292e-07,
+      "transport_mechanism.evidence_gate.3.weight": 2.0597256785492846e-05,
+      "transport_mechanism.evidence_gate.3.bias": 1.4523755285100748e-06
+    },
+    "val_cindex_mean": 0.4910790144435004
+  },
+  {
+    "epoch": 12,
+    "train_main_nll": 0.5493945416651274,
+    "train_auxiliary_total": 1.3809003845641488,
+    "train_total": 1.9302949293663627,
+    "train_seconds": 25.843163402052596,
+    "optimizer_steps": 456,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.9378915409324691,
+      "transport_mechanism.omics_gain": 2.168651640880853,
+      "transport_mechanism.evidence_gate.0.weight": 7.839238213236399e-06,
+      "transport_mechanism.evidence_gate.0.bias": 5.313045427612906e-06,
+      "transport_mechanism.evidence_gate.1.weight": 0.00015987707477904678,
+      "transport_mechanism.evidence_gate.1.bias": 3.618267970351141e-06,
+      "transport_mechanism.evidence_gate.3.weight": 0.00010536266707816822,
+      "transport_mechanism.evidence_gate.3.bias": 8.003186846350374e-06
+    },
+    "val_cindex_mean": 0.5328802039082412
+  },
+  {
+    "epoch": 13,
+    "train_main_nll": 0.4885014566151719,
+    "train_auxiliary_total": 1.353192778794389,
+    "train_total": 1.8416942436444133,
+    "train_seconds": 25.867298946948722,
+    "optimizer_steps": 494,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.970251485472545,
+      "transport_mechanism.omics_gain": 1.2928131138323806,
+      "transport_mechanism.evidence_gate.0.weight": 5.575102420829481e-07,
+      "transport_mechanism.evidence_gate.0.bias": 3.262794897873622e-07,
+      "transport_mechanism.evidence_gate.1.weight": 9.999468085553076e-06,
+      "transport_mechanism.evidence_gate.1.bias": 2.101170453461254e-07,
+      "transport_mechanism.evidence_gate.3.weight": 8.177361074501732e-06,
+      "transport_mechanism.evidence_gate.3.bias": 4.176369025610249e-07
+    },
+    "val_cindex_mean": 0.4790144435004248
+  },
+  {
+    "epoch": 14,
+    "train_main_nll": 0.41715619732674797,
+    "train_auxiliary_total": 1.2985277873905081,
+    "train_total": 1.715683987266139,
+    "train_seconds": 25.855370211880654,
+    "optimizer_steps": 532,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.8698133979924023,
+      "transport_mechanism.omics_gain": 1.0086797745534568,
+      "transport_mechanism.evidence_gate.0.weight": 3.6069967928042956e-06,
+      "transport_mechanism.evidence_gate.0.bias": 2.023525335070886e-06,
+      "transport_mechanism.evidence_gate.1.weight": 5.596127231655146e-05,
+      "transport_mechanism.evidence_gate.1.bias": 1.2858005040694565e-06,
+      "transport_mechanism.evidence_gate.3.weight": 4.033391530455788e-05,
+      "transport_mechanism.evidence_gate.3.bias": 2.6524862482002476e-06
+    },
+    "val_cindex_mean": 0.5160577740016992
+  },
+  {
+    "epoch": 15,
+    "train_main_nll": 0.3652177842235879,
+    "train_auxiliary_total": 1.2574171196473272,
+    "train_total": 1.622634923771808,
+    "train_seconds": 25.99364555813372,
+    "optimizer_steps": 570,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 1.0185718796565197,
+      "transport_mechanism.omics_gain": 0.7450251162517816,
+      "transport_mechanism.evidence_gate.0.weight": 3.076419568870392e-06,
+      "transport_mechanism.evidence_gate.0.bias": 1.0738988613923084e-06,
+      "transport_mechanism.evidence_gate.1.weight": 4.876110523355237e-05,
+      "transport_mechanism.evidence_gate.1.bias": 7.447427152751374e-07,
+      "transport_mechanism.evidence_gate.3.weight": 2.7412524886472056e-05,
+      "transport_mechanism.evidence_gate.3.bias": 1.3314985601031726e-06
+    },
+    "val_cindex_mean": 0.5553101104502973
+  },
+  {
+    "epoch": 16,
+    "train_main_nll": 0.3001271818617457,
+    "train_auxiliary_total": 1.2425048084635484,
+    "train_total": 1.5426319759143026,
+    "train_seconds": 25.946238444186747,
+    "optimizer_steps": 608,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.7211412401520647,
+      "transport_mechanism.omics_gain": 0.8650297430576757,
+      "transport_mechanism.evidence_gate.0.weight": 4.2923024166086066e-06,
+      "transport_mechanism.evidence_gate.0.bias": 1.9674896276633547e-06,
+      "transport_mechanism.evidence_gate.1.weight": 6.663772136050738e-05,
+      "transport_mechanism.evidence_gate.1.bias": 1.2915159509629959e-06,
+      "transport_mechanism.evidence_gate.3.weight": 4.371022513538492e-05,
+      "transport_mechanism.evidence_gate.3.bias": 2.545757342042876e-06
+    },
+    "val_cindex_mean": 0.5056924384027187
+  },
+  {
+    "epoch": 17,
+    "train_main_nll": 0.23136426439802898,
+    "train_auxiliary_total": 1.1474759547333968,
+    "train_total": 1.3788402158963053,
+    "train_seconds": 26.43467165506445,
+    "optimizer_steps": 646,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.565248862025328,
+      "transport_mechanism.omics_gain": 0.6298389250878245,
+      "transport_mechanism.evidence_gate.0.weight": 4.754500134040995e-06,
+      "transport_mechanism.evidence_gate.0.bias": 2.065281600849289e-06,
+      "transport_mechanism.evidence_gate.1.weight": 7.595331138077199e-05,
+      "transport_mechanism.evidence_gate.1.bias": 1.3816981367931191e-06,
+      "transport_mechanism.evidence_gate.3.weight": 4.8365738408051584e-05,
+      "transport_mechanism.evidence_gate.3.bias": 2.6535681887374096e-06
+    },
+    "val_cindex_mean": 0.5237043330501275
+  },
+  {
+    "epoch": 18,
+    "train_main_nll": 0.21351174725905844,
+    "train_auxiliary_total": 1.1137022799567173,
+    "train_total": 1.327214030843032,
+    "train_seconds": 25.948224430903792,
+    "optimizer_steps": 684,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.6858174097724259,
+      "transport_mechanism.omics_gain": 0.7926523443311453,
+      "transport_mechanism.evidence_gate.0.weight": 6.063258854993592e-06,
+      "transport_mechanism.evidence_gate.0.bias": 2.546314877838185e-06,
+      "transport_mechanism.evidence_gate.1.weight": 9.842781884117358e-05,
+      "transport_mechanism.evidence_gate.1.bias": 1.7233713702768938e-06,
+      "transport_mechanism.evidence_gate.3.weight": 5.7563011907291184e-05,
+      "transport_mechanism.evidence_gate.3.bias": 3.29528701126236e-06
+    },
+    "val_cindex_mean": 0.5366185216652506
+  },
+  {
+    "epoch": 19,
+    "train_main_nll": 0.1813270129557503,
+    "train_auxiliary_total": 1.0852250958743848,
+    "train_total": 1.2665521008403677,
+    "train_seconds": 25.90812974702567,
+    "optimizer_steps": 722,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.6233455435140058,
+      "transport_mechanism.omics_gain": 0.6497510271146894,
+      "transport_mechanism.evidence_gate.0.weight": 5.36834695985533e-06,
+      "transport_mechanism.evidence_gate.0.bias": 3.183176932597398e-06,
+      "transport_mechanism.evidence_gate.1.weight": 8.868587929100613e-05,
+      "transport_mechanism.evidence_gate.1.bias": 1.9950636818144574e-06,
+      "transport_mechanism.evidence_gate.3.weight": 5.865774278390745e-05,
+      "transport_mechanism.evidence_gate.3.bias": 4.069598587785883e-06
+    },
+    "val_cindex_mean": 0.535089209855565
+  },
+  {
+    "epoch": 20,
+    "train_main_nll": 0.17808438028748097,
+    "train_auxiliary_total": 1.1218522081249638,
+    "train_total": 1.2999365839519,
+    "train_seconds": 26.03534593898803,
+    "optimizer_steps": 760,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.7587611196795478,
+      "transport_mechanism.omics_gain": 0.4483459272305481,
+      "transport_mechanism.evidence_gate.0.weight": 5.185044184008447e-06,
+      "transport_mechanism.evidence_gate.0.bias": 3.6175374244495906e-06,
+      "transport_mechanism.evidence_gate.1.weight": 8.983229101389156e-05,
+      "transport_mechanism.evidence_gate.1.bias": 2.220020364290809e-06,
+      "transport_mechanism.evidence_gate.3.weight": 6.12807241733293e-05,
+      "transport_mechanism.evidence_gate.3.bias": 4.5519685634987095e-06
+    },
+    "val_cindex_mean": 0.5146983857264231
+  },
+  {
+    "epoch": 21,
+    "train_main_nll": 0.14674594062135407,
+    "train_auxiliary_total": 1.0579362993961887,
+    "train_total": 1.2046822446741556,
+    "train_seconds": 25.95928148785606,
+    "optimizer_steps": 798,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.6324558578198776,
+      "transport_mechanism.omics_gain": 0.5617102975957096,
+      "transport_mechanism.evidence_gate.0.weight": 4.5575724167967735e-06,
+      "transport_mechanism.evidence_gate.0.bias": 2.965317574210591e-06,
+      "transport_mechanism.evidence_gate.1.weight": 7.798099492006827e-05,
+      "transport_mechanism.evidence_gate.1.bias": 1.836099641605582e-06,
+      "transport_mechanism.evidence_gate.3.weight": 5.0605045389673364e-05,
+      "transport_mechanism.evidence_gate.3.bias": 3.7316910510565293e-06
+    },
+    "val_cindex_mean": 0.5051826677994902
+  },
+  {
+    "epoch": 22,
+    "train_main_nll": 0.15443361817712062,
+    "train_auxiliary_total": 1.0333473368694908,
+    "train_total": 1.1877809472774203,
+    "train_seconds": 25.95925605483353,
+    "optimizer_steps": 836,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.5328688992158277,
+      "transport_mechanism.omics_gain": 0.70603124180343,
+      "transport_mechanism.evidence_gate.0.weight": 4.3830235394448636e-06,
+      "transport_mechanism.evidence_gate.0.bias": 3.0466406185925e-06,
+      "transport_mechanism.evidence_gate.1.weight": 7.595237574431479e-05,
+      "transport_mechanism.evidence_gate.1.bias": 1.855866138739115e-06,
+      "transport_mechanism.evidence_gate.3.weight": 4.9893943127710116e-05,
+      "transport_mechanism.evidence_gate.3.bias": 3.783074680324683e-06
+    },
+    "val_cindex_mean": 0.5209855564995752
+  },
+  {
+    "epoch": 23,
+    "train_main_nll": 0.13992684996245722,
+    "train_auxiliary_total": 1.0248264074325562,
+    "train_total": 1.1647532519541288,
+    "train_seconds": 26.00639671785757,
+    "optimizer_steps": 874,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.7685361675685272,
+      "transport_mechanism.omics_gain": 0.5390147549915127,
+      "transport_mechanism.evidence_gate.0.weight": 3.0023862831463077e-06,
+      "transport_mechanism.evidence_gate.0.bias": 2.097534110512278e-06,
+      "transport_mechanism.evidence_gate.1.weight": 5.391837804680222e-05,
+      "transport_mechanism.evidence_gate.1.bias": 1.2853004719703964e-06,
+      "transport_mechanism.evidence_gate.3.weight": 3.6181919305988686e-05,
+      "transport_mechanism.evidence_gate.3.bias": 2.586512891390551e-06
+    },
+    "val_cindex_mean": 0.5310110450297366
+  },
+  {
+    "epoch": 24,
+    "train_main_nll": 0.0948113396236869,
+    "train_auxiliary_total": 0.9635864417803915,
+    "train_total": 1.058397773065065,
+    "train_seconds": 25.966260327026248,
+    "optimizer_steps": 912,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.46153163488634164,
+      "transport_mechanism.omics_gain": 0.21180726677630446,
+      "transport_mechanism.evidence_gate.0.weight": 1.5899504918204244e-06,
+      "transport_mechanism.evidence_gate.0.bias": 1.122508724651916e-06,
+      "transport_mechanism.evidence_gate.1.weight": 2.9035186212666986e-05,
+      "transport_mechanism.evidence_gate.1.bias": 6.847436589824119e-07,
+      "transport_mechanism.evidence_gate.3.weight": 2.0121181812271516e-05,
+      "transport_mechanism.evidence_gate.3.bias": 1.3819630470153499e-06
+    },
+    "val_cindex_mean": 0.5430756159728122
+  },
+  {
+    "epoch": 25,
+    "train_main_nll": 0.08713822004287258,
+    "train_auxiliary_total": 0.9682921429997996,
+    "train_total": 1.0554303573934656,
+    "train_seconds": 25.984006662853062,
+    "optimizer_steps": 950,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.4230263337085489,
+      "transport_mechanism.omics_gain": 0.29147198273494723,
+      "transport_mechanism.evidence_gate.0.weight": 1.8092658229940106e-06,
+      "transport_mechanism.evidence_gate.0.bias": 1.2746169986144196e-06,
+      "transport_mechanism.evidence_gate.1.weight": 3.332344339845861e-05,
+      "transport_mechanism.evidence_gate.1.bias": 7.843864405776557e-07,
+      "transport_mechanism.evidence_gate.3.weight": 2.331851288905895e-05,
+      "transport_mechanism.evidence_gate.3.bias": 1.5581032728126387e-06
+    },
+    "val_cindex_mean": 0.5359388275276126
+  },
+  {
+    "epoch": 26,
+    "train_main_nll": 0.09032996062581476,
+    "train_auxiliary_total": 0.9644444435834885,
+    "train_total": 1.0547744074934406,
+    "train_seconds": 26.023082037921995,
+    "optimizer_steps": 988,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.423660165455658,
+      "transport_mechanism.omics_gain": 0.14358322877524188,
+      "transport_mechanism.evidence_gate.0.weight": 1.536028677917578e-06,
+      "transport_mechanism.evidence_gate.0.bias": 1.117616778650854e-06,
+      "transport_mechanism.evidence_gate.1.weight": 2.8491397900509696e-05,
+      "transport_mechanism.evidence_gate.1.bias": 6.785109901152886e-07,
+      "transport_mechanism.evidence_gate.3.weight": 2.0246915935828724e-05,
+      "transport_mechanism.evidence_gate.3.bias": 1.374113565100199e-06
+    },
+    "val_cindex_mean": 0.5374681393372981
+  },
+  {
+    "epoch": 27,
+    "train_main_nll": 0.07781121894521148,
+    "train_auxiliary_total": 0.9395411516490736,
+    "train_total": 1.0173523677022833,
+    "train_seconds": 25.96832235180773,
+    "optimizer_steps": 1026,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.34701728710206226,
+      "transport_mechanism.omics_gain": 0.11566490232144133,
+      "transport_mechanism.evidence_gate.0.weight": 1.5708340665998577e-06,
+      "transport_mechanism.evidence_gate.0.bias": 1.1345283046637622e-06,
+      "transport_mechanism.evidence_gate.1.weight": 2.91746332621301e-05,
+      "transport_mechanism.evidence_gate.1.bias": 6.889684164013143e-07,
+      "transport_mechanism.evidence_gate.3.weight": 2.0214496151638173e-05,
+      "transport_mechanism.evidence_gate.3.bias": 1.3985160146057218e-06
+    },
+    "val_cindex_mean": 0.5412064570943075
+  },
+  {
+    "epoch": 28,
+    "train_main_nll": 0.0796780176460743,
+    "train_auxiliary_total": 0.943083729398878,
+    "train_total": 1.0227617511623783,
+    "train_seconds": 25.977102085016668,
+    "optimizer_steps": 1064,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.37539205770008266,
+      "transport_mechanism.omics_gain": 0.14210002245818032,
+      "transport_mechanism.evidence_gate.0.weight": 1.6207367793397154e-06,
+      "transport_mechanism.evidence_gate.0.bias": 1.1720639806755973e-06,
+      "transport_mechanism.evidence_gate.1.weight": 3.037827750951294e-05,
+      "transport_mechanism.evidence_gate.1.bias": 7.134888582172039e-07,
+      "transport_mechanism.evidence_gate.3.weight": 2.1007041625331624e-05,
+      "transport_mechanism.evidence_gate.3.bias": 1.4390340475900487e-06
+    },
+    "val_cindex_mean": 0.5406966864910789
+  },
+  {
+    "epoch": 29,
+    "train_main_nll": 0.07368947229789276,
+    "train_auxiliary_total": 0.9403875548588602,
+    "train_total": 1.0140770297301442,
+    "train_seconds": 25.95185054698959,
+    "optimizer_steps": 1102,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.4058729553653393,
+      "transport_mechanism.omics_gain": 0.2586392883640656,
+      "transport_mechanism.evidence_gate.0.weight": 1.7733569136479943e-06,
+      "transport_mechanism.evidence_gate.0.bias": 1.236976684776403e-06,
+      "transport_mechanism.evidence_gate.1.weight": 3.1227140855349944e-05,
+      "transport_mechanism.evidence_gate.1.bias": 7.512295695510929e-07,
+      "transport_mechanism.evidence_gate.3.weight": 2.2345593187367285e-05,
+      "transport_mechanism.evidence_gate.3.bias": 1.5233762192673472e-06
+    },
+    "val_cindex_mean": 0.5429056924384026
+  },
+  {
+    "epoch": 30,
+    "train_main_nll": 0.061997812216807356,
+    "train_auxiliary_total": 0.9190811287415656,
+    "train_total": 0.9810789392182702,
+    "train_seconds": 26.0871255279053,
+    "optimizer_steps": 1140,
+    "transport_gradient_norm_sums": {
+      "transport_mechanism.wsi_gain": 0.40288372192298993,
+      "transport_mechanism.omics_gain": 0.11311448803462554,
+      "transport_mechanism.evidence_gate.0.weight": 1.1033585096686949e-06,
+      "transport_mechanism.evidence_gate.0.bias": 6.791436114317317e-07,
+      "transport_mechanism.evidence_gate.1.weight": 2.0083554879590793e-05,
+      "transport_mechanism.evidence_gate.1.bias": 4.219206994476865e-07,
+      "transport_mechanism.evidence_gate.3.weight": 1.303866662372144e-05,
+      "transport_mechanism.evidence_gate.3.bias": 8.305804021779828e-07
+    },
+    "val_cindex_mean": 0.5393372982158029
+  }
+]

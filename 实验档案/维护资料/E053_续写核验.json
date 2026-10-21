@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-21",
+  "experiment": "E053",
+  "backup": "历史备份/实验档案/20261021_E053_续写前/DCT实验总档案.docx",
+  "backup_sha256": "a9267911bce0d61c34913453a569b93b335e5c8042c584b68b50039e88bd1f1d",
+  "master_sha256_before": "a9267911bce0d61c34913453a569b93b335e5c8042c584b68b50039e88bd1f1d",
+  "master_sha256_after_authoring": "ba529f844dfcdd7a5d0929e885e34459f6fdd03765df5c42302111956b3c8515",
+  "docx_records_before": 20,
+  "docx_records_after": 21,
+  "json_catalog_records_before": 24,
+  "json_catalog_records_after": 25,
+  "new_training_runs": 3,
+  "new_patient_inference_runs": 380,
+  "old_paragraphs": 403,
+  "new_paragraphs": 428,
+  "old_tables": 43,
+  "new_tables": 44,
+  "toc": "updateFields flag set; Word refreshes TOC on open",
+  "known_gap": "E046/E046b/E046c/E047 remain JSON-catalog only; not written into this docx"
+}

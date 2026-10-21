@@ -1,0 +1,82 @@
+{
+  "summaries": {
+    "native": {
+      "arm": "native",
+      "cindex_mean": 0.6338147833474936,
+      "cindex_by_repeat": [
+        0.6397621070518267,
+        0.627017841971113,
+        0.6380628717077316,
+        0.6304163126593033,
+        0.6338147833474936
+      ],
+      "cindex_repeat_std": 0.004715186720649666,
+      "nll_mean": 1.1159711862865247,
+      "patient_count": 76,
+      "checkpoint_sha256": "092d3c336d5b6fdbb2959263529d1c4c723fc39ccafaf068f0f83891e4f70155",
+      "epochs": 30,
+      "optimizer_steps": 1140,
+      "parameters": 33093390,
+      "extra_parameters": 0,
+      "train_seconds": 714.5969410936814,
+      "peak_allocated_bytes": 2760873984,
+      "peak_reserved_bytes": 3244294144,
+      "selection": "legacy_val",
+      "selected_epoch": 4,
+      "selected_val_cindex": 0.6338147833474936
+    },
+    "learned": {
+      "arm": "learned",
+      "cindex_mean": 0.6147833474936278,
+      "cindex_by_repeat": [
+        0.6142735768903993,
+        0.6006796941376381,
+        0.5964316057774002,
+        0.6465590484282073,
+        0.6159728122344945
+      ],
+      "cindex_repeat_std": 0.01759016386692613,
+      "nll_mean": 1.4022338591123882,
+      "patient_count": 76,
+      "checkpoint_sha256": "ba6c8e9fa28593efa0f8af84f57244f6a45cd446b2b96ff41452efbe28d14009",
+      "epochs": 30,
+      "optimizer_steps": 1140,
+      "parameters": 33693717,
+      "extra_parameters": 600327,
+      "train_seconds": 3094.4230782138184,
+      "peak_allocated_bytes": 2966889984,
+      "peak_reserved_bytes": 3391094784,
+      "selection": "legacy_val",
+      "selected_epoch": 8,
+      "selected_val_cindex": 0.6147833474936278
+    },
+    "independent": {
+      "arm": "independent",
+      "cindex_mean": 0.6688190314358538,
+      "cindex_by_repeat": [
+        0.6644010195412065,
+        0.659303313508921,
+        0.6576040781648258,
+        0.6771452846219201,
+        0.6856414613423959
+      ],
+      "cindex_repeat_std": 0.010845861272545752,
+      "nll_mean": 1.121779638528824,
+      "patient_count": 76,
+      "checkpoint_sha256": "77e32f5345a88f2c4e355c5a8cdcc2cc19eb9c2e5acf553a756c80b6d7738fbd",
+      "epochs": 30,
+      "optimizer_steps": 1140,
+      "parameters": 33693717,
+      "extra_parameters": 600327,
+      "train_seconds": 779.6028017164208,
+      "peak_allocated_bytes": 2931357184,
+      "peak_reserved_bytes": 3388997632,
+      "selection": "legacy_val",
+      "selected_epoch": 5,
+      "selected_val_cindex": 0.6688190314358538
+    }
+  },
+  "learned_minus_native": -0.019031435853865797,
+  "learned_minus_independent": -0.05403568394222591,
+  "scope": "one fold/seed exploratory validation; no generalization or superiority claim"
+}
