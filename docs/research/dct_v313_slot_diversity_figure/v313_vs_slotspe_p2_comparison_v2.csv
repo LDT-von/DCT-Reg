@@ -1,0 +1,19 @@
+model,modality,metric,value,unit,source,note,measured_or_estimated
+v3.13 BLCA fold0 seed3 ep29,WSI,mean_pair_distance,6.8835,Euclidean distance,epoch CSV: train_v313_diversity_wsi_mean_pair_distance,batch-level mean over 56 directed pairs per epoch,MEASURED
+v3.13 BLCA fold0 seed3 ep29,WSI,min_pair_distance,0.5088,Euclidean distance,epoch CSV: train_v313_diversity_wsi_min_pair_distance,minimum over all patient-pair means at that epoch,MEASURED
+v3.13 BLCA fold0 seed3 ep29,WSI,pair_term,0.0243,penalty (lower=better),epoch CSV: train_v313_diversity_wsi_pair_term,diversity loss component; NOT min_pair_distance (different column),MEASURED
+v3.13 BLCA fold0 seed3 ep29,WSI,violating_pair_fraction,0.0599,fraction of 56 pairs,epoch CSV: train_v313_diversity_wsi_violating_pair_fraction,,MEASURED
+v3.13 BLCA fold0 seed3 ep29,WSI,duplicate_pair_fraction,0.0000,fraction of 56 pairs,epoch CSV: train_v313_diversity_wsi_duplicate_pair_fraction,pairs with Euclidean dist = 0,MEASURED
+v3.13 BLCA fold0 seed3 ep29,WSI,full_collapse_patient_fraction,0.0000,fraction of patients,epoch CSV: train_v313_diversity_wsi_full_collapse_patient_fraction,patients where all 8 slots have identical vectors,MEASURED
+v3.13 BLCA fold0 seed3 ep29,OMIC,mean_pair_distance,6.9875,Euclidean distance,epoch CSV: train_v313_diversity_omic_mean_pair_distance,,MEASURED
+v3.13 BLCA fold0 seed3 ep29,OMIC,min_pair_distance,0.3271,Euclidean distance,epoch CSV: train_v313_diversity_omic_min_pair_distance,,MEASURED
+v3.13 BLCA fold0 seed3 ep29,OMIC,pair_term,0.0637,penalty (lower=better),epoch CSV: train_v313_diversity_omic_pair_term,,MEASURED
+v3.13 BLCA fold0 seed3 ep29,OMIC,violating_pair_fraction,0.1239,fraction of 56 pairs,epoch CSV: train_v313_diversity_omic_violating_pair_fraction,,MEASURED
+v3.13 BLCA fold0 seed3 ep29,OMIC,duplicate_pair_fraction,0.0000,fraction of 56 pairs,epoch CSV: train_v313_diversity_omic_duplicate_pair_fraction,,MEASURED
+v3.13 BLCA fold0 seed3 ep29,OMIC,full_collapse_patient_fraction,0.0000,fraction of patients,epoch CSV: train_v313_diversity_omic_full_collapse_patient_fraction,,MEASURED
+v3.13 BLCA fold0 seed3 ep29,WSI,cosine_similarity,NOT MEASURED  (estimated lower bound = 0.9997),cosine,N/A — estimated via 1 − d²/(2r²) with r≈21.87,"UNVERIFIED: equal-norm assumption unconfirmed, min_pair_distance ≠ all pairs, r is batch-level average not per-slot norm",UNVERIFIED ESTIMATE
+SlotSPE BLCA fold0 seed3 ep3 (77 patients),Wsi+Omic,mean_max_offdiag_cosine,0.999612,cosine,diagnostic.json p2.per_patient_max_offdiag_cos,"mean over 77 patients, 56 off-diagonal pairs each",MEASURED
+SlotSPE BLCA fold0 seed3 ep3 (77 patients),Wsi+Omic,min_max_offdiag_cosine,0.998990,cosine,diagnostic.json p2.per_patient_max_offdiag_cos,minimum over all 77 patients,MEASURED
+SlotSPE BLCA fold0 seed3 ep3 (77 patients),Wsi+Omic,max_max_offdiag_cosine,0.999891,cosine,diagnostic.json p2.per_patient_max_offdiag_cos,,MEASURED
+SlotSPE BLCA fold0 seed3 ep3 (77 patients),Wsi+Omic,fraction_patients_all_pairs_cos_gt_0.95,1.0000  (77/77),fraction,diagnostic.json p2.fraction_patients_with_offdiag_high_cos,SINGLE checkpoint only; not 5-fold mean,MEASURED
+SlotSPE at init,unknown,max_inter_slot_cosine,0.5605,cosine,FINAL_RECEIPT.md §3 — provenance not independently re-verified,check against raw checkpoint initialisation,REPORTED
