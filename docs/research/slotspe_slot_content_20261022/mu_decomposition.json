@@ -1,0 +1,66 @@
+{
+ "wsi": [
+  {
+   "fold": 0,
+   "frac_norm_along_shared_mu": 0.012063230387866497,
+   "parallel_part_cos_offdiag": 0.12324206531047821,
+   "residual_part_cos_offdiag": 0.9799994826316833
+  },
+  {
+   "fold": 1,
+   "frac_norm_along_shared_mu": 0.002571008400991559,
+   "parallel_part_cos_offdiag": 0.10732141137123108,
+   "residual_part_cos_offdiag": 0.8914475440979004
+  },
+  {
+   "fold": 2,
+   "frac_norm_along_shared_mu": 0.011115028522908688,
+   "parallel_part_cos_offdiag": 0.1101110428571701,
+   "residual_part_cos_offdiag": 0.804430365562439
+  },
+  {
+   "fold": 3,
+   "frac_norm_along_shared_mu": 0.002802103292196989,
+   "parallel_part_cos_offdiag": 0.10370685160160065,
+   "residual_part_cos_offdiag": 0.9923638105392456
+  },
+  {
+   "fold": 4,
+   "frac_norm_along_shared_mu": 0.01903245598077774,
+   "parallel_part_cos_offdiag": 0.1233353316783905,
+   "residual_part_cos_offdiag": 0.9094140529632568
+  }
+ ],
+ "omic": [
+  {
+   "fold": 0,
+   "frac_norm_along_shared_mu": 0.01158885844051838,
+   "parallel_part_cos_offdiag": 0.11498691141605377,
+   "residual_part_cos_offdiag": 0.8541666269302368
+  },
+  {
+   "fold": 1,
+   "frac_norm_along_shared_mu": 0.025117890909314156,
+   "parallel_part_cos_offdiag": 0.12367743998765945,
+   "residual_part_cos_offdiag": 0.975100576877594
+  },
+  {
+   "fold": 2,
+   "frac_norm_along_shared_mu": 0.0021135578863322735,
+   "parallel_part_cos_offdiag": 0.09135448187589645,
+   "residual_part_cos_offdiag": 0.9454212188720703
+  },
+  {
+   "fold": 3,
+   "frac_norm_along_shared_mu": 0.0038415894377976656,
+   "parallel_part_cos_offdiag": 0.11384259909391403,
+   "residual_part_cos_offdiag": 0.8908700346946716
+  },
+  {
+   "fold": 4,
+   "frac_norm_along_shared_mu": 0.003493488533422351,
+   "parallel_part_cos_offdiag": 0.08967691659927368,
+   "residual_part_cos_offdiag": 0.9380714297294617
+  }
+ ]
+}

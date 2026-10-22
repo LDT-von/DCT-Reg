@@ -1,0 +1,26 @@
+{
+ "wsi": {
+  "n_patients": 77,
+  "offdiag_mean": 0.9972882866859436,
+  "offdiag_min": 0.9844491481781006,
+  "offdiag_max": 0.9998694062232971,
+  "frac_above_0.95": 1.0,
+  "frac_above_0.99": 0.974025974025974,
+  "slot1_slot8_mean": 0.9987398386001587,
+  "slot1_slot8_min": 0.9973940849304199,
+  "slot1_slot8_max": 0.9997608661651611
+ },
+ "omic": {
+  "n_patients": 77,
+  "offdiag_mean": 0.9927800893783569,
+  "offdiag_min": 0.9097803235054016,
+  "offdiag_max": 0.9997385144233704,
+  "frac_above_0.95": 0.9911873840445269,
+  "frac_above_0.99": 0.825139146567718,
+  "slot1_slot8_mean": 0.9934539794921875,
+  "slot1_slot8_min": 0.9693935513496399,
+  "slot1_slot8_max": 0.9987791776657104
+ },
+ "checkpoint": "/data1/DCT-Reg/results/slotspe_proof/slotspe_clean_original_blca_run_20261020/pairs/fold_0/seed_3/original/last.pt",
+ "epochs": 3
+}
