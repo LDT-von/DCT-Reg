@@ -1,0 +1,80 @@
+{
+  "schema": "slotspe_upstream_provenance_v1",
+  "date": "2026-10-22",
+  "question": "Is third_party/SlotSPE identical to the official https://github.com/zylvemvet/SlotSPE.git ?",
+  "verdict": "MODEL-FORWARD IDENTICAL; three non-model files carry local adaptations that do not touch the audited code path.",
+  "upstream_reference_used": {
+    "why": "The machine has no outbound HTTPS (DNS resolves, TCP :443 times out), so the official repo could not be cloned directly.",
+    "proxy_used": "/home/ubuntu/newSlotSPE -- git repo of origin git@github.com:LDT-von/newSlotSPE.git, a fork that imported zylvemvet/SlotSPE in a single commit 1e89fca and never modified models/ afterwards.",
+    "commit": "1e89fca"
+  },
+  "files_compared": {
+    "models/slot_attention.py": {
+      "upstream_sha256": "200f92f62f74d1387f62834d485cd96dd7adf7d104e75707d4a0a51a021ac109",
+      "local_sha256": "200f92f62f74d1387f62834d485cd96dd7adf7d104e75707d4a0a51a021ac109",
+      "status": "IDENTICAL"
+    },
+    "models/transformer.py": {
+      "upstream_sha256": "9dfed61da662a391ff7a29b3b514e892f1cf8287a0d350ac0afab9d5d4a54985",
+      "local_sha256": "9dfed61da662a391ff7a29b3b514e892f1cf8287a0d350ac0afab9d5d4a54985",
+      "status": "IDENTICAL"
+    },
+    "models/omics_encoder.py": {
+      "upstream_sha256": "3e2231dab47103046922ec40a9bf6945fe936081037a630b72035eee5de0e685",
+      "local_sha256": "3e2231dab47103046922ec40a9bf6945fe936081037a630b72035eee5de0e685",
+      "status": "IDENTICAL"
+    },
+    "models/SlotSPE.py": {
+      "upstream_sha256": "3ae28602473d619af7bb51c67d46678d4f26cefa804a647be85d4e330f4bd40c",
+      "local_sha256": "eb5518a7e7dbc0e8e2fb1495c21c379ada36f78ad0c9d0d1f9ce69cb8051687e",
+      "status": "DIFFERS in one block only",
+      "diff_summary": "captum-only omic_names flattening: upstream uses a list comprehension; local uses np.asarray + np.concatenate + np.unique.",
+      "why_inert_here": "The block is guarded by `if omic_names != []`. survot_rank/research/slotspe_proof/model.py make_args() never sets omic_names, so it defaults to [] and the branch never executes.",
+      "affects_audited_path": false
+    }
+  },
+  "non_model_differences": {
+    "utils/core_utils.py": {
+      "diff_summary": "upstream hard-codes /data/CPathPatchFeature/blca/{encoder}/pt_files; local uses args.data_root_dir. Local adds flush=True / log_file.flush() to print calls.",
+      "flush_change_provenance": "commit cd33a3b 'Add v3.10/v3.11 monitoring scripts and SlotSPE v3.10 tools' -- the only commit in DCT-Reg history that touched third_party/SlotSPE.",
+      "affects_audited_path": false,
+      "why": "slotspe_proof/patient.py does not import core_utils at all; it builds its own data pipeline."
+    },
+    "utils/process_args.py": {
+      "diff_summary": "CLI defaults only: upstream default data_root_dir ./CPathPatchFeature/blca/uni/pt_files plus a --wsi_encoder choice; local default is an absolute COADREAD path.",
+      "affects_audited_path": false,
+      "why": "CLI argument parser; the proof harness constructs args directly via make_args()."
+    },
+    "dataset/dataset_survival.py": {
+      "diff_summary": "upstream adds an auto-detect block that appends {study}/{encoder}/pt_files to wsi_path when the directory layout requires it.",
+      "affects_audited_path": false,
+      "why": "The proof harness overrides the factory (TrainBinningFactory) and reads WSI features itself from config['features_root']; the auto-detect block is never reached.",
+      "note": "survot_rank/research/slotspe_proof/checks.py DOES import dataset_survival.py, but only for AST-level provenance checks of _setup_clinical_data / _get_uncensored_data / _disc_label, not for data loading."
+    }
+  },
+  "cross_copy_consistency": {
+    "note": "Six independent SlotSPE copies exist on this machine; models/slot_attention.py hashes identically in all six.",
+    "copies": [
+      "/data1/DCT-Reg/third_party/SlotSPE",
+      "/data1/DCT-Reg-e050/third_party/SlotSPE",
+      "/data1/DCT-Reg/SlotSPE",
+      "/data1/SlotSPE/third_party/SlotSPE",
+      "/data1/reproduce/SlotSPE",
+      "/data1/slot-attention-sync/third_party/SlotSPE"
+    ],
+    "slot_attention_sha256_all_copies": "200f92f62f74d1387f62834d485cd96dd7adf7d104e75707d4a0a51a021ac109"
+  },
+  "delivery_package_consistency": {
+    "note": "docs/deliveries/slotspe_clean_original_audit_20261019_v1.zip preserves upstream mtimes (2026-04-17) and hashes identical to the live tree for all four models/*.py files.",
+    "slot_attention_sha256": "200f92f62f74d1387f62834d485cd96dd7adf7d104e75707d4a0a51a021ac109",
+    "SlotSPE_sha256": "eb5518a7e7dbc0e8e2fb1495c21c379ada36f78ad0c9d0d1f9ce69cb8051687e",
+    "transformer_sha256": "9dfed61da662a391ff7a29b3b514e892f1cf8287a0d350ac0afab9d5d4a54985",
+    "omics_encoder_sha256": "3e2231dab47103046922ec40a9bf6945fe936081037a630b72035eee5de0e685"
+  },
+  "git_history": {
+    "models/": "never modified in DCT-Reg history (slot_attention.py byte-identical from first commit b84e5c0 to HEAD)",
+    "only_touched_file": "utils/core_utils.py in cd33a3b (log flush only)"
+  },
+  "conclusion": "The audited forward/training path -- slot attention, slot decoder, top-k gate, transformer, omics encoder -- is byte-identical to the upstream code. The only upstream/local divergences are a captum-only branch that is unreachable in this harness, CLI defaults, a path auto-detect block that is unreachable, and log flushing. No difference can explain or create the gate-collapse measurement.",
+  "residual_caveat": "The comparison baseline is the LDT-von/newSlotSPE fork's single import commit of zylvemvet/SlotSPE, NOT a direct fetch of zylvemvet/SlotSPE, because outbound HTTPS to github.com is blocked on this machine. The fork commit was never modified, so it is a faithful mirror, but a direct upstream fetch on a networked machine would close the loop definitively."
+}
