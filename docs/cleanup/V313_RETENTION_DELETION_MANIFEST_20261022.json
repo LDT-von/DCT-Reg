@@ -331,7 +331,9 @@
   "results_delete_summary": {
     "count": 63,
     "bytes": 22268905816,
-    "gib": 20.74
+    "gib": 20.74,
+    "tier": "review",
+    "note": "本轮仅核对，尚未确认可删；每项明细见 results_delete_detail。"
   },
   "results_review_not_in_delete_list": [
     {
@@ -589,7 +591,8 @@
   "results_keep_summary": {
     "count": 37,
     "bytes": 48929078135,
-    "gib": 45.569
+    "gib": 45.569,
+    "tier": "keep"
   },
   "slotspe_proof_subdirs": [
     {
@@ -722,79 +725,117 @@
       "path": "survot_rank/research/methods/dct_v316_slot_mi_interaction",
       "bytes": 69925,
       "files": 7,
-      "reason": "method registered in catalog but not on the v313 or v2 dependency chain"
+      "reason": "method registered in catalog but not on the v313 or v2 dependency chain",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "survot_rank/research/methods/faithful_evidence_transport",
       "bytes": 25731,
       "files": 6,
-      "reason": "method registered in catalog but not on the v313 or v2 dependency chain"
+      "reason": "method registered in catalog but not on the v313 or v2 dependency chain",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "survot_rank/research/methods/rank_guided_event_transport",
       "bytes": 24227,
       "files": 6,
-      "reason": "method registered in catalog but not on the v313 or v2 dependency chain"
+      "reason": "method registered in catalog but not on the v313 or v2 dependency chain",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "survot_rank/research/methods/stagewise_prognostic_transport",
       "bytes": 19955,
       "files": 6,
-      "reason": "method registered in catalog but not on the v313 or v2 dependency chain"
+      "reason": "method registered in catalog but not on the v313 or v2 dependency chain",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "survot_rank/research/methods/legacy/experimental/dct_v312_slot_interpretable_impute",
       "bytes": 20861,
       "files": 2,
-      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "survot_rank/research/methods/legacy/experimental/dct_v314_masked_transport_reconstruction",
       "bytes": 125832,
       "files": 9,
-      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "survot_rank/research/methods/legacy/experimental/dct_v315_residual_transport",
       "bytes": 42568,
       "files": 7,
-      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "survot_rank/research/methods/legacy/ablation/dct_v32_tgsr_objective_study",
       "bytes": 5429,
       "files": 2,
-      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "survot_rank/research/methods/legacy/ablation/dct_v310_fixed_anchors",
       "bytes": 4220,
       "files": 2,
-      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "survot_rank/research/methods/legacy/ablation/dct_v330_closed_loop_prognostic_transport",
       "bytes": 16898,
       "files": 2,
-      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "survot_rank/research/methods/legacy/ablation/dct_v32_transport_guided_slot_reaggregation",
       "bytes": 5283,
       "files": 2,
-      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "survot_rank/research/methods/legacy/ablation/dct_risk_ordering_transport",
       "bytes": 3645,
       "files": 2,
-      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     }
   ],
   "code_delete_summary": {
     "count": 12,
     "bytes": 364574,
-    "gib": 0.0
+    "gib": 0.0,
+    "tier": "review",
+    "deferred": true
   },
   "archive_scripts_delete": [
     {
@@ -1761,244 +1802,361 @@
   "archive_scripts_delete_summary": {
     "count": 160,
     "bytes": 1223208,
-    "gib": 0.001
+    "gib": 0.001,
+    "tier": "review",
+    "deferred": true,
+    "note": "按用户 2026-10-22 指示：160 个归档脚本（scripts/_archive_v310_v311/）去向说明如下，本轮先保留、不删除；新版删除范围未列出它们。"
   },
   "tests_delete": [
     {
       "path": "tests/test_dct_risk_ordering_transport.py",
       "bytes": 2132,
       "sha256": "7edc2b5491b6fbe36ef8592e56ce50cc3c0a0c535ffce6d6d193bb557eb76f8c",
-      "reason": "test targets a method whose implementation is deleted"
+      "reason": "test targets a method whose implementation is deleted",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "tests/test_dct_v314_masked_transport_reconstruction.py",
       "bytes": 27777,
       "sha256": "bad15bc918afbc479583a4164fdc054ded249868f7583c8575f8cb48b2db1e96",
-      "reason": "test targets a method whose implementation is deleted"
+      "reason": "test targets a method whose implementation is deleted",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "tests/test_dct_v315_residual_transport.py",
       "bytes": 19792,
       "sha256": "966e309c348b7588e035a2c3b2aa21d6a6cb243d3c7c7167aa282300a78394c1",
-      "reason": "test targets a method whose implementation is deleted"
+      "reason": "test targets a method whose implementation is deleted",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "tests/test_dct_v316_slot_mi.py",
       "bytes": 21407,
       "sha256": "7fc7f02e69ea7f5be753eaaf14cf52304345d3af9d0bf410e4d967fcdf8082ee",
-      "reason": "test targets a method whose implementation is deleted"
+      "reason": "test targets a method whose implementation is deleted",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "tests/test_dct_v316_standalone.py",
       "bytes": 6056,
       "sha256": "e480884991710204f2d1e18937655eec7ce9d0a462de83fe8f97e214be9bb2ca",
-      "reason": "test targets a method whose implementation is deleted"
+      "reason": "test targets a method whose implementation is deleted",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "tests/test_dct_v32_tgsr_optimization.py",
       "bytes": 5864,
       "sha256": "0ebbb1d5649024ffe33e711bfc2218744c7b66aafefe9ed8f66222be0af5cbc7",
-      "reason": "test targets a method whose implementation is deleted"
+      "reason": "test targets a method whose implementation is deleted",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "tests/test_dct_v32_transport_guided_slot_reaggregation.py",
       "bytes": 14421,
       "sha256": "1ff78bd9b649ef1c3e060608824c415a09a5ad8f094e6b80ed21c8f8912492af",
-      "reason": "test targets a method whose implementation is deleted"
+      "reason": "test targets a method whose implementation is deleted",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "tests/test_dct_v330_closed_loop_prognostic_transport.py",
       "bytes": 10133,
       "sha256": "23d4d6526846e75d2cdf90fcb1b49ddde60c803c2ece521414ed902614c78590",
-      "reason": "test targets a method whose implementation is deleted"
+      "reason": "test targets a method whose implementation is deleted",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     }
   ],
   "tests_delete_summary": {
     "count": 8,
     "bytes": 107582,
-    "gib": 0.0
+    "gib": 0.0,
+    "tier": "review",
+    "deferred": true
   },
   "configs_delete": [
     {
       "path": "configs/dct_v312_blca_uni.yaml",
       "bytes": 4100,
       "sha256": "65ff570c462037b62ecdb5cef1762d0563aae1f2e58dc3eec67a065d12161d4a",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v314_blca_uni.yaml",
       "bytes": 3181,
       "sha256": "f2dc7687026175df6458cbf23beeb2e718c1bf99ab66a4545ea321adf98f7504",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v314_blca_uni2h.yaml",
       "bytes": 3698,
       "sha256": "464475b0b91c95c12a98afb003606c73d8dccb78aba555d891d4e12aca3676f7",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v315_blca_uni.yaml",
       "bytes": 1413,
       "sha256": "c40c67631900a86f3f9e4aeaed2581555cfe5720e8168a64e6f55f374c622dfc",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v315_blca_uni2h.yaml",
       "bytes": 2262,
       "sha256": "655fa2cd33bf8a1830e64c2cf9abcaaf43f5d54b54afe0ef2afc53402965fe35",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v315_rti_rank_blca_uni2h.yaml",
       "bytes": 1619,
       "sha256": "6969dfa8b4889b6736e8dd266857d8282ff34390c6df3e1a9bd24db047cdd068",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v316_slot_mi_decomposition.yaml",
       "bytes": 1630,
       "sha256": "dc2d43a0e1b6b5eec47a5ae603a190c36f338c1ee8b01922d2692214c9cfffab",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_enhanced_direction_blca_fold0.yaml",
       "bytes": 1518,
       "sha256": "ce60ac851ce1eec88638d1141dfa72d8aed191c69821811b844af2ab2184d6f1",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_risk_ordering_blca_fold0.yaml",
       "bytes": 1516,
       "sha256": "19b08a44133b53b43740166a82cbe84d70ef239d03ca1e041b46b4789836becf",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v310_baseline_blca.yaml",
       "bytes": 2392,
       "sha256": "eab93654f6fbcdca4e53d2a3f47ba43231dba7c7f8928c602b02f4b5baf8bd2f",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v310_baseline_blca_uni2h.yaml",
       "bytes": 2795,
       "sha256": "ac6d9c0637f9fe6148552a734d4c1d2c5d87699c6869ac9e126409aa756d0cc6",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v310_directional_regularized_transport.yaml",
       "bytes": 2565,
       "sha256": "99c4d655f8f85497dff93f3e57da8e5f4ad8cf1df4cec437ddf05a8f2a6dc237",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v310_directional_regularized_transport_blca.yaml",
       "bytes": 2588,
       "sha256": "c2a6fea38b21834d0906678e1121db5eda98b4f88d30c594dea382bf58bb290d",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v311_blca_uni.yaml",
       "bytes": 2561,
       "sha256": "cc5496b09d42f51df42cf48f2312d3f2b8d75053eb58558c092985fdd2175e4b",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v311_blca_uni2h.yaml",
       "bytes": 2586,
       "sha256": "4baacbd71479dc3ec1a73243b3895aa06bab7108e6d0f1aa6f0263e851dddc70",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v311_blca_uni2h_v2.yaml",
       "bytes": 2834,
       "sha256": "d391ae8bbdc630a8d6cfbe48f018bbeb8b0b6a955cc19ac0a78bae25a2e7602d",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v311_blca_uni2h_v3.yaml",
       "bytes": 3647,
       "sha256": "0dce725a0725a8894e094e315f289b6602aa5bdcfde19f371abdc4f27bcff79f",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v311_blca_uni2h_v4.yaml",
       "bytes": 2799,
       "sha256": "6e43b41661b75c19588f8edfb0e7c46face273b124711ce4c9a4fbbb80afc50c",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v311_blca_uni_v2.yaml",
       "bytes": 2803,
       "sha256": "557898f6e937fb2e68651e6b1f6b16afa99f61b9a7713bb3e89b8d2184ae1a54",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v311_blca_uni_v2_5fold.yaml",
       "bytes": 2804,
       "sha256": "0c402d60efae3b31882c3746589312328c274065685cbf1cc1fa59493d3bc55b",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v311_blca_uni_v2_5fold.yaml.bak",
       "bytes": 2803,
       "sha256": "6f4ab0fc0642560061fac4f0cdfa8cecd69b44e2d15c4039813a647add8b92bf",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "configs/dct_v311_blca_uni_v3_5fold.yaml",
       "bytes": 3411,
       "sha256": "20368bfec255b34a32113505feff3686ec59023b2e01468ab76e9f4ec6a66d08",
-      "reason": "config targets a non-v313, non-v2 method"
+      "reason": "config targets a non-v313, non-v2 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     }
   ],
   "configs_delete_summary": {
     "count": 22,
     "bytes": 57525,
-    "gib": 0.0
+    "gib": 0.0,
+    "tier": "review",
+    "deferred": true
   },
   "docs_delete": [
     {
       "path": "docs/DCT_V314_DEBUG_REPORT.md",
       "bytes": 15101,
       "sha256": "4dd85cd47ca570c777813ba45123bd7e74d08126cbf59faf23feb0f986a8a2eb",
-      "reason": "design note for a non-v313 method"
+      "reason": "design note for a non-v313 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "docs/DCT_V314_MASKED_TRANSPORT_RECONSTRUCTION_PLAN.md",
       "bytes": 2075,
       "sha256": "b867917c9a17d593cec2eb9aa1dea780a8625b65496e42ff1cca64fd8fe2435a",
-      "reason": "design note for a non-v313 method"
+      "reason": "design note for a non-v313 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "docs/DCT_V315_BASELINE.md",
       "bytes": 12106,
       "sha256": "b9c279e640abaf2d45617f714252ac2145083996c4f5856259a7e76a2eaed0e2",
-      "reason": "design note for a non-v313 method"
+      "reason": "design note for a non-v313 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "docs/DCT_V315_PLAN.md",
       "bytes": 2689,
       "sha256": "c7b1f21d71b15eef565c230a13718639bf44caec33b211d470fdd1aea8ffbe06",
-      "reason": "design note for a non-v313 method"
+      "reason": "design note for a non-v313 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "docs/DCT_V32_TGSR.md",
       "bytes": 8005,
       "sha256": "aeabb89eb76a3ea642d9f0d511767c3ca6382bb2bd261a8008502119b4a6a11f",
-      "reason": "design note for a non-v313 method"
+      "reason": "design note for a non-v313 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "docs/DCT_V330_CLOSED_LOOP.md",
       "bytes": 5424,
       "sha256": "d9f609ffe564d52c10a93a92894e691d63a4e399c1fadd22590506722c74a9c3",
-      "reason": "design note for a non-v313 method"
+      "reason": "design note for a non-v313 method",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     }
   ],
   "docs_delete_summary": {
     "count": 6,
     "bytes": 45400,
-    "gib": 0.0
+    "gib": 0.0,
+    "tier": "review",
+    "deferred": true
   },
   "toplevel_md_delete": [
     {
@@ -2006,566 +2164,808 @@
       "bytes": 5849,
       "sha256": "374fb377a9369896b3bc700a1f8ab8b03d09ec32fbc064d53f9db585f8a8e9d0",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "ANALYSIS_EXECUTION_SUMMARY.md",
       "bytes": 6708,
       "sha256": "75e612df08713e954af799b752bf47c7aa0fd6a61423439132f8aceaccd18a7e",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "ANCHOR_DIAGNOSIS_SUMMARY_CN.md",
       "bytes": 9298,
       "sha256": "f4a61d77924345536b42a12bc040d90deb4bcafbb4dee8d97046990e210a66e2",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "ANCHOR_EXPERIMENTS_REPORT_20260907.md",
       "bytes": 9088,
       "sha256": "e7a4eb541debeb73338475f4e2872211849e498d89a3bd1fae5a6fb7fdf8f244",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "AUDIT_BEST_EPOCH_RESULTS.md",
       "bytes": 5446,
       "sha256": "ee315dff616760766c0332530bc32f1c885b8c3470dc8f89fe25e5450b8d2bb3",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "AUDIT_EXECUTION_PLAN.md",
       "bytes": 4223,
       "sha256": "8f6cdbba57947dac35bd3a4555203a86b7cef944c937fa82b9a8e62c5d27c873",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "Additional_Experiments_Recommendation.md",
       "bytes": 9230,
       "sha256": "a5a16fbcce82438748ac3201f6ce030b82dba771c5b4a265223e81b6b54a0b5f",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "COMPLETE_STATUS_SUMMARY.md",
       "bytes": 8208,
       "sha256": "4004e9229905407c0171e928532c8117382f5000fd021d54120018f2138c8dd6",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "CORE_IDEA_VERIFICATION_STATUS.md",
       "bytes": 5484,
       "sha256": "f6cd412c2ccc790094476c6f2d2d69699e618ed74ed7e40a43807cc28cf086d5",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "CRITICAL_EXPERIMENTS_MISMATCH.md",
       "bytes": 4477,
       "sha256": "f6d52420eed24de541ab5956d8b1259ff972227f0f271717acfdc5a5a7ee4113",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "CRITICAL_ISSUES_TO_RESOLVE.md",
       "bytes": 6524,
       "sha256": "06c556976e27fc7273647a0e9501f0259354bc9f5d902c4a3a9cf27fd53a3761",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "CURRENT_STATUS_AND_NEXT_STEPS.md",
       "bytes": 5714,
       "sha256": "b3f54d7815c11fd51d9bee588178efcb15ec23b35af02805767e9c3ff51dc0d5",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "Core_Idea_Proof_Experiments.md",
       "bytes": 13960,
       "sha256": "8f737a6085fb80a4448a781fe0a6c33aca14fdf05474883d26f6a3cf0780b7b2",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "DCT_AUDIT_PAPER_DRAFT.md",
       "bytes": 10153,
       "sha256": "e8508222704c2ca865a1e26686ae98e598a53acc754d10ba2d0b7b3f4f7c6c9a",
       "archived_copy_in_snapshot": false,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "DCT_EVOLUTION_ROADMAP.md",
       "bytes": 5503,
       "sha256": "58ee81b0a72c6202ac2c9c1fd0a4d5a4b1d72a6526e329e26c795988c470e8f6",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "DECISION_POINT_NEXT_EXPERIMENTS.md",
       "bytes": 8978,
       "sha256": "0a3fcdec8946cf4d6362cde5e373fc8c27015b752788832c04f0ba41dd98e34e",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "E4_AUDIT_EXECUTION_LOG.md",
       "bytes": 7610,
       "sha256": "b1e19ab686187c7d0f402fca0541284fc1a0b83cf2e1642dbd66fe6f3fc0aa5a",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "E4_AUDIT_FINAL_REPORT.md",
       "bytes": 5880,
       "sha256": "972464e52ca64145f88207afc1d1207499e0887a16ff165040fec513f91e449e",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "E4_EXPERIMENTS_ACTION_PLAN.md",
       "bytes": 7166,
       "sha256": "f1a556d6bba14780d780e26c67628d5f5ecbcbeed0e02e62d80c7978d0496b57",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "E4_EXPERIMENTS_COMPLETE.md",
       "bytes": 6610,
       "sha256": "6c3f8c8e4141c22322834b6df5d02872479fe327199f5861f93b68f9b9d303c0",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "E4_EXPERIMENTS_READY.md",
       "bytes": 7285,
       "sha256": "c22d3240e68950da05051958fa8ce1b19465dd53191224e549c9e89a6f962c10",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "E4_FULL_ANALYSIS_CRITICAL_FINDINGS.md",
       "bytes": 8772,
       "sha256": "c37803f6dd30fe46ff70c9f4436743c190c1d6b3e51d1c8f6b62bbd11802dd92",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "E4_READY_FINAL.md",
       "bytes": 7024,
       "sha256": "e4d9fd3e8f50cade9703803b2fc3c674197aac31c929e25667d221e8f795e948",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "E4_READY_TO_RUN.md",
       "bytes": 3929,
       "sha256": "787581839d8de801af4b11400e96d6710a6fd19f162b5870f7fd4b8b1011a9bf",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "EVIDENCE_STATUS_REPORT.md",
       "bytes": 12632,
       "sha256": "8781cf3542962bb150679ca1860056186bdff871a182eb2f88708e6dd8dd80d6",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "EXECUTE_NOW.md",
       "bytes": 5543,
       "sha256": "e5adf6833f3e33dd00acd2b7cb5d174bf0086f0dd99a80a2913c500d65b07fce",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "EXECUTION_COMPLETE.md",
       "bytes": 4393,
       "sha256": "428e7d8b8151b456160a7ca9a7ab919eb68c28ac849b48dcd72447c451ab03b5",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "EXPERIMENTS_PROGRESS_FINAL.md",
       "bytes": 6289,
       "sha256": "23c5e53df517ac489afe4cdb4a88f20316be339a0e60b7bc7cf4af18924822dc",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "EXPERIMENTS_READY_TO_RUN.md",
       "bytes": 9600,
       "sha256": "94dfcfc001975e18eda8ed1d4e92de8551746f8b1ed0e81b178dc176a8070cf6",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "EXPERIMENT_CONCLUSIVE_RESULTS.md",
       "bytes": 5446,
       "sha256": "ff44bf30895f8490a9b1bc49e6811e829649e3e6d3d019d1a167fe88e8b503b9",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "EXPERIMENT_DATA_SUMMARY.md",
       "bytes": 6868,
       "sha256": "d62ff8249f7616cab386f1fa0ac88691535147888787e8fbcf87d9e936baa7bd",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "EXPERIMENT_FINAL_RESULTS.md",
       "bytes": 7878,
       "sha256": "3c881ca78deaab5e0bc1daf537dcd865943166b3926eebc9e2bb13e0f516739e",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "EXPERIMENT_PLAN.md",
       "bytes": 4192,
       "sha256": "ec9cacf534048c14ead73d4fe8a8e9162e69173453e4df47fc1a1408c335c3e7",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "EXPERIMENT_STATUS.md",
       "bytes": 1521,
       "sha256": "3041f8e975d87064390d124a33338d5bf8cad6af6d0edbc92bd127ff45a39806",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "FINAL_EXPERIMENTS_TODO.md",
       "bytes": 8240,
       "sha256": "1f1d7ebc339844cfa9587380f9d4fa4c54c3a552a0e3e7b90b57938d667e0c34",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "FIXED_ANCHORS_EXECUTION_SUMMARY.md",
       "bytes": 10962,
       "sha256": "6080f7fe5de301795c108550343a8d17f2150e94012b7330425780150a99425e",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "FIXED_ANCHORS_PROGRESS.md",
       "bytes": 7626,
       "sha256": "64add125cc79e03e86c992d09a0e3fa93ae8814d5babdc3a47af80f7c303156c",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "IMMEDIATE_ACTION_PLAN.md",
       "bytes": 11018,
       "sha256": "ca4daa7c2352b20ee46bf53ec63ac0b8f29a62b26e471d6e834124f1bdc16099",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "MULTI_CANCER_PERFORMANCE_REPORT.md",
       "bytes": 9126,
       "sha256": "7c1f1277fafe0f95945e2cedd9606de1cfd4139f5a4a447995b5bac9dc3e87b2",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "NEXT_EXPERIMENTS_REQUIRED.md",
       "bytes": 8020,
       "sha256": "e8983096e04a5cefedc6b6413d43d3753f61d0167f1e29f18de4c953fcbdd50f",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "NEXT_STEPS_SUMMARY.md",
       "bytes": 6896,
       "sha256": "53e622e51f998e9a509874719409e13278269d4363b4d393ad8da4759f9f9f21",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "OUTER_CINDEX_EXPLANATION.md",
       "bytes": 1786,
       "sha256": "226e2ed19e416fd837f273022e6b34843b553eea63752b73575e93d5fd401195",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "PAPER_UPDATE_LOG.md",
       "bytes": 4253,
       "sha256": "c58991173ede12c4993094018b134f49e519cecb21ba5a8904963928e6628fad",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "PAPER_WRITING_PROMPT.md",
       "bytes": 8106,
       "sha256": "6d5bc7c4b4bf006ce92ce06183bffe13396b8a2b2cc2dd6e5351d5497e130cf2",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "PROJECT_STATUS.md",
       "bytes": 7658,
       "sha256": "6fcd1a23a2155c25a14829077f836ddc4d8a344b30883cc98ca67e9260df800c",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "PROOF_EXPERIMENTS_PLAN.md",
       "bytes": 10056,
       "sha256": "80a2706153a1ce350ed96ab577f2ae6fe66c7dfe0765a6bc4bcfd528ace96e25",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "PROOF_EXPERIMENTS_PROGRESS.md",
       "bytes": 6680,
       "sha256": "49c638fa02205b84b6a755a0831aaa64f87a175e87577835cf79eb1095063c89",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "PROOF_RESULTS.md",
       "bytes": 6620,
       "sha256": "36839c6e1a0835801988b754f369765da5105a6863e4821bec7f2836cfb67e1a",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "QUICK_STATUS.md",
       "bytes": 3404,
       "sha256": "b6ff023a960a85c3c4dadc6457c800085b869f28a632af571c56510334d7a7ac",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "README_AUDIT_FIX.md",
       "bytes": 2956,
       "sha256": "e715ec1acd0158697cc203975537286e79ec1bff2da8325da03ab71a3c10d91e",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "README_EXPERIMENTS.md",
       "bytes": 2559,
       "sha256": "cb5af993900d1da8db3fc74d8eec0a704b5e10cc74a05b69a7cca786867e0500",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "README_FIXED_ANCHORS_EXPERIMENT.md",
       "bytes": 14656,
       "sha256": "6607ac0683ce21f7b0b7380aad4824372f7e9a7a06b0c9c821f11eb74e928da4",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "REMAINING_5FOLD_EXPERIMENTS.md",
       "bytes": 7166,
       "sha256": "553d956d0d7bfda2083c8f516dc3f19885057e2626e2620ba01987b502050287",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "REVISED_AUDIT_STRATEGY.md",
       "bytes": 2791,
       "sha256": "cb98e181ecbb300804aa12f74bb5013da0d72fd2c13617f960565cb94b466ff3",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "SMOKING_GUN_FOUND.md",
       "bytes": 3947,
       "sha256": "22fdf90cdbe244e05cd8ae818bec77d069a2269b473cd8c025a077e9c375d5df",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "SOLUTION_AUDIT_EXPERIMENT_FIX.md",
       "bytes": 5276,
       "sha256": "1022df38176d55ace3ee32f9256f7b511a61e5d38915f1dabe6a6c7962cb7bff",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "SOLUTION_IMPLEMENTED.md",
       "bytes": 6157,
       "sha256": "1cb159bec3023be701e00ab844a7e3762f33f2c7346934564db1f998acb1d1c4",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "STATISTICAL_ANALYSIS_COMPLETE_REPORT.md",
       "bytes": 8101,
       "sha256": "d1bc3e4302427db99cb4978ccfa25f14796470252b559210da42b0591be5a78f",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "STATUS.md",
       "bytes": 10023,
       "sha256": "07e846fe28430660c4b47550385c9512d8b90d0beb4c4e1187614b33cab34d78",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "TASK_COMPLETE.md",
       "bytes": 4248,
       "sha256": "ddc464dd8571c3ec3c4683e3d3ff05d553fd9b1a586809a30bf4507d47942429",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "TASK_COMPLETE_STATISTICAL_ANALYSIS.md",
       "bytes": 8180,
       "sha256": "51e68b460816c6e007850b4a0658acdce5839d842d7119f6dfdcad33e8883dd4",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "TASK_COMPLETION_SUMMARY.md",
       "bytes": 9132,
       "sha256": "5cf1ae17a816b103712aeb504dc75be962f9fa5ced476b0b19f7a4bbe46c0aee",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "TASK_COMPLETION_SUMMARY_CN.md",
       "bytes": 6184,
       "sha256": "65aa13a1cdabd5e68274c5c4d60a711590d016f7b9d7ca3b4afc106011d0a9dd",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "THREE_MODEL_COMPARISON.md",
       "bytes": 6992,
       "sha256": "5edfabda650cf843a6b6b7829e9c1c22709b28803a557d872a0c94d495f12861",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "TRAINING_PROGRESS_UPDATE.md",
       "bytes": 5626,
       "sha256": "88e59e647e034a2864c97f88aaea291a343837dcc951d9fd73aff9d9ee81a2a2",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "VERIFIED_RESULTS_2026_09_05.md",
       "bytes": 7845,
       "sha256": "c298fc27911ef22819724398348e6bfac63257c121bf8cb488c7cb02e46b0426",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "WHAT_TO_RUN_NEXT.md",
       "bytes": 9925,
       "sha256": "5894a934f9bad41dfc576ede6d431793a2d26f813cddd78dd555ea27ffe2f933",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "WORK_COMPLETED_SUMMARY.md",
       "bytes": 9004,
       "sha256": "72e8b723251d1315c8110c999a313d91d8feca7027bf871619fee27bc75cb0dd",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "ablation_full_model_performance_issue.md",
       "bytes": 962,
       "sha256": "5b121a62f3e2565e44c4fa3c5165810710d86a800c06b6c536f4b3e04d695d66",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "ablation_study_summary.md",
       "bytes": 624,
       "sha256": "6240a0dcf58a9a63e565b157443fd0eb4b48b85d183319886da9c917da96723e",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "diagnostics_v3_retune.md",
       "bytes": 3302,
       "sha256": "81505b4e22e0388dbe5496a7fb944769623e7bf61e020973c51cfd2d89e54441",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "fix_transport_mechanism_master_plan.md",
       "bytes": 11461,
       "sha256": "a5f38cbed37804fb13984e45add20f001abcf34956b7566f370cd8451c43c2a5",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "model_architecture_deep_analysis.md",
       "bytes": 12215,
       "sha256": "0853a6987b27427711d4ed7b22bcbe9132a8d0f5eb1f59878edcba04c097bb91",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "proof_experiments_summary.md",
       "bytes": 8183,
       "sha256": "061a3f85fa75c4f2597835c936dbdada3821497057909d9a3186feea6dae79ce",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "proof_experiments_validation_report.md",
       "bytes": 11318,
       "sha256": "995a1b30a98179d9e7325ede74012d4aab65c7cc1ff3419dd4c704d8025f910a",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "transport_fix_proposal.md",
       "bytes": 16336,
       "sha256": "50f1bf06451316811c0249c650a6099edf421ef3df396e8f505343aab5bad99a",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "transport_fix_results.md",
       "bytes": 7503,
       "sha256": "0254d4bed71f5c097cf115f2628ef33c4c10d8803e454305c19cfe9d2a5f5b8f",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "实验清单_最终版.md",
       "bytes": 5417,
       "sha256": "87f2e322cd598f40a4b9e4233aa955e2e9c759b0f385bdb62e7f0414cf743208",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "还需要运行什么实验.md",
       "bytes": 2452,
       "sha256": "889f44d174016428b7c67634b8919c00544ecd057cb99ec2e5b4dd3c25d01136",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     },
     {
       "path": "还需要运行什么实验_简洁版.md",
       "bytes": 4511,
       "sha256": "ed35293e075d011d5c10d83fdeea2a988b80810c63f4a51eacbe6f2b8279e0b5",
       "archived_copy_in_snapshot": true,
-      "reason": "top-level status/report note for a superseded version"
+      "reason": "top-level status/report note for a superseded version",
+      "tier": "review",
+      "defer": true,
+      "defer_reason": "按用户 2026-10-22 指示：五类小文件本轮暂缓删除，统一标为待审。本轮核对范围仅限 results 大文件（本清单 results_delete 段）。"
     }
   ],
   "toplevel_md_delete_summary": {
     "count": 80,
     "bytes": 562984,
-    "gib": 0.001
+    "gib": 0.001,
+    "tier": "review",
+    "deferred": true
   },
   "code_edits_required": [
     {
@@ -2597,12 +2997,16 @@
     "历史授权「本轮清理非v3.13归档实验与代码」不延续到本清单，需对具体材料重新取得明确授权。",
     "2026-10-22 选 A：results/slotspe_* 七组基线已从 results_delete 彻底移出，改列 review/tier2，理由「SlotSPE 基线及纯运输对照证据」；addendum 两个子目录 tier 由 delete 改为 review。",
     "论文图依赖核验（2026-10-22）：scripts/plot_v313*.py 与 scripts/plot_*.py 仅读取 results/slotspe_proof/p1246_diagnostic_blca_fold0_20261020/diagnostic.json，不读取上述七组基线目录；七组目录属对照证据保留，非论文图硬依赖。",
-    "集合互斥性已校验：results_delete / results_keep / results_review_not_in_delete_list 三者路径两两无重叠，各自内部无重复路径；results/slotspe_proof 父目录与其子目录分层属同一 review 段，字节不可相加。"
+    "集合互斥性已校验：results_delete / results_keep / results_review_not_in_delete_list 三者路径两两无重叠，各自内部无重复路径；results/slotspe_proof 父目录与其子目录分层属同一 review 段，字节不可相加。",
+    "活跃脚本引用核验（2026-10-22）：scripts/run_blca_uni2h_5fold.py 直接引用 results/dct_v314_blca_uni2h、results/dct_v315_blca_uni2h、results/dct_v315_rti_rank_blca_uni2h 三个待删目录。该脚本本身不在任何删除集合内，删除这三个结果目录后该脚本的这三个 arm 将失效，需同步处理。",
+    "全仓唯一产物核验（2026-10-22）：63 项中有 21 项含全仓唯一（results/ + 实验档案/ + 历史备份/ 范围内仅此一份）的 预测或权重文件，删除后无法从仓内任何位置恢复。其余 42 项的预测/权重在仓内另有同尺寸同名副本。",
+    "引用分布（2026-10-22）：63 项中仅 3 项被非归档 scripts/ 读取，20 项有 历史备份/ 或 实验档案/ 快照引用，其余多为顶层 md 或归档脚本中的历史记录引用。2 项在活跃代码与文档中均无引用。"
   ],
   "results_review_summary": {
     "count": 8,
     "bytes": 19559632050,
-    "gib": 18.216
+    "gib": 18.216,
+    "tier": "review"
   },
   "slotspe_proof_subdirs_summary": {
     "count": 20,
@@ -2621,9 +3025,1352 @@
     "counting_note": "本段为 results/slotspe_proof 的内部子目录分层，父目录字节已计入 results_review_not_in_delete_list，两者不可相加。"
   },
   "revision": {
-    "revision": 2,
+    "revision": 3,
     "revised_date": "2026-10-22",
-    "change": "选 A：7 组 slotspe 基线移入 review；addendum 子目录 delete→review；三集合重算并校验互斥。",
-    "executed": false
-  }
+    "change": "五类小文件+归档脚本统一改标 review/待审；新增 63 项逐条明细表、归档脚本去向说明、五层基类保留确认、活跃脚本引用与全仓唯一产物核验。",
+    "executed": false,
+    "scope_note": "本轮核对范围仅为 results_delete 63 项（20.740 GiB）；小文件类不删除。"
+  },
+  "archive_scripts_fate": {
+    "summary": "scripts/_archive_v310_v311/ 共 160 个文件，1.17 MiB，全部保留，不在本轮删除范围。",
+    "why_not_deleted": [
+      "它们是 v3.10/v3.11 时期的唯一可执行记录，而这 63 个结果目录正是它们产出的；先删脚本再删结果会使历史结论不可复算。",
+      "其中 analyze_omic_slot_pathways.py / compare_v310_v311_audit.py / run_anchor_experiments.py 等仍被 63 项结果目录的引用关系绑定，属证据链的一部分。",
+      "体积仅 1.17 MiB，保留成本可忽略，不构成清理收益。"
+    ],
+    "note": "若后续确认要删，建议与 results_delete 中对应的 v3.10/v3.11 结果目录同批次处理，避免中间态出现“脚本在、结果没了”的不可复算窗口。"
+  },
+  "inherited_base_classes_verification": {
+    "rule": "文件名带旧版本号不等于可删；v3.13 依赖链上的继承基类不得按版本号删除。",
+    "dependency_chain": [
+      "dct_v313_transport_reconstruction",
+      "legacy/experimental/dct_v311_slot_interpretable",
+      "dct_v310_directional_regularized_transport",
+      "dct_transport_intervention_consistency",
+      "legacy/ablation/dct_transport_intervention_consistency",
+      "distributional_counterfactual_transport"
+    ],
+    "all_in_keep_set": true,
+    "verified_paths": [
+      {
+        "path": "survot_rank/research/methods/legacy/experimental/dct_v311_slot_interpretable",
+        "exists": true,
+        "in_any_delete_set": false
+      },
+      {
+        "path": "survot_rank/research/methods/dct_v310_directional_regularized_transport",
+        "exists": true,
+        "in_any_delete_set": false
+      },
+      {
+        "path": "survot_rank/research/methods/dct_transport_intervention_consistency",
+        "exists": true,
+        "in_any_delete_set": false
+      },
+      {
+        "path": "survot_rank/research/methods/legacy/ablation/dct_transport_intervention_consistency",
+        "exists": true,
+        "in_any_delete_set": false
+      },
+      {
+        "path": "survot_rank/research/methods/distributional_counterfactual_transport",
+        "exists": true,
+        "in_any_delete_set": false
+      }
+    ],
+    "trap_note": "legacy/ablation/dct_transport_intervention_consistency 目录名带 \"ablation\"，但实际是 v3.13 依赖链上的基类，已排除在删除集合外。",
+    "reverse_dependency": "dct_v2 线反向 import 了 v313 的 diversity 模块，故 v313 代码亦为 v2 线的存活依赖。"
+  },
+  "results_delete_detail": [
+    {
+      "path": "results/dct_v3.10",
+      "gib": 3.812,
+      "bytes": 4092910317,
+      "files": 185,
+      "method": "dct_v310_directional_regularized_transport",
+      "arm": "-",
+      "cohort": "blca,brca,hnsc,kirc,lusc,skcm",
+      "fold": "0",
+      "seed": "3",
+      "pred_pkl": 62,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 32,
+      "ckpt_repo_unique": 25,
+      "has_repo_unique_artifact": true,
+      "csv": 32,
+      "active_script_refs": [],
+      "snapshot_refs_count": 36,
+      "doc_refs_count": 369
+    },
+    {
+      "path": "results/dct_v311_blca_uni_fixed_pancancer",
+      "gib": 3.411,
+      "bytes": 3662074329,
+      "files": 218,
+      "method": "dct_v311_slot_interpretable",
+      "arm": "-",
+      "cohort": "brca,coadread,hnsc,luad,lusc,skcm",
+      "fold": "0,1,2,3,4",
+      "seed": "3",
+      "pred_pkl": 60,
+      "pred_pkl_repo_unique": 4,
+      "ckpt": 30,
+      "ckpt_repo_unique": 26,
+      "has_repo_unique_artifact": true,
+      "csv": 30,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 31
+    },
+    {
+      "path": "results/dct_v3.10_uni2h_extend",
+      "gib": 2.962,
+      "bytes": 3180895865,
+      "files": 146,
+      "method": "dct_v310_directional_regularized_transport",
+      "arm": "-",
+      "cohort": "coadread,luad,stad,ucec",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 48,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 25,
+      "ckpt_repo_unique": 12,
+      "has_repo_unique_artifact": true,
+      "csv": 25,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 12
+    },
+    {
+      "path": "results/dct_v3.2",
+      "gib": 2.522,
+      "bytes": 2708046850,
+      "files": 160,
+      "method": "dct_v32_transport_guided_slot_reaggregation",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 40,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 20,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 20,
+      "active_script_refs": [],
+      "snapshot_refs_count": 5,
+      "doc_refs_count": 28
+    },
+    {
+      "path": "results/dct_v311_blca_uni_fixed",
+      "gib": 1.254,
+      "bytes": 1346102812,
+      "files": 74,
+      "method": "dct_v311_slot_interpretable",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "0,1,2,3,4",
+      "seed": "3",
+      "pred_pkl": 23,
+      "pred_pkl_repo_unique": 1,
+      "ckpt": 11,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": true,
+      "csv": 12,
+      "active_script_refs": [],
+      "snapshot_refs_count": 6,
+      "doc_refs_count": 67
+    },
+    {
+      "path": "results/dct_v316_slot_mi_blca_uni2h",
+      "gib": 0.709,
+      "bytes": 761817512,
+      "files": 28,
+      "method": "dct_v316_slot_mi_decomposition",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 10,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 5,
+      "ckpt_repo_unique": 5,
+      "has_repo_unique_artifact": true,
+      "csv": 5,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 2
+    },
+    {
+      "path": "results/dct_v314_blca_uni2h",
+      "gib": 0.701,
+      "bytes": 752795083,
+      "files": 35,
+      "method": "dct_v314_masked_transport_reconstruction",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 12,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 6,
+      "ckpt_repo_unique": 4,
+      "has_repo_unique_artifact": true,
+      "csv": 6,
+      "active_script_refs": [
+        "scripts/run_blca_uni2h_5fold.py"
+      ],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 3
+    },
+    {
+      "path": "results/dct_v312_skcm_5fold",
+      "gib": 0.572,
+      "bytes": 613739097,
+      "files": 28,
+      "method": "dct_v312_slot_interpretable_impute",
+      "arm": "-",
+      "cohort": "blca,skcm",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 10,
+      "pred_pkl_repo_unique": 4,
+      "ckpt": 5,
+      "ckpt_repo_unique": 5,
+      "has_repo_unique_artifact": true,
+      "csv": 5,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 1
+    },
+    {
+      "path": "results/dct_v312_blca_uni_fold0_aligned",
+      "gib": 0.572,
+      "bytes": 613737848,
+      "files": 28,
+      "method": "dct_v312_slot_interpretable_impute",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "0",
+      "seed": "3",
+      "pred_pkl": 10,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 5,
+      "ckpt_repo_unique": 4,
+      "has_repo_unique_artifact": true,
+      "csv": 5,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 7
+    },
+    {
+      "path": "results/dct_v3.10_uni_blca_p2048_30ep",
+      "gib": 0.569,
+      "bytes": 611137184,
+      "files": 30,
+      "method": "dct_v310_directional_regularized_transport",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "0,1",
+      "seed": "3",
+      "pred_pkl": 10,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 5,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 5,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 7
+    },
+    {
+      "path": "results/dct_v3.10_uni_all10",
+      "gib": 0.569,
+      "bytes": 611017778,
+      "files": 32,
+      "method": "dct_v310_directional_regularized_transport",
+      "arm": "-",
+      "cohort": "blca,brca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 10,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 5,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 5,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 5
+    },
+    {
+      "path": "results/dct_v311_blca_uni_v2",
+      "gib": 0.569,
+      "bytes": 610914064,
+      "files": 24,
+      "method": "dct_v311_slot_interpretable",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 10,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 5,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 5,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 5
+    },
+    {
+      "path": "results/dct_v3.2_smoke",
+      "gib": 0.504,
+      "bytes": 541557699,
+      "files": 32,
+      "method": "dct_v32_transport_guided_slot_reaggregation",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 8,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 4,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 4,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 5
+    },
+    {
+      "path": "results/transport_candidates",
+      "gib": 0.239,
+      "bytes": 256192801,
+      "files": 15,
+      "method": "dct_risk_ordering_transport",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "0",
+      "seed": "3",
+      "pred_pkl": 2,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 2,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 3,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 8
+    },
+    {
+      "path": "results/transport_candidates_smoke",
+      "gib": 0.238,
+      "bytes": 256019932,
+      "files": 15,
+      "method": "dct_risk_ordering_transport",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 4,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 2,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 2,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 2
+    },
+    {
+      "path": "results/dct_v311_blca_uni2h_fixed_v2",
+      "gib": 0.238,
+      "bytes": 255974844,
+      "files": 12,
+      "method": "dct_v311_slot_interpretable",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 4,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 2,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 2,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 2
+    },
+    {
+      "path": "results/dct_v311_blca_uni2h",
+      "gib": 0.238,
+      "bytes": 255974835,
+      "files": 12,
+      "method": "dct_v311_slot_interpretable",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 4,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 2,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 2,
+      "active_script_refs": [],
+      "snapshot_refs_count": 1,
+      "doc_refs_count": 19
+    },
+    {
+      "path": "results/dct_v312_blca_uni_smoke",
+      "gib": 0.229,
+      "bytes": 245606604,
+      "files": 15,
+      "method": "dct_v312_slot_interpretable_impute",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 4,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 2,
+      "ckpt_repo_unique": 1,
+      "has_repo_unique_artifact": true,
+      "csv": 2,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 3
+    },
+    {
+      "path": "results/dct_v311_blca_uni_v2_partial_backup_0742",
+      "gib": 0.228,
+      "bytes": 244439987,
+      "files": 13,
+      "method": "dct_v311_slot_interpretable",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 4,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 2,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 2,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 0
+    },
+    {
+      "path": "results/dct_v311_blca_uni",
+      "gib": 0.228,
+      "bytes": 244436257,
+      "files": 12,
+      "method": "dct_v311_slot_interpretable",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 4,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 2,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 2,
+      "active_script_refs": [],
+      "snapshot_refs_count": 6,
+      "doc_refs_count": 112
+    },
+    {
+      "path": "results/dct_v3.10_experiments_smoke",
+      "gib": 0.119,
+      "bytes": 128010876,
+      "files": 8,
+      "method": "dct_transport_intervention_consistency",
+      "arm": "direction_only",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 2,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 1,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 1,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 10
+    },
+    {
+      "path": "results/dct_v311_blca_uni_v3_smoke",
+      "gib": 0.114,
+      "bytes": 122254550,
+      "files": 8,
+      "method": "dct_v311_slot_interpretable",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 2,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 1,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 1,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 1
+    },
+    {
+      "path": "results/dct_v315_blca_uni2h",
+      "gib": 0.075,
+      "bytes": 80672346,
+      "files": 35,
+      "method": "dct_v315_residual_transport",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 12,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 6,
+      "ckpt_repo_unique": 4,
+      "has_repo_unique_artifact": true,
+      "csv": 6,
+      "active_script_refs": [
+        "scripts/run_blca_uni2h_5fold.py"
+      ],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 3
+    },
+    {
+      "path": "results/dct_v315_rti_rank_blca_uni2h",
+      "gib": 0.063,
+      "bytes": 67231251,
+      "files": 28,
+      "method": "dct_v315_residual_transport",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 10,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 5,
+      "ckpt_repo_unique": 5,
+      "has_repo_unique_artifact": true,
+      "csv": 5,
+      "active_script_refs": [
+        "scripts/run_blca_uni2h_5fold.py"
+      ],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 3
+    },
+    {
+      "path": "results/kaplan_meier_analysis",
+      "gib": 0.001,
+      "bytes": 884734,
+      "files": 8,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 3,
+      "active_script_refs": [],
+      "snapshot_refs_count": 5,
+      "doc_refs_count": 7
+    },
+    {
+      "path": "results/e4_audits",
+      "gib": 0.001,
+      "bytes": 845647,
+      "files": 38,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 19,
+      "active_script_refs": [],
+      "snapshot_refs_count": 8,
+      "doc_refs_count": 18
+    },
+    {
+      "path": "results/e4_v311_fixed_audit",
+      "gib": 0.001,
+      "bytes": 734060,
+      "files": 11,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 6,
+      "active_script_refs": [],
+      "snapshot_refs_count": 3,
+      "doc_refs_count": 3
+    },
+    {
+      "path": "results/v310_proof_b_anchor_geometry_trajectory",
+      "gib": 0.001,
+      "bytes": 653292,
+      "files": 4,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 3
+    },
+    {
+      "path": "results/v310_proof_a_cross_cancer_audit",
+      "gib": 0.0,
+      "bytes": 354931,
+      "files": 17,
+      "method": "-",
+      "arm": "-",
+      "cohort": "hnsc,lusc,skcm",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 7
+    },
+    {
+      "path": "results/v310_proof1_gain_trajectory",
+      "gib": 0.0,
+      "bytes": 291321,
+      "files": 4,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 2
+    },
+    {
+      "path": "results/dct_v312_stad_5fold",
+      "gib": 0.0,
+      "bytes": 129535,
+      "files": 8,
+      "method": "dct_v312_slot_interpretable_impute",
+      "arm": "-",
+      "cohort": "blca,stad",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 1
+    },
+    {
+      "path": "results/audit_hnsc",
+      "gib": 0.0,
+      "bytes": 127059,
+      "files": 21,
+      "method": "-",
+      "arm": "-",
+      "cohort": "hnsc",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 10,
+      "pred_pkl_repo_unique": 5,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": true,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 1
+    },
+    {
+      "path": "results/dct_v312_ucec_5fold",
+      "gib": 0.0,
+      "bytes": 121438,
+      "files": 8,
+      "method": "dct_v312_slot_interpretable_impute",
+      "arm": "-",
+      "cohort": "blca,ucec",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 1
+    },
+    {
+      "path": "results/v310_proof5_epoch_curve_stats",
+      "gib": 0.0,
+      "bytes": 119963,
+      "files": 3,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 3
+    },
+    {
+      "path": "results/transport_fix_minimal",
+      "gib": 0.0,
+      "bytes": 119690,
+      "files": 2,
+      "method": "-",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 1,
+      "ckpt_repo_unique": 1,
+      "has_repo_unique_artifact": true,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 1,
+      "doc_refs_count": 2
+    },
+    {
+      "path": "results/audit_skcm",
+      "gib": 0.0,
+      "bytes": 119136,
+      "files": 21,
+      "method": "-",
+      "arm": "-",
+      "cohort": "skcm",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 10,
+      "pred_pkl_repo_unique": 5,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": true,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 1
+    },
+    {
+      "path": "results/dct_v3.10_experiments",
+      "gib": 0.0,
+      "bytes": 118533,
+      "files": 5,
+      "method": "dct_transport_intervention_consistency",
+      "arm": "direction_only",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 26,
+      "doc_refs_count": 251
+    },
+    {
+      "path": "results/v310_proof_d_per_slot_hazard",
+      "gib": 0.0,
+      "bytes": 111910,
+      "files": 4,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 1,
+      "pred_pkl_repo_unique": 1,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": true,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 4
+    },
+    {
+      "path": "results/v310_proof_f_v311_audit",
+      "gib": 0.0,
+      "bytes": 104906,
+      "files": 7,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 5
+    },
+    {
+      "path": "results/audit_lusc",
+      "gib": 0.0,
+      "bytes": 103435,
+      "files": 15,
+      "method": "-",
+      "arm": "-",
+      "cohort": "lusc",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 7,
+      "pred_pkl_repo_unique": 5,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": true,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 1
+    },
+    {
+      "path": "results/audit_blca",
+      "gib": 0.0,
+      "bytes": 70888,
+      "files": 10,
+      "method": "-",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 5,
+      "pred_pkl_repo_unique": 5,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": true,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 1,
+      "doc_refs_count": 13
+    },
+    {
+      "path": "results/audit_kirc",
+      "gib": 0.0,
+      "bytes": 54760,
+      "files": 9,
+      "method": "-",
+      "arm": "-",
+      "cohort": "kirc",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 4,
+      "pred_pkl_repo_unique": 2,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": true,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 1
+    },
+    {
+      "path": "results/audit_best_epochs_blca",
+      "gib": 0.0,
+      "bytes": 45352,
+      "files": 11,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 5,
+      "pred_pkl_repo_unique": 5,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": true,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 8,
+      "doc_refs_count": 10
+    },
+    {
+      "path": "results/audit_blca_redesign",
+      "gib": 0.0,
+      "bytes": 44476,
+      "files": 12,
+      "method": "-",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 5,
+      "pred_pkl_repo_unique": 5,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": true,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 11
+    },
+    {
+      "path": "results/ideal_anchors",
+      "gib": 0.0,
+      "bytes": 34315,
+      "files": 5,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 5,
+      "pred_pkl_repo_unique": 5,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": true,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 6,
+      "doc_refs_count": 11
+    },
+    {
+      "path": "results/e049_blca_dryrun",
+      "gib": 0.0,
+      "bytes": 34211,
+      "files": 1,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 1
+    },
+    {
+      "path": "results/v310_proof_c_audit",
+      "gib": 0.0,
+      "bytes": 21729,
+      "files": 2,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 3
+    },
+    {
+      "path": "results/STAT_TESTS_20261005",
+      "gib": 0.0,
+      "bytes": 19721,
+      "files": 3,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 1,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 0
+    },
+    {
+      "path": "results/proof_D_visualization",
+      "gib": 0.0,
+      "bytes": 16730,
+      "files": 2,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 3,
+      "doc_refs_count": 3
+    },
+    {
+      "path": "results/audit_comparison",
+      "gib": 0.0,
+      "bytes": 11421,
+      "files": 2,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 2,
+      "doc_refs_count": 3
+    },
+    {
+      "path": "results/v311_fixed_proof",
+      "gib": 0.0,
+      "bytes": 10879,
+      "files": 2,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 3,
+      "doc_refs_count": 3
+    },
+    {
+      "path": "results/small_test",
+      "gib": 0.0,
+      "bytes": 7956,
+      "files": 2,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 3,
+      "doc_refs_count": 7
+    },
+    {
+      "path": "results/v310_proof2_gradient_flow",
+      "gib": 0.0,
+      "bytes": 7857,
+      "files": 7,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 3
+    },
+    {
+      "path": "results/v310_proof_synthesis",
+      "gib": 0.0,
+      "bytes": 6759,
+      "files": 1,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 1
+    },
+    {
+      "path": "results/v310_proof3_anchor_distance",
+      "gib": 0.0,
+      "bytes": 6139,
+      "files": 5,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 4
+    },
+    {
+      "path": "results/v310_proof2bis_per_slot_grad",
+      "gib": 0.0,
+      "bytes": 4926,
+      "files": 3,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 1
+    },
+    {
+      "path": "results/dct_v311_blca_uni_fixed_v2",
+      "gib": 0.0,
+      "bytes": 2568,
+      "files": 3,
+      "method": "dct_v311_slot_interpretable",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 7
+    },
+    {
+      "path": "results/statistical_analysis",
+      "gib": 0.0,
+      "bytes": 1316,
+      "files": 3,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 2,
+      "active_script_refs": [],
+      "snapshot_refs_count": 3,
+      "doc_refs_count": 5
+    },
+    {
+      "path": "results/dct_v3.11",
+      "gib": 0.0,
+      "bytes": 1284,
+      "files": 1,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 1,
+      "doc_refs_count": 6
+    },
+    {
+      "path": "results/dct_v312_cptac_luad_5fold",
+      "gib": 0.0,
+      "bytes": 632,
+      "files": 2,
+      "method": "dct_v312_slot_interpretable_impute",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 1
+    },
+    {
+      "path": "results/dct_v312_cptac_lusc_5fold",
+      "gib": 0.0,
+      "bytes": 632,
+      "files": 2,
+      "method": "dct_v312_slot_interpretable_impute",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 1
+    },
+    {
+      "path": "results/dct_v312_gbmlgg_5fold",
+      "gib": 0.0,
+      "bytes": 620,
+      "files": 2,
+      "method": "dct_v312_slot_interpretable_impute",
+      "arm": "-",
+      "cohort": "blca",
+      "fold": "-",
+      "seed": "3",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 0,
+      "doc_refs_count": 1
+    },
+    {
+      "path": "results/anchor_diagnostics",
+      "gib": 0.0,
+      "bytes": 334,
+      "files": 1,
+      "method": "-",
+      "arm": "-",
+      "cohort": "-",
+      "fold": "-",
+      "seed": "-",
+      "pred_pkl": 0,
+      "pred_pkl_repo_unique": 0,
+      "ckpt": 0,
+      "ckpt_repo_unique": 0,
+      "has_repo_unique_artifact": false,
+      "csv": 0,
+      "active_script_refs": [],
+      "snapshot_refs_count": 2,
+      "doc_refs_count": 5
+    }
+  ],
+  "results_delete_detail_summary": {
+    "count": 63,
+    "gib": 20.739,
+    "contains_repo_unique_artifact_dirs": 21,
+    "referenced_by_active_scripts_dirs": 3,
+    "no_reference_dirs": 2,
+    "field_definitions": {
+      "method": "目录内出现过的 SurvOTRank_<method> 标识",
+      "arm": "目录层级中的实验臂标识（native/learned/independent/control/masked_plain/gain_calibrated/direction_only/ipcw_only/full 等）",
+      "cohort": "出现的癌种目录名",
+      "fold": "目录名中解析出的 fold 编号",
+      "seed": "目录名中解析出的 seed",
+      "pred_pkl": "*.pkl 预测文件数",
+      "pred_pkl_repo_unique": "其中在 results/ + 实验档案/ + 历史备份/ 全仓范围内仅此一份的预测文件数",
+      "ckpt": "*.pth/*.pt/*.ckpt 权重文件数",
+      "ckpt_repo_unique": "其中全仓仅此一份的权重文件数",
+      "has_repo_unique_artifact": "是否存在全仓唯一的预测或权重（删除后不可从仓内任何位置恢复）",
+      "active_script_refs": "被仓库内非归档 scripts/ 读取的路径",
+      "snapshot_refs_count": "被 历史备份/ 或 实验档案/ 快照引用的次数",
+      "doc_refs_count": "被其他文档引用的次数"
+    },
+    "uniqueness_method": "以 (文件大小, 文件名) 为键在全仓三处根目录统计出现次数，count==1 判为全仓唯一；未做内容哈希比对，为同尺寸同名的近似判定。"
+  },
+  "next_step": "逐条核对 results_delete_detail 的 63 行，确认每项删除理由与「是否含全仓唯一预测/权重」；其中 3 项被活跃 scripts/run_blca_uni2h_5fold.py 引用、21 项含全仓唯一产物，需单独决定。"
 }
