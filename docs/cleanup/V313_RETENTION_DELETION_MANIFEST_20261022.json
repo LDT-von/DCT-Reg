@@ -3100,7 +3100,8 @@
       "csv": 32,
       "active_script_refs": [],
       "snapshot_refs_count": 36,
-      "doc_refs_count": 369
+      "doc_refs_count": 369,
+      "reason": "v3.10 方法产物；v3.13 依赖该方法代码，但结果本身已被 v3.13 消融与六队列结果取代【注意】；含全仓唯一预测/权重 25+ 份；历史快照引用 36 处"
     },
     {
       "path": "results/dct_v311_blca_uni_fixed_pancancer",
@@ -3120,7 +3121,8 @@
       "csv": 30,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 31
+      "doc_refs_count": 31,
+      "reason": "v3.11 方法产物；v3.13 继承该模型代码，但结果已被 v3.13 消融与六队列结果取代【注意】；含全仓唯一预测/权重 30+ 份"
     },
     {
       "path": "results/dct_v3.10_uni2h_extend",
@@ -3140,7 +3142,8 @@
       "csv": 25,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 12
+      "doc_refs_count": 12,
+      "reason": "v3.10 方法产物；v3.13 依赖该方法代码，但结果本身已被 v3.13 消融与六队列结果取代【注意】；含全仓唯一预测/权重 12+ 份"
     },
     {
       "path": "results/dct_v3.2",
@@ -3160,7 +3163,8 @@
       "csv": 20,
       "active_script_refs": [],
       "snapshot_refs_count": 5,
-      "doc_refs_count": 28
+      "doc_refs_count": 28,
+      "reason": "v3.2 TGSR 方法产物；非 v3.13 主线，成果已归档于 历史备份 E020/E021【注意】；历史快照引用 5 处"
     },
     {
       "path": "results/dct_v311_blca_uni_fixed",
@@ -3180,7 +3184,8 @@
       "csv": 12,
       "active_script_refs": [],
       "snapshot_refs_count": 6,
-      "doc_refs_count": 67
+      "doc_refs_count": 67,
+      "reason": "v3.11 方法产物；v3.13 继承该模型代码，但结果已被 v3.13 消融与六队列结果取代【注意】；含全仓唯一预测/权重 1+ 份；历史快照引用 6 处"
     },
     {
       "path": "results/dct_v316_slot_mi_blca_uni2h",
@@ -3200,7 +3205,8 @@
       "csv": 5,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 2
+      "doc_refs_count": 2,
+      "reason": "v3.16 Slot-MI 方法产物；非 v3.13 主线，代码未证明严格 MI/PID 分解【注意】；含全仓唯一预测/权重 5+ 份"
     },
     {
       "path": "results/dct_v314_blca_uni2h",
@@ -3222,7 +3228,8 @@
         "scripts/run_blca_uni2h_5fold.py"
       ],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 3
+      "doc_refs_count": 3,
+      "reason": "v3.14 方法产物；非 v3.13 主线，BLCA UNI2-h 五折均值低于 v3.13【注意】；被活跃脚本 scripts/run_blca_uni2h_5fold.py 引用；含全仓唯一预测/权重 4+ 份"
     },
     {
       "path": "results/dct_v312_skcm_5fold",
@@ -3242,7 +3249,8 @@
       "csv": 5,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 1
+      "doc_refs_count": 1,
+      "reason": "v3.12 方法产物；非 v3.13 主线，v3.13 未继承其重建方案【注意】；含全仓唯一预测/权重 9+ 份"
     },
     {
       "path": "results/dct_v312_blca_uni_fold0_aligned",
@@ -3262,7 +3270,8 @@
       "csv": 5,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 7
+      "doc_refs_count": 7,
+      "reason": "v3.12 方法产物；非 v3.13 主线，v3.13 未继承其重建方案【注意】；含全仓唯一预测/权重 4+ 份"
     },
     {
       "path": "results/dct_v3.10_uni_blca_p2048_30ep",
@@ -3282,7 +3291,8 @@
       "csv": 5,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 7
+      "doc_refs_count": 7,
+      "reason": "v3.10 方法产物；v3.13 依赖该方法代码，但结果本身已被 v3.13 消融与六队列结果取代"
     },
     {
       "path": "results/dct_v3.10_uni_all10",
@@ -3302,7 +3312,8 @@
       "csv": 5,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 5
+      "doc_refs_count": 5,
+      "reason": "v3.10 方法产物；v3.13 依赖该方法代码，但结果本身已被 v3.13 消融与六队列结果取代"
     },
     {
       "path": "results/dct_v311_blca_uni_v2",
@@ -3322,7 +3333,8 @@
       "csv": 5,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 5
+      "doc_refs_count": 5,
+      "reason": "v3.11 方法产物；v3.13 继承该模型代码，但结果已被 v3.13 消融与六队列结果取代"
     },
     {
       "path": "results/dct_v3.2_smoke",
@@ -3342,7 +3354,8 @@
       "csv": 4,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 5
+      "doc_refs_count": 5,
+      "reason": "v3.2 TGSR 方法产物；非 v3.13 主线，成果已归档于 历史备份 E020/E021"
     },
     {
       "path": "results/transport_candidates",
@@ -3362,7 +3375,8 @@
       "csv": 3,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 8
+      "doc_refs_count": 8,
+      "reason": "风险排序方法产物；非 v3.13 主线"
     },
     {
       "path": "results/transport_candidates_smoke",
@@ -3382,7 +3396,8 @@
       "csv": 2,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 2
+      "doc_refs_count": 2,
+      "reason": "风险排序方法产物；非 v3.13 主线"
     },
     {
       "path": "results/dct_v311_blca_uni2h_fixed_v2",
@@ -3402,7 +3417,8 @@
       "csv": 2,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 2
+      "doc_refs_count": 2,
+      "reason": "v3.11 方法产物；v3.13 继承该模型代码，但结果已被 v3.13 消融与六队列结果取代"
     },
     {
       "path": "results/dct_v311_blca_uni2h",
@@ -3422,7 +3438,8 @@
       "csv": 2,
       "active_script_refs": [],
       "snapshot_refs_count": 1,
-      "doc_refs_count": 19
+      "doc_refs_count": 19,
+      "reason": "v3.11 方法产物；v3.13 继承该模型代码，但结果已被 v3.13 消融与六队列结果取代【注意】；历史快照引用 1 处"
     },
     {
       "path": "results/dct_v312_blca_uni_smoke",
@@ -3442,7 +3459,8 @@
       "csv": 2,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 3
+      "doc_refs_count": 3,
+      "reason": "v3.12 方法产物；非 v3.13 主线，v3.13 未继承其重建方案【注意】；含全仓唯一预测/权重 1+ 份"
     },
     {
       "path": "results/dct_v311_blca_uni_v2_partial_backup_0742",
@@ -3462,7 +3480,8 @@
       "csv": 2,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 0
+      "doc_refs_count": 0,
+      "reason": "v3.11 方法产物；v3.13 继承该模型代码，但结果已被 v3.13 消融与六队列结果取代"
     },
     {
       "path": "results/dct_v311_blca_uni",
@@ -3482,7 +3501,8 @@
       "csv": 2,
       "active_script_refs": [],
       "snapshot_refs_count": 6,
-      "doc_refs_count": 112
+      "doc_refs_count": 112,
+      "reason": "v3.11 方法产物；v3.13 继承该模型代码，但结果已被 v3.13 消融与六队列结果取代【注意】；历史快照引用 6 处"
     },
     {
       "path": "results/dct_v3.10_experiments_smoke",
@@ -3502,7 +3522,8 @@
       "csv": 1,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 10
+      "doc_refs_count": 10,
+      "reason": "干预一致性实验产物；v3.10 实验分支的历史运行结果"
     },
     {
       "path": "results/dct_v311_blca_uni_v3_smoke",
@@ -3522,7 +3543,8 @@
       "csv": 1,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 1
+      "doc_refs_count": 1,
+      "reason": "v3.11 方法产物；v3.13 继承该模型代码，但结果已被 v3.13 消融与六队列结果取代"
     },
     {
       "path": "results/dct_v315_blca_uni2h",
@@ -3544,7 +3566,8 @@
         "scripts/run_blca_uni2h_5fold.py"
       ],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 3
+      "doc_refs_count": 3,
+      "reason": "v3.15 RTI 方法产物；非 v3.13 主线，缺同模型无交互对照【注意】；被活跃脚本 scripts/run_blca_uni2h_5fold.py 引用；含全仓唯一预测/权重 4+ 份"
     },
     {
       "path": "results/dct_v315_rti_rank_blca_uni2h",
@@ -3566,7 +3589,8 @@
         "scripts/run_blca_uni2h_5fold.py"
       ],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 3
+      "doc_refs_count": 3,
+      "reason": "v3.15 RTI 方法产物；非 v3.13 主线，缺同模型无交互对照【注意】；被活跃脚本 scripts/run_blca_uni2h_5fold.py 引用；含全仓唯一预测/权重 5+ 份"
     },
     {
       "path": "results/kaplan_meier_analysis",
@@ -3586,7 +3610,8 @@
       "csv": 3,
       "active_script_refs": [],
       "snapshot_refs_count": 5,
-      "doc_refs_count": 7
+      "doc_refs_count": 7,
+      "reason": "统计分析/图表中间产物；统计结果已固化在历史报告与 E0xx 档案【注意】；历史快照引用 5 处"
     },
     {
       "path": "results/e4_audits",
@@ -3606,7 +3631,8 @@
       "csv": 19,
       "active_script_refs": [],
       "snapshot_refs_count": 8,
-      "doc_refs_count": 18
+      "doc_refs_count": 18,
+      "reason": "统计分析/图表中间产物；统计结果已固化在历史报告与 E0xx 档案【注意】；历史快照引用 8 处"
     },
     {
       "path": "results/e4_v311_fixed_audit",
@@ -3626,7 +3652,8 @@
       "csv": 6,
       "active_script_refs": [],
       "snapshot_refs_count": 3,
-      "doc_refs_count": 3
+      "doc_refs_count": 3,
+      "reason": "统计分析/图表中间产物；统计结果已固化在历史报告与 E0xx 档案【注意】；历史快照引用 3 处"
     },
     {
       "path": "results/v310_proof_b_anchor_geometry_trajectory",
@@ -3646,7 +3673,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 3
+      "doc_refs_count": 3,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中"
     },
     {
       "path": "results/v310_proof_a_cross_cancer_audit",
@@ -3666,7 +3694,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 7
+      "doc_refs_count": 7,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中"
     },
     {
       "path": "results/v310_proof1_gain_trajectory",
@@ -3686,7 +3715,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 2
+      "doc_refs_count": 2,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中"
     },
     {
       "path": "results/dct_v312_stad_5fold",
@@ -3706,7 +3736,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 1
+      "doc_refs_count": 1,
+      "reason": "v3.12 方法产物；非 v3.13 主线，v3.13 未继承其重建方案"
     },
     {
       "path": "results/audit_hnsc",
@@ -3726,7 +3757,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 1
+      "doc_refs_count": 1,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中【注意】；含全仓唯一预测/权重 5+ 份"
     },
     {
       "path": "results/dct_v312_ucec_5fold",
@@ -3746,7 +3778,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 1
+      "doc_refs_count": 1,
+      "reason": "v3.12 方法产物；非 v3.13 主线，v3.13 未继承其重建方案"
     },
     {
       "path": "results/v310_proof5_epoch_curve_stats",
@@ -3766,7 +3799,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 3
+      "doc_refs_count": 3,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中"
     },
     {
       "path": "results/transport_fix_minimal",
@@ -3786,7 +3820,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 1,
-      "doc_refs_count": 2
+      "doc_refs_count": 2,
+      "reason": "冒烟测试产物；无正式实验价值，重复运行即可再生【注意】；含全仓唯一预测/权重 1+ 份；历史快照引用 1 处"
     },
     {
       "path": "results/audit_skcm",
@@ -3806,7 +3841,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 1
+      "doc_refs_count": 1,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中【注意】；含全仓唯一预测/权重 5+ 份"
     },
     {
       "path": "results/dct_v3.10_experiments",
@@ -3826,7 +3862,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 26,
-      "doc_refs_count": 251
+      "doc_refs_count": 251,
+      "reason": "干预一致性实验产物；v3.10 实验分支的历史运行结果【注意】；历史快照引用 26 处"
     },
     {
       "path": "results/v310_proof_d_per_slot_hazard",
@@ -3846,7 +3883,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 4
+      "doc_refs_count": 4,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中【注意】；含全仓唯一预测/权重 1+ 份"
     },
     {
       "path": "results/v310_proof_f_v311_audit",
@@ -3866,7 +3904,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 5
+      "doc_refs_count": 5,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中"
     },
     {
       "path": "results/audit_lusc",
@@ -3886,7 +3925,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 1
+      "doc_refs_count": 1,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中【注意】；含全仓唯一预测/权重 5+ 份"
     },
     {
       "path": "results/audit_blca",
@@ -3906,7 +3946,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 1,
-      "doc_refs_count": 13
+      "doc_refs_count": 13,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中【注意】；含全仓唯一预测/权重 5+ 份；历史快照引用 1 处"
     },
     {
       "path": "results/audit_kirc",
@@ -3926,7 +3967,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 1
+      "doc_refs_count": 1,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中【注意】；含全仓唯一预测/权重 2+ 份"
     },
     {
       "path": "results/audit_best_epochs_blca",
@@ -3946,7 +3988,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 8,
-      "doc_refs_count": 10
+      "doc_refs_count": 10,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中【注意】；含全仓唯一预测/权重 5+ 份；历史快照引用 8 处"
     },
     {
       "path": "results/audit_blca_redesign",
@@ -3966,7 +4009,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 11
+      "doc_refs_count": 11,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中【注意】；含全仓唯一预测/权重 5+ 份"
     },
     {
       "path": "results/ideal_anchors",
@@ -3986,7 +4030,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 6,
-      "doc_refs_count": 11
+      "doc_refs_count": 11,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中【注意】；含全仓唯一预测/权重 5+ 份；历史快照引用 6 处"
     },
     {
       "path": "results/e049_blca_dryrun",
@@ -4006,7 +4051,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 1
+      "doc_refs_count": 1,
+      "reason": "冒烟测试产物；无正式实验价值，重复运行即可再生"
     },
     {
       "path": "results/v310_proof_c_audit",
@@ -4026,7 +4072,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 3
+      "doc_refs_count": 3,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中"
     },
     {
       "path": "results/STAT_TESTS_20261005",
@@ -4046,7 +4093,8 @@
       "csv": 1,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 0
+      "doc_refs_count": 0,
+      "reason": "统计分析/图表中间产物；统计结果已固化在历史报告与 E0xx 档案"
     },
     {
       "path": "results/proof_D_visualization",
@@ -4066,7 +4114,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 3,
-      "doc_refs_count": 3
+      "doc_refs_count": 3,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中【注意】；历史快照引用 3 处"
     },
     {
       "path": "results/audit_comparison",
@@ -4086,7 +4135,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 2,
-      "doc_refs_count": 3
+      "doc_refs_count": 3,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中【注意】；历史快照引用 2 处"
     },
     {
       "path": "results/v311_fixed_proof",
@@ -4106,7 +4156,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 3,
-      "doc_refs_count": 3
+      "doc_refs_count": 3,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中【注意】；历史快照引用 3 处"
     },
     {
       "path": "results/small_test",
@@ -4126,7 +4177,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 3,
-      "doc_refs_count": 7
+      "doc_refs_count": 7,
+      "reason": "冒烟测试产物；无正式实验价值，重复运行即可再生【注意】；历史快照引用 3 处"
     },
     {
       "path": "results/v310_proof2_gradient_flow",
@@ -4146,7 +4198,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 3
+      "doc_refs_count": 3,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中"
     },
     {
       "path": "results/v310_proof_synthesis",
@@ -4166,7 +4219,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 1
+      "doc_refs_count": 1,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中"
     },
     {
       "path": "results/v310_proof3_anchor_distance",
@@ -4186,7 +4240,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 4
+      "doc_refs_count": 4,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中"
     },
     {
       "path": "results/v310_proof2bis_per_slot_grad",
@@ -4206,7 +4261,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 1
+      "doc_refs_count": 1,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中"
     },
     {
       "path": "results/dct_v311_blca_uni_fixed_v2",
@@ -4226,7 +4282,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 7
+      "doc_refs_count": 7,
+      "reason": "v3.11 方法产物；v3.13 继承该模型代码，但结果已被 v3.13 消融与六队列结果取代"
     },
     {
       "path": "results/statistical_analysis",
@@ -4246,7 +4303,8 @@
       "csv": 2,
       "active_script_refs": [],
       "snapshot_refs_count": 3,
-      "doc_refs_count": 5
+      "doc_refs_count": 5,
+      "reason": "统计分析/图表中间产物；统计结果已固化在历史报告与 E0xx 档案【注意】；历史快照引用 3 处"
     },
     {
       "path": "results/dct_v3.11",
@@ -4266,7 +4324,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 1,
-      "doc_refs_count": 6
+      "doc_refs_count": 6,
+      "reason": "空目录或仅含占位文件；无实质产物【注意】；历史快照引用 1 处"
     },
     {
       "path": "results/dct_v312_cptac_luad_5fold",
@@ -4286,7 +4345,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 1
+      "doc_refs_count": 1,
+      "reason": "v3.12 方法产物；非 v3.13 主线，v3.13 未继承其重建方案"
     },
     {
       "path": "results/dct_v312_cptac_lusc_5fold",
@@ -4306,7 +4366,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 1
+      "doc_refs_count": 1,
+      "reason": "v3.12 方法产物；非 v3.13 主线，v3.13 未继承其重建方案"
     },
     {
       "path": "results/dct_v312_gbmlgg_5fold",
@@ -4326,7 +4387,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 0,
-      "doc_refs_count": 1
+      "doc_refs_count": 1,
+      "reason": "v3.12 方法产物；非 v3.13 主线，v3.13 未继承其重建方案"
     },
     {
       "path": "results/anchor_diagnostics",
@@ -4346,7 +4408,8 @@
       "csv": 0,
       "active_script_refs": [],
       "snapshot_refs_count": 2,
-      "doc_refs_count": 5
+      "doc_refs_count": 5,
+      "reason": "审计/证明实验中间产物；结论已固化在 历史备份/实验档案 的 E0xx 报告中【注意】；历史快照引用 2 处"
     }
   ],
   "results_delete_detail_summary": {
@@ -4370,7 +4433,8 @@
       "snapshot_refs_count": "被 历史备份/ 或 实验档案/ 快照引用的次数",
       "doc_refs_count": "被其他文档引用的次数"
     },
-    "uniqueness_method": "以 (文件大小, 文件名) 为键在全仓三处根目录统计出现次数，count==1 判为全仓唯一；未做内容哈希比对，为同尺寸同名的近似判定。"
+    "uniqueness_method": "以 (文件大小, 文件名) 为键在全仓三处根目录统计出现次数，count==1 判为全仓唯一；未做内容哈希比对，为同尺寸同名的近似判定。",
+    "reason_basis": "按目录内 SurvOTRank_<method> 标识与目录用途归类；【注意】标记为删除前需单独确认的附加条件（非阻断项，供逐条核对用）。"
   },
   "next_step": "逐条核对 results_delete_detail 的 63 行，确认每项删除理由与「是否含全仓唯一预测/权重」；其中 3 项被活跃 scripts/run_blca_uni2h_5fold.py 引用、21 项含全仓唯一产物，需单独决定。"
 }
