@@ -1,2568 +1,2629 @@
 {
- "schema": "dct_v313_retention_deletion_manifest_v1",
- "date": "2026-10-22",
- "status": "PROPOSED_ONLY_NOT_EXECUTED",
- "authorization": "用户口头要求：本轮只更新待删文件清单，由另一侧统一总结与执行；本清单不执行任何删除。",
- "retention_policy": {
-  "keep_primary": "v3.13 (三解码器版本 configs/dct_v313_full_wsi_three_decoders.yaml 及其全部结果)",
-  "keep_secondary": "独立 v2 线 (dct_v2 / dct_v21 / dct_v22 / dct_v23 代码、配置、文档、standalone 交付包、实验档案 E050/E051/E052)",
-  "keep_inherited": "v3.13 依赖的继承基类：dct_v310_directional_regularized_transport、dct_transport_intervention_consistency、legacy/ablation/dct_transport_intervention_consistency、legacy/experimental/dct_v311_slot_interpretable、distributional_counterfactual_transport",
-  "keep_baselines": "slotspe_reference、ot_event_hazard_v2 (v313 图表来源)",
-  "rule": "文件名带旧版本号不等于可删；v3.13 继承基类与共同训练模块不得按版本号删除。"
- },
- "results_delete": [
-  {
-   "path": "results/STAT_TESTS_20261005",
-   "bytes": 19721,
-   "files": 3
-  },
-  {
-   "path": "results/anchor_diagnostics",
-   "bytes": 334,
-   "files": 1
-  },
-  {
-   "path": "results/audit_best_epochs_blca",
-   "bytes": 45352,
-   "files": 11
-  },
-  {
-   "path": "results/audit_blca",
-   "bytes": 70888,
-   "files": 10
-  },
-  {
-   "path": "results/audit_blca_redesign",
-   "bytes": 44476,
-   "files": 12
-  },
-  {
-   "path": "results/audit_comparison",
-   "bytes": 11421,
-   "files": 2
-  },
-  {
-   "path": "results/audit_hnsc",
-   "bytes": 127059,
-   "files": 21
-  },
-  {
-   "path": "results/audit_kirc",
-   "bytes": 54760,
-   "files": 9
-  },
-  {
-   "path": "results/audit_lusc",
-   "bytes": 103435,
-   "files": 15
-  },
-  {
-   "path": "results/audit_skcm",
-   "bytes": 119136,
-   "files": 21
-  },
-  {
-   "path": "results/dct_v3.10",
-   "bytes": 4092910317,
-   "files": 185
-  },
-  {
-   "path": "results/dct_v3.10_experiments",
-   "bytes": 118533,
-   "files": 5
-  },
-  {
-   "path": "results/dct_v3.10_experiments_smoke",
-   "bytes": 128010876,
-   "files": 8
-  },
-  {
-   "path": "results/dct_v3.10_uni2h_extend",
-   "bytes": 3180895865,
-   "files": 146
-  },
-  {
-   "path": "results/dct_v3.10_uni_all10",
-   "bytes": 611017778,
-   "files": 32
-  },
-  {
-   "path": "results/dct_v3.10_uni_blca_p2048_30ep",
-   "bytes": 611137184,
-   "files": 30
-  },
-  {
-   "path": "results/dct_v3.11",
-   "bytes": 1284,
-   "files": 1
-  },
-  {
-   "path": "results/dct_v3.2",
-   "bytes": 2708046850,
-   "files": 160
-  },
-  {
-   "path": "results/dct_v3.2_smoke",
-   "bytes": 541557699,
-   "files": 32
-  },
-  {
-   "path": "results/dct_v311_blca_uni",
-   "bytes": 244436257,
-   "files": 12
-  },
-  {
-   "path": "results/dct_v311_blca_uni2h",
-   "bytes": 255974835,
-   "files": 12
-  },
-  {
-   "path": "results/dct_v311_blca_uni2h_fixed_v2",
-   "bytes": 255974844,
-   "files": 12
-  },
-  {
-   "path": "results/dct_v311_blca_uni_fixed",
-   "bytes": 1346102812,
-   "files": 74
-  },
-  {
-   "path": "results/dct_v311_blca_uni_fixed_pancancer",
-   "bytes": 3662074329,
-   "files": 218
-  },
-  {
-   "path": "results/dct_v311_blca_uni_fixed_v2",
-   "bytes": 2568,
-   "files": 3
-  },
-  {
-   "path": "results/dct_v311_blca_uni_v2",
-   "bytes": 610914064,
-   "files": 24
-  },
-  {
-   "path": "results/dct_v311_blca_uni_v2_partial_backup_0742",
-   "bytes": 244439987,
-   "files": 13
-  },
-  {
-   "path": "results/dct_v311_blca_uni_v3_smoke",
-   "bytes": 122254550,
-   "files": 8
-  },
-  {
-   "path": "results/dct_v312_blca_uni_fold0_aligned",
-   "bytes": 613737848,
-   "files": 28
-  },
-  {
-   "path": "results/dct_v312_blca_uni_smoke",
-   "bytes": 245606604,
-   "files": 15
-  },
-  {
-   "path": "results/dct_v312_cptac_luad_5fold",
-   "bytes": 632,
-   "files": 2
-  },
-  {
-   "path": "results/dct_v312_cptac_lusc_5fold",
-   "bytes": 632,
-   "files": 2
-  },
-  {
-   "path": "results/dct_v312_gbmlgg_5fold",
-   "bytes": 620,
-   "files": 2
-  },
-  {
-   "path": "results/dct_v312_skcm_5fold",
-   "bytes": 613739097,
-   "files": 28
-  },
-  {
-   "path": "results/dct_v312_stad_5fold",
-   "bytes": 129535,
-   "files": 8
-  },
-  {
-   "path": "results/dct_v312_ucec_5fold",
-   "bytes": 121438,
-   "files": 8
-  },
-  {
-   "path": "results/dct_v314_blca_uni2h",
-   "bytes": 752795083,
-   "files": 35
-  },
-  {
-   "path": "results/dct_v315_blca_uni2h",
-   "bytes": 80672346,
-   "files": 35
-  },
-  {
-   "path": "results/dct_v315_rti_rank_blca_uni2h",
-   "bytes": 67231251,
-   "files": 28
-  },
-  {
-   "path": "results/dct_v316_slot_mi_blca_uni2h",
-   "bytes": 761817512,
-   "files": 28
-  },
-  {
-   "path": "results/e049_blca_dryrun",
-   "bytes": 34211,
-   "files": 1
-  },
-  {
-   "path": "results/e4_audits",
-   "bytes": 845647,
-   "files": 38
-  },
-  {
-   "path": "results/e4_v311_fixed_audit",
-   "bytes": 734060,
-   "files": 11
-  },
-  {
-   "path": "results/ideal_anchors",
-   "bytes": 34315,
-   "files": 5
-  },
-  {
-   "path": "results/kaplan_meier_analysis",
-   "bytes": 884734,
-   "files": 8
-  },
-  {
-   "path": "results/proof_D_visualization",
-   "bytes": 16730,
-   "files": 2
-  },
-  {
-   "path": "results/slotspe_blca_native",
-   "bytes": 1272738693,
-   "files": 34
-  },
-  {
-   "path": "results/slotspe_blca_paper",
-   "bytes": 1272737026,
-   "files": 34
-  },
-  {
-   "path": "results/slotspe_blca_paper_smoke",
-   "bytes": 254768923,
-   "files": 10
-  },
-  {
-   "path": "results/slotspe_blca_paper_v1_partial_0810",
-   "bytes": 127352540,
-   "files": 6
-  },
-  {
-   "path": "results/slotspe_kirc_native",
-   "bytes": 1272746346,
-   "files": 34
-  },
-  {
-   "path": "results/slotspe_kirc_paper",
-   "bytes": 1272744349,
-   "files": 34
-  },
-  {
-   "path": "results/slotspe_transport_only_blca_5fold",
-   "bytes": 1330508480,
-   "files": 28
-  },
-  {
-   "path": "results/small_test",
-   "bytes": 7956,
-   "files": 2
-  },
-  {
-   "path": "results/statistical_analysis",
-   "bytes": 1316,
-   "files": 3
-  },
-  {
-   "path": "results/transport_candidates",
-   "bytes": 256192801,
-   "files": 15
-  },
-  {
-   "path": "results/transport_candidates_smoke",
-   "bytes": 256019932,
-   "files": 15
-  },
-  {
-   "path": "results/transport_fix_minimal",
-   "bytes": 119690,
-   "files": 2
-  },
-  {
-   "path": "results/v310_proof1_gain_trajectory",
-   "bytes": 291321,
-   "files": 4
-  },
-  {
-   "path": "results/v310_proof2_gradient_flow",
-   "bytes": 7857,
-   "files": 7
-  },
-  {
-   "path": "results/v310_proof2bis_per_slot_grad",
-   "bytes": 4926,
-   "files": 3
-  },
-  {
-   "path": "results/v310_proof3_anchor_distance",
-   "bytes": 6139,
-   "files": 5
-  },
-  {
-   "path": "results/v310_proof5_epoch_curve_stats",
-   "bytes": 119963,
-   "files": 3
-  },
-  {
-   "path": "results/v310_proof_a_cross_cancer_audit",
-   "bytes": 354931,
-   "files": 17
-  },
-  {
-   "path": "results/v310_proof_b_anchor_geometry_trajectory",
-   "bytes": 653292,
-   "files": 4
-  },
-  {
-   "path": "results/v310_proof_c_audit",
-   "bytes": 21729,
-   "files": 2
-  },
-  {
-   "path": "results/v310_proof_d_per_slot_hazard",
-   "bytes": 111910,
-   "files": 4
-  },
-  {
-   "path": "results/v310_proof_f_v311_audit",
-   "bytes": 104906,
-   "files": 7
-  },
-  {
-   "path": "results/v310_proof_synthesis",
-   "bytes": 6759,
-   "files": 1
-  },
-  {
-   "path": "results/v311_fixed_proof",
-   "bytes": 10879,
-   "files": 2
+  "schema": "dct_v313_retention_deletion_manifest_v1",
+  "date": "2026-10-22",
+  "status": "PROPOSED_ONLY_NOT_EXECUTED",
+  "authorization": "用户口头要求：本轮只更新待删文件清单，由另一侧统一总结与执行；本清单不执行任何删除。",
+  "retention_policy": {
+    "keep_primary": "v3.13 (三解码器版本 configs/dct_v313_full_wsi_three_decoders.yaml 及其全部结果)",
+    "keep_secondary": "独立 v2 线 (dct_v2 / dct_v21 / dct_v22 / dct_v23 代码、配置、文档、standalone 交付包、实验档案 E050/E051/E052)",
+    "keep_inherited": "v3.13 依赖的继承基类：dct_v310_directional_regularized_transport、dct_transport_intervention_consistency、legacy/ablation/dct_transport_intervention_consistency、legacy/experimental/dct_v311_slot_interpretable、distributional_counterfactual_transport",
+    "keep_baselines": "slotspe_reference、ot_event_hazard_v2 (v313 图表来源)；results/slotspe_* 七组 SlotSPE 基线与纯运输对照证据 (review/tier2，待核对，不在本轮删除范围)",
+    "rule": "文件名带旧版本号不等于可删；v3.13 继承基类与共同训练模块不得按版本号删除。",
+    "review_tier2": "results/slotspe_proof (11.88 GiB，含两个 addendum 大目录) 与 results/slotspe_* 七组基线，按用户 2026-10-22 选 A 统一归入 review，需单独授权后才可删除。"
+  },
+  "results_delete": [
+    {
+      "path": "results/STAT_TESTS_20261005",
+      "bytes": 19721,
+      "files": 3
+    },
+    {
+      "path": "results/anchor_diagnostics",
+      "bytes": 334,
+      "files": 1
+    },
+    {
+      "path": "results/audit_best_epochs_blca",
+      "bytes": 45352,
+      "files": 11
+    },
+    {
+      "path": "results/audit_blca",
+      "bytes": 70888,
+      "files": 10
+    },
+    {
+      "path": "results/audit_blca_redesign",
+      "bytes": 44476,
+      "files": 12
+    },
+    {
+      "path": "results/audit_comparison",
+      "bytes": 11421,
+      "files": 2
+    },
+    {
+      "path": "results/audit_hnsc",
+      "bytes": 127059,
+      "files": 21
+    },
+    {
+      "path": "results/audit_kirc",
+      "bytes": 54760,
+      "files": 9
+    },
+    {
+      "path": "results/audit_lusc",
+      "bytes": 103435,
+      "files": 15
+    },
+    {
+      "path": "results/audit_skcm",
+      "bytes": 119136,
+      "files": 21
+    },
+    {
+      "path": "results/dct_v3.10",
+      "bytes": 4092910317,
+      "files": 185
+    },
+    {
+      "path": "results/dct_v3.10_experiments",
+      "bytes": 118533,
+      "files": 5
+    },
+    {
+      "path": "results/dct_v3.10_experiments_smoke",
+      "bytes": 128010876,
+      "files": 8
+    },
+    {
+      "path": "results/dct_v3.10_uni2h_extend",
+      "bytes": 3180895865,
+      "files": 146
+    },
+    {
+      "path": "results/dct_v3.10_uni_all10",
+      "bytes": 611017778,
+      "files": 32
+    },
+    {
+      "path": "results/dct_v3.10_uni_blca_p2048_30ep",
+      "bytes": 611137184,
+      "files": 30
+    },
+    {
+      "path": "results/dct_v3.11",
+      "bytes": 1284,
+      "files": 1
+    },
+    {
+      "path": "results/dct_v3.2",
+      "bytes": 2708046850,
+      "files": 160
+    },
+    {
+      "path": "results/dct_v3.2_smoke",
+      "bytes": 541557699,
+      "files": 32
+    },
+    {
+      "path": "results/dct_v311_blca_uni",
+      "bytes": 244436257,
+      "files": 12
+    },
+    {
+      "path": "results/dct_v311_blca_uni2h",
+      "bytes": 255974835,
+      "files": 12
+    },
+    {
+      "path": "results/dct_v311_blca_uni2h_fixed_v2",
+      "bytes": 255974844,
+      "files": 12
+    },
+    {
+      "path": "results/dct_v311_blca_uni_fixed",
+      "bytes": 1346102812,
+      "files": 74
+    },
+    {
+      "path": "results/dct_v311_blca_uni_fixed_pancancer",
+      "bytes": 3662074329,
+      "files": 218
+    },
+    {
+      "path": "results/dct_v311_blca_uni_fixed_v2",
+      "bytes": 2568,
+      "files": 3
+    },
+    {
+      "path": "results/dct_v311_blca_uni_v2",
+      "bytes": 610914064,
+      "files": 24
+    },
+    {
+      "path": "results/dct_v311_blca_uni_v2_partial_backup_0742",
+      "bytes": 244439987,
+      "files": 13
+    },
+    {
+      "path": "results/dct_v311_blca_uni_v3_smoke",
+      "bytes": 122254550,
+      "files": 8
+    },
+    {
+      "path": "results/dct_v312_blca_uni_fold0_aligned",
+      "bytes": 613737848,
+      "files": 28
+    },
+    {
+      "path": "results/dct_v312_blca_uni_smoke",
+      "bytes": 245606604,
+      "files": 15
+    },
+    {
+      "path": "results/dct_v312_cptac_luad_5fold",
+      "bytes": 632,
+      "files": 2
+    },
+    {
+      "path": "results/dct_v312_cptac_lusc_5fold",
+      "bytes": 632,
+      "files": 2
+    },
+    {
+      "path": "results/dct_v312_gbmlgg_5fold",
+      "bytes": 620,
+      "files": 2
+    },
+    {
+      "path": "results/dct_v312_skcm_5fold",
+      "bytes": 613739097,
+      "files": 28
+    },
+    {
+      "path": "results/dct_v312_stad_5fold",
+      "bytes": 129535,
+      "files": 8
+    },
+    {
+      "path": "results/dct_v312_ucec_5fold",
+      "bytes": 121438,
+      "files": 8
+    },
+    {
+      "path": "results/dct_v314_blca_uni2h",
+      "bytes": 752795083,
+      "files": 35
+    },
+    {
+      "path": "results/dct_v315_blca_uni2h",
+      "bytes": 80672346,
+      "files": 35
+    },
+    {
+      "path": "results/dct_v315_rti_rank_blca_uni2h",
+      "bytes": 67231251,
+      "files": 28
+    },
+    {
+      "path": "results/dct_v316_slot_mi_blca_uni2h",
+      "bytes": 761817512,
+      "files": 28
+    },
+    {
+      "path": "results/e049_blca_dryrun",
+      "bytes": 34211,
+      "files": 1
+    },
+    {
+      "path": "results/e4_audits",
+      "bytes": 845647,
+      "files": 38
+    },
+    {
+      "path": "results/e4_v311_fixed_audit",
+      "bytes": 734060,
+      "files": 11
+    },
+    {
+      "path": "results/ideal_anchors",
+      "bytes": 34315,
+      "files": 5
+    },
+    {
+      "path": "results/kaplan_meier_analysis",
+      "bytes": 884734,
+      "files": 8
+    },
+    {
+      "path": "results/proof_D_visualization",
+      "bytes": 16730,
+      "files": 2
+    },
+    {
+      "path": "results/small_test",
+      "bytes": 7956,
+      "files": 2
+    },
+    {
+      "path": "results/statistical_analysis",
+      "bytes": 1316,
+      "files": 3
+    },
+    {
+      "path": "results/transport_candidates",
+      "bytes": 256192801,
+      "files": 15
+    },
+    {
+      "path": "results/transport_candidates_smoke",
+      "bytes": 256019932,
+      "files": 15
+    },
+    {
+      "path": "results/transport_fix_minimal",
+      "bytes": 119690,
+      "files": 2
+    },
+    {
+      "path": "results/v310_proof1_gain_trajectory",
+      "bytes": 291321,
+      "files": 4
+    },
+    {
+      "path": "results/v310_proof2_gradient_flow",
+      "bytes": 7857,
+      "files": 7
+    },
+    {
+      "path": "results/v310_proof2bis_per_slot_grad",
+      "bytes": 4926,
+      "files": 3
+    },
+    {
+      "path": "results/v310_proof3_anchor_distance",
+      "bytes": 6139,
+      "files": 5
+    },
+    {
+      "path": "results/v310_proof5_epoch_curve_stats",
+      "bytes": 119963,
+      "files": 3
+    },
+    {
+      "path": "results/v310_proof_a_cross_cancer_audit",
+      "bytes": 354931,
+      "files": 17
+    },
+    {
+      "path": "results/v310_proof_b_anchor_geometry_trajectory",
+      "bytes": 653292,
+      "files": 4
+    },
+    {
+      "path": "results/v310_proof_c_audit",
+      "bytes": 21729,
+      "files": 2
+    },
+    {
+      "path": "results/v310_proof_d_per_slot_hazard",
+      "bytes": 111910,
+      "files": 4
+    },
+    {
+      "path": "results/v310_proof_f_v311_audit",
+      "bytes": 104906,
+      "files": 7
+    },
+    {
+      "path": "results/v310_proof_synthesis",
+      "bytes": 6759,
+      "files": 1
+    },
+    {
+      "path": "results/v311_fixed_proof",
+      "bytes": 10879,
+      "files": 2
+    }
+  ],
+  "results_delete_summary": {
+    "count": 63,
+    "bytes": 22268905816,
+    "gib": 20.74
+  },
+  "results_review_not_in_delete_list": [
+    {
+      "path": "results/slotspe_proof",
+      "bytes": 12756035693,
+      "files": 2152,
+      "tier": "review",
+      "reason": "SlotSPE 证明与诊断证据（含被论文图脚本直接引用的 p1246_diagnostic_blca_fold0_20261020）",
+      "note": "父目录；其子目录分层见 slotspe_proof_subdirs，不与本段重复计数。"
+    },
+    {
+      "path": "results/slotspe_kirc_paper",
+      "bytes": 1272744349,
+      "files": 34,
+      "tier": "review",
+      "reason": "SlotSPE 基线及纯运输对照证据",
+      "note": "按用户 2026-10-22 选 A：从 results_delete 移出，改列 review/tier2 待核对，不在本轮删除范围。"
+    },
+    {
+      "path": "results/slotspe_blca_paper_v1_partial_0810",
+      "bytes": 127352540,
+      "files": 6,
+      "tier": "review",
+      "reason": "SlotSPE 基线及纯运输对照证据",
+      "note": "按用户 2026-10-22 选 A：从 results_delete 移出，改列 review/tier2 待核对，不在本轮删除范围。"
+    },
+    {
+      "path": "results/slotspe_blca_native",
+      "bytes": 1272738693,
+      "files": 34,
+      "tier": "review",
+      "reason": "SlotSPE 基线及纯运输对照证据",
+      "note": "按用户 2026-10-22 选 A：从 results_delete 移出，改列 review/tier2 待核对，不在本轮删除范围。"
+    },
+    {
+      "path": "results/slotspe_blca_paper",
+      "bytes": 1272737026,
+      "files": 34,
+      "tier": "review",
+      "reason": "SlotSPE 基线及纯运输对照证据",
+      "note": "按用户 2026-10-22 选 A：从 results_delete 移出，改列 review/tier2 待核对，不在本轮删除范围。"
+    },
+    {
+      "path": "results/slotspe_blca_paper_smoke",
+      "bytes": 254768923,
+      "files": 10,
+      "tier": "review",
+      "reason": "SlotSPE 基线及纯运输对照证据",
+      "note": "按用户 2026-10-22 选 A：从 results_delete 移出，改列 review/tier2 待核对，不在本轮删除范围。"
+    },
+    {
+      "path": "results/slotspe_kirc_native",
+      "bytes": 1272746346,
+      "files": 34,
+      "tier": "review",
+      "reason": "SlotSPE 基线及纯运输对照证据",
+      "note": "按用户 2026-10-22 选 A：从 results_delete 移出，改列 review/tier2 待核对，不在本轮删除范围。"
+    },
+    {
+      "path": "results/slotspe_transport_only_blca_5fold",
+      "bytes": 1330508480,
+      "files": 28,
+      "tier": "review",
+      "reason": "SlotSPE 基线及纯运输对照证据",
+      "note": "按用户 2026-10-22 选 A：从 results_delete 移出，改列 review/tier2 待核对，不在本轮删除范围。"
+    }
+  ],
+  "results_keep": [
+    {
+      "path": "results/dct_v3.13_uni_blca_p2048_30ep",
+      "bytes": 623375062,
+      "files": 24
+    },
+    {
+      "path": "results/dct_v313_ablation_Exp0_nll_only",
+      "bytes": 1304087598,
+      "files": 56
+    },
+    {
+      "path": "results/dct_v313_ablation_Exp1_nll_ipcw",
+      "bytes": 1304091838,
+      "files": 56
+    },
+    {
+      "path": "results/dct_v313_ablation_Exp2_nll_ipcw_slotnll",
+      "bytes": 1304090959,
+      "files": 56
+    },
+    {
+      "path": "results/dct_v313_ablation_Exp3_nll_ipcw_slotnll_div",
+      "bytes": 1304092443,
+      "files": 56
+    },
+    {
+      "path": "results/dct_v313_ablation_Exp4_Exp3_recon_self",
+      "bytes": 1304104082,
+      "files": 56
+    },
+    {
+      "path": "results/dct_v313_ablation_Exp5_Exp3_recon_cross",
+      "bytes": 1304107801,
+      "files": 56
+    },
+    {
+      "path": "results/dct_v313_ablation_Exp6_full",
+      "bytes": 1304114859,
+      "files": 58
+    },
+    {
+      "path": "results/dct_v313_ablation_disable_both",
+      "bytes": 623347897,
+      "files": 28
+    },
+    {
+      "path": "results/dct_v313_ablation_double_w",
+      "bytes": 623357660,
+      "files": 28
+    },
+    {
+      "path": "results/dct_v313_ablation_no_cross",
+      "bytes": 623353722,
+      "files": 28
+    },
+    {
+      "path": "results/dct_v313_ablation_no_self",
+      "bytes": 623355911,
+      "files": 28
+    },
+    {
+      "path": "results/dct_v313_ablation_triple_w",
+      "bytes": 623357755,
+      "files": 28
+    },
+    {
+      "path": "results/dct_v313_blca_uni",
+      "bytes": 124738951,
+      "files": 8
+    },
+    {
+      "path": "results/dct_v313_blca_uni2h",
+      "bytes": 782519606,
+      "files": 35
+    },
+    {
+      "path": "results/dct_v313_blca_uni_p4096_5fold_aligned",
+      "bytes": 623357584,
+      "files": 28
+    },
+    {
+      "path": "results/dct_v313_brca_uni",
+      "bytes": 623529583,
+      "files": 28
+    },
+    {
+      "path": "results/dct_v313_coadread_uni",
+      "bytes": 619109807,
+      "files": 28
+    },
+    {
+      "path": "results/dct_v313_full_wsi_three_decoders",
+      "bytes": 678623135,
+      "files": 30
+    },
+    {
+      "path": "results/dct_v313_hnsc_uni",
+      "bytes": 621049839,
+      "files": 29
+    },
+    {
+      "path": "results/dct_v313_kirc_uni",
+      "bytes": 623378051,
+      "files": 28
+    },
+    {
+      "path": "results/dct_v313_luad_uni",
+      "bytes": 9999,
+      "files": 7
+    },
+    {
+      "path": "results/dct_v313_lusc_uni",
+      "bytes": 498708560,
+      "files": 23
+    },
+    {
+      "path": "results/dct_v313_uni2h",
+      "bytes": 5851828456,
+      "files": 254
+    },
+    {
+      "path": "results/e049_blca",
+      "bytes": 1692780057,
+      "files": 323
+    },
+    {
+      "path": "results/e051_stage2_blca",
+      "bytes": 1624313205,
+      "files": 324
+    },
+    {
+      "path": "results/v313_additional_20261008",
+      "bytes": 16670883,
+      "files": 86
+    },
+    {
+      "path": "results/v313_controls_v2",
+      "bytes": 2610082279,
+      "files": 160
+    },
+    {
+      "path": "results/v313_evidence_v2",
+      "bytes": 1319271443,
+      "files": 110
+    },
+    {
+      "path": "results/v313_interpretability_v1",
+      "bytes": 137252129,
+      "files": 254
+    },
+    {
+      "path": "results/v313_paper_v1",
+      "bytes": 11084749454,
+      "files": 409
+    },
+    {
+      "path": "results/v313_slotspe_20261007_v2",
+      "bytes": 31321498,
+      "files": 53
+    },
+    {
+      "path": "results/v313_ten_cancer_km",
+      "bytes": 170234355,
+      "files": 252
+    },
+    {
+      "path": "results/v313_three_decoders_six_20261013",
+      "bytes": 1355443159,
+      "files": 105
+    },
+    {
+      "path": "results/v313_three_decoders_six_20261013_part2_76f8f25",
+      "bytes": 2704238402,
+      "files": 203
+    },
+    {
+      "path": "results/v313_three_decoders_six_20261013_part3_kirc_luad_lusc",
+      "bytes": 2037896054,
+      "files": 152
+    },
+    {
+      "path": "results/v313_tradeoff_real_20261008",
+      "bytes": 229134059,
+      "files": 345
+    }
+  ],
+  "results_keep_summary": {
+    "count": 37,
+    "bytes": 48929078135,
+    "gib": 45.569
+  },
+  "slotspe_proof_subdirs": [
+    {
+      "path": "results/slotspe_proof/_train_",
+      "bytes": 1706,
+      "files": 2,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/_train_20261020T145000",
+      "bytes": 74801,
+      "files": 1,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/_train_20261020T150000",
+      "bytes": 30494,
+      "files": 1,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/doctor_plan_evidence_20261019",
+      "bytes": 3331,
+      "files": 2,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/p1246_diagnostic_blca_fold0_20261020",
+      "bytes": 4440,
+      "files": 1,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/slot_attention_addendum_20261020",
+      "bytes": 12202,
+      "files": 1,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/slotspe_addendum_gpu0_20261020T143000",
+      "bytes": 1826794,
+      "files": 3,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/slotspe_addendum_gpu0_20261020T143155",
+      "bytes": 873,
+      "files": 1,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/slotspe_addendum_gpu0_20261020T143258",
+      "bytes": 289,
+      "files": 1,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/slotspe_addendum_gpu0_20261020T143327",
+      "bytes": 1111,
+      "files": 2,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/slotspe_addendum_gpu0_20261020T143354",
+      "bytes": 0,
+      "files": 0,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/slotspe_addendum_gpu0_20261020T145000",
+      "bytes": 6728031111,
+      "files": 730,
+      "tier": "review",
+      "reason": "SlotSPE 基线及纯运输对照证据",
+      "note": "按用户 2026-10-22 指示由 delete 改为待审：子目录仍留在 review 段，不得被当作已确认删除项。"
+    },
+    {
+      "path": "results/slotspe_proof/slotspe_addendum_gpu1_20261020T143000",
+      "bytes": 1825921,
+      "files": 2,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/slotspe_addendum_gpu1_20261020T143155",
+      "bytes": 0,
+      "files": 0,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/slotspe_addendum_gpu1_20261020T143258",
+      "bytes": 0,
+      "files": 0,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/slotspe_addendum_gpu1_20261020T143327",
+      "bytes": 0,
+      "files": 0,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/slotspe_addendum_gpu1_20261020T143354",
+      "bytes": 0,
+      "files": 0,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/slotspe_addendum_gpu1_20261020T150000",
+      "bytes": 3085188203,
+      "files": 532,
+      "tier": "review",
+      "reason": "SlotSPE 基线及纯运输对照证据",
+      "note": "按用户 2026-10-22 指示由 delete 改为待审：子目录仍留在 review 段，不得被当作已确认删除项。"
+    },
+    {
+      "path": "results/slotspe_proof/slotspe_clean_original_blca_run_20261020",
+      "bytes": 927741074,
+      "files": 408,
+      "tier": "keep"
+    },
+    {
+      "path": "results/slotspe_proof/slotspe_full_blca_5fold_20261020",
+      "bytes": 2011291388,
+      "files": 464,
+      "tier": "keep"
+    }
+  ],
+  "code_delete": [
+    {
+      "path": "survot_rank/research/methods/dct_v316_slot_mi_interaction",
+      "bytes": 69925,
+      "files": 7,
+      "reason": "method registered in catalog but not on the v313 or v2 dependency chain"
+    },
+    {
+      "path": "survot_rank/research/methods/faithful_evidence_transport",
+      "bytes": 25731,
+      "files": 6,
+      "reason": "method registered in catalog but not on the v313 or v2 dependency chain"
+    },
+    {
+      "path": "survot_rank/research/methods/rank_guided_event_transport",
+      "bytes": 24227,
+      "files": 6,
+      "reason": "method registered in catalog but not on the v313 or v2 dependency chain"
+    },
+    {
+      "path": "survot_rank/research/methods/stagewise_prognostic_transport",
+      "bytes": 19955,
+      "files": 6,
+      "reason": "method registered in catalog but not on the v313 or v2 dependency chain"
+    },
+    {
+      "path": "survot_rank/research/methods/legacy/experimental/dct_v312_slot_interpretable_impute",
+      "bytes": 20861,
+      "files": 2,
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+    },
+    {
+      "path": "survot_rank/research/methods/legacy/experimental/dct_v314_masked_transport_reconstruction",
+      "bytes": 125832,
+      "files": 9,
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+    },
+    {
+      "path": "survot_rank/research/methods/legacy/experimental/dct_v315_residual_transport",
+      "bytes": 42568,
+      "files": 7,
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+    },
+    {
+      "path": "survot_rank/research/methods/legacy/ablation/dct_v32_tgsr_objective_study",
+      "bytes": 5429,
+      "files": 2,
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+    },
+    {
+      "path": "survot_rank/research/methods/legacy/ablation/dct_v310_fixed_anchors",
+      "bytes": 4220,
+      "files": 2,
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+    },
+    {
+      "path": "survot_rank/research/methods/legacy/ablation/dct_v330_closed_loop_prognostic_transport",
+      "bytes": 16898,
+      "files": 2,
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+    },
+    {
+      "path": "survot_rank/research/methods/legacy/ablation/dct_v32_transport_guided_slot_reaggregation",
+      "bytes": 5283,
+      "files": 2,
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+    },
+    {
+      "path": "survot_rank/research/methods/legacy/ablation/dct_risk_ordering_transport",
+      "bytes": 3645,
+      "files": 2,
+      "reason": "non-v313 method implementation; not imported by v313/v2 chain"
+    }
+  ],
+  "code_delete_summary": {
+    "count": 12,
+    "bytes": 364574,
+    "gib": 0.0
+  },
+  "archive_scripts_delete": [
+    {
+      "path": "scripts/_archive_v310_v311/README_QUEUE.md",
+      "bytes": 4773,
+      "sha256": "496a52cd2a68ecf30b3fe480eb7d158357fd6678fb4b26b8eff29f1ec3a4dfac",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/__init__.py",
+      "bytes": 40,
+      "sha256": "26ec5caaf81b7ae7150f3a4746aa5c1bd583d10d1d3c8fc41e6bda8f2272808d",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/_queue_runtime.py",
+      "bytes": 5870,
+      "sha256": "a0986a6ce148a4b435ee00b15726922ee8c5c5fb34069ccc6ab51b2fcc609024",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/ablate_reader.py",
+      "bytes": 13048,
+      "sha256": "eee97c30199f4832bb00b772867688971ae291c902b4f2360f97ecc88e437e3f",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/analyze_audit_results.py",
+      "bytes": 8023,
+      "sha256": "06c386909475ca8552c616bd3c33f8948bcbc45bed70c9cbf8343c11155fceb5",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/analyze_e4_results.py",
+      "bytes": 4994,
+      "sha256": "7268ddc3b124e9eb456d27a5d6bfbc8746542ccc318b8a41244247850b107357",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/analyze_omic_slot_pathways.py",
+      "bytes": 9284,
+      "sha256": "4e6b1d75f1edad4b75e35c19678d821579cf8862436c8aaabf5e8571470ae42a",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/analyze_redesigned_audit.py",
+      "bytes": 7421,
+      "sha256": "aae660df00807be915cfad2d9d2e10f66de6e502616f027b21f4c395e84ec1e6",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/analyze_v311_fixed_proof.py",
+      "bytes": 13130,
+      "sha256": "0361dfc53afcabe1387cd163f4c2da170490d6d5eb85eeb7132c0ae02b64c8ba",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/analyze_v311_slot_interp.py",
+      "bytes": 14607,
+      "sha256": "9a45bee762db2223c0477763e43d3b1d6ea7e4bfb058fa76660a426a48b65688",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/analyze_wsi_slot_patches.py",
+      "bytes": 8909,
+      "sha256": "8a4102c4899fe702b96b11942a99434de01f6fdbfbd8a7ae7a351b98677a1222",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/anchor_causal_validation.py",
+      "bytes": 14975,
+      "sha256": "8ee6daedf47c73c8104aba71a5dfcada2a3a1b972ef75460412623e02d53142a",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/anchor_consistency_analysis.py",
+      "bytes": 12383,
+      "sha256": "17095a4330d1095a14e4bab57ca548b5ed39f6aeff91ae7f6d38ab08678b5cb0",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/anchor_separation_analysis.py",
+      "bytes": 15056,
+      "sha256": "711f57e98fb5779f0a7e492a0ae86581c4ae12c1fca08f3ae9302fdc1c519434",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/audit_all_fixed_folds.sh",
+      "bytes": 1472,
+      "sha256": "ccefcd5ed13bfaf7eae5da1e7d6e4ddafec16df36e19f5f520582d3066590100",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/audit_best_checkpoints_wrapper.sh",
+      "bytes": 2422,
+      "sha256": "19c894e20ba099fe54f0e6dcd5b23d0768d5237a89368f5ac56517c977db189b",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/audit_dct_reg.py",
+      "bytes": 27319,
+      "sha256": "14195c0c53670d1b43b61f9576361c3415127103a76ce31bd433c5cceeb4161e",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/audit_fixed_anchors_batch.py",
+      "bytes": 7713,
+      "sha256": "1f3f4927893fce0932e0bf18345aa10cb36210610c3b5dde856dbb26d31ca053",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/audit_v314.py",
+      "bytes": 8760,
+      "sha256": "f53c9c773c3f526c33394fb2106fb7f0e0b7b14dac42648783d7a06a29d87e78",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/audit_v315.py",
+      "bytes": 7780,
+      "sha256": "613774ed0fed6c58a24d5bae2849d1d486c6fc9b691abed350612b9906f7610b",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/compare_v310_v311_audit.py",
+      "bytes": 13917,
+      "sha256": "a4267b7e974ace93efe1b9a9df50a88b615e059744def09b2a498ec9b6bd8f37",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/compare_v311_fixed_vs_unfixed.py",
+      "bytes": 10659,
+      "sha256": "261925cfd32c357e2237d9b920ed809467d0da5c2d0c8efb88100f5bec6a13ca",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/compare_v311_vs_v310.py",
+      "bytes": 15911,
+      "sha256": "1ab19c6e1258a5090cc95c983ff19f740e50775202814333986f751f3b773e47",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/compute_calibration_and_dca.py",
+      "bytes": 12314,
+      "sha256": "90e8baabb51e155d5ef2bf9421f2f2dc39b87208a52cfa0dc8ca2db4d2bfbced",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/compute_efficiency_metrics.py",
+      "bytes": 7080,
+      "sha256": "37baa8ddda2324b33d84c8d410968a8e0d66de26b185174fc5050616120caa65",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/debug_columns.py",
+      "bytes": 632,
+      "sha256": "bfbab4965b47960028ec5478c442e99bac7683d8cd90f69463cde01faa986e6f",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/diagnose_slot_collapse.py",
+      "bytes": 4202,
+      "sha256": "3a7de6849b9cd1ca6c8838a23bce2013d730cdd6aaa027149c96409b36a72884",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/diagnose_transport_plans.py",
+      "bytes": 6603,
+      "sha256": "fd970cb9c080b335c9b61a09a30b313a1f407b2223e7fa17eeae86190aafbad1",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/e4_audit_adapted.py",
+      "bytes": 28420,
+      "sha256": "e3a3d761c19e1dbab10c46745d5a21be1857118fea5fa8cc1fff192ac01d8a18",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/e4_audit_working.py",
+      "bytes": 13477,
+      "sha256": "bc7861c6c0da6273017ab934c04a78c8926f9698e8e86ec3483887a86f988ecf",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/e4_continuous_intervention_audit.py",
+      "bytes": 15819,
+      "sha256": "d3318bb8dd5ca973a8497cab5edb201d65cab567491fb2a2409a34d3c0d36c20",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/e4_continuous_intervention_audit_v2.py",
+      "bytes": 20345,
+      "sha256": "10a8b8bee31331e3df2939849d44843b28aa5ab50e5861f63571d703a1931cc3",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/e4_intervention_audit.py",
+      "bytes": 17362,
+      "sha256": "adb8d5a52f1a7d8cbb1f57c87229523ffd7baf52e33db2eba266a19d03162d9a",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/e4_v311_fixed_audit.py",
+      "bytes": 12280,
+      "sha256": "bd3635a0f01b44ad2509ef9633ba9849a0c0cd4052379042e6c9d9a9d75dca49",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/estimate_training_time_from_checkpoints.py",
+      "bytes": 8198,
+      "sha256": "3b04d3b2337e9c6014929849e28ecec53722c8d13a58b47683a5cab6ab8aed77",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/export_v311_fixed_per_slot_hazard.py",
+      "bytes": 14157,
+      "sha256": "5ad7d204892d2d43777d9de532e9a22de86d870324d3e91ecc8ce9091ba7c7f0",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/export_v311_per_slot_hazard.py",
+      "bytes": 20612,
+      "sha256": "59faf487030ace9d1e63ce699a51cebc8c9aaa0a762832fa18631b09799e7602",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/export_v311_per_slot_hazard_fixed.py",
+      "bytes": 14672,
+      "sha256": "61f97aba2d8849fd0686fa5c0934017586eb186c508b3a76623dbefbd18ce686",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/export_v311_v2_per_slot_hazard.py",
+      "bytes": 7968,
+      "sha256": "b48f00239df525d70b48b8dfb30f8a1d4f7495a544aee43b15dcfb986507478a",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/extract_ablation_results.py",
+      "bytes": 6350,
+      "sha256": "95f49d5e80cc288f481ec7c8b77f238353f4b4ed36a4d49d743858b888fa28e7",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/extract_anchors_from_checkpoint.py",
+      "bytes": 3550,
+      "sha256": "46904a175da4365f6427655906811c580b799a9952c19d2e81db0a9fdd4c1789",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/extract_best_epochs.py",
+      "bytes": 6067,
+      "sha256": "b6154ce6984d28e5428419f986cbcc3728bce8f722dc3fe4f7a158620a931c85",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/extract_mechanism_audit.py",
+      "bytes": 7895,
+      "sha256": "c653c079321ea4704527593a9967fa64be12e99dc358a53930fb9293413cb89c",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/extract_survival_metrics.py",
+      "bytes": 5431,
+      "sha256": "e8fd79fbc1e0db1ca03b4166aa5dac3bf7cf39984e1649965522aed0a73b506c",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/extract_training_time.py",
+      "bytes": 7596,
+      "sha256": "dad5e8ef4ad20f5700a6e1c4aac9b83fc89fce589ed4523aa731e27574e271f3",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/extract_v310_direction_loss_metrics.py",
+      "bytes": 4551,
+      "sha256": "c37c0d7e8fdb2af81e4ec065c7985553d25788053039f1670ed1d8896d211426",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/fix_v311_diversity_per_modality.py",
+      "bytes": 3988,
+      "sha256": "18cc571803f308ff269aa70a0350fc516ec50a4569bcb75dc7a88fcc19a009a1",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/generate_complete_report.py",
+      "bytes": 8188,
+      "sha256": "856714ff593f58dc38c7d12283432634f1b65e35260cedbdfd92be95c789e5a2",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/generate_figure3_all_cancers.py",
+      "bytes": 9465,
+      "sha256": "ec09aac2ed935b1caf1c39c4d4c92871960acc4f164b4b4b952dc4da70a322a8",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/ideal_anchor_validation.py",
+      "bytes": 6517,
+      "sha256": "974f26da8e0102306a269bc46438e2a9e09cddecb194106f237603a5ebba6160",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/inspect_v311_pkl.py",
+      "bytes": 1369,
+      "sha256": "777a4abaf45533bb2a7f71fc40d0f1f61e95bb46d6e90992903514abab9c3b46",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/kaplan_meier_analysis.py",
+      "bytes": 14837,
+      "sha256": "194372eab0626f1241175714c64db7f8e8217df170b3ed5e8bc65f8f4d9dd452",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/kirc_refill_5fold.py",
+      "bytes": 6163,
+      "sha256": "476f563e74c19e312cd4808496060367712597f125e65f32f9b6dba3938d699e",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/kp_multi_cancer.py",
+      "bytes": 8223,
+      "sha256": "0c6ad64a92723c35a468e23aee1b07dfadfd9d689e315272ed3c2e0a9c11f662",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/launch_and_monitor.sh",
+      "bytes": 1878,
+      "sha256": "f22441d86a6f2daca8506a381cc4516e0e814a9926fc355327176edd5b1b9887",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/launch_v310_both_sequential.sh",
+      "bytes": 1367,
+      "sha256": "e4cb7fd5dd0d0de5575e4e6d54c2b30a0c089035d3ec7c49257eacb055fba4ff",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/launch_v310_uni2h_extend.sh",
+      "bytes": 1512,
+      "sha256": "7f1af9e4a978e09bfd7c0e301c0927726e6417abcb3537f59dba78eb30278650",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/launch_v310_uni_all10.sh",
+      "bytes": 1464,
+      "sha256": "1ac51369ad984a3621aa3cd58784c078b3b9153ece5faa3057330a25dc8b0c9e",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/launch_v310_uni_blca_p2048_30ep.sh",
+      "bytes": 1617,
+      "sha256": "f2624e4ae0b607cfdfd71b9a28a72a5735d08e1ff6018b3e11381634cfe4b6b4",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/make_e4_audit_report.py",
+      "bytes": 9757,
+      "sha256": "25fa8da97a8ee0d942aeb2f328be4ca189af376b7fcbe37e8ad1404b32e1cfa7",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_5fold.sh",
+      "bytes": 892,
+      "sha256": "cbf60c6375c8c68b769642962c8cc4ddacd755b3910d09e922b3b101a8782e6d",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_blca.sh",
+      "bytes": 3306,
+      "sha256": "abfc39f380e81f70c53666b4d68cadcaf49634941d0e6a55e5bd50589e08189d",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_blca_v310.sh",
+      "bytes": 4681,
+      "sha256": "14950ca485ccb13f979e50ecdd18271459fb0eb09fd5414adca89c997cd53bd6",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_continuation.sh",
+      "bytes": 2923,
+      "sha256": "ec04d449318e2b9d8f45cb1b38869e242b9f6a3e76379e884147beca63f3bfc7",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_export.py",
+      "bytes": 7615,
+      "sha256": "6cf1380dcb3d7244e249b6fb055c91cf277a96e5e8e16231a1ed0d65c2b35d10",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_fold0.sh",
+      "bytes": 2404,
+      "sha256": "755a45b76ddfe69b6f82df5719922ce0070ecc7a3395b7e2431221b6a310da6e",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_scores.py",
+      "bytes": 15722,
+      "sha256": "b0c50da8386f147bdf25ebf891906e3489080f8913b3d549ac54f97a12be45f3",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_slotspe.py",
+      "bytes": 11876,
+      "sha256": "675e17832b016f74f9569c8ddc7acfa0084ad678b27699388d4aa21c0988615f",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_training.sh",
+      "bytes": 1814,
+      "sha256": "89c4480a5cef9fcfb514e972aac300e47b9d2c5f2202dd39707510b89416e6c1",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_unified.py",
+      "bytes": 8279,
+      "sha256": "a888187ba9ab3f63ed1a92951c9cef66dd9a28abb51a5971af7acfc2047675a5",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_v310_queue.sh",
+      "bytes": 3505,
+      "sha256": "7c101d4499efdded5b708c9b9d2afc6548199b59caa9f8109d4f082222b7dec4",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_v311_5fold.py",
+      "bytes": 4964,
+      "sha256": "58426e003cf4656129628b19336e126f418ad2e8f4fd7fc765555feba80b736b",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_v311_pancancer.sh",
+      "bytes": 1901,
+      "sha256": "dfbbeb6eaee5d34af26a3965b942d5c0ddcfea72447ecedcb879a1be2174c2e3",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_v311_training.py",
+      "bytes": 9492,
+      "sha256": "ab0c7cb48101bc568cc43124b87d53bab212dc6fdb46a2b1b5300e0332efe3da",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_v311_v2_live.py",
+      "bytes": 7633,
+      "sha256": "5b226f330ee7590d55ad9378d23620293ac0aadaabc97eb6778eba0eec061c2e",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/monitor_v311_v2_training.py",
+      "bytes": 4028,
+      "sha256": "661b72529a0afdec4c096118f3095af3ae9a859f9da403d046c07075b60d657b",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/plot_fig3_only.py",
+      "bytes": 6352,
+      "sha256": "cb73f217085ccace72b568a4321e0bada7a6f9a8b076db72e622d79e632e7805",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/prepare_slotspe_h5_features.py",
+      "bytes": 6196,
+      "sha256": "58e2b86366f1b5cb80fb305bdf63bd2caf251f25b0779cfde0a0f0204e590b79",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/proof_D_visualization.py",
+      "bytes": 28379,
+      "sha256": "54aa24678a8848effccf521a0f6a7ee4b148ccc3428184e0b7d3d8bdc6fa4fdb",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/reconstruct_proof3_from_logs.py",
+      "bytes": 2710,
+      "sha256": "9bd26dd54895a52f65023ffd21690aa530a4f6d63f76e9718345bf97f0916be7",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/redesign_audit_blca.py",
+      "bytes": 15313,
+      "sha256": "e112b37d023343d124697d5cb6c351ccb663f808402ed0ae5eb6ed72f2f195c0",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/redesign_audit_blca_remaining.sh",
+      "bytes": 1305,
+      "sha256": "4b703fddc3f2c3997b7268b5dbc9fe3c2fba8c2d6778b58e2022932d84951f75",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/regen_exp_d_report.py",
+      "bytes": 449,
+      "sha256": "900433f9950c11eebf34339a1cda17fb85794ce6f9b0248521dbdb23ae16e419",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/regen_exp_f_report.py",
+      "bytes": 5562,
+      "sha256": "73641c42216afa1399b7910fde5e92eb22d922b5b79522aa204f431eaf19b7e8",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/regen_proof2_report.py",
+      "bytes": 3862,
+      "sha256": "89858a8cbfda7fc082cad13fc637e389f1058f0e512ab9edbe8e8cb354ba420d",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/regen_proof3_report.py",
+      "bytes": 4498,
+      "sha256": "90471e8eb38686e51080b6af970d46e5aa6132d263f36d0d86544de0aab7b3a8",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/regen_proof_a_report.py",
+      "bytes": 6474,
+      "sha256": "540e19961deec6a8c1c2e32cc56c11b29fd45f170b1ebc720721150aa711a179",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/rerun_audit_on_best_checkpoints.py",
+      "bytes": 7001,
+      "sha256": "4b0e0717741cb19848a470193249782d3e1f219f6bc8b0993b94f81fd9f445e1",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/rerun_audit_with_best_epoch.py",
+      "bytes": 10027,
+      "sha256": "6592749045d15d93b184c327c396a51bdd4d91c58cd672d6549ec87b68bb70c9",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_6datasets_parallel.sh",
+      "bytes": 1999,
+      "sha256": "e773dee8003694f3129a354319ab0d3d7c6acd04ec59f544e07359fa735a58a3",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_all_e4_experiments.py",
+      "bytes": 8367,
+      "sha256": "389f38a918232f572ea93d416c626fc8c86777a30470ed919b0232326bcc1109",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_anchor_experiments.py",
+      "bytes": 16737,
+      "sha256": "1891a36f667a98fe2ff10267e80c6ec26b4c4b594c8a4e2eb27036c8fcca3841",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_audit_on_best_models.py",
+      "bytes": 5111,
+      "sha256": "df6c4ef96c6686241d3b4c3c9c74dc269f486831b1e15b41597ab4cad04fdeaf",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_blca_v310.sh",
+      "bytes": 2862,
+      "sha256": "047c0b7a1c3176cc114c021bcacf2ce97b29ea860ded1affc7aa05a66f5acc9f",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_blca_v315_v316.py",
+      "bytes": 5059,
+      "sha256": "cfea4f5972cb6b0c7b160db8ce0855b7bea58852d9b74039cad3ad1426b3b819",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_dct_v310_experiments.py",
+      "bytes": 8814,
+      "sha256": "876668ea855b3bdc4bf87385cb212a1f271f10fa5b413f3ab8e35563031070b2",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_dct_v310_final_cross_cancer.py",
+      "bytes": 7389,
+      "sha256": "5ad82c6876936d1a0d62a82d441fa26552aa0c333127c5b83e8746fd1612f8ca",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_dct_v310_final_uni_queue.py",
+      "bytes": 10178,
+      "sha256": "94d63210d8fb39f4817cb9b44f46b109f1bd1a18907809ce793b923c1f22d6f9",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_dct_v311_blca_uni2h_v2_5fold.sh",
+      "bytes": 844,
+      "sha256": "a3eefff7fc4ef02a3709fcb1f0600a7a28ac99df486f79af6839c6085a1f9a74",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_dct_v311_fixed_training.py",
+      "bytes": 7047,
+      "sha256": "dafbe6463d69d337a4c9a54c1adbe275f1c9e1d1b036a17a5ffdc54fdb981e33",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_dct_v311_uni_fixed_pancancer.py",
+      "bytes": 7804,
+      "sha256": "6b942fa27f057a8d59c90de8b669681a93df2e506b7727b3e1e4f19fb4c533e6",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_dct_v312_5fold_aligned.sh",
+      "bytes": 3334,
+      "sha256": "b2674e2565b73f38dd18d4b6a1f484d5b9fb5efd50edfda74edb7f45147f4eaa",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_dct_v312_fold0_aligned.sh",
+      "bytes": 1369,
+      "sha256": "aade5efec8f99aed251502180fc6bb1db9b50d89ce3d358a71052c2501d1ab64",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_dct_v312_smoke.sh",
+      "bytes": 2535,
+      "sha256": "7446ddcae7999de8df08cb289206d679262173bc4d9441c7fca10bcf085d9ebd",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_e4_audit.sh",
+      "bytes": 3109,
+      "sha256": "fecb9fe355aca998721c58fa9995add2b2d6da5b6a8bfc05a3faf9a0d4178629",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_e4_direction_audit.sh",
+      "bytes": 5512,
+      "sha256": "3707dbe435f65161f6edf5ba4a64c0e28c53fa9b2f78664e231d1f6524cc5c8f",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_night_tasks.py",
+      "bytes": 13341,
+      "sha256": "1d77c2bf65e5f7bfdde4cfd81f551b7799f1b7a827997dfc97316a28afd46966",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_one_fold.sh",
+      "bytes": 961,
+      "sha256": "86c93e76c1874478fbdcddee3550ec9f6e299e987c3a3e013b6420da4cb5978d",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_one_study.sh",
+      "bytes": 1126,
+      "sha256": "9132bc0d30e4019c165e7d0e1a3f370c40091091b067151e7e1035f5fee24785",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_paper_completion.py",
+      "bytes": 40068,
+      "sha256": "273538b57b0ec681a5aff4ba9299420ab808676ffb06fb3ffbc37a675f9321fa",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_proof_experiments.sh",
+      "bytes": 1345,
+      "sha256": "c477d55f3af41a972bd7ec477fd75cdb8ab508206216d6e47a5b39baa99946a7",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_reader_ablation_experiments.sh",
+      "bytes": 3891,
+      "sha256": "95c5b74edd4cea2fb833867aa882479d55d7eee5e39ae3d88857963b3fad7681",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_seq_5fold.sh",
+      "bytes": 2501,
+      "sha256": "154986808a0a579a68f5adb4529d7932ff7a928ae763ca0b354ba352baff4d3f",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_slotspe_blca_paper.sh",
+      "bytes": 3331,
+      "sha256": "bb6430aef59904266a13df5b354559259a42fce8649077d2ab2d64ddd87dccd0",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_slotspe_kirc_paper.sh",
+      "bytes": 2213,
+      "sha256": "cbaeda0eb7d5d33d17a83a9a72e9430fd7c224780b9e0ca55d666d98d0f73675",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_slotspe_native_paper.sh",
+      "bytes": 2361,
+      "sha256": "f827aa0dd4744bff431276fa2758d4ea07e861e66ff11bf152fa109c95a9d79b",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_small_gate_test.py",
+      "bytes": 5337,
+      "sha256": "a27d0baabc6cfdb56349574854a8293738de09219d44b10cb936459279b5b01e",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_stage_b_chain.sh",
+      "bytes": 1965,
+      "sha256": "feff1f539e2035e2c51184c52d8de75777b601a1508fc6cfa6e636382b723c69",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_stage_b_supervisor.sh",
+      "bytes": 1272,
+      "sha256": "1d10961943c7fc135c4521febef91c724328a5e5d49e5cc9528eaa8e82a9ccb2",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_sweep_all_cancers.py",
+      "bytes": 3933,
+      "sha256": "e37392a26a82c4345726b1653c111967d78a6f10ba5c470f01153460a1978df0",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_transport_candidate_gate.sh",
+      "bytes": 1347,
+      "sha256": "156d14553e6b8c299e5d765fcaaf29633f5e8d6afcde45cbeb33b4fb02b58c6c",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_transport_fix_experiment.py",
+      "bytes": 1607,
+      "sha256": "604de303f460800cf27adbbba7ddc78b88647bc44ae47eacf8dc81641332c717",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_v310_uni2h_extend.py",
+      "bytes": 7974,
+      "sha256": "1c8ee13bf6a3679b30701aca6245923c28e447dfe2b7d964b6f6442daba3b52f",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_v310_uni_all10.py",
+      "bytes": 8251,
+      "sha256": "834c70d0413b6215da0f0eac10d159339da3ce11c838195476c3aeb0643a0de9",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_v310_uni_blca_fold234.sh",
+      "bytes": 1920,
+      "sha256": "5c9994c6ea9b2ed2517ae66933bc4ed89d2f965208bc6a593a4511edbaa6c89d",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/run_v310_uni_blca_p2048_30ep.py",
+      "bytes": 7871,
+      "sha256": "8704f18cf635d3559d0e5b2e55423aeb3e946ec479830491eea0dda011f8a59f",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/statistical_significance_analysis.py",
+      "bytes": 11183,
+      "sha256": "2590387e6d0265a46d129897432a32aedb33902f1b04580c10e116841efa25b7",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/summarize_multi_cancer_results.py",
+      "bytes": 8028,
+      "sha256": "1a1310a37769ad271b3e004bbd3dfcb9046b8b7b1832e24b418e0ad8d66a254b",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/summarize_v311_pancancer.py",
+      "bytes": 1939,
+      "sha256": "f7a803fc419e699ea68418d8b76a6a1ebb225323bccf356306e46bbe5d193fb4",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/test_checkpoint_structure.py",
+      "bytes": 1375,
+      "sha256": "933a51d7f12a8704585dcad9902a6831a9f87b50eb3ec58efabb0afbade306d9",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/test_dct_v311_smoke.py",
+      "bytes": 12536,
+      "sha256": "df6ee8ae17a667a4ee184d4dc1dae130608c4d701fdbbf2c759efedcb62ed86c",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/test_e4_simple.py",
+      "bytes": 11841,
+      "sha256": "8aa0232e4cd7250a0942f2733de2dbf4b2cc3850c7cbee9a4bf3203c5d97ef69",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/test_ot_contribution.py",
+      "bytes": 17991,
+      "sha256": "aa219a63d852cdb75c9d7b1412c60041aa098a8e803e6c4a54435d7d734d5ead",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/test_reader_ablation_simple.py",
+      "bytes": 7650,
+      "sha256": "18290898825f23d2b3bc7c804ca60a34e37a3f150b0cc645bd13283130c8a76c",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/train_5fold_sequential.sh",
+      "bytes": 946,
+      "sha256": "dec403bd64e82c776d42413b519662d41e9fac5b12bf57230b44f4782bbaeed3",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/train_fixed_5fold.sh",
+      "bytes": 1078,
+      "sha256": "80dfbe5e0fbd1101042d11e3419600d933b2b0736b9ba6040f4a82f4b5d25fa2",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/train_transport_fix_minimal.py",
+      "bytes": 8027,
+      "sha256": "5346b4e1bda9601bfea4d19d9f5585349a4d2aaf9456c54bad2ceacb7238efdf",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/train_v311_fixed_v2.sh",
+      "bytes": 2271,
+      "sha256": "8692e377776769f890060b1767b500ba45b93811194d8cbac04f1cce6c9d7a73",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/v310_proof1_gain_trajectory.py",
+      "bytes": 8451,
+      "sha256": "294df5e98224d6815c205c9324676fb624e47f2ef7f1050f60807982c220ded0",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/v310_proof2_gradient_flow.py",
+      "bytes": 15060,
+      "sha256": "05847f29b89e4fb415ec47a6ae4d9995e14a5bd249bcfcd4b604b8297d9ed599",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/v310_proof2bis_per_slot_grad.py",
+      "bytes": 16447,
+      "sha256": "3a390cd63b31bdb819442ccdda53a392377c357783e3e27248a3bfab8e2e1dda",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/v310_proof3_anchor_distance.py",
+      "bytes": 12521,
+      "sha256": "d3af7f5604e937961b77122d466b86f429ce1b4bb803e3877b2232aac4638899",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/v310_proof5_epoch_curve_stats.py",
+      "bytes": 7861,
+      "sha256": "6e480c8a8625e598da09631ba8f74c5e9d0482eaee8aec5ed48d93d8563c2284",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/v310_proof_a_cross_cancer_audit.py",
+      "bytes": 8683,
+      "sha256": "5f82d3f8b7d22c4ee25e9eab7b09b04cef7e9c7a6f829a6713aad3bbf9516b29",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/v310_proof_b_anchor_geometry_trajectory.py",
+      "bytes": 9909,
+      "sha256": "2217cde0de3ac031f505b1d6fdf1ceea751c904e3d9282f47fd05851c330156a",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/v310_proof_c_audit_smoke.py",
+      "bytes": 5706,
+      "sha256": "5d549bd3f4b8babf358ade308d6db1c1bd19fc1d6b8a9a49c76f92029b32d41d",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/v310_proof_d_per_slot_hazard.py",
+      "bytes": 15258,
+      "sha256": "c294087a770df4be5e0cef42c4a94d1103afad234ae15d88dc7e38e7c747e50a",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/v310_proof_f_v311_audit.py",
+      "bytes": 9836,
+      "sha256": "0de546c2e6182212df877350586e57bb5606eb61ed046e4141b49a86e7b0dbd6",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/v310_proof_synthesis.py",
+      "bytes": 11564,
+      "sha256": "9ef54447a5e7e757ca41a18914ec3729f6aa19b25ce981f169c8a2b977b6ae50",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/validate_transport_improvements.py",
+      "bytes": 5681,
+      "sha256": "64d151a54429d2727878cdf86ab47dcccab4a621d2a15d4853bf02bb6e0f8412",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/verify_checkpoints.sh",
+      "bytes": 1173,
+      "sha256": "7c8e8f99a2e2ec616fa30a7321cefe345a7875dd05148331f4c1aab0e932b868",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/visualize_comparison.py",
+      "bytes": 9327,
+      "sha256": "670c960027abd3dd5e66aff55477cecdb3b5cda159a0cce15b0221c29fb431c9",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/visualize_e4_results.py",
+      "bytes": 8361,
+      "sha256": "c646dd64533fd3a94bebf095b61e782ca4eb03c098c43303f89bfd5394da9597",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/visualize_v311_slot_interp.py",
+      "bytes": 13291,
+      "sha256": "fa837c84ee731336a8c58157e220d51f2df67022b67e82c0cdc8273d2d9f1fdb",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/watch_v311_uni2h_v2.sh",
+      "bytes": 715,
+      "sha256": "93543b33dffd5b7bacd7e9c96bc6ec0986e0500b7b73ab21e8ac2930d769c84c",
+      "reason": "v310/v311-only archived helper; no v313 reference"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/proof_experiments/proof_A_recipe_compare.py",
+      "bytes": 4886,
+      "sha256": "828020d21cdb4a5936b42f9ec463641a95f6c06158012b1caae8db28affcdaca",
+      "reason": "v310/v311 proof script; reads deleted results paths"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/proof_experiments/proof_B_variance_constraint.py",
+      "bytes": 3646,
+      "sha256": "63ad4a51e902d63fd832868614ce65e743f298bba74f45072691510d25a68282",
+      "reason": "v310/v311 proof script; reads deleted results paths"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/proof_experiments/proof_B_variance_constraint_FIXED.py",
+      "bytes": 6416,
+      "sha256": "791ffd140309dbe171f866207f2cd89fb0c7d6b808a114e68db8a40085dcd131",
+      "reason": "v310/v311 proof script; reads deleted results paths"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/proof_experiments/proof_C_ipcw_rank.py",
+      "bytes": 4215,
+      "sha256": "e1ccf2e8528fd9646bf2599ed91ef132468a475655a991cb926997f7e5c88b8b",
+      "reason": "v310/v311 proof script; reads deleted results paths"
+    },
+    {
+      "path": "scripts/_archive_v310_v311/proof_experiments/proof_E_summary_report.py",
+      "bytes": 9096,
+      "sha256": "04359c35bbde7142c1a91633a159cf44e132365dd66df4b65129b46acf188f0d",
+      "reason": "v310/v311 proof script; reads deleted results paths"
+    }
+  ],
+  "archive_scripts_delete_summary": {
+    "count": 160,
+    "bytes": 1223208,
+    "gib": 0.001
+  },
+  "tests_delete": [
+    {
+      "path": "tests/test_dct_risk_ordering_transport.py",
+      "bytes": 2132,
+      "sha256": "7edc2b5491b6fbe36ef8592e56ce50cc3c0a0c535ffce6d6d193bb557eb76f8c",
+      "reason": "test targets a method whose implementation is deleted"
+    },
+    {
+      "path": "tests/test_dct_v314_masked_transport_reconstruction.py",
+      "bytes": 27777,
+      "sha256": "bad15bc918afbc479583a4164fdc054ded249868f7583c8575f8cb48b2db1e96",
+      "reason": "test targets a method whose implementation is deleted"
+    },
+    {
+      "path": "tests/test_dct_v315_residual_transport.py",
+      "bytes": 19792,
+      "sha256": "966e309c348b7588e035a2c3b2aa21d6a6cb243d3c7c7167aa282300a78394c1",
+      "reason": "test targets a method whose implementation is deleted"
+    },
+    {
+      "path": "tests/test_dct_v316_slot_mi.py",
+      "bytes": 21407,
+      "sha256": "7fc7f02e69ea7f5be753eaaf14cf52304345d3af9d0bf410e4d967fcdf8082ee",
+      "reason": "test targets a method whose implementation is deleted"
+    },
+    {
+      "path": "tests/test_dct_v316_standalone.py",
+      "bytes": 6056,
+      "sha256": "e480884991710204f2d1e18937655eec7ce9d0a462de83fe8f97e214be9bb2ca",
+      "reason": "test targets a method whose implementation is deleted"
+    },
+    {
+      "path": "tests/test_dct_v32_tgsr_optimization.py",
+      "bytes": 5864,
+      "sha256": "0ebbb1d5649024ffe33e711bfc2218744c7b66aafefe9ed8f66222be0af5cbc7",
+      "reason": "test targets a method whose implementation is deleted"
+    },
+    {
+      "path": "tests/test_dct_v32_transport_guided_slot_reaggregation.py",
+      "bytes": 14421,
+      "sha256": "1ff78bd9b649ef1c3e060608824c415a09a5ad8f094e6b80ed21c8f8912492af",
+      "reason": "test targets a method whose implementation is deleted"
+    },
+    {
+      "path": "tests/test_dct_v330_closed_loop_prognostic_transport.py",
+      "bytes": 10133,
+      "sha256": "23d4d6526846e75d2cdf90fcb1b49ddde60c803c2ece521414ed902614c78590",
+      "reason": "test targets a method whose implementation is deleted"
+    }
+  ],
+  "tests_delete_summary": {
+    "count": 8,
+    "bytes": 107582,
+    "gib": 0.0
+  },
+  "configs_delete": [
+    {
+      "path": "configs/dct_v312_blca_uni.yaml",
+      "bytes": 4100,
+      "sha256": "65ff570c462037b62ecdb5cef1762d0563aae1f2e58dc3eec67a065d12161d4a",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v314_blca_uni.yaml",
+      "bytes": 3181,
+      "sha256": "f2dc7687026175df6458cbf23beeb2e718c1bf99ab66a4545ea321adf98f7504",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v314_blca_uni2h.yaml",
+      "bytes": 3698,
+      "sha256": "464475b0b91c95c12a98afb003606c73d8dccb78aba555d891d4e12aca3676f7",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v315_blca_uni.yaml",
+      "bytes": 1413,
+      "sha256": "c40c67631900a86f3f9e4aeaed2581555cfe5720e8168a64e6f55f374c622dfc",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v315_blca_uni2h.yaml",
+      "bytes": 2262,
+      "sha256": "655fa2cd33bf8a1830e64c2cf9abcaaf43f5d54b54afe0ef2afc53402965fe35",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v315_rti_rank_blca_uni2h.yaml",
+      "bytes": 1619,
+      "sha256": "6969dfa8b4889b6736e8dd266857d8282ff34390c6df3e1a9bd24db047cdd068",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v316_slot_mi_decomposition.yaml",
+      "bytes": 1630,
+      "sha256": "dc2d43a0e1b6b5eec47a5ae603a190c36f338c1ee8b01922d2692214c9cfffab",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_enhanced_direction_blca_fold0.yaml",
+      "bytes": 1518,
+      "sha256": "ce60ac851ce1eec88638d1141dfa72d8aed191c69821811b844af2ab2184d6f1",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_risk_ordering_blca_fold0.yaml",
+      "bytes": 1516,
+      "sha256": "19b08a44133b53b43740166a82cbe84d70ef239d03ca1e041b46b4789836becf",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v310_baseline_blca.yaml",
+      "bytes": 2392,
+      "sha256": "eab93654f6fbcdca4e53d2a3f47ba43231dba7c7f8928c602b02f4b5baf8bd2f",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v310_baseline_blca_uni2h.yaml",
+      "bytes": 2795,
+      "sha256": "ac6d9c0637f9fe6148552a734d4c1d2c5d87699c6869ac9e126409aa756d0cc6",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v310_directional_regularized_transport.yaml",
+      "bytes": 2565,
+      "sha256": "99c4d655f8f85497dff93f3e57da8e5f4ad8cf1df4cec437ddf05a8f2a6dc237",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v310_directional_regularized_transport_blca.yaml",
+      "bytes": 2588,
+      "sha256": "c2a6fea38b21834d0906678e1121db5eda98b4f88d30c594dea382bf58bb290d",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v311_blca_uni.yaml",
+      "bytes": 2561,
+      "sha256": "cc5496b09d42f51df42cf48f2312d3f2b8d75053eb58558c092985fdd2175e4b",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v311_blca_uni2h.yaml",
+      "bytes": 2586,
+      "sha256": "4baacbd71479dc3ec1a73243b3895aa06bab7108e6d0f1aa6f0263e851dddc70",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v311_blca_uni2h_v2.yaml",
+      "bytes": 2834,
+      "sha256": "d391ae8bbdc630a8d6cfbe48f018bbeb8b0b6a955cc19ac0a78bae25a2e7602d",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v311_blca_uni2h_v3.yaml",
+      "bytes": 3647,
+      "sha256": "0dce725a0725a8894e094e315f289b6602aa5bdcfde19f371abdc4f27bcff79f",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v311_blca_uni2h_v4.yaml",
+      "bytes": 2799,
+      "sha256": "6e43b41661b75c19588f8edfb0e7c46face273b124711ce4c9a4fbbb80afc50c",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v311_blca_uni_v2.yaml",
+      "bytes": 2803,
+      "sha256": "557898f6e937fb2e68651e6b1f6b16afa99f61b9a7713bb3e89b8d2184ae1a54",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v311_blca_uni_v2_5fold.yaml",
+      "bytes": 2804,
+      "sha256": "0c402d60efae3b31882c3746589312328c274065685cbf1cc1fa59493d3bc55b",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v311_blca_uni_v2_5fold.yaml.bak",
+      "bytes": 2803,
+      "sha256": "6f4ab0fc0642560061fac4f0cdfa8cecd69b44e2d15c4039813a647add8b92bf",
+      "reason": "config targets a non-v313, non-v2 method"
+    },
+    {
+      "path": "configs/dct_v311_blca_uni_v3_5fold.yaml",
+      "bytes": 3411,
+      "sha256": "20368bfec255b34a32113505feff3686ec59023b2e01468ab76e9f4ec6a66d08",
+      "reason": "config targets a non-v313, non-v2 method"
+    }
+  ],
+  "configs_delete_summary": {
+    "count": 22,
+    "bytes": 57525,
+    "gib": 0.0
+  },
+  "docs_delete": [
+    {
+      "path": "docs/DCT_V314_DEBUG_REPORT.md",
+      "bytes": 15101,
+      "sha256": "4dd85cd47ca570c777813ba45123bd7e74d08126cbf59faf23feb0f986a8a2eb",
+      "reason": "design note for a non-v313 method"
+    },
+    {
+      "path": "docs/DCT_V314_MASKED_TRANSPORT_RECONSTRUCTION_PLAN.md",
+      "bytes": 2075,
+      "sha256": "b867917c9a17d593cec2eb9aa1dea780a8625b65496e42ff1cca64fd8fe2435a",
+      "reason": "design note for a non-v313 method"
+    },
+    {
+      "path": "docs/DCT_V315_BASELINE.md",
+      "bytes": 12106,
+      "sha256": "b9c279e640abaf2d45617f714252ac2145083996c4f5856259a7e76a2eaed0e2",
+      "reason": "design note for a non-v313 method"
+    },
+    {
+      "path": "docs/DCT_V315_PLAN.md",
+      "bytes": 2689,
+      "sha256": "c7b1f21d71b15eef565c230a13718639bf44caec33b211d470fdd1aea8ffbe06",
+      "reason": "design note for a non-v313 method"
+    },
+    {
+      "path": "docs/DCT_V32_TGSR.md",
+      "bytes": 8005,
+      "sha256": "aeabb89eb76a3ea642d9f0d511767c3ca6382bb2bd261a8008502119b4a6a11f",
+      "reason": "design note for a non-v313 method"
+    },
+    {
+      "path": "docs/DCT_V330_CLOSED_LOOP.md",
+      "bytes": 5424,
+      "sha256": "d9f609ffe564d52c10a93a92894e691d63a4e399c1fadd22590506722c74a9c3",
+      "reason": "design note for a non-v313 method"
+    }
+  ],
+  "docs_delete_summary": {
+    "count": 6,
+    "bytes": 45400,
+    "gib": 0.0
+  },
+  "toplevel_md_delete": [
+    {
+      "path": "ABLATION_EXPERIMENTS_RUNNING.md",
+      "bytes": 5849,
+      "sha256": "374fb377a9369896b3bc700a1f8ab8b03d09ec32fbc064d53f9db585f8a8e9d0",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "ANALYSIS_EXECUTION_SUMMARY.md",
+      "bytes": 6708,
+      "sha256": "75e612df08713e954af799b752bf47c7aa0fd6a61423439132f8aceaccd18a7e",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "ANCHOR_DIAGNOSIS_SUMMARY_CN.md",
+      "bytes": 9298,
+      "sha256": "f4a61d77924345536b42a12bc040d90deb4bcafbb4dee8d97046990e210a66e2",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "ANCHOR_EXPERIMENTS_REPORT_20260907.md",
+      "bytes": 9088,
+      "sha256": "e7a4eb541debeb73338475f4e2872211849e498d89a3bd1fae5a6fb7fdf8f244",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "AUDIT_BEST_EPOCH_RESULTS.md",
+      "bytes": 5446,
+      "sha256": "ee315dff616760766c0332530bc32f1c885b8c3470dc8f89fe25e5450b8d2bb3",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "AUDIT_EXECUTION_PLAN.md",
+      "bytes": 4223,
+      "sha256": "8f6cdbba57947dac35bd3a4555203a86b7cef944c937fa82b9a8e62c5d27c873",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "Additional_Experiments_Recommendation.md",
+      "bytes": 9230,
+      "sha256": "a5a16fbcce82438748ac3201f6ce030b82dba771c5b4a265223e81b6b54a0b5f",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "COMPLETE_STATUS_SUMMARY.md",
+      "bytes": 8208,
+      "sha256": "4004e9229905407c0171e928532c8117382f5000fd021d54120018f2138c8dd6",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "CORE_IDEA_VERIFICATION_STATUS.md",
+      "bytes": 5484,
+      "sha256": "f6cd412c2ccc790094476c6f2d2d69699e618ed74ed7e40a43807cc28cf086d5",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "CRITICAL_EXPERIMENTS_MISMATCH.md",
+      "bytes": 4477,
+      "sha256": "f6d52420eed24de541ab5956d8b1259ff972227f0f271717acfdc5a5a7ee4113",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "CRITICAL_ISSUES_TO_RESOLVE.md",
+      "bytes": 6524,
+      "sha256": "06c556976e27fc7273647a0e9501f0259354bc9f5d902c4a3a9cf27fd53a3761",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "CURRENT_STATUS_AND_NEXT_STEPS.md",
+      "bytes": 5714,
+      "sha256": "b3f54d7815c11fd51d9bee588178efcb15ec23b35af02805767e9c3ff51dc0d5",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "Core_Idea_Proof_Experiments.md",
+      "bytes": 13960,
+      "sha256": "8f737a6085fb80a4448a781fe0a6c33aca14fdf05474883d26f6a3cf0780b7b2",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "DCT_AUDIT_PAPER_DRAFT.md",
+      "bytes": 10153,
+      "sha256": "e8508222704c2ca865a1e26686ae98e598a53acc754d10ba2d0b7b3f4f7c6c9a",
+      "archived_copy_in_snapshot": false,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "DCT_EVOLUTION_ROADMAP.md",
+      "bytes": 5503,
+      "sha256": "58ee81b0a72c6202ac2c9c1fd0a4d5a4b1d72a6526e329e26c795988c470e8f6",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "DECISION_POINT_NEXT_EXPERIMENTS.md",
+      "bytes": 8978,
+      "sha256": "0a3fcdec8946cf4d6362cde5e373fc8c27015b752788832c04f0ba41dd98e34e",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "E4_AUDIT_EXECUTION_LOG.md",
+      "bytes": 7610,
+      "sha256": "b1e19ab686187c7d0f402fca0541284fc1a0b83cf2e1642dbd66fe6f3fc0aa5a",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "E4_AUDIT_FINAL_REPORT.md",
+      "bytes": 5880,
+      "sha256": "972464e52ca64145f88207afc1d1207499e0887a16ff165040fec513f91e449e",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "E4_EXPERIMENTS_ACTION_PLAN.md",
+      "bytes": 7166,
+      "sha256": "f1a556d6bba14780d780e26c67628d5f5ecbcbeed0e02e62d80c7978d0496b57",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "E4_EXPERIMENTS_COMPLETE.md",
+      "bytes": 6610,
+      "sha256": "6c3f8c8e4141c22322834b6df5d02872479fe327199f5861f93b68f9b9d303c0",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "E4_EXPERIMENTS_READY.md",
+      "bytes": 7285,
+      "sha256": "c22d3240e68950da05051958fa8ce1b19465dd53191224e549c9e89a6f962c10",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "E4_FULL_ANALYSIS_CRITICAL_FINDINGS.md",
+      "bytes": 8772,
+      "sha256": "c37803f6dd30fe46ff70c9f4436743c190c1d6b3e51d1c8f6b62bbd11802dd92",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "E4_READY_FINAL.md",
+      "bytes": 7024,
+      "sha256": "e4d9fd3e8f50cade9703803b2fc3c674197aac31c929e25667d221e8f795e948",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "E4_READY_TO_RUN.md",
+      "bytes": 3929,
+      "sha256": "787581839d8de801af4b11400e96d6710a6fd19f162b5870f7fd4b8b1011a9bf",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "EVIDENCE_STATUS_REPORT.md",
+      "bytes": 12632,
+      "sha256": "8781cf3542962bb150679ca1860056186bdff871a182eb2f88708e6dd8dd80d6",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "EXECUTE_NOW.md",
+      "bytes": 5543,
+      "sha256": "e5adf6833f3e33dd00acd2b7cb5d174bf0086f0dd99a80a2913c500d65b07fce",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "EXECUTION_COMPLETE.md",
+      "bytes": 4393,
+      "sha256": "428e7d8b8151b456160a7ca9a7ab919eb68c28ac849b48dcd72447c451ab03b5",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "EXPERIMENTS_PROGRESS_FINAL.md",
+      "bytes": 6289,
+      "sha256": "23c5e53df517ac489afe4cdb4a88f20316be339a0e60b7bc7cf4af18924822dc",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "EXPERIMENTS_READY_TO_RUN.md",
+      "bytes": 9600,
+      "sha256": "94dfcfc001975e18eda8ed1d4e92de8551746f8b1ed0e81b178dc176a8070cf6",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "EXPERIMENT_CONCLUSIVE_RESULTS.md",
+      "bytes": 5446,
+      "sha256": "ff44bf30895f8490a9b1bc49e6811e829649e3e6d3d019d1a167fe88e8b503b9",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "EXPERIMENT_DATA_SUMMARY.md",
+      "bytes": 6868,
+      "sha256": "d62ff8249f7616cab386f1fa0ac88691535147888787e8fbcf87d9e936baa7bd",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "EXPERIMENT_FINAL_RESULTS.md",
+      "bytes": 7878,
+      "sha256": "3c881ca78deaab5e0bc1daf537dcd865943166b3926eebc9e2bb13e0f516739e",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "EXPERIMENT_PLAN.md",
+      "bytes": 4192,
+      "sha256": "ec9cacf534048c14ead73d4fe8a8e9162e69173453e4df47fc1a1408c335c3e7",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "EXPERIMENT_STATUS.md",
+      "bytes": 1521,
+      "sha256": "3041f8e975d87064390d124a33338d5bf8cad6af6d0edbc92bd127ff45a39806",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "FINAL_EXPERIMENTS_TODO.md",
+      "bytes": 8240,
+      "sha256": "1f1d7ebc339844cfa9587380f9d4fa4c54c3a552a0e3e7b90b57938d667e0c34",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "FIXED_ANCHORS_EXECUTION_SUMMARY.md",
+      "bytes": 10962,
+      "sha256": "6080f7fe5de301795c108550343a8d17f2150e94012b7330425780150a99425e",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "FIXED_ANCHORS_PROGRESS.md",
+      "bytes": 7626,
+      "sha256": "64add125cc79e03e86c992d09a0e3fa93ae8814d5babdc3a47af80f7c303156c",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "IMMEDIATE_ACTION_PLAN.md",
+      "bytes": 11018,
+      "sha256": "ca4daa7c2352b20ee46bf53ec63ac0b8f29a62b26e471d6e834124f1bdc16099",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "MULTI_CANCER_PERFORMANCE_REPORT.md",
+      "bytes": 9126,
+      "sha256": "7c1f1277fafe0f95945e2cedd9606de1cfd4139f5a4a447995b5bac9dc3e87b2",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "NEXT_EXPERIMENTS_REQUIRED.md",
+      "bytes": 8020,
+      "sha256": "e8983096e04a5cefedc6b6413d43d3753f61d0167f1e29f18de4c953fcbdd50f",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "NEXT_STEPS_SUMMARY.md",
+      "bytes": 6896,
+      "sha256": "53e622e51f998e9a509874719409e13278269d4363b4d393ad8da4759f9f9f21",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "OUTER_CINDEX_EXPLANATION.md",
+      "bytes": 1786,
+      "sha256": "226e2ed19e416fd837f273022e6b34843b553eea63752b73575e93d5fd401195",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "PAPER_UPDATE_LOG.md",
+      "bytes": 4253,
+      "sha256": "c58991173ede12c4993094018b134f49e519cecb21ba5a8904963928e6628fad",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "PAPER_WRITING_PROMPT.md",
+      "bytes": 8106,
+      "sha256": "6d5bc7c4b4bf006ce92ce06183bffe13396b8a2b2cc2dd6e5351d5497e130cf2",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "PROJECT_STATUS.md",
+      "bytes": 7658,
+      "sha256": "6fcd1a23a2155c25a14829077f836ddc4d8a344b30883cc98ca67e9260df800c",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "PROOF_EXPERIMENTS_PLAN.md",
+      "bytes": 10056,
+      "sha256": "80a2706153a1ce350ed96ab577f2ae6fe66c7dfe0765a6bc4bcfd528ace96e25",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "PROOF_EXPERIMENTS_PROGRESS.md",
+      "bytes": 6680,
+      "sha256": "49c638fa02205b84b6a755a0831aaa64f87a175e87577835cf79eb1095063c89",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "PROOF_RESULTS.md",
+      "bytes": 6620,
+      "sha256": "36839c6e1a0835801988b754f369765da5105a6863e4821bec7f2836cfb67e1a",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "QUICK_STATUS.md",
+      "bytes": 3404,
+      "sha256": "b6ff023a960a85c3c4dadc6457c800085b869f28a632af571c56510334d7a7ac",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "README_AUDIT_FIX.md",
+      "bytes": 2956,
+      "sha256": "e715ec1acd0158697cc203975537286e79ec1bff2da8325da03ab71a3c10d91e",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "README_EXPERIMENTS.md",
+      "bytes": 2559,
+      "sha256": "cb5af993900d1da8db3fc74d8eec0a704b5e10cc74a05b69a7cca786867e0500",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "README_FIXED_ANCHORS_EXPERIMENT.md",
+      "bytes": 14656,
+      "sha256": "6607ac0683ce21f7b0b7380aad4824372f7e9a7a06b0c9c821f11eb74e928da4",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "REMAINING_5FOLD_EXPERIMENTS.md",
+      "bytes": 7166,
+      "sha256": "553d956d0d7bfda2083c8f516dc3f19885057e2626e2620ba01987b502050287",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "REVISED_AUDIT_STRATEGY.md",
+      "bytes": 2791,
+      "sha256": "cb98e181ecbb300804aa12f74bb5013da0d72fd2c13617f960565cb94b466ff3",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "SMOKING_GUN_FOUND.md",
+      "bytes": 3947,
+      "sha256": "22fdf90cdbe244e05cd8ae818bec77d069a2269b473cd8c025a077e9c375d5df",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "SOLUTION_AUDIT_EXPERIMENT_FIX.md",
+      "bytes": 5276,
+      "sha256": "1022df38176d55ace3ee32f9256f7b511a61e5d38915f1dabe6a6c7962cb7bff",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "SOLUTION_IMPLEMENTED.md",
+      "bytes": 6157,
+      "sha256": "1cb159bec3023be701e00ab844a7e3762f33f2c7346934564db1f998acb1d1c4",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "STATISTICAL_ANALYSIS_COMPLETE_REPORT.md",
+      "bytes": 8101,
+      "sha256": "d1bc3e4302427db99cb4978ccfa25f14796470252b559210da42b0591be5a78f",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "STATUS.md",
+      "bytes": 10023,
+      "sha256": "07e846fe28430660c4b47550385c9512d8b90d0beb4c4e1187614b33cab34d78",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "TASK_COMPLETE.md",
+      "bytes": 4248,
+      "sha256": "ddc464dd8571c3ec3c4683e3d3ff05d553fd9b1a586809a30bf4507d47942429",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "TASK_COMPLETE_STATISTICAL_ANALYSIS.md",
+      "bytes": 8180,
+      "sha256": "51e68b460816c6e007850b4a0658acdce5839d842d7119f6dfdcad33e8883dd4",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "TASK_COMPLETION_SUMMARY.md",
+      "bytes": 9132,
+      "sha256": "5cf1ae17a816b103712aeb504dc75be962f9fa5ced476b0b19f7a4bbe46c0aee",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "TASK_COMPLETION_SUMMARY_CN.md",
+      "bytes": 6184,
+      "sha256": "65aa13a1cdabd5e68274c5c4d60a711590d016f7b9d7ca3b4afc106011d0a9dd",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "THREE_MODEL_COMPARISON.md",
+      "bytes": 6992,
+      "sha256": "5edfabda650cf843a6b6b7829e9c1c22709b28803a557d872a0c94d495f12861",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "TRAINING_PROGRESS_UPDATE.md",
+      "bytes": 5626,
+      "sha256": "88e59e647e034a2864c97f88aaea291a343837dcc951d9fd73aff9d9ee81a2a2",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "VERIFIED_RESULTS_2026_09_05.md",
+      "bytes": 7845,
+      "sha256": "c298fc27911ef22819724398348e6bfac63257c121bf8cb488c7cb02e46b0426",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "WHAT_TO_RUN_NEXT.md",
+      "bytes": 9925,
+      "sha256": "5894a934f9bad41dfc576ede6d431793a2d26f813cddd78dd555ea27ffe2f933",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "WORK_COMPLETED_SUMMARY.md",
+      "bytes": 9004,
+      "sha256": "72e8b723251d1315c8110c999a313d91d8feca7027bf871619fee27bc75cb0dd",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "ablation_full_model_performance_issue.md",
+      "bytes": 962,
+      "sha256": "5b121a62f3e2565e44c4fa3c5165810710d86a800c06b6c536f4b3e04d695d66",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "ablation_study_summary.md",
+      "bytes": 624,
+      "sha256": "6240a0dcf58a9a63e565b157443fd0eb4b48b85d183319886da9c917da96723e",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "diagnostics_v3_retune.md",
+      "bytes": 3302,
+      "sha256": "81505b4e22e0388dbe5496a7fb944769623e7bf61e020973c51cfd2d89e54441",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "fix_transport_mechanism_master_plan.md",
+      "bytes": 11461,
+      "sha256": "a5f38cbed37804fb13984e45add20f001abcf34956b7566f370cd8451c43c2a5",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "model_architecture_deep_analysis.md",
+      "bytes": 12215,
+      "sha256": "0853a6987b27427711d4ed7b22bcbe9132a8d0f5eb1f59878edcba04c097bb91",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "proof_experiments_summary.md",
+      "bytes": 8183,
+      "sha256": "061a3f85fa75c4f2597835c936dbdada3821497057909d9a3186feea6dae79ce",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "proof_experiments_validation_report.md",
+      "bytes": 11318,
+      "sha256": "995a1b30a98179d9e7325ede74012d4aab65c7cc1ff3419dd4c704d8025f910a",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "transport_fix_proposal.md",
+      "bytes": 16336,
+      "sha256": "50f1bf06451316811c0249c650a6099edf421ef3df396e8f505343aab5bad99a",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "transport_fix_results.md",
+      "bytes": 7503,
+      "sha256": "0254d4bed71f5c097cf115f2628ef33c4c10d8803e454305c19cfe9d2a5f5b8f",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "实验清单_最终版.md",
+      "bytes": 5417,
+      "sha256": "87f2e322cd598f40a4b9e4233aa955e2e9c759b0f385bdb62e7f0414cf743208",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "还需要运行什么实验.md",
+      "bytes": 2452,
+      "sha256": "889f44d174016428b7c67634b8919c00544ecd057cb99ec2e5b4dd3c25d01136",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    },
+    {
+      "path": "还需要运行什么实验_简洁版.md",
+      "bytes": 4511,
+      "sha256": "ed35293e075d011d5c10d83fdeea2a988b80810c63f4a51eacbe6f2b8279e0b5",
+      "archived_copy_in_snapshot": true,
+      "reason": "top-level status/report note for a superseded version"
+    }
+  ],
+  "toplevel_md_delete_summary": {
+    "count": 80,
+    "bytes": 562984,
+    "gib": 0.001
+  },
+  "code_edits_required": [
+    {
+      "path": "survot_rank/research/methods/catalog.py",
+      "action": "remove MethodSpec entries: dct_v314_masked_transport_reconstruction, dct_v315_residual_transport, dct_v316_slot_mi_decomposition, dct_risk_ordering_transport, dct_v310_fixed_anchors, dct_v32_tgsr_objective_study, dct_v32_transport_guided_slot_reaggregation, dct_v330_closed_loop_prognostic_transport",
+      "reason": "catalog_errors() would report missing model files after the deletions"
+    },
+    {
+      "path": "survot_rank/training/train_runner.py",
+      "action": "remove the dct_v315 / dct_v314 conditional import branches in init_loss_function()",
+      "reason": "those losses.py modules are deleted; branches are unreachable for v313"
+    }
+  ],
+  "tier2_optional_not_in_this_manifest": {
+    "note": "以下内容已移入 review 段并标记 review，未列入任何 delete 集合；如需删除请单独授权。",
+    "items": [
+      "results/slotspe_proof 内 slotspe_addendum_gpu0_20261020T145000 与 slotspe_addendum_gpu1_20261020T150000 的大体积 prepared/pairs 缓存 (约 9.1 GiB，其中 .pt checkpoint 本身仍有 821 个) — tier=review",
+      "results/slotspe_* 七组基线结果 (约 5.4 GiB，SlotSPE 基线及纯运输对照证据) — tier=review"
+    ],
+    "not_in_review_但仍不建议本轮删除": [
+      "顶层 89 个 md 中 80 个旧版报告 (共 0.5 MiB，已有快照副本) — 仍在 toplevel_md_delete，需单独确认",
+      "paper/ 目录、docs/history、实验档案/维护资料 — 不在任何 delete 集合中"
+    ]
+  },
+  "verification_notes": [
+    "仅做静态文件与依赖检查；未启动任何训练、推理或患者任务。",
+    "所有 sha256 已记录，执行方可在删除前复核。",
+    "删除后需重跑 python -c \"from survot_rank.research.methods.catalog import catalog_errors; print(catalog_errors('.'))\" 确认无悬空方法条目。",
+    "历史授权「本轮清理非v3.13归档实验与代码」不延续到本清单，需对具体材料重新取得明确授权。",
+    "2026-10-22 选 A：results/slotspe_* 七组基线已从 results_delete 彻底移出，改列 review/tier2，理由「SlotSPE 基线及纯运输对照证据」；addendum 两个子目录 tier 由 delete 改为 review。",
+    "论文图依赖核验（2026-10-22）：scripts/plot_v313*.py 与 scripts/plot_*.py 仅读取 results/slotspe_proof/p1246_diagnostic_blca_fold0_20261020/diagnostic.json，不读取上述七组基线目录；七组目录属对照证据保留，非论文图硬依赖。",
+    "集合互斥性已校验：results_delete / results_keep / results_review_not_in_delete_list 三者路径两两无重叠，各自内部无重复路径；results/slotspe_proof 父目录与其子目录分层属同一 review 段，字节不可相加。"
+  ],
+  "results_review_summary": {
+    "count": 8,
+    "bytes": 19559632050,
+    "gib": 18.216
+  },
+  "slotspe_proof_subdirs_summary": {
+    "count": 20,
+    "bytes": 12756033738,
+    "gib": 11.88,
+    "by_tier": {
+      "keep": {
+        "count": 18,
+        "gib": 2.741
+      },
+      "review": {
+        "count": 2,
+        "gib": 9.139
+      }
+    },
+    "counting_note": "本段为 results/slotspe_proof 的内部子目录分层，父目录字节已计入 results_review_not_in_delete_list，两者不可相加。"
+  },
+  "revision": {
+    "revision": 2,
+    "revised_date": "2026-10-22",
+    "change": "选 A：7 组 slotspe 基线移入 review；addendum 子目录 delete→review；三集合重算并校验互斥。",
+    "executed": false
   }
- ],
- "results_delete_summary": {
-  "count": 70,
-  "bytes": 29072502173,
-  "gib": 27.076
- },
- "results_review_not_in_delete_list": [
-  {
-   "path": "results/slotspe_proof",
-   "bytes": 12756035693,
-   "files": 2152
-  }
- ],
- "results_keep": [
-  {
-   "path": "results/dct_v3.13_uni_blca_p2048_30ep",
-   "bytes": 623375062,
-   "files": 24
-  },
-  {
-   "path": "results/dct_v313_ablation_Exp0_nll_only",
-   "bytes": 1304087598,
-   "files": 56
-  },
-  {
-   "path": "results/dct_v313_ablation_Exp1_nll_ipcw",
-   "bytes": 1304091838,
-   "files": 56
-  },
-  {
-   "path": "results/dct_v313_ablation_Exp2_nll_ipcw_slotnll",
-   "bytes": 1304090959,
-   "files": 56
-  },
-  {
-   "path": "results/dct_v313_ablation_Exp3_nll_ipcw_slotnll_div",
-   "bytes": 1304092443,
-   "files": 56
-  },
-  {
-   "path": "results/dct_v313_ablation_Exp4_Exp3_recon_self",
-   "bytes": 1304104082,
-   "files": 56
-  },
-  {
-   "path": "results/dct_v313_ablation_Exp5_Exp3_recon_cross",
-   "bytes": 1304107801,
-   "files": 56
-  },
-  {
-   "path": "results/dct_v313_ablation_Exp6_full",
-   "bytes": 1304114859,
-   "files": 58
-  },
-  {
-   "path": "results/dct_v313_ablation_disable_both",
-   "bytes": 623347897,
-   "files": 28
-  },
-  {
-   "path": "results/dct_v313_ablation_double_w",
-   "bytes": 623357660,
-   "files": 28
-  },
-  {
-   "path": "results/dct_v313_ablation_no_cross",
-   "bytes": 623353722,
-   "files": 28
-  },
-  {
-   "path": "results/dct_v313_ablation_no_self",
-   "bytes": 623355911,
-   "files": 28
-  },
-  {
-   "path": "results/dct_v313_ablation_triple_w",
-   "bytes": 623357755,
-   "files": 28
-  },
-  {
-   "path": "results/dct_v313_blca_uni",
-   "bytes": 124738951,
-   "files": 8
-  },
-  {
-   "path": "results/dct_v313_blca_uni2h",
-   "bytes": 782519606,
-   "files": 35
-  },
-  {
-   "path": "results/dct_v313_blca_uni_p4096_5fold_aligned",
-   "bytes": 623357584,
-   "files": 28
-  },
-  {
-   "path": "results/dct_v313_brca_uni",
-   "bytes": 623529583,
-   "files": 28
-  },
-  {
-   "path": "results/dct_v313_coadread_uni",
-   "bytes": 619109807,
-   "files": 28
-  },
-  {
-   "path": "results/dct_v313_full_wsi_three_decoders",
-   "bytes": 678623135,
-   "files": 30
-  },
-  {
-   "path": "results/dct_v313_hnsc_uni",
-   "bytes": 621049839,
-   "files": 29
-  },
-  {
-   "path": "results/dct_v313_kirc_uni",
-   "bytes": 623378051,
-   "files": 28
-  },
-  {
-   "path": "results/dct_v313_luad_uni",
-   "bytes": 9999,
-   "files": 7
-  },
-  {
-   "path": "results/dct_v313_lusc_uni",
-   "bytes": 498708560,
-   "files": 23
-  },
-  {
-   "path": "results/dct_v313_uni2h",
-   "bytes": 5851828456,
-   "files": 254
-  },
-  {
-   "path": "results/e049_blca",
-   "bytes": 1692780057,
-   "files": 323
-  },
-  {
-   "path": "results/e051_stage2_blca",
-   "bytes": 1624313205,
-   "files": 324
-  },
-  {
-   "path": "results/v313_additional_20261008",
-   "bytes": 16670883,
-   "files": 86
-  },
-  {
-   "path": "results/v313_controls_v2",
-   "bytes": 2610082279,
-   "files": 160
-  },
-  {
-   "path": "results/v313_evidence_v2",
-   "bytes": 1319271443,
-   "files": 110
-  },
-  {
-   "path": "results/v313_interpretability_v1",
-   "bytes": 137252129,
-   "files": 254
-  },
-  {
-   "path": "results/v313_paper_v1",
-   "bytes": 11084749454,
-   "files": 409
-  },
-  {
-   "path": "results/v313_slotspe_20261007_v2",
-   "bytes": 31321498,
-   "files": 53
-  },
-  {
-   "path": "results/v313_ten_cancer_km",
-   "bytes": 170234355,
-   "files": 252
-  },
-  {
-   "path": "results/v313_three_decoders_six_20261013",
-   "bytes": 1355443159,
-   "files": 105
-  },
-  {
-   "path": "results/v313_three_decoders_six_20261013_part2_76f8f25",
-   "bytes": 2704238402,
-   "files": 203
-  },
-  {
-   "path": "results/v313_three_decoders_six_20261013_part3_kirc_luad_lusc",
-   "bytes": 2037896054,
-   "files": 152
-  },
-  {
-   "path": "results/v313_tradeoff_real_20261008",
-   "bytes": 229134059,
-   "files": 345
-  }
- ],
- "results_keep_summary": {
-  "count": 37,
-  "bytes": 48929078135,
-  "gib": 45.569
- },
- "slotspe_proof_subdirs": [
-  {
-   "path": "results/slotspe_proof/_train_",
-   "bytes": 1706,
-   "files": 2,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/_train_20261020T145000",
-   "bytes": 74801,
-   "files": 1,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/_train_20261020T150000",
-   "bytes": 30494,
-   "files": 1,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/doctor_plan_evidence_20261019",
-   "bytes": 3331,
-   "files": 2,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/p1246_diagnostic_blca_fold0_20261020",
-   "bytes": 4440,
-   "files": 1,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/slot_attention_addendum_20261020",
-   "bytes": 12202,
-   "files": 1,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/slotspe_addendum_gpu0_20261020T143000",
-   "bytes": 1826794,
-   "files": 3,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/slotspe_addendum_gpu0_20261020T143155",
-   "bytes": 873,
-   "files": 1,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/slotspe_addendum_gpu0_20261020T143258",
-   "bytes": 289,
-   "files": 1,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/slotspe_addendum_gpu0_20261020T143327",
-   "bytes": 1111,
-   "files": 2,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/slotspe_addendum_gpu0_20261020T143354",
-   "bytes": 0,
-   "files": 0,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/slotspe_addendum_gpu0_20261020T145000",
-   "bytes": 6728031111,
-   "files": 730,
-   "tier": "delete"
-  },
-  {
-   "path": "results/slotspe_proof/slotspe_addendum_gpu1_20261020T143000",
-   "bytes": 1825921,
-   "files": 2,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/slotspe_addendum_gpu1_20261020T143155",
-   "bytes": 0,
-   "files": 0,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/slotspe_addendum_gpu1_20261020T143258",
-   "bytes": 0,
-   "files": 0,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/slotspe_addendum_gpu1_20261020T143327",
-   "bytes": 0,
-   "files": 0,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/slotspe_addendum_gpu1_20261020T143354",
-   "bytes": 0,
-   "files": 0,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/slotspe_addendum_gpu1_20261020T150000",
-   "bytes": 3085188203,
-   "files": 532,
-   "tier": "delete"
-  },
-  {
-   "path": "results/slotspe_proof/slotspe_clean_original_blca_run_20261020",
-   "bytes": 927741074,
-   "files": 408,
-   "tier": "keep"
-  },
-  {
-   "path": "results/slotspe_proof/slotspe_full_blca_5fold_20261020",
-   "bytes": 2011291388,
-   "files": 464,
-   "tier": "keep"
-  }
- ],
- "code_delete": [
-  {
-   "path": "survot_rank/research/methods/dct_v316_slot_mi_interaction",
-   "bytes": 69925,
-   "files": 7,
-   "reason": "method registered in catalog but not on the v313 or v2 dependency chain"
-  },
-  {
-   "path": "survot_rank/research/methods/faithful_evidence_transport",
-   "bytes": 25731,
-   "files": 6,
-   "reason": "method registered in catalog but not on the v313 or v2 dependency chain"
-  },
-  {
-   "path": "survot_rank/research/methods/rank_guided_event_transport",
-   "bytes": 24227,
-   "files": 6,
-   "reason": "method registered in catalog but not on the v313 or v2 dependency chain"
-  },
-  {
-   "path": "survot_rank/research/methods/stagewise_prognostic_transport",
-   "bytes": 19955,
-   "files": 6,
-   "reason": "method registered in catalog but not on the v313 or v2 dependency chain"
-  },
-  {
-   "path": "survot_rank/research/methods/legacy/experimental/dct_v312_slot_interpretable_impute",
-   "bytes": 20861,
-   "files": 2,
-   "reason": "non-v313 method implementation; not imported by v313/v2 chain"
-  },
-  {
-   "path": "survot_rank/research/methods/legacy/experimental/dct_v314_masked_transport_reconstruction",
-   "bytes": 125832,
-   "files": 9,
-   "reason": "non-v313 method implementation; not imported by v313/v2 chain"
-  },
-  {
-   "path": "survot_rank/research/methods/legacy/experimental/dct_v315_residual_transport",
-   "bytes": 42568,
-   "files": 7,
-   "reason": "non-v313 method implementation; not imported by v313/v2 chain"
-  },
-  {
-   "path": "survot_rank/research/methods/legacy/ablation/dct_v32_tgsr_objective_study",
-   "bytes": 5429,
-   "files": 2,
-   "reason": "non-v313 method implementation; not imported by v313/v2 chain"
-  },
-  {
-   "path": "survot_rank/research/methods/legacy/ablation/dct_v310_fixed_anchors",
-   "bytes": 4220,
-   "files": 2,
-   "reason": "non-v313 method implementation; not imported by v313/v2 chain"
-  },
-  {
-   "path": "survot_rank/research/methods/legacy/ablation/dct_v330_closed_loop_prognostic_transport",
-   "bytes": 16898,
-   "files": 2,
-   "reason": "non-v313 method implementation; not imported by v313/v2 chain"
-  },
-  {
-   "path": "survot_rank/research/methods/legacy/ablation/dct_v32_transport_guided_slot_reaggregation",
-   "bytes": 5283,
-   "files": 2,
-   "reason": "non-v313 method implementation; not imported by v313/v2 chain"
-  },
-  {
-   "path": "survot_rank/research/methods/legacy/ablation/dct_risk_ordering_transport",
-   "bytes": 3645,
-   "files": 2,
-   "reason": "non-v313 method implementation; not imported by v313/v2 chain"
-  }
- ],
- "code_delete_summary": {
-  "count": 12,
-  "bytes": 364574,
-  "gib": 0.0
- },
- "archive_scripts_delete": [
-  {
-   "path": "scripts/_archive_v310_v311/README_QUEUE.md",
-   "bytes": 4773,
-   "sha256": "496a52cd2a68ecf30b3fe480eb7d158357fd6678fb4b26b8eff29f1ec3a4dfac",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/__init__.py",
-   "bytes": 40,
-   "sha256": "26ec5caaf81b7ae7150f3a4746aa5c1bd583d10d1d3c8fc41e6bda8f2272808d",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/_queue_runtime.py",
-   "bytes": 5870,
-   "sha256": "a0986a6ce148a4b435ee00b15726922ee8c5c5fb34069ccc6ab51b2fcc609024",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/ablate_reader.py",
-   "bytes": 13048,
-   "sha256": "eee97c30199f4832bb00b772867688971ae291c902b4f2360f97ecc88e437e3f",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/analyze_audit_results.py",
-   "bytes": 8023,
-   "sha256": "06c386909475ca8552c616bd3c33f8948bcbc45bed70c9cbf8343c11155fceb5",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/analyze_e4_results.py",
-   "bytes": 4994,
-   "sha256": "7268ddc3b124e9eb456d27a5d6bfbc8746542ccc318b8a41244247850b107357",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/analyze_omic_slot_pathways.py",
-   "bytes": 9284,
-   "sha256": "4e6b1d75f1edad4b75e35c19678d821579cf8862436c8aaabf5e8571470ae42a",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/analyze_redesigned_audit.py",
-   "bytes": 7421,
-   "sha256": "aae660df00807be915cfad2d9d2e10f66de6e502616f027b21f4c395e84ec1e6",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/analyze_v311_fixed_proof.py",
-   "bytes": 13130,
-   "sha256": "0361dfc53afcabe1387cd163f4c2da170490d6d5eb85eeb7132c0ae02b64c8ba",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/analyze_v311_slot_interp.py",
-   "bytes": 14607,
-   "sha256": "9a45bee762db2223c0477763e43d3b1d6ea7e4bfb058fa76660a426a48b65688",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/analyze_wsi_slot_patches.py",
-   "bytes": 8909,
-   "sha256": "8a4102c4899fe702b96b11942a99434de01f6fdbfbd8a7ae7a351b98677a1222",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/anchor_causal_validation.py",
-   "bytes": 14975,
-   "sha256": "8ee6daedf47c73c8104aba71a5dfcada2a3a1b972ef75460412623e02d53142a",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/anchor_consistency_analysis.py",
-   "bytes": 12383,
-   "sha256": "17095a4330d1095a14e4bab57ca548b5ed39f6aeff91ae7f6d38ab08678b5cb0",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/anchor_separation_analysis.py",
-   "bytes": 15056,
-   "sha256": "711f57e98fb5779f0a7e492a0ae86581c4ae12c1fca08f3ae9302fdc1c519434",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/audit_all_fixed_folds.sh",
-   "bytes": 1472,
-   "sha256": "ccefcd5ed13bfaf7eae5da1e7d6e4ddafec16df36e19f5f520582d3066590100",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/audit_best_checkpoints_wrapper.sh",
-   "bytes": 2422,
-   "sha256": "19c894e20ba099fe54f0e6dcd5b23d0768d5237a89368f5ac56517c977db189b",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/audit_dct_reg.py",
-   "bytes": 27319,
-   "sha256": "14195c0c53670d1b43b61f9576361c3415127103a76ce31bd433c5cceeb4161e",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/audit_fixed_anchors_batch.py",
-   "bytes": 7713,
-   "sha256": "1f3f4927893fce0932e0bf18345aa10cb36210610c3b5dde856dbb26d31ca053",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/audit_v314.py",
-   "bytes": 8760,
-   "sha256": "f53c9c773c3f526c33394fb2106fb7f0e0b7b14dac42648783d7a06a29d87e78",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/audit_v315.py",
-   "bytes": 7780,
-   "sha256": "613774ed0fed6c58a24d5bae2849d1d486c6fc9b691abed350612b9906f7610b",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/compare_v310_v311_audit.py",
-   "bytes": 13917,
-   "sha256": "a4267b7e974ace93efe1b9a9df50a88b615e059744def09b2a498ec9b6bd8f37",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/compare_v311_fixed_vs_unfixed.py",
-   "bytes": 10659,
-   "sha256": "261925cfd32c357e2237d9b920ed809467d0da5c2d0c8efb88100f5bec6a13ca",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/compare_v311_vs_v310.py",
-   "bytes": 15911,
-   "sha256": "1ab19c6e1258a5090cc95c983ff19f740e50775202814333986f751f3b773e47",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/compute_calibration_and_dca.py",
-   "bytes": 12314,
-   "sha256": "90e8baabb51e155d5ef2bf9421f2f2dc39b87208a52cfa0dc8ca2db4d2bfbced",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/compute_efficiency_metrics.py",
-   "bytes": 7080,
-   "sha256": "37baa8ddda2324b33d84c8d410968a8e0d66de26b185174fc5050616120caa65",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/debug_columns.py",
-   "bytes": 632,
-   "sha256": "bfbab4965b47960028ec5478c442e99bac7683d8cd90f69463cde01faa986e6f",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/diagnose_slot_collapse.py",
-   "bytes": 4202,
-   "sha256": "3a7de6849b9cd1ca6c8838a23bce2013d730cdd6aaa027149c96409b36a72884",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/diagnose_transport_plans.py",
-   "bytes": 6603,
-   "sha256": "fd970cb9c080b335c9b61a09a30b313a1f407b2223e7fa17eeae86190aafbad1",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/e4_audit_adapted.py",
-   "bytes": 28420,
-   "sha256": "e3a3d761c19e1dbab10c46745d5a21be1857118fea5fa8cc1fff192ac01d8a18",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/e4_audit_working.py",
-   "bytes": 13477,
-   "sha256": "bc7861c6c0da6273017ab934c04a78c8926f9698e8e86ec3483887a86f988ecf",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/e4_continuous_intervention_audit.py",
-   "bytes": 15819,
-   "sha256": "d3318bb8dd5ca973a8497cab5edb201d65cab567491fb2a2409a34d3c0d36c20",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/e4_continuous_intervention_audit_v2.py",
-   "bytes": 20345,
-   "sha256": "10a8b8bee31331e3df2939849d44843b28aa5ab50e5861f63571d703a1931cc3",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/e4_intervention_audit.py",
-   "bytes": 17362,
-   "sha256": "adb8d5a52f1a7d8cbb1f57c87229523ffd7baf52e33db2eba266a19d03162d9a",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/e4_v311_fixed_audit.py",
-   "bytes": 12280,
-   "sha256": "bd3635a0f01b44ad2509ef9633ba9849a0c0cd4052379042e6c9d9a9d75dca49",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/estimate_training_time_from_checkpoints.py",
-   "bytes": 8198,
-   "sha256": "3b04d3b2337e9c6014929849e28ecec53722c8d13a58b47683a5cab6ab8aed77",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/export_v311_fixed_per_slot_hazard.py",
-   "bytes": 14157,
-   "sha256": "5ad7d204892d2d43777d9de532e9a22de86d870324d3e91ecc8ce9091ba7c7f0",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/export_v311_per_slot_hazard.py",
-   "bytes": 20612,
-   "sha256": "59faf487030ace9d1e63ce699a51cebc8c9aaa0a762832fa18631b09799e7602",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/export_v311_per_slot_hazard_fixed.py",
-   "bytes": 14672,
-   "sha256": "61f97aba2d8849fd0686fa5c0934017586eb186c508b3a76623dbefbd18ce686",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/export_v311_v2_per_slot_hazard.py",
-   "bytes": 7968,
-   "sha256": "b48f00239df525d70b48b8dfb30f8a1d4f7495a544aee43b15dcfb986507478a",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/extract_ablation_results.py",
-   "bytes": 6350,
-   "sha256": "95f49d5e80cc288f481ec7c8b77f238353f4b4ed36a4d49d743858b888fa28e7",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/extract_anchors_from_checkpoint.py",
-   "bytes": 3550,
-   "sha256": "46904a175da4365f6427655906811c580b799a9952c19d2e81db0a9fdd4c1789",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/extract_best_epochs.py",
-   "bytes": 6067,
-   "sha256": "b6154ce6984d28e5428419f986cbcc3728bce8f722dc3fe4f7a158620a931c85",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/extract_mechanism_audit.py",
-   "bytes": 7895,
-   "sha256": "c653c079321ea4704527593a9967fa64be12e99dc358a53930fb9293413cb89c",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/extract_survival_metrics.py",
-   "bytes": 5431,
-   "sha256": "e8fd79fbc1e0db1ca03b4166aa5dac3bf7cf39984e1649965522aed0a73b506c",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/extract_training_time.py",
-   "bytes": 7596,
-   "sha256": "dad5e8ef4ad20f5700a6e1c4aac9b83fc89fce589ed4523aa731e27574e271f3",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/extract_v310_direction_loss_metrics.py",
-   "bytes": 4551,
-   "sha256": "c37c0d7e8fdb2af81e4ec065c7985553d25788053039f1670ed1d8896d211426",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/fix_v311_diversity_per_modality.py",
-   "bytes": 3988,
-   "sha256": "18cc571803f308ff269aa70a0350fc516ec50a4569bcb75dc7a88fcc19a009a1",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/generate_complete_report.py",
-   "bytes": 8188,
-   "sha256": "856714ff593f58dc38c7d12283432634f1b65e35260cedbdfd92be95c789e5a2",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/generate_figure3_all_cancers.py",
-   "bytes": 9465,
-   "sha256": "ec09aac2ed935b1caf1c39c4d4c92871960acc4f164b4b4b952dc4da70a322a8",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/ideal_anchor_validation.py",
-   "bytes": 6517,
-   "sha256": "974f26da8e0102306a269bc46438e2a9e09cddecb194106f237603a5ebba6160",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/inspect_v311_pkl.py",
-   "bytes": 1369,
-   "sha256": "777a4abaf45533bb2a7f71fc40d0f1f61e95bb46d6e90992903514abab9c3b46",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/kaplan_meier_analysis.py",
-   "bytes": 14837,
-   "sha256": "194372eab0626f1241175714c64db7f8e8217df170b3ed5e8bc65f8f4d9dd452",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/kirc_refill_5fold.py",
-   "bytes": 6163,
-   "sha256": "476f563e74c19e312cd4808496060367712597f125e65f32f9b6dba3938d699e",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/kp_multi_cancer.py",
-   "bytes": 8223,
-   "sha256": "0c6ad64a92723c35a468e23aee1b07dfadfd9d689e315272ed3c2e0a9c11f662",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/launch_and_monitor.sh",
-   "bytes": 1878,
-   "sha256": "f22441d86a6f2daca8506a381cc4516e0e814a9926fc355327176edd5b1b9887",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/launch_v310_both_sequential.sh",
-   "bytes": 1367,
-   "sha256": "e4cb7fd5dd0d0de5575e4e6d54c2b30a0c089035d3ec7c49257eacb055fba4ff",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/launch_v310_uni2h_extend.sh",
-   "bytes": 1512,
-   "sha256": "7f1af9e4a978e09bfd7c0e301c0927726e6417abcb3537f59dba78eb30278650",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/launch_v310_uni_all10.sh",
-   "bytes": 1464,
-   "sha256": "1ac51369ad984a3621aa3cd58784c078b3b9153ece5faa3057330a25dc8b0c9e",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/launch_v310_uni_blca_p2048_30ep.sh",
-   "bytes": 1617,
-   "sha256": "f2624e4ae0b607cfdfd71b9a28a72a5735d08e1ff6018b3e11381634cfe4b6b4",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/make_e4_audit_report.py",
-   "bytes": 9757,
-   "sha256": "25fa8da97a8ee0d942aeb2f328be4ca189af376b7fcbe37e8ad1404b32e1cfa7",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_5fold.sh",
-   "bytes": 892,
-   "sha256": "cbf60c6375c8c68b769642962c8cc4ddacd755b3910d09e922b3b101a8782e6d",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_blca.sh",
-   "bytes": 3306,
-   "sha256": "abfc39f380e81f70c53666b4d68cadcaf49634941d0e6a55e5bd50589e08189d",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_blca_v310.sh",
-   "bytes": 4681,
-   "sha256": "14950ca485ccb13f979e50ecdd18271459fb0eb09fd5414adca89c997cd53bd6",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_continuation.sh",
-   "bytes": 2923,
-   "sha256": "ec04d449318e2b9d8f45cb1b38869e242b9f6a3e76379e884147beca63f3bfc7",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_export.py",
-   "bytes": 7615,
-   "sha256": "6cf1380dcb3d7244e249b6fb055c91cf277a96e5e8e16231a1ed0d65c2b35d10",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_fold0.sh",
-   "bytes": 2404,
-   "sha256": "755a45b76ddfe69b6f82df5719922ce0070ecc7a3395b7e2431221b6a310da6e",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_scores.py",
-   "bytes": 15722,
-   "sha256": "b0c50da8386f147bdf25ebf891906e3489080f8913b3d549ac54f97a12be45f3",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_slotspe.py",
-   "bytes": 11876,
-   "sha256": "675e17832b016f74f9569c8ddc7acfa0084ad678b27699388d4aa21c0988615f",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_training.sh",
-   "bytes": 1814,
-   "sha256": "89c4480a5cef9fcfb514e972aac300e47b9d2c5f2202dd39707510b89416e6c1",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_unified.py",
-   "bytes": 8279,
-   "sha256": "a888187ba9ab3f63ed1a92951c9cef66dd9a28abb51a5971af7acfc2047675a5",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_v310_queue.sh",
-   "bytes": 3505,
-   "sha256": "7c101d4499efdded5b708c9b9d2afc6548199b59caa9f8109d4f082222b7dec4",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_v311_5fold.py",
-   "bytes": 4964,
-   "sha256": "58426e003cf4656129628b19336e126f418ad2e8f4fd7fc765555feba80b736b",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_v311_pancancer.sh",
-   "bytes": 1901,
-   "sha256": "dfbbeb6eaee5d34af26a3965b942d5c0ddcfea72447ecedcb879a1be2174c2e3",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_v311_training.py",
-   "bytes": 9492,
-   "sha256": "ab0c7cb48101bc568cc43124b87d53bab212dc6fdb46a2b1b5300e0332efe3da",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_v311_v2_live.py",
-   "bytes": 7633,
-   "sha256": "5b226f330ee7590d55ad9378d23620293ac0aadaabc97eb6778eba0eec061c2e",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/monitor_v311_v2_training.py",
-   "bytes": 4028,
-   "sha256": "661b72529a0afdec4c096118f3095af3ae9a859f9da403d046c07075b60d657b",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/plot_fig3_only.py",
-   "bytes": 6352,
-   "sha256": "cb73f217085ccace72b568a4321e0bada7a6f9a8b076db72e622d79e632e7805",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/prepare_slotspe_h5_features.py",
-   "bytes": 6196,
-   "sha256": "58e2b86366f1b5cb80fb305bdf63bd2caf251f25b0779cfde0a0f0204e590b79",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/proof_D_visualization.py",
-   "bytes": 28379,
-   "sha256": "54aa24678a8848effccf521a0f6a7ee4b148ccc3428184e0b7d3d8bdc6fa4fdb",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/reconstruct_proof3_from_logs.py",
-   "bytes": 2710,
-   "sha256": "9bd26dd54895a52f65023ffd21690aa530a4f6d63f76e9718345bf97f0916be7",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/redesign_audit_blca.py",
-   "bytes": 15313,
-   "sha256": "e112b37d023343d124697d5cb6c351ccb663f808402ed0ae5eb6ed72f2f195c0",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/redesign_audit_blca_remaining.sh",
-   "bytes": 1305,
-   "sha256": "4b703fddc3f2c3997b7268b5dbc9fe3c2fba8c2d6778b58e2022932d84951f75",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/regen_exp_d_report.py",
-   "bytes": 449,
-   "sha256": "900433f9950c11eebf34339a1cda17fb85794ce6f9b0248521dbdb23ae16e419",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/regen_exp_f_report.py",
-   "bytes": 5562,
-   "sha256": "73641c42216afa1399b7910fde5e92eb22d922b5b79522aa204f431eaf19b7e8",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/regen_proof2_report.py",
-   "bytes": 3862,
-   "sha256": "89858a8cbfda7fc082cad13fc637e389f1058f0e512ab9edbe8e8cb354ba420d",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/regen_proof3_report.py",
-   "bytes": 4498,
-   "sha256": "90471e8eb38686e51080b6af970d46e5aa6132d263f36d0d86544de0aab7b3a8",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/regen_proof_a_report.py",
-   "bytes": 6474,
-   "sha256": "540e19961deec6a8c1c2e32cc56c11b29fd45f170b1ebc720721150aa711a179",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/rerun_audit_on_best_checkpoints.py",
-   "bytes": 7001,
-   "sha256": "4b0e0717741cb19848a470193249782d3e1f219f6bc8b0993b94f81fd9f445e1",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/rerun_audit_with_best_epoch.py",
-   "bytes": 10027,
-   "sha256": "6592749045d15d93b184c327c396a51bdd4d91c58cd672d6549ec87b68bb70c9",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_6datasets_parallel.sh",
-   "bytes": 1999,
-   "sha256": "e773dee8003694f3129a354319ab0d3d7c6acd04ec59f544e07359fa735a58a3",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_all_e4_experiments.py",
-   "bytes": 8367,
-   "sha256": "389f38a918232f572ea93d416c626fc8c86777a30470ed919b0232326bcc1109",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_anchor_experiments.py",
-   "bytes": 16737,
-   "sha256": "1891a36f667a98fe2ff10267e80c6ec26b4c4b594c8a4e2eb27036c8fcca3841",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_audit_on_best_models.py",
-   "bytes": 5111,
-   "sha256": "df6c4ef96c6686241d3b4c3c9c74dc269f486831b1e15b41597ab4cad04fdeaf",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_blca_v310.sh",
-   "bytes": 2862,
-   "sha256": "047c0b7a1c3176cc114c021bcacf2ce97b29ea860ded1affc7aa05a66f5acc9f",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_blca_v315_v316.py",
-   "bytes": 5059,
-   "sha256": "cfea4f5972cb6b0c7b160db8ce0855b7bea58852d9b74039cad3ad1426b3b819",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_dct_v310_experiments.py",
-   "bytes": 8814,
-   "sha256": "876668ea855b3bdc4bf87385cb212a1f271f10fa5b413f3ab8e35563031070b2",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_dct_v310_final_cross_cancer.py",
-   "bytes": 7389,
-   "sha256": "5ad82c6876936d1a0d62a82d441fa26552aa0c333127c5b83e8746fd1612f8ca",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_dct_v310_final_uni_queue.py",
-   "bytes": 10178,
-   "sha256": "94d63210d8fb39f4817cb9b44f46b109f1bd1a18907809ce793b923c1f22d6f9",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_dct_v311_blca_uni2h_v2_5fold.sh",
-   "bytes": 844,
-   "sha256": "a3eefff7fc4ef02a3709fcb1f0600a7a28ac99df486f79af6839c6085a1f9a74",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_dct_v311_fixed_training.py",
-   "bytes": 7047,
-   "sha256": "dafbe6463d69d337a4c9a54c1adbe275f1c9e1d1b036a17a5ffdc54fdb981e33",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_dct_v311_uni_fixed_pancancer.py",
-   "bytes": 7804,
-   "sha256": "6b942fa27f057a8d59c90de8b669681a93df2e506b7727b3e1e4f19fb4c533e6",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_dct_v312_5fold_aligned.sh",
-   "bytes": 3334,
-   "sha256": "b2674e2565b73f38dd18d4b6a1f484d5b9fb5efd50edfda74edb7f45147f4eaa",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_dct_v312_fold0_aligned.sh",
-   "bytes": 1369,
-   "sha256": "aade5efec8f99aed251502180fc6bb1db9b50d89ce3d358a71052c2501d1ab64",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_dct_v312_smoke.sh",
-   "bytes": 2535,
-   "sha256": "7446ddcae7999de8df08cb289206d679262173bc4d9441c7fca10bcf085d9ebd",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_e4_audit.sh",
-   "bytes": 3109,
-   "sha256": "fecb9fe355aca998721c58fa9995add2b2d6da5b6a8bfc05a3faf9a0d4178629",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_e4_direction_audit.sh",
-   "bytes": 5512,
-   "sha256": "3707dbe435f65161f6edf5ba4a64c0e28c53fa9b2f78664e231d1f6524cc5c8f",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_night_tasks.py",
-   "bytes": 13341,
-   "sha256": "1d77c2bf65e5f7bfdde4cfd81f551b7799f1b7a827997dfc97316a28afd46966",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_one_fold.sh",
-   "bytes": 961,
-   "sha256": "86c93e76c1874478fbdcddee3550ec9f6e299e987c3a3e013b6420da4cb5978d",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_one_study.sh",
-   "bytes": 1126,
-   "sha256": "9132bc0d30e4019c165e7d0e1a3f370c40091091b067151e7e1035f5fee24785",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_paper_completion.py",
-   "bytes": 40068,
-   "sha256": "273538b57b0ec681a5aff4ba9299420ab808676ffb06fb3ffbc37a675f9321fa",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_proof_experiments.sh",
-   "bytes": 1345,
-   "sha256": "c477d55f3af41a972bd7ec477fd75cdb8ab508206216d6e47a5b39baa99946a7",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_reader_ablation_experiments.sh",
-   "bytes": 3891,
-   "sha256": "95c5b74edd4cea2fb833867aa882479d55d7eee5e39ae3d88857963b3fad7681",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_seq_5fold.sh",
-   "bytes": 2501,
-   "sha256": "154986808a0a579a68f5adb4529d7932ff7a928ae763ca0b354ba352baff4d3f",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_slotspe_blca_paper.sh",
-   "bytes": 3331,
-   "sha256": "bb6430aef59904266a13df5b354559259a42fce8649077d2ab2d64ddd87dccd0",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_slotspe_kirc_paper.sh",
-   "bytes": 2213,
-   "sha256": "cbaeda0eb7d5d33d17a83a9a72e9430fd7c224780b9e0ca55d666d98d0f73675",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_slotspe_native_paper.sh",
-   "bytes": 2361,
-   "sha256": "f827aa0dd4744bff431276fa2758d4ea07e861e66ff11bf152fa109c95a9d79b",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_small_gate_test.py",
-   "bytes": 5337,
-   "sha256": "a27d0baabc6cfdb56349574854a8293738de09219d44b10cb936459279b5b01e",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_stage_b_chain.sh",
-   "bytes": 1965,
-   "sha256": "feff1f539e2035e2c51184c52d8de75777b601a1508fc6cfa6e636382b723c69",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_stage_b_supervisor.sh",
-   "bytes": 1272,
-   "sha256": "1d10961943c7fc135c4521febef91c724328a5e5d49e5cc9528eaa8e82a9ccb2",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_sweep_all_cancers.py",
-   "bytes": 3933,
-   "sha256": "e37392a26a82c4345726b1653c111967d78a6f10ba5c470f01153460a1978df0",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_transport_candidate_gate.sh",
-   "bytes": 1347,
-   "sha256": "156d14553e6b8c299e5d765fcaaf29633f5e8d6afcde45cbeb33b4fb02b58c6c",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_transport_fix_experiment.py",
-   "bytes": 1607,
-   "sha256": "604de303f460800cf27adbbba7ddc78b88647bc44ae47eacf8dc81641332c717",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_v310_uni2h_extend.py",
-   "bytes": 7974,
-   "sha256": "1c8ee13bf6a3679b30701aca6245923c28e447dfe2b7d964b6f6442daba3b52f",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_v310_uni_all10.py",
-   "bytes": 8251,
-   "sha256": "834c70d0413b6215da0f0eac10d159339da3ce11c838195476c3aeb0643a0de9",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_v310_uni_blca_fold234.sh",
-   "bytes": 1920,
-   "sha256": "5c9994c6ea9b2ed2517ae66933bc4ed89d2f965208bc6a593a4511edbaa6c89d",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/run_v310_uni_blca_p2048_30ep.py",
-   "bytes": 7871,
-   "sha256": "8704f18cf635d3559d0e5b2e55423aeb3e946ec479830491eea0dda011f8a59f",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/statistical_significance_analysis.py",
-   "bytes": 11183,
-   "sha256": "2590387e6d0265a46d129897432a32aedb33902f1b04580c10e116841efa25b7",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/summarize_multi_cancer_results.py",
-   "bytes": 8028,
-   "sha256": "1a1310a37769ad271b3e004bbd3dfcb9046b8b7b1832e24b418e0ad8d66a254b",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/summarize_v311_pancancer.py",
-   "bytes": 1939,
-   "sha256": "f7a803fc419e699ea68418d8b76a6a1ebb225323bccf356306e46bbe5d193fb4",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/test_checkpoint_structure.py",
-   "bytes": 1375,
-   "sha256": "933a51d7f12a8704585dcad9902a6831a9f87b50eb3ec58efabb0afbade306d9",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/test_dct_v311_smoke.py",
-   "bytes": 12536,
-   "sha256": "df6ee8ae17a667a4ee184d4dc1dae130608c4d701fdbbf2c759efedcb62ed86c",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/test_e4_simple.py",
-   "bytes": 11841,
-   "sha256": "8aa0232e4cd7250a0942f2733de2dbf4b2cc3850c7cbee9a4bf3203c5d97ef69",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/test_ot_contribution.py",
-   "bytes": 17991,
-   "sha256": "aa219a63d852cdb75c9d7b1412c60041aa098a8e803e6c4a54435d7d734d5ead",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/test_reader_ablation_simple.py",
-   "bytes": 7650,
-   "sha256": "18290898825f23d2b3bc7c804ca60a34e37a3f150b0cc645bd13283130c8a76c",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/train_5fold_sequential.sh",
-   "bytes": 946,
-   "sha256": "dec403bd64e82c776d42413b519662d41e9fac5b12bf57230b44f4782bbaeed3",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/train_fixed_5fold.sh",
-   "bytes": 1078,
-   "sha256": "80dfbe5e0fbd1101042d11e3419600d933b2b0736b9ba6040f4a82f4b5d25fa2",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/train_transport_fix_minimal.py",
-   "bytes": 8027,
-   "sha256": "5346b4e1bda9601bfea4d19d9f5585349a4d2aaf9456c54bad2ceacb7238efdf",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/train_v311_fixed_v2.sh",
-   "bytes": 2271,
-   "sha256": "8692e377776769f890060b1767b500ba45b93811194d8cbac04f1cce6c9d7a73",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/v310_proof1_gain_trajectory.py",
-   "bytes": 8451,
-   "sha256": "294df5e98224d6815c205c9324676fb624e47f2ef7f1050f60807982c220ded0",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/v310_proof2_gradient_flow.py",
-   "bytes": 15060,
-   "sha256": "05847f29b89e4fb415ec47a6ae4d9995e14a5bd249bcfcd4b604b8297d9ed599",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/v310_proof2bis_per_slot_grad.py",
-   "bytes": 16447,
-   "sha256": "3a390cd63b31bdb819442ccdda53a392377c357783e3e27248a3bfab8e2e1dda",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/v310_proof3_anchor_distance.py",
-   "bytes": 12521,
-   "sha256": "d3af7f5604e937961b77122d466b86f429ce1b4bb803e3877b2232aac4638899",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/v310_proof5_epoch_curve_stats.py",
-   "bytes": 7861,
-   "sha256": "6e480c8a8625e598da09631ba8f74c5e9d0482eaee8aec5ed48d93d8563c2284",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/v310_proof_a_cross_cancer_audit.py",
-   "bytes": 8683,
-   "sha256": "5f82d3f8b7d22c4ee25e9eab7b09b04cef7e9c7a6f829a6713aad3bbf9516b29",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/v310_proof_b_anchor_geometry_trajectory.py",
-   "bytes": 9909,
-   "sha256": "2217cde0de3ac031f505b1d6fdf1ceea751c904e3d9282f47fd05851c330156a",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/v310_proof_c_audit_smoke.py",
-   "bytes": 5706,
-   "sha256": "5d549bd3f4b8babf358ade308d6db1c1bd19fc1d6b8a9a49c76f92029b32d41d",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/v310_proof_d_per_slot_hazard.py",
-   "bytes": 15258,
-   "sha256": "c294087a770df4be5e0cef42c4a94d1103afad234ae15d88dc7e38e7c747e50a",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/v310_proof_f_v311_audit.py",
-   "bytes": 9836,
-   "sha256": "0de546c2e6182212df877350586e57bb5606eb61ed046e4141b49a86e7b0dbd6",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/v310_proof_synthesis.py",
-   "bytes": 11564,
-   "sha256": "9ef54447a5e7e757ca41a18914ec3729f6aa19b25ce981f169c8a2b977b6ae50",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/validate_transport_improvements.py",
-   "bytes": 5681,
-   "sha256": "64d151a54429d2727878cdf86ab47dcccab4a621d2a15d4853bf02bb6e0f8412",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/verify_checkpoints.sh",
-   "bytes": 1173,
-   "sha256": "7c8e8f99a2e2ec616fa30a7321cefe345a7875dd05148331f4c1aab0e932b868",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/visualize_comparison.py",
-   "bytes": 9327,
-   "sha256": "670c960027abd3dd5e66aff55477cecdb3b5cda159a0cce15b0221c29fb431c9",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/visualize_e4_results.py",
-   "bytes": 8361,
-   "sha256": "c646dd64533fd3a94bebf095b61e782ca4eb03c098c43303f89bfd5394da9597",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/visualize_v311_slot_interp.py",
-   "bytes": 13291,
-   "sha256": "fa837c84ee731336a8c58157e220d51f2df67022b67e82c0cdc8273d2d9f1fdb",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/watch_v311_uni2h_v2.sh",
-   "bytes": 715,
-   "sha256": "93543b33dffd5b7bacd7e9c96bc6ec0986e0500b7b73ab21e8ac2930d769c84c",
-   "reason": "v310/v311-only archived helper; no v313 reference"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/proof_experiments/proof_A_recipe_compare.py",
-   "bytes": 4886,
-   "sha256": "828020d21cdb4a5936b42f9ec463641a95f6c06158012b1caae8db28affcdaca",
-   "reason": "v310/v311 proof script; reads deleted results paths"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/proof_experiments/proof_B_variance_constraint.py",
-   "bytes": 3646,
-   "sha256": "63ad4a51e902d63fd832868614ce65e743f298bba74f45072691510d25a68282",
-   "reason": "v310/v311 proof script; reads deleted results paths"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/proof_experiments/proof_B_variance_constraint_FIXED.py",
-   "bytes": 6416,
-   "sha256": "791ffd140309dbe171f866207f2cd89fb0c7d6b808a114e68db8a40085dcd131",
-   "reason": "v310/v311 proof script; reads deleted results paths"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/proof_experiments/proof_C_ipcw_rank.py",
-   "bytes": 4215,
-   "sha256": "e1ccf2e8528fd9646bf2599ed91ef132468a475655a991cb926997f7e5c88b8b",
-   "reason": "v310/v311 proof script; reads deleted results paths"
-  },
-  {
-   "path": "scripts/_archive_v310_v311/proof_experiments/proof_E_summary_report.py",
-   "bytes": 9096,
-   "sha256": "04359c35bbde7142c1a91633a159cf44e132365dd66df4b65129b46acf188f0d",
-   "reason": "v310/v311 proof script; reads deleted results paths"
-  }
- ],
- "archive_scripts_delete_summary": {
-  "count": 160,
-  "bytes": 1223208,
-  "gib": 0.001
- },
- "tests_delete": [
-  {
-   "path": "tests/test_dct_risk_ordering_transport.py",
-   "bytes": 2132,
-   "sha256": "7edc2b5491b6fbe36ef8592e56ce50cc3c0a0c535ffce6d6d193bb557eb76f8c",
-   "reason": "test targets a method whose implementation is deleted"
-  },
-  {
-   "path": "tests/test_dct_v314_masked_transport_reconstruction.py",
-   "bytes": 27777,
-   "sha256": "bad15bc918afbc479583a4164fdc054ded249868f7583c8575f8cb48b2db1e96",
-   "reason": "test targets a method whose implementation is deleted"
-  },
-  {
-   "path": "tests/test_dct_v315_residual_transport.py",
-   "bytes": 19792,
-   "sha256": "966e309c348b7588e035a2c3b2aa21d6a6cb243d3c7c7167aa282300a78394c1",
-   "reason": "test targets a method whose implementation is deleted"
-  },
-  {
-   "path": "tests/test_dct_v316_slot_mi.py",
-   "bytes": 21407,
-   "sha256": "7fc7f02e69ea7f5be753eaaf14cf52304345d3af9d0bf410e4d967fcdf8082ee",
-   "reason": "test targets a method whose implementation is deleted"
-  },
-  {
-   "path": "tests/test_dct_v316_standalone.py",
-   "bytes": 6056,
-   "sha256": "e480884991710204f2d1e18937655eec7ce9d0a462de83fe8f97e214be9bb2ca",
-   "reason": "test targets a method whose implementation is deleted"
-  },
-  {
-   "path": "tests/test_dct_v32_tgsr_optimization.py",
-   "bytes": 5864,
-   "sha256": "0ebbb1d5649024ffe33e711bfc2218744c7b66aafefe9ed8f66222be0af5cbc7",
-   "reason": "test targets a method whose implementation is deleted"
-  },
-  {
-   "path": "tests/test_dct_v32_transport_guided_slot_reaggregation.py",
-   "bytes": 14421,
-   "sha256": "1ff78bd9b649ef1c3e060608824c415a09a5ad8f094e6b80ed21c8f8912492af",
-   "reason": "test targets a method whose implementation is deleted"
-  },
-  {
-   "path": "tests/test_dct_v330_closed_loop_prognostic_transport.py",
-   "bytes": 10133,
-   "sha256": "23d4d6526846e75d2cdf90fcb1b49ddde60c803c2ece521414ed902614c78590",
-   "reason": "test targets a method whose implementation is deleted"
-  }
- ],
- "tests_delete_summary": {
-  "count": 8,
-  "bytes": 107582,
-  "gib": 0.0
- },
- "configs_delete": [
-  {
-   "path": "configs/dct_v312_blca_uni.yaml",
-   "bytes": 4100,
-   "sha256": "65ff570c462037b62ecdb5cef1762d0563aae1f2e58dc3eec67a065d12161d4a",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v314_blca_uni.yaml",
-   "bytes": 3181,
-   "sha256": "f2dc7687026175df6458cbf23beeb2e718c1bf99ab66a4545ea321adf98f7504",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v314_blca_uni2h.yaml",
-   "bytes": 3698,
-   "sha256": "464475b0b91c95c12a98afb003606c73d8dccb78aba555d891d4e12aca3676f7",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v315_blca_uni.yaml",
-   "bytes": 1413,
-   "sha256": "c40c67631900a86f3f9e4aeaed2581555cfe5720e8168a64e6f55f374c622dfc",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v315_blca_uni2h.yaml",
-   "bytes": 2262,
-   "sha256": "655fa2cd33bf8a1830e64c2cf9abcaaf43f5d54b54afe0ef2afc53402965fe35",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v315_rti_rank_blca_uni2h.yaml",
-   "bytes": 1619,
-   "sha256": "6969dfa8b4889b6736e8dd266857d8282ff34390c6df3e1a9bd24db047cdd068",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v316_slot_mi_decomposition.yaml",
-   "bytes": 1630,
-   "sha256": "dc2d43a0e1b6b5eec47a5ae603a190c36f338c1ee8b01922d2692214c9cfffab",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_enhanced_direction_blca_fold0.yaml",
-   "bytes": 1518,
-   "sha256": "ce60ac851ce1eec88638d1141dfa72d8aed191c69821811b844af2ab2184d6f1",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_risk_ordering_blca_fold0.yaml",
-   "bytes": 1516,
-   "sha256": "19b08a44133b53b43740166a82cbe84d70ef239d03ca1e041b46b4789836becf",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v310_baseline_blca.yaml",
-   "bytes": 2392,
-   "sha256": "eab93654f6fbcdca4e53d2a3f47ba43231dba7c7f8928c602b02f4b5baf8bd2f",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v310_baseline_blca_uni2h.yaml",
-   "bytes": 2795,
-   "sha256": "ac6d9c0637f9fe6148552a734d4c1d2c5d87699c6869ac9e126409aa756d0cc6",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v310_directional_regularized_transport.yaml",
-   "bytes": 2565,
-   "sha256": "99c4d655f8f85497dff93f3e57da8e5f4ad8cf1df4cec437ddf05a8f2a6dc237",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v310_directional_regularized_transport_blca.yaml",
-   "bytes": 2588,
-   "sha256": "c2a6fea38b21834d0906678e1121db5eda98b4f88d30c594dea382bf58bb290d",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v311_blca_uni.yaml",
-   "bytes": 2561,
-   "sha256": "cc5496b09d42f51df42cf48f2312d3f2b8d75053eb58558c092985fdd2175e4b",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v311_blca_uni2h.yaml",
-   "bytes": 2586,
-   "sha256": "4baacbd71479dc3ec1a73243b3895aa06bab7108e6d0f1aa6f0263e851dddc70",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v311_blca_uni2h_v2.yaml",
-   "bytes": 2834,
-   "sha256": "d391ae8bbdc630a8d6cfbe48f018bbeb8b0b6a955cc19ac0a78bae25a2e7602d",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v311_blca_uni2h_v3.yaml",
-   "bytes": 3647,
-   "sha256": "0dce725a0725a8894e094e315f289b6602aa5bdcfde19f371abdc4f27bcff79f",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v311_blca_uni2h_v4.yaml",
-   "bytes": 2799,
-   "sha256": "6e43b41661b75c19588f8edfb0e7c46face273b124711ce4c9a4fbbb80afc50c",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v311_blca_uni_v2.yaml",
-   "bytes": 2803,
-   "sha256": "557898f6e937fb2e68651e6b1f6b16afa99f61b9a7713bb3e89b8d2184ae1a54",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v311_blca_uni_v2_5fold.yaml",
-   "bytes": 2804,
-   "sha256": "0c402d60efae3b31882c3746589312328c274065685cbf1cc1fa59493d3bc55b",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v311_blca_uni_v2_5fold.yaml.bak",
-   "bytes": 2803,
-   "sha256": "6f4ab0fc0642560061fac4f0cdfa8cecd69b44e2d15c4039813a647add8b92bf",
-   "reason": "config targets a non-v313, non-v2 method"
-  },
-  {
-   "path": "configs/dct_v311_blca_uni_v3_5fold.yaml",
-   "bytes": 3411,
-   "sha256": "20368bfec255b34a32113505feff3686ec59023b2e01468ab76e9f4ec6a66d08",
-   "reason": "config targets a non-v313, non-v2 method"
-  }
- ],
- "configs_delete_summary": {
-  "count": 22,
-  "bytes": 57525,
-  "gib": 0.0
- },
- "docs_delete": [
-  {
-   "path": "docs/DCT_V314_DEBUG_REPORT.md",
-   "bytes": 15101,
-   "sha256": "4dd85cd47ca570c777813ba45123bd7e74d08126cbf59faf23feb0f986a8a2eb",
-   "reason": "design note for a non-v313 method"
-  },
-  {
-   "path": "docs/DCT_V314_MASKED_TRANSPORT_RECONSTRUCTION_PLAN.md",
-   "bytes": 2075,
-   "sha256": "b867917c9a17d593cec2eb9aa1dea780a8625b65496e42ff1cca64fd8fe2435a",
-   "reason": "design note for a non-v313 method"
-  },
-  {
-   "path": "docs/DCT_V315_BASELINE.md",
-   "bytes": 12106,
-   "sha256": "b9c279e640abaf2d45617f714252ac2145083996c4f5856259a7e76a2eaed0e2",
-   "reason": "design note for a non-v313 method"
-  },
-  {
-   "path": "docs/DCT_V315_PLAN.md",
-   "bytes": 2689,
-   "sha256": "c7b1f21d71b15eef565c230a13718639bf44caec33b211d470fdd1aea8ffbe06",
-   "reason": "design note for a non-v313 method"
-  },
-  {
-   "path": "docs/DCT_V32_TGSR.md",
-   "bytes": 8005,
-   "sha256": "aeabb89eb76a3ea642d9f0d511767c3ca6382bb2bd261a8008502119b4a6a11f",
-   "reason": "design note for a non-v313 method"
-  },
-  {
-   "path": "docs/DCT_V330_CLOSED_LOOP.md",
-   "bytes": 5424,
-   "sha256": "d9f609ffe564d52c10a93a92894e691d63a4e399c1fadd22590506722c74a9c3",
-   "reason": "design note for a non-v313 method"
-  }
- ],
- "docs_delete_summary": {
-  "count": 6,
-  "bytes": 45400,
-  "gib": 0.0
- },
- "toplevel_md_delete": [
-  {
-   "path": "ABLATION_EXPERIMENTS_RUNNING.md",
-   "bytes": 5849,
-   "sha256": "374fb377a9369896b3bc700a1f8ab8b03d09ec32fbc064d53f9db585f8a8e9d0",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "ANALYSIS_EXECUTION_SUMMARY.md",
-   "bytes": 6708,
-   "sha256": "75e612df08713e954af799b752bf47c7aa0fd6a61423439132f8aceaccd18a7e",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "ANCHOR_DIAGNOSIS_SUMMARY_CN.md",
-   "bytes": 9298,
-   "sha256": "f4a61d77924345536b42a12bc040d90deb4bcafbb4dee8d97046990e210a66e2",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "ANCHOR_EXPERIMENTS_REPORT_20260907.md",
-   "bytes": 9088,
-   "sha256": "e7a4eb541debeb73338475f4e2872211849e498d89a3bd1fae5a6fb7fdf8f244",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "AUDIT_BEST_EPOCH_RESULTS.md",
-   "bytes": 5446,
-   "sha256": "ee315dff616760766c0332530bc32f1c885b8c3470dc8f89fe25e5450b8d2bb3",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "AUDIT_EXECUTION_PLAN.md",
-   "bytes": 4223,
-   "sha256": "8f6cdbba57947dac35bd3a4555203a86b7cef944c937fa82b9a8e62c5d27c873",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "Additional_Experiments_Recommendation.md",
-   "bytes": 9230,
-   "sha256": "a5a16fbcce82438748ac3201f6ce030b82dba771c5b4a265223e81b6b54a0b5f",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "COMPLETE_STATUS_SUMMARY.md",
-   "bytes": 8208,
-   "sha256": "4004e9229905407c0171e928532c8117382f5000fd021d54120018f2138c8dd6",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "CORE_IDEA_VERIFICATION_STATUS.md",
-   "bytes": 5484,
-   "sha256": "f6cd412c2ccc790094476c6f2d2d69699e618ed74ed7e40a43807cc28cf086d5",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "CRITICAL_EXPERIMENTS_MISMATCH.md",
-   "bytes": 4477,
-   "sha256": "f6d52420eed24de541ab5956d8b1259ff972227f0f271717acfdc5a5a7ee4113",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "CRITICAL_ISSUES_TO_RESOLVE.md",
-   "bytes": 6524,
-   "sha256": "06c556976e27fc7273647a0e9501f0259354bc9f5d902c4a3a9cf27fd53a3761",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "CURRENT_STATUS_AND_NEXT_STEPS.md",
-   "bytes": 5714,
-   "sha256": "b3f54d7815c11fd51d9bee588178efcb15ec23b35af02805767e9c3ff51dc0d5",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "Core_Idea_Proof_Experiments.md",
-   "bytes": 13960,
-   "sha256": "8f737a6085fb80a4448a781fe0a6c33aca14fdf05474883d26f6a3cf0780b7b2",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "DCT_AUDIT_PAPER_DRAFT.md",
-   "bytes": 10153,
-   "sha256": "e8508222704c2ca865a1e26686ae98e598a53acc754d10ba2d0b7b3f4f7c6c9a",
-   "archived_copy_in_snapshot": false,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "DCT_EVOLUTION_ROADMAP.md",
-   "bytes": 5503,
-   "sha256": "58ee81b0a72c6202ac2c9c1fd0a4d5a4b1d72a6526e329e26c795988c470e8f6",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "DECISION_POINT_NEXT_EXPERIMENTS.md",
-   "bytes": 8978,
-   "sha256": "0a3fcdec8946cf4d6362cde5e373fc8c27015b752788832c04f0ba41dd98e34e",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "E4_AUDIT_EXECUTION_LOG.md",
-   "bytes": 7610,
-   "sha256": "b1e19ab686187c7d0f402fca0541284fc1a0b83cf2e1642dbd66fe6f3fc0aa5a",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "E4_AUDIT_FINAL_REPORT.md",
-   "bytes": 5880,
-   "sha256": "972464e52ca64145f88207afc1d1207499e0887a16ff165040fec513f91e449e",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "E4_EXPERIMENTS_ACTION_PLAN.md",
-   "bytes": 7166,
-   "sha256": "f1a556d6bba14780d780e26c67628d5f5ecbcbeed0e02e62d80c7978d0496b57",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "E4_EXPERIMENTS_COMPLETE.md",
-   "bytes": 6610,
-   "sha256": "6c3f8c8e4141c22322834b6df5d02872479fe327199f5861f93b68f9b9d303c0",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "E4_EXPERIMENTS_READY.md",
-   "bytes": 7285,
-   "sha256": "c22d3240e68950da05051958fa8ce1b19465dd53191224e549c9e89a6f962c10",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "E4_FULL_ANALYSIS_CRITICAL_FINDINGS.md",
-   "bytes": 8772,
-   "sha256": "c37803f6dd30fe46ff70c9f4436743c190c1d6b3e51d1c8f6b62bbd11802dd92",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "E4_READY_FINAL.md",
-   "bytes": 7024,
-   "sha256": "e4d9fd3e8f50cade9703803b2fc3c674197aac31c929e25667d221e8f795e948",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "E4_READY_TO_RUN.md",
-   "bytes": 3929,
-   "sha256": "787581839d8de801af4b11400e96d6710a6fd19f162b5870f7fd4b8b1011a9bf",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "EVIDENCE_STATUS_REPORT.md",
-   "bytes": 12632,
-   "sha256": "8781cf3542962bb150679ca1860056186bdff871a182eb2f88708e6dd8dd80d6",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "EXECUTE_NOW.md",
-   "bytes": 5543,
-   "sha256": "e5adf6833f3e33dd00acd2b7cb5d174bf0086f0dd99a80a2913c500d65b07fce",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "EXECUTION_COMPLETE.md",
-   "bytes": 4393,
-   "sha256": "428e7d8b8151b456160a7ca9a7ab919eb68c28ac849b48dcd72447c451ab03b5",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "EXPERIMENTS_PROGRESS_FINAL.md",
-   "bytes": 6289,
-   "sha256": "23c5e53df517ac489afe4cdb4a88f20316be339a0e60b7bc7cf4af18924822dc",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "EXPERIMENTS_READY_TO_RUN.md",
-   "bytes": 9600,
-   "sha256": "94dfcfc001975e18eda8ed1d4e92de8551746f8b1ed0e81b178dc176a8070cf6",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "EXPERIMENT_CONCLUSIVE_RESULTS.md",
-   "bytes": 5446,
-   "sha256": "ff44bf30895f8490a9b1bc49e6811e829649e3e6d3d019d1a167fe88e8b503b9",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "EXPERIMENT_DATA_SUMMARY.md",
-   "bytes": 6868,
-   "sha256": "d62ff8249f7616cab386f1fa0ac88691535147888787e8fbcf87d9e936baa7bd",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "EXPERIMENT_FINAL_RESULTS.md",
-   "bytes": 7878,
-   "sha256": "3c881ca78deaab5e0bc1daf537dcd865943166b3926eebc9e2bb13e0f516739e",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "EXPERIMENT_PLAN.md",
-   "bytes": 4192,
-   "sha256": "ec9cacf534048c14ead73d4fe8a8e9162e69173453e4df47fc1a1408c335c3e7",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "EXPERIMENT_STATUS.md",
-   "bytes": 1521,
-   "sha256": "3041f8e975d87064390d124a33338d5bf8cad6af6d0edbc92bd127ff45a39806",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "FINAL_EXPERIMENTS_TODO.md",
-   "bytes": 8240,
-   "sha256": "1f1d7ebc339844cfa9587380f9d4fa4c54c3a552a0e3e7b90b57938d667e0c34",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "FIXED_ANCHORS_EXECUTION_SUMMARY.md",
-   "bytes": 10962,
-   "sha256": "6080f7fe5de301795c108550343a8d17f2150e94012b7330425780150a99425e",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "FIXED_ANCHORS_PROGRESS.md",
-   "bytes": 7626,
-   "sha256": "64add125cc79e03e86c992d09a0e3fa93ae8814d5babdc3a47af80f7c303156c",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "IMMEDIATE_ACTION_PLAN.md",
-   "bytes": 11018,
-   "sha256": "ca4daa7c2352b20ee46bf53ec63ac0b8f29a62b26e471d6e834124f1bdc16099",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "MULTI_CANCER_PERFORMANCE_REPORT.md",
-   "bytes": 9126,
-   "sha256": "7c1f1277fafe0f95945e2cedd9606de1cfd4139f5a4a447995b5bac9dc3e87b2",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "NEXT_EXPERIMENTS_REQUIRED.md",
-   "bytes": 8020,
-   "sha256": "e8983096e04a5cefedc6b6413d43d3753f61d0167f1e29f18de4c953fcbdd50f",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "NEXT_STEPS_SUMMARY.md",
-   "bytes": 6896,
-   "sha256": "53e622e51f998e9a509874719409e13278269d4363b4d393ad8da4759f9f9f21",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "OUTER_CINDEX_EXPLANATION.md",
-   "bytes": 1786,
-   "sha256": "226e2ed19e416fd837f273022e6b34843b553eea63752b73575e93d5fd401195",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "PAPER_UPDATE_LOG.md",
-   "bytes": 4253,
-   "sha256": "c58991173ede12c4993094018b134f49e519cecb21ba5a8904963928e6628fad",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "PAPER_WRITING_PROMPT.md",
-   "bytes": 8106,
-   "sha256": "6d5bc7c4b4bf006ce92ce06183bffe13396b8a2b2cc2dd6e5351d5497e130cf2",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "PROJECT_STATUS.md",
-   "bytes": 7658,
-   "sha256": "6fcd1a23a2155c25a14829077f836ddc4d8a344b30883cc98ca67e9260df800c",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "PROOF_EXPERIMENTS_PLAN.md",
-   "bytes": 10056,
-   "sha256": "80a2706153a1ce350ed96ab577f2ae6fe66c7dfe0765a6bc4bcfd528ace96e25",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "PROOF_EXPERIMENTS_PROGRESS.md",
-   "bytes": 6680,
-   "sha256": "49c638fa02205b84b6a755a0831aaa64f87a175e87577835cf79eb1095063c89",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "PROOF_RESULTS.md",
-   "bytes": 6620,
-   "sha256": "36839c6e1a0835801988b754f369765da5105a6863e4821bec7f2836cfb67e1a",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "QUICK_STATUS.md",
-   "bytes": 3404,
-   "sha256": "b6ff023a960a85c3c4dadc6457c800085b869f28a632af571c56510334d7a7ac",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "README_AUDIT_FIX.md",
-   "bytes": 2956,
-   "sha256": "e715ec1acd0158697cc203975537286e79ec1bff2da8325da03ab71a3c10d91e",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "README_EXPERIMENTS.md",
-   "bytes": 2559,
-   "sha256": "cb5af993900d1da8db3fc74d8eec0a704b5e10cc74a05b69a7cca786867e0500",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "README_FIXED_ANCHORS_EXPERIMENT.md",
-   "bytes": 14656,
-   "sha256": "6607ac0683ce21f7b0b7380aad4824372f7e9a7a06b0c9c821f11eb74e928da4",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "REMAINING_5FOLD_EXPERIMENTS.md",
-   "bytes": 7166,
-   "sha256": "553d956d0d7bfda2083c8f516dc3f19885057e2626e2620ba01987b502050287",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "REVISED_AUDIT_STRATEGY.md",
-   "bytes": 2791,
-   "sha256": "cb98e181ecbb300804aa12f74bb5013da0d72fd2c13617f960565cb94b466ff3",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "SMOKING_GUN_FOUND.md",
-   "bytes": 3947,
-   "sha256": "22fdf90cdbe244e05cd8ae818bec77d069a2269b473cd8c025a077e9c375d5df",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "SOLUTION_AUDIT_EXPERIMENT_FIX.md",
-   "bytes": 5276,
-   "sha256": "1022df38176d55ace3ee32f9256f7b511a61e5d38915f1dabe6a6c7962cb7bff",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "SOLUTION_IMPLEMENTED.md",
-   "bytes": 6157,
-   "sha256": "1cb159bec3023be701e00ab844a7e3762f33f2c7346934564db1f998acb1d1c4",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "STATISTICAL_ANALYSIS_COMPLETE_REPORT.md",
-   "bytes": 8101,
-   "sha256": "d1bc3e4302427db99cb4978ccfa25f14796470252b559210da42b0591be5a78f",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "STATUS.md",
-   "bytes": 10023,
-   "sha256": "07e846fe28430660c4b47550385c9512d8b90d0beb4c4e1187614b33cab34d78",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "TASK_COMPLETE.md",
-   "bytes": 4248,
-   "sha256": "ddc464dd8571c3ec3c4683e3d3ff05d553fd9b1a586809a30bf4507d47942429",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "TASK_COMPLETE_STATISTICAL_ANALYSIS.md",
-   "bytes": 8180,
-   "sha256": "51e68b460816c6e007850b4a0658acdce5839d842d7119f6dfdcad33e8883dd4",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "TASK_COMPLETION_SUMMARY.md",
-   "bytes": 9132,
-   "sha256": "5cf1ae17a816b103712aeb504dc75be962f9fa5ced476b0b19f7a4bbe46c0aee",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "TASK_COMPLETION_SUMMARY_CN.md",
-   "bytes": 6184,
-   "sha256": "65aa13a1cdabd5e68274c5c4d60a711590d016f7b9d7ca3b4afc106011d0a9dd",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "THREE_MODEL_COMPARISON.md",
-   "bytes": 6992,
-   "sha256": "5edfabda650cf843a6b6b7829e9c1c22709b28803a557d872a0c94d495f12861",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "TRAINING_PROGRESS_UPDATE.md",
-   "bytes": 5626,
-   "sha256": "88e59e647e034a2864c97f88aaea291a343837dcc951d9fd73aff9d9ee81a2a2",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "VERIFIED_RESULTS_2026_09_05.md",
-   "bytes": 7845,
-   "sha256": "c298fc27911ef22819724398348e6bfac63257c121bf8cb488c7cb02e46b0426",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "WHAT_TO_RUN_NEXT.md",
-   "bytes": 9925,
-   "sha256": "5894a934f9bad41dfc576ede6d431793a2d26f813cddd78dd555ea27ffe2f933",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "WORK_COMPLETED_SUMMARY.md",
-   "bytes": 9004,
-   "sha256": "72e8b723251d1315c8110c999a313d91d8feca7027bf871619fee27bc75cb0dd",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "ablation_full_model_performance_issue.md",
-   "bytes": 962,
-   "sha256": "5b121a62f3e2565e44c4fa3c5165810710d86a800c06b6c536f4b3e04d695d66",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "ablation_study_summary.md",
-   "bytes": 624,
-   "sha256": "6240a0dcf58a9a63e565b157443fd0eb4b48b85d183319886da9c917da96723e",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "diagnostics_v3_retune.md",
-   "bytes": 3302,
-   "sha256": "81505b4e22e0388dbe5496a7fb944769623e7bf61e020973c51cfd2d89e54441",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "fix_transport_mechanism_master_plan.md",
-   "bytes": 11461,
-   "sha256": "a5f38cbed37804fb13984e45add20f001abcf34956b7566f370cd8451c43c2a5",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "model_architecture_deep_analysis.md",
-   "bytes": 12215,
-   "sha256": "0853a6987b27427711d4ed7b22bcbe9132a8d0f5eb1f59878edcba04c097bb91",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "proof_experiments_summary.md",
-   "bytes": 8183,
-   "sha256": "061a3f85fa75c4f2597835c936dbdada3821497057909d9a3186feea6dae79ce",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "proof_experiments_validation_report.md",
-   "bytes": 11318,
-   "sha256": "995a1b30a98179d9e7325ede74012d4aab65c7cc1ff3419dd4c704d8025f910a",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "transport_fix_proposal.md",
-   "bytes": 16336,
-   "sha256": "50f1bf06451316811c0249c650a6099edf421ef3df396e8f505343aab5bad99a",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "transport_fix_results.md",
-   "bytes": 7503,
-   "sha256": "0254d4bed71f5c097cf115f2628ef33c4c10d8803e454305c19cfe9d2a5f5b8f",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "实验清单_最终版.md",
-   "bytes": 5417,
-   "sha256": "87f2e322cd598f40a4b9e4233aa955e2e9c759b0f385bdb62e7f0414cf743208",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "还需要运行什么实验.md",
-   "bytes": 2452,
-   "sha256": "889f44d174016428b7c67634b8919c00544ecd057cb99ec2e5b4dd3c25d01136",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  },
-  {
-   "path": "还需要运行什么实验_简洁版.md",
-   "bytes": 4511,
-   "sha256": "ed35293e075d011d5c10d83fdeea2a988b80810c63f4a51eacbe6f2b8279e0b5",
-   "archived_copy_in_snapshot": true,
-   "reason": "top-level status/report note for a superseded version"
-  }
- ],
- "toplevel_md_delete_summary": {
-  "count": 80,
-  "bytes": 562984,
-  "gib": 0.001
- },
- "code_edits_required": [
-  {
-   "path": "survot_rank/research/methods/catalog.py",
-   "action": "remove MethodSpec entries: dct_v314_masked_transport_reconstruction, dct_v315_residual_transport, dct_v316_slot_mi_decomposition, dct_risk_ordering_transport, dct_v310_fixed_anchors, dct_v32_tgsr_objective_study, dct_v32_transport_guided_slot_reaggregation, dct_v330_closed_loop_prognostic_transport",
-   "reason": "catalog_errors() would report missing model files after the deletions"
-  },
-  {
-   "path": "survot_rank/training/train_runner.py",
-   "action": "remove the dct_v315 / dct_v314 conditional import branches in init_loss_function()",
-   "reason": "those losses.py modules are deleted; branches are unreachable for v313"
-  }
- ],
- "tier2_optional_not_in_this_manifest": {
-  "note": "以下内容本轮不建议删除，如需清理请单独授权",
-  "items": [
-   "results/slotspe_proof 内 slotspe_addendum_gpu0_20261020T145000 与 slotspe_addendum_gpu1_20261020T150000 的大体积 prepared/pairs 缓存 (约 9.1G，其中 .pt checkpoint 本身仍有 821 个)",
-   "results/slotspe_* 六组基线结果 (约 5.4G，未被 v313 论文脚本读取，但属 SlotSPE 对照证据)",
-   "顶层 89 个 md 中 80 个旧版报告 (共 0.5M，已有快照副本)",
-   "paper/ 目录、docs/history、实验档案/维护资料"
-  ]
- },
- "verification_notes": [
-  "仅做静态文件与依赖检查；未启动任何训练、推理或患者任务。",
-  "所有 sha256 已记录，执行方可在删除前复核。",
-  "删除后需重跑 python -c \"from survot_rank.research.methods.catalog import catalog_errors; print(catalog_errors('.'))\" 确认无悬空方法条目。",
-  "历史授权「本轮清理非v3.13归档实验与代码」不延续到本清单，需对具体材料重新取得明确授权。"
- ]
 }
