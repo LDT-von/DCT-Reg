@@ -1,0 +1,15 @@
+[
+  {
+    "epoch": 1,
+    "train_main_nll": 1.0498204156262985,
+    "train_aux_loss": 1.8086046667288471,
+    "train_total_loss": 2.8584250914339986,
+    "grad_l2_mean": 8.500729027547335,
+    "grad_l2_max": 21.10088539123535,
+    "val_nll_exploratory": 0.9162287804987523,
+    "val_cindex_exploratory": 0.7258320126782885,
+    "val_cindex_status": "computed",
+    "optimizer_steps": 38,
+    "seconds": 26.866691244998947
+  }
+]

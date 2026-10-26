@@ -1,0 +1,23 @@
+{
+  "status": "smoke_ok",
+  "patches": 4096,
+  "batch_size": 8,
+  "encoding_dim": 1536,
+  "device": "cuda:1",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "bag_load_seconds": 3.205631925025955,
+  "step_seconds": [
+    1.2695102009456605,
+    0.11961911106482148,
+    0.10251586185768247,
+    0.10217014304362237,
+    0.10334214312024415
+  ],
+  "mean_step_seconds": 0.3394314920064062,
+  "peak_allocated_cuda_bytes": 4359523328,
+  "peak_allocated_cuda_gib": 4.06,
+  "free_gpu_gib_at_start": null,
+  "parameter_count": 9471758,
+  "free_gpu_gib_after": 14.009,
+  "total_gpu_gib": 31.367
+}

@@ -1,0 +1,146 @@
+{
+  "probe_seed": 3090000,
+  "patient_ids": [
+    "TCGA-2F-A9KP",
+    "TCGA-2F-A9KQ",
+    "TCGA-2F-A9KT",
+    "TCGA-4Z-AA7M",
+    "TCGA-4Z-AA7N",
+    "TCGA-4Z-AA7O",
+    "TCGA-4Z-AA7R",
+    "TCGA-4Z-AA7S"
+  ],
+  "status": "measured",
+  "main_nll": 0.7821239829063416,
+  "auxiliary_loss": 1.780966877937317,
+  "parameters": {
+    "slot_decoder_wsi.pred_keep_slot.0.weight": {
+      "main": {
+        "kind": "None",
+        "connected": false,
+        "norm": null,
+        "finite": null,
+        "nonzero_elements": 0
+      },
+      "aux": {
+        "kind": "nonzero",
+        "connected": true,
+        "norm": 0.012559685856103897,
+        "finite": true,
+        "nonzero_elements": 35840
+      }
+    },
+    "slot_decoder_wsi.pred_keep_slot.0.bias": {
+      "main": {
+        "kind": "None",
+        "connected": false,
+        "norm": null,
+        "finite": null,
+        "nonzero_elements": 0
+      },
+      "aux": {
+        "kind": "nonzero",
+        "connected": true,
+        "norm": 0.0023216588888317347,
+        "finite": true,
+        "nonzero_elements": 113
+      }
+    },
+    "slot_decoder_wsi.pred_keep_slot.2.weight": {
+      "main": {
+        "kind": "None",
+        "connected": false,
+        "norm": null,
+        "finite": null,
+        "nonzero_elements": 0
+      },
+      "aux": {
+        "kind": "nonzero",
+        "connected": true,
+        "norm": 0.004276268184185028,
+        "finite": true,
+        "nonzero_elements": 140
+      }
+    },
+    "slot_decoder_wsi.pred_keep_slot.2.bias": {
+      "main": {
+        "kind": "None",
+        "connected": false,
+        "norm": null,
+        "finite": null,
+        "nonzero_elements": 0
+      },
+      "aux": {
+        "kind": "nonzero",
+        "connected": true,
+        "norm": 1.862645149230957e-09,
+        "finite": true,
+        "nonzero_elements": 1
+      }
+    },
+    "slot_decoder_omic.pred_keep_slot.0.weight": {
+      "main": {
+        "kind": "None",
+        "connected": false,
+        "norm": null,
+        "finite": null,
+        "nonzero_elements": 0
+      },
+      "aux": {
+        "kind": "nonzero",
+        "connected": true,
+        "norm": 0.008877926506102085,
+        "finite": true,
+        "nonzero_elements": 32000
+      }
+    },
+    "slot_decoder_omic.pred_keep_slot.0.bias": {
+      "main": {
+        "kind": "None",
+        "connected": false,
+        "norm": null,
+        "finite": null,
+        "nonzero_elements": 0
+      },
+      "aux": {
+        "kind": "nonzero",
+        "connected": true,
+        "norm": 0.0014523613499477506,
+        "finite": true,
+        "nonzero_elements": 80
+      }
+    },
+    "slot_decoder_omic.pred_keep_slot.2.weight": {
+      "main": {
+        "kind": "None",
+        "connected": false,
+        "norm": null,
+        "finite": null,
+        "nonzero_elements": 0
+      },
+      "aux": {
+        "kind": "nonzero",
+        "connected": true,
+        "norm": 0.004255877807736397,
+        "finite": true,
+        "nonzero_elements": 125
+      }
+    },
+    "slot_decoder_omic.pred_keep_slot.2.bias": {
+      "main": {
+        "kind": "None",
+        "connected": false,
+        "norm": null,
+        "finite": null,
+        "nonzero_elements": 0
+      },
+      "aux": {
+        "kind": "zero",
+        "connected": true,
+        "norm": 0.0,
+        "finite": true,
+        "nonzero_elements": 0
+      }
+    }
+  }
+}

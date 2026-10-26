@@ -1,0 +1,116 @@
+{
+  "status": "completed",
+  "task_name": "slotspe_problem_proof",
+  "experiment": "original_audit",
+  "checks_only": false,
+  "transport_added": false,
+  "training_arms": [
+    "original"
+  ],
+  "repaired_models_constructed": false,
+  "protocol_dependence": "observed",
+  "patients": {
+    "schema_version": 1,
+    "generated_utc": "2026-10-26T02:27:18.473395+00:00",
+    "status": "completed",
+    "expected_pairs": 1,
+    "completed_pairs": 1,
+    "missing_pairs": [],
+    "epochs": 1,
+    "counts": {
+      "unique_complete_case_patients": 339,
+      "per_fold": {
+        "0": {
+          "train": 270,
+          "val": 69,
+          "excluded": 42,
+          "overlap": 0
+        }
+      }
+    },
+    "results": [
+      {
+        "schema_version": 1,
+        "fold": 0,
+        "seed": 3,
+        "status": "completed",
+        "counts": {
+          "train": 270,
+          "val": 69,
+          "excluded": 42,
+          "overlap": 0
+        },
+        "epochs": 1,
+        "source_unchanged": true,
+        "scope": "Paired mechanism evidence; exploratory validation is not a generalization or OT claim",
+        "arms": [
+          {
+            "fold": 0,
+            "seed": 3,
+            "arm": "original",
+            "epochs": 1,
+            "optimizer_steps": 34,
+            "checkpoint_sha256": "8e2d592fca0d6889e6432470230c44758cb6151999e3e33d131ffd94ee1c7c67",
+            "parameter_count": 33093390,
+            "same_initial_state_sha256": "109d31ccac93ec39e1e5ffdaaadccaa4a1cb0be051361f227cf52e1095b2ca76",
+            "selector_parameter_count": 8,
+            "main_gradient_none_parameter_count": 8,
+            "main_gradient_connected_parameter_count": 0,
+            "main_gradient_nonzero_parameter_count": 0,
+            "main_gradient_zero_parameter_count": 0,
+            "main_gradient_finite": true,
+            "disconnected_selector_status": "observed",
+            "peak_allocated_cuda_bytes": 5053274624,
+            "peak_memory_scope": "training_and_final_diagnostics",
+            "elapsed_seconds": 170.009115020046,
+            "repeats": 20,
+            "defined_cindex_repeats": 20,
+            "val_cindex_mean_exploratory": 0.7057497700091997,
+            "val_cindex_std_population": 0.0048091730797859625,
+            "val_cindex_min_exploratory": 0.7000919963201472,
+            "val_cindex_max_exploratory": 0.7166513339466422,
+            "patient_risk_std_mean": 0.004649211815292659,
+            "patient_risk_std_max": 0.006709765474886661,
+            "patient_risk_range_max": 0.026791095733642578,
+            "evaluation_randomness_observed": true,
+            "std_computation": "Population std after subtracting first repeat (translation invariant)"
+          }
+        ],
+        "same_weights_eval_fix": null,
+        "checks": {
+          "original_disconnection": "observed",
+          "evaluation_randomness": "observed",
+          "self_interference": "observed",
+          "padding_sensitivity": "observed",
+          "natural_gate_near_zero": "not_observed"
+        },
+        "experiment": "original_audit",
+        "elapsed_seconds": 171.33415734418668
+      }
+    ],
+    "scope": "Mechanism proof on paired folds/seeds; validation metrics are exploratory; no OT necessity or generalization improvement established",
+    "experiment": "original_audit",
+    "checks": {
+      "original_disconnection_observed_pairs": 1,
+      "evaluation_randomness_observed_pairs": 1,
+      "self_interference_observed_pairs": 1,
+      "padding_sensitivity_observed_pairs": 1,
+      "natural_gate_near_zero_observed_pairs": 0
+    },
+    "validation_metrics_by_arm": {
+      "original": {
+        "completed_checkpoints": 1,
+        "mean_validation_cindex_exploratory": 0.7057497700091997,
+        "defined_cindex_pairs": 1,
+        "warning": "Cross-fold/seed mean is descriptive; pairs share patients and are not independent evidence units"
+      }
+    }
+  },
+  "scope": "Unmodified native model; diagnostic preparation and controlled interventions disclosed separately",
+  "claims_not_supported": [
+    "Patient improvement",
+    "Correction attribution",
+    "Clinical causality",
+    "Guaranteed problem occurrence"
+  ]
+}
