@@ -144,7 +144,47 @@ def metadata_paths(config, training=True):
     return files
 
 
-def preflight(config, checks_only=False, check_runtime=True):
+def _free_bytes(path):
+    """Free space available to this user on the filesystem holding ``path``."""
+    probe = Path(path)
+    while not probe.exists():
+        parent = probe.parent
+        if parent == probe:
+            return None
+        probe = parent
+    stats = os.statvfs(probe)
+    return stats.f_bavail * stats.f_frsize
+
+
+def _disk_budget(config, root):
+    """Estimate the disk this batch needs and report where it would land.
+
+    The prepared patient cache is the dominant cost and scales with the patch
+    budget: one sampled bag per patient, shared by every fold, seed and arm.
+    Checkpoints and shared initial states scale with the number of pairs.
+    A disk-full write truncates a checkpoint and invalidates the whole batch,
+    so this is reported before any patient data is prepared.
+    """
+    patients = 400  # upper bound for one cohort's complete cases
+    bytes_per_patch_row = 1536 * 4
+    # Measured: 339 patients at 4096 patches occupy 8.0 GB, so the raw tensor
+    # bytes plus per-patient overhead are close to the tensor size itself.
+    cache_bytes = patients * int(config["patches"]) * bytes_per_patch_row
+    pairs = len(config["folds"]) * len(config["seeds"])
+    # Measured: one checkpoint and one shared initial state are ~133 MB each.
+    model_bytes = 133 * 1024 * 1024
+    pair_bytes = pairs * 2 * model_bytes
+    required = cache_bytes + pair_bytes
+    target = Path(root).resolve()
+    free = _free_bytes(target)
+    return {"output_root": str(target), "estimated_required_bytes": int(required),
+        "estimated_cache_bytes": int(cache_bytes), "estimated_pair_bytes": int(pair_bytes),
+        "free_bytes": int(free) if free is not None else None,
+        "sufficient": bool(free is not None and free > required * 1.1),
+        "patients_estimate": patients, "pairs_estimate": pairs}
+
+
+def preflight(config, checks_only=False, check_runtime=True, output_root=None):
     for key in (PATH_KEYS if not checks_only else PATH_KEYS[:2]):
         if "$" in config[key]:
             raise ValueError(f"Unresolved environment variable in {key}; provide a real server path")
@@ -179,9 +219,11 @@ def preflight(config, checks_only=False, check_runtime=True):
             # preparation or training. This is a one-element synthetic probe.
             if torch.ones(1, device=config["device"]).add_(1).item() != 2:
                 raise RuntimeError("CUDA runtime probe failed")
+    disk = _disk_budget(config, output_root) if (output_root is not None and not checks_only) else None
     return {"status": "ready", "runtime": runtime,
         "source_and_metadata_sha256": {str(path): _sha(path) for path in files},
-        "patient_features_read": False, "patient_training_executed": False}
+        "patient_features_read": False, "patient_training_executed": False,
+        "disk_budget": disk}
 
 
 def run_identity(plan, preflight_result):
@@ -238,7 +280,19 @@ def execute(plan, resume=False, executor=None, runtime_check=True):
         source = Path(config[key])
         if root == source or source in root.parents:
             raise ValueError(f"output_root must be outside {key}")
-    check = preflight(config, plan["checks_only"], check_runtime=runtime_check)
+    # Check disk before anything else: a full disk is a harder blocker than a
+    # missing input, and it corrupts checkpoints rather than failing cleanly.
+    disk = _disk_budget(config, root) if not plan["checks_only"] else None
+    if disk is not None and not disk["sufficient"]:
+        raise RuntimeError(
+            "Insufficient disk for this batch; refusing to start because a full disk "
+            "truncates checkpoints and invalidates the run.\n"
+            f"  output_root       : {disk['output_root']}\n"
+            f"  estimated needed  : {disk['estimated_required_bytes'] / 1e9:.1f} GB "
+            f"(cache {disk['estimated_cache_bytes'] / 1e9:.1f} GB + pairs {disk['estimated_pair_bytes'] / 1e9:.1f} GB)\n"
+            f"  free on that path : {(disk['free_bytes'] or 0) / 1e9:.1f} GB\n"
+            "  Put --output-root on a filesystem with enough free space (e.g. /data1).")
+    check = preflight(config, plan["checks_only"], check_runtime=runtime_check, output_root=root)
     identity = run_identity(plan, check)
     manifest_path = root / "queue_manifest.json"
     if root.exists() and any(root.iterdir()):
@@ -262,6 +316,17 @@ def execute(plan, resume=False, executor=None, runtime_check=True):
     try:
         for index, stage in enumerate(plan["stages"], 1):
             _verify_resolved_config(root, config)
+            if disk is not None:
+                # Re-check before every stage: a long batch can lose its margin
+                # to another process, and a full disk truncates checkpoints.
+                live = _disk_budget(config, root)
+                if not live["sufficient"]:
+                    raise RuntimeError(
+                        "Disk space fell below the batch requirement while running; "
+                        "stopping before a checkpoint write can be truncated.\n"
+                        f"  output_root      : {live['output_root']}\n"
+                        f"  estimated needed : {live['estimated_required_bytes'] / 1e9:.1f} GB\n"
+                        f"  free now         : {(live['free_bytes'] or 0) / 1e9:.1f} GB")
             receipt = root / "receipts" / (stage["id"] + ".json")
             if receipt.exists():
                 saved = _json(receipt)
@@ -360,7 +425,7 @@ def main(argv=None):
     root = args.output_root or REPO_ROOT / "results/slotspe_proof" / (config["study"] + "_" + stamp)
     plan = make_plan(config, root, args.checks_only)
     if args.doctor:
-        print(json.dumps(preflight(config, args.checks_only), ensure_ascii=False, indent=2))
+        print(json.dumps(preflight(config, args.checks_only, output_root=root), ensure_ascii=False, indent=2))
     elif args.run:
         print("Results:", execute(plan, resume=args.resume), flush=True)
     else:

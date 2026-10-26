@@ -294,3 +294,44 @@ def test_abc_plan_separates_training_and_reproduction(tmp_path):
     assert any(stage["kind"] == "attribution" for stage in plan["stages"])
     with pytest.raises(ValueError, match="experiment"):
         configuration(tmp_path, experiment="unknown")
+
+
+def test_disk_budget_scales_with_patches_and_pairs(tmp_path):
+    """A 4096-patch batch needs far more disk than a 256-patch one."""
+    small = queue._disk_budget(configuration(tmp_path, patches=256, folds=[0, 1, 2, 3, 4]), tmp_path)
+    large = queue._disk_budget(configuration(tmp_path, patches=4096, folds=[0, 1, 2, 3, 4]), tmp_path)
+    assert large["estimated_cache_bytes"] > small["estimated_cache_bytes"] * 10
+    assert large["estimated_pair_bytes"] == small["estimated_pair_bytes"]
+    assert large["estimated_required_bytes"] > small["estimated_required_bytes"]
+    assert large["pairs_estimate"] == 5
+    assert large["free_bytes"] is not None
+
+
+def test_execute_refuses_to_start_without_disk(tmp_path, monkeypatch):
+    """A full disk truncates checkpoints, so the batch must not start."""
+    config = configuration(tmp_path, patches=4096)
+    plan = queue.make_plan(config, tmp_path / "out")
+    real = queue._free_bytes
+    monkeypatch.setattr(queue, "_free_bytes", lambda path: 1024)  # 1 KB free
+    try:
+        with pytest.raises(RuntimeError, match="Insufficient disk"):
+            queue.execute(plan, runtime_check=False)
+    finally:
+        monkeypatch.setattr(queue, "_free_bytes", real)
+    # Nothing was created: the refusal happens before any patient preparation.
+    assert not (tmp_path / "out" / "prepared").exists()
+
+
+def test_disk_guard_allows_normal_run(tmp_path, monkeypatch):
+    """Sufficient space must not block the batch."""
+    config = configuration(tmp_path, patches=256)
+    plan = queue.make_plan(config, tmp_path / "out")
+    monkeypatch.setattr(queue, "_free_bytes", lambda path: 10 * 1024 ** 4)
+    monkeypatch.setattr(queue, "preflight", lambda *a, **k: {
+        "status": "ready", "runtime": {}, "source_and_metadata_sha256": {},
+        "patient_features_read": False, "patient_training_executed": False,
+        "disk_budget": queue._disk_budget(config, tmp_path / "out")})
+    # The guard must not raise before the first stage is attempted.
+    with pytest.raises(Exception) as excinfo:
+        queue.execute(plan, runtime_check=False)
+    assert "Insufficient disk" not in str(excinfo.value)

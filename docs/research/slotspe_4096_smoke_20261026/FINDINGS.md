@@ -254,6 +254,36 @@ batch=32 需 15.98 GiB 且**无提速收益**（step 0.450 vs 0.339 s）。
 **教训**：4096 patch 预算下 prepared cache 达 8.0 GB（256 patch 仅 625 MB），
 **任何 4096 patch 运行的输出根都应放在 /data1**。
 
+### 9.1 已落实的代码级防呆（2026-10-26 追加）
+
+上述教训此前只写在本文件里，依赖人工记住。现已在 `survot_rank/research/slotspe_proof/queue.py`
+中落实为**强制检查**，不再依赖执行者自觉：
+
+| 机制 | 位置 | 行为 |
+|---|---|---|
+| 启动前磁盘预算 | `execute()` 开头，最先于任何文件/数据检查 | 空间不足 → 抛 `RuntimeError` 并**在 prepare 之前**中止，不产生任何半成品 |
+| 每 stage 前复查 | `execute()` 阶段循环内 | 长跑期间被其它进程占满时，在写 checkpoint 前停下 |
+| `--doctor` 展示 | `preflight()` → `disk_budget` 字段 | 启动前即可看到需求估算与实际余量 |
+| 估算口径 | `_disk_budget()` | cache = `400 患者 × patches × 1536 × 4 B`（5 折共享一份）；pair = `折数 × seed 数 × 2 × 133 MB`（实测 checkpoint 132.7 MB） |
+
+实测拦截效果（5 折 × 4096 patch，估算 14.3 GB）：
+
+```
+RuntimeError: Insufficient disk for this batch; refusing to start because a full disk
+truncates checkpoints and invalidates the run.
+  output_root       : /tmp/slotspe_diskguard_test
+  estimated needed  : 14.3 GB (cache 10.1 GB + pairs 4.2 GB)
+  free on that path : 10.6 GB
+  Put --output-root on a filesystem with enough free space (e.g. /data1).
+```
+
+**5 折 × 4096 patch 的真实磁盘需求 ≈ 14.3 GB**（cache 约 8.0–10.1 GB + checkpoint 约 1.3 GB + 余量）。
+`/data1` 有 8.6 TB，余量充足；`/` 分区仅剩约 11 GB，**单折即不足**。
+
+回归测试：`tests/test_slotspe_proof_queue.py` 新增 3 项（预算随 patch/折数缩放、
+空间不足拒绝启动且不产生 prepared 目录、空间充足不误拦），
+连同既有 SlotSPE 测试共 **50 项全部通过**。
+
 ---
 
 ## 10. 产物清单
